@@ -1,0 +1,259 @@
+/*Generic Style*/
+html{
+  direction: rtl;
+  text-align: right;
+}
+body{
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: #fff;
+}
+
+
+/*Charts Style*/
+.index-graph-table{
+  margin: 100px 0;
+}
+.highcharts-credits{
+  display: none;
+}
+.highcharts-exporting-group{
+  display: none;
+}
+.highcharts-input-group{
+  display: none;
+}
+.highcharts-range-selector-buttons{
+  display: flex;
+  justify-content: center;
+  display: none;
+}
+.highcharts-range-selector-buttons .highcharts-button .highcharts-button-box{
+  fill: white;
+}
+.highcharts-range-selector-buttons .highcharts-label{
+  display: none;
+}
+.fixed_header tbody {
+  display: block;
+  max-height: 350px;
+  overflow-y: scroll;
+  padding-top: 10px;
+}
+
+.fixed_header thead, 
+.fixed_header tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+table thead th{
+  text-transform: capitalize;
+}
+
+.top-bar .btn-close{
+  color: #fff;
+  background: none;
+  opacity: .8;
+  left: 0;
+  right: auto;
+}
+.top-grey-bar{
+  background: #1b1c1c;
+  color: #fff;
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+}
+.top-red-bar{
+  background: #ce2a2b;
+  color: #fff;
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+}
+
+
+
+
+header{
+  background: #005594;
+  padding: 15px 0;
+  color: #fff;
+}
+.header-box{
+  display: flex;
+}
+.search-header{
+  flex: 1;
+}
+.logo-header{
+  flex: 3;
+}
+.cnbc-logo{
+  margin-bottom: 15px;
+}
+
+
+
+.header-nav .navbar{
+  margin: 0;
+  padding: 0;
+}
+.header-nav ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.header-nav ul li{
+  margin: 0 5px;
+}
+.header-nav ul li a{
+  font-size: 18px;
+  color: #fff;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 3px solid transparent;
+}
+.header-nav ul li a:hover,
+.header-nav ul li a:focus{
+  color: #fff;
+  border-bottom-color: #fcb700;
+}
+.header-nav ul li.nav-item .dropdown-menu{
+  background: #005594;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.header-nav ul li.nav-item .dropdown-menu li{
+  padding: 0;
+  margin: 0;
+}
+.header-nav ul li.nav-item .dropdown-menu li a{
+  background: #005594;
+  border-bottom: 1px solid #0066b1;
+  font-size: 14px;
+}
+.header-nav .navbar-toggler .navbar-toggler-icon{
+  color: #fff;
+}
+
+
+
+.search-header .search-box{
+  display: flex;
+  position: relative;
+  margin-bottom: 10px;
+}
+.search-header .search-box input{
+  background: #002F6C;
+  border: none;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 0;
+}
+.search-header .search-box input::placeholder{
+  font-weight: 600;
+  color: #fff;
+}
+.search-header .search-box .input-group-text{
+  background: none;
+  border: none;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  color: #fff;
+}
+
+
+
+.header-search-nav ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.header-search-nav ul li a{
+  font-size: 18px;
+  color: #fff;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.youtube-icon{
+  background: #ce2a2b;
+  color: #fff;
+  font-size: 7px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 5px 7px;
+}
+
+
+
+
+
+
+
+
+
+.page-nav .navbar .navbar-nav{
+  border-bottom: 1px solid #DDDDDD;
+  margin: 0;
+  padding: 0;
+}
+.page-nav .navbar .navbar-nav .nav-item {
+  padding: 0px 15px;
+  margin-bottom: -2px;
+}
+.page-nav .navbar .navbar-nav .nav-item a{
+  color: #777777;
+  font-weight: bold;
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+.page-nav .navbar .navbar-nav .nav-item a.active{
+  color: #005594;
+  border-bottom: 3px solid #005594;
+}
+.page-nav .navbar .navbar-nav .nav-item a:hover{
+  color: #005594;
+  border-bottom: 3px solid #005594;
+}
+.page-nav .navbar-toggler .navbar-toggler-icon{
+  color: #005594;
+}
+
+
+
+
+
+@media screen and (max-width:1280px){
+  .logo-header {
+      flex: 2;
+  }
+}
+
+@media screen and (max-width:992px){
+  .logo-header {
+      flex: 1;
+  }
+}
+
+
+@media screen and (max-width:640px){
+  .header-box {
+      display: block;
+  }
+}

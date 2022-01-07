@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "frontend":"nx serve frontend --port 3000",
-    "admin":"nx serve admin --port 4200",
+    "frontend": "nx serve frontend --port 3000",
+    "admin": "nx serve admin --port 4200",
     "build": "nx build",
     "test": "nx test",
     "postinstall": "ngcc --properties es2015 browser module main"
@@ -23,6 +23,7 @@
     "@nrwl/angular": "^13.4.3",
     "@nrwl/nest": "^13.4.3",
     "@nrwl/next": "^13.4.3",
+    "bootstrap": "^5.1.3",
     "core-js": "^3.6.5",
     "next": "12.0.7",
     "react": "17.0.2",
