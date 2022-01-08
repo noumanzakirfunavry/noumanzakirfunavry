@@ -1,8 +1,8 @@
+import Layout from 'apps/frontend/components/Layout/Layout'
+import MenuBar from 'apps/frontend/components/MenuBar/MenuBar'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Header from '../../components/Layout/Header'
-import MenuBar from '../../components/MenuBar/MenuBar'
-import TopBar from '../../components/TopBar/TopBar'
+
 
 const Home: NextPage = () => {
   return (
@@ -14,9 +14,10 @@ const Home: NextPage = () => {
       </Head>
 
       <main >
-        <TopBar></TopBar>
-        <Header></Header>
-        <MenuBar></MenuBar>
+        <Layout>
+          <MenuBar></MenuBar>
+          <div>Main Content</div>
+        </Layout>
       </main>
 
       <footer>
