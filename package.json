@@ -52,6 +52,8 @@
     "@nrwl/tao": "13.4.3",
     "@nrwl/web": "13.4.3",
     "@nrwl/workspace": "13.4.3",
+    "@swc/cli": "^0.1.55",
+    "@swc/core": "^1.2.127",
     "@testing-library/react": "12.1.2",
     "@testing-library/react-hooks": "7.0.2",
     "@types/jest": "27.0.2",

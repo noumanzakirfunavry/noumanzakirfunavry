@@ -52,6 +52,9 @@ table thead th{
   text-transform: capitalize;
 }
 
+
+
+
 .top-bar .btn-close{
   color: #fff;
   background: none;
@@ -207,7 +210,9 @@ header{
 
 
 
-
+.page-nav{
+  margin-bottom: 15px;
+}
 .page-nav .navbar .navbar-nav{
   border-bottom: 1px solid #DDDDDD;
   margin: 0;
@@ -236,6 +241,63 @@ header{
 }
 
 
+.market-stats{
+  margin-bottom: 15px;
+}
+.marketBox{
+  padding: 10px;
+}
+.marketBox table{
+  color: #fff;
+  margin: 0;
+}
+
+
+
+
+
+
+.page-categories{
+  margin: 15px 0;
+}
+.page-categories ul{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.page-categories ul li{
+  margin: 0 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.page-categories ul li a{
+  background: #f1f1f1;
+  padding: 7px 20px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #005594;
+  font-weight: bold;
+}
+.page-categories ul li a:hover{
+  background: #005594;
+  color: #fff;
+}
+
+
+.btn{
+  border-radius: 0;
+  line-height: normal;
+}
+.btn-primary{
+  background-color: #002F6C;
+  border-color: #002F6C;
+}
+.btn-primary:hover{
+  background-color: #005594;
+}
 
 
 
