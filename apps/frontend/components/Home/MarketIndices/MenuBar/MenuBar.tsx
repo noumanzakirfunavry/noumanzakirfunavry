@@ -1,5 +1,4 @@
 
-import logo from '../../styles/images/cnbc-arabia-logo.svg'
 
 const MenuBar = () =>{
    

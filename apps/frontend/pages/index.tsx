@@ -1,3 +1,6 @@
+import Home from '../components/Home/Home';
+import MarketIndices from '../components/Home/MarketIndices/MarketIndices';
+import SideBar from '../components/Shared/SideBar/SideBar';
 import styles from './index.module.css';
 import ad from '../styles/images/ad-970.jpg';
 
