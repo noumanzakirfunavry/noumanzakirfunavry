@@ -1,7 +1,7 @@
 
 import logo from '../../styles/images/cnbc-arabia-logo.svg'
 
-const MenuBar = () =>{
+const MarketIndices = () =>{
    
     return (
         <>
@@ -52,4 +52,4 @@ const MenuBar = () =>{
     )
 }
 
-export default MenuBar
+export default MarketIndices

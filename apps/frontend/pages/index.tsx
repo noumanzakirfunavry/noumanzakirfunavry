@@ -1,3 +1,5 @@
+import MarketIndices from '../components/Home/MarketIndices/MarketIndices';
+import SideBar from '../components/Shared/SideBar/SideBar';
 import styles from './index.module.css';
 
 export function Index() {
@@ -8,7 +10,8 @@ export function Index() {
    */
   return (
     <div>
-      home Page
+      <MarketIndices/>
+      <SideBar sideBarSequence={[{componentType:'Latest', position:2}, {componentType:'SmallBanner', position:1}]}/>
     </div>
   );
 }
