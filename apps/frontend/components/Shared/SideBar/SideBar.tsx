@@ -1,8 +1,8 @@
 import { SideBar, SideBarProps } from "apps/frontend/types/Types"
 import { FC } from "react"
-import LatestNewsSideList from "./LatestNewsSideList/LatestNewsSideList"
+import VideoSideList from "./VideoSideList/VideoSideList"
 import SideBanner from "./SideBanner/SideBanner"
-import TrendingSideList from "./TrendingSideList/TrendingSideList"
+import SideList from "./SideList/SideList"
 
 const SideBar:FC<SideBarProps> = ({sideBarSequence}) =>{
 
@@ -18,7 +18,7 @@ const SideBar:FC<SideBarProps> = ({sideBarSequence}) =>{
                         <>
                             {
                                 sequence.componentType === 'Latest' && (
-                                    <LatestNewsSideList></LatestNewsSideList>
+                                    <SideList type={"numbered"}></SideList>
                                 )
                             }
                             {
@@ -28,7 +28,7 @@ const SideBar:FC<SideBarProps> = ({sideBarSequence}) =>{
                             }
                             {
                                  sequence.componentType === 'Trending' && (
-                                    <TrendingSideList ></TrendingSideList>
+                                    <VideoSideList ></VideoSideList>
                                  )
                             }
                             {

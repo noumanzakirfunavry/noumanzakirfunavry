@@ -10,3 +10,6 @@ export type SideBarProps = {
 export type SideBannerProps = {
     size:string    //small or Large
 }
+export type SideListProps = {
+    type:string    //numbered or simple
+}
