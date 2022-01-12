@@ -2,7 +2,7 @@
 import { FC } from "react"
 
 
-const SideBar:FC = () =>{
+const MainSection:FC = () =>{
 
     return (
         <>
@@ -11,4 +11,4 @@ const SideBar:FC = () =>{
     )
 }
 
-export default SideBar
+export default MainSection
