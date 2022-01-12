@@ -1,5 +1,8 @@
-import styles from './footer.module.css';
+
+
 import logo from '../../../styles/images/cnbc-arabia-logo.svg';
+import styles from './footer.module.css';
+
 const Footer = () =>{
     return (
         <>

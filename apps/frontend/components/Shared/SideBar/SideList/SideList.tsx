@@ -6,7 +6,7 @@ const SideList:FC<SideListProps> = ({type}) =>{
         <>
           {
             type === "numbered" && (
-              <>Numbered</>
+              <><h1>side list</h1></>
             )
           }
           {
