@@ -1,5 +1,7 @@
 import { FC } from "react"
+import AdBanner from "../Shared/AdBanner/AdBanner"
 import SideBar from "../Shared/SideBar/SideBar"
+import CategoriesMenu from "./CategoriesMenu/CategoriesMenu"
 import MarketIndices from "./MarketIndices/MarketIndices"
 import NewsSection from "./NewsSection/NewsSection"
 
@@ -10,6 +12,10 @@ const Home:FC = () =>{
         <>
           <MarketIndices/>
           
+          <div className="container-fluid">     
+                <AdBanner/>
+                <CategoriesMenu/>
+            </div>
           <div className="container">
             <div className='row'>
                 <div className='col-md-8'>
