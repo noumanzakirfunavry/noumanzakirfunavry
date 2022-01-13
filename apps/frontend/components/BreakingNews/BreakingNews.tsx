@@ -10,7 +10,7 @@ const BreakingNews = () => {
               <AdBanner/>
 
             <div className="pageTitle">
-              <h4>أخبار عاجلة</h4>
+              <h2>أخبار عاجلة</h2>
             </div>
 
             <div className='row'>

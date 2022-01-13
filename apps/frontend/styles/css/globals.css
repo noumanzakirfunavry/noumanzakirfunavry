@@ -389,12 +389,25 @@ header{
   padding-bottom: 5px;
   margin-bottom: 25px;
 }
-.pageTitle h4{
+.pageTitle h2{
   color:#CE2B2B;
   font-weight: bold;
   font-size: 32px;
 }
 
+.sectionTitle{
+  border-top: 6px solid #002F6C;
+  padding-top: 10px;
+}
+.sectionTitle h3{
+  color: #002F6C;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.stockMarketNews{
+  margin: 15px 0;
+}
 .breakingNews .newsbox{
   background: #EDEFF3;
   padding: 15px;

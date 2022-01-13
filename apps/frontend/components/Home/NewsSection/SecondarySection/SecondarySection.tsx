@@ -9,7 +9,7 @@ const SecondarySection:FC = () =>{
                 <ul>
                     <li>
                         <div className="newsText">
-                            <a href="#"><span className="badge bg-success">PRO</span> ايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </a>
+                            <a href="#"><span className="badge bg-success">PRO</span> بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
                             <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
                         </div>
                         <div className="newsImage">
@@ -18,7 +18,7 @@ const SecondarySection:FC = () =>{
                     </li>
                     <li>
                         <div className="newsText">
-                            <a href="#">ايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </a>
+                            <a href="#">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
                             <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
                         </div>
                         <div className="newsImage">
@@ -28,7 +28,7 @@ const SecondarySection:FC = () =>{
                     </li>
                     <li>
                         <div className="newsText">
-                            <a href="#">ايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </a>
+                            <a href="#">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
                             <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
                         </div>
                         <div className="newsImage">
