@@ -1,9 +1,11 @@
+import { FC } from "react"
+import {NewsListTilesProps} from '../../../types/Types'
 
-const NewsListTiles = () => {
+const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
 
     return (
         <>
-          News List Here
+          
         </>
     )
 }

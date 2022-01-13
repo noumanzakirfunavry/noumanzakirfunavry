@@ -11,11 +11,11 @@ const Footer = () =>{
                 <div className={styles.footerTop}>
                     <div className={styles.footerSocial}>
                         <ul>
-                            <li><a href='javascript:voide(0)'><i className='fab fa-youtube'></i></a></li>
-                            <li><a href='javascript:voide(0)'><i className='fab fa-instagram'></i></a></li>
-                            <li><a href='javascript:voide(0)'><i className='fab fa-linkedin'></i></a></li>
-                            <li><a href='javascript:voide(0)'><i className='fab fa-twitter'></i></a></li>
-                            <li><a href='javascript:voide(0)'><i className='fab fa-facebook-f'></i></a></li>
+                            <li><a href='#'><i className='fab fa-youtube'></i></a></li>
+                            <li><a href='#'><i className='fab fa-instagram'></i></a></li>
+                            <li><a href='#'><i className='fab fa-linkedin'></i></a></li>
+                            <li><a href='#'><i className='fab fa-twitter'></i></a></li>
+                            <li><a href='#'><i className='fab fa-facebook-f'></i></a></li>
                         </ul>
                     </div>
                     <div className={styles.footerLogo}>
@@ -26,29 +26,29 @@ const Footer = () =>{
                 <div className='row'>
                     <div className='col-md-2'>
                         <ul className={styles.footerLink}>
-                        <li><a href='javascript:voide(0)'>الرئيسية</a></li>
-                            <li><a href='javascript:voide(0)'>إشترك في نشرتنا البريدية</a></li>
-                            <li><a href='javascript:voide(0)'>الرئيسية</a></li>
-                            <li><a href='javascript:voide(0)'>إشترك في نشرتنا البريدية</a></li>
-                            <li><a href='javascript:voide(0)'>الرئيسية</a></li>
+                        <li><a href='#'>الرئيسية</a></li>
+                            <li><a href='#'>إشترك في نشرتنا البريدية</a></li>
+                            <li><a href='#'>الرئيسية</a></li>
+                            <li><a href='#'>إشترك في نشرتنا البريدية</a></li>
+                            <li><a href='#'>الرئيسية</a></li>
                         </ul>
                     </div>
                     <div className='col-md-2'>
                     <ul className={styles.footerLink}>
-                    <li><a href='javascript:voide(0)'>إشترك في نشرتنا البريدية</a></li>
-                            <li><a href='javascript:voide(0)'>الرئيسية</a></li>
-                            <li><a href='javascript:voide(0)'>إشترك في نشرتنا البريدية</a></li>
-                            <li><a href='javascript:voide(0)'>الرئيسية</a></li>
-                            <li><a href='javascript:voide(0)'>الرئيسية</a></li>
+                    <li><a href='#'>إشترك في نشرتنا البريدية</a></li>
+                            <li><a href='#'>الرئيسية</a></li>
+                            <li><a href='#'>إشترك في نشرتنا البريدية</a></li>
+                            <li><a href='#'>الرئيسية</a></li>
+                            <li><a href='#'>الرئيسية</a></li>
                         </ul>
                     </div>
                     <div className='col-md-2'>
                     <ul className={styles.footerLink}>
-                            <li><a href='javascript:voide(0)'>الرئيسية</a></li>
-                            <li><a href='javascript:voide(0)'>إشترك في نشرتنا البريدية</a></li>
-                            <li><a href='javascript:voide(0)'>الرئيسية</a></li>
-                            <li><a href='javascript:voide(0)'>إشترك في نشرتنا البريدية</a></li>
-                            <li><a href='javascript:voide(0)'>الرئيسية</a></li>
+                            <li><a href='#'>الرئيسية</a></li>
+                            <li><a href='#'>إشترك في نشرتنا البريدية</a></li>
+                            <li><a href='#'>الرئيسية</a></li>
+                            <li><a href='#'>إشترك في نشرتنا البريدية</a></li>
+                            <li><a href='#'>الرئيسية</a></li>
                         </ul>
                     </div>
                     <div className='col-md-3'>
