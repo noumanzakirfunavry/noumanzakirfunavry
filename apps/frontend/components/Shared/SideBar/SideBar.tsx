@@ -15,29 +15,29 @@ const SideBar:FC<SideBarProps> = ({sideBarSequence}) =>{
             {
                 sideBarSequence.map((sequence:SideBar)=>{
                     return (
-                        <>
+                        <div key={sequence.componentType}>
                             {
                                 sequence.componentType === 'Latest' && (
-                                    <SideList type={"numbered"}></SideList>
+                                    <SideList key={'numbered'} type={"numbered"}></SideList>
                                 )
                             }
                             {
                                  sequence.componentType === 'SmallBanner' && (
-                                    <SideBanner size={"Small"}></SideBanner>
+                                    <SideBanner  key={'Small'} size={"Small"}></SideBanner>
                                  )
                             }
                             {
                                  sequence.componentType === 'Trending' && (
-                                    <VideoSideList ></VideoSideList>
+                                    <VideoSideList key={'dfgfdg'} ></VideoSideList>
                                  )
                             }
                             {
                                  sequence.componentType === 'LargeBanner' && (
-                                    <SideBanner size={"Large"}></SideBanner>
+                                    <SideBanner key={'Large'} size={"Large"}></SideBanner>
                                 )
                             }
                             
-                        </>
+                        </div>
                     )
                 })
             }

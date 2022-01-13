@@ -12,11 +12,11 @@ const MainSection:FC = () =>{
                     <div className="col-md-8">
                         <div className={styles.mainNews}>
                             <div className={styles.newscontent}>
-                                <h1><a href="javascript:voide(0)">النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب</a></h1>
+                                <h1><a >النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب</a></h1>
                                 <hr></hr>
-                                <h3><a href="javascript:voide(0)">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</a></h3>
+                                <h3><a >بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</a></h3>
                                 <hr></hr>
-                                <h3><a href="javascript:voide(0)">مدير منظمة الصحة يحث الدول على اتخاذ إجراءات “متعقلة” في مواجهة أوميكرون</a></h3>
+                                <h3><a >مدير منظمة الصحة يحث الدول على اتخاذ إجراءات “متعقلة” في مواجهة أوميكرون</a></h3>
                             </div>
                         </div>
                     </div>
@@ -26,7 +26,7 @@ const MainSection:FC = () =>{
                                 <img className="img-fluid" src={newsimage.src} />
                             </div>
                             <div className={styles.newsdetails}>
-                                <a href="javascript:voide(0)">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة ال </a>
+                                <a >بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة ال </a>
                             </div>
                         </div>
                         <div className={styles.newsbox}>
@@ -34,7 +34,7 @@ const MainSection:FC = () =>{
                                 <img className="img-fluid" src={newsimage.src} />
                             </div>
                             <div className={styles.newsdetails}>
-                                <a href="javascript:voide(0)">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة ال </a>
+                                <a >بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة ال </a>
                             </div>
                         </div>
                     </div>

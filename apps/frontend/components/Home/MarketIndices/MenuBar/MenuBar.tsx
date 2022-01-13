@@ -13,33 +13,33 @@ const MenuBar = () =>{
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNavDropdown2">
                             <ul className="navbar-nav">
-                                <li className="nav-item">
-                                    <a className="nav-link" aria-current="page" href="javascript:voide(0)">العربية</a>
+                                <li key={'vcxb'} className="nav-item">
+                                    <a className="nav-link" aria-current="page" >العربية</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">أوروبا</a>
+                                <li key={'xbch6575'} className="nav-item">
+                                    <a className="nav-link" >أوروبا</a>
                                 </li>
 
-                                <li className="nav-item">
-                                    <a className="nav-link active" href="javascript:voide(0)">أميركا</a>
+                                <li key={'vbgf65'} className="nav-item">
+                                    <a className="nav-link active" >أميركا</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">العملات</a>
+                                <li key={'sg546rg'} className="nav-item">
+                                    <a className="nav-link" >العملات</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">النفط والطاقة</a>
+                                <li key={'vbnuyi87'} className="nav-item">
+                                    <a className="nav-link" >النفط والطاقة</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">آسيا</a>
+                                <li key={'nmjhk,o8o87'} className="nav-item">
+                                    <a className="nav-link" >آسيا</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">العملات الرقمية</a>
+                                <li key={'r5765gf'} className="nav-item">
+                                    <a className="nav-link" >العملات الرقمية</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">المعادن</a>
+                                <li key={'cvbfn76'} className="nav-item">
+                                    <a className="nav-link" >المعادن</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">السلع الزراعية</a>
+                                <li key={'bny7u65'} className="nav-item">
+                                    <a className="nav-link" >السلع الزراعية</a>
                                 </li>
 
                             </ul>
