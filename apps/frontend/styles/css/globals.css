@@ -413,7 +413,9 @@ header{
   justify-content: center;
   align-items: center;
 }
-
+.breakingNews .newsbox .newsaction .btn{
+  font-weight: bold;
+}
 .breakingNews .newsbox .newslink{
   flex: 4;
 }
