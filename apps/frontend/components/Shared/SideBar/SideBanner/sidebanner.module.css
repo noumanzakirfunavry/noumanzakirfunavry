@@ -1,3 +1,6 @@
 .sidebarBanner{
     padding: 20px 0;
 }
+.smallBanner img{
+    width: 100%;
+}

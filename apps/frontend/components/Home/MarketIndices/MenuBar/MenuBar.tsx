@@ -4,12 +4,11 @@ const MenuBar = () =>{
    
     return (
         <>
-            <div className="container-fluid">
                 <div className="page-nav">
 
                     <nav className="navbar navbar-expand-lg">
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown2" >
-                            <span className="navbar-toggler-icon"></span>
+                        <button className="navbar-toggler px-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown2" >
+                            <span className="fa fa-bars"></span>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNavDropdown2">
                             <ul className="navbar-nav">
@@ -46,7 +45,6 @@ const MenuBar = () =>{
                         </div>
                     </nav>
                 </div>
-            </div>
         </>
     )
 }

@@ -6,7 +6,7 @@ const Header = () =>{
     return (
         <>
             <header>
-                <div className="container-fluid">
+                <div className="container">
                         <div className="header-box">
                             <div className="logo-header">
                                 <div className="cnbc-logo">
@@ -14,8 +14,8 @@ const Header = () =>{
                                 </div>
                                 <div className="header-nav">
                                     <nav className="navbar navbar-expand-lg">
-                                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
-                                            <span className="navbar-toggler-icon"></span>
+                                        <button className="navbar-toggler px-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+                                            <span className="fa fa-bars text-white"></span>
                                         </button>
                                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                             <ul className="navbar-nav">
