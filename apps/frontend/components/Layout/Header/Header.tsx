@@ -20,26 +20,26 @@ const Header = () =>{
                                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                             <ul className="navbar-nav">
                                                 <li className="nav-item">
-                                                    <a className="nav-link active" aria-current="page" href="javascript:voide(0)">الرئيسية</a>
+                                                    <a className="nav-link active" aria-current="page" href="#">الرئيسية</a>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a className="nav-link" href="javascript:voide(0)">الرئيسية</a>
+                                                    <a className="nav-link" href="#">الرئيسية</a>
                                                 </li>
 
                                                 <li className="nav-item">
-                                                    <a className="nav-link" href="javascript:voide(0)">الرئيسية</a>
+                                                    <a className="nav-link" href="#">الرئيسية</a>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a className="nav-link" href="javascript:voide(0)">الرئيسية</a>
+                                                    <a className="nav-link" href="#">الرئيسية</a>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a className="nav-link" href="javascript:voide(0)">الرئيسية</a>
+                                                    <a className="nav-link" href="#">الرئيسية</a>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a className="nav-link" href="javascript:voide(0)">الرئيسية</a>
+                                                    <a className="nav-link" href="#">الرئيسية</a>
                                                 </li>
                                                 <li className="nav-item dropdown">
-                                                    <a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="javascript:voide(0)">برامج CNBC عربية
+                                                    <a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">برامج CNBC عربية
                                                     </a>
                                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                                         <li>
@@ -117,10 +117,10 @@ const Header = () =>{
                                                     </ul>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a className="nav-link" href="javascript:voide(0)">الرئيسية</a>
+                                                    <a className="nav-link" href="#">الرئيسية</a>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a className="nav-link" href="javascript:voide(0)">الرئيسية</a>
+                                                    <a className="nav-link" href="#">الرئيسية</a>
                                                 </li>
 
                                             </ul>
@@ -137,9 +137,9 @@ const Header = () =>{
                                 </div>
                                 <div className="header-search-nav">
                                     <ul>
-                                        <li><a href="javascript:voide(0)">المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></li>
-                                        <li><a href="javascript:voide(0)">عاجل</a></li>
-                                        <li><a href="javascript:voide(0)">تسجيل الدخول</a></li>
+                                        <li><a href="#">المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></li>
+                                        <li><a href="#">عاجل</a></li>
+                                        <li><a href="#">تسجيل الدخول</a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -13,32 +13,32 @@ const MenuBar = () =>{
                         <div className="collapse navbar-collapse" id="navbarNavDropdown2">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <a className="nav-link" aria-current="page" href="javascript:voide(0)">العربية</a>
+                                    <a className="nav-link" aria-current="page" href="#">العربية</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">أوروبا</a>
+                                    <a className="nav-link" href="#">أوروبا</a>
                                 </li>
 
                                 <li className="nav-item">
-                                    <a className="nav-link active" href="javascript:voide(0)">أميركا</a>
+                                    <a className="nav-link active" href="#">أميركا</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">العملات</a>
+                                    <a className="nav-link" href="#">العملات</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">النفط والطاقة</a>
+                                    <a className="nav-link" href="#">النفط والطاقة</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">آسيا</a>
+                                    <a className="nav-link" href="#">آسيا</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">العملات الرقمية</a>
+                                    <a className="nav-link" href="#">العملات الرقمية</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">المعادن</a>
+                                    <a className="nav-link" href="#">المعادن</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="javascript:voide(0)">السلع الزراعية</a>
+                                    <a className="nav-link" href="#">السلع الزراعية</a>
                                 </li>
 
                             </ul>

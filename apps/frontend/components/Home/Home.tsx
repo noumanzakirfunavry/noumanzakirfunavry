@@ -1,7 +1,7 @@
 import { FC } from "react"
 import AdBanner from "../Shared/AdBanner/AdBanner"
 import SideBar from "../Shared/SideBar/SideBar"
-import CategoriesMenu from "./CategoriesMenu/CategoriesMenu"
+import QuickLinks from "./QuickLinks/QuickLinks"
 import MarketIndices from "./MarketIndices/MarketIndices"
 import NewsSection from "./NewsSection/NewsSection"
 
@@ -14,7 +14,7 @@ const Home:FC = () =>{
           
           <div className="container">     
               <AdBanner/>
-              <CategoriesMenu/>
+              <QuickLinks/>
 
             <div className='row'>
                 <div className='col-md-8'>

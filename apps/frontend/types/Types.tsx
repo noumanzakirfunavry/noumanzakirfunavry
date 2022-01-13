@@ -13,3 +13,12 @@ export type SideBannerProps = {
 export type SideListProps = {
     type:string    //numbered or simple
 }
+
+export type TileList = {
+    mediaType:string ,   //image or video
+    media:string,
+    title: string
+}
+export type NewsListTilesProps = {
+    newsList :TileList[]
+}

@@ -1,7 +1,6 @@
-import { FC } from "react"
-import newsimg from "../../../../styles/images/biden.jpg";
+import newsimg from "../../../styles/images/biden.jpg";
 
-const SecondarySection:FC = () =>{
+const NewsDetailListImageWithMedia = () =>{
 
     return (
         <>
@@ -22,8 +21,7 @@ const SecondarySection:FC = () =>{
                             <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
                         </div>
                         <div className="newsImage">
-                            {/* <img className="img-fluid" src={newsimg.src} /> */}
-                            <iframe width="190" src="https://www.youtube.com/embed/SbsgyRhYbdw?controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <img className="img-fluid" src={newsimg.src} />
                         </div>
                     </li>
                     <li>
@@ -41,4 +39,4 @@ const SecondarySection:FC = () =>{
     )
 }
 
-export default SecondarySection
+export default NewsDetailListImageWithMedia
