@@ -12,11 +12,10 @@ const Home:FC = () =>{
         <>
           <MarketIndices/>
           
-          <div className="container-fluid">     
+          <div className="container">     
               <AdBanner/>
               <QuickLinks/>
-          </div>
-          <div className="container">
+
             <div className='row'>
                 <div className='col-md-8'>
                   <NewsSection/>

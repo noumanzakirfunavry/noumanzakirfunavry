@@ -58,13 +58,16 @@ table thead th{
 
 
 
-
+.top-bar .alert{
+  padding: .7rem .7rem;
+}
 .top-bar .btn-close{
   color: #fff;
   background: none;
   opacity: .8;
   left: 0;
   right: auto;
+  padding: 0.8rem;
 }
 .top-grey-bar{
   background: #1b1c1c;
@@ -90,7 +93,7 @@ table thead th{
 
 header{
   background: #005594;
-  padding: 15px 0;
+  padding: 12px 0;
   color: #fff;
 }
 .header-box{
@@ -103,7 +106,7 @@ header{
   flex: 3;
 }
 .cnbc-logo{
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 
@@ -215,7 +218,7 @@ header{
 
 
 .page-nav{
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 .page-nav .navbar .navbar-nav{
   border-bottom: 1px solid #DDDDDD;
@@ -230,7 +233,7 @@ header{
   color: #777777;
   font-weight: bold;
   font-size: 16px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 .page-nav .navbar .navbar-nav .nav-item a.active{
   color: #005594;
@@ -245,7 +248,7 @@ header{
 }
 
 
-.market-stats{
+.market-stats .marketBox{
   margin-bottom: 15px;
 }
 .marketBox{
@@ -260,6 +263,10 @@ header{
   font-size: 16px;
   font-weight: bold;
 }
+.marketBox table th,
+.marketBox table td{
+  line-height: 5px;
+}
 .marketBox table .fa{
   font-size: 20px;
 }
@@ -268,7 +275,7 @@ header{
 
 
 .page-categories{
-  margin: 15px 0;
+  margin: 15px 0 15px 0;
 }
 .page-categories ul{
   margin: 0;
@@ -282,14 +289,17 @@ header{
   margin: 0 10px;
   font-size: 18px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 .page-categories ul li a{
   background: #f1f1f1;
-  padding: 7px 20px;
+  padding: 5px 20px;
   border-radius: 3px;
   text-decoration: none;
   color: #005594;
   font-weight: bold;
+  font-size: 14px;
+  display: block;
 }
 .page-categories ul li a:hover{
   background: #005594;
@@ -311,9 +321,41 @@ header{
 
 
 
-
-
-
+.NewsList{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.NewsList li{
+  display: flex;
+  border-bottom: 1px solid #DDDDDD;
+  padding: 15px 0;
+}
+.NewsList li:last-child{
+  border-bottom: none;
+}
+.NewsList li .newsImage{
+  flex: 1;
+}
+.NewsList li .newsText{
+  flex: 3;
+  padding: 15px 0 0 15px;
+}
+.NewsList li .newsText p{
+  margin-top: 15px;
+}
+.NewsList li .newsText p a{
+  margin-left: 15px;
+}
+.NewsList li a{
+  font-size: 20px;
+  color: #1C1C1C;
+  font-weight: bold;
+}
+.NewsList li p a{
+  font-size: inherit;
+  color: #005594;
+}
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -345,21 +387,3 @@ header{
 
 
 
-@media screen and (max-width:1280px){
-  .logo-header {
-      flex: 2;
-  }
-}
-
-@media screen and (max-width:992px){
-  .logo-header {
-      flex: 1;
-  }
-}
-
-
-@media screen and (max-width:640px){
-  .header-box {
-      display: block;
-  }
-}
