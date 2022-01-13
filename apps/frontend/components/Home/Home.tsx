@@ -5,6 +5,7 @@ import QuickLinks from "./QuickLinks/QuickLinks"
 import MarketIndices from "./MarketIndices/MarketIndices"
 import NewsSection from "./NewsSection/NewsSection"
 import SplitScreenNewsList from "./SplitScreenNewsList/SplitScreenNewsList"
+import SplitScreenBarCharts from "../Shared/SplitScreenBarCharts/SplitScreenBarCharts"
 
 
 const Home:FC = () =>{
@@ -23,6 +24,9 @@ const Home:FC = () =>{
                 <div className='col-md-4'>
                     <SideBar sideBarSequence={[{componentType:'Latest', position:1}, {componentType:'SmallBanner', position:2}]}/>
                 </div>
+            </div>
+            <div>
+              <SplitScreenBarCharts/>
             </div>
             <div>
               <SplitScreenNewsList/>
