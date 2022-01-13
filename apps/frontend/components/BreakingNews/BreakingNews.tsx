@@ -6,10 +6,13 @@ const BreakingNews = () => {
 
     return (
         <>
-          <div className="container-fluid">     
+          <div className="container">     
               <AdBanner/>
-          </div>
-          <div className="container">
+
+            <div className="pageTitle">
+              <h2>أخبار عاجلة</h2>
+            </div>
+
             <div className='row'>
                 <div className='col-md-8'>
                   <NewsList/>

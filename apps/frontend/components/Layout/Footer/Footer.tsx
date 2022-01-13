@@ -26,29 +26,29 @@ const Footer = () =>{
                 <div className='row'>
                     <div className='col-md-2'>
                         <ul className={styles.footerLink}>
-                        <li><a >الرئيسية</a></li>
-                            <li key={'zxc'}><a >إشترك في نشرتنا البريدية</a></li>
-                            <li key={'xvvcb'}><a >الرئيسية</a></li>
-                            <li key={'aswerddlhsa'}><a >إشترك في نشرتنا البريدية</a></li>
-                            <li key={'dvsfdf'}><a >الرئيسية</a></li>
+                        <li><a href="#">الرئيسية</a></li>
+                            <li key={'zxc'}><a href="#">إشترك في نشرتنا البريدية</a></li>
+                            <li key={'xvvcb'}><a href="#">الرئيسية</a></li>
+                            <li key={'aswerddlhsa'}><a href="#">إشترك في نشرتنا البريدية</a></li>
+                            <li key={'dvsfdf'}><a href="#">الرئيسية</a></li>
                         </ul>
                     </div>
                     <div className='col-md-2'>
                     <ul className={styles.footerLink}>
                     <li><a >إشترك في نشرتنا البريدية</a></li>
-                            <li key={'xcve'}><a >الرئيسية</a></li>
-                            <li key={'vdsf'}><a >إشترك في نشرتنا البريدية</a></li>
-                            <li key={'xbruyt'}><a >الرئيسية</a></li>
-                            <li key={'dt4366'}><a >الرئيسية</a></li>
+                            <li key={'xcve'}><a href="#">الرئيسية</a></li>
+                            <li key={'vdsf'}><a href="#">إشترك في نشرتنا البريدية</a></li>
+                            <li key={'xbruyt'}><a href="#">الرئيسية</a></li>
+                            <li key={'dt4366'}><a href="#">الرئيسية</a></li>
                         </ul>
                     </div>
                     <div className='col-md-2'>
                     <ul className={styles.footerLink}>
-                            <li key={'fdg4yt'}><a >الرئيسية</a></li>
-                            <li key={'dfgdfbgfh'}><a >إشترك في نشرتنا البريدية</a></li>
-                            <li key={'dfdsffs'}><a >الرئيسية</a></li>
-                            <li key={'54765'}><a >إشترك في نشرتنا البريدية</a></li>
-                            <li key={'hgf'}><a >الرئيسية</a></li>
+                            <li key={'fdg4yt'}><a href="#">الرئيسية</a></li>
+                            <li key={'dfgdfbgfh'}><a href="#" >إشترك في نشرتنا البريدية</a></li>
+                            <li key={'dfdsffs'}><a href="#" >الرئيسية</a></li>
+                            <li key={'54765'}><a href="#">إشترك في نشرتنا البريدية</a></li>
+                            <li key={'hgf'}><a href="#">الرئيسية</a></li>
                         </ul>
                     </div>
                     <div className='col-md-3'>

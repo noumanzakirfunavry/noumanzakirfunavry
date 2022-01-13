@@ -22,7 +22,8 @@ const SecondarySection:FC = () =>{
                             <p><a href="">أمريكا</a> منذ 5 دقائق</p>
                         </div>
                         <div className="newsImage">
-                            <img className="img-fluid" src={newsimg.src} />
+                            {/* <img className="img-fluid" src={newsimg.src} /> */}
+                            <iframe width="190" src="https://www.youtube.com/embed/SbsgyRhYbdw?controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                         </div>
                     </li>
                     <li>

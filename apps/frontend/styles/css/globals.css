@@ -6,7 +6,7 @@ html{
 body{
   font-size: 14px;
   line-height: 1.42857143;
-  color: #333;
+  color: #1C1C1C;
   background-color: #fff;
   font-family: 'Cairo', sans-serif;
 }
@@ -95,6 +95,7 @@ header{
   background: #005594;
   padding: 12px 0;
   color: #fff;
+  margin-bottom: 10px;
 }
 .header-box{
   display: flex;
@@ -220,6 +221,9 @@ header{
 .page-nav{
   margin-bottom: 5px;
 }
+.page-nav .navbar{
+  padding-top: 0;
+}
 .page-nav .navbar .navbar-nav{
   border-bottom: 1px solid #DDDDDD;
   margin: 0;
@@ -319,7 +323,15 @@ header{
   background-color: #005594;
 }
 
-
+.btn-outline-primary {
+  color: #002F6C;
+  border-color: #002F6C;
+}
+.btn-outline-primary:hover {
+  background-color: #005594;
+  border-color: #002F6C;
+  color: #fff;
+}
 
 .NewsList{
   list-style: none;
@@ -371,15 +383,66 @@ header{
   border-radius: 5px;
 }
 
+.pageTitle{
+  border-bottom: 6px solid #CE2B2B;
+  text-align: center;
+  padding-bottom: 5px;
+  margin-bottom: 25px;
+}
+.pageTitle h2{
+  color:#CE2B2B;
+  font-weight: bold;
+  font-size: 32px;
+}
 
+.sectionTitle{
+  border-top: 6px solid #002F6C;
+  padding-top: 10px;
+}
+.sectionTitle h3{
+  color: #002F6C;
+  font-weight: 700;
+  font-size: 24px;
+}
 
+.stockMarketNews{
+  margin: 15px 0;
+}
+.breakingNews .newsbox{
+  background: #EDEFF3;
+  padding: 15px;
+  display: flex;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+}
+.breakingNews .newsbox:hover{
+  background: #fff;
+  border: 1px solid #DDDDDD;
+}
+.breakingNews .newsbox .newsaction{
+  flex: 1;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.breakingNews .newsbox .newsaction .btn{
+  font-weight: bold;
+}
+.breakingNews .newsbox .newslink{
+  flex: 4;
+}
+.breakingNews .newsbox .newslink a{
+  color: #1C1C1C;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-
-
-
-
-
-
+.breakingNews .newsbox .newslink p{
+  margin: 0 0 5px 0;
+  font-weight: bold;
+}
 
 
 
