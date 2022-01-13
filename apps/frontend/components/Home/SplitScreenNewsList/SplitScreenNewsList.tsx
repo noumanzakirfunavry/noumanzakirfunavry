@@ -3,7 +3,7 @@ const SplitScreenNewsList = () =>{
 
     return (
         <>
-           
+           Split Screen
         </>
     )
 }
