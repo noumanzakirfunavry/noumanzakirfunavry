@@ -1,5 +1,5 @@
 
-const NewsList = () => {
+const NewsListTiles = () => {
 
     return (
         <>
@@ -8,4 +8,4 @@ const NewsList = () => {
     )
 }
 
-export default NewsList
+export default NewsListTiles

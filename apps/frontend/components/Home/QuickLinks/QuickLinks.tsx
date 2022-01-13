@@ -1,6 +1,6 @@
 
 
-const CategoriesMenu = () =>{
+const QuickLinks = () =>{
     return (
         <>
             <div className="page-categories">
@@ -18,4 +18,4 @@ const CategoriesMenu = () =>{
     )
 }
 
-export default CategoriesMenu
+export default QuickLinks

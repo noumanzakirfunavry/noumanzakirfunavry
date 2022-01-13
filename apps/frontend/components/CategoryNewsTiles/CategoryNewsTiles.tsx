@@ -1,8 +1,8 @@
 import AdBanner from "../Shared/AdBanner/AdBanner"
 import SideBar from "../Shared/SideBar/SideBar"
-import NewsList from "./NewsList/NewsList"
+import NewsListTiles from "../Shared/NewsListTiles/NewsListTiles"
 
-const LatestNews = () => {
+const CategoryNewsTiles = () => {
 
     return (
         <>
@@ -12,7 +12,7 @@ const LatestNews = () => {
         <div className="container">
           <div className='row'>
               <div className='col-md-8'>
-                <NewsList/>
+                <NewsListTiles/>
               </div>
               <div className='col-md-4'>
                  <SideBar sideBarSequence={[{componentType:'Latest', position:1}, {componentType:'SmallBanner', position:2}]}/>
@@ -23,4 +23,4 @@ const LatestNews = () => {
     )
 }
 
-export default LatestNews
+export default CategoryNewsTiles
