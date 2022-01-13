@@ -1,6 +1,6 @@
 
 import { FC } from "react"
-import NewsDetatilListImageWithMedia from "../../Shared/NewsDetailListImageWithMedia/NewsDetailListImageWithMedia"
+import NewsDetatilListWithMedia from "../../Shared/NewsDetatilListWithMedia/NewsDetatilListWithMedia"
 import MainSection from "./MainSection/MainSection"
 
 
@@ -9,7 +9,7 @@ const NewsSection:FC = () =>{
     return (
         <>
             <MainSection/>   {/*Main News Section */}
-            <NewsDetatilListImageWithMedia/> {/*Secondary News Section */}
+            <NewsDetatilListWithMedia/> {/*Secondary News Section */}
         </>
     )
 }

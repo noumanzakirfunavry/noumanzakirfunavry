@@ -1,6 +1,6 @@
 import newsimg from "../../../styles/images/biden.jpg";
 
-const NewsDetailListImageWithMedia = () =>{
+const NewsDetatilListWithMedia = () =>{
 
     return (
         <>
@@ -39,4 +39,4 @@ const NewsDetailListImageWithMedia = () =>{
     )
 }
 
-export default NewsDetailListImageWithMedia
+export default NewsDetatilListWithMedia

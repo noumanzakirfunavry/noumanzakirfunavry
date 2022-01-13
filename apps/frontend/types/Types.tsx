@@ -17,7 +17,9 @@ export type SideListProps = {
 export type TileList = {
     mediaType:string ,   //image or video
     media:string,
-    title: string
+    title: string,
+    categoryName: string,
+    sourceName: string,
 }
 export type NewsListTilesProps = {
     newsList :TileList[]
