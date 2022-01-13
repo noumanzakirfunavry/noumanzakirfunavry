@@ -3,6 +3,7 @@ import '../styles/css/globals.css'
 import '../styles/fontawesome/css/fontawesome.min.css'
 import '../styles/fontawesome/css/all.min.css'
 import '../styles/fontawesome/css/all.css'
+import '../styles/css/responsive.css'
 import type { AppProps } from 'next/app'
 import { useEffect } from 'react';
 import Layout from '../components/Layout/Layout';

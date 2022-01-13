@@ -11,7 +11,7 @@ const SideBanner:FC<SideBannerProps> = ({size}) =>{
                 size === 'Small' && (
                     <>
                         <div className={styles.smallBanner}>
-                            <img src={smallBanner.src} />
+                            <img className="img-fluid" src={smallBanner.src} />
                         </div>
                     </>
                 )
