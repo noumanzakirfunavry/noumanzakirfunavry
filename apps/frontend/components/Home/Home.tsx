@@ -6,13 +6,15 @@ import MarketIndices from "./MarketIndices/MarketIndices"
 import NewsSection from "./NewsSection/NewsSection"
 import SplitScreenNewsList from "./SplitScreenNewsList/SplitScreenNewsList"
 import SplitScreenBarCharts from "../Shared/SplitScreenBarCharts/SplitScreenBarCharts"
+import TilesWithColoredBackground from "./TilesWithColoredBackground/TilesWithColoredBackground"
+import HorizontalNumberedList from "./HorizontalNumberedList/HorizontalNumberedList"
+import HorizontalMediaScrollBar from "./HorizontalMediaScrollBar.tsx/HorizontalMediaScrollBar"
 
 
 const Home:FC = () =>{
     return (
         <>
           <MarketIndices/>
-          
           <div className="container">     
               <AdBanner/>
               <QuickLinks/>
@@ -30,6 +32,15 @@ const Home:FC = () =>{
             </div>
             <div>
               <SplitScreenNewsList/>
+            </div>
+            <div>
+              <TilesWithColoredBackground />
+            </div>
+            <div>
+              <HorizontalNumberedList />
+            </div>
+            <div>
+              <HorizontalMediaScrollBar />
             </div>
           </div>
 
