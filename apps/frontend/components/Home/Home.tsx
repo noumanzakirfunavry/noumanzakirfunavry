@@ -6,6 +6,8 @@ import MarketIndices from "./MarketIndices/MarketIndices"
 import NewsSection from "./NewsSection/NewsSection"
 import SplitScreenNewsList from "./SplitScreenNewsList/SplitScreenNewsList"
 import SplitScreenBarCharts from "../Shared/SplitScreenBarCharts/SplitScreenBarCharts"
+import TilesWithColoredBackground from "./TilesWithColoredBackground/TilesWithColoredBackground"
+import VerticalNumberedList from "./VerticalNumberedList/VerticalNumberedList"
 
 
 const Home:FC = () =>{
@@ -30,6 +32,12 @@ const Home:FC = () =>{
             </div>
             <div>
               <SplitScreenNewsList/>
+            </div>
+            <div>
+              <TilesWithColoredBackground />
+            </div>
+            <div>
+              <VerticalNumberedList />
             </div>
           </div>
 
