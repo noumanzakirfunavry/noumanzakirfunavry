@@ -8,10 +8,11 @@ const CategoryNewsTiles = () => {
   const newsList:TileList[] = [{mediaType: 'image', media:'url', title:"abc", categoryName:"", sourceName:""}]
     return (
         <>
-        <div className="container-fluid">     
+        <div className="container">     
             <AdBanner/>
-        </div>
-        <div className="container">
+
+            <div className="pageTitle PageTitleYellow"><h2>آخر الأخبار</h2></div>
+
           <div className='row'>
               <div className='col-md-8'>
                 <NewsListTiles newsList={newsList}/>

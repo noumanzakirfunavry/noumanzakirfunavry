@@ -432,6 +432,14 @@ header{
   font-weight: bold;
   font-size: 32px;
 }
+.PageTitleYellow{
+  border-color: #FCB700;
+}
+.PageTitleYellow h2{
+  color:#002F6C;
+}
+
+
 
 .sectionTitle{
   border-top: 6px solid #002F6C;
@@ -457,6 +465,9 @@ header{
   padding-top: 10px;
   display: inline-block;
 }
+
+
+
 
 .stockMarketNews{
   margin: 15px 0;
@@ -546,5 +557,46 @@ header{
 
 
 
-
-
+.NewsTilesBg{
+  background: #071D39;
+  padding: 20px;
+  color: #fff;
+}
+.NewsTilesBg .TitleBar{
+  margin-bottom: 10px;
+}
+.NewsTilesBg .VideoNews{
+  border-top: 6px solid #FCB700;
+  position: relative;
+}
+.NewsTilesBg .VideoNews .PlayTime{
+  display: flex;
+  position: absolute;
+  top: -1px;
+  left: 0;
+}
+.NewsTilesBg .VideoNews .PlayTime .btn{
+  padding: 10px 20px;
+  color: #fff;
+}
+.NewsTilesBg .VideoNews .PlayTime h5{
+  color: #fff;
+  padding: 10px 0 0 10px;
+}
+.NewsTilesBg .VideoNews .NewsImage{
+  height: 415px;
+  overflow: hidden;
+  margin-top: -1px;
+}
+.NewsTilesBg .VideoNews .NewsImage img{
+  width: 100%;
+}
+.NewsTilesBg .VideoNews .NewsContent{
+    background-image: linear-gradient(to top, #071D39 30%, #071d3900);
+    padding: 30px;
+    position: absolute;
+    bottom: 0;
+}
+.NewsTilesBg .VideoNews .NewsContent h4{
+  color: #fff;
+}
