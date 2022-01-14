@@ -405,9 +405,69 @@ header{
   font-size: 24px;
 }
 
+
+
+.yellowTitle{
+  border-top: 1px solid #777777;
+}
+.yellowTitle h3{
+  color: #002F6C;
+  font-weight: 700;
+  font-size: 32px;
+  border-top: 6px solid #FCB700;
+  margin-top: -6px;
+  padding-top: 10px;
+  display: inline-block;
+}
+
 .stockMarketNews{
   margin: 15px 0;
 }
+.marketChart{
+  margin: 30px 0;
+}
+.marketChart .chartBox{
+  background: #FAFAFA;
+  border: 1px solid #DDDDDD;
+  border-top: 6px solid #002F6C;
+  padding: 30px;
+  margin-top: 20px;
+}
+.marketChart .chartBox .chartTop{
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding:0;
+}
+.marketChart .chartBox .chartTop h4{
+  padding-left: 20px;
+  color: #002F6C;
+  font-weight: 700;
+  font-size: 24px;
+}
+.marketChart .chartBox .chartTop .active a{
+  color: #002F6C;
+  border-bottom: 2px solid #002F6C;
+}
+.marketChart .chartBox .chartTop li a{
+  color: #777777;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px 20px;
+}
+
+.marketChart .chartBox h3{
+  font-weight: bold;
+  margin: 20px 0 30px;
+}
+.marketChart .chartBox table{
+  font-weight: bold;
+  color: #777777;
+  font-size: 15px;
+}
+
+
+
 .breakingNews .newsbox{
   background: #EDEFF3;
   padding: 15px;
