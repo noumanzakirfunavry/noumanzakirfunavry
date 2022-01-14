@@ -10,9 +10,17 @@
     background-image: linear-gradient(to top, #071D39 60%, #071d3900);
     padding: 30px;
   }
+  .mainNews h1{
+    line-height: 20px;
+  }
   .mainNews h1 a{
     font-size: 1.5rem;
     color: #fff;
+    line-height: normal;
+  }
+  .mainNews h3{
+    margin: 0;
+    line-height: 20px;
   }
   .mainNews h3 a{
     font-size: 1rem;
@@ -21,6 +29,7 @@
   .mainNews hr{
     color: #777777;
     height: 2px;
+    margin: 10px 0;
   }
   .newsbox{
     margin-bottom: 15px;

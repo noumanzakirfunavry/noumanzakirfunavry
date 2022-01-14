@@ -12,6 +12,7 @@ body{
 }
 a{
   text-decoration: none;
+  cursor: pointer;
 }
 
 
@@ -333,7 +334,7 @@ header{
   color: #fff;
 }
 
-.NewsList{
+.NewsList ul{
   list-style: none;
   margin: 0;
   padding: 0;
@@ -348,13 +349,17 @@ header{
 }
 .NewsList li .newsImage{
   flex: 1;
+  height: 107px;
+  overflow: hidden;
+  padding-right: 15px;
 }
 .NewsList li .newsText{
   flex: 3;
-  padding: 15px 0 0 15px;
+  padding: 5px 0 0 0px;
 }
 .NewsList li .newsText p{
   margin-top: 15px;
+  margin-bottom: 0;
 }
 .NewsList li .newsText p a{
   margin-left: 15px;
