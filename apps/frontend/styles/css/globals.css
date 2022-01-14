@@ -374,6 +374,39 @@ header{
   color: #005594;
 }
 
+
+
+
+
+
+
+.NewsTiles .newBox{
+  margin-bottom: 25px;
+}
+.NewsTiles .newBox .NewsImage{
+  margin-bottom: 10px;
+  height: 180px;
+  overflow: hidden;
+}
+.NewsTiles .newBox .NewsInfo a{
+  color: #005594;
+  margin-left: 15px;
+}
+.NewsTiles .newBox .NewsInfo h3{
+  font-size: 22px;
+  font-weight: bold;
+}
+.NewsTiles .newBox .NewsInfo h4{
+  font-size: 16px;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
 ::-webkit-scrollbar {
   width: 8px;
 }
