@@ -3,7 +3,20 @@
   "projects": {
     "admin": "apps/admin",
     "admin-e2e": "apps/admin-e2e",
+    "admin-microservice": "apps/admin-microservice",
+    "auth-module": "libs/auth-module",
+    "dtos": "libs/dtos",
+    "enums": "libs/enums",
+    "exception-handling": "libs/exception-handling",
+    "file-server": "libs/file-server",
     "frontend": "apps/frontend",
-    "frontend-e2e": "apps/frontend-e2e"
+    "frontend-e2e": "apps/frontend-e2e",
+    "mail": "libs/mail",
+    "middlewares": "libs/middlewares",
+    "models": "libs/models",
+    "news-microservice": "apps/news-microservice",
+    "notification-microservice": "apps/notification-microservice",
+    "repositories": "libs/repositories",
+    "utility": "libs/utility"
   }
 }

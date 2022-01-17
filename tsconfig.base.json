@@ -14,7 +14,20 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@cnbc-monorepo/auth-module": ["libs/auth-module/src/index.ts"],
+      "@cnbc-monorepo/dtos": ["libs/dtos/src/index.ts"],
+      "@cnbc-monorepo/enums": ["libs/enums/src/index.ts"],
+      "@cnbc-monorepo/exception-handling": [
+        "libs/exception-handling/src/index.ts"
+      ],
+      "@cnbc-monorepo/file-server": ["libs/file-server/src/index.ts"],
+      "@cnbc-monorepo/mail": ["libs/mail/src/index.ts"],
+      "@cnbc-monorepo/middlewares": ["libs/middlewares/src/index.ts"],
+      "@cnbc-monorepo/models": ["libs/models/src/index.ts"],
+      "@cnbc-monorepo/repositories": ["libs/repositories/src/index.ts"],
+      "@cnbc-monorepo/utility": ["libs/utility/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
