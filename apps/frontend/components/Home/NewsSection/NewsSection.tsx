@@ -10,6 +10,7 @@ const NewsSection:FC = () =>{
         <>
             <MainSection/>   {/*Main News Section */}
             <NewsDetatilListWithMedia/> {/*Secondary News Section */}
+
         </>
     )
 }
