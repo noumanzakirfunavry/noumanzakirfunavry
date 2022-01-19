@@ -11,7 +11,6 @@ import type { AppProps } from 'next/app'
 import { useEffect } from 'react';
 import Layout from '../components/Layout/Layout';
 import Head from 'next/head';
-import ListCarousel from '../components/Shared/owlCarousel';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -24,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
-      <ListCarousel></ListCarousel>
+  
       <Component {...pageProps} />
     </Layout>
   )

@@ -1,14 +1,16 @@
 import { FC } from "react"
 import {NewsListTilesProps} from '../../../types/Types';
 import newsImage from "../../../styles/images/biden.jpg";
+import News2TopTiles from "../News2TopTiles";
 
 const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
 
     return (
         <>
           <div className="NewsTiles">
+             
               <div className="row">
-                  <div className="col-lg-8">
+                  {/* <div className="col-lg-8">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -29,7 +31,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                                 <p><a>الإمارات</a> منذ 5 دقائق</p>
                             </div>
                         </div>
-                  </div>
+                  </div> */}
                   <div className="col-lg-4 col-md-6">
                         <div className="newBox">
                             <div className="NewsImage">
