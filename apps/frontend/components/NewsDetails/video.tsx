@@ -1,17 +1,17 @@
 import AdBanner from "../Shared/AdBanner/AdBanner"
 import SideBar from "../Shared/SideBar/SideBar"
 
-const NewsDetails = () => {
+const VideoNews = () => {
 
     return (
         <>
         <AdBanner/>
         <div className='row'>
                 <div className='col-md-8'>
-                News Details  design here we will make component
+               Video News  design here we will make component
                 </div>
                 <div className='col-md-4'>
-                   <SideBar sideBarSequence={[{componentType:'Latest', position:1}, {componentType:'SmallBanner', position:2}]}/>
+                  Side bar with video design  design here we will make component
                 </div>
               </div>
             
@@ -21,4 +21,4 @@ const NewsDetails = () => {
     )
 }
 
-export default NewsDetails
+export default VideoNews

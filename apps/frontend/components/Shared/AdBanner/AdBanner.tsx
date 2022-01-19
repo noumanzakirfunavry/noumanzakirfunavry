@@ -1,6 +1,6 @@
 import ad from '../../../styles/images/ad-970.jpg';
 
-const AdBanner = () =>{
+const   AdBanner = () =>{
     return (
         <>
             <div className="text-center mb-4">
