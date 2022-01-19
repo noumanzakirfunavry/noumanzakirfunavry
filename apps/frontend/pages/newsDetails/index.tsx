@@ -7,7 +7,6 @@ const Index = () =>{
             <NewsDetails/>
         </>
     )
-    
 }
 
 export default Index
