@@ -441,12 +441,16 @@ header{
     margin-bottom: 10px;
   }
   .NewsTilesBg .VideoNews{
-    border-top: 6px solid $warning;
     position: relative;
     overflow: hidden;
   }
   .NewsTilesBg .VideoNews .PlayTime{
     display: flex;
+    border-top: 6px solid $warning;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
   }
   .NewsTilesBg .VideoNews .PlayTime .btn-text{
     background: $warning;
@@ -455,14 +459,14 @@ header{
     top: 0;
     display: flex;
     transition: width .5s;
-    width: 50px;
+    width: 60px;
   }
   .NewsTilesBg .VideoNews .PlayTime:hover .btn-text{
-      width: 150px;
+      width: 180px;
       transition: width .5s;
   }
   .NewsTilesBg .VideoNews .PlayTime .btn{
-    padding: 15px 15px 15px 20px;
+    padding: 15px 20px 15px 15px;
     text-align: center;
   }
 
@@ -476,7 +480,7 @@ header{
     white-space: nowrap;
     color: $grey-dark;
     font-weight: bold;
-    padding: 12px 15px 0;
+    padding: 12px 15px 0 5px;
     font-size: 20px;
   }
   .NewsTilesBg .VideoNews .PlayTime:hover .btn-text span{
@@ -490,8 +494,8 @@ header{
     color: $white;
     padding: 10px 0 0 10px;
     position: absolute;
-    left: 50px;
-    top: 0;
+    left: 65px;
+    top: 3px;
   }
   .NewsTilesBg .VideoNews .NewsImage{
     height: 415px;
@@ -538,7 +542,7 @@ header{
     width: 34px;
 }
 .NewsTilesBg .VideoTiles .VideoNews .PlayTime:hover .btn-text {
-    width: 90px;
+    width: 110px;
 }
   .VideoTiles .VideoNews .PlayTime h5{
       flex: 2;
@@ -739,7 +743,9 @@ header{
  }
 
 
-
+ .newsSlider .slick-slider .slick-slide{
+  padding: 0 10px;
+ }
  .newsSlider .slick-slider .NewsBox{
     background: url(../images/biden.jpg) no-repeat;
     height: 326px;

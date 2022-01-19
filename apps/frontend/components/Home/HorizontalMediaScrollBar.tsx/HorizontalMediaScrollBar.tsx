@@ -8,12 +8,19 @@ const HorizontalMediaScrollBar:FC = () =>{
 
     
         const [settings, setSettings] = useState({
-            dots: true,
+            dots: false,
             infinite: true,
             speed: 500,
-            slidesToShow: 4,
-            slidesToScroll: 4,
+            slidesToShow: 3,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            pauseOnHover: true,
+            className: "center",
+            centerMode: false,
+            centerPadding: "60px",
+            slidesToScroll: 3,
             initialSlide: 0,
+            rtl: false,
             responsive: [
               {
                 breakpoint: 1024,
