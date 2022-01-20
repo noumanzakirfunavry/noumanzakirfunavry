@@ -1,11 +1,19 @@
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import Slider from "react-slick";
 
 
 
 const HorizontalMediaScrollBar:FC = () =>{
 
+       const ref:any = useRef()
 
+       const next = () =>{
+           ref.current.slickNext()
+       }
+
+       const previous = () =>{
+        ref.current.slickPrev()
+    }
     
         const [settings, setSettings] = useState({
             dots: false,
@@ -51,7 +59,7 @@ const HorizontalMediaScrollBar:FC = () =>{
     return (
         <>
         <div className="newsSlider">
-            <Slider {...settings}>
+            <Slider ref={ref} {...settings}>
                     <div className="slider-item">
                         <div className="NewsBox">
                             <div className="newscontent">
@@ -109,6 +117,14 @@ const HorizontalMediaScrollBar:FC = () =>{
                         </div>
                     </div>
             </Slider>
+            <div style={{ textAlign: "center" }}>
+                <button className="button" onClick={previous}>
+                    Previous
+                </button>
+                <button className="button" onClick={next}>
+                    Next
+                </button>
+            </div>
         </div>
         </>
     )

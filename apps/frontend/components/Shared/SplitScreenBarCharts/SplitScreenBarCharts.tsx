@@ -75,7 +75,7 @@ const SplitScreenBarCharts = () =>{
                                     <td className="text-danger">7.435%</td>
                                         <td style ={{width:'50%'}} >
                                             <div className="progress p-0">
-                                                <div className="progress-bar bg-danger" role="progressbar" style ={{width:'100%'}} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div className="progress-bar bg-danger" role="progressbar" style ={{width:'100%'}} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100}></div>
                                             </div>
                                         </td> 
                                     </tr>
@@ -85,7 +85,7 @@ const SplitScreenBarCharts = () =>{
                                         <td className="text-success">3.435%</td>
                                         <td>
                                             <div className="progress p-0">
-                                                <div className="progress-bar bg-danger" role="progressbar" style ={{width:'75%'}} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div className="progress-bar bg-danger" role="progressbar" style ={{width:'75%'}} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100}></div>
                                             </div>
                                         </td>
                                     </tr>
@@ -95,7 +95,7 @@ const SplitScreenBarCharts = () =>{
                                         <td className="text-success">1.435%</td>
                                         <td>
                                             <div className="progress p-0">
-                                                <div className="progress-bar bg-danger" role="progressbar" style ={{width:'50%'}} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div className="progress-bar bg-danger" role="progressbar" style ={{width:'50%'}} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100}></div>
                                             </div>
                                         </td>
                                     </tr>
@@ -105,7 +105,7 @@ const SplitScreenBarCharts = () =>{
                                         <td className="text-success">0.335%</td>
                                         <td>
                                             <div className="progress p-0">
-                                                <div className="progress-bar bg-danger" role="progressbar" style ={{width:'25%'}} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div className="progress-bar bg-danger" role="progressbar" style ={{width:'25%'}} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100}></div>
                                             </div>
                                         </td>
                                     </tr>
