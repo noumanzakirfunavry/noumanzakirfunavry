@@ -15,7 +15,7 @@ const NewsDetails = () => {
                 <h1>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h1>
             </div>
             <div className='col-md-8'>
-                    <div className="NewsInfo">
+                    <div className="NewsInfobox">
                         <div className="infoItem">نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</div>
                         <div className="infoItem">تم تحريره الجمعة 6 نوفمبر 2021 | 12:35 مساءً</div>
                         <div className="newsSocial">

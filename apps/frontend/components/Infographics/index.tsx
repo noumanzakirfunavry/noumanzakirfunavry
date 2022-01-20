@@ -9,6 +9,11 @@ const Infographics = () => {
         <>
         <div className="container"> 
             <AdBanner />
+
+            <div className="pageTitle PageTitleYellow mb-5">
+                <h2>إنفوغرافيك</h2>
+            </div>
+
             <div className='row'>
                 <div className='col-md-8'>
                 <News2TopTiles/>
