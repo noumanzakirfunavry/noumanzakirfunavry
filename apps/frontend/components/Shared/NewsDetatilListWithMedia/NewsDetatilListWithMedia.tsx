@@ -34,8 +34,59 @@ const NewsDetatilListWithMedia = () =>{
                             <img className="img-fluid" src={newsimg.src} />
                         </div>
                     </li>
+                    <li>
+                        <div className="newsText">
+                            <a href="#">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
+                            <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
+                        </div>
+                        <div className="newsImage">
+                            <img className="img-fluid" src={newsimg.src} />
+                        </div>
+                    </li>
+                    <li>
+                        <div className="newsText">
+                            <a href="#">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
+                            <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
+                        </div>
+                        <div className="newsImage">
+                            <img className="img-fluid" src={newsimg.src} />
+                        </div>
+                    </li>
+                    <li>
+                        <div className="newsText">
+                            <a href="#">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
+                            <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
+                        </div>
+                        <div className="newsImage">
+                            <img className="img-fluid" src={newsimg.src} />
+                        </div>
+                    </li>
+                    <li>
+                        <div className="newsText">
+                            <a href="#">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
+                            <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
+                        </div>
+                        <div className="newsImage">
+                            <img className="img-fluid" src={newsimg.src} />
+                        </div>
+                    </li>
+                    <li>
+                        <div className="newsText">
+                            <a href="#">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
+                            <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
+                        </div>
+                        <div className="newsImage">
+                            <img className="img-fluid" src={newsimg.src} />
+                        </div>
+                    </li>
                 </ul>
             </div>
+
+
+            <div className="text-center mt-3">
+                <button className="btn btn-outline-primary">المزيد</button>
+            </div>
+
         </>
     )
 }
