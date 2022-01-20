@@ -803,9 +803,23 @@ header{
     line-height: normal;
 }
 
-
-
-
+.sliderArrows{
+  text-align: left;
+  padding: 20px 10px;
+}
+.sliderArrows .slider-arrow{
+  font-size: 0;
+  border: none;
+  padding: 15px 0px;
+  margin-right: 10px;
+  width: 50px;
+}
+.sliderArrows .arrow-prev{
+  background: url(../images/arrow-right.svg) no-repeat !important;
+}
+.sliderArrows .arrow-next{
+  background: url(../images/arrow-left.svg) no-repeat !important;
+}
 
 
 .slick-slider{
@@ -813,18 +827,17 @@ header{
   padding-top: 20px;
 }
 .slick-slider .slick-arrow{
-  background: red;
   z-index: 99;
   position: absolute;
   top: 0;
   width: 50px;
 }
 .slick-slider .slick-prev{
-  left: 0;
+  left: 10px;
   background: url(../images/arrow-left.svg) no-repeat !important;
 }
 .slick-slider .slick-next{
-  left: 60px;
+  left: 70px;
   background: url(../images/arrow-right.svg) no-repeat !important;
 }
 .slick-slider .slick-prev:before, 
