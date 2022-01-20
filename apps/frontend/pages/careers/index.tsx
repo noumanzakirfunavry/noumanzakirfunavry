@@ -1,11 +1,10 @@
-import Search from "apps/frontend/components/Search/Search"
-
+import Careers from "apps/frontend/components/Careers"
 
 const Index = () =>{
 
     return (
         <>
-        <Search/>
+            <Careers/>
         </>
     )
 }
