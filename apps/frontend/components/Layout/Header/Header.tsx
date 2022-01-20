@@ -1,4 +1,5 @@
 
+import Link from 'next/link'
 import logo from '../../../styles/images/cnbc-arabia-logo.svg'
 
 const Header = () =>{
@@ -10,7 +11,9 @@ const Header = () =>{
                         <div className="header-box">
                             <div className="logo-header">
                                 <div className="cnbc-logo">
-                                    <img title="CNBC Arabia" src={logo.src}/>
+                                    <Link href="/">
+                                    <img role={'button'} title="CNBC Arabia" src={logo.src}/>
+                                    </Link>
                                 </div>
                                 <div className="header-nav">
                                     <nav className="navbar navbar-expand-lg">
