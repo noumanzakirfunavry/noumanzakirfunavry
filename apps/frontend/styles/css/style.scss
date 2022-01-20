@@ -7,7 +7,12 @@ body{
     background-color: $white;
     font-family:$primary-font;
   }
-
+a{
+  color: $primary-color;
+  &:hover{
+    color: $warning;
+  }
+}
 
 
 //   Button Styles
@@ -15,16 +20,16 @@ body{
     border-radius: 0;
     line-height: normal;
     animation: ease-in;
-  }
-  .btn:hover{
-    animation: ease-in;
+      &:hover{
+        animation: ease-in;
+      }
   }
   .btn-primary{
     background-color: $primary-color;
     border-color: $primary-color;
-  }
-  .btn-primary:hover{
-    background-color: $secondary-color;
+    &:hover{
+      background-color: $secondary-color;
+    }
   }
 
   .btn-warning{
@@ -35,11 +40,11 @@ body{
   .btn-outline-primary {
     color: $primary-color;
     border-color: $primary-color;
-  }
-  .btn-outline-primary:hover {
-    background-color: $secondary-color;
-    border-color: $primary-color;
-    color: $white;
+    &:hover{
+      background-color: $secondary-color;
+      border-color: $primary-color;
+      color: $white;
+    }
   }
 
   
@@ -802,6 +807,119 @@ header{
 
 
 
+
+.slick-slider{
+  position: relative;
+  padding-top: 20px;
+}
+.slick-slider .slick-arrow{
+  background: red;
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  width: 50px;
+}
+.slick-slider .slick-prev{
+  left: 0;
+  background: url(../images/arrow-left.svg) no-repeat !important;
+}
+.slick-slider .slick-next{
+  left: 60px;
+  background: url(../images/arrow-right.svg) no-repeat !important;
+}
+.slick-slider .slick-prev:before, 
+.slick-slider .slick-next:before{
+  content: none;
+}
+
+.newsSliderText .NewsBox .newsImage{
+  margin-bottom: 10px;;
+  position: relative;
+}
+.newsSliderText .slick-slider .slick-list{
+  margin: 0 -10px;
+}
+.newsSliderText .slick-slider .slick-slide{
+  padding: 10px;
+}
+.newsSliderText .NewsBox .newsImage .PlayTime{
+  margin-bottom: 10px;;
+  position: relative;
+}
+.newsSliderText .NewsBox .newsImage .PlayTime{
+  display: flex;
+  border-top: 6px solid $warning;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.newsSliderText .NewsBox .newsImage .PlayTime .btn-text{
+  background: $warning;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  transition: width .5s;
+  width: 60px;
+}
+.newsSliderText .NewsBox .newsImage .PlayTime:hover .btn-text{
+    width: 180px;
+    transition: width .5s;
+}
+.newsSliderText .NewsBox .newsImage .PlayTime .btn{
+  padding: 15px 20px 15px 20px;
+  text-align: center;
+}
+
+.newsSliderText .NewsBox .newsImage .PlayTime:hover .btn{
+  background-color: $warning;
+  border-color: $warning;
+}
+
+.newsSliderText .NewsBox .newsImage .PlayTime .btn-text span{
+  display: none;
+  white-space: nowrap;
+  color: $grey-dark;
+  font-weight: bold;
+  padding: 12px 15px 0 5px;
+  font-size: 20px;
+}
+.newsSliderText .NewsBox .newsImage .PlayTime:hover .btn-text span{
+  display: block;
+}
+.newsSliderText .NewsBox .newsImage .PlayTime .btn i{
+    color: $white;
+    font-size: 18px;
+}
+.newsSliderText .NewsBox .newsImage .PlayTime h5{
+  color: $white;
+  padding: 10px 0 0 10px;
+  position: absolute;
+  left: 65px;
+  top: 3px;
+}
+
+
+.sliderTextBg{
+  background: $primary-color;
+  padding: 30px;
+  color: $white;
+}
+.sliderTextBg .NewsBox {
+  position: relative;
+}
+.sliderTextBg .NewsBox .newscontent{
+  background-image: linear-gradient(to top, $primary-dark 30%, #071d3900);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 50px;
+  padding: 20px;
+}
+.sliderTextBg .NewsBox .newscontent p{
+  display: none;
+}
 
 .NewsInfobox{
   display: flex;
