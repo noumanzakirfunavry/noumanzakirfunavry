@@ -24,3 +24,7 @@ export type TileList = {
 export type NewsListTilesProps = {
     newsList :TileList[]
 }
+
+export type ModalProps = {
+    title:string
+}

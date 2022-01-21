@@ -1,4 +1,4 @@
-const ResultList = () => {
+const SearchResultList = () => {
 
     return (
         <>
@@ -7,4 +7,4 @@ const ResultList = () => {
     )
 }
 
-export default ResultList
+export default SearchResultList
