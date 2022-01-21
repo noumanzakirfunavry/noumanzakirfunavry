@@ -478,11 +478,11 @@ header{
   .NewsTilesBg .TitleBar{
     margin-bottom: 10px;
   }
-  .NewsTilesBg .VideoNews{
+  .VideoNews{
     position: relative;
     overflow: hidden;
   }
-  .NewsTilesBg .VideoNews .PlayTime{
+  .VideoNews .PlayTime{
     display: flex;
     border-top: 6px solid $warning;
     position: absolute;
@@ -490,7 +490,7 @@ header{
     left: 0;
     width: 100%;
   }
-  .NewsTilesBg .VideoNews .PlayTime .btn-text{
+  .VideoNews .PlayTime .btn-text{
     background: $warning;
     position: absolute;
     left: 0;
@@ -499,21 +499,21 @@ header{
     transition: width .5s;
     width: 60px;
   }
-  .NewsTilesBg .VideoNews .PlayTime:hover .btn-text{
+  .VideoNews .PlayTime:hover .btn-text{
       width: 180px;
       transition: width .5s;
   }
-  .NewsTilesBg .VideoNews .PlayTime .btn{
+  .VideoNews .PlayTime .btn{
     padding: 15px 20px 15px 15px;
     text-align: center;
   }
 
-  .NewsTilesBg .VideoNews .PlayTime:hover .btn{
+  .VideoNews .PlayTime:hover .btn{
     background-color: $warning;
     border-color: $warning;
   }
   
-  .NewsTilesBg .VideoNews .PlayTime .btn-text span{
+  .VideoNews .PlayTime .btn-text span{
     display: none;
     white-space: nowrap;
     color: $grey-dark;
@@ -521,34 +521,34 @@ header{
     padding: 12px 15px 0 5px;
     font-size: 20px;
   }
-  .NewsTilesBg .VideoNews .PlayTime:hover .btn-text span{
+  .VideoNews .PlayTime:hover .btn-text span{
     display: block;
 }
-  .NewsTilesBg .VideoNews .PlayTime .btn i{
+  .VideoNews .PlayTime .btn i{
       color: $white;
       font-size: 18px;
   }
-  .NewsTilesBg .VideoNews .PlayTime h5{
+  .VideoNews .PlayTime h5{
     color: $white;
     padding: 10px 0 0 10px;
     position: absolute;
     left: 65px;
     top: 3px;
   }
-  .NewsTilesBg .VideoNews .NewsImage{
+  .VideoNews .NewsImage{
     height: 415px;
     overflow: hidden;
   }
-  .NewsTilesBg .VideoNews .NewsImage img{
+  .VideoNews .NewsImage img{
     width: 100%;
   }
-  .NewsTilesBg .VideoNews .NewsContent{
+  .VideoNews .NewsContent{
       background-image: linear-gradient(to top, $primary-dark 30%, #071d3900);
       padding: 30px;
       position: absolute;
       bottom: 0;
   }
-  .NewsTilesBg .VideoNews .NewsContent h4{
+  .VideoNews .NewsContent h4{
     color: $white;
   }
 
@@ -988,4 +988,56 @@ header{
 }
 .livetvbox .liveTV{
   margin: 0 0 30px;
+}
+
+
+
+
+
+
+
+
+.VideoTextBox .VideoNews{
+  width: 50%;
+}
+.VideoTextBox li .newsText{
+  flex: 1 1;
+}
+.VideoTextBox li a {
+  font-size: 12px;
+  color: #1c1c1c;
+  font-weight: bold;
+
+}
+.VideoTextBox li .newsText p{
+  font-size: 12px;
+  color: #1c1c1c;
+  font-weight: bold;
+}
+
+.VideoTextBox .VideoNews .PlayTime{
+  width: 100%;
+}
+.VideoTextBox .VideoNews .PlayTime .btn{
+font-size: 12px;
+padding: 5px 10px;
+}
+.VideoTextBox .VideoNews .PlayTime .btn-text span {
+padding: 5px 5px 0px;
+font-size: inherit;
+}
+.VideoTextBox .VideoNews .PlayTime .btn i{
+font-size: inherit;
+}
+.VideoTextBox .VideoNews .PlayTime .btn-text{
+width: 34px;
+}
+.VideoTextBox .VideoNews .PlayTime:hover .btn-text {
+width: 110px;
+}
+.VideoTextBox .VideoNews .PlayTime h5{
+  flex: 2;
+  font-size: 12px;
+  padding-right: 5px;
+  right: 0;
 }
