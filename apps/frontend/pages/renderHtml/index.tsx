@@ -1,11 +1,10 @@
-import Search from "apps/frontend/components/Search/Search"
 
 
 const Index = () =>{
 
     return (
         <>
-        <Search/>
+            Pre defined Html page here
         </>
     )
 }

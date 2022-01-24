@@ -9,13 +9,12 @@ import SplitScreenBarCharts from "../Shared/SplitScreenBarCharts/SplitScreenBarC
 import HorizontalNumberedList from "./HorizontalNumberedList/HorizontalNumberedList"
 import HorizontalMediaScrollBar from "./HorizontalMediaScrollBar.tsx/HorizontalMediaScrollBar"
 import TilesWithColoredBackground from "./TilesWithColoredBackground/TilesWithColoredBackground"
-
+import LoginModal from "../LoginModal/LoginModal"
 
 const Home:FC = () =>{
     return (
         <>
           <MarketIndices/>
-          
           <div className="container">     
               <AdBanner/>
               <QuickLinks/>
@@ -45,7 +44,11 @@ const Home:FC = () =>{
             <div className="container">
               <HorizontalNumberedList />
             </div>
+            <button  className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+              <label className="cursor">View Modal</label>
+            </button>
             
+            <LoginModal/>
           
 
         </>

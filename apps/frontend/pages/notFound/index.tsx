@@ -1,11 +1,9 @@
-import Search from "apps/frontend/components/Search/Search"
-
 
 const Index = () =>{
 
     return (
         <>
-        <Search/>
+            404 (Not found) Here
         </>
     )
 }
