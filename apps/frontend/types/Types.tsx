@@ -26,5 +26,12 @@ export type NewsListTilesProps = {
 }
 
 export type ModalProps = {
+    id:string,
     title:string
+}
+
+export type TitleProps = {
+    text: string,
+    position: string //center, right, left
+    styles:string //for styles (color size etc) will be used as className
 }

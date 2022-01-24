@@ -5,13 +5,7 @@ const Schedules = () => {
 
     return (
         <>
-            <div className="container">
-                <AdBanner />
-                <div className='row'>
-                   Schedules
-                </div>
-            </div>
-
+            Schedules Here
         </>
     )
 }

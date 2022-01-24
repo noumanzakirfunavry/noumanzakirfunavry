@@ -1,6 +1,7 @@
-
+/* eslint-disable @next/next/no-html-link-for-pages */
 import Link from 'next/link'
 import logo from '../../../styles/images/cnbc-arabia-logo.svg'
+import LoginModal from '../../LoginModal/LoginModal'
 
 const Header = () =>{
    
@@ -12,7 +13,7 @@ const Header = () =>{
                             <div className="logo-header">
                                 <div className="cnbc-logo">
                                     <Link href="/">
-                                    <img role={'button'} title="CNBC Arabia" src={logo.src}/>
+                                        <img role={'button'} title="CNBC Arabia" src={logo.src}/>
                                     </Link>
                                 </div>
                                 <div className="header-nav">
@@ -142,7 +143,7 @@ const Header = () =>{
                                     <ul>
                                         <li key={'wser'}><a >المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></li>
                                         <li><a key={'dsad'}>عاجل</a></li>
-                                        <li><a key={'adss'}>تسجيل الدخول</a></li>
+                                        <li><a key={'adss'} data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -150,6 +151,7 @@ const Header = () =>{
                         </div>
                     </div>
                 </header>
+                <LoginModal/>
         </>
     )
 }

@@ -1,11 +1,14 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+
 
 const Index = () =>{
 
     return (
         <>
-            404 (Not found) Here
+           Not Found Here
         </>
     )
+    
 }
 
 export default Index

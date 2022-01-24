@@ -1,10 +1,18 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import PresenterDetails from "apps/frontend/components/Presenter/details"
+import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 
 const Index = () =>{
 
     return (
         <>
-            <PresenterDetails/>
+            <div className="container">
+                <AdBanner />
+                <div className='row'>
+                    presenters details Design here
+                </div>
+            </div>
+
         </>
     )
 }
