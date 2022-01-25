@@ -1,11 +1,11 @@
-import Infographics from "apps/frontend/components/Infographics"
+import ContactAddresses from "apps/frontend/components/ContactUs/ContactUs"
 
 const Index = () =>{
 
     return (
         <>
-        Conta
-            </>
+        <ContactAddresses/>
+        </>
         
     )
 }

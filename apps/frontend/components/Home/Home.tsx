@@ -14,6 +14,12 @@ import LoginModal from "../LoginModal/LoginModal"
 const Home:FC = () =>{
     return (
         <>
+        <div className="container text-start">
+          <button  className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+              تسجيل الدخول 
+            </button>
+        </div>
+        
           <MarketIndices/>
           <div className="container">     
               <AdBanner/>
@@ -44,9 +50,7 @@ const Home:FC = () =>{
             <div className="container">
               <HorizontalNumberedList />
             </div>
-            <button  className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-              <label className="cursor">View Modal</label>
-            </button>
+            
             
             <LoginModal/>
           
