@@ -6,9 +6,9 @@ const ContactAddresses = () => {
         <>
             <div className="container">
                 <AdBanner />
-                <div className="pageTitle PageTitleYellow">
+                {/* <div className="pageTitle PageTitleYellow"> */}
                     <h2>اتصل بنا</h2>
-                </div>
+                {/* </div> */}
                 <div className='row'>
                     Addresses
                 </div>

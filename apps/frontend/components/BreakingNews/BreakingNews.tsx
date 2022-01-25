@@ -7,7 +7,7 @@ const BreakingNews = () => {
     return (
         <>
           <div className="container">     
-              <AdBanner/>
+              
 
             <div className="pageTitle">
               <h2>أخبار عاجلة</h2>
