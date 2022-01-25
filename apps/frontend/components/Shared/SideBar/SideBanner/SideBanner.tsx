@@ -1,5 +1,6 @@
 import { SideBannerProps } from "apps/frontend/types/Types"
 import smallBanner from "apps/frontend/styles/images/small-ad.jpg";
+import largebanner from "apps/frontend/styles/images/ad-height.jpg";
 import styles from "./sidebanner.module.css";
 import { FC } from "react"
 
@@ -18,7 +19,11 @@ const SideBanner:FC<SideBannerProps> = ({size}) =>{
             }
             {
                 size === 'Large' && (
-                    <>Large Banner</>
+                    <>
+                    <div className={styles.largeBanner}>
+                            <img className="img-fluid" src={largebanner.src} />
+                        </div>
+                    </>
                 )
             }
         </div>

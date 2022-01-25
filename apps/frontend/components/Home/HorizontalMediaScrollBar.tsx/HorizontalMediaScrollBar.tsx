@@ -59,6 +59,14 @@ const HorizontalMediaScrollBar:FC = () =>{
     return (
         <>
         <div className="newsSlider">
+            <div className="sliderArrows">
+                <button className="slider-arrow arrow-prev" onClick={previous}>
+                    Previous
+                </button>
+                <button className="slider-arrow arrow-next" onClick={next}>
+                    Next
+                </button>
+            </div>
             <Slider ref={ref} {...settings}>
                     <div className="slider-item">
                         <div className="NewsBox">
@@ -117,14 +125,7 @@ const HorizontalMediaScrollBar:FC = () =>{
                         </div>
                     </div>
             </Slider>
-            <div style={{ textAlign: "center" }}>
-                <button className="button" onClick={previous}>
-                    Previous
-                </button>
-                <button className="button" onClick={next}>
-                    Next
-                </button>
-            </div>
+            
         </div>
         </>
     )
