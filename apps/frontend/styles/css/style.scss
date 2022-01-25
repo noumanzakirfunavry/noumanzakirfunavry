@@ -1041,3 +1041,75 @@ width: 110px;
   padding-right: 5px;
   right: 0;
 }
+
+
+
+
+
+
+.SimpleDarkNews{
+  border-top: 6px solid $grey;
+  padding: 15px 0;
+}
+
+.scheduleCalendar{
+    .nav{
+      border-bottom: 1px solid $grey-light;
+      padding: 0;
+        .nav-item{
+          
+          .nav-link{
+            color: $grey;
+            font-weight: bold;
+            font-size: 24px;
+            border-bottom: 6px solid transparent;
+            border-radius: 0;
+            margin-bottom: -4px;
+            span{
+              display: block;
+              font-size: 15px;
+              padding: 5px 0;
+            }
+          }
+          .active{
+            color: $primary-color;
+            background: none;
+            border-color: $secondary-color;
+          }
+
+        }
+    }
+
+    table{
+      tr{
+         td{
+           padding: 15px;
+         }
+      }
+      h4{
+        font-weight: bold;
+        color: $grey;
+        margin: 0;
+      }
+      h5{
+        font-weight: bold;
+        margin: 0;
+      }
+    }
+
+    .table > :not(:first-child){
+      border-top: 1px solid $grey;
+    }
+
+}
+
+
+.presentersTiles{
+  .newBox .NewsImage{
+    height: auto;
+  }
+  .newBox .NewsInfo h3{
+    margin: 0;
+    font-weight: bold;
+  }
+}

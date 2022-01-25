@@ -10,6 +10,7 @@ const Programs = () => {
         <>
             <div className="container"> 
             <AdBanner />
+            <div className="pageTitle PageTitleYellow"><h2>برامج CNBC عربية</h2></div>
             <div className='row'>
                 <div className='col-md-8'>
                 <NewsListTiles newsList={[]}/>
