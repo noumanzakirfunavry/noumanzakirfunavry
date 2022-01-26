@@ -9,17 +9,17 @@ const Programs = () => {
     return (
         <>
             <div className="container"> 
-            <AdBanner />
-            <div className="pageTitle PageTitleYellow"><h2>برامج CNBC عربية</h2></div>
-            <div className='row'>
-                <div className='col-md-8'>
-                <NewsListTiles newsList={[]}/>
-                </div>
-                <div className='col-md-4'>
-                    <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+                <AdBanner />
+                <div className="pageTitle PageTitleYellow"><h2>برامج CNBC عربية</h2></div>
+                <div className='row'>
+                    <div className='col-md-8'>
+                    <NewsListTiles newsList={[]}/>
+                    </div>
+                    <div className='col-md-4'>
+                        <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+                    </div>
                 </div>
             </div>
-        </div>
            
         </>
     )

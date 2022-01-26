@@ -1,135 +1,28 @@
-import AdBanner from "../Shared/AdBanner/AdBanner"
-import SideBar from "../Shared/SideBar/SideBar"
 import newsImage from "../../styles/images/biden.jpg";
-import cnbcdarklogo from "../../styles/images/cnbc-arabia-logo-black.svg";
+import CategoryDetailsBoxes from "./CategoryDetailsBoxes/CategoryDetailsBoxes";
+import FadedNews from "../Shared/FadedNews/FadedNews";
+import ProNews from "./ProNews/ProNews";
 
 const NewsDetails = () => {
 
     return (
         <>
-        <div className="container">
-            <AdBanner/>
+            <CategoryDetailsBoxes/>
 
-            <div className="pageSimpleTitle mb-5">
-                <span className="badge bg-success">PRO</span>
-                <h1>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h1>
+            <div className="mb-3">
+                <img className="img-fluid" src={newsImage.src} />
             </div>
-            <div className='col-md-8'>
-                    <div className="NewsInfobox">
-                        <div className="infoItem">نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</div>
-                        <div className="infoItem">تم تحريره الجمعة 6 نوفمبر 2021 | 12:35 مساءً</div>
-                        <div className="newsSocial">
-                            <ul>
-                                <li><a><i className="fa fa-envelope"></i></a></li>
-                                <li><a><i className="fab fa-whatsapp"></i></a></li>
-                                <li><a><i className="fab fa-linkedin"></i></a></li>
-                                <li><a><i className="fab fa-twitter"></i></a></li>
-                                <li><a><i className="fab fa-facebook"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    </div>
+            <h6>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h6>
+            <hr></hr>
 
-            <div className='row'>
-                <div className='col-md-8'>
-
-
-                    <div className="Simplecategories my-4">
-                        <ul>
-                            <span className="pt-2 ms-3">الأسهم ذات الصلة</span>
-                            <li>ناسداك 100 <span className="text-danger mx-2">(-3.41%) -40.239 </span> <a className="CatLink"><i className="fa fa-plus"></i></a></li>
-                            <li>100 <span className="text-success mx-2">(-3.41%) -40.239 </span> <a className="CatLink"><i className="fa fa-plus"></i></a></li>
-                        </ul>
-                    </div>
-
-                    <div className="mb-3">
-                        <img className="img-fluid" src={newsImage.src} />
-                    </div>
-                    <h6>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h6>
-                    <hr></hr>
-
-                    
-
-
-                <div className="row">
+            <div className="row">
                 <div className="col-lg-2"></div>
                     <div className="col-lg-10">
-                    <div className="fadedNews mb-3">
-                        <p>لا يتوقع شرقاوي أن ينجح مشروع القانون المقدم في الكونغرس في تصنيف الجماعة إرهابية، لكنه “سيمثل أداة ضغط على الإدارة الأميركية لتغير سياستها في التعاطي مع التنظيم”، فضلا عن كونه “خطوة في طريق حظره”.
-                        </p>
-                        <p>
-                        وأكد شرقاوي أن “الضغوط المستمرة من جانب النواب في الكونغرس على إدارة بايدن ستجعلها تغير سياستها تجاه الإخوان، أو تجعلها محايدة”.
-                        </p>
-                        <p>
-                        وكان كروز انتقد الطريقة التي تتعامل بها إدارة بايدن مع تنظيم الإخوان، قائلا إن “من حق الشعب الأميركي معرفة ما إذا كانت الإدارة تحاول الضغط على حلفاء الولايات المتحدة للإفراج عن المتطرفين من الإخوان”.
-                        </p>
-                        <p>
-                        وقال كروز إنه “في عهد الرئيس (الأسبق) باراك أوباما ونائب الرئيس بايدن، كانت السياسات المطبقة كارثة لحلفائنا في الشرق الأوسط، ونعمة لأعدائنا. مرة أخرى، تعمل إدارة بايدن على تعزيز جماعة الإخوان والجماعات المتطرفة الأخرى في الشرق الأوسط”
-                        </p>
-                        <p>
-                        لا يتوقع شرقاوي أن ينجح مشروع القانون المقدم في الكونغرس في تصنيف الجماعة إرهابية، لكنه “سيمثل أداة ضغط على الإدارة الأميركية لتغير سياستها في التعاطي مع التنظيم”، فضلا عن كونه “خطوة في طريق حظره”.
-                        </p>
-                        <p>
-                        وأكد شرقاوي أن “الضغوط المستمرة من جانب النواب في الكونغرس على إدارة بايدن ستجعلها تغير سياستها تجاه الإخوان، أو تجعلها محايدة”.
-                        لا يتوقع شرقاوي أن ينجح مشروع القانون المقدم في الكونغرس في تصنيف الجماعة إرهابية، لكنه “سيمثل أداة ضغط على الإدارة الأميركية لتغير سياستها في التعاطي مع التنظيم”، فضلا عن كونه “خطوة في طريق حظره”.
-                        </p>
-                        <p>
-                        وأكد شرقاوي أن “الضغوط المستمرة من جانب النواب في الكونغرس على إدارة بايدن ستجعلها تغير سياستها تجاه الإخوان، أو تجعلها محايدة”.
-                        </p>
-                        <p>
-                        وكان كروز انتقد الطريقة التي تتعامل بها إدارة بايدن مع تنظيم الإخوان، قائلا إن “من حق الشعب الأميركي معرفة ما إذا كانت الإدارة تحاول الضغط على حلفاء الولايات المتحدة للإفراج عن المتطرفين من الإخوان”.
-                        </p>
-                        <p>
-                        وقال كروز إنه “في عهد الرئيس (الأسبق) باراك أوباما ونائب الرئيس بايدن، كانت السياسات المطبقة كارثة لحلفائنا في الشرق الأوسط، ونعمة لأعدائنا. مرة أخرى، تعمل إدارة بايدن على تعزيز جماعة الإخوان والجماعات المتطرفة الأخرى في الشرق الأوسط”
-                        </p>
-                        <p>
-                        لا يتوقع شرقاوي أن ينجح مشروع القانون المقدم في الكونغرس في تصنيف الجماعة إرهابية، لكنه “سيمثل أداة ضغط على الإدارة الأميركية لتغير سياستها في التعاطي مع التنظيم”، فضلا عن كونه “خطوة في طريق حظره”.
-                        </p>
-                        <p>
-                        وأكد شرقاوي أن “الضغوط المستمرة من جانب النواب في الكونغرس على إدارة بايدن ستجعلها تغير سياستها تجاه الإخوان، أو تجعلها محايدة”.
-                        </p>
-                        <p>
-                        وكان كروز انتقد الطريقة التي تتعامل بها إدارة بايدن مع تنظيم الإخوان، قائلا إن “من حق الشعب الأميركي معرفة ما إذا كانت الإدارة تحاول الضغط على حلفاء الولايات المتحدة للإفراج عن المتطرفين من الإخوان”.
-                        </p>
-                        <p>
-                        وقال كروز إنه “في عهد الرئيس (الأسبق) باراك أوباما ونائب الرئيس بايدن، كانت السياسات المطبقة كارثة لحلفائنا في الشرق الأوسط، ونعمة لأعدائنا. مرة أخرى، تعمل إدارة بايدن على تعزيز جماعة الإخوان والجماعات المتطرفة الأخرى في الشرق الأوسط”..
-                        وكان كروز انتقد الطريقة التي تتعامل بها إدارة بايدن مع تنظيم الإخوان، قائلا إن “من حق الشعب الأميركي معرفة ما إذا كانت الإدارة تحاول الضغط على حلفاء الولايات المتحدة للإفراج عن المتطرفين من الإخوان”.
-                        </p>
-                        <p>
-                        وقال كروز إنه “في عهد الرئيس (الأسبق) باراك أوباما ونائب الرئيس بايدن، كانت السياسات المطبقة كارثة لحلفائنا في الشرق الأوسط، ونعمة لأعدائنا. مرة أخرى، تعمل إدارة بايدن على تعزيز جماعة الإخوان والجماعات المتطرفة الأخرى في الشرق الأوسط”..</p>
+                        <FadedNews/>
+                        <ProNews/>
                     </div>
-                            <div className="proNews">
-                                        <div className="float-start pt-2">
-                                            <p>هل لديك حساب؟ <a className="text-success">تسجيل الدخول</a></p>
-                                        </div>
-                                        <div className="float-end d-flex">
-                                            <div>
-                                                <img className="img-fluid" src={cnbcdarklogo.src} />
-                                            </div>
-                                            <div className="pt-4 me-3">
-                                                <span className="badge bg-success">PRO</span>
-                                            </div>
-                                        </div>
-                                        <div className="clearfix"></div>
+            </div>
 
-                                        <h3 className="mb-5 mt-4 text-center">اشترك مجانًا وتمتع بالوصول إلى CNBC ARABIA PRO</h3>
-
-                                        <div className="px-md-4 mx-lg-4 mb-3">
-                                            <button className="btn btn-success w-100 mb-3">انشئ حساب</button>
-                                            <button className="btn btn-outline-success w-100">تسجيل الدخول</button>
-                                        </div>
-
-                                    </div>
-                    </div>
-                </div>
-                    
-
-                </div>
-                <div className='col-md-4'>
-                   <SideBar sideBarSequence={[{componentType:'Latest', position:1}, {componentType:'SmallBanner', position:2}]}/>
-                </div>
-              </div>
-              </div>
        </>
         
     

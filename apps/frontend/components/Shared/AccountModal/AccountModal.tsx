@@ -1,11 +1,12 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { ModalProps } from "apps/frontend/types/Types"
 import { FC } from "react"
 
-const AccountModal:FC<ModalProps> = ({id,title, children}) => {
+const AccountModal:FC<ModalProps> = ({modalId,title, children}) => {
 
     return (
         <>
-            <div className="modal fade" id={id} tabIndex={-1} aria-labelledby="accountModalLabel" aria-hidden="true">
+            <div className="modal fade" id={modalId} tabIndex={-1} aria-labelledby="accountModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">

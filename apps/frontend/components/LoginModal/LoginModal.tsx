@@ -1,11 +1,12 @@
 import AccountModal from "../Shared/AccountModal/AccountModal";
 import logo from "../../styles/images/cnbc-logo.svg";
+import RegistrationModal from "../RegistrationModal/RegistrationModal";
 
 
 const LoginModal = ()=>{
     return (
         <>
-            <AccountModal id={'loginModal'} title={'تسجيل الدخول'}>
+            <AccountModal modalId={"loginModal"} title={'تسجيل الدخول'}>
 
                 <div className="p-5">
                     <div className="row mb-4">
@@ -20,17 +21,17 @@ const LoginModal = ()=>{
 
                     <div className="form-floating mb-3">
                         <input type="email" className="form-control" id="floatingInput" placeholder="البريد الإلكتروني"/>
-                        <label for="floatingInput">البريد الإلكتروني</label>
+                        <label htmlFor="floatingInput">البريد الإلكتروني</label>
                     </div>
                     <div className="form-floating mb-3">
                         <input type="password" className="form-control" id="floatingPassword" placeholder="Password"/>
-                        <label for="floatingPassword">كلمه السر</label>
+                        <label htmlFor="floatingPassword">كلمه السر</label>
                     </div>
 
                     <div className="row mb-4">
                         <div className="col-md-6">
                             <div className="form-check">
-                                <label className="form-check-label" for="flexCheckDefault">
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                     ابق متصلا   
                                 </label>
                                 <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
@@ -42,12 +43,13 @@ const LoginModal = ()=>{
                     </div>
 
                     <div className="text-center">
-                        <button className="btn btn-primary mb-3">تسجيل الدخول</button>
+                        <button className="btn btn-primary mb-3" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registrationModal">تسجيل الدخول</button>
                         <h6 className="text-muted mb-0">سياسة خاصة</h6>
                     </div>
                 </div>
 
             </AccountModal>
+            <RegistrationModal/>
         </>
     )
 }
