@@ -1,5 +1,6 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
-import SearchMenuBar from "apps/frontend/components/Search/SearchMenuBar/SearchMenuBar"
+
+import MenuBar from "apps/frontend/components/Search/MenuBar/MenuBar"
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import SearchResultList from "apps/frontend/components/Shared/SearchResultList/SearchResultList"
 import SearchWordCountList from "apps/frontend/components/Shared/SearchWordCountList/SearchWordCountList"
@@ -18,7 +19,7 @@ const Index = () =>{
                             Search Text Here
                         </div>
                         <div className='row'>
-                            <SearchMenuBar/>
+                            <MenuBar/>
                         </div>
                         <div className='row'>
                             <SearchResultList/>

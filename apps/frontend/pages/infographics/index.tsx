@@ -1,4 +1,5 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
+
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import News2TopTiles from "apps/frontend/components/Shared/News2TopTiles"
 import NewsDetatilListWithMedia from "apps/frontend/components/Shared/NewsDetatilListWithMedia/NewsDetatilListWithMedia"
@@ -21,7 +22,7 @@ const Index = () =>{
                 <NewsDetatilListWithMedia/>
                 </div>
                 <div className='col-md-4'>
-                    <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+                    <SideBar sideBarSequence={[{componentType:'Latest', position:1}, {componentType:'SmallBanner', position:2}]}/>
                 </div>
             </div>
         </div>

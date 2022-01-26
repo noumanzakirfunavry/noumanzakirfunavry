@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/css/globals.css';
 import '../styles/fontawesome/css/fontawesome.min.css';

@@ -1,7 +1,10 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
-import Presenters from "apps/frontend/components/Presenter"
+
+import Presenters from "apps/frontend/components/Presenter";
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
+import Title from "apps/frontend/components/Title";
+import presenterimg from "../../styles/images/presenter.jpg";
 
 const Index = () =>{
 
@@ -9,11 +12,15 @@ const Index = () =>{
         <>
             <div className="container"> 
                 <AdBanner />
+                
+                <Title styles={"pageTitle PageTitleYellow mb-0"}>
+                    <h2>مذيعو ومراسلو CNBC عربية</h2>
+                </Title>
                 <div className='row'>
-                    <div className='col-md-8'>
+                    <div className='col-md-9'>
                         <Presenters/>
                     </div>
-                    <div className='col-md-4'>
+                    <div className='col-md-3'>
                         <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
                     </div>
                 </div>

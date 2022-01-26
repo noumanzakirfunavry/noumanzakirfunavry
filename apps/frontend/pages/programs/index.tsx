@@ -2,7 +2,7 @@
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import NewsListTiles from "apps/frontend/components/Shared/NewsListTiles/NewsListTiles"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
-
+import Title from "apps/frontend/components/Title"
 
 const Index = () =>{
 
@@ -10,6 +10,9 @@ const Index = () =>{
         <>
             <div className="container"> 
                 <AdBanner />
+                <Title styles="pageTitle PageTitleYellow">
+                    <h2>برامج CNBC عربية</h2>
+                </Title>
                 <div className='row'>
                     <div className='col-md-8'>
                     <NewsListTiles newsList={[]}/>

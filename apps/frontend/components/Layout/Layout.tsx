@@ -1,6 +1,6 @@
 
 import { useState } from 'react'
-import BannerLayout from '../BannerLayout/BannerLayout'
+// import BannerLayout from '../BannerLayout/BannerLayout'
 import Cookies from '../Shared/CookieConsent/Cookies'
 import Footer from './Footer/Footer'
 import Header from './Header/Header'

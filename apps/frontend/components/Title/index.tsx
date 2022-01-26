@@ -2,11 +2,11 @@
 import { TitleProps } from "apps/frontend/types/Types"
 import { FC } from "react"
 
-const Title:FC<TitleProps> = ({text, position, styles}) => {
+const Title:FC<TitleProps> = ({styles, children}) => {
     return (
         <>
             <div className={styles}>
-                <h2>{text}</h2>
+                {children}
             </div>
         </>
     )

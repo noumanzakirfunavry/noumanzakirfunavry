@@ -5,7 +5,6 @@ import NewsSection from '../components/Home/NewsSection/NewsSection';
 import QuickLinks from '../components/Home/QuickLinks/QuickLinks';
 import SplitScreenNewsList from '../components/Home/SplitScreenNewsList/SplitScreenNewsList';
 import TilesWithColoredBackground from '../components/Home/TilesWithColoredBackground/TilesWithColoredBackground';
-import LoginModal from '../components/LoginModal/LoginModal';
 import AdBanner from '../components/Shared/AdBanner/AdBanner';
 import SideBar from '../components/Shared/SideBar/SideBar';
 import SplitScreenBarCharts from '../components/Shared/SplitScreenBarCharts/SplitScreenBarCharts';
@@ -18,7 +17,7 @@ export function Index() {
    */
   return (
       <>
-         <MarketIndices/>
+          <MarketIndices/>
           <div className="container">     
               <AdBanner/>
               <QuickLinks/>

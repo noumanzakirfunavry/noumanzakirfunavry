@@ -1,4 +1,5 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
+
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import News2TopTiles from "apps/frontend/components/Shared/News2TopTiles"
 import NewsListTiles from "apps/frontend/components/Shared/NewsListTiles/NewsListTiles"
@@ -8,15 +9,15 @@ import { TileList } from "apps/frontend/types/Types"
 
 const Index = () =>{
 
-const newsList: TileList[] = [{ mediaType: 'image', media: 'url', title: "abc", categoryName: "", sourceName: "" }]
+  const newsList: TileList[] = [{ mediaType: 'image', media: 'url', title: "abc", categoryName: "", sourceName: "" }]
   return (
     <>
       <div className="container">
         <AdBanner />
 
-        {/* <div className="pageTitle PageTitleYellow"><h2>آخر الأخبار</h2></div> */}
-
-        <Title text={'آخر الأخبار'} styles={"pageTitle PageTitleYellow"} position={""}/>
+        <Title styles={"pageTitle PageTitleYellow"} >
+            <h2>آخر الأخبار</h2>
+        </Title>
         <div className='row'>
           <div className='col-md-8'>
             <News2TopTiles />

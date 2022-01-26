@@ -3,11 +3,12 @@ import JobOpportunities from "apps/frontend/components/Careers/JobOpportunities/
 import HorizontalMediaScrollBar from "apps/frontend/components/Home/HorizontalMediaScrollBar.tsx/HorizontalMediaScrollBar"
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 
+
 const Index = () =>{
 
     return (
         <>
-           <div className="container">
+            <div className="container">
                 <AdBanner />
                 <div className='row'>
                     <HorizontalMediaScrollBar/>
@@ -15,7 +16,7 @@ const Index = () =>{
                 <div className='row'>
                     <JobOpportunities/>
                 </div>
-            </div> 
+            </div>
         </>
     )
 }

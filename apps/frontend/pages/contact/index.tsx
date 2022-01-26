@@ -1,9 +1,8 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
-
-import Addresses from "apps/frontend/components/ContactUs/Addresses"
+import ContactAddresses from "apps/frontend/components/ContactUs/ContactUs"
 import ContactUsForm from "apps/frontend/components/ContactUs/ContactUsForm"
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
-
+import Title from "apps/frontend/components/Title"
 
 const Index = () =>{
 
@@ -11,13 +10,16 @@ const Index = () =>{
         <>
             <div className="container">
                 <AdBanner />
-                <div className='row'>
-                    <Addresses/>
-                </div>
-                <div className='row'>
+                <Title styles={"pageTitle PageTitleYellow"} >
+                    <h2>اتصل بنا</h2>
+                </Title>
+                <ContactAddresses/>
+                
+                <div className='contactForm'>
                     <ContactUsForm />
                 </div>
             </div>
+
         </>
         
     )

@@ -8,7 +8,6 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
     return (
         <>
           <div className="NewsTiles">
-             
               <div className="row">
                   {/* <div className="col-lg-8">
                         <div className="newBox">
@@ -296,9 +295,11 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  
-              </div>
-          </div>
+                </div>
+            </div>
+            <div className="text-center mt-3">
+                <button className="btn btn-outline-primary">المزيد</button>
+            </div>
         </>
     )
 }

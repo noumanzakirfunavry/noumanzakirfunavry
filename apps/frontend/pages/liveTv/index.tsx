@@ -1,8 +1,8 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
-
+import LiveTvBox from "apps/frontend/components/LiveTv/LiveTvBox/LiveTvBox"
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
-import HorizontalFooterNewsSlider from "apps/frontend/components/Shared/HorizontalFooterNewsSlider"
-import livetvimg from "../../styles/images/livetv.png";
+import HorizontalFooter2NewsSlider from "apps/frontend/components/Shared/NewsFooter2Slider"
+import Title from "apps/frontend/components/Title"
 
 const Index = () =>{
 
@@ -12,22 +12,46 @@ const Index = () =>{
                 <AdBanner />
             </div>
             <div className="container-fluid">
-                <div className="pageTitle PageTitleYellow mb-0">
+                <Title styles={"pageTitle PageTitleYellow mb-0"}>
                     <h2>المباشر</h2>
+                </Title>
+                <LiveTvBox/>
+                <div className="mb-3">
+                    <Title styles={"yellowTitle"}>
+                        <h3>البرنامج</h3>
+                    </Title>
+                    <HorizontalFooter2NewsSlider />
                 </div>
-                <div className="livetvbox">
-                    <div className='liveTV'>
-                        <img src={livetvimg.src} className="img-fluid"/>
-                    </div>
-                    <button className="btn btn-outline-light">جدول البرامج</button>
-                </div>
-                <div>
-                    Imran shb Design this slider
-                    <HorizontalFooterNewsSlider />
+                <div className="mb-3">
+                    <Title styles={"yellowTitle"}>
+                        <h3>أحدث الحلقات</h3>
+                    </Title>
+                    <HorizontalFooter2NewsSlider />
                 </div>
 
                 <AdBanner />
 
+                <div className="sliderTextBg mb-4">
+                    <Title styles={"TitleBar"}>
+                        <h2>حصرية CNBC Arabia </h2>
+                    </Title>
+                    <HorizontalFooter2NewsSlider />
+
+                </div>
+
+                <div className="mb-3">
+                    <Title styles={"yellowTitle"}>
+                        <h3>أحدث مقاطع الفيديو</h3>
+                    </Title>
+                    <HorizontalFooter2NewsSlider />
+                </div>
+
+                <div className="mb-3">
+                    <Title styles={"yellowTitle"}>
+                        <h3>الأكثر مشاهدة</h3>
+                    </Title>
+                    <HorizontalFooter2NewsSlider />
+                </div>
             </div>
         </>
     )
