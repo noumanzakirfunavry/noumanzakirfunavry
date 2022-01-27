@@ -21,6 +21,9 @@ p{
   line-height: normal;
 }
 
+.ltr{
+  direction: ltr;
+}
 
 /*Charts Style*/
 .index-graph-table{
