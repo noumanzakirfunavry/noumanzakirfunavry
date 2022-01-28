@@ -34,7 +34,7 @@ const LoginModal = ()=>{
                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                     ابق متصلا   
                                 </label>
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                <input className="float-end form-check-input ms-2" type="checkbox" value="" id="flexCheckDefault"/>
                             </div>
                         </div>
                         <div className="col-md-6 text-start">

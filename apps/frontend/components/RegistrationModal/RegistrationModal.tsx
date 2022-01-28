@@ -26,13 +26,13 @@ const RegistrationModal = ()=>{
                     </div>
 
                     <div className="mb-4">
-                            <div className="form-check">
+                            <div className="form-check d-flex">
+                                <input className="float-end form-check-input ms-2" style={{width:'40px'}} type="checkbox" value="" id="flexCheckDefault"/>
                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                 بالنقر فوق الزر “إنشاء حساب” ، فإنك توافق على شروط الخدمة وسياسة الخصوصية لقناة CNBC Arabia
                                 <br></br>
                                 يمكن مشاركة المعلومات التي تقدمها عند إنشاء حساب مع شركات NBCUniversal الأخرى واستخدامها لمساعدتنا على تخصيص خدماتنا ومنتجاتنا وإعلاناتنا لك بشكل أفضل. كجزء من حسابنا ، قد نرسل لك رسائل إخبارية وعروض ترويجية ومواد تسويقية أخرى.
                                 </label>
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
                             </div>
                     </div>
 

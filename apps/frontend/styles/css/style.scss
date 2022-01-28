@@ -1260,3 +1260,66 @@ width: 110px;
 
   }
 }
+
+.search-header{
+  position: relative;
+
+  &:hover{
+    .searchResulstBox{
+      display: block;
+    }
+  }
+}
+.searchResulstBox{
+  background: $white;
+  padding: 20px;
+  position: absolute;
+  top: 37px;
+  left: 0;
+  box-shadow: 0 0 20px #00000038;
+  display: none;
+
+
+  .topBorderText{
+    h3{
+      font-size: 15px;
+    }
+  }
+
+  .searchResultList{
+    .newsText{
+      color: $grey-dark;
+
+      h6{
+        margin: 0;
+        a{
+          font-size: 12px;
+        }
+      }
+      p{
+        font-size: 12px;
+        margin: 0;
+      }
+    }
+  }
+
+  .NewsList{
+    li{
+      padding: 5px 0;
+      
+      .newsImage{
+        height: auto;
+      }
+    }
+  }
+
+  .wordCountList{
+    .table{
+      font-size: 12px;
+      h5{
+        font-size: 15px;
+      }
+    }
+  }
+
+}
