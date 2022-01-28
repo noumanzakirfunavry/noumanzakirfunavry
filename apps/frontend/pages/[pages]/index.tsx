@@ -1,9 +1,15 @@
-
+import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 const Index = () =>{
 
     return (
         <>
-            404 (Not found) Here
+        <div className="container">
+            <AdBanner />
+            <div className="primaryTitle mt-5">
+                <h3>معذرةً ، الصفحة التي تبحث عنها لا يمكن العثور عليها.</h3>
+            </div>
+        </div>
+
         </>
     )
 }
