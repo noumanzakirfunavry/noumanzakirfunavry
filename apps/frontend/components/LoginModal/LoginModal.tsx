@@ -8,7 +8,7 @@ const LoginModal = ()=>{
         <>
             <AccountModal modalId={"loginModal"} title={'تسجيل الدخول'}>
 
-                <div className="p-5">
+                <div className="p-2">
                     <div className="row mb-4">
                         <div className="col-9">
                             <h2 className="text-primary">تسجيل الدخول</h2>
