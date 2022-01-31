@@ -8,7 +8,7 @@ const RegistrationModal = ()=>{
             <AccountModal modalId={'registrationModal'}>
                 <div className="p-2">
                     <div className="row mb-4">
-                        <div className="col-9">
+                        <div className="col-9 text-muted">
                             <h2 className="text-primary">إنشاء حساب</h2>
                             <h6>هل لديك حساب؟ <a>تسجيل الدخول</a></h6>
                         </div>

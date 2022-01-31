@@ -10,7 +10,7 @@ const LoginModal = ()=>{
 
                 <div className="p-2">
                     <div className="row mb-4">
-                        <div className="col-9">
+                        <div className="col-9 text-muted">
                             <h2 className="text-primary">تسجيل الدخول</h2>
                             <h6>هل أنت جديد في CNBC Arabia؟ <a>إنشاء حساب</a></h6>
                         </div>
