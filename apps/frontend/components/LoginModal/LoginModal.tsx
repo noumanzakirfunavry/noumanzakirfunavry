@@ -8,7 +8,7 @@ const LoginModal = ()=>{
         <>
             <AccountModal modalId={"loginModal"} title={'تسجيل الدخول'}>
 
-                <div className="p-5">
+                <div className="p-2">
                     <div className="row mb-4">
                         <div className="col-9">
                             <h2 className="text-primary">تسجيل الدخول</h2>
@@ -34,7 +34,7 @@ const LoginModal = ()=>{
                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                     ابق متصلا   
                                 </label>
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                <input className="float-end form-check-input ms-2" type="checkbox" value="" id="flexCheckDefault"/>
                             </div>
                         </div>
                         <div className="col-md-6 text-start">

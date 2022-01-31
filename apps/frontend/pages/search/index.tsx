@@ -6,18 +6,26 @@ import SearchResultList from "apps/frontend/components/Shared/SearchResultList/S
 import SearchWordCountList from "apps/frontend/components/Shared/SearchWordCountList/SearchWordCountList"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 
-
 const Index = () =>{
 
     return (
         <>
             <div className="container">
                 <AdBanner />
+                <div className="row justify-content-center mb-3">
+                    <div className="col-md-6">
+                        <div className="input-group flex-nowrap ltr">
+                            <span className="input-group-text bg-white text-primary"><i className="fa fa-search"></i></span>
+                            <input type="text" className="form-control text-end border-start-0" placeholder="Search"/>
+                        </div>
+                    </div>
+                </div>
                 <div className='row'>
                     <div className='col-md-8'>
-                        <div className='row'>
-                            Search Text Here
+                        <div className='topBorderText'>
+                            <h3>10 نتائج بحث عن "amazon"</h3>
                         </div>
+                        <hr></hr>
                         <div className='row'>
                             <MenuBar/>
                         </div>
@@ -26,8 +34,16 @@ const Index = () =>{
                         </div>
                     </div>
                     <div className='col-md-4'>
-                        <div className='row'>
-                            <SearchWordCountList/>
+                        <div className='sidebar'>
+                            <div className='topBorderText'>
+                                <h3>الأسهم ذات الصلة</h3>
+                            </div>
+                            <div className="listBody">
+                                <SearchWordCountList/>
+                                <div className="text-center">
+                                    <button className="btn btn-outline-primary">المزيد</button>
+                                </div>
+                            </div>
                         </div>
                         <div className='row'>
                             <SideBar sideBarSequence={[{componentType:'SmallBanner', position:2}]}/>
