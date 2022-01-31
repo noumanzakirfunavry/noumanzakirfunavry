@@ -25,6 +25,17 @@ p{
   direction: ltr;
 }
 
+.navbar-toggler:focus{
+  outline: none;
+  box-shadow: none;
+}
+
+.img-fluid{
+  width: 100%;
+}
+
+
+
 /*Charts Style*/
 .index-graph-table{
   margin: 100px 0;

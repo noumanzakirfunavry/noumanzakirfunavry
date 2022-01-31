@@ -44,7 +44,18 @@
     }
   }
   
-  
+  @media screen and (max-width:768px){
+    .horizontalNumberList .hNumberList ol {
+        flex-wrap: wrap;
+    }
+    .marketChart .chartBox .chartTop{
+        flex-wrap: wrap;
+    }
+    .marketChart .chartBox .chartTop li{
+        margin-bottom: 20px;
+    }
+  }
+
   @media screen and (max-width:640px){
     .header-box {
         display: block;
