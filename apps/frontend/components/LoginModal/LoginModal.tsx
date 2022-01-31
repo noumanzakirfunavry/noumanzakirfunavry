@@ -6,7 +6,7 @@ import RegistrationModal from "../RegistrationModal/RegistrationModal";
 const LoginModal = ()=>{
     return (
         <>
-            <AccountModal modalId={"loginModal"} title={'تسجيل الدخول'}>
+            <AccountModal modalId={"loginModal"}>
 
                 <div className="p-2">
                     <div className="row mb-4">

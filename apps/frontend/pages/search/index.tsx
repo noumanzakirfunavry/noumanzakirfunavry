@@ -5,6 +5,7 @@ import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import SearchResultList from "apps/frontend/components/Shared/SearchResultList/SearchResultList"
 import SearchWordCountList from "apps/frontend/components/Shared/SearchWordCountList/SearchWordCountList"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
+import Title from "apps/frontend/components/Title"
 
 const Index = () =>{
 
@@ -22,9 +23,9 @@ const Index = () =>{
                 </div>
                 <div className='row'>
                     <div className='col-md-8'>
-                        <div className='topBorderText'>
-                            <h3>10 نتائج بحث عن "amazon"</h3>
-                        </div>
+                        <Title styles={'topBorderText'}>
+                            <h3>{`10 نتائج بحث عن "amazon"`}</h3>
+                        </Title>
                         <hr></hr>
                         <div className='row'>
                             <MenuBar/>
@@ -35,9 +36,9 @@ const Index = () =>{
                     </div>
                     <div className='col-md-4'>
                         <div className='sidebar'>
-                            <div className='topBorderText'>
+                            <Title styles={'topBorderText'}>
                                 <h3>الأسهم ذات الصلة</h3>
-                            </div>
+                            </Title>
                             <div className="listBody">
                                 <SearchWordCountList/>
                                 <div className="text-center">

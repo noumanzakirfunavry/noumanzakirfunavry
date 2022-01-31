@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-
-=======
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
->>>>>>> 6af2479d59929f31d403667d4d604cbfd9a584b0
 const Index = () =>{
 
     return (
         <>
-<<<<<<< HEAD
-            404 (Not found) Here
-=======
         <div className="container">
             <AdBanner />
             <div className="primaryTitle mt-5">
@@ -17,7 +11,6 @@ const Index = () =>{
             </div>
         </div>
 
->>>>>>> 6af2479d59929f31d403667d4d604cbfd9a584b0
         </>
     )
 }

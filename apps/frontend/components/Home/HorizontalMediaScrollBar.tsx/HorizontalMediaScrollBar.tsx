@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useRef, useState } from "react";
 import Slider from "react-slick";
 
@@ -29,6 +30,7 @@ const HorizontalMediaScrollBar:FC = () =>{
             slidesToScroll: 3,
             initialSlide: 0,
             rtl: false,
+            arrows:false,
             responsive: [
               {
                 breakpoint: 1024,
