@@ -27,7 +27,6 @@ export type NewsListTilesProps = {
 
 export type ModalProps = {
     modalId:string,
-    title:string
 }
 
 export type TitleProps = {

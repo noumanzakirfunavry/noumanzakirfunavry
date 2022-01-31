@@ -1261,15 +1261,6 @@ width: 110px;
   }
 }
 
-.search-header{
-  position: relative;
-
-  &:hover{
-    .searchResulstBox{
-      display: block;
-    }
-  }
-}
 .searchResulstBox{
   background: $white;
   padding: 20px;
