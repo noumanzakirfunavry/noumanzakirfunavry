@@ -4,7 +4,7 @@ import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import Title from "apps/frontend/components/Title"
 
-const Index = () =>{
+const Index = ({post}) =>{
 
     return (
         <>
@@ -26,5 +26,16 @@ const Index = () =>{
     )
     
 }
+
+export async function getStaticProps() {
+    const res = await fetch('https://www.boredapi.com/api/activity')
+    const post = await res.json()
+  
+    return {
+      props: {
+        post,
+      },
+    }
+  }
 
 export default Index

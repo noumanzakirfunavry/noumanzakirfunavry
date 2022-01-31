@@ -1,3 +1,4 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { SideListProps } from "apps/frontend/types/Types"
 import styles from "./sidelist.module.css";
 import { FC } from "react"
