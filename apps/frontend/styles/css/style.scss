@@ -13,6 +13,12 @@ a{
     color: $warning;
   }
 }
+a:not([href]):not([class]) {
+  color: $primary-color;
+}
+a:not([href]):not([class]):hover{
+  color: $warning;
+}
 
 
 //   Button Styles
@@ -52,6 +58,29 @@ a{
   .text-primary{
     color: $primary-color !important;
   }
+.text-dim{
+  opacity: 0.7;
+}
+
+
+  // Form Style
+  .form-check-input:checked {
+    background-color: $primary-color;
+    border-color: $primary-color;
+}
+.form-check-input[type=checkbox] {
+  border-radius: 0em;
+}
+.iconFiled{
+  position: relative;
+  .showIcon{
+    position: absolute;
+    right: 4%;
+    top: 38%;
+    color: $grey;
+    cursor: pointer;
+  }
+}
 
   
 // Top Bars/Alerts Style
@@ -193,7 +222,7 @@ header{
   }
   .header-search-nav ul li a{
     font-size: 16px;
-    color: $white;
+    color: $white !important;
     padding: 5px 15px;
     text-align: center;
     text-decoration: none;
@@ -254,36 +283,48 @@ header{
 
 .page-categories{
     margin: 15px 0 15px 0;
-  }
-  .page-categories ul{
+    overflow-x: auto;
+
+    .CategoryTitle{
+      font-size: 18px;
+      font-weight: bold;
+    }
+ 
+  ul{
     margin: 0;
     padding: 0;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     list-style: none;
+    li{
+      margin: 0 0 0 20px;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      white-space: nowrap;
+      a{
+        background: #f1f1f1;
+        padding: 5px 20px;
+        border-radius: 3px;
+        text-decoration: none;
+        color: $secondary-color;
+        font-weight: bold;
+        font-size: 14px;
+        display: block;
+        &:hover{
+          background: $secondary-color;
+          color: $white;
+        }
+      }
+    }
+
+    
+
   }
   
-  .page-categories ul li{
-    margin: 0 10px;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  .page-categories ul li a{
-    background: #f1f1f1;
-    padding: 5px 20px;
-    border-radius: 3px;
-    text-decoration: none;
-    color: $secondary-color;
-    font-weight: bold;
-    font-size: 14px;
-    display: block;
-  }
-  .page-categories ul li a:hover{
-    background: $secondary-color;
-    color: $white;
-  }
-  
+   
+
+}
 
   //   Page Categories Style
 
@@ -561,6 +602,7 @@ header{
   
   .VideoTiles{
       display: flex;
+      margin-bottom: 15px;
   }
   .VideoTiles .VideoNews{
     flex: 1;
@@ -685,9 +727,15 @@ header{
 
 
 //   Market Graphs Styles
-
+.market-stats{
+  display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
 .market-stats .marketBox{
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    min-width: 16%;
   }
   .marketBox{
     padding: 10px;
@@ -701,12 +749,16 @@ header{
     font-size: 16px;
     font-weight: bold;
   }
-  .marketBox table th,
+  .marketBox table th{
+    line-height: 15px;
+  }
   .marketBox table td{
-    line-height: 5px;
+    line-height: 10px;
+    position: relative;
   }
   .marketBox table .fa{
     font-size: 20px;
+    position:absolute;
   }
 
 
@@ -1236,6 +1288,8 @@ width: 110px;
     .modal-content{
       border-radius: 0;
       background: $light-bright;
+      border: none;
+
       .modal-header{
         border: none;
         position: relative;
@@ -1251,6 +1305,8 @@ width: 110px;
           top: 0;
           border-radius: 0;
           margin: 0;
+          opacity: 1;
+          background-image: url(../images/close-arrow.svg);
         }
       }
       .modal-body{

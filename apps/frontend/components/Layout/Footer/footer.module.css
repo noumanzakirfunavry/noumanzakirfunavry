@@ -25,7 +25,10 @@
     margin: 0 10px 0 0;
 }
 .footerSocial ul li a{
-    color: #fff;
+    color: #fff !important;
+}
+.footerSocial ul li a:hover{
+    color: #fcb700 !important;
 }
 .clearfix{
     clear: both;
@@ -42,14 +45,14 @@
     margin: 3px 0;
 }
 .footerLink li a{
-    color: #fff;
+    color: #fff !important;
     text-decoration: none;
     padding: 5px 0;
     display: block;
     font-weight: 500;
 }
 .footerLink li a:hover{
-    color: #005594;
+    color: #fcb700 !important;
 }
 .footerBottom{
     padding: 10px 0;

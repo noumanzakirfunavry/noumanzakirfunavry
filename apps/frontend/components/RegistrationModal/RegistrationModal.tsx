@@ -28,7 +28,7 @@ const RegistrationModal = ()=>{
 
                     <div className="mb-4">
                             <div className="form-check d-flex">
-                                <input className="float-end form-check-input ms-2" style={{width:'40px'}} type="checkbox" value="" id="flexCheckDefault"/>
+                                <input className="float-end form-check-input ms-2" style={{width:'45px'}} type="checkbox" value="" id="flexCheckDefault"/>
                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                 بالنقر فوق الزر “إنشاء حساب” ، فإنك توافق على شروط الخدمة وسياسة الخصوصية لقناة CNBC Arabia
                                 <br></br>

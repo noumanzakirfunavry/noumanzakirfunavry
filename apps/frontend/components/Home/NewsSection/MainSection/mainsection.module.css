@@ -5,6 +5,7 @@
     align-items: flex-end;
     display: flex;
     margin-bottom: 15px;
+    background-size: cover;
   }
   .newscontent{
     background-image: linear-gradient(to top, #071D39 60%, #071d3900);
@@ -15,7 +16,7 @@
   }
   .mainNews h1 a{
     font-size: 1.5rem;
-    color: #fff;
+    color: white !important;
     line-height: normal;
   }
   .mainNews h3{
@@ -24,7 +25,7 @@
   }
   .mainNews h3 a{
     font-size: 1rem;
-    color: #fff;
+    color: #fff !important;
   }
   .mainNews hr{
     color: #777777;

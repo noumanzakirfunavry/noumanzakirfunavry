@@ -20,6 +20,14 @@
     .header-search-nav ul li a {
         font-size: 14px;
     }
+    .market-stats{
+        overflow-x: auto;
+        min-width: 100%;
+    }
+    .market-stats .marketBox {
+        min-width: 200px;
+        margin-right: 20px;
+    }
   }
   @media screen and (max-width:1140px){
     .header-nav ul li a {
@@ -42,6 +50,23 @@
     .logo-header {
         flex: 1;
     }
+    .marketChart .chartBox .chartTop li a {
+        padding: 5px 15px;
+    }
+    .VideoTiles {
+        display: block;
+    }
+    .VideoTiles .VideoNews {
+        margin-bottom: 15px;
+    }
+    .NewsLightTiles .VideoTiles {
+        display: block;
+    }
+
+    .horizontalNumberList .hNumberList ol li{
+        padding-left: 15px;
+    }
+
   }
   
   @media screen and (max-width:768px){
