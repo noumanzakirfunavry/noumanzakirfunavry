@@ -6,7 +6,7 @@ const MenuBar = () =>{
         <>
                 <div className="page-nav">
 
-                    <nav className="navbar navbar-expand-md">
+                    <nav className="navbar navbar-expand">
                         <button className="navbar-toggler px-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown2" >
                             <span className="fa fa-bars"></span>
                         </button>

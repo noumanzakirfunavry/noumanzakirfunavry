@@ -113,6 +113,30 @@
     .marketChart .chartBox .chartTop li{
         margin-bottom: 20px;
     }
+    header .navbar-toggler{
+        display: none;
+    }
+    .page-nav .navbar-toggler{
+        display: none;
+    }
+    .search-header .header-search-nav{
+        display: none;
+    }
+    .search-header .search-box{
+        margin: 0;
+    }
+
+    .page-nav{
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .page-nav .navbar .navbar-nav .nav-item a {
+        font-size: 13px;
+    }
+    .mobileHeader{
+        display: block;
+    }
+    
   }
 
   @media screen and (max-width:640px){

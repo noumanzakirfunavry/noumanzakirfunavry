@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Link from 'next/link'
 import logo from '../../../styles/images/cnbc-arabia-logo.svg';
+import smallLogo from "../../../styles/images/cnbc-logo-white.svg";
 import LoginModal from '../../LoginModal/LoginModal';
 import SearchDropDown from '../../Shared/SearchDropDown/SearchDropDown';
 
@@ -141,6 +142,23 @@ const Header = () =>{
                         </div>
                     </div>
                 </header>
+                <div className='mobileHeader'>
+                    <ul>
+                        <li><a>
+                                <span className='menuIcon'><i className='fa fa-bars'></i></span>
+                                قائمة 
+                            </a></li>
+                        <li><a>
+                            <span className='menuIcon'><i className='fa fa-chart-line'></i></span>
+                                الأسواق 
+                            </a></li>
+                        <li><a>
+                            <span className='menuIcon'><i className='fab fa-youtube-square'></i></span>
+                            المباشر 
+                        </a></li>
+                        <li className='pt-2'><a title='CNBC Arabia'><img className='img-fluid' src={smallLogo.src} /></a></li>
+                    </ul>
+                </div>
                 <LoginModal/>
         </>
     )
