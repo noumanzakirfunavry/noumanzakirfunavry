@@ -18,8 +18,8 @@ const TilesWithColoredBackground:FC = () =>{
                     <div className="clearfix"></div>
                 </div>
                 <div className="row">
-                    <div className="col-md-7">
-                        <div className="VideoNews">
+                    <div className="col-lg-7">
+                        <div className="VideoNews mb-4 mb-lg-0">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
@@ -37,8 +37,11 @@ const TilesWithColoredBackground:FC = () =>{
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-5">
-                        <div className="VideoTiles">
+                    <div className="col-lg-5">
+
+<div className="row">
+    <div className="col-sm-4 col-lg-12">
+    <div className="VideoTiles">
                             <div className="VideoNews">
                                 <div className="NewsImage">
                                     <img className="img-fluid" src={newsImage.src} />
@@ -57,7 +60,9 @@ const TilesWithColoredBackground:FC = () =>{
                                     <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
                                 </div>
                         </div>
-                        <div className="VideoTiles my-3">
+    </div>
+    <div className="col-sm-4 col-lg-12">
+    <div className="VideoTiles">
                             <div className="VideoNews">
                                 <div className="NewsImage">
                                     <img className="img-fluid" src={newsImage.src} />
@@ -76,7 +81,9 @@ const TilesWithColoredBackground:FC = () =>{
                                     <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة  </h4>
                                 </div>
                         </div>
-                        <div className="VideoTiles">
+    </div>
+    <div className="col-sm-4 col-lg-12">
+        <div className="VideoTiles">
                             <div className="VideoNews">
                                 <div className="NewsImage">
                                     <img className="img-fluid" src={newsImage.src} />
@@ -95,6 +102,15 @@ const TilesWithColoredBackground:FC = () =>{
                                     <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
                                 </div>
                         </div>
+    </div>
+</div>
+
+                        
+                        
+                        
+
+
+
                     </div>
                 </div>
             </div>
@@ -107,8 +123,8 @@ const TilesWithColoredBackground:FC = () =>{
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-7">
-                        <div className="VideoNews">
+                    <div className="col-lg-7">
+                        <div className="VideoNews mb-4 mb-lg-0">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
@@ -117,38 +133,50 @@ const TilesWithColoredBackground:FC = () =>{
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-5">
-                        <div className="VideoTiles">
-                            <div className="VideoNews">
-                                <div className="NewsImage">
-                                    <img className="img-fluid" src={newsImage.src} />
-                                </div>
-                            </div>
-                            <div className="NewsContent">
-                                    <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                </div>
-                        </div>
-                        <div className="VideoTiles my-3">
-                            <div className="VideoNews">
-                                <div className="NewsImage">
-                                    <img className="img-fluid" src={newsImage.src} />
-                                </div>
-                            </div>
-                            <div className="NewsContent">
-                                    <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة  </h4>
-                                </div>
-                        </div>
-                        <div className="VideoTiles">
-                            <div className="VideoNews">
-                                <div className="NewsImage">
-                                    <img className="img-fluid" src={newsImage.src} />
-                                </div>
+                    <div className="col-lg-5">
 
-                            </div>
-                            <div className="NewsContent">
-                                    <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
+                        <div className="row">
+                            <div className="col-sm-4 col-lg-12">
+                                <div className="VideoTiles">
+                                    <div className="VideoNews">
+                                        <div className="NewsImage">
+                                            <img className="img-fluid" src={newsImage.src} />
+                                        </div>
+                                    </div>
+                                    <div className="NewsContent">
+                                            <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
+                                        </div>
                                 </div>
+                            </div>
+                            <div className="col-sm-4 col-lg-12">
+                                <div className="VideoTiles">
+                                    <div className="VideoNews">
+                                        <div className="NewsImage">
+                                            <img className="img-fluid" src={newsImage.src} />
+                                        </div>
+                                    </div>
+                                    <div className="NewsContent">
+                                            <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة  </h4>
+                                        </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-4 col-lg-12">
+                                <div className="VideoTiles">
+                                    <div className="VideoNews">
+                                        <div className="NewsImage">
+                                            <img className="img-fluid" src={newsImage.src} />
+                                        </div>
+
+                                    </div>
+                                    <div className="NewsContent">
+                                            <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
+                                        </div>
+                                </div>
+                            </div>
                         </div>
+                        
+                        
+                        
                     </div>
                 </div>
             </div>

@@ -4,9 +4,6 @@ html{
   direction: rtl;
   text-align: right;
 }
-body{
-  font-family: 'Cairo', sans-serif;
-}
 a{
   text-decoration: none;
   cursor: pointer;
@@ -24,6 +21,17 @@ p{
 .ltr{
   direction: ltr;
 }
+
+.navbar-toggler:focus{
+  outline: none;
+  box-shadow: none;
+}
+
+.img-fluid{
+  width: 100%;
+}
+
+
 
 /*Charts Style*/
 .index-graph-table{
@@ -70,6 +78,7 @@ table thead th{
 
 ::-webkit-scrollbar {
   width: 8px;
+  height: 6px;
 }
  
 ::-webkit-scrollbar-track {
@@ -80,4 +89,16 @@ table thead th{
   /* background-color: #DDDDDD; */
   background-color: #005594;
   border-radius: 5px;
+}
+
+
+@media (min-width: 1920px){
+  .container-xxl, 
+  .container-xl, 
+  .container-lg, 
+  .container-md, 
+  .container-sm, 
+  .container {
+      max-width: 1850px;
+  }
 }
