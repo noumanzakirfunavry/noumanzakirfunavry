@@ -1,10 +1,11 @@
 import AccountModal from "../Shared/AccountModal/AccountModal"
 import logo from "../../styles/images/cnbc-logo.svg";
+import RegistrationStep2 from "../RegistrationStep2/RegistrationStep2";
 
 const RegistrationModal = ()=>{
     return (
         <>
-            <AccountModal modalId={'registrationModal'} title={'Register'}>
+            <AccountModal modalId={'registrationModal'} >
             <div className="p-2">
                     <div className="row mb-4">
                         <div className="col-9">
@@ -37,11 +38,12 @@ const RegistrationModal = ()=>{
                     </div>
 
                     <div className="text-center">
-                        <button className="btn btn-primary mb-3" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registrationModal">إنشاء حساب</button>
+                        <button className="btn btn-primary mb-3" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registrationStep2" >إنشاء حساب</button>
                         <h6 className="text-muted mb-0">سياسة خاصة</h6>
                     </div>
                 </div>
             </AccountModal>
+            <RegistrationStep2/>
         </>
     )
 }
