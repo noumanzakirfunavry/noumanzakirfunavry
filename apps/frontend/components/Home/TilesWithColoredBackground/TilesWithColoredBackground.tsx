@@ -18,7 +18,7 @@ const TilesWithColoredBackground:FC = () =>{
                     <div className="clearfix"></div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-7">
+                    <div className="col-lg-7 d-none d-sm-block">
                         <div className="VideoNews mb-4 mb-lg-0">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -40,7 +40,7 @@ const TilesWithColoredBackground:FC = () =>{
                     <div className="col-lg-5">
 
 <div className="row">
-    <div className="col-sm-4 col-lg-12">
+    <div className="col-4 col-lg-12">
     <div className="VideoTiles">
                             <div className="VideoNews">
                                 <div className="NewsImage">
@@ -61,7 +61,7 @@ const TilesWithColoredBackground:FC = () =>{
                                 </div>
                         </div>
     </div>
-    <div className="col-sm-4 col-lg-12">
+    <div className="col-4 col-lg-12">
     <div className="VideoTiles">
                             <div className="VideoNews">
                                 <div className="NewsImage">
@@ -82,7 +82,7 @@ const TilesWithColoredBackground:FC = () =>{
                                 </div>
                         </div>
     </div>
-    <div className="col-sm-4 col-lg-12">
+    <div className="col-4 col-lg-12">
         <div className="VideoTiles">
                             <div className="VideoNews">
                                 <div className="NewsImage">
@@ -123,7 +123,7 @@ const TilesWithColoredBackground:FC = () =>{
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-7">
+                    <div className="col-lg-7 d-none d-sm-block">
                         <div className="VideoNews mb-4 mb-lg-0">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -136,7 +136,7 @@ const TilesWithColoredBackground:FC = () =>{
                     <div className="col-lg-5">
 
                         <div className="row">
-                            <div className="col-sm-4 col-lg-12">
+                            <div className="col-4 col-lg-12">
                                 <div className="VideoTiles">
                                     <div className="VideoNews">
                                         <div className="NewsImage">
@@ -148,7 +148,7 @@ const TilesWithColoredBackground:FC = () =>{
                                         </div>
                                 </div>
                             </div>
-                            <div className="col-sm-4 col-lg-12">
+                            <div className="col-4 col-lg-12">
                                 <div className="VideoTiles">
                                     <div className="VideoNews">
                                         <div className="NewsImage">
@@ -160,7 +160,7 @@ const TilesWithColoredBackground:FC = () =>{
                                         </div>
                                 </div>
                             </div>
-                            <div className="col-sm-4 col-lg-12">
+                            <div className="col-4 col-lg-12">
                                 <div className="VideoTiles">
                                     <div className="VideoNews">
                                         <div className="NewsImage">
