@@ -21,7 +21,7 @@ const Index = () =>{
           <div className='col-md-8'>
             <CategoryNewsSection limit = {8} displayTitle={false} displayMoreButton={true}/>
           </div>
-          <div className='col-md-4'>
+          <div className='col-lg-4'>
             <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
           </div>
         </div>

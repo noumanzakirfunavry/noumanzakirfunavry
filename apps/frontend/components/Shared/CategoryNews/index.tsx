@@ -10,7 +10,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
         for (let i = 1; i <= limit; i++) {
         fields.push(
             <>
-                <div className="col-lg-4 col-md-6">
+                <div className="col-md-4 col-sm-6">
                     <div className="newBox">
                         <div className="NewsImage">
                             <img className="img-fluid" src={newsImage.src} />
@@ -21,7 +21,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-4 col-md-6">
+                <div className="col-md-4 col-sm-6">
                     <div className="newBox">
                         <div className="NewsImage">
                             <img className="img-fluid" src={newsImage.src} />
@@ -32,7 +32,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-4 col-md-6">
+                <div className="col-md-4 col-sm-6">
                     <div className="newBox">
                         <div className="NewsImage">
                             <img className="img-fluid" src={newsImage.src} />
@@ -52,7 +52,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
             <div className="NewsTiles">
               <div className="row">
                   {/* 2 Top News */}
-                  <div className="col-lg-8">
+                  <div className="col-md-8 col-sm-7">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -63,7 +63,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-5">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -75,8 +75,8 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                         </div>
                   </div> 
                 </div>
+                {/* 2 Top News End*/}
                 <div className="row">
-                  {/* 2 Top News End*/}
                   { fields}
                 </div> 
             </div>

@@ -5,7 +5,7 @@ const News2TopTiles = () => {
         <>
             <div className="NewsTiles">
                 <div className="row">
-                    <div className="col-lg-8">
+                    <div className="col-md-8 col-sm-7">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -16,7 +16,7 @@ const News2TopTiles = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
+                    <div className="col-md-4 col-sm-5">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
