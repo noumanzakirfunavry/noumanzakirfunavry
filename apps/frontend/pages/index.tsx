@@ -47,18 +47,38 @@ export function Index() {
         <HorizontalMediaScrollBar />
       </div>
       <div className="container">
-        <HorizontalNumberedList />
-      </div>
+        <div className='mb-5'>
+            <HorizontalNumberedList />
+        </div>
 
       <div className='row'>
         <div className='col-md-8'>
+          <div className="yellowTitle mb-3"><h3>أميركا في أزمة</h3></div>
           <News2TopTiles />
           <CategoryNewsSection />
+
+          <div className="yellowTitle mb-3"><h3>أميركا في أزمة</h3></div>
+          <News2TopTiles />
+          <CategoryNewsSection />
+          <div className="yellowTitle mb-3"><h3>أميركا في أزمة</h3></div>
+          <News2TopTiles />
+          <CategoryNewsSection />
+          <div className="yellowTitle mb-3"><h3>أميركا في أزمة</h3></div>
+          <News2TopTiles />
+          <CategoryNewsSection />
+          <div className='text-center mt-3 mb-4'>
+            <button className='btn btn-outline-primary'>المزيد</button>
+          </div>
+
         </div>
         <div className='col-md-4'>
           <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }]} />
         </div>
       </div>
+
+      </div>
+
+
     </>
   );
 }
