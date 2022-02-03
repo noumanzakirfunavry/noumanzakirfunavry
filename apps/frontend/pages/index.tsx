@@ -10,6 +10,7 @@ import AdBanner from '../components/Shared/AdBanner/AdBanner';
 import News2TopTiles from '../components/Shared/News2TopTiles';
 import SideBar from '../components/Shared/SideBar/SideBar';
 import SplitScreenBarCharts from '../components/Shared/SplitScreenBarCharts/SplitScreenBarCharts';
+import Title from '../components/Title';
 
 export function Index() {
   /*
@@ -53,17 +54,17 @@ export function Index() {
 
       <div className='row'>
         <div className='col-md-8'>
-          <div className="yellowTitle mb-3"><h3>أميركا في أزمة</h3></div>
+          <Title styles={"yellowTitle mb-3"}><h3>أميركا في أزمة</h3></Title>
           <News2TopTiles />
           <CategoryNewsSection />
 
-          <div className="yellowTitle mb-3"><h3>أميركا في أزمة</h3></div>
+          <Title styles={"yellowTitle mb-3"}><h3>أميركا في أزمة</h3></Title>
           <News2TopTiles />
           <CategoryNewsSection />
-          <div className="yellowTitle mb-3"><h3>أميركا في أزمة</h3></div>
+          <Title styles={"yellowTitle mb-3"}><h3>أميركا في أزمة</h3></Title>
           <News2TopTiles />
           <CategoryNewsSection />
-          <div className="yellowTitle mb-3"><h3>أميركا في أزمة</h3></div>
+          <Title styles={"yellowTitle mb-3"}><h3>أميركا في أزمة</h3></Title>
           <News2TopTiles />
           <CategoryNewsSection />
           <div className='text-center mt-3 mb-4'>
