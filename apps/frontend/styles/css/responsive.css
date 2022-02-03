@@ -110,6 +110,9 @@
   }
   
   @media screen and (max-width:768px){
+      body{
+          padding-bottom: 50px;
+      }
     .horizontalNumberList .hNumberList ol {
         flex-wrap: wrap;
     }
