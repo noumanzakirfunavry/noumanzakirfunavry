@@ -101,9 +101,18 @@
     .header-search-nav ul li a {
         font-size: 11px;
     }
+    .horizontalNumberList .hNumberList ol {
+        flex-wrap: wrap;
+    }
+    .horizontalNumberList .hNumberList ol li{
+        width: 33.333%;
+    }
   }
   
   @media screen and (max-width:768px){
+      body{
+          padding-bottom: 50px;
+      }
     .horizontalNumberList .hNumberList ol {
         flex-wrap: wrap;
     }
@@ -136,6 +145,10 @@
     .mobileHeader{
         display: block;
     }
+    .horizontalNumberList .hNumberList ol li{
+        width: 50%;
+        padding-left: 0;
+    }
     
   }
 
@@ -160,16 +173,15 @@
     .NewsTilesBg .row{
         min-width: 1000px;
     }
-    .NewsLightTiles{
-        overflow-x: scroll;
-        white-space: nowrap;
-    }
     .NewsLightTiles .row{
         min-width: 1000px;
     }
     .NewsLightTiles .VideoTiles{
         white-space: normal;
     }
-
+    .videoNewsContent{
+        overflow-x: scroll;
+        white-space: nowrap;
+    }
 
   }
