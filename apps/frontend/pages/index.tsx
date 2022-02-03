@@ -1,4 +1,4 @@
-import CategoryNewsSection from '../components/Home/CategoryNews';
+import CategoryNewsSection from '../components/Shared/CategoryNews';
 import HorizontalMediaScrollBar from '../components/Home/HorizontalMediaScrollBar.tsx/HorizontalMediaScrollBar';
 import HorizontalNumberedList from '../components/Home/HorizontalNumberedList/HorizontalNumberedList';
 import MarketIndices from '../components/Home/MarketIndices/MarketIndices';
@@ -54,22 +54,14 @@ export function Index() {
 
       <div className='row'>
         <div className='col-md-8'>
-          <Title styles={"yellowTitle mb-3"}><h3>أميركا في أزمة</h3></Title>
-          <News2TopTiles />
-          <CategoryNewsSection />
-
-          <Title styles={"yellowTitle mb-3"}><h3>أميركا في أزمة</h3></Title>
-          <News2TopTiles />
-          <CategoryNewsSection />
-          <Title styles={"yellowTitle mb-3"}><h3>أميركا في أزمة</h3></Title>
-          <News2TopTiles />
-          <CategoryNewsSection />
-          <Title styles={"yellowTitle mb-3"}><h3>أميركا في أزمة</h3></Title>
-          <News2TopTiles />
-          <CategoryNewsSection />
-          <div className='text-center mt-3 mb-4'>
-            <button className='btn btn-outline-primary'>المزيد</button>
-          </div>
+         
+          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+        
+          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+         
+          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+          
+          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={true}/>
 
         </div>
         <div className='col-md-4'>

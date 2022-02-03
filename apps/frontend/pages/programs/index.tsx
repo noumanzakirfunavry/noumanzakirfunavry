@@ -15,7 +15,7 @@ const Index = () =>{
                 </Title>
                 <div className='row'>
                     <div className='col-md-8'>
-                    <NewsListTiles newsList={[]}/>
+                    <NewsListTiles />
                     </div>
                     <div className='col-md-4'>
                         <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
