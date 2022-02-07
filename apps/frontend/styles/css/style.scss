@@ -983,6 +983,12 @@ header{
   width: 100%;
   min-height: 50px;
   padding: 20px;
+
+  h5{
+    a{
+      color: $white;
+    }
+  }
 }
 .sliderTextBg .NewsBox .newscontent p{
   display: none;

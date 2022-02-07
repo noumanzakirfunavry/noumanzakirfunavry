@@ -149,7 +149,12 @@
         width: 50%;
         padding-left: 0;
     }
-    
+    .newsSliderText .slick-slider .slick-slide {
+        padding: 0px;
+    }
+    .newsSliderText .NewsBox .newscontent{
+        padding:0 25px;
+    }
     
   }
 
@@ -159,6 +164,13 @@
     }
     .sidebar{
         margin-top: 15px;
+    }
+    .NewsInfobox{
+        display: block;
+    }
+    .NewsInfobox .infoItem {
+        font-size: 14px;
+        margin-bottom: 5px;
     }
   }
   @media screen and (max-width:575px){
