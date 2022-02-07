@@ -45,7 +45,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                 </div>
             </>
         );
-        }
+    }
     return (
         <>
            {displayTitle && <Title styles={"yellowTitle mb-3"}><h3>أميركا في أزمة</h3></Title> }

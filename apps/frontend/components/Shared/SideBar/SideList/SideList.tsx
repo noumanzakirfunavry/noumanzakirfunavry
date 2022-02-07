@@ -1,15 +1,18 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { SideListProps } from "apps/frontend/types/Types"
 import styles from "./sidelist.module.css";
 import { FC } from "react"
+import Title from "apps/frontend/components/Title";
 
 const SideList:FC<SideListProps> = ({type}) =>{
+
     return (
         <>
         <div className={styles.sidebar}>
-          <div className={styles.themeTitle}>
+          <Title styles={styles.themeTitle}>
             <h4>آخر الأخبار</h4>
-          </div>
+          </Title>
             <div className={styles.listBody}>
 
             
@@ -17,7 +20,7 @@ const SideList:FC<SideListProps> = ({type}) =>{
                 type === "numbered" && (
                   <>
                     <ul className={styles.sidenumberList}>
-                      <li key={'12'} ><a href="#">
+                      <li key={'12'} ><a href="/newsDetails">
                         <span>منذ 5 دقائق</span>
                         أسعار النفط تصعد بأكثر من 1% بعد رفع السعودية 
                         لأسعار الخام لآسيا بأك بايدن: سيفقد حوالى 10 ملايين 
@@ -60,6 +63,11 @@ const SideList:FC<SideListProps> = ({type}) =>{
               {
                 type === "simple" && (
                   <>Simple</>
+                )
+              }
+              {
+                type === 'dotList' && (
+                  <>Dot List</>
                 )
               }
             </div>
