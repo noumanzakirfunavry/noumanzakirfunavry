@@ -1,9 +1,7 @@
 import { FC } from "react"
-import {NewsListTilesProps} from '../../../types/Types';
 import newsImage from "../../../styles/images/biden.jpg";
-import News2TopTiles from "../News2TopTiles";
 
-const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
+const NewsListTiles = () => {
 
     return (
         <>
@@ -20,7 +18,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -31,7 +29,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div> */}
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -42,7 +40,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -53,7 +51,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -64,7 +62,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -75,7 +73,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -86,7 +84,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -97,7 +95,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -108,7 +106,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -119,7 +117,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -130,7 +128,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -141,7 +139,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -152,7 +150,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -163,7 +161,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -174,7 +172,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -185,7 +183,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -196,7 +194,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -207,7 +205,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -218,7 +216,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -229,7 +227,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -240,7 +238,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -251,7 +249,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -262,7 +260,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -273,7 +271,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -284,7 +282,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                             </div>
                         </div>
                   </div>
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-md-4 col-sm-6">
                         <div className="newBox">
                             <div className="NewsImage">
                                 <img className="img-fluid" src={newsImage.src} />
@@ -297,7 +295,7 @@ const NewsListTiles:FC<NewsListTilesProps> = ({newsList}) => {
                   </div>
                 </div>
             </div>
-            <div className="text-center mt-3">
+            <div className="text-center mt-3 mb-4">
                 <button className="btn btn-outline-primary">المزيد</button>
             </div>
         </>

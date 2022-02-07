@@ -21,8 +21,10 @@ export type TileList = {
     categoryName: string,
     sourceName: string,
 }
-export type NewsListTilesProps = {
-    newsList :TileList[]
+export type CategoryNewsProps = {
+    limit: number,
+    displayTitle: boolean,
+    displayMoreButton:boolean
 }
 
 export type ModalProps = {

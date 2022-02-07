@@ -110,6 +110,9 @@
   }
   
   @media screen and (max-width:768px){
+      body{
+          padding-bottom: 50px;
+      }
     .horizontalNumberList .hNumberList ol {
         flex-wrap: wrap;
     }
@@ -147,11 +150,15 @@
         padding-left: 0;
     }
     
+    
   }
 
   @media screen and (max-width:640px){
     .header-box {
         display: block;
+    }
+    .sidebar{
+        margin-top: 15px;
     }
   }
   @media screen and (max-width:575px){
@@ -165,7 +172,7 @@
         white-space: normal;
     }
     .NewsTilesBg .TitleBar{
-        min-width: 500px;
+        min-width: 410px;
     }
     .NewsTilesBg .row{
         min-width: 1000px;
@@ -179,6 +186,15 @@
     .videoNewsContent{
         overflow-x: scroll;
         white-space: nowrap;
+    }
+    .breakingNews .newsbox .newslink{
+        margin-bottom: 15px;
+    }
+    .breakingNews .newsbox{
+        display: block;
+    }
+    .breakingNews .newsbox .newsaction{
+        justify-content: flex-start;
     }
 
   }

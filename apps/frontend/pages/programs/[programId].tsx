@@ -14,13 +14,12 @@ const Index = () =>{
                 <AdBanner />
                 <Title styles="pageTitle PageTitleYellow mb-0"><h2>اكسبو في أسبوع</h2></Title>
 
-
-                <ProgramDetails/>
+                <ProgramDetails/> 
 
                 <div className='row'>
                     <div className='col-md-8'>
-                            <div className="yellowTitle mb-4"><h3>الحلقات اكسبو في أسبوع</h3></div>
-                        <NewsListTiles newsList={[]} />
+                        <Title styles="yellowTitle mb-4"><h3>الحلقات اكسبو في أسبوع</h3></Title>
+                        <NewsListTiles />
                     </div>
                     <div className='col-md-4'>
                         <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />

@@ -1,4 +1,4 @@
-import CategoryNewsSection from '../components/Home/CategoryNews';
+import CategoryNewsSection from '../components/Shared/CategoryNews';
 import HorizontalMediaScrollBar from '../components/Home/HorizontalMediaScrollBar.tsx/HorizontalMediaScrollBar';
 import HorizontalNumberedList from '../components/Home/HorizontalNumberedList/HorizontalNumberedList';
 import MarketIndices from '../components/Home/MarketIndices/MarketIndices';
@@ -10,6 +10,7 @@ import AdBanner from '../components/Shared/AdBanner/AdBanner';
 import News2TopTiles from '../components/Shared/News2TopTiles';
 import SideBar from '../components/Shared/SideBar/SideBar';
 import SplitScreenBarCharts from '../components/Shared/SplitScreenBarCharts/SplitScreenBarCharts';
+import Title from '../components/Title';
 
 export function Index() {
   /*
@@ -47,18 +48,30 @@ export function Index() {
         <HorizontalMediaScrollBar />
       </div>
       <div className="container">
-        <HorizontalNumberedList />
-      </div>
+        <div className='mb-5'>
+            <HorizontalNumberedList />
+        </div>
 
       <div className='row'>
         <div className='col-md-8'>
-          <News2TopTiles />
-          <CategoryNewsSection />
+         
+          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+        
+          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+         
+          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+          
+          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={true}/>
+
         </div>
         <div className='col-md-4'>
           <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }]} />
         </div>
       </div>
+
+      </div>
+
+
     </>
   );
 }
