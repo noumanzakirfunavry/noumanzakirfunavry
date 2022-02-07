@@ -1402,3 +1402,12 @@ width: 110px;
     }
   }
 }
+
+.SocialHeaderMobile{
+  background: $white;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 9;
+}
