@@ -24,6 +24,7 @@ export type TileList = {
 export type CategoryNewsProps = {
     limit: number,
     displayTitle: boolean,
+    displayTopTwoNews:boolean,
     displayMoreButton:boolean
 }
 

@@ -49,7 +49,7 @@ const Header = () =>{
                                                     </a>
                                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                                         <li key={'8'}>
-                                                            <a className="dropdown-item" href="/program/100/اكسبو في أسبوع">اكسبو في أسبوع</a>
+                                                            <a className="dropdown-item" href="/programs/100/">اكسبو في أسبوع</a>
                                                         </li>
                                                         <li key={'9'}>
                                                             <a className="dropdown-item" href="/program/95/حديث المملكة مع راشد الفوزان">حديث المملكة مع راشد الفوزان</a>

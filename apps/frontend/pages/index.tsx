@@ -53,13 +53,13 @@ export function Index() {
       <div className='row'>
         <div className='col-md-8'>
          
-          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit = {2} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
         
-          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit = {2} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
          
-          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit = {2} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
           
-          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={true}/>
+          <CategoryNewsSection limit = {2} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
 
         </div>
         <div className='col-md-4'>

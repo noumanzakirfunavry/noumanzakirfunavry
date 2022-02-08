@@ -1,7 +1,7 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import MainNews from "apps/frontend/components/LatestVideos/MainNews/MainNews"
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
-import NewsListTiles from "apps/frontend/components/Shared/NewsListTiles/NewsListTiles"
+import CategoryNewsSection from "apps/frontend/components/Shared/CategoryNews"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import Title from "apps/frontend/components/Title"
 
@@ -18,7 +18,7 @@ const Index = () =>{
             <div className='row'>
                 <div className='col-md-8'>
                     <MainNews/>
-                    <NewsListTiles />
+                    <CategoryNewsSection limit={8} displayTitle={false}  displayTopTwoNews={false} displayMoreButton={true}/>
                 </div>
                 <div className='col-md-4'>
                     <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
