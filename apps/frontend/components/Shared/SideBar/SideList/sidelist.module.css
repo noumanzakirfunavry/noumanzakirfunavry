@@ -18,14 +18,61 @@
     max-height: 550px;
     overflow-y: auto;
 }
-.sidenumberList{
+
+
+
+
+
+.sideDotList{
     margin: 0;
     padding: 0 15px 0 0;
 }
-.sidenumberList li {
+.sideDotList li {
     border-bottom: 1px solid #DDDDDD;
     color: #FCB700;
     font-size: 16px;
+}
+.sideDotList li:last-child {
+    border-bottom: none;
+}
+.sideDotList li a{
+    font-size: 13px;
+    font-weight: bold;
+    color: #1C1C1C;
+    padding: 20px 0;
+    display: block;
+    text-decoration: none;
+}
+.sideDotList li:first-child a{
+    padding-top:0;
+}
+.sideDotList li a:hover{
+    color: #002F6C;
+}
+.sideDotList li a span{
+    color: #777777;
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+
+
+
+
+.sidenumberList{
+    margin: 0;
+    padding: 0 15px 0 0;
+    counter-reset: number;
+    list-style-type: none;
+}
+.sidenumberList li {
+    border-bottom: 1px solid #DDDDDD;
+    color: #CFD8E2;
+    font-size: 20px;
+    font-weight: bold;
+    counter-increment: number;
+    content: counter(number);
 }
 .sidenumberList li:last-child {
     border-bottom: none;
@@ -38,6 +85,9 @@
     display: block;
     text-decoration: none;
 }
+.sidenumberList li:first-child a{
+    padding-top:0;
+}
 .sidenumberList li a:hover{
     color: #002F6C;
 }
@@ -46,6 +96,12 @@
     display: block;
     margin-bottom: 5px;
 }
+
+
+
+
+
+
 
 .sidesimpleList{
     margin: 0;
@@ -67,6 +123,9 @@
     padding: 20px 0;
     display: block;
     text-decoration: none;
+}
+.sidesimpleList li:first-child a{
+    padding-top:0;
 }
 .sidesimpleList li a:hover{
     color: #002F6C;

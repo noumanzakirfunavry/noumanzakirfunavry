@@ -155,6 +155,12 @@
     .newsSliderText .NewsBox .newscontent{
         padding:0 25px;
     }
+
+    .SocialHeaderMobile{
+        display: block;
+    }
+
+    
     
   }
 

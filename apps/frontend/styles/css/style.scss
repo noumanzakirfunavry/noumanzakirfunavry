@@ -153,7 +153,7 @@ header{
     margin: 0 5px;
   }
   .header-nav ul li a{
-    font-size: 16px;
+    font-size: 0.9rem;
     color: $white;
     padding: 5px 20px;
     text-align: center;
@@ -1379,6 +1379,7 @@ width: 110px;
   padding: 10px;
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
   z-index: 9;
   display: none;
@@ -1396,6 +1397,33 @@ width: 110px;
         .menuIcon{
           display: block;
           margin:0px;
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
+
+.SocialHeaderMobile{
+  background: $white;
+  padding: 6px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 9;
+  border-top: 3px solid $grey-light;
+  display: none;
+
+  .logo{
+    width: 50px;
+  }
+  .newsSocial{
+    padding: 10px 0 0;
+    ul{
+      li{
+        margin-right: 20px;
+        a{
           font-size: 24px;
         }
       }
