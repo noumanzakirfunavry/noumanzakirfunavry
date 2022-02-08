@@ -13,8 +13,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                                <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -24,8 +23,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -35,8 +33,8 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            
+                            <h4>اكسبو في أسبوع</h4>
                             </div>
                         </div>
                   </div>
@@ -46,8 +44,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                                <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -57,8 +54,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                            <h4>البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -68,8 +64,8 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            
+                            <h4>اكسبو في أسبوع</h4>
                             </div>
                         </div>
                   </div>
@@ -79,8 +75,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                            <h4>البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                                <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -90,8 +85,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -101,8 +95,8 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            
+                            <h4>اكسبو في أسبوع</h4>
                             </div>
                         </div>
                   </div>
@@ -112,8 +106,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                            <h4>البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                                <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -123,8 +116,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -134,8 +126,8 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            
+                            <h4>اكسبو في أسبوع</h4>
                             </div>
                         </div>
                   </div>
@@ -145,8 +137,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                            <h4>البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                                <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -156,8 +147,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -167,8 +157,8 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                            <h4>البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            
+                            <h4>اكسبو في أسبوع</h4>
                             </div>
                         </div>
                   </div>
@@ -178,8 +168,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                                <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -189,8 +178,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -200,8 +188,8 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            
+                            <h4>اكسبو في أسبوع</h4>
                             </div>
                         </div>
                   </div>
@@ -211,8 +199,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                            <h4>البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                                <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -222,8 +209,7 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            <h4>جلسة الأعمال</h4>
                             </div>
                         </div>
                   </div>
@@ -233,41 +219,8 @@ const AllProgrmasTilesList = () => {
                                 <img className="img-fluid" src={newsImage.src} />
                             </div>
                             <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
-                            </div>
-                        </div>
-                  </div>
-                  <div className="col-md-4 col-sm-6">
-                        <div className="newBox">
-                            <div className="NewsImage">
-                                <img className="img-fluid" src={newsImage.src} />
-                            </div>
-                            <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
-                            </div>
-                        </div>
-                  </div>
-                  <div className="col-md-4 col-sm-6">
-                        <div className="newBox">
-                            <div className="NewsImage">
-                                <img className="img-fluid" src={newsImage.src} />
-                            </div>
-                            <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
-                            </div>
-                        </div>
-                  </div>
-                  <div className="col-md-4 col-sm-6">
-                        <div className="newBox">
-                            <div className="NewsImage">
-                                <img className="img-fluid" src={newsImage.src} />
-                            </div>
-                            <div className="NewsInfo">
-                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                <p><a>الإمارات</a> منذ 5 دقائق</p>
+                            
+                            <h4>اكسبو في أسبوع</h4>
                             </div>
                         </div>
                   </div>

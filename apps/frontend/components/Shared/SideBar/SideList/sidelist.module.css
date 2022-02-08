@@ -63,7 +63,7 @@
 .sidenumberList{
     margin: 0;
     padding: 0 15px 0 0;
-    counter-reset: number;
+    counter-reset: mynumberlist;
     list-style-type: none;
 }
 .sidenumberList li {
@@ -71,8 +71,16 @@
     color: #CFD8E2;
     font-size: 20px;
     font-weight: bold;
-    counter-increment: number;
-    content: counter(number);
+    counter-increment: mynumberlist;
+    display: flex;
+}
+.sidenumberList li::before{
+    content: counter(mynumberlist);
+    color: #CFD8E2;
+    font-size: 20px;
+    font-weight: bold;
+    width: 50px;
+    padding-top: 13px;
 }
 .sidenumberList li:last-child {
     border-bottom: none;
@@ -86,7 +94,7 @@
     text-decoration: none;
 }
 .sidenumberList li:first-child a{
-    padding-top:0;
+    padding-top:15px;
 }
 .sidenumberList li a:hover{
     color: #002F6C;
