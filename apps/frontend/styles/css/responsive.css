@@ -159,7 +159,9 @@
     .SocialHeaderMobile{
         display: block;
     }
-
+    .NewsTiles .newBox .PlayTime h5{
+        right: 0;
+    }
     
     
   }
@@ -224,5 +226,6 @@
         flex: 3;
         padding-right: 20px;
     }
+    
 
   }

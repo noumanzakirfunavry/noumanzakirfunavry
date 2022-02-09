@@ -701,11 +701,14 @@ header{
 
   .NewsTiles .newBox{
     margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
   }
   .NewsTiles .newBox .NewsImage{
     margin-bottom: 10px;
     height: 180px;
     overflow: hidden;
+    position: relative;
   }
   .NewsTiles .newBox .NewsInfo a{
     color: $secondary-color;
@@ -720,6 +723,122 @@ header{
     font-weight: bold;
     line-height: 1.5rem;
   }
+
+
+
+
+
+  .NewsTiles .newBox .PlayTime{
+    width: 100%;
+}
+.NewsTiles .newBox .PlayTime .btn{
+  font-size: 12px;
+  padding: 8px 15px;
+}
+.NewsTiles .newBox .PlayTime .btn-text span {
+  padding: 10px 10px 0px;
+  font-size: inherit;
+}
+.NewsTiles .newBox .PlayTime .btn i{
+  font-size: inherit;
+}
+.NewsTiles .newBox .PlayTime .btn-text{
+  width: 44px;
+}
+.NewsTiles .newBox .PlayTime:hover .btn-text {
+  width: 130px;
+}
+.NewsTiles .newBox .PlayTime h5{
+    flex: 2;
+    font-size: 12px;
+    padding-right: 5px;
+}
+
+
+
+
+  .newBox .PlayTime{
+    display: flex;
+    border-top: 6px solid $warning;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  .newBox .PlayTime .btn-text{
+    background: $warning;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    transition: width .5s;
+    width: 60px;
+  }
+  .newBox .PlayTime:hover .btn-text{
+      width: 180px;
+      transition: width .5s;
+  }
+  .newBox .PlayTime .btn{
+    padding: 15px 20px 15px 15px;
+    text-align: center;
+  }
+
+  .newBox .PlayTime:hover .btn{
+    background-color: $warning;
+    border-color: $warning;
+  }
+  
+  .newBox .PlayTime .btn-text span{
+    display: none;
+    white-space: nowrap;
+    color: $grey-dark;
+    font-weight: bold;
+    padding: 12px 15px 0 5px;
+    font-size: 20px;
+  }
+  .newBox .PlayTime:hover .btn-text span{
+    display: block;
+}
+  .newBox .PlayTime .btn i{
+      color: $white;
+      font-size: 18px;
+  }
+  .newBox .PlayTime h5{
+    color: $white;
+    padding: 10px 0 0 10px;
+    position: absolute;
+    left: 65px;
+    top: 3px;
+  }
+
+.programBox{
+  margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+  .programImage{
+    margin-bottom: 10px;
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+  }
+  .programInfo{
+
+    a{
+      color: $secondary-color;
+      margin-left: 15px;
+    }
+    h3{
+      font-size: 24px;
+      font-weight: bold;
+    }
+    h4{
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.5rem;
+    }
+
+  }
+}
 
 
 
