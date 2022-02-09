@@ -8,7 +8,7 @@ import SearchDropDown from '../../Shared/SearchDropDown/SearchDropDown';
 const Header = () =>{
    
     return (
-        <>
+        <>  
             <header>
                 <div className="container">
                         <div className="header-box">
