@@ -18,7 +18,7 @@ const Index = () =>{
             <h2>آخر الأخبار</h2>
         </Title>
         <div className='row'>
-          <div className='col-md-8'>
+          <div className='col-lg-8'>
             <CategoryNewsSection limit = {8} displayTitle={false} displayTopTwoNews={true} displayMoreButton={true}/>
           </div>
           <div className='col-lg-4'>

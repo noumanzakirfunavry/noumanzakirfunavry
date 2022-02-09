@@ -24,10 +24,10 @@ export function Index() {
         <QuickLinks />
 
         <div className='row'>
-          <div className='col-md-8'>
+          <div className='col-lg-8'>
             <NewsSection />
           </div>
-          <div className='col-md-4'>
+          <div className='col-lg-4'>
             <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
           </div>
         </div>
@@ -51,7 +51,7 @@ export function Index() {
         </div>
 
       <div className='row'>
-        <div className='col-md-8'>
+        <div className='col-lg-8'>
          
           <CategoryNewsSection limit = {2} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
         
@@ -62,7 +62,7 @@ export function Index() {
           <CategoryNewsSection limit = {2} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
 
         </div>
-        <div className='col-md-4'>
+        <div className='col-lg-4'>
           <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 }, { componentType: 'dotList', position: 2 }]} />
         </div>
       </div>

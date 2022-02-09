@@ -17,11 +17,11 @@ const Index = () =>{
                 <ProgramDetails/> 
 
                 <div className='row'>
-                    <div className='col-md-8'>
+                    <div className='col-lg-8'>
                         <Title styles="yellowTitle mb-4"><h3>الحلقات اكسبو في أسبوع</h3></Title>
                         <CategoryNewsSection limit={8} displayMoreButton={true} displayTopTwoNews={false} displayTitle={false} />
                     </div>
-                    <div className='col-md-4'>
+                    <div className='col-lg-4'>
                         <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
                     </div>
                 </div>

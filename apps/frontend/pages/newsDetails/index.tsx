@@ -56,10 +56,10 @@ const Index = () =>{
                     </div>
                 </div>
                 <div className="row">
-                    <div className='col-md-8'>
+                    <div className='col-lg-8'>
                         <NewsDetails/>
                     </div>
-                    <div className='col-md-4'>
+                    <div className='col-lg-4'>
                         <SideBar sideBarSequence={[{componentType:'Latest', position:1}, {componentType:'SmallBanner', position:2}]}/>
                     </div>
                 </div>
