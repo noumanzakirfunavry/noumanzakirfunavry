@@ -14,10 +14,10 @@ const Index = () =>{
                     <h2>برامج CNBC عربية</h2>
                 </Title>
                 <div className='row'>
-                    <div className='col-md-8'>
+                    <div className='col-lg-8'>
                     <AllProgrmasTilesList />
                     </div>
-                    <div className='col-md-4'>
+                    <div className='col-lg-4'>
                         <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
                     </div>
                 </div>

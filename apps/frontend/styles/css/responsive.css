@@ -214,5 +214,15 @@
     .breakingNews .newsbox .newsaction{
         justify-content: flex-start;
     }
+    .NewsTiles .newBox{
+        display: flex;
+    }
+    .NewsTiles .newBox .NewsImage{
+        flex: 2;
+    }
+    .NewsTiles .newBox .NewsInfo{
+        flex: 3;
+        padding-right: 20px;
+    }
 
   }

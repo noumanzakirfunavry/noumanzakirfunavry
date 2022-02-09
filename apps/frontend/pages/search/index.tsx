@@ -46,9 +46,7 @@ const Index = () =>{
                                 </div>
                             </div>
                         </div>
-                        <div className='row'>
                             <SideBar sideBarSequence={[{componentType:'SmallBanner', position:2}]}/>
-                        </div>
                         
                     </div>
                 </div>
