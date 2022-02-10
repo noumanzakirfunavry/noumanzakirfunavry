@@ -55,6 +55,9 @@
     .header-nav ul li {
         margin: 0px;
     }
+    .scheduleCalendar .nav .nav-item .nav-link{
+        font-size: 1.2rem;
+    }
   }
   
   @media screen and (max-width:992px){
@@ -83,6 +86,9 @@
     }
     .header-search-nav ul li a {
         padding: 5px 5px;
+    }
+    .scheduleCalendar .nav .nav-item .nav-link{
+        font-size: 1.1rem;
     }
 
   }
@@ -162,9 +168,38 @@
     .NewsTiles .newBox .PlayTime h5{
         right: 0;
     }
+    .scheduleCalendar .nav{
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        padding-bottom: 7px;
+    }
+    .scheduleCalendar table h4 {
+        font-size: 1rem;
+    }
     
     
   }
+  @media screen and (max-width:768px) and (min-width:576px){
+    .searchResultList .NewsList li {
+        flex-flow: inherit;
+    }
+    .searchResultList .NewsList li .newsText {
+        flex: 2 1;
+    }
+    .searchResultList .NewsList li .newsImage{
+        padding-left: 15px;
+        padding-right: 0;
+    }
+    .searchResultList .NewsList li .newsText{
+        padding-top: 0;
+    }
+    .searchResultList .NewsList li .newsText p{
+        margin-top: 0;
+    }
+  }
+
 
   @media screen and (max-width:640px){
     .header-box {
@@ -227,5 +262,33 @@
         padding-right: 20px;
     }
     
+    .programDetailNews{
+        overflow-x: inherit;
+        white-space: inherit;
+      }
+      .programDetailNews .row {
+        min-width: 0;
+    }
+
+
+
+    .searchResultList .NewsList li {
+        flex-flow: column;
+    }
+    .searchResultList .NewsList li .newsText {
+        flex: 2 1;
+    }
+    .searchResultList .NewsList li .newsImage{
+        padding-left: 15px;
+        padding-right: 0;
+        margin-bottom: 15px;
+    }
+    .searchResultList .NewsList li .newsText{
+        padding-top: 0;
+    }
+    .searchResultList .NewsList li .newsText p{
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
 
   }

@@ -4,7 +4,6 @@ const VideoNewsTiles = () => {
 
     return (
         <>
-          Video News Tiles Here
           <div className="NewsTiles">
             <div className="row">
                 <div className="col-md-4 col-sm-6">

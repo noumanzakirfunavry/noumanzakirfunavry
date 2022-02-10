@@ -13,7 +13,7 @@ const Index = () =>{
             <div className="container"> 
                 <AdBanner />
                 
-                <Title styles={"pageTitle PageTitleYellow mb-0"}>
+                <Title styles={"pageTitle PageTitleYellow mb-4"}>
                     <h2>مذيعو ومراسلو CNBC عربية</h2>
                 </Title>
                 <div className='row'>

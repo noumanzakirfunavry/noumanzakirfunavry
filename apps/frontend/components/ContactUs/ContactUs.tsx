@@ -6,7 +6,7 @@ const ContactAddresses = () => {
             <div className='contactAddress'>
                 <h2 className="text-center text-primary mb-5">الفروع</h2>
                 <div className="row">
-                <div className="col-md-4">
+                <div className="col-lg-4 col-md-6">
                         <div className="addressBox">
                             <h4>دبي ,الإمارات العربية المتحدة</h4>
                             <ul>
@@ -18,7 +18,7 @@ const ContactAddresses = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-md-6">
                         <div className="addressBox">
                             <h4> القاهرة ،مصر</h4>
                             <ul>
@@ -30,7 +30,7 @@ const ContactAddresses = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-md-6">
                         <div className="addressBox">
                             <h4>الكويت</h4>
                             <ul>
@@ -43,7 +43,7 @@ const ContactAddresses = () => {
                         </div>
                     </div>
 
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-md-6">
                         <div className="addressBox">
                             <h4>الدوحة ،قطر</h4>
                             <ul>
@@ -55,7 +55,7 @@ const ContactAddresses = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-md-6">
                         <div className="addressBox">
                             <h4>رياض ،سعودية</h4>
                             <ul>
@@ -67,7 +67,7 @@ const ContactAddresses = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-md-6">
                         <div className="addressBox">
                             <h4>لندن ،المملكة المتحدة</h4>
                             <ul>

@@ -22,12 +22,21 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                     </div>
                 </div>
                 <div className="col-md-4 col-sm-6">
-                    <div className="newBox">
+                    <div className="newBox VideoNews">
                         <div className="NewsImage">
-                            <img className="img-fluid" src={newsImage.src} />
-                        </div>
+                        <img className="img-fluid" src={newsImage.src} />
+
+                            <div className="PlayTime">
+                              <h5>05:21</h5>
+                              <div className="btn-text">
+                                  <span>شاهد الآن</span>
+                                  <button className="btn btn-warning VideoPlay"><i className="fa fa-play"></i></button>
+                              </div>
+                            </div>
+
+                          </div>
                         <div className="NewsInfo">
-                            <h4>البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
+                            <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</h4>
                             <p><a>الإمارات</a> منذ 5 دقائق</p>
                         </div>
                     </div>

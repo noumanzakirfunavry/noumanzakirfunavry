@@ -22,7 +22,7 @@ const Index = () =>{
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col-md-8'>
+                    <div className='col-lg-8'>
                         <Title styles={'topBorderText'}>
                             <h3>{`10 نتائج بحث عن "amazon"`}</h3>
                         </Title>
@@ -34,14 +34,14 @@ const Index = () =>{
                             <SearchResultList/>
                         </div>
                     </div>
-                    <div className='col-md-4'>
+                    <div className='col-lg-4'>
                         <div className='sidebar'>
                             <Title styles={'topBorderText'}>
                                 <h3>الأسهم ذات الصلة</h3>
                             </Title>
                             <div className="listBody">
                                 <SearchWordCountList/>
-                                <div className="text-center">
+                                <div className="text-center mb-3 mt-3">
                                     <button className="btn btn-outline-primary">المزيد</button>
                                 </div>
                             </div>
