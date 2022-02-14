@@ -7,10 +7,8 @@ import QuickLinks from '../components/Home/QuickLinks/QuickLinks';
 import SplitScreenNewsList from '../components/Home/SplitScreenNewsList/SplitScreenNewsList';
 import TilesWithColoredBackground from '../components/Home/TilesWithColoredBackground/TilesWithColoredBackground';
 import AdBanner from '../components/Shared/AdBanner/AdBanner';
-import News2TopTiles from '../components/Shared/News2TopTiles';
 import SideBar from '../components/Shared/SideBar/SideBar';
 import SplitScreenBarCharts from '../components/Shared/SplitScreenBarCharts/SplitScreenBarCharts';
-import Title from '../components/Title';
 
 export function Index() {
   /*
@@ -26,11 +24,11 @@ export function Index() {
         <QuickLinks />
 
         <div className='row'>
-          <div className='col-md-8'>
+          <div className='col-lg-8'>
             <NewsSection />
           </div>
-          <div className='col-md-4'>
-            <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+          <div className='col-lg-4'>
+            <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
           </div>
         </div>
         <div>
@@ -53,19 +51,19 @@ export function Index() {
         </div>
 
       <div className='row'>
-        <div className='col-md-8'>
+        <div className='col-lg-8'>
          
-          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit = {2} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
         
-          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit = {2} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
          
-          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit = {2} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
           
-          <CategoryNewsSection limit = {2} displayTitle={true} displayMoreButton={true}/>
+          <CategoryNewsSection limit = {2} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
 
         </div>
-        <div className='col-md-4'>
-          <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }]} />
+        <div className='col-lg-4'>
+          <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 }, { componentType: 'dotList', position: 2 }]} />
         </div>
       </div>
 

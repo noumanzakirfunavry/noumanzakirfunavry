@@ -14,7 +14,7 @@ const Index = () =>{
                     <h2>اتصل بنا</h2>
                 </Title>
                 <ContactAddresses/>
-                
+                <hr className="mb-5"></hr>
                 <div className='contactForm'>
                     <ContactUsForm />
                 </div>

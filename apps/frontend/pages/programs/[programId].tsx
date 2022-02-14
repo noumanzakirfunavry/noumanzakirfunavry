@@ -2,7 +2,7 @@
 
 import ProgramDetails from "apps/frontend/components/Programs/detials"
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
-import NewsListTiles from "apps/frontend/components/Shared/NewsListTiles/NewsListTiles"
+import CategoryNewsSection from "apps/frontend/components/Shared/CategoryNews"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import Title from "apps/frontend/components/Title"
 
@@ -17,12 +17,12 @@ const Index = () =>{
                 <ProgramDetails/> 
 
                 <div className='row'>
-                    <div className='col-md-8'>
+                    <div className='col-lg-8'>
                         <Title styles="yellowTitle mb-4"><h3>الحلقات اكسبو في أسبوع</h3></Title>
-                        <NewsListTiles />
+                        <CategoryNewsSection limit={8} displayMoreButton={true} displayTopTwoNews={false} displayTitle={false} />
                     </div>
-                    <div className='col-md-4'>
-                        <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+                    <div className='col-lg-4'>
+                        <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
                     </div>
                 </div>
             </div>

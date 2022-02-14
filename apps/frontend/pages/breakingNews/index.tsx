@@ -25,10 +25,10 @@ const Index = ({post}) =>{
                     <h2>أخبار عاجلة</h2>
                 </Title>
                 <div className='row'>
-                    <div className='col-md-8'>
+                    <div className='col-lg-8'>
                         <NewsList/>
                     </div>
-                    <div className='col-md-4'>
+                    <div className='col-lg-4'>
                         <SideBar sideBarSequence={[{componentType:'Latest', position:1}, {componentType:'SmallBanner', position:2}]}/>
                     </div>
                 </div>

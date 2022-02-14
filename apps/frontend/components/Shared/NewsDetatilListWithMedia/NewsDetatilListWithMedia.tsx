@@ -83,7 +83,7 @@ const NewsDetatilListWithMedia = () =>{
             </div>
 
 
-            <div className="text-center mt-3 mb-5 mb-md-3">
+            <div className="text-center mt-3 mb-4 mb-md-3">
                 <button className="btn btn-outline-primary">المزيد</button>
             </div>
 

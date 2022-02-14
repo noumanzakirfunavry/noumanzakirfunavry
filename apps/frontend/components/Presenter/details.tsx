@@ -4,7 +4,7 @@ const PresenterDetails = () => {
     return (
         <>
             <div className='row'>
-                <div className="col-md-4">
+                <div className="col-md-4 mb-4">
                     <img className="img-fluid" src={presenterimg.src} />
                 </div>
                 <div className="col-md-8">
