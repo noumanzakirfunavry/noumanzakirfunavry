@@ -6,6 +6,7 @@
     "admin-microservice": "apps/admin-microservice",
     "auth-module": "libs/auth-module",
     "dtos": "libs/dtos",
+    "entity": "libs/entity",
     "enums": "libs/enums",
     "exception-handling": "libs/exception-handling",
     "file-server": "libs/file-server",
@@ -16,6 +17,7 @@
     "models": "libs/models",
     "news-microservice": "apps/news-microservice",
     "notification-microservice": "apps/notification-microservice",
+    "providers": "libs/providers",
     "repositories": "libs/repositories",
     "utility": "libs/utility"
   }
