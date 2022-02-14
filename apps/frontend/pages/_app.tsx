@@ -38,8 +38,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta charSet="utf-8"/>
         <title>عربية CNBC</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-        <meta http-equiv="content-language" content="ar" />
+        <meta content="text/html; charset=UTF-8" httpEquiv="content-type" />
+        <meta httpEquiv="content-language" content="ar" />
         <link rel="icon" type="image/x-icon" href="../favicon.ico" />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3125437156093673"
      crossOrigin="anonymous"></script>
