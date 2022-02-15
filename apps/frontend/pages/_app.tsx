@@ -24,8 +24,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta charSet="utf-8"/>
         <title>عربية CNBC</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-        <meta http-equiv="content-language" content="ar" />
+        <meta content="text/html; charset=UTF-8" httpEquiv="content-type" />
+        <meta httpEquiv="content-language" content="ar" />
         <link rel="icon" type="image/x-icon" href="../favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
