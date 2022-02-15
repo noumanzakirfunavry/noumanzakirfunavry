@@ -1684,6 +1684,8 @@ width: 110px;
 
   .navbar-nav{
     padding: 0;
+    max-height: 90%;
+    overflow-y:auto;
     .nav-item{
       border-bottom: 1px solid $grey-light;
 
