@@ -26,6 +26,6 @@ export class EpisodeVisitors extends Model{
     @Column
     episodeId : number
     
-    @BelongsTo(() => Episodes)
+    @BelongsTo(() => Episodes,'episodeId')
     episode : Episodes
 }

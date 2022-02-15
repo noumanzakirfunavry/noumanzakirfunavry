@@ -28,12 +28,12 @@ export class InfographicsAttachments extends Model{
     @ForeignKey(() =>  Infographics)
     @Column
     infographicId : number
-    @BelongsTo(() => Infographics)
+    @BelongsTo(() => Infographics,'infographicId')
     infographics : Infographics
 
     @ForeignKey(() => Attachments)
     @Column
     attachmentId : number
-    @BelongsTo(() => Attachments)
+    @BelongsTo(() => Attachments,'attachmentId')
     attachments : Attachments
 }

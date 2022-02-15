@@ -24,7 +24,9 @@ name : string
 age : number
 
 @Column({
-    type : DataType.ENUM
+    type : DataType.ENUM,
+    values : Object.values(GenderTypes)
+
 })
 gender :  GenderTypes
 

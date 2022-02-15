@@ -9,6 +9,7 @@ export class ContentAnalytics extends Model{
 @PrimaryKey
 @AutoIncrement
 @Unique
+@Column
 id : number
 
 @Column

@@ -16,7 +16,9 @@ export class SidebarElements extends Model{
     position : number
 
     @Column({
-        type  : DataType.ENUM
+        type  : DataType.ENUM,
+    values : Object.values(SidebarElementTypes)
+
     })
     type : SidebarElementTypes
 

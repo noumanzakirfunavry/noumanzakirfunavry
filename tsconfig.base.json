@@ -1,6 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
@@ -10,26 +12,54 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@cnbc-monorepo/auth-module": ["libs/auth-module/src/index.ts"],
-      "@cnbc-monorepo/dtos": ["libs/dtos/src/index.ts"],
-      "@cnbc-monorepo/entity": ["libs/entity/src/index.ts"],
-      "@cnbc-monorepo/enums": ["libs/enums/src/index.ts"],
+      "@cnbc-monorepo/auth-module": [
+        "libs/auth-module/src/index.ts"
+      ],
+      "@cnbc-monorepo/dtos": [
+        "libs/dtos/src/index.ts"
+      ],
+      "@cnbc-monorepo/entity": [
+        "libs/entity/src/index.ts"
+      ],
+      "@cnbc-monorepo/enums": [
+        "libs/enums/src/index.ts"
+      ],
       "@cnbc-monorepo/exception-handling": [
         "libs/exception-handling/src/index.ts"
       ],
-      "@cnbc-monorepo/file-server": ["libs/file-server/src/index.ts"],
-      "@cnbc-monorepo/mail": ["libs/mail/src/index.ts"],
-      "@cnbc-monorepo/middlewares": ["libs/middlewares/src/index.ts"],
-      "@cnbc-monorepo/models": ["libs/models/src/index.ts"],
-      "@cnbc-monorepo/providers": ["libs/providers/src/index.ts"],
-      "@cnbc-monorepo/repositories": ["libs/repositories/src/index.ts"],
-      "@cnbc-monorepo/utility": ["libs/utility/src/index.ts"]
+      "@cnbc-monorepo/file-server": [
+        "libs/file-server/src/index.ts"
+      ],
+      "@cnbc-monorepo/mail": [
+        "libs/mail/src/index.ts"
+      ],
+      "@cnbc-monorepo/middlewares": [
+        "libs/middlewares/src/index.ts"
+      ],
+      "@cnbc-monorepo/models": [
+        "libs/models/src/index.ts"
+      ],
+      "@cnbc-monorepo/providers": [
+        "libs/providers/src/index.ts"
+      ],
+      "@cnbc-monorepo/repositories": [
+        "libs/repositories/src/index.ts"
+      ],
+      "@cnbc-monorepo/utility": [
+        "libs/utility/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

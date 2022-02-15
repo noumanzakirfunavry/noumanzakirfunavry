@@ -43,7 +43,9 @@ export class Menus extends Model{
     menus : Menus[]
 
     @Column({
-        type : DataType.ENUM
+        type : DataType.ENUM,
+    values : Object.values(MenuPositionTypes)
+
     })
     position : MenuPositionTypes
 

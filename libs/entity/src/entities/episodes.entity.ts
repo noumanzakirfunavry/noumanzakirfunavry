@@ -62,6 +62,6 @@ export class Episodes extends Model{
     user : Users
 
 
-    @HasMany(() => EpisodeVisitors)
+    @HasMany(() => EpisodeVisitors,'episodeId')
     episodeVisitors : EpisodeVisitors[]
 }

@@ -44,7 +44,9 @@ export class News extends Model{
     visible : boolean
 
     @Column({
-        type : DataType.ENUM
+        type : DataType.ENUM,
+        values : Object.values(ContentTypes)
+        
     })
     contentType : ContentTypes
 
@@ -73,7 +75,9 @@ export class News extends Model{
     @Column
     twitterLink : string
     @Column({
-        type : DataType.ENUM
+        type : DataType.ENUM,
+        values : Object.values(NewsTypes)
+        
     })
     newsType : NewsTypes
 

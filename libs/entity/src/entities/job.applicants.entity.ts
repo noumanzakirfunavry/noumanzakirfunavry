@@ -32,7 +32,9 @@ export class JobApplicants extends Model{
     workExperience : number
 
     @Column({
-        type : DataType.ENUM
+        type : DataType.ENUM,
+    values : Object.values(VisaStatusTypes)
+
     })
     visaStatus : VisaStatusTypes
 

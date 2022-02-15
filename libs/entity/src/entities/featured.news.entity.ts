@@ -19,7 +19,9 @@ id : number
 position : number
 
 @Column({
-    type : DataType.ENUM
+    type : DataType.ENUM,
+    values : Object.values(SectionTypes)
+
 })
 section : SectionTypes
 

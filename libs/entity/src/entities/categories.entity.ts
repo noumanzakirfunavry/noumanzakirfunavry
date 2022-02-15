@@ -1,5 +1,6 @@
 import { Table, Model, PrimaryKey, AutoIncrement, Unique, Column, ForeignKey, BelongsTo, HasMany, DataType, BelongsToMany } from "sequelize-typescript";
 import { Users } from '../entities/users.entity'
+import { Banner } from "./banner.entity";
 import { News } from "./news.entity";
 import { NewsHasCategories } from "./news.has.categories.entity";
 import { SidebarElements } from "./sidebar.elements.entity";
@@ -57,5 +58,11 @@ export class Categories extends Model {
     
     @HasMany(() => SidebarElements)
     sideBarElements : SidebarElements[]
+
+    @ForeignKey(() => Banner)
+    @Column
+    bannerId : number
+    @BelongsTo(() => Banner)
+    banner : Banner
 
 }

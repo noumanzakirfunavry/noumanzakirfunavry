@@ -16,7 +16,9 @@ id : number
 
 
 @Column({
-    type : DataType.ENUM
+    type : DataType.ENUM,
+    values : Object.values(BannerVariationSizeTypes)
+
 })
 size : BannerVariationSizeTypes
 

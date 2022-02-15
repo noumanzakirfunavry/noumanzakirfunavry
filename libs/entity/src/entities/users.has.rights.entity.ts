@@ -10,9 +10,9 @@ import { Users } from "./users.entity";
 export class UsersHasRights extends Model{
     @ForeignKey(() => Users)
     @Column
-    usersId : Users
+    usersId : number
 
     @ForeignKey(() => Rights)
     @Column
-    rightsId : Rights
+    rightsId : number
 }

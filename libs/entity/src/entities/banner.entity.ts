@@ -3,6 +3,8 @@ import {BannerTypes} from '@cnbc-monorepo/enums'
 import { Users } from "./users.entity";
 import { BannerVariations } from "./banner.variations.entity";
 import { SidebarElements } from "./sidebar.elements.entity";
+import { Categories } from "./categories.entity";
+import { Pages } from "./pages.entity";
 @Table({
     paranoid : true,
     timestamps : true
@@ -16,7 +18,9 @@ export class Banner extends Model{
     id : number
     
     @Column({
-        type : DataType.ENUM
+        type : DataType.ENUM,
+    values : Object.values(BannerTypes)
+
     })
     type : BannerTypes
 
@@ -43,4 +47,10 @@ export class Banner extends Model{
 
     @HasMany(() => SidebarElements)
     sidebarElements : SidebarElements[]
+
+    @HasMany(() => Categories)
+    categories : Categories[]
+
+    @HasMany(() => Pages)
+    pages : Pages[]
 }

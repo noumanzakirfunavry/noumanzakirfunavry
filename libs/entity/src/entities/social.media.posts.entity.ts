@@ -20,7 +20,9 @@ export class SocialMediaPosts extends Model{
     entityId : number
 
     @Column({
-        type : DataType.ENUM
+        type : DataType.ENUM,
+    values : Object.values(SocialMediaPlatformTypes)
+
     })
     platform : SocialMediaPlatformTypes
 

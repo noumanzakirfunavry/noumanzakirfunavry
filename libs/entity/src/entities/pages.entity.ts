@@ -1,4 +1,5 @@
 import { Table,Model, PrimaryKey, AutoIncrement, Unique, Column, DataType, ForeignKey, BelongsTo, BelongsToMany } from "sequelize-typescript";
+import { Banner } from "./banner.entity";
 import { PagesHasQuotes } from "./pages.has.quotes.entity";
 import { Quotes } from "./quotes.entity";
 import { SeoDetails } from "./seo.details.entity";
@@ -51,6 +52,14 @@ seodetailsId : number
 @BelongsTo(() => SeoDetails)
 seoDetails : SeoDetails
 
+@ForeignKey(() => Banner)
+@Column
+bannerId : number
+@BelongsTo(() => Banner)
+banner : Banner
+
 @BelongsToMany(() => Quotes,() => PagesHasQuotes)
 quotes : Quotes[]
+
+
 }

@@ -10,6 +10,7 @@ import { MessageHasAttachments } from "./message.has.attachments.entity";
 import { Presenters } from "./presenters.entity";
 import { Programs } from "./programs.entity";
 import { News } from "./news.entity";
+import { ExclusiveVideos } from "./exclusive.videos.entity";
 @Table({
   paranoid : true,
   timestamps : true
@@ -25,7 +26,8 @@ export class Attachments extends Model{
   uploadedBy : number
 
   @Column({
-    type : DataType.ENUM
+    type : DataType.ENUM,
+    values : Object.values(AttachmentTypes)
   })
   attachmentType : AttachmentTypes
 
@@ -53,7 +55,7 @@ export class Attachments extends Model{
   @HasOne(() => Episodes,'thumbnailId')
   thumbnailEpisode : Episodes
 
-  @HasOne(() => InfographicsAttachments)
+  @HasOne(() => InfographicsAttachments,'attachmentId')
   infographicsAttachments : InfographicsAttachments
 
   @HasOne(() => JobApplicants)
@@ -79,4 +81,7 @@ export class Attachments extends Model{
 
   @HasMany(() => News, 'imageId')
   imagesNews : News[]
+
+  @HasOne(() => ExclusiveVideos)
+  exclusiveVideos :ExclusiveVideos[]
 }

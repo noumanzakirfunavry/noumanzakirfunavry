@@ -15,12 +15,16 @@ export class ChangeLogs extends Model{
 id : number
 
 @Column({
-    type : DataType.ENUM
+    type : DataType.ENUM,
+    values : Object.values(ChangeTypes)
+
 })
 changeType : ChangeTypes
 
 @Column({
-    type : DataType.ENUM
+    type : DataType.ENUM,
+    values : Object.values(EntityTypes)
+
 })
 entityType : EntityTypes
 

@@ -42,9 +42,10 @@ export class Infographics extends Model{
     @Column
     seoDetailId : number
     @BelongsTo(() => SeoDetails)
+    seoDetails : SeoDetails
 
-    @HasMany(() => InfographicsAttachments)
-    infographicsAttachments : InfographicsAttachments[]
+    @HasMany(() => InfographicsAttachments,'infographicId')
+    infographicsAttachment : InfographicsAttachments[]
 
     @HasMany(() =>  InfographicsVisitors)
     infographicsVisitors : InfographicsVisitors[]

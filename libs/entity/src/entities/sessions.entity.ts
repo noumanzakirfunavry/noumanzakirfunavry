@@ -24,7 +24,9 @@ export class Sessions extends Model{
     endTime : Date
 
     @Column({
-        type : DataType.ENUM
+        type : DataType.ENUM,
+    values : Object.values(DeviceTypes)
+
     })
     deviceType : DeviceTypes
     
