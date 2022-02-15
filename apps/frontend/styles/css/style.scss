@@ -20,6 +20,9 @@ a:not([href]):not([class]):hover{
   color: $warning;
 }
 
+.montserrat{
+  font-family: $tertiary-font;
+}
 
 //   Button Styles
 .btn{
@@ -60,6 +63,12 @@ a:not([href]):not([class]):hover{
   }
 .text-dim{
   opacity: 0.7;
+}
+.text-bold{
+  font-weight: bold;
+}
+.text-extra-bold{
+  font-weight: 900 !important;
 }
 
 
@@ -133,6 +142,9 @@ header{
   }
   .logo-header{
     flex: 3;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   .cnbc-logo{
     margin-bottom: 10px;
@@ -999,7 +1011,8 @@ header{
   padding: 0 10px;
  }
  .newsSlider .slick-slider .NewsBox{
-    background: url(../images/biden.jpg) no-repeat;
+    background-image: url(../images/biden.jpg);
+    background-repeat: no-repeat;
     height: 326px;
     position: relative;
  }
@@ -1614,3 +1627,39 @@ width: 110px;
   }
 }
 
+
+
+.jobsSlider{
+  margin-bottom: 50px;
+  .newsSlider{
+    .slick-slider{
+      .NewsBox{
+        background-color: $light-bright;
+        background-image: none;
+        text-align: left;
+        padding: 20px;
+        height: 170px;
+        h2{
+          line-height: 24px;
+          a{
+            font-size: 20px;
+            color: $primary-dark;
+          }
+        }
+        h6{
+          margin: 0;
+          color: $secondary-color;
+        }
+
+        .newscontent{
+          background-image: none;
+          padding: 0;
+          p{
+            color: $grey;
+          }
+        }
+      }
+    }
+
+  }
+}
