@@ -178,7 +178,9 @@
     .scheduleCalendar table h4 {
         font-size: 1rem;
     }
-    
+    .MobileToggleNav{
+        display: block;
+    }
     
   }
   @media screen and (max-width:768px) and (min-width:576px){
