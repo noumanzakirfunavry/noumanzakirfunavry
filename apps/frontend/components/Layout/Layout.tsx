@@ -1,5 +1,6 @@
 
 import { useState } from 'react'
+import LoginModal from '../LoginModal/LoginModal'
 // import BannerLayout from '../BannerLayout/BannerLayout'
 import Cookies from '../Shared/CookieConsent/Cookies'
 import Footer from './Footer/Footer'
@@ -17,6 +18,7 @@ const Layout = ({children}) =>{
             {children}
             <Footer/>
             {displayCookies && <Cookies/>}
+            <LoginModal/>
         </>
     )
 }

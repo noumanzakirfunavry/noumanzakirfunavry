@@ -1,6 +1,6 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
-import NewsListTiles from "apps/frontend/components/Shared/NewsListTiles/NewsListTiles"
+import AllProgrmasTilesList from "apps/frontend/components/Shared/AllProgrmasTilesList/AllProgrmasTilesList"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import Title from "apps/frontend/components/Title"
 
@@ -14,11 +14,11 @@ const Index = () =>{
                     <h2>برامج CNBC عربية</h2>
                 </Title>
                 <div className='row'>
-                    <div className='col-md-8'>
-                    <NewsListTiles newsList={[]}/>
+                    <div className='col-lg-8'>
+                    <AllProgrmasTilesList />
                     </div>
-                    <div className='col-md-4'>
-                        <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+                    <div className='col-lg-4'>
+                        <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
                     </div>
                 </div>
             </div>

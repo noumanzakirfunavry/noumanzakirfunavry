@@ -3,13 +3,12 @@
 import Link from 'next/link'
 import logo from '../../../styles/images/cnbc-arabia-logo.svg';
 import smallLogo from "../../../styles/images/cnbc-logo-white.svg";
-import LoginModal from '../../LoginModal/LoginModal';
 import SearchDropDown from '../../Shared/SearchDropDown/SearchDropDown';
 
 const Header = () =>{
    
     return (
-        <>
+        <>  
             <header>
                 <div className="container">
                         <div className="header-box">
@@ -27,30 +26,30 @@ const Header = () =>{
                                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                             <ul className="navbar-nav">
                                                 <li className="nav-item" key={'1'}>
-                                                    <a className="nav-link active" aria-current="page" href="#">الرئيسية</a>
+                                                    <a className="nav-link active" aria-current="page" href="/breakingNews">أخبار عاجلة</a>
                                                 </li>
                                                 <li className="nav-item" key={'2'}>
-                                                    <a className="nav-link" href="#">الرئيسية</a>
+                                                    <a className="nav-link" href="/infographics">إنفوغرافيك</a>
                                                 </li>
 
                                                 <li className="nav-item" key={'3'}>
-                                                    <a className="nav-link" href="#" >الرئيسية</a>
+                                                    <a className="nav-link" href="/presenters" >مذيعو ومراسلو</a>
                                                 </li>
                                                 <li className="nav-item" key={'4'}>
-                                                    <a className="nav-link" href="#" >الرئيسية</a>
+                                                    <a className="nav-link" href="/latestVideos" >أحدث مقاطع الفيديو</a>
                                                 </li>
                                                 <li className="nav-item" key={'5'}>
-                                                    <a className="nav-link" href="#">الرئيسية</a>
+                                                    <a className="nav-link" href="/schedules">جدول البرامج</a>
                                                 </li>
                                                 <li className="nav-item" key={'6'}>
-                                                    <a className="nav-link" href="#">الرئيسية</a>
+                                                    <a className="nav-link" href="/videoNews">الفيديو</a>
                                                 </li>
                                                 <li className="nav-item dropdown" key={'7'}>
                                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
                                                     </a>
                                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                                         <li key={'8'}>
-                                                            <a className="dropdown-item" href="/program/100/اكسبو في أسبوع">اكسبو في أسبوع</a>
+                                                            <a className="dropdown-item" href="/programs/100/">اكسبو في أسبوع</a>
                                                         </li>
                                                         <li key={'9'}>
                                                             <a className="dropdown-item" href="/program/95/حديث المملكة مع راشد الفوزان">حديث المملكة مع راشد الفوزان</a>
@@ -124,7 +123,7 @@ const Header = () =>{
                                                     </ul>
                                                 </li>
                                                 <li className="nav-item" key={'32'}>
-                                                    <a className="nav-link" href="#">الرئيسية</a>
+                                                    <a className="nav-link" href="/categoryNewsTiles">آخر الأخبار</a>
                                                 </li>
                                                 <li className="nav-item" key={'33'}>
                                                     <a className="nav-link" href="#">الرئيسية</a>
@@ -137,7 +136,20 @@ const Header = () =>{
 
                                 </div>
                             </div>
-                            <SearchDropDown/>
+                            <div className="search-header">
+                                <div className="search-box">
+                                    <input type="text" className="form-control" placeholder="ابحث في الموقع" />
+                                    <span className="input-group-text"><i className="fa fa-search"></i></span>
+                                </div>
+                                <div className="header-search-nav">
+                                    <ul>
+                                        <li key={'wser'}><a href="/liveTv">المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></li>
+                                        <li><a key={'dsad'} href="/breakingNews">عاجل</a></li>
+                                        <li><a key={'adss'} data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a></li>
+                                    </ul>
+                                </div>
+                                <SearchDropDown/>
+                            </div>
 
                         </div>
                     </div>
@@ -152,14 +164,14 @@ const Header = () =>{
                             <span className='menuIcon'><i className='fa fa-chart-line'></i></span>
                                 الأسواق 
                             </a></li>
-                        <li><a>
+                        <li><a href="/liveTv">
                             <span className='menuIcon'><i className='fab fa-youtube-square'></i></span>
                             المباشر 
                         </a></li>
                         <li className='pt-2'><a title='CNBC Arabia'><img className='img-fluid' src={smallLogo.src} /></a></li>
                     </ul>
                 </div>
-                <LoginModal/>
+               
         </>
     )
 }

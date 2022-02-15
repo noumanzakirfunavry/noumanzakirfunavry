@@ -1,8 +1,8 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
-import JobOpportunities from "apps/frontend/components/Careers/JobOpportunities/JobOpportunities"
-import HorizontalMediaScrollBar from "apps/frontend/components/Home/HorizontalMediaScrollBar.tsx/HorizontalMediaScrollBar"
-import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
-
+import CareersSlider from "apps/frontend/components/Careers/CareersSlider/CareersSlider";
+import JobOpportunities from "apps/frontend/components/Careers/JobOpportunities/JobOpportunities";
+// import HorizontalMediaScrollBar from "apps/frontend/components/Home/HorizontalMediaScrollBar.tsx/HorizontalMediaScrollBar";
+import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner";
 
 const Index = () =>{
 
@@ -12,13 +12,9 @@ const Index = () =>{
                 <AdBanner />
 
                 <div className="pageTitle PageTitleYellow">
-                    <h2>CNBC ARABIA CAREERS</h2>
+                    <h2 className="montserrat text-extra-bold">CNBC ARABIA CAREERS</h2>
                 </div>
-
-                <div className='jobsSlider'>
-                    <h2 className="text-primary text-start">CURRENT JOBS</h2>
-                    <HorizontalMediaScrollBar/>
-                </div>
+                <CareersSlider/>
                 <hr></hr>
                 <div className='row justify-content-center'>
                     <div className="col-md-6">
@@ -31,3 +27,13 @@ const Index = () =>{
 }
 
 export default Index
+
+
+
+
+
+
+
+
+
+

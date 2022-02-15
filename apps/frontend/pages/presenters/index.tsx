@@ -13,14 +13,14 @@ const Index = () =>{
             <div className="container"> 
                 <AdBanner />
                 
-                <Title styles={"pageTitle PageTitleYellow mb-0"}>
+                <Title styles={"pageTitle PageTitleYellow mb-4"}>
                     <h2>مذيعو ومراسلو CNBC عربية</h2>
                 </Title>
                 <div className='row'>
-                    <div className='col-md-9'>
+                    <div className='col-lg-9'>
                         <Presenters/>
                     </div>
-                    <div className='col-md-3'>
+                    <div className='col-lg-3'>
                         <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
                     </div>
                 </div>

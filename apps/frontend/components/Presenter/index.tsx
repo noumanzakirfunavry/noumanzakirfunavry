@@ -8,217 +8,190 @@ const Presenters = () => {
         <>
             <div className="NewsTiles presentersTiles">
                 <div className="row">
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
-                                <h3>الطيب عبد الماجد</h3>
-                                <p>الطيب عبد الماجد</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
-                                <h3>الطيب عبد الماجد</h3>
-                                <p>الطيب عبد الماجد</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
-                                <h3>الطيب عبد الماجد</h3>
-                                <p>الطيب عبد الماجد</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="newBox">
-                            <div className="NewsImage"><img className="img-fluid" src={presenterimg.src} /></div>
-                            <div className="NewsInfo">
+                    <div className="col-xl-4 col-lg-6 col-md-4 col-sm-6">
+                        <div className="presenterBox">
+                            <div className="presenterImage"><img className="img-fluid" src={presenterimg.src} /></div>
+                            <div className="presenterInfo">
                                 <h3>الطيب عبد الماجد</h3>
                                 <p>الطيب عبد الماجد</p>
                             </div>

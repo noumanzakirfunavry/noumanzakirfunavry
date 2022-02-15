@@ -55,11 +55,14 @@
     .header-nav ul li {
         margin: 0px;
     }
+    .scheduleCalendar .nav .nav-item .nav-link{
+        font-size: 1.2rem;
+    }
   }
   
   @media screen and (max-width:992px){
     .logo-header {
-        flex: 1;
+        flex: 2 1;
     }
     .marketChart .chartBox .chartTop li a {
         padding: 5px 15px;
@@ -83,6 +86,9 @@
     }
     .header-search-nav ul li a {
         padding: 5px 5px;
+    }
+    .scheduleCalendar .nav .nav-item .nav-link{
+        font-size: 1.1rem;
     }
 
   }
@@ -110,6 +116,9 @@
   }
   
   @media screen and (max-width:768px){
+      body{
+          padding-bottom: 50px;
+      }
     .horizontalNumberList .hNumberList ol {
         flex-wrap: wrap;
     }
@@ -146,12 +155,65 @@
         width: 50%;
         padding-left: 0;
     }
+    .newsSliderText .slick-slider .slick-slide {
+        padding: 0px;
+    }
+    .newsSliderText .NewsBox .newscontent{
+        padding:0 25px;
+    }
+
+    .SocialHeaderMobile{
+        display: block;
+    }
+    .NewsTiles .newBox .PlayTime h5{
+        right: 0;
+    }
+    .scheduleCalendar .nav{
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        padding-bottom: 7px;
+    }
+    .scheduleCalendar table h4 {
+        font-size: 1rem;
+    }
+    
     
   }
+  @media screen and (max-width:768px) and (min-width:576px){
+    .searchResultList .NewsList li {
+        flex-flow: inherit;
+    }
+    .searchResultList .NewsList li .newsText {
+        flex: 2 1;
+    }
+    .searchResultList .NewsList li .newsImage{
+        padding-left: 15px;
+        padding-right: 0;
+    }
+    .searchResultList .NewsList li .newsText{
+        padding-top: 0;
+    }
+    .searchResultList .NewsList li .newsText p{
+        margin-top: 0;
+    }
+  }
+
 
   @media screen and (max-width:640px){
     .header-box {
         display: block;
+    }
+    .sidebar{
+        margin-top: 15px;
+    }
+    .NewsInfobox{
+        display: block;
+    }
+    .NewsInfobox .infoItem {
+        font-size: 14px;
+        margin-bottom: 5px;
     }
   }
   @media screen and (max-width:575px){
@@ -165,7 +227,7 @@
         white-space: normal;
     }
     .NewsTilesBg .TitleBar{
-        min-width: 500px;
+        min-width: 410px;
     }
     .NewsTilesBg .row{
         min-width: 1000px;
@@ -179,6 +241,54 @@
     .videoNewsContent{
         overflow-x: scroll;
         white-space: nowrap;
+    }
+    .breakingNews .newsbox .newslink{
+        margin-bottom: 15px;
+    }
+    .breakingNews .newsbox{
+        display: block;
+    }
+    .breakingNews .newsbox .newsaction{
+        justify-content: flex-start;
+    }
+    .NewsTiles .newBox{
+        display: flex;
+    }
+    .NewsTiles .newBox .NewsImage{
+        flex: 2;
+    }
+    .NewsTiles .newBox .NewsInfo{
+        flex: 3;
+        padding-right: 20px;
+    }
+    
+    .programDetailNews{
+        overflow-x: inherit;
+        white-space: inherit;
+      }
+      .programDetailNews .row {
+        min-width: 0;
+    }
+
+
+
+    .searchResultList .NewsList li {
+        flex-flow: column;
+    }
+    .searchResultList .NewsList li .newsText {
+        flex: 2 1;
+    }
+    .searchResultList .NewsList li .newsImage{
+        padding-left: 15px;
+        padding-right: 0;
+        margin-bottom: 15px;
+    }
+    .searchResultList .NewsList li .newsText{
+        padding-top: 0;
+    }
+    .searchResultList .NewsList li .newsText p{
+        margin-top: 0;
+        margin-bottom: 10px;
     }
 
   }

@@ -1,5 +1,4 @@
-import AdBanner from "../Shared/AdBanner/AdBanner"
-import SideBar from "../Shared/SideBar/SideBar"
+
 import NewsImage from "../../styles/images/biden2.jpg";
 
 const InfographicsDetails = () => {

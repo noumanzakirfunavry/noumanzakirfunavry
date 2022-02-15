@@ -73,7 +73,7 @@ const Index = () =>{
 
                     </div>
                     <div className='col-md-4'>
-                        <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+                        <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
                     </div>
                 </div>
             </div> */}
@@ -85,16 +85,16 @@ const Index = () =>{
                     <h1>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h1>
                 </div>
                 <div className="row">
-                    <div className="col-md-8">
+                    <div className="col-lg-8">
                         <NewsInfoBox/>
                     </div>
                 </div>
                 <div className="row">
-                    <div className='col-md-8'>
+                    <div className='col-lg-8'>
                         <InfographicsDetails/>
                     </div>
-                    <div className='col-md-4'>
-                            <SideBar sideBarSequence={[{ componentType: 'Latest', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+                    <div className='col-lg-4'>
+                            <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
                     </div>
                 </div>
             </div>

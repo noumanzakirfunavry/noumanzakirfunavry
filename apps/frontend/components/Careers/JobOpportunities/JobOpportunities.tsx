@@ -5,7 +5,7 @@ const JobOpportunities = () => {
         <>
           
           <div className="text-center pt-4 mb-4">
-              <h2 className="text-primary mb-3">FUTURE JOB OPPORTUNITIES</h2>
+              <h2 className="text-primary mb-3 montserrat text-extra-bold">FUTURE JOB OPPORTUNITIES</h2>
               <h5>Are you interested in working with CNBC Arabia? Fill the form below and we will keep you in mind for any future job offerings</h5>
           </div>
 
