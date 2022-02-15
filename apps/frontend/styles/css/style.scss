@@ -142,6 +142,9 @@ header{
   }
   .logo-header{
     flex: 3;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   .cnbc-logo{
     margin-bottom: 10px;

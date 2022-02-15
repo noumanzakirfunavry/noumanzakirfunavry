@@ -62,7 +62,7 @@
   
   @media screen and (max-width:992px){
     .logo-header {
-        flex: 1;
+        flex: 2 1;
     }
     .marketChart .chartBox .chartTop li a {
         padding: 5px 15px;
