@@ -1,11 +1,18 @@
 /* eslint-disable @next/next/link-passhref */
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Link from 'next/link'
+import { useState } from 'react';
 import logo from '../../../styles/images/cnbc-arabia-logo.svg';
 import smallLogo from "../../../styles/images/cnbc-logo-white.svg";
 import SearchDropDown from '../../Shared/SearchDropDown/SearchDropDown';
 
 const Header = () =>{
+
+    const [showMenuList, setShowMenuList] = useState<boolean>(false)
+
+    const handleMenuList = () => {
+        setShowMenuList(!showMenuList)
+    }
    
     return (
         <>  
@@ -156,7 +163,7 @@ const Header = () =>{
                 </header>
                 <div className='mobileHeader'>
                     <ul>
-                        <li><a>
+                        <li><a onClick={handleMenuList}> 
                                 <span className='menuIcon'><i className='fa fa-bars'></i></span>
                                 قائمة 
                             </a></li>
@@ -171,7 +178,16 @@ const Header = () =>{
                         <li className='pt-2'><a title='CNBC Arabia'><img className='img-fluid' src={smallLogo.src} /></a></li>
                     </ul>
                 </div>
-               
+                {
+                    showMenuList && (
+
+                        <div>
+                            <button onClick={handleMenuList}>Close</button>
+                            <h6>Menu List Here</h6>
+                        </div>
+
+                    )
+                }
         </>
     )
 }
