@@ -162,7 +162,7 @@ header{
     padding: 0;
   }
   .header-nav ul li{
-    margin: 0 5px;
+    margin: 0 1px;
   }
   .header-nav ul li a{
     font-size: 0.9rem;
@@ -904,6 +904,7 @@ header{
 .market-stats .marketBox{
     margin-bottom: 5px;
     min-width: 16%;
+    text-align: initial;
   }
   .marketBox{
     padding: 10px;
