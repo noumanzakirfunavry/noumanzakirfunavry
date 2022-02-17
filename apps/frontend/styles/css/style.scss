@@ -162,7 +162,7 @@ header{
     padding: 0;
   }
   .header-nav ul li{
-    margin: 0 5px;
+    margin: 0 1px;
   }
   .header-nav ul li a{
     font-size: 0.9rem;
@@ -904,6 +904,7 @@ header{
 .market-stats .marketBox{
     margin-bottom: 5px;
     min-width: 16%;
+    text-align: initial;
   }
   .marketBox{
     padding: 10px;
@@ -1661,5 +1662,47 @@ width: 110px;
       }
     }
 
+  }
+}
+
+
+.MobileToggleNav{
+  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  padding: 25px;
+  height: calc(100vh - 74px);
+  display: none;
+
+  .btn-cancel{
+    font-size: 24px;
+    color: $danger;
+    padding: 0;
+  }
+
+  .navbar-nav{
+    padding: 0;
+    max-height: 90%;
+    overflow-y: auto;
+    .nav-item{
+      border-bottom: 1px solid $grey-light;
+
+      &:last-child{
+        border-bottom: none;
+      }
+      .nav-link{
+        font-size: 15px;
+        font-weight: 600;
+        color: $primary-color;
+        padding: 10px;
+
+        &:hover{
+          color: $warning;
+        }
+      }
+    }
   }
 }

@@ -35,3 +35,7 @@ export type ModalProps = {
 export type TitleProps = {
     styles:string //for styles (color size etc) will be used as className
 }
+
+export type MobileHeaderProps = {
+    handleMenuList: () =>void
+}
