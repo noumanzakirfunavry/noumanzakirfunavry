@@ -1,5 +1,6 @@
 import { AutoIncrement, BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
 import { Attachments } from "./attachments.entity";
+import { News } from "./news.entity";
 
 @Table({
     paranoid : true,
@@ -19,11 +20,11 @@ export class ExclusiveVideos extends Model{
     description : string
 
     @Column
-    order : number
+    position : number
 
-    @ForeignKey(() => Attachments)
+    @ForeignKey(() => News)
     @Column
-    attachmentId : number
-    @BelongsTo(() => Attachments)
-    attachments : Attachments
+    newsId : number
+    @BelongsTo(() => News)
+    news : News
 }

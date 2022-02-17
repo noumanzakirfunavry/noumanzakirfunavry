@@ -20,7 +20,6 @@ export class Banner extends Model{
     @Column({
         type : DataType.ENUM,
     values : Object.values(BannerTypes)
-
     })
     type : BannerTypes
 
@@ -46,7 +45,7 @@ export class Banner extends Model{
     bannerVariations : BannerVariations[]
 
     @HasMany(() => SidebarElements)
-    sidebarElements : SidebarElements[]
+    sideBarElements : SidebarElements[]
 
     @HasMany(() => Categories)
     categories : Categories[]

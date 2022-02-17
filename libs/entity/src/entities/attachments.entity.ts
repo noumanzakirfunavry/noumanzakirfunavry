@@ -81,7 +81,4 @@ export class Attachments extends Model{
 
   @HasMany(() => News, 'imageId')
   imagesNews : News[]
-
-  @HasOne(() => ExclusiveVideos)
-  exclusiveVideos :ExclusiveVideos[]
 }

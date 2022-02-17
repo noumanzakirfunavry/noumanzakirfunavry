@@ -1,4 +1,8 @@
 import { Table,Model, PrimaryKey, AutoIncrement, Unique, Column, BelongsToMany } from "sequelize-typescript";
+import { Episodes } from "./episodes.entity";
+import { EpisodesHasQuotes } from "./episodes.has.quotes.entity";
+import { Infographics } from "./infographics.entity";
+import { InfographicsHasQuotes } from "./infographics.has.quotes.entity";
 import { News } from "./news.entity";
 import { NewsHasQuotes } from "./news.has.quotes.entity";
 import { Pages } from "./pages.entity";
@@ -20,5 +24,11 @@ export class Quotes extends Model{
 
     @BelongsToMany(() => Pages,() => PagesHasQuotes)
     pages : Pages[]
+
+    @BelongsToMany(() => Infographics,() => InfographicsHasQuotes)
+    infographics : Infographics[]
+
+    @BelongsToMany(() => Episodes,() => EpisodesHasQuotes)
+    episodes : Episodes[]
 
 }

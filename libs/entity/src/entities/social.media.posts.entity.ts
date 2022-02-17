@@ -27,7 +27,7 @@ export class SocialMediaPosts extends Model{
     platform : SocialMediaPlatformTypes
 
     @Column
-    platformPosturl : string
+    platformPostURL : string
 
     @ForeignKey(() => Users)
     @Column

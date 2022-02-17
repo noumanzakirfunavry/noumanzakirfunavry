@@ -1,9 +1,11 @@
 import { Table,Model, PrimaryKey, AutoIncrement, Unique, Column, DataType, ForeignKey, BelongsTo, BelongsToMany } from "sequelize-typescript";
 import { Banner } from "./banner.entity";
 import { PagesHasQuotes } from "./pages.has.quotes.entity";
+import { PagesHasTags } from "./pages.has.tags.entity";
 import { Quotes } from "./quotes.entity";
 import { SeoDetails } from "./seo.details.entity";
 import { Sidebars } from "./sidebars.entity";
+import { Tags } from "./tags.entity";
 import { Users } from "./users.entity";
 
 
@@ -22,7 +24,7 @@ id : number
 title : string
 
 @Column
-content : string
+description : string
 
 @Column({
     type : DataType.BOOLEAN
@@ -36,7 +38,7 @@ showSideBar : boolean
 
 @ForeignKey(() => Sidebars)
 @Column
-sidebarId : number
+sideBarId : number
 @BelongsTo(() => Sidebars)
 sideBars : Sidebars
 
@@ -48,7 +50,7 @@ users : Users
 
 @ForeignKey(() => SeoDetails)
 @Column
-seodetailsId : number
+seoDetailsId : number
 @BelongsTo(() => SeoDetails)
 seoDetails : SeoDetails
 
@@ -60,6 +62,9 @@ banner : Banner
 
 @BelongsToMany(() => Quotes,() => PagesHasQuotes)
 quotes : Quotes[]
+
+@BelongsToMany(() => Tags, () => PagesHasTags)
+tags : Tags[]
 
 
 }

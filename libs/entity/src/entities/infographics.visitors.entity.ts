@@ -25,5 +25,5 @@ export class InfographicsVisitors extends Model{
     @Column
     infographicsId : number
     @BelongsTo(() =>  Infographics)
-    infoGraphics : Infographics
+    infographics : Infographics
 }

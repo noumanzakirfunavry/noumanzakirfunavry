@@ -26,7 +26,7 @@ title : string
 description : string
 
 @Column
-keywords : number
+keywords : string
 
 @HasMany(() => News)
 news : News[]

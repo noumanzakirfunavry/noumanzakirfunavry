@@ -1,8 +1,12 @@
-import { Table,Model, PrimaryKey, AutoIncrement, Unique, Column, ForeignKey, BelongsTo, HasMany, DataType } from "sequelize-typescript";
+import { Table,Model, PrimaryKey, AutoIncrement, Unique, Column, ForeignKey, BelongsTo, HasMany, DataType, BelongsToMany } from "sequelize-typescript";
 import { Attachments } from "./attachments.entity";
 import { EpisodeVisitors } from "./episode.visitors.entity";
+import { EpisodesHasQuotes } from "./episodes.has.quotes.entity";
+import { EpisodesHasTags } from "./episodes.has.tags.entity";
 import { Programs } from "./programs.entity";
+import { Quotes } from "./quotes.entity";
 import { SeoDetails } from "./seo.details.entity";
+import { Tags } from "./tags.entity";
 import { Users } from "./users.entity";
 
 
@@ -47,13 +51,14 @@ export class Episodes extends Model{
     @ForeignKey(() => Attachments)
     @Column
     videoId : number
+    @BelongsTo(() => Attachments,'videoId')
+    video : Attachments
 
     @ForeignKey(() => Attachments)
     @Column
     thumbnailId : number
-    
-    @BelongsTo(() => Attachments)
-    attachment : Attachments
+    @BelongsTo(() => Attachments,'thumbnailId')
+    thumbnail : Attachments
 
     @ForeignKey(() => Users)
     @Column
@@ -64,4 +69,10 @@ export class Episodes extends Model{
 
     @HasMany(() => EpisodeVisitors,'episodeId')
     episodeVisitors : EpisodeVisitors[]
-}
+
+    @BelongsToMany(() => Tags,() => EpisodesHasTags)
+    tags : Tags[]
+
+    @BelongsToMany(() => Quotes,() => EpisodesHasQuotes)
+    quotes : Quotes[]
+} 

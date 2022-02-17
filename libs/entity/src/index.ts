@@ -13,10 +13,14 @@ import { EditorsChoiceNews } from './entities/editors.choice.news.entity';
 import { EmailSubscribers } from './entities/email.subscribers.entity';
 import { EpisodeVisitors } from './entities/episode.visitors.entity';
 import { Episodes } from './entities/episodes.entity';
+import { EpisodesHasQuotes } from './entities/episodes.has.quotes.entity';
+import { EpisodesHasTags } from './entities/episodes.has.tags.entity';
 import { ExclusiveVideos } from './entities/exclusive.videos.entity';
 import { FeaturedNews } from './entities/featured.news.entity';
 import { InfographicsAttachments } from './entities/infographics.attachments.entity';
 import { Infographics } from './entities/infographics.entity';
+import { InfographicsHasQuotes } from './entities/infographics.has.quotes.entity';
+import { InfographicsHasTags } from './entities/infographics.has.tags.entity';
 import { InfographicsVisitors } from './entities/infographics.visitors.entity';
 import { JobApplicants } from './entities/job.applicants.entity';
 import { JobApplicantsHasLanguages } from './entities/job.applicants.has.languages.entity';
@@ -39,6 +43,7 @@ import { NewsVisitors } from './entities/news.visitors.entity';
 import { NotificationSubscriber } from './entities/notification.subscribers.entity';
 import { Pages } from './entities/pages.entity';
 import { PagesHasQuotes } from './entities/pages.has.quotes.entity';
+import { PagesHasTags } from './entities/pages.has.tags.entity';
 import { Presenters } from './entities/presenters.entity';
 import { Programs } from './entities/programs.entity';
 import { ProgramsHasPresenters } from './entities/programs.has.presenters.entity';
@@ -80,11 +85,15 @@ export const Entities=[
     EmailSubscribers,
     Episodes,
     EpisodeVisitors,
+    EpisodesHasQuotes,
+    EpisodesHasTags,
     ExclusiveVideos,
     FeaturedNews,
     Infographics,
     InfographicsAttachments,
     InfographicsVisitors,
+    InfographicsHasQuotes,
+    InfographicsHasTags,
     JobApplicants,
     JobApplicantsHasLanguages,
     Jobs,
@@ -106,6 +115,7 @@ export const Entities=[
     NotificationSubscriber,
     Pages,
     PagesHasQuotes,
+    PagesHasTags,
     Presenters,
     Programs,
     ProgramsHasPresenters,

@@ -20,7 +20,7 @@ export class LiveStreamLinks extends Model{
     description : string
 
     @Column
-    liveStreamUrl : string
+    liveStreamURL : string
 
     @Column({
         type : DataType.BOOLEAN

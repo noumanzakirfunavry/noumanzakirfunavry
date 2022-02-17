@@ -23,6 +23,9 @@ export class Programs extends Model{
     title : string
 
     @Column
+    description : string
+
+    @Column
     orders : number
 
     @Column

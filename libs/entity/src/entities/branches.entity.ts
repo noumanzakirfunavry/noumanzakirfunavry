@@ -20,6 +20,10 @@ title : string
 phone : string
 
 @Column
+fax : string
+
+
+@Column
 email : string
 
 @Column
@@ -38,7 +42,7 @@ isActive : boolean
 
 @ForeignKey(() => Users)
 @Column
-published_by : number
+publishedBy : number
 
 @BelongsTo(() => Users)
 user : Users

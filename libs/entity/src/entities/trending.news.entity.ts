@@ -19,7 +19,7 @@ id : number
 position : number
 
 @Column
-externalUrl : string
+externalURL : string
 
 @ForeignKey(() => News)
 @Column

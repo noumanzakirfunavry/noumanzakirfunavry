@@ -21,5 +21,5 @@ title : string
 pages : Pages[]
 
 @HasMany(() => SidebarElements)
-sidebarElements : SidebarElements[]
+sideBarElements : SidebarElements[]
 }

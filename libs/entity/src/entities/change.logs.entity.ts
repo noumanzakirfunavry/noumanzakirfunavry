@@ -45,7 +45,7 @@ location : string
 
 @ForeignKey(() => Sessions)
 @Column
-sessions_id : number
+sessionsId : number
 
 @BelongsTo(() => Sessions)
 session : Sessions

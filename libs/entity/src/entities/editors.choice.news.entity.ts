@@ -20,14 +20,12 @@ position : number
 @ForeignKey(() => News)
 @Column
 newsId : number
-
 @BelongsTo(() => News)
 news : News
 
 @ForeignKey(() => Users)
 @Column
 userId : number
-
 @BelongsTo(() => Users)
 user : Users
 }

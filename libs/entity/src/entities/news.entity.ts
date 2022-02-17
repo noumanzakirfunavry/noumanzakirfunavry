@@ -1,9 +1,11 @@
 import { ContentTypes, NewsTypes } from "@cnbc-monorepo/enums";
 import { Table,Model, PrimaryKey, AutoIncrement, Unique, Column, BelongsToMany, ForeignKey, BelongsTo, DataType, HasMany, HasOne } from "sequelize-typescript";
 import { Attachments } from "./attachments.entity";
+import { BreakingNews } from "./breaking.news.entity";
 import { Categories } from "./categories.entity";
 import { ContentAnalytics } from "./content.analytics.entity";
 import { EditorsChoiceNews } from "./editors.choice.news.entity";
+import { ExclusiveVideos } from "./exclusive.videos.entity";
 import { FeaturedNews } from "./featured.news.entity";
 import { NewsHasCategories } from "./news.has.categories.entity";
 import { NewsHasQuotes } from "./news.has.quotes.entity";
@@ -114,7 +116,7 @@ export class News extends Model{
     quotes : Quotes[]
     
     @HasMany(() => ContentAnalytics)
-    contenAnalytics : ContentAnalytics[]
+    contentAnalytics : ContentAnalytics[]
 
     @HasMany(() => EditorsChoiceNews)
     editorsChoiceNews : EditorsChoiceNews[]
@@ -130,4 +132,10 @@ export class News extends Model{
 
     @HasMany(() => NewsVisitors)
     newVisitors : NewsVisitors[]
+
+    @HasOne(() => ExclusiveVideos)
+    exclusiveVideo : ExclusiveVideos
+
+    @HasMany(() => BreakingNews)
+    breakingNews :  BreakingNews[]
 }

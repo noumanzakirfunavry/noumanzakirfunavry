@@ -36,7 +36,7 @@ export class SidebarElements extends Model{
 
     @ForeignKey(() => Sidebars)
     @Column
-    sidebarId : number
+    sideBarId : number
     @BelongsTo(() => Sidebars)
-    sidebars : Sidebars
+    sideBars : Sidebars
 }
