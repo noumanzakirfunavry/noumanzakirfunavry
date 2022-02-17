@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"version":3,"routes":{},"dynamicRoutes":{},"preview":{"previewModeId":"17cb7e802e902a137cccef3d7fd17b8e","previewModeSigningKey":"5aee2c049db79b0aaa260a00a61330ed9b8a9469e87da85a72239a7da8b2254d","previewModeEncryptionKey":"19100f390c512e5bfd2f48d5af4a5fe5aede535868da97d2ba83b18802421340"},"notFoundRoutes":[]}
+=======
+{"version":3,"routes":{"/breakingNews":{"initialRevalidateSeconds":false,"srcRoute":null,"dataRoute":"/_next/data/fzl7cCuNfncS_40QqVUBY/breakingNews.json"}},"dynamicRoutes":{},"notFoundRoutes":[],"preview":{"previewModeId":"b585028e7a7d3a643342335bef95f062","previewModeSigningKey":"5fa12d829eca7a5344c4e5f5748735234f914b73644b7421f47631c3f0bc2298","previewModeEncryptionKey":"a85172c261efe45b42bc5db48842dc5e964eeaec804528e5d5bff38dcfa25969"}}
+>>>>>>> 5f74d8a50bf4bf31bbb65872a370d5b37b1cbbe8

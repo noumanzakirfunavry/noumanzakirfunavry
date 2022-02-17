@@ -1,3 +1,4 @@
+import Link from "next/link"
 
 
 const TopBar = () => {
@@ -6,11 +7,11 @@ const TopBar = () => {
         <div className="top-bar">
             <div className="alert alert-dark alert-dismissible top-grey-bar fade show" role="alert">
                 <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"><i className="fa fa-times"></i></button>
-                <strong>إعلان</strong> السيسي يشدد خلال اتصال مع المنفي على أهمية عقد الانتخابات الليبية في موعدها
+                <strong>إعلان</strong> <Link href="breakingNews"><span role={'button'}> السيسي يشدد خلال اتصال مع المنفي على أهمية عقد الانتخابات الليبية في موعدها</span></Link>
             </div>
             <div className="alert alert-danger alert-dismissible top-red-bar fade show" role="alert">
                 <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"><i className="fa fa-times"></i></button>
-                <strong>الأخبار العاجلة</strong> السيسي يشدد خلال اتصال مع المنفي على أهمية عقد الانتخابات الليبية في موعدها
+                <strong>الأخبار العاجلة</strong><Link href="/breakingNews"><span role={'button'}> السيسي يشدد خلال اتصال مع المنفي على أهمية عقد الانتخابات الليبية في موعدها</span></Link> 
             </div>
         </div>
     )
