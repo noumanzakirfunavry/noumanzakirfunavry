@@ -108,7 +108,11 @@
 /******/ 		// This function allow to reference async chunks and sibling chunks for the entrypoint
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
+<<<<<<< HEAD
 /******/ 			return undefined;
+=======
+/******/ 			return "" + chunkId + ".js";
+>>>>>>> 5f74d8a50bf4bf31bbb65872a370d5b37b1cbbe8
 /******/ 		};
 /******/ 	})();
 /******/ 	
