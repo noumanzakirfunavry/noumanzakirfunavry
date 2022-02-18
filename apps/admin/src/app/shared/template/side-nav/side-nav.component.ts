@@ -9,10 +9,10 @@ import { ThemeConstantService } from '../../services/theme-constant.service';
 
 export class SideNavComponent{
 
-    public menuItems: any[]=[]
-    isFolded: boolean = false;
-    isSideNavDark: boolean = false;
-    isExpand: boolean = false;
+    public menuItems: any[]
+    isFolded : boolean;
+    isSideNavDark : boolean;
+    isExpand : boolean;
 
     constructor( private themeService: ThemeConstantService) {}
 

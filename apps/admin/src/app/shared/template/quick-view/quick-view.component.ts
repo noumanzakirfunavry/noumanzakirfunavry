@@ -10,9 +10,9 @@ import { ThemeConstantService } from '../../services/theme-constant.service';
 
 export class QuickViewComponent {
   
-    selectedHeaderColor: string | any;
-    isSideNavDark: boolean = false;
-    isFolded: boolean = false;
+    selectedHeaderColor: string;
+    isSideNavDark : boolean;
+    isFolded : boolean;
 
     constructor( private themeService: ThemeConstantService) {}
 

@@ -10,7 +10,7 @@ import { CommonLayout_ROUTES } from "./shared/routes/common-layout.routes";
 const appRoutes: Routes = [
     {
         path: '',
-        redirectTo: '/dashboard/default',
+        redirectTo: '/dashboard/home',
         pathMatch: 'full',
     },
     { 

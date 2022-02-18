@@ -8,7 +8,7 @@ export class SideNavDirective implements AfterViewChecked {
 
     
     ngAfterViewChecked() {
-        setTimeout(() => {
+        // if($){
             $('.side-nav .side-nav-menu:not(.ant-menu-inline-collapsed) li a').click(function(event) {
                 if ($(this).parent().hasClass("ant-menu-submenu-open")) {
     
@@ -25,7 +25,7 @@ export class SideNavDirective implements AfterViewChecked {
                     });
                 }
             });
-            
-        }, 1000);
-    }
+        }
+        
+    // }
 }
