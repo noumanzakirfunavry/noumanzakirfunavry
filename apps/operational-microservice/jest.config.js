@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'repositories',
+  displayName: 'operational-microservice',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -8,8 +8,8 @@ module.exports = {
   },
   testEnvironment: 'node',
   transform: {
-    '^.+\\.[tj]sx?$': 'ts-jest',
+    '^.+\\.[tj]s$': 'ts-jest',
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/repositories',
+  moduleFileExtensions: ['ts', 'js', 'html'],
+  coverageDirectory: '../../coverage/apps/operational-microservice',
 };

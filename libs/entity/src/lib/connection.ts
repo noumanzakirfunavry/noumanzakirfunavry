@@ -10,6 +10,7 @@ export const Connection = [
             host: "localhost",
             port: 3306,
             username: 'root',
+            repositoryMode : true,
             password: 'password',
             database: 'cnbc',
             logging: true,

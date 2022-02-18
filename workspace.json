@@ -17,8 +17,8 @@
     "models": "libs/models",
     "news-microservice": "apps/news-microservice",
     "notification-microservice": "apps/notification-microservice",
+    "operational-microservice": "apps/operational-microservice",
     "providers": "libs/providers",
-    "repositories": "libs/repositories",
     "utility": "libs/utility"
   }
 }
