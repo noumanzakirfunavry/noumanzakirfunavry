@@ -19,10 +19,28 @@ const appRoutes: Routes = [
         children: CommonLayout_ROUTES 
     },
     { 
-        path: '', 
+        path: 'full', 
         component: FullLayoutComponent, 
         children: FullLayout_ROUTES
+    },
+    { 
+        path: 'full', 
+        component: FullLayoutComponent, 
+        children: FullLayout_ROUTES
+    },
+    {
+        path: 'news',
+        loadChildren: () => import('./news/news.module').then(m => m.NewsModule)
+    },
+    {
+        path: 'category',
+        loadChildren: () => import('./categories/Category.module').then(m => m.CategoryModule)
+    },
+    {
+        path: 'quickLinks',
+        loadChildren: () => import('./quickLinks/quicklink.module').then(m => m.QuickLinkModule)
     }
+     
 ];
 
 @NgModule({
