@@ -8,5 +8,5 @@
     "target": "es6"
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "src/lib/seeders/user.seeder.js", "src/lib/seeders/roles.seeder.js"]
 }
