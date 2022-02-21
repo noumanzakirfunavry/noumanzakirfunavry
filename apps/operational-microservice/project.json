@@ -9,8 +9,7 @@
       "options": {
         "outputPath": "dist/apps/operational-microservice",
         "main": "apps/operational-microservice/src/main.ts",
-        "tsConfig": "apps/operational-microservice/tsconfig.app.json",
-        "assets": ["apps/operational-microservice/src/assets"]
+        "tsConfig": "apps/operational-microservice/tsconfig.app.json"
       },
       "configurations": {
         "production": {
