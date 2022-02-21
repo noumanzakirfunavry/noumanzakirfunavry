@@ -4,18 +4,15 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   controllers: [],
   providers: [...Connection],
-  exports: [...Connection
+  exports: [...Connection,
+    ConfigModule
 ],
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath : '.env'
     })
   ]
 })
 export class EntityModule {
-  constructor() {
-    console.log("Entities are being loaded...");
-
-  }
-
 }
