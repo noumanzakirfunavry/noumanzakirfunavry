@@ -3,7 +3,7 @@
        return  await queryInterface.bulkInsert('Users', [
             {
               name: 'Taaha',
-              userName: 'taaha123',
+              userName: '$2a$10$M9c92t/IpzIAiitRTGZJVO2zmrjKukE41l/kTow3cgH/pqVguDLA.',
               password: '123',
               email: 'taaha@yopmail.com',
               isActive: true,
