@@ -5,6 +5,15 @@ import { AddCategoryComponent } from './addCategory/addCategoy.component';
 import { EditCategoryComponent } from './editCategory/editCategory.component';
 const routes: Routes = [
     {
+        path: '',
+        component: CategoryComponent,
+        data: {
+            title: 'category',
+            headerDisplay: "none"
+        },
+
+    },
+    {
         path: 'add',
         component: AddCategoryComponent,
         data: {
