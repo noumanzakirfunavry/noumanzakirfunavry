@@ -16,14 +16,14 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'dashboard',
         submenu: []
     },
-    {
-        path: 'news',
-        title: 'News list',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'dashboard',
-        submenu: []
-    },
+    // {
+    //     path: 'news',
+    //     title: 'News list',
+    //     iconType: 'nzIcon',
+    //     iconTheme: 'outline',
+    //     icon: 'dashboard',
+    //     submenu: []
+    // },
     {
         path: 'quickLinks',
         title: 'Quick Links',
