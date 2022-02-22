@@ -9,6 +9,39 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
+        path: 'news',
+        title: 'News',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'news',
+        title: 'News list',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'quickLinks',
+        title: 'Quick Links',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'category',
+        title: 'category',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+   
+    {
         path: '',
         title: 'Multi Level Menu',
         iconType: 'nzIcon',
