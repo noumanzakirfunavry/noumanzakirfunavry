@@ -2,10 +2,11 @@ import { Module } from "@nestjs/common";
 import { TagsController } from "./tags.controller";
 import { TagsService } from "./tags.service";
 import {EntityModule} from '@cnbc-monorepo/entity'
-
+import { ProvidersModule} from '@cnbc-monorepo/providers'
 @Module({
     imports:[
-        EntityModule
+        EntityModule,
+        ProvidersModule
     ],
     controllers:[TagsController],
     providers:[TagsService],
