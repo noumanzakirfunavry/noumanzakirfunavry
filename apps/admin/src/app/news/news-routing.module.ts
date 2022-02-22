@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {NewsComponent } from './news.component';
 import { AddNewsComponent } from './addNews/addNews.component';
-import { EditNewsComponent } from './editNews/editNews.component';
 const routes: Routes = [
     {
-        path: '',
+        path: 'list',
         component: NewsComponent,
-        data: {
-            title: 'News',
-            headerDisplay: "none"
-        },
+        // data: {
+        //     title: 'News',
+        //     // headerDisplay: "none"
+        // },
 
     },
     {
@@ -18,19 +17,11 @@ const routes: Routes = [
         component: AddNewsComponent,
         data: {
             title: 'Add News',
-            headerDisplay: "none"
+            // headerDisplay: "none"
         },
 
     },
-    {
-        path: 'edit',
-        component: EditNewsComponent,
-        data: {
-            title: 'Edit News',
-            headerDisplay: "none"
-        },
-
-    }
+   
 ];
 
 @NgModule({

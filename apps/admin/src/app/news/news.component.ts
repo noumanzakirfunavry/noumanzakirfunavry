@@ -1,183 +1,27 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//     selector: 'app-dashboard',
-//     templateUrl: './dashboard.component.html',
-// })
-
-// export class DashboardComponent implements OnInit {
-//     constructor() { }
-
-//     ngOnInit(): void { }
-// }
-
-
 import { Component, OnInit } from '@angular/core'
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
 // import { ThemeConstantService } from '../../shared/services/theme-constant.service';
-
+export interface Data {
+    id: number;
+    name: string;
+    age: number;
+    address: string;
+    disabled: boolean;
+}
 @Component({
-       selector: 'app-news',
+    selector: 'app-news',
     templateUrl: './news.component.html',
 })
 
 export class NewsComponent {
+    // checked = false;
+    // loading = false;
+    // indeterminate = false;
+    // listOfData: Data[] | any = [];
+    // listOfCurrentPageData: Data[] = [];
+    // setOfCheckedId = new Set<number>();
 
-    themeColors = this.colorConfig.get().colors;
-    blue = this.themeColors.blue;
-    blueLight = this.themeColors.blueLight;
-    cyan = this.themeColors.cyan;
-    cyanLight = this.themeColors.cyanLight;
-    gold = this.themeColors.gold;
-    purple = this.themeColors.purple;
-    purpleLight = this.themeColors.purpleLight;
-    red = this.themeColors.red;
-
-    constructor( private colorConfig:ThemeConstantService ) {}
-
-    salesChartOptions: any = {
-        scaleShowVerticalLines: false,
-        maintainAspectRatio: false,
-        responsive: true,
-        scales: {
-            xAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: false,
-                    labelString: 'Month'
-                },
-                gridLines: false,
-                ticks: {
-                    display: true,
-                    beginAtZero: true,
-                    fontSize: 13,
-                    padding: 10
-                }
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: false,
-                    labelString: 'Value'
-                },
-                gridLines: {
-                    drawBorder: false,
-                    offsetGridLines: false,
-                    drawTicks: false,
-                    borderDash: [3, 4],
-                    zeroLineWidth: 1,
-                    zeroLineBorderDash: [3, 4]
-                },
-                ticks: {
-                    max: 80,                            
-                    stepSize: 20,
-                    display: true,
-                    beginAtZero: true,
-                    fontSize: 13,
-                    padding: 10
-                }
-            }]
-        }
-    };
-    salesChartLabels: string[] = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
-    salesChartType = 'bar';
-    salesChartColors: Array<any> = [
-        { 
-            backgroundColor: this.themeColors.blue,
-            borderWidth: 0
-        },
-        { 
-            backgroundColor: this.themeColors.blueLight,
-            borderWidth: 0
-        }
-    ];
-    salesChartData: any[] = [
-        { 
-            data: [20, 30, 35, 45, 55, 45],
-            label: 'Online',
-            categoryPercentage: 0.35,
-            barPercentage: 0.70
-        },
-        { 
-            data: [25, 35, 40, 50, 60, 50],
-            label: 'Offline',
-            categoryPercentage: 0.35,
-            barPercentage: 0.70
-        }
-    ];
-
-    revenueChartFormat: string = 'revenueMonth';
-
-    revenueChartData: Array<any> = [{ 
-        data: [30, 60, 40, 50, 40, 55, 85, 65, 75, 50, 70],
-        label: 'Series A' 
-    }];
-    currentrevenueChartLabelsIdx = 1;
-    revenueChartLabels:Array<any> = ["16th", "17th", "18th", "19th", "20th", "21th", "22th", "23th", "24th", "25th", "26th"];
-    revenueChartOptions: any = {
-        maintainAspectRatio: false,
-        responsive: true,
-        hover: {
-            mode: 'nearest',
-            intersect: true
-        },
-        tooltips: {
-            mode: 'index'
-        },
-        scales: {
-            xAxes: [{ 
-                gridLines: [{
-                    display: false,
-                }],
-                ticks: {
-                    display: true,
-                    fontColor: this.themeColors.grayLight,
-                    fontSize: 13,
-                    padding: 10
-                }
-            }],
-            yAxes: [{
-                gridLines: {
-                    drawBorder: false,
-                    drawTicks: false,
-                    borderDash: [3, 4],
-                    zeroLineWidth: 1,
-                    zeroLineBorderDash: [3, 4]  
-                },
-                ticks: {
-                    display: true,
-                    max: 100,                            
-                    stepSize: 20,
-                    fontColor: this.themeColors.grayLight,
-                    fontSize: 13,
-                    padding: 10
-                }  
-            }],
-        }
-    };
-    revenueChartColors: Array<any> = [
-        { 
-            backgroundColor: this.themeColors.transparent,
-            borderColor: this.cyan,
-            pointBackgroundColor: this.cyan,
-            pointBorderColor: this.themeColors.white,
-            pointHoverBackgroundColor: this.cyanLight,
-            pointHoverBorderColor: this.cyanLight
-        }
-    ];
-    revenueChartType = 'line';
-
-    customersChartLabels: string[] = ['Direct', 'Referral', 'Social Network'];
-    customersChartData: number[] = [350, 450, 100];
-    customersChartColors: Array<any> =  [{ 
-        backgroundColor: [this.gold, this.blue, this.red],
-        pointBackgroundColor : [this.gold, this.blue, this.red]
-    }];
-    customersChartOptions: any = {
-        cutoutPercentage: 80,
-        maintainAspectRatio: false
-    }
-    customersChartType = 'doughnut';
+    constructor(private colorConfig: ThemeConstantService) { }
 
     ordersList = [
         {
@@ -187,7 +31,7 @@ export class NewsComponent {
             date: '8 May 2019',
             amount: 137,
             status: 'approved',
-            checked : false
+            checked: false
         },
         {
             id: 5375,
@@ -196,7 +40,7 @@ export class NewsComponent {
             date: '6 May 2019',
             amount: 322,
             status: 'approved',
-            checked : false
+            checked: false
         },
         {
             id: 5762,
@@ -205,7 +49,7 @@ export class NewsComponent {
             date: '1 May 2019',
             amount: 543,
             status: 'approved',
-            checked : false
+            checked: false
         },
         {
             id: 5865,
@@ -214,7 +58,7 @@ export class NewsComponent {
             date: '28 April 2019',
             amount: 876,
             status: 'pending',
-            checked : false
+            checked: false
         },
         {
             id: 5213,
@@ -223,7 +67,7 @@ export class NewsComponent {
             date: '28 April 2019',
             amount: 241,
             status: 'approved',
-            checked : false
+            checked: false
         },
         {
             id: 5311,
@@ -232,40 +76,66 @@ export class NewsComponent {
             date: '19 April 2019',
             amount: 872,
             status: 'rejected',
-            checked : false
+            checked: false
         }
-    ]    
+    ]
 
-    productsList = [
-        {
-            name: 'Gray Sofa',
-            avatar: 'assets/images/others/thumb-9.jpg',
-            category: 'Home Decoration',
-            growth: 18.3
-        },
-        {
-            name: 'Beat Headphone',
-            avatar: 'assets/images/others/thumb-10.jpg',
-            category: 'Eletronic',
-            growth: 12.7
-        },
-        {
-            name: 'Wooden Rhino',
-            avatar: 'assets/images/others/thumb-11.jpg',
-            category: 'Home Decoration',
-            growth: 9.2
-        },
-        {
-            name: 'Red Chair',
-            avatar: 'assets/images/others/thumb-12.jpg',
-            category: 'Home Decoration',
-            growth: 7.7
-        },
-        {
-            name: 'Wristband',
-            avatar: 'assets/images/others/thumb-13.jpg',
-            category: 'Eletronic',
-            growth: 5.8
+    checked = false;
+    loading = false;
+    indeterminate = false;
+    listOfData: Data[] = [];
+    listOfCurrentPageData: Data[] = [];
+    setOfCheckedId = new Set<number>();
+
+    updateCheckedSet(id: number, checked: boolean): void {
+        if (checked) {
+            this.setOfCheckedId.add(id);
+        } else {
+            this.setOfCheckedId.delete(id);
         }
-    ]    
+    }
+
+    onCurrentPageDataChange(listOfCurrentPageData: Data[]): void {
+        this.listOfCurrentPageData = listOfCurrentPageData;
+        this.refreshCheckedStatus();
+    }
+
+    refreshCheckedStatus(): void {
+        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
+        this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+    }
+
+    onItemChecked(id: number, checked: boolean): void {
+        this.updateCheckedSet(id, checked);
+        this.refreshCheckedStatus();
+    }
+
+    onAllChecked(checked: boolean): void {
+        this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+        this.refreshCheckedStatus();
+    }
+
+    sendRequest(): void {
+        this.loading = true;
+        const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
+        console.log(requestData);
+        setTimeout(() => {
+            this.setOfCheckedId.clear();
+            this.refreshCheckedStatus();
+            this.loading = false;
+        }, 1000);
+    }
+
+    ngOnInit(): void {
+        this.listOfData = new Array(100).fill(0).map((_, index) => {
+            return {
+                id: index,
+                name: `Edward King ${index}`,
+                age: 32,
+                address: `London, Park Lane no. ${index}`,
+                disabled: index % 2 === 0
+            };
+        });
+    }
 }    

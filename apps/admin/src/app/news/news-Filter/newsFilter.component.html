@@ -1,1 +1,23 @@
-<p> News Filter Works</p>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+    <div nz-row [nzGutter]="24" class="justify-content-end">
+      <div nz-col [nzSpan]="3" *ngFor="let control of controlArray" >
+        <nz-form-item nzFlex>
+          <!-- <nz-form-label [nzFor]="'field' + control.index">Field {{ control.index }}</nz-form-label> -->
+          <nz-form-control>
+            <input nz-input placeholder="placeholder" [formControlName]="'field' + control.index" [attr.id]="'field' + control.index" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <!-- <div nz-row> -->
+        <div nz-col  class="search-area float-right">
+          <button nz-button [nzType]="'primary'">Search</button>
+          <button nz-button (click)="resetForm()">Clear</button>
+          <!-- <a class="collapse" (click)="toggleCollapse()">
+            Collapse
+            <i nz-icon [nzType]="isCollapse ? 'down' : 'up'"></i>
+          </a> -->
+        </div>
+      <!-- </div> -->
+    </div>
+  </form>
+ 

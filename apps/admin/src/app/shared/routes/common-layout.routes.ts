@@ -7,7 +7,20 @@ export const CommonLayout_ROUTES: Routes = [
     },
     {
         path: 'news',
-        loadChildren: () => import('../../news/news.module').then(m => m.NewsModule)
+        data: {
+            title: 'All News '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/news/list',
+                pathMatch: 'full'
+            }, 
+            {
+                path: '',
+                loadChildren: () => import('../../news/news.module').then(m => m.NewsModule)
+            }
+        ],
     },
     {
         path: 'category',
