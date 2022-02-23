@@ -24,7 +24,19 @@ export const CommonLayout_ROUTES: Routes = [
     },
     {
         path: 'category',
-        loadChildren: () => import('../../categories/Category.module').then(m => m.CategoryModule)
+        data: {
+            title: 'Categories '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/category/list',
+                pathMatch: 'full'
+            }, 
+            {path:'',
+            loadChildren: () => import('../../categories/Category.module').then(m => m.CategoryModule)
+        }
+    ]
     },
     {
         path: 'quickLinks',

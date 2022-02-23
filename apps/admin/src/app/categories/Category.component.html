@@ -1,43 +1,60 @@
-<p>Category Component Works!</p>
-<div class="col-lg-8">
-    <nz-card>
-        <div class="d-flex justify-content-between align-items-center">
-            <h5>Recent Orders</h5>
-            <div>
-                <a nz-button nzType="default" nzSize="small">View All</a>
+<div class="row">
+    <div class="col-lg-12">
+        <!-- <iframe id="highstockChart" style="border:none;overflow:hidden;height:410px;width:100%;margin-right:-9px;" scrolling="no" 
+        src="http://dev.zagtrader.com/Component/highstockschart.php?langId=2&amp;tickerId=10696&amp;showTitle=0&amp;lineStyle=line&amp;fillArea=1&amp;token=396a06fd8741e39915cf60c048189b29"></iframe> -->
+        <!-- <iframe  
+        src="http://dev.zagtrader.com/External/cnbcarabiadynamic/site2/gainers_losers.php?marketId=209"></iframe> -->
+        <!-- <iframe  
+        src="http://cnbcarabia.zagtrader.com/external/cnbcarabiadynamic/pricebar.php?marketId=209"></iframe> -->
+        <!-- <iframe id="highstockChart"
+        style="border:none;overflow:hidden;height:410px;width:100%;margin-right:-9px;"
+        scrolling="no"
+        href="http://dev.zagtrader.com/Component/highstockschart.php?langId=2&tickerId=10696&cnbcarabia=1&showTitle=0&lineStyle=line&fillArea=1&token=396a06fd8741e39915cf60c04818">
+    </iframe> -->
+        <!-- <iframe id="highstockChart"
+        style="border:none;overflow:hidden;height:410px;width:100%;margin-right:-9px;"
+        scrolling="no"
+        href="http://dev.zagtrader.com/Component/heatmap2.php?marketId=100&langId=2&selectedOptionMode=JSON">
+    </iframe> -->
+        <nz-card>
+            <div class="d-flex justify-content-between align-items-center">
+                <h5>Recent Orders</h5>
+                <div>
+                    <a nz-button nzType="default" nzSize="small">View All</a>
+                </div>
             </div>
-        </div>
-        <div class="m-t-30">
-            <nz-table #ordersListTable [nzData]="ordersList"  [nzShowPagination]="false" class="no-border-last">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Customer</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of ordersListTable.data">
-                        <td>#{{item.id}}</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
-                                <h6 class="m-l-10 m-b-0">{{item.name}}</h6>
-                            </div>
-                        </td>
-                        <td>{{item.date}}</td>
-                        <td>${{item.amount | number:'3.2-5'}}</td>
-                        <td>
-                            <nz-badge *ngIf="item.status == 'approved'" nzStatus="success"></nz-badge>
-                            <nz-badge *ngIf="item.status == 'rejected'" nzStatus="error"></nz-badge>
-                            <nz-badge *ngIf="item.status == 'pending'"  nzStatus="processing"></nz-badge> 
-                            <span class="text-capitalize">{{item.status}}</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </nz-table>
-        </div>
-    </nz-card>
+            <div class="m-t-30">
+                <nz-table #ordersListTable [nzData]="ordersList"  [nzShowPagination]="false" class="no-border-last">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of ordersListTable.data">
+                            <td>#{{item.id}}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
+                                    <h6 class="m-l-10 m-b-0">{{item.name}}</h6>
+                                </div>
+                            </td>
+                            <td>{{item.date}}</td>
+                            <td>${{item.amount | number:'3.2-5'}}</td>
+                            <td>
+                                <nz-badge *ngIf="item.status == 'approved'" nzStatus="success"></nz-badge>
+                                <nz-badge *ngIf="item.status == 'rejected'" nzStatus="error"></nz-badge>
+                                <nz-badge *ngIf="item.status == 'pending'"  nzStatus="processing"></nz-badge> 
+                                <span class="text-capitalize">{{item.status}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+        </nz-card>
+    </div>
 </div>

@@ -6,8 +6,8 @@ const routes: Routes = [
         path: 'home',
         component: CategoryComponent,
         data: {
-            title: 'Category',
-            headerDisplay: "none"
+            title: 'Dashboard',
+            // headerDisplay: "none"
         }
     }
 ];

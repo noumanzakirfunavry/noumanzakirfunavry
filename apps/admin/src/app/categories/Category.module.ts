@@ -29,7 +29,6 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 // import { CrmDashboardComponent } from './crm/crm-dashboard.component';
 import { CategoryComponent} from './Category.component';
 import { AddCategoryComponent } from './addCategory/addCategoy.component';
-import { EditCategoryComponent } from './editCategory/editCategory.component';
 import { FilterComponent } from './categoryFilter/Filter.component';
 
 const antdModule = [
@@ -62,7 +61,6 @@ const antdModule = [
     exports: [],
     declarations: [
         AddCategoryComponent,
-        EditCategoryComponent,
         CategoryComponent,
         FilterComponent
     ],

@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		#exportChart {
+			outline-style: none;
+			outline-width: medium;
+			text-decoration: none;
+			font-weight: bold;
+			color: #000;
+		}
+
+		#exportChart :hover {
+			text-decoration: underline;
+		}
+
+		table {
+			margin: 0 auto;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 12px;
+		}
+
+		table tr {
+			border-top: 1px solid #CCCCCC;
+		}
+
+		body {
+			margin: 0;
+		}
+	</style>
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div id="highstocksChart"></div>
+	<script type="text/javascript" charset="utf-8" src="/Cache/6f8345fd4bfcf633a0dd97d92aea188c.js"></script>
+	<script type="text/javascript">
+		var chart;
+		
+		var fromClientSide = 0;
+		
+		var isIphone = false;
+		if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
+			isIphone = true;
+		}
+		var isIphoneLandScape = false;
+		var isIphonePortrait = false;
+		switch (window.orientation) {  
+			case 0:  
+				isIphonePortrait = true;
+				break; 
+			case 180:  
+				isIphonePortrait = true;
+				break; 
+			case -90:  
+				isIphoneLandScape = true;
+				break;  
+			case 90:  
+				isIphoneLandScape = true;
+				break;
+		}
+		
+				if( window.innerWidth < 400 ){
+			isIphone = true;
+			isIphonePortrait = true;
+		}
+				
+		var chartDataFragment = {};
+		chartDataFragment[1] = [];
+
+		chartDataFragment[5] = [];
+
+		var chartDataFull = [];
+		
+				var chartData = chartDataFull;
+				
+		var chartAjaxUpdateTimer;
+		
+		var totalMinLength = 0;
+		var totalMaxLength = 0;
+		var totalDataMaxLength = 0;
+		var totalDataMinLength = 0;
+		
+		var lowestPrice = false;
+		var highestPrice = false;
+		
+		var initialMinRange = 0;
+		var initialMaxRange = 0;
+		
+		
+		
+		for(i in chartData ){
+
+			var indicatorIndex = 'high';
+
+			if( lowestPrice === false ) lowestPrice = chartData[i][indicatorIndex];
+			else if( lowestPrice > chartData[i][indicatorIndex] ) lowestPrice = chartData[i][indicatorIndex];
+			if( highestPrice === false ) highestPrice = chartData[i][indicatorIndex];
+			if( highestPrice < chartData[i][indicatorIndex] ) highestPrice = chartData[i][indicatorIndex];
+			
+			var rangeIndex = 'x';
+			
+			if( initialMinRange == 0 ) initialMinRange = chartData[i][rangeIndex];
+			else if( initialMinRange > chartData[i][rangeIndex] ) initialMinRange = chartData[i][rangeIndex];
+			if( initialMaxRange == 0 ) initialMaxRange = chartData[i][rangeIndex];
+			if( initialMaxRange < chartData[i][rangeIndex] ) initialMaxRange = chartData[i][rangeIndex];
+		}
+	
+		var dataMode = 0;
+		
+		var tickerParam = '^TASI@TADAWUL';
+		
+					var chartHeight = 330;
+			// if(typeof( $.browser.msie ) != 'undefined' && $.browser.version == '7.0'){
+			// 	chartHeight = 310;
+			// }
+		
+		if( chartData.length > 0 )
+			var lastPriceLbl = chartData[chartData.length-1]['y'];
+		else
+			var lastPriceLbl = 0;
+		
+		// lastPriceLbl = '10446.26';
+		var lastPriceLabelWidth = 35;
+		var chartMarginRight = 35;
+		
+		switch(lastPriceLbl.toString().length){
+			case 1: lastPriceLabelWidth = 15; break;
+			case 2: lastPriceLabelWidth = 20; break;
+			case 3: lastPriceLabelWidth = 25; break;
+			case 4: lastPriceLabelWidth = 30; chartMarginRight = 35; break;
+			case 5: lastPriceLabelWidth = 40; chartMarginRight = 42; break;
+			case 6: lastPriceLabelWidth = 47; chartMarginRight = 50; break;
+			case 7: lastPriceLabelWidth = 52; chartMarginRight = 50; break;
+			case 8: lastPriceLabelWidth = 58; chartMarginRight = 57; break;
+			case 9: lastPriceLabelWidth = 65; chartMarginRight = 65; break;
+			case 10: lastPriceLabelWidth = 70; chartMarginRight = 68; break;
+		}
+		
+		// var yAxisOffset = 45;
+		
+		// switch(Math.floor(lastPriceLbl).toString().length){
+			// case 1: yAxisOffset = 30; break;
+			// case 2: yAxisOffset = 33; break;
+			// case 3: yAxisOffset = 30; break;	
+			// case 4: yAxisOffset = 45; break;	
+			// case 5: yAxisOffset = 60; break;	
+			// case 6: yAxisOffset = 60; break;	
+		// }
+		
+		// console.log(Math.floor(lastPriceLbl).toString().length);
+
+		$(function(){
+		
+			Highcharts.setOptions({
+				lang: {
+					contextButtonTitle:'Chart context menu',
+					downloadJPEG:'Download JPEG image',
+					downloadPDF:'Download PDF document',
+					downloadPNG:'Download PNG image',
+					downloadSVG:'Download SVG vector image',
+					months:[
+						'كانون الثاني/يناير',
+						'شباط/فبراير', 
+						'آذار/مارس', 
+						'نيسان/أبريل', 
+						'أيار/مايو', 
+						'حزيران/يونيه', 
+						'تموز/يوليه', 
+						'آب/أغسطس', 
+						'أيلول/سبتمبر', 
+						'تشرين الأول/أكتوبر', 
+						'تشرين الثاني/نوفمبر', 
+						'كانون الأول/ديسمبر'
+					],
+					printChart:'Print chart',
+					rangeSelectorFrom:'من',
+					rangeSelectorTo:'الى',
+					rangeSelectorZoom:'',
+					resetZoom:'Reset Zoom',
+					resetZoomTitle:'Reset zoom level 1:1',
+					weekdays:[
+					'الأحد',
+					'الإثنين',
+					'الثلاثاء',
+					'الأربعاء',
+					'الخميس',
+					'الجمعة',
+					'السبت' ]
+				}
+			});
+			
+			
+            //GOLD theme
+            
+                //Red theme
+            
+            // create the chart
+			if(chartData.length>0){
+				options = {
+					chart : {
+						zoomType: 'x',
+						ignoreHiddenSeries: true,
+						plotBorderWidth: 1,
+						marginRight: chartMarginRight,
+													height: $(window).height()-25,
+												events: {
+							load: function(){
+								// $('body').find('svg').find('text:eq(0)').children('tspan').html('');  
+								var tmpChart = this;
+								if( typeof tmpChart.yAxis[0].plotLinesAndBands[0].label != 'undefined' )
+									var tmpText = tmpChart.yAxis[0].plotLinesAndBands[0].label;
+								else
+									var tmpText = tmpChart.yAxis[0].plotLinesAndBands[0].options.label;
+								
+								yAxis = tmpText.y;
+								xAxis = tmpText.x;
+								// xAxis = $('body').find('svg').find('text:last').offset().left;
+								// yAxis = $('body').find('svg').find('text:last').offset().top;
+								$('body').find('svg').find('text:last').attr('id','lastPriceText');
+
+									$('#blueLastBg').remove();
+									$('#highstocksChart').highcharts().renderer.rect(0, 0, lastPriceLabelWidth, 20, 0)
+									.attr({
+										'stroke-width': 2,
+																				fill: '#4F81BD',
+																				zIndex: 0,
+										x: (xAxis-lastPriceLabelWidth),
+										y: (yAxis-15),
+										id: 'blueLastBg'
+									})
+									.add();
+	
+								extremes = tmpChart.xAxis[0].getExtremes();
+								totalDataMinLength = Number(extremes.dataMin);
+								totalMinLength = Number(extremes.min);
+								totalDataMaxLength = Number(extremes.dataMax);
+								totalMaxLength = Number(extremes.max);
+							
+								/* Commented for future purposes on rangeSelector click */
+								
+								function reset_all_buttons(){
+									$.each(tmpChart.rangeSelector.buttons, function(index, value) {
+										value.setState(0); 
+									});
+									
+									// series = chart.get('symbol_chart');
+									// series.remove(); 
+								}
+								/*	 buttons[0].on('click', function (e) {
+										reset_all_buttons();
+										chart.rangeSelector.buttons[0].setState(2);
+										     
+										chart.series[0].setData(chartDataFragment[1],false);
+										var tmp = chart.xAxis[0].getExtremes();
+										chart.xAxis[0].update({
+												minRange: 0
+											});
+										chart.redraw();
+										
+										// chart.xAxis[0].setExtremes(tmp.max, (tmp.max+(3600*1000*24)));
+									}); 
+									
+									buttons[1].on('click', function (e) {
+										reset_all_buttons();
+										chart.rangeSelector.buttons[1].setState(2);
+
+										// chart.addSeries({
+											// name : '^TASI',
+											// id: 'symbol_chart',
+											// data : chartDataFragment[1]
+										// });       
+										chart.series[0].setData(chartDataFragment[5],false);
+										var tmp = chart.xAxis[0].getExtremes();
+										chart.xAxis[0].update({
+												minRange: 3600*1000*24
+											});
+										// chart.redraw();
+											
+										chart.xAxis[0].setExtremes(tmp.max, (tmp.max+(3600*1000*24)));
+										// console.log(chart.xAxis[0].getExtremes());
+									}); */
+																			buttons = tmpChart.rangeSelector.buttons;
+											
+										buttons[0].on('click', function (e) {
+											reset_all_buttons();
+											tmpChart.rangeSelector.buttons[0].setState(2);
+											if( dataMode != 1 )
+												tmpChart.xAxis[0].setExtremes((totalDataMaxLength-(3600*1000*24), totalDataMaxLength));
+												
+										}); 
+										
+										buttons[1].on('click', function (e) {
+											reset_all_buttons();
+											tmpChart.rangeSelector.buttons[1].setState(2);
+											var maxValue = totalDataMaxLength-(3600*1000*24*5);
+											if( dataMode != 5 ){
+												tmpChart.xAxis[0].setExtremes(maxValue,totalDataMaxLength);
+											}
+										}); 
+									
+																			
+																		
+							}
+							
+						}
+					},
+					series : [{
+						name : '^TASI',
+												data : chartData,
+												id: 'symbol_chart',
+						threshold : null,
+						dataGrouping: {
+							enabled: false
+						},
+						 fillColor : {
+							linearGradient : {
+								x1: 0, 
+								y1: 0, 
+								x2: 0, 
+								y2: 1
+							},
+							stops : [[0, Highcharts.getOptions().colors[0]], [1, "rgba(0,0,0,0)"]]
+						},						type: 'areaspline'
+						
+					}],
+					navigator : {
+						adaptToUpdatedData: true,
+						enabled:((isIphone && isIphoneLandScape)?false:true),						series : {
+														// data : chartData,
+														data : chartDataFull,
+							// color: '#4572A7',
+							fillColor : null
+						}
+						// {
+							// name : '^TASI',
+							// data : chartDataFragment[1],
+							// dataGrouping: {
+								// enabled: false
+							// }
+						// }
+						
+					},
+					scrollbar: {
+						liveRedraw: true
+					},
+					yAxis:{
+						opposite:true,
+						// offset: yAxisOffset,
+						endOnTick: false,
+						startOnTick: false,
+						min: lowestPrice - (highestPrice-lowestPrice) * 0.05,
+						max: highestPrice + (highestPrice-lowestPrice) * 0.05,
+						showLastLabel: true,
+						showFirstLabel: true,
+						labels: {
+							align: 'left',
+							x: 0
+						},
+						plotLines: [{
+							value: chartData[chartData.length-1]['y'],								
+							width: 1,
+														color: '#4F81BD',
+														dashStyle: 'dash',
+							label: {
+								text: lastPriceLbl,
+								// text: chartData[chartData.length-1][4],
+								align:'right',
+								y: -3,
+								x: lastPriceLabelWidth,
+																style:{'font-weight':'bold',color:'white',fill:'#CCCCCC',fontSize:'11px'}
+															},
+							zIndex:10
+							
+						}],
+						gridLineWidth: 1,
+						tickPositioner: function(min, max){
+
+							// dataMin = this.dataMin - (this.dataMax-this.dataMin) * 0.05;
+							// dataMax =  this.dataMax + (this.dataMax-this.dataMin) * 0.05;
+							dataMin = this.dataMin;
+							dataMax =  this.dataMax;
+							var range = this.dataMax-this.dataMin;
+							positions = [this.dataMin];
+							// positions.push((dataMin + range *0.20).toFixed(2));
+							// positions.push((dataMin + range *0.40).toFixed(2));
+							// positions.push((dataMin + range *0.60).toFixed(2));
+							// positions.push((dataMin + range *0.80).toFixed(2));
+							positions.push((dataMin + range *0.20));
+							positions.push((dataMin + range *0.40));
+							positions.push((dataMin + range *0.60));
+							positions.push((dataMin + range *0.80));
+							positions.push(this.dataMax);
+							// grid6=high
+							// console.log(range);
+							// push the max value at the end of the array
+							// positions.push(dataMax);
+							// console.log(min);
+							return positions;
+						}
+						
+					},
+					xAxis:{
+												gridLineWidth: 0,
+						events : {
+							afterSetExtremes : afterSetExtremes,
+							setExtremes: function(e) {
+								if(typeof(e.rangeSelectorButton)!== 'undefined')
+								{
+								  // console.log('count: '+e.rangeSelectorButton.count + 'text: ' +e.rangeSelectorButton.text + ' type:' + e.rangeSelectorButton.type);
+								
+								 
+									var chartSelector = $('#highstocksChart').highcharts(),
+									buttons = chartSelector.rangeSelector.buttons;
+								
+									function reset_all_buttons(){
+										$.each(chartSelector.rangeSelector.buttons, function(index, value) {
+											value.setState(0); 
+										});
+									}
+									reset_all_buttons();
+									if( e.rangeSelectorButton.text == 'يوم' )  chart.rangeSelector.buttons[0].setState(2);
+									if( e.rangeSelectorButton.text == '5 أيام' )  chart.rangeSelector.buttons[1].setState(2);
+									if( e.rangeSelectorButton.text == 'شهر' ) chart.rangeSelector.buttons[2].setState(2);
+									if( e.rangeSelectorButton.text == '3 أشهر' ) chart.rangeSelector.buttons[3].setState(2);
+									if( e.rangeSelectorButton.text == '6 أشهر' ) chart.rangeSelector.buttons[4].setState(2);
+									if( e.rangeSelectorButton.text == 'سنة' ) chart.rangeSelector.buttons[5].setState(2);
+									if( e.rangeSelectorButton.text == 'هذه السنة' ) chart.rangeSelector.buttons[6].setState(2);
+									
+								}
+							}
+						},
+						categories: ['كانون الثاني/ يناير', 
+										'شباط/فبراير', 
+										'آذار/مارس', 
+										'نيسان/أبريل', 
+										'أيار/مايو', 
+										'حزيران/يونيو', 
+										'تموز/يوليو', 
+										'آب/أغسطس', 
+										'أيلول/سبتمبر', 
+										'تشرين الأول/أكتوبر', 
+										'تشرين الثاني / نوفمبر', 
+										'كانون الأول/ديسمبر'],
+												minRange: 3600 * 1000 * 24 // 1 day
+										
+					},
+					credits:{
+						// href:'http://www.zagtrader.com',
+						enabled: true,
+						href:'#',
+						text:'ZagTrader.com'
+					},
+					title : {
+						text : ''
+					},
+					rangeSelector:{
+						buttonTheme:{
+							width:((isIphone && isIphonePortrait)?30:40),
+							padding: ((isIphone && isIphonePortrait)?2:2)
+						},
+						buttons: [{
+							type: 'day',
+							count: 1,
+							text: 'يوم'
+						},{
+							type: 'day',
+							count: 5,
+							text: '5 أيام'
+						},{
+							type: 'month',
+							count: 1,
+							text: 'شهر'
+						},{
+							type: 'month',
+							count: 3,
+							text: '3 أشهر'
+						},{
+							type: 'month',
+							count: 6,
+							text: '6 أشهر'
+						},{
+							type: 'year',
+							count: 1,
+							text: 'سنة'
+						},{
+							type: 'ytd',
+							text: 'هذه السنة'
+						}],
+						enabled:true,						inputEnabled: false, // it supports only days
+						selected : 5
+					},
+					exporting: {
+						enabled: true,
+						buttons: {
+							contextButton: {
+								enabled: false
+							},
+							customButton: {
+								align: 'left',
+								id: 'change',
+								text: 'أسلوب',
+								x: ((isIphone && isIphonePortrait)?250:320),
+								y: 0,
+								menuItems: [{
+									text: 'OHLC',
+									onclick: function() {
+										chart.series[0].update({
+											type: 'ohlc'
+										});
+									}
+								},{
+									text: 'شمعدان',
+									onclick: function() {
+										chart.series[0].update({
+											type: 'candlestick'
+										});
+									}
+								},{
+									text: 'خط',
+									onclick: function() {
+										chart.series[0].update({
+											threshold : null,
+											 fillColor : {
+												linearGradient : {
+													x1: 0, 
+													y1: 0, 
+													x2: 0, 
+													y2: 1
+												},
+												stops : [[0, Highcharts.getOptions().colors[0]], [1, "rgba(0,0,0,0)"]]
+											},											type: 'area'
+										});
+										
+									}
+								}],
+								theme: {
+									'stroke-width': 1,
+									stroke: '#68A',
+									padding: 2,
+								
+									// paddingLeft: 10,
+									r: 0,
+									states: {
+										
+										select: {
+											fill: 'url(#highcharts-7)'
+										}
+									},
+									style: {
+										fontSize: '11px',
+										height:'9px',
+										textAlign:'center'
+									},
+									height: 16,
+									width: 40
+								}
+							}
+							
+						}
+					},
+					navigation: {
+						buttonOptions: {
+							height: null,
+							width: 28,
+							symbolX: 15
+						}
+					},
+					scrollbar:{
+						enabled: true,
+						liveRedraw: false
+					}
+					
+				};
+				
+									$('#highstocksChart').highcharts('StockChart',options);
+					chart = $('#highstocksChart').highcharts();
+					chart.xAxis[0].setExtremes(totalMinLength,totalMaxLength);
+							}
+			
+			updateChart();
+			
+		});
+		
+		function updateChart(){
+			
+			if( typeof chartAjaxUpdateTimer != 'undefined' ) clearTimeout(chartAjaxUpdateTimer);
+			
+			chartAjaxUpdateTimer = setTimeout(function(){
+				
+				$.ajax({
+					url: 'highstockschart.php?langId=2&tickerId=10696&cnbcarabia=1&showTitle=0&lineStyle=line&fillArea=1&token=396a06fd8741e39915cf60c048189b29',
+					// url: 'highstockschart.php?langId=1&tickerId=2&lineStyle=line&fillArea=1&token=f09f6e9d0ac3ac3629c66eee391ab885',
+					data: {
+						action : 'updateChartData'
+					},
+					type: 'POST',
+					dataType: 'script',
+					success: function(data){
+						updateChart();
+					},
+					error: function(xhr){
+						if( xhr.status != 403 ){
+							updateChart();
+						}
+					}
+				});
+				
+			},60000);
+			
+		}
+		
+		function changeLastPrice(tmpChart){
+		
+			var tmpText = tmpChart.yAxis[ 0 ].plotLinesAndBands[ 0 ].label;
+					
+			xAxis = tmpText.y;
+			yAxis = tmpText.x;
+			// if(window != window.parent) yAxis = (yAxis + 2);
+			// var html = $('<div>').append($('body').find('svg').find('text:last').clone()).remove().html();
+			$('#blueLastBg').remove();
+			
+			$('#highstocksChart').highcharts().renderer.rect(0, 0, 35, 20, 0)
+			.attr({
+				'stroke-width': 2,
+								fill: '#4F81BD',
+								zIndex: 0,
+				x: (xAxis-50),
+				y: (yAxis-20),
+				id: 'blueLastBg'
+			})
+			.add();
+
+	
+		}
+		
+		var chartDataAjaxHandler;
+		function afterSetExtremes(e){
+			// console.log(totalDataMaxLength);
+			// console.log(Math.abs(e.dataMax-e.max));
+			
+			var period = Math.round((e.max - e.min)/1000/60/60/24);
+			// console.log('Period: '+period);
+			// console.log(e);
+			// console.log("Period: "+period);
+			// console.log("DataMax: "+e.dataMax);
+			// console.log("DataMax: "+totalDataMaxLength);
+			// console.log("Max: "+e.max);
+			
+			var dataModeTemp; 
+			var distanceFromEnd = Math.abs(totalDataMaxLength-e.max);
+			// var distanceFromEnd = Math.abs(e.dataMax-e.max);
+			// console.log(distanceFromEnd);
+			if(distanceFromEnd<(1000*60*60*24*3)){
+				if(period<=1){
+					dataModeTemp = 1;
+					// chart.xAxis[0].setExtremes (e.min, e.dataMax);
+					//return false;
+				}else if(period<=5){
+					dataModeTemp = 5;
+					// chart.xAxis[0].setExtremes (e.min, e.dataMax);
+					//return false;
+				}else{
+					dataModeTemp = 0;
+				}
+			}else{
+				dataModeTemp = 0;
+			}
+			if(dataModeTemp!=dataMode){
+				// if data mode is different then load another data set
+				dataMode = dataModeTemp;
+				// console.log("DATA MODE: "+dataMode);
+				if(dataMode!=0){
+					// load data
+					chartData = chartDataFragment[dataMode];
+					chart.series[0].setData(chartDataFragment[dataMode],false);
+
+					chart.xAxis[0].update();
+					var lowestValue = false;
+					var highestValue = false;
+					var maximumRange = null;
+					
+					for(i in chartDataFragment[dataMode] ){
+						if( lowestValue === false ) lowestValue = chartDataFragment[dataMode][i]['close'];
+						else if( lowestValue > chartDataFragment[dataMode][i]['close'] ) lowestValue = chartDataFragment[dataMode][i]['close'];
+						if( highestValue === false ) highestValue = chartDataFragment[dataMode][i]['close'];
+						if( highestValue < chartDataFragment[dataMode][i]['close'] ) highestValue = chartDataFragment[dataMode][i]['close'];
+						
+						var rangeIndex = 'x';
+			
+						if( maximumRange == 0 ) maximumRange = chartDataFragment[dataMode][i][rangeIndex];
+						if( maximumRange < chartDataFragment[dataMode][i][rangeIndex] ) maximumRange = chartDataFragment[dataMode][i][rangeIndex];
+					}
+					
+					if(dataMode == 1){
+						chart.xAxis[0].update({
+							minRange: 60000
+						});
+						chart.yAxis[0].update({
+							min:lowestValue - (highestValue-lowestValue) * 0.05,
+							max:highestValue + (highestValue-lowestValue) * 0.05
+						});
+						
+					}else{
+						chart.xAxis[0].update({
+							minRange: 3600 * 1000 * 24
+						});
+						chart.yAxis[0].update({
+							min:lowestValue - (highestValue-lowestValue) * 0.05,
+							max:highestValue + (highestValue-lowestValue) * 0.05
+						});
+						
+					}
+					
+					// totalDataMaxLength = e.dataMax;
+					
+				}else{
+					//revert to normal
+					chartData = chartDataFull;
+					chart.series[0].setData(chartData,false);
+					chart.yAxis[0].update({
+							min:lowestPrice - (highestPrice-lowestPrice) * 0.05,
+							max:highestPrice + (highestPrice-lowestPrice) * 0.05
+						});
+					
+				}
+			}
+			if( dataMode == 0 ){
+				chart.xAxis[0].update({
+					minRange: 3600 * 1000 * 24
+				});
+				
+				var tmpLowestPrice = chart.yAxis[0].dataMin;
+				var tmpHighestPrice = chart.yAxis[0].dataMax;
+				chart.yAxis[0].update({
+					min:tmpLowestPrice - (tmpHighestPrice-tmpLowestPrice) * 0.05,
+					max:tmpHighestPrice + (tmpHighestPrice-tmpLowestPrice) * 0.05
+				});
+			}
+					var tmpText = chart.yAxis[ 0 ].plotLinesAndBands[ 0 ].label;
+					 // xAxis = $('body').find('svg').find('text:last').offset().left;;
+					// yAxis = $('body').find('svg').find('text:last').offset().top;
+					// if(window != window.parent) yAxis = (yAxis + 2);
+					// var html = $('<div>').append($('body').find('svg').find('text:last').clone()).remove().html();
+					
+					if( typeof(tmpText) != 'undefined' ){
+					yAxis = tmpText.y;
+					xAxis = tmpText.x;		
+					
+					if( tmpText.styles.visibility != 'hidden' ){
+						$('#blueLastBg').remove();
+						$('#highstocksChart').highcharts().renderer.rect(0, 0, lastPriceLabelWidth, 20, 0)
+						.attr({
+							'stroke-width': 2,
+														fill: '#4F81BD',
+														zIndex: 0,
+							x: (xAxis-lastPriceLabelWidth),
+							y: (yAxis-15),
+							id: 'blueLastBg'
+						})
+						.add();
+					}else{	
+						$('#blueLastBg').remove();
+					}
+					
+					}else{
+						$('#blueLastBg').remove();
+					}
+
+			}
+			
+	</script>
+</body>
+
+</html>
