@@ -1,5 +1,5 @@
 .header {
-    background: $white;
+    background: $gray-dark;
     height: $header-height;
     border-bottom: 1px solid $border-color;
     position: fixed;
@@ -13,6 +13,8 @@
         border-right: 1px solid $border-color;
         @include transition(all 0.2s ease); 
 
+        padding: 20px 0 0 0;
+
         @include screen-laptop-only {
             width: $side-nav-width-laptop;
         }
@@ -24,6 +26,7 @@
         > a {
             display: block;
             text-align: center;
+            padding: 0px 0 0 10px;
         }
 
         .logo-fold {
@@ -195,6 +198,18 @@
 
         .header {
             background-color: #{nth($theme, 2)};
+        }
+    }
+}
+
+.ant-menu{
+    background-color: transparent;
+
+    .ant-menu-item{
+        margin: 0 !important;
+        a{
+            font-weight: 500;
+            font-size: 16px;
         }
     }
 }

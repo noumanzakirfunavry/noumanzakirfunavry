@@ -5,6 +5,24 @@ export const CommonLayout_ROUTES: Routes = [
         path: 'dashboard',
         loadChildren: () => import('../../dashboard/dashboard.module').then(m => m.DashboardModule),
     },
+    // {
+    //     path: 'dasboard',
+    //     data: {
+    //         title: 'Dashboard '
+    //     },
+    //     children: [
+    //         // {
+    //         //     path: '',
+    //         //     redirectTo: '/',
+    //         //     pathMatch: 'full'
+    //         // }, 
+    //         {
+    //             path: '',
+    //                 loadChildren: () => import('../../dashboard/dashboard.module').then(m => m.DashboardModule),
+    //             // loadChildren: () => import('../../news/news.module').then(m => m.NewsModule)
+    //         }
+    //     ],
+    // },
     {
         path: 'news',
         data: {
