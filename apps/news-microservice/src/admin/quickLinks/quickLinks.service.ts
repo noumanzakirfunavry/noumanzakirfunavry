@@ -14,7 +14,7 @@ export class QuickLinksService{
         let offset = 0
         query.pageNo = query.pageNo - 1;
         if (query.pageNo) offset =query.limit * query.pageNo;
-        const result=await this.quickLinksRepo.findAll({offset:offset,limit:query.limit})
+        const result=await this.quickLinksRepo.findAll({limit:query.limit,offset:offset})
         if(!result.length){
             throw new CustomException( 
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,

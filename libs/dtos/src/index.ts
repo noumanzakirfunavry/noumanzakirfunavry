@@ -16,6 +16,9 @@ export * from './request/quotes/update.quote.request.dto'
 export * from './request/quickLinks/add.quick.links.request.dto'
 export * from './request/quickLinks/delete.quick.links.request'
 export * from './request/quickLinks/update.quick.links.request.dto'
+export * from './request/quickLinks/get.all.quick.links.request.dto'
+    //...............................breakingNews..........................
+export * from './request/breakingNews/add.breaking.news.request.dto'
 
 
 
@@ -37,3 +40,5 @@ export * from './response/quickLinks/add.quick.links.response.dto'
 export * from './response/quickLinks/get.all.quick.links.response.dto'
 export * from './response/quickLinks/get.quick.link.by.id.response.dto'
 export * from './response/quickLinks/update.quick.links.response.dto'
+    //................................breakingNews/.........................
+export * from './response/breakingNews/add.breaking.news.response.dto'
