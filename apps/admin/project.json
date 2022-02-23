@@ -13,15 +13,20 @@
         "main": "apps/admin/src/main.ts",
         "polyfills": "apps/admin/src/polyfills.ts",
         "tsConfig": "apps/admin/tsconfig.app.json",
-        "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets",   {
-          "glob": "**/*",
-          "input": "node_modules/@ant-design/icons-angular/src/inline-svg/",
-          "output": "/assets/"
-        }],
+        "assets": [
+          "apps/admin/src/favicon.ico",
+          "apps/admin/src/assets",
+          {
+            "glob": "**/*",
+            "input": "node_modules/@ant-design/icons-angular/src/inline-svg/",
+            "output": "/assets/"
+          }
+        ],
         "styles": ["apps/admin/src/styles.scss"],
-        "scripts": [ 
+        "scripts": [
           "node_modules/jquery/dist/jquery.js",
-          "apps/admin/src/assets/lib/hljs/highlight.pack.js"]
+          "apps/admin/src/assets/lib/hljs/highlight.pack.js"
+        ]
       },
       "configurations": {
         "production": {

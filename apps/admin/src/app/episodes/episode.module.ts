@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { SharedModule } from '../shared/shared.module';
-import { QuickRoutingModule } from "./quicklink-routing.module";
+import { CategoryRoutingModule} from "./episode-routing.module";
 import { NgChartjsModule } from 'ng-chartjs';
 
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
@@ -22,14 +22,17 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { EpisodeComponent } from './episode.component';
+import { AddEpisodeComponent } from './addEpisode/add-episode.component';
+import { EpisodeFilterComponent } from './episodeFilter/episode-filter.component';
+
 // import { DefaultDashboardComponent } from './default/default-dashboard.component';
 // import { EcommerceDashboardComponent } from './e-commerce/e-commerce-dashboard.component';
 // import { ProjectsDashboardComponent } from './projects/projects-dashboard.component';
 // import { CrmDashboardComponent } from './crm/crm-dashboard.component';
-import { QuickLinkComponent } from './quicklink.component';
-import { AddQuickLinksComponent } from './addQuickLinks/addQuickLinks.component';
-import { FilterComponent } from './Filter/filter.component';
-import { RouterModule } from '@angular/router';
+
+
+
 const antdModule = [
     NzButtonModule,
     NzCardModule,
@@ -53,18 +56,18 @@ const antdModule = [
     imports: [
         CommonModule,
         SharedModule,
-        QuickRoutingModule,
+        CategoryRoutingModule,
         NgChartjsModule,
         ...antdModule
     ],
     exports: [],
     declarations: [
-        AddQuickLinksComponent,
-        QuickLinkComponent,
-        FilterComponent,
+        EpisodeComponent,
+        AddEpisodeComponent,
+        EpisodeFilterComponent
     ],
     providers: [
         ThemeConstantService
     ],
 })
-export class QuickLinkModule { }
+export class EpisodeModule { }

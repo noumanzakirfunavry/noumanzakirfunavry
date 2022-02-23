@@ -39,6 +39,70 @@ export const CommonLayout_ROUTES: Routes = [
     ]
     },
     {
+        path: 'tags',
+        data: {
+            title: 'Tags '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/tags/list',
+                pathMatch: 'full'
+            }, 
+            {path:'',
+            loadChildren: () => import('../../tags/tags.module').then(m => m.TagsModule)
+        }
+    ]
+    },
+    {
+        path: 'infographics',
+        data: {
+            title: 'Infographics '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/infographics/list',
+                pathMatch: 'full'
+            }, 
+            {path:'',
+            loadChildren: () => import('../../infographics/infographics.module').then(m => m.InfographicsModule)
+        }
+    ]
+    },
+    {
+        path: 'programs',
+        data: {
+            title: 'Programs '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/programs/list',
+                pathMatch: 'full'
+            }, 
+            {path:'',
+            loadChildren: () => import('../../programs/programs.module').then(m => m.ProgramsModule)
+        }
+    ]
+    },
+    {
+        path: 'episodes',
+        data: {
+            title: 'Episodes '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/episodes/list',
+                pathMatch: 'full'
+            }, 
+            {path:'',
+            loadChildren: () => import('../../episodes/episode.module').then(m => m.EpisodeModule)
+        }
+    ]
+    },
+    {
         path: 'quickLinks',
         loadChildren: () => import('../../quickLinks/quicklink.module').then(m => m.QuickLinkModule)
     }
