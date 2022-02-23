@@ -10,7 +10,7 @@ import { CommonLayout_ROUTES } from "./shared/routes/common-layout.routes";
 const appRoutes: Routes = [
     {
         path: '',
-        redirectTo: '/dashboard/home',
+        redirectTo: '/dashboard',
         pathMatch: 'full',
     },
     { 
@@ -23,11 +23,11 @@ const appRoutes: Routes = [
         component: FullLayoutComponent, 
         children: FullLayout_ROUTES
     },
-    { 
-        path: 'full', 
-        component: FullLayoutComponent, 
-        children: FullLayout_ROUTES
-    }
+    // { 
+    //     path: 'full', 
+    //     component: FullLayoutComponent, 
+    //     children: FullLayout_ROUTES
+    // }
      
 ];
 
