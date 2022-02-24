@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 
 @Component({
-    selector: 'app-tag-filter',
+    selector: 'tag-filter',
     templateUrl: './tag-filter.component.html'
 })
 

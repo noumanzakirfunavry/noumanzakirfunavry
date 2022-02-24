@@ -38,38 +38,39 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { antdModule } from '../AndModules/andModule';
 
 const icons: IconDefinition[] = [LeftOutline, RightOutline];
-const antdModule = [
-    NzButtonModule,
-    NzCardModule,
-    NzAvatarModule,
-    NzRateModule,
-    NzBadgeModule,
-    NzProgressModule,
-    NzRadioModule,
-    NzTableModule,
-    NzDropDownModule,
-    NzTimelineModule,
-    NzTabsModule,
-    NzTagModule,
-    NzListModule,
-    NzCalendarModule,
-    NzToolTipModule,
-    NzCheckboxModule,
-    NzIconModule.forRoot(icons),
-    NzGridModule,
-    NzAffixModule,
-    NzMenuModule,
-    NzI18nModule,
-    NzSelectModule,
-    NzMessageModule,
-    NzPopoverModule,
-    NzButtonModule,
-    NzInputModule,
-    NzIconModule,
-    NzBadgeModule
-]
+// const antdModule = [
+//     NzButtonModule,
+//     NzCardModule,
+//     NzAvatarModule,
+//     NzRateModule,
+//     NzBadgeModule,
+//     NzProgressModule,
+//     NzRadioModule,
+//     NzTableModule,
+//     NzDropDownModule,
+//     NzTimelineModule,
+//     NzTabsModule,
+//     NzTagModule,
+//     NzListModule,
+//     NzCalendarModule,
+//     NzToolTipModule,
+//     NzCheckboxModule,
+//     NzIconModule.forRoot(icons),
+//     NzGridModule,
+//     NzAffixModule,
+//     NzMenuModule,
+//     NzI18nModule,
+//     NzSelectModule,
+//     NzMessageModule,
+//     NzPopoverModule,
+//     NzButtonModule,
+//     NzInputModule,
+//     NzIconModule,
+//     NzBadgeModule
+// ]
 
 @NgModule({
     imports: [

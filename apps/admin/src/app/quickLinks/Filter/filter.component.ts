@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 
 @Component({
-    selector: 'app-filter',
+    selector: 'quick-filter',
     templateUrl: 'filter.component.html'
 })
 

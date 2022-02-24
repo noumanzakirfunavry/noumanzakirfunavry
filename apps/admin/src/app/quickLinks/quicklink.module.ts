@@ -30,32 +30,37 @@ import { QuickLinkComponent } from './quicklink.component';
 import { AddQuickLinksComponent } from './addQuickLinks/addQuickLinks.component';
 import { FilterComponent } from './Filter/filter.component';
 import { RouterModule } from '@angular/router';
-const antdModule = [
-    NzButtonModule,
-    NzCardModule,
-    NzAvatarModule,
-    NzRateModule,
-    NzBadgeModule,
-    NzProgressModule,
-    NzRadioModule,
-    NzTableModule,
-    NzDropDownModule,
-    NzTimelineModule,
-    NzTabsModule,
-    NzTagModule,
-    NzListModule,
-    NzCalendarModule,
-    NzToolTipModule,
-    NzCheckboxModule
-]
+import { antdModule } from '../AndModules/andModule';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DemoComponentsShareModule } from '../demo-components-share/demo-components-share.module';
+// const antdModule = [
+//     NzButtonModule,
+//     NzCardModule,
+//     NzAvatarModule,
+//     NzRateModule,
+//     NzBadgeModule,
+//     NzProgressModule,
+//     NzRadioModule,
+//     NzTableModule,
+//     NzDropDownModule,
+//     NzTimelineModule,
+//     NzTabsModule,
+//     NzTagModule,
+//     NzListModule,
+//     NzCalendarModule,
+//     NzToolTipModule,
+//     NzCheckboxModule
+// ]
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
         QuickRoutingModule,
-        NgChartjsModule,
-        ...antdModule
+        ReactiveFormsModule,
+        FormsModule,
+        ...antdModule,
+        DemoComponentsShareModule
     ],
     exports: [],
     declarations: [

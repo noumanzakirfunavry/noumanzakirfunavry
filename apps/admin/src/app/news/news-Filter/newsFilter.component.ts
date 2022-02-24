@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
     selector: 'news-filter',
     templateUrl: './newsFilter.component.html'
@@ -27,7 +27,7 @@ export class FilterNewsComponent  implements OnInit {
       this.validateForm = this.fb.group({});
       for (let i = 0; i < 6; i++) {
         this.controlArray.push({ index: i, show: i < 6 });
-        this.validateForm.addControl(`field${i}`, new FormControl());
+        this.validateForm.addControl(`field${i}`, new FormControl('',[Validators.required]));
       }
     }
 }    

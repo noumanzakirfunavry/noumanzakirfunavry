@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { SharedModule } from '../shared/shared.module';
-import { CategoryRoutingModule} from "./tags-routing.module";
+import { UsersRoutingModule } from "./users-routing.module";
 import { NgChartjsModule } from 'ng-chartjs';
 
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
@@ -22,9 +22,7 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { AddTagComponent } from './addTag/addTag.component';
-import { TagFilterComponent } from './tagFilter/tag-filter.component';
-import { TagsComponent } from './tags.component';
+
 // import { NzFormControlComponent } from 'ng-zorro-antd/form';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -35,7 +33,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 // import { ProjectsDashboardComponent } from './projects/projects-dashboard.component';
 // import { CrmDashboardComponent } from './crm/crm-dashboard.component';
 import { FormsModule } from '@angular/forms';
-import { NzDemoFormDynamicRuleComponent } from './addTag/dynamic-rule';
 import { DemoComponentsShareModule } from '../demo-components-share/demo-components-share.module';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -43,6 +40,9 @@ import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { AddUserComponent } from './add-user/add-user.component';
+import { UserFilterComponent } from './user-filter/user-filter.component';
+import { UsersComponent } from './users.component';
 
 
 
@@ -81,7 +81,7 @@ const antdModule = [
     imports: [
         CommonModule,
         SharedModule,
-        CategoryRoutingModule,
+        UsersRoutingModule,
         NgChartjsModule,
         ReactiveFormsModule,
         FormsModule,
@@ -90,13 +90,12 @@ const antdModule = [
     ],
     exports: [],
     declarations: [
-        AddTagComponent,
-        TagFilterComponent,
-        TagsComponent,
-        NzDemoFormDynamicRuleComponent
+        AddUserComponent,
+        UserFilterComponent,
+        UsersComponent
     ],
     providers: [
         ThemeConstantService
     ],
 })
-export class TagsModule { }
+export class AdminsModule { }

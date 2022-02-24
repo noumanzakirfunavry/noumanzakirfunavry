@@ -144,6 +144,40 @@ export const CommonLayout_ROUTES: Routes = [
     },
     {
         path: 'quickLinks',
-        loadChildren: () => import('../../quickLinks/quicklink.module').then(m => m.QuickLinkModule)
-    }
+        data: {
+            title: 'Quick Links '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/quickLinks/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../quickLinks/quicklink.module').then(m => m.QuickLinkModule)
+            }
+        ]
+    },
+    {
+        path: 'admins',
+        data: {
+            title: 'All Admins '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/admins/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../admin-management/users.module').then(m => m.AdminsModule)
+            }
+        ]
+    },
+    // {
+    //     path: 'quickLinks',
+    //     loadChildren: () => import('../../quickLinks/quicklink.module').then(m => m.QuickLinkModule)
+    // }
 ];

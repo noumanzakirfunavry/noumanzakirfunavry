@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddTagComponent } from './addTag/addTag.component';
+import { NzDemoFormDynamicRuleComponent } from './addTag/dynamic-rule';
 import { TagsComponent } from './tags.component';
 const routes: Routes = [
     {
@@ -24,6 +25,7 @@ const routes: Routes = [
     {
         path: 'add',
         component: AddTagComponent,
+        // component: NzDemoFormDynamicRuleComponent,
         data: {
             title: 'Add Tag',
             // headerDisplay: "none"

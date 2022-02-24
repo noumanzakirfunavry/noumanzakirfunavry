@@ -80,31 +80,39 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'dashboard',
         submenu: []
     },
-   
     {
-        path: '',
-        title: 'Multi Level Menu',
+        path: 'admins/list',
+        title: 'Admins',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'appstore',
-        submenu: [
-            { 
-                path: '',
-                title: 'Level 1', 
-                iconType: '', 
-                icon: '',
-                iconTheme: '',
-                submenu: [
-                    {
-                        path: '',
-                        title: 'Level 2',
-                        iconType: 'nzIcon',
-                        iconTheme: 'outline',
-                        icon: '',
-                        submenu: []
-                    }    
-                ] 
-            }
-        ]
-    }
+        icon: 'dashboard',
+        submenu: []
+    },
+   
+    // {
+    //     path: '',
+    //     title: 'Multi Level Menu',
+    //     iconType: 'nzIcon',
+    //     iconTheme: 'outline',
+    //     icon: 'appstore',
+    //     submenu: [
+    //         { 
+    //             path: '',
+    //             title: 'Level 1', 
+    //             iconType: '', 
+    //             icon: '',
+    //             iconTheme: '',
+    //             submenu: [
+    //                 {
+    //                     path: '',
+    //                     title: 'Level 2',
+    //                     iconType: 'nzIcon',
+    //                     iconTheme: 'outline',
+    //                     icon: '',
+    //                     submenu: []
+    //                 }    
+    //             ] 
+    //         }
+    //     ]
+    // }
 ]    
