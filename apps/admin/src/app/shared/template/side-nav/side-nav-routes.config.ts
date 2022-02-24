@@ -72,6 +72,14 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'dashboard',
         submenu: []
     },
+    {
+        path: 'jobs/list',
+        title: 'Careers',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
    
     {
         path: '',

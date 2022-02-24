@@ -7,7 +7,7 @@ const routes: Routes = [
         path: 'list',
         component: CategoryComponent,
         data: {
-            title: 'category',
+            title: 'Category',
             // headerDisplay: "none"
         },
 

@@ -33,7 +33,7 @@ export const CommonLayout_ROUTES: Routes = [
                 path: '',
                 redirectTo: '/news/list',
                 pathMatch: 'full'
-            }, 
+            },
             {
                 path: '',
                 loadChildren: () => import('../../news/news.module').then(m => m.NewsModule)
@@ -50,11 +50,12 @@ export const CommonLayout_ROUTES: Routes = [
                 path: '',
                 redirectTo: '/category/list',
                 pathMatch: 'full'
-            }, 
-            {path:'',
-            loadChildren: () => import('../../categories/Category.module').then(m => m.CategoryModule)
-        }
-    ]
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../categories/Category.module').then(m => m.CategoryModule)
+            }
+        ]
     },
     {
         path: 'tags',
@@ -66,11 +67,12 @@ export const CommonLayout_ROUTES: Routes = [
                 path: '',
                 redirectTo: '/tags/list',
                 pathMatch: 'full'
-            }, 
-            {path:'',
-            loadChildren: () => import('../../tags/tags.module').then(m => m.TagsModule)
-        }
-    ]
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../tags/tags.module').then(m => m.TagsModule)
+            }
+        ]
     },
     {
         path: 'infographics',
@@ -82,11 +84,12 @@ export const CommonLayout_ROUTES: Routes = [
                 path: '',
                 redirectTo: '/infographics/list',
                 pathMatch: 'full'
-            }, 
-            {path:'',
-            loadChildren: () => import('../../infographics/infographics.module').then(m => m.InfographicsModule)
-        }
-    ]
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../infographics/infographics.module').then(m => m.InfographicsModule)
+            }
+        ]
     },
     {
         path: 'programs',
@@ -98,11 +101,12 @@ export const CommonLayout_ROUTES: Routes = [
                 path: '',
                 redirectTo: '/programs/list',
                 pathMatch: 'full'
-            }, 
-            {path:'',
-            loadChildren: () => import('../../programs/programs.module').then(m => m.ProgramsModule)
-        }
-    ]
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../programs/programs.module').then(m => m.ProgramsModule)
+            }
+        ]
     },
     {
         path: 'episodes',
@@ -114,11 +118,29 @@ export const CommonLayout_ROUTES: Routes = [
                 path: '',
                 redirectTo: '/episodes/list',
                 pathMatch: 'full'
-            }, 
-            {path:'',
-            loadChildren: () => import('../../episodes/episode.module').then(m => m.EpisodeModule)
-        }
-    ]
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../episodes/episode.module').then(m => m.EpisodeModule)
+            }
+        ]
+    },
+    {
+        path: 'jobs',
+        data: {
+            title: 'Jobs '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/jobs/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../jobs/jobs.module').then(m => m.JobsModule)
+            }
+        ]
     },
     {
         path: 'quickLinks',
