@@ -6,5 +6,7 @@ import { Component } from '@angular/core'
 })
 
 export class AddNewsComponent {
-   
+    log(value: string[]): void {
+        console.log(value);
+      }
 }    
