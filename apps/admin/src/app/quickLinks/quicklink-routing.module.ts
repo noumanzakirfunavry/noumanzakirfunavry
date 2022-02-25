@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { QuickLinkComponent } from './quicklink.component';
 import { AddQuickLinksComponent } from './addQuickLinks/addQuickLinks.component';
-import { EditQuickLinksComponent } from './editQuickLinks/editQuicklink.component';
+// import { EditQuickLinksComponent } from './editQuickLinks/editQuicklink.component';
 const routes: Routes = [
     {
         path: '',
@@ -22,15 +22,15 @@ const routes: Routes = [
         },
 
     },
-    {
-        path: 'edit',
-        component: EditQuickLinksComponent,
-        data: {
-            title: 'Edit News',
-            headerDisplay: "none"
-        },
+    // {
+    //     path: 'edit',
+    //     component: EditQuickLinksComponent,
+    //     data: {
+    //         title: 'Edit News',
+    //         headerDisplay: "none"
+    //     },
 
-    }
+    // }
 ];
 
 @NgModule({

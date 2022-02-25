@@ -33,8 +33,48 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
+        path: 'tags/list',
+        title: 'Tags',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'infographics/list',
+        title: 'Infographics',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'programs/list',
+        title: 'Programs',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'episodes/list',
+        title: 'Episodes',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
         path: 'category/list',
         title: 'Category',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'jobs/list',
+        title: 'Careers',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'dashboard',

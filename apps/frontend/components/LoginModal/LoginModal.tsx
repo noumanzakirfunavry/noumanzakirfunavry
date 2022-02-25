@@ -9,13 +9,13 @@ const LoginModal = ()=>{
             <AccountModal modalId={"loginModal"}>
 
                 <div className="p-2">
-                    <div className="row mb-4">
-                        <div className="col-9 text-muted">
+                    <div className="row mb-4 flex-row-reverse">
+                    <div className="col-sm-3 text-start mb-3 mb-sm-0">
+                            <img className="img-fluid" width={86} src={logo.src} />
+                        </div>
+                        <div className="col-sm-9 text-muted">
                             <h2 className="text-primary">تسجيل الدخول</h2>
                             <h6>هل أنت جديد في CNBC Arabia؟ <a>إنشاء حساب</a></h6>
-                        </div>
-                        <div className="col-3 text-start">
-                            <img className="img-fluid" src={logo.src} />
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@ const LoginModal = ()=>{
                     </div>
 
                     <div className="row mb-4">
-                        <div className="col-md-6">
+                        <div className="col-7">
                             <div className="form-check">
                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                     ابق متصلا   
@@ -38,7 +38,7 @@ const LoginModal = ()=>{
                                 <input className="float-end form-check-input ms-2" type="checkbox" value="" id="flexCheckDefault"/>
                             </div>
                         </div>
-                        <div className="col-md-6 text-start">
+                        <div className="col-5 text-start">
                             <a> هل نسيت كلمة السر <span>?</span></a>
                         </div>
                     </div>

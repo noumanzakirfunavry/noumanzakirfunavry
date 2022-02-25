@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { SharedModule } from '../shared/shared.module';
-import {QuickRoutingModule } from "./quicklink-routing.module";
+import { QuickRoutingModule } from "./quicklink-routing.module";
 import { NgChartjsModule } from 'ng-chartjs';
 
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
@@ -28,7 +28,6 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 // import { CrmDashboardComponent } from './crm/crm-dashboard.component';
 import { QuickLinkComponent } from './quicklink.component';
 import { AddQuickLinksComponent } from './addQuickLinks/addQuickLinks.component';
-import { EditQuickLinksComponent } from './editQuickLinks/editQuicklink.component';
 import { FilterComponent } from './Filter/filter.component';
 import { RouterModule } from '@angular/router';
 const antdModule = [
@@ -61,8 +60,7 @@ const antdModule = [
     exports: [],
     declarations: [
         AddQuickLinksComponent,
-       EditQuickLinksComponent,
-       QuickLinkComponent,
+        QuickLinkComponent,
         FilterComponent,
     ],
     providers: [

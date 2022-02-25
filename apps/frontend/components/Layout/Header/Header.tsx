@@ -292,7 +292,7 @@ const Header = () =>{
                             <div className="logo-header">
                                 <div className="cnbc-logo">
                                     <Link href="/">
-                                        <img role={'button'} title="CNBC Arabia" src={logo.src}/>
+                                        <img role={'button'} title="CNBC Arabia" alt="logo" src={logo.src}/>
                                     </Link>
                                 </div>
                                 <div className="header-nav">
@@ -322,9 +322,9 @@ const Header = () =>{
                                                     <a className="nav-link" href="/videoNews">الفيديو</a>
                                                 </li>
                                                 <li className="nav-item dropdown" key={'7'}>
-                                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
+                                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
                                                     </a>
-                                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                                                         <li key={'8'}>
                                                             <a className="dropdown-item" href="/programs/100/">اكسبو في أسبوع</a>
                                                         </li>
