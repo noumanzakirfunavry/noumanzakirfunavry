@@ -2,100 +2,202 @@
     <br>
     <br>
     <div class="col-12">
-      <form nz-form [nzLayout]="'vertical'">
-        <div class="row">
-          <div class="col-6">
+        <form nz-form [nzLayout]="'vertical'">
             <div class="row">
-              <div class="col-md-6">
-                <nz-form-item>
-                  <nz-form-label>Admin Name </nz-form-label>
-                  <nz-form-control>
-                    <input type="text" nz-input placeholder="Admin Name">
-                  </nz-form-control>
-                </nz-form-item>
-              </div>
-              <div class="col-md-6">
-                <nz-form-item>
-                  <nz-form-label>Admin Role</nz-form-label>
-                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Role">
-  
-                    <nz-option nzValue="Super Admin" [nzLabel]="'Super Admin'"></nz-option>
-                    <nz-option nzValue="Admin" [nzLabel]="'Admin'"></nz-option>
-                  </nz-select>
-                </nz-form-item>
-              </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label>Date</nz-form-label>
+                                <nz-form-control>
+                                    <nz-date-picker class="w-100" nzShowTime></nz-date-picker>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label>title</nz-form-label>
+                                <input type="text" placeholder="Enter Title" dir="rtl" nz-input>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-label>Description</nz-form-label>
+                            <nz-form-control>
+
+                                <!-- formControlName="description" -->
+                                <quill-editor [style]="{height: '500px', background:'white'}" [modules]="editorConfig">
+                                </quill-editor>
+
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <!-- <div class="col-md-12">
+                    
+                    <nz-card>
+                        <nz-upload
+                        nzAction="https://jsonplaceholder.typicode.com/posts/"
+                        nzListType="picture-card"
+                        [(nzFileList)]="fileList"
+                        [nzShowButton]="fileList.length < 15"
+                        [nzPreview]="handlePreview">
+                        <i nz-icon nzType="plus"></i>
+                        <div class="ant-upload-text">Upload</div>
+                    </nz-upload>
+                    <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+                        <ng-template #modalContent>
+                            <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+                        </ng-template>
+                    </nz-modal>
+                </nz-card>
+                
+            </div> -->
+
+
+
+                    <nz-card class="bg-white">
+                        <!-- <div class="m-t-40"> -->
+                        <h4>10 Comments</h4>
+                        <!-- [nzPagination]="pagination" -->
+                        <nz-list [nzDataSource]="commentListData" [nzRenderItem]="comment" [nzItemLayout]="'vertical'">
+                            <ng-template #comment let-item>
+                                <!-- [nzActions]="[action]" -->
+                                <nz-list-item class="d-block" [nzContent]="item.comment">
+                                    <!-- [nzAvatar]="item.img" -->
+                                    <nz-list-item-meta [nzTitle]="commentTitle" [nzDescription]="item.date">
+                                        <ng-template #commentTitle>
+                                            <a class="font-size-15" href="">{{item.name}}</a>
+                                        </ng-template>
+                                    </nz-list-item-meta>
+                                </nz-list-item>
+                            </ng-template>
+                            <nz-form-item>
+                                <!-- <nz-form-label>title</nz-form-label> -->
+                                <textarea type="text" style="min-height:150px;" placeholder="Write a comment..."
+                                    nz-input></textarea>
+                                <button class="mr-3" style="position: absolute; right: 0px;bottom:10px" nz-button
+                                    nzType="primary">Add Comment</button>
+                            </nz-form-item>
+                            <!-- <ng-template #pagination>
+                <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+            </ng-template> -->
+                        </nz-list>
+                        <!-- </div> -->
+                    </nz-card>
+
+                </div>
+                <div class="col-5 col-offset-1">
+                    <div>
+                        <h4>General Settings</h4>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <nz-switch> </nz-switch> Active
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control>
+                                <nz-switch> </nz-switch> Pro News
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div>
+                        <h4 class="mb-2">Sharing Settings</h4>
+
+                        <nz-form-item>
+                            <nz-form-control>
+                                <button class="mr-3" nz-button nzType="default">Push Notification</button>
+                                <button class="mr-3" nz-button nzType="default">Twitter</button>
+                                <button class="mr-3" nz-button nzType="default">Facebook</button>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div>
+
+                        <nz-form-item>
+                            <nz-form-label>Catogory</nz-form-label>
+                            <nz-form-control>
+                                <nz-tree-select style="width: 250px" [nzNodes]="nodes"
+                                    (ngModelChange)="onChange($event)" nzShowSearch nzCheckable
+                                    nzPlaceHolder="Please select">
+                                </nz-tree-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <!-- tags -->
+                    <div>
+
+                        <nz-form-item>
+                            <nz-form-label>Tags</nz-form-label>
+                            <nz-form-control>
+                                <nz-select [nzSize]="size" nzMode="multiple" nzPlaceHolder="Please select">
+                                    <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label"
+                                        [nzValue]="option.value"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+
+                        </nz-form-item>
+                        <div class="d-flex">
+                            <nz-form-item>
+                                <input type="text" placeholder="Enter Tag" dir="rtl" nz-input>
+                                <button class="mr-3" nz-button nzType="default">Create</button>
+                            </nz-form-item>
+                        </div>
+
+                    </div>
+                    <!-- quotes -->
+                    <div>
+                        <nz-form-item>
+                            <nz-form-label>Related Quotes</nz-form-label>
+                            <nz-form-control>
+                                <nz-select [nzSize]="size" nzMode="multiple" nzPlaceHolder="Please select">
+                                    <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label"
+                                        [nzValue]="option.value"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="mb-2">Seo Settings</h4>
+                        <nz-form-item>
+                            <nz-form-label>Slug Line</nz-form-label>
+                            <nz-form-control>
+                                <input type="text" placeholder="Enter Title" dir="rtl" nz-input>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label>title</nz-form-label>
+                            <nz-form-control>
+                                <input type="text" placeholder="Enter Title" dir="rtl" nz-input>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label>Description</nz-form-label>
+                            <nz-form-control>
+                                <textarea type="text" placeholder="Enter Title" dir="rtl" nz-input></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label>Keyords</nz-form-label>
+                            <nz-form-control nzExtra="Enter keywords seperated by a comma (,) .">
+                                <input type="text" placeholder="Enter Keywords" dir="rtl" nz-input>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <nz-form-item>
-                  <nz-form-label>Username</nz-form-label>
-                  <nz-form-control>
-                    <nz-form-control>
-                      <input type="text" nz-input placeholder="Enter Username" />
-  
-                    </nz-form-control>
-                  </nz-form-control>
-                </nz-form-item>
-              </div>
-              <div class="col-md-6">
-  
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <nz-form-item>
-                  <nz-form-label>password</nz-form-label>
-                  <nz-form-control>
-                    <input type="password" nz-input placeholder="Enter Password">
-                  </nz-form-control>
-                </nz-form-item>
-              </div>
-              <div class="col-md-6">
-                <nz-form-item>
-                  <nz-form-label>Confirm Password</nz-form-label>
-                  <input type="password" nz-input placeholder="Enter Password">
-  
-                </nz-form-item>
-              </div>
-            </div>
-  
             <nz-form-item>
-              <nz-form-label nzFor="text">Email</nz-form-label>
-              <nz-form-control>
-                <input nz-input placeholder="Enter Email" />
-              </nz-form-control>
+                <nz-form-control [nzSpan]="14">
+                    <button class="mr-3" nz-button nzType="primary">Save</button>
+                    <button nz-button nzType="default">Cancel</button>
+                </nz-form-control>
             </nz-form-item>
-  
-            <nz-form-item>
-              <nz-form-control>
-                <nz-switch> </nz-switch> Active
-              </nz-form-control>
-            </nz-form-item>
-  
-  
-          </div>
-          <div class="col-6">
-            <h5>Admin Rights</h5>
-            <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log($event)">
-              <div nz-row>
-                <div nz-col nzSpan="12"><label nz-checkbox nzValue="A" [ngModel]="true">News</label></div>
-                <div nz-col nzSpan="12"><label nz-checkbox nzValue="B">Infographics</label></div>
-                <div nz-col nzSpan="12"><label nz-checkbox nzValue="C">Categories</label></div>
-                <div nz-col nzSpan="12"><label nz-checkbox nzValue="D">Tags</label></div>
-                <div nz-col nzSpan="12"><label nz-checkbox nzValue="E">Menus</label></div>
-              </div>
-            </nz-checkbox-wrapper>
-          </div>
-        </div>
-        <nz-form-item>
-          <nz-form-control [nzSpan]="14">
-            <button class="mr-3" nz-button nzType="primary">Save</button>
-            <button nz-button nzType="default">Cancel</button>
-          </nz-form-control>
-        </nz-form-item>
-      </form>
-  
+        </form>
+
     </div>
-  
-  </section>
-  
+
+</section>
