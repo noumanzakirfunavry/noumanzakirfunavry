@@ -7,13 +7,13 @@ const RegistrationModal = ()=>{
         <>
             <AccountModal modalId={'registrationModal'} >
             <div className="p-2">
-                    <div className="row mb-4">
-                        <div className="col-9 text-muted">
+                    <div className="row mb-4 flex-row-reverse">
+                    <div className="col-sm-3 text-start mb-3 mb-sm-0">
+                            <img className="img-fluid" width={86} src={logo.src} />
+                        </div>
+                        <div className="col-sm-9 text-muted">
                             <h2 className="text-primary">إنشاء حساب</h2>
                             <h6>هل لديك حساب؟ <a>تسجيل الدخول</a></h6>
-                        </div>
-                        <div className="col-3 text-start">
-                            <img className="img-fluid" src={logo.src} />
                         </div>
                     </div>
 
