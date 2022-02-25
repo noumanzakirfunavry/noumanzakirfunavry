@@ -1503,7 +1503,8 @@ width: 110px;
   top: 37px;
   left: 0;
   box-shadow: 0 0 20px #00000038;
-  z-index: 9;
+  z-index: 99;
+
 
   .topBorderText{
     h3{
@@ -1512,7 +1513,13 @@ width: 110px;
   }
 
     .searchResultList{
-      background-color: greenyellow;
+
+      .NewsList {
+          li {
+            flex-flow: initial;
+          }
+      }
+
     .newsText{
       color: $grey-dark;
 

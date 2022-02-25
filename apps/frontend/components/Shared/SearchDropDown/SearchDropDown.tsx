@@ -87,7 +87,7 @@ const SearchDropDown:FC<any> = ({data}) => {
                 <h3>نتيجة البحث</h3>
             </Title>
             <div className="searchResultList">
-                <div className="NewsList mb-4">
+                <div className="NewsList">
                     <ul>
                         <li>
                             <div className="newsText">
