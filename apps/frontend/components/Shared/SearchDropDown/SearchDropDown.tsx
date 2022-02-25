@@ -1,17 +1,36 @@
+import { FC } from "react";
 import newslistimg from "../../../styles/images/biden2.jpg";
+import Title from "../../Title";
 
-const SearchDropDown = () => {
+const SearchDropDown:FC<any> = ({data}) => {
     
+    const keys = Object.keys(data)
     return (
         
         <div className='searchResulstBox'>
-            <div className='topBorderText'>
+            <Title styles={"topBorderText"}>
                 <h3>الأسهم ذات الصلة</h3>
-            </div>
+            </Title>
             <div className="wordCountList">
                 <div className="table-responsive">
                     <table className="table table-borderless table-striped">
-                        <tr>
+                        {
+                            keys.map((key:string, index:number)=>{
+                                return (
+                                    <tr key={index}>
+                                        <td>
+                                            <h5 className="m-0 p-0">{data[key].MarketMIC}</h5>
+                                            {data[key].MarketSymbol}
+                                        </td>
+                                        <td className="text-start">
+                                            <div className="p-0">{data[key].LastPrice}</div>
+                                            <div className="p-0 text-success">{`(3.09%)  ${data[key].LastBid}`}</div>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+                        {/* <tr>
                             <td>
                                 <h5 className="m-0 p-0">AMZ</h5>
                                 Amazon Inc
@@ -60,15 +79,15 @@ const SearchDropDown = () => {
                                 <div className="p-0">3231.50</div>
                                 <div className="p-0 text-success">(3.09%)  99.40</div>
                             </td>
-                        </tr>
+                        </tr> */}
                     </table>
                 </div>
             </div>
-            <div className='topBorderText'>
+            <Title styles={'topBorderText'}>
                 <h3>نتيجة البحث</h3>
-            </div>
+            </Title>
             <div className="searchResultList">
-                <div className="NewsList mb-4">
+                <div className="NewsList">
                     <ul>
                         <li>
                             <div className="newsText">

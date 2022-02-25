@@ -7,8 +7,8 @@ const RegistrationStep2 = ()=>{
             <AccountModal modalId={'registrationStep2'}>
             <div className="p-2">
                     <div className="row mb-4 flex-row-reverse">
-                    <div className="col-sm-3 text-start mb-3 mb-sm-0">
-                            <img className="img-fluid" width={86} src={logo.src} />
+                    <div className="col-sm-3 text-sm-start text-center mb-3 mb-sm-0">
+                            <img className="img-fluid" style={{width:'86px'}} src={logo.src} />
                         </div>
                         <div className="col-sm-9 text-muted pt-3">
                             <h6>لقد قمت بإنشاء حساب CNBC Arabia بنجاح. <a>johnsmith@email.com</a></h6>

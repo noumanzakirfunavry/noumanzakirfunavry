@@ -4,10 +4,17 @@ import Presenters from "apps/frontend/components/Presenter";
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import Title from "apps/frontend/components/Title";
-import presenterimg from "../../styles/images/presenter.jpg";
+import useApiData from "apps/frontend/services/useApiData";
 
 const Index = () =>{
 
+    const {data, error, loading} = useApiData('https://jsonplaceholder.typicode.com/todos/1', 'get', {})
+
+    if(loading){
+        return (
+            <>...Loading</>
+        )
+    }
     return (
         <>
             <div className="container"> 
