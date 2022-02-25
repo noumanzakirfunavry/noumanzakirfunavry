@@ -1,22 +1,22 @@
 
 
-  async function addRoles(queryInterface) {
-    return await queryInterface.bulkInsert('Roles', [
+  async function addRights(queryInterface) {
+    return await queryInterface.bulkInsert('Rights', [
       {
-        title: "Admin",
+        title: "CREATE",
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        title: "User",
+        title: "UPDATE",
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        title: "Super_Admin",
+        title: "GET",
         createdAt: new Date(),
         updatedAt: new Date()
       }
     ], {});
   }
-module.exports = { addRoles}
+module.exports = { addRights}

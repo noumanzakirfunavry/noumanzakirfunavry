@@ -57,11 +57,6 @@ export class Users extends Model{
     })
     isActive : boolean
 
-    @Column({
-        type : DataType.BOOLEAN
-    })
-    isProUser : boolean
-
     @HasMany(() => Banner)
     banners : Banner[]
 

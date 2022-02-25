@@ -18,7 +18,7 @@ export class Sessions extends Model{
     startTime : Date
 
     @Column
-    deviceId : number
+    deviceId : string
 
     @Column
     endTime : Date

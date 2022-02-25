@@ -120,6 +120,7 @@ export * from './entities/social.media.posts.entity'
 export * from './entities/tags.entity'
 export * from './entities/trending.news.entity'
 export * from './entities/users.entity'
+export * from './entities/users.has.rights.entity'
 
 export const Entities=[
     Alerts,
