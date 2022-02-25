@@ -13,6 +13,7 @@
     "frontend": "apps/frontend",
     "frontend-e2e": "apps/frontend-e2e",
     "mail": "libs/mail",
+    "middleware": "libs/middleware",
     "middlewares": "libs/middlewares",
     "models": "libs/models",
     "news-microservice": "apps/news-microservice",

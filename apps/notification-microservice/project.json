@@ -9,8 +9,7 @@
       "options": {
         "outputPath": "dist/apps/notification-microservice",
         "main": "apps/notification-microservice/src/main.ts",
-        "tsConfig": "apps/notification-microservice/tsconfig.app.json",
-        "assets": ["apps/notification-microservice/src/assets"]
+        "tsConfig": "apps/notification-microservice/tsconfig.app.json"
       },
       "configurations": {
         "production": {

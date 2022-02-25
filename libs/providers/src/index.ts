@@ -52,6 +52,3 @@ export * from './providers/social.media.posts.provider'
 export * from './providers/tags.provider'
 export * from './providers/trending.news.provider'
 export * from './providers/users.has.rights.provider'
-
-
-

@@ -26,6 +26,7 @@
       ],
       "@cnbc-monorepo/file-server": ["libs/file-server/src/index.ts"],
       "@cnbc-monorepo/mail": ["libs/mail/src/index.ts"],
+      "@cnbc-monorepo/middleware": ["libs/middleware/src/index.ts"],
       "@cnbc-monorepo/middlewares": ["libs/middlewares/src/index.ts"],
       "@cnbc-monorepo/models": ["libs/models/src/index.ts"],
       "@cnbc-monorepo/providers": ["libs/providers/src/index.ts"],

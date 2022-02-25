@@ -1,5 +1,44 @@
-export * from './lib/dtos.module';
-export * from './dtos/request/user.login.dto';
-export * from './dtos/response/generic.response.dto';
-export * from './dtos/request/update.password.request.dto';
-export * from './dtos/request/register.admin.request.dto';
+//............................authentication request dtos................................
+
+export * from './request/authentication/user.login.dto';
+export * from './request/authentication/update.password.request.dto';
+export * from './request/authentication/register.admin.request.dto';
+import { from } from 'rxjs';
+
+export * from './dtos.module';
+//............................request dtos................................
+export * from './request/pagination.request.dto'
+
+    //..............................tags.....................................
+export * from './request/tags/add.tag.request.dto'
+export * from './request/tags/update.tag.request.dto'
+export * from './request/tags/get.all.tags.request.dto'
+    //...............................quotes.................................
+export * from './request/quotes/add.quote.request.dto'
+export * from './request/quotes/get.all.quote.request.dto'
+export * from './request/quotes/update.quote.request.dto'
+    //...............................quickLinks.............................
+export * from './request/quickLinks/add.quick.links.request.dto'
+export * from './request/quickLinks/delete.quick.links.request'
+export * from './request/quickLinks/update.quick.links.request.dto'
+
+
+
+//.............................response dtos..............................
+export * from './response/generic.response.dto'
+
+    //...............................tags..................................
+export * from './response/tags/get.all.tags.response.dto'
+export * from './response/tags/get.tag.by.id.response.dto'
+export * from './response/tags/delete.tag.by.id.response.dto'
+export * from './response/tags/add.tag.response.dto'
+export * from './response/tags/update.tag.response.dto'
+    //...............................quotes................................
+export * from './response/quotes/get.all.quotes.response.dto'
+export * from './response/quotes/add.quote.response.dto' 
+export * from './response/quotes/update.quote.response.dto'
+    //...............................quickLinks.............................
+export * from './response/quickLinks/add.quick.links.response.dto'
+export * from './response/quickLinks/get.all.quick.links.response.dto'
+export * from './response/quickLinks/get.quick.link.by.id.response.dto'
+export * from './response/quickLinks/update.quick.links.response.dto'
