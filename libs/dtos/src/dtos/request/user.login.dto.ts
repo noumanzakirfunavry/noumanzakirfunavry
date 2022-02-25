@@ -1,4 +1,5 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsUUID, IsEnum } from 'class-validator';
+import {DeviceTypes} from '@cnbc-monorepo/enums'
 export class UserLoginDto{
     
     @IsString()
@@ -8,5 +9,14 @@ export class UserLoginDto{
     @IsString()
     @IsNotEmpty()
     password : string
+
+    @IsUUID()
+    @IsNotEmpty()
+    deviceId : string
+
+    @IsEnum(DeviceTypes)
+    @IsNotEmpty()
+    deviceType : DeviceTypes
+
     
 }

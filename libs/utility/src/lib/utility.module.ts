@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
+import { Helper } from '../helpers/helper.service';
 
 @Module({
   controllers: [],
-  providers: [],
-  exports: [],
+  providers: [Helper],
+  exports: [Helper],
 })
 export class UtilityModule {}

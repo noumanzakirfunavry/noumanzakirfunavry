@@ -1,16 +1,18 @@
 import { Module } from '@nestjs/common';
 import { AnthenticationController } from './anthentication.controller';
 import { AnthenticationService } from './anthentication.service';
-import {ProvidersModule} from '@cnbc-monorepo/providers'
-import {AuthModuleModule} from '@cnbc-monorepo/auth-module'
+import { ProvidersModule } from '@cnbc-monorepo/providers'
+import { AuthModuleModule } from '@cnbc-monorepo/auth-module'
+import { UtilityModule } from '@cnbc-monorepo/utility';
 @Module({
   controllers: [AnthenticationController],
   providers: [
     AnthenticationService,
   ],
-  imports : [
+  imports: [
     ProvidersModule,
-    AuthModuleModule
+    AuthModuleModule,
+    UtilityModule
   ]
 })
-export class AnthenticationModule {}
+export class AnthenticationModule { }

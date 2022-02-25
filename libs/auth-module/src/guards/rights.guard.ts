@@ -1,21 +1,21 @@
-import { RoleTypes } from '@cnbc-monorepo/enums';
+import { RightsTypes } from '@cnbc-monorepo/enums';
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
 @Injectable()
-export class RolesGuard implements CanActivate {
+export class RightsGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
-    const ROLES_KEY = 'roles';
-    const requiredRoles = this.reflector.getAllAndOverride<RoleTypes[]>(ROLES_KEY, [
+    const RIGHTS_KEY = 'rights';
+    const requiredRights = this.reflector.getAllAndOverride<RightsTypes[]>(RIGHTS_KEY, [
       context.getHandler(),
       context.getClass(),
     ]);
-    if (!requiredRoles) {
+    if (!requiredRights) {
       return true;
     }
     const { user } = context.switchToHttp().getRequest();
-    return requiredRoles.some((role) => user.roles?.includes(role));
+    return requiredRights.some((right) => user.rights?.includes(right));
   }
 }
