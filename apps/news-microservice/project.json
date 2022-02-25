@@ -9,8 +9,7 @@
       "options": {
         "outputPath": "dist/apps/news-microservice",
         "main": "apps/news-microservice/src/main.ts",
-        "tsConfig": "apps/news-microservice/tsconfig.app.json",
-        "assets": ["apps/news-microservice/src/assets"]
+        "tsConfig": "apps/news-microservice/tsconfig.app.json"
       },
       "configurations": {
         "production": {
