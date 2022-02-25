@@ -61,72 +61,7 @@
     <h3>Social Media Feed</h3>
     <div class="row">
         <div class="col-md-4">
-            <?php if ($stream_dash_enable == true): ?>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-lg-offset-1">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <?= __d('admin', 'Twitter') ?>
-                        </div>
-                        <div class="panel-body">
-                            <?php
-                            preg_match("|https?://(www\.)?twitter\.com/(#!/)?@?([^/]*)|", $stream_dash_tw_page, $matches);
-                            $screen_name = $matches[3];
-                            ?>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <a class="twitter-timeline" data-screen-name="<?= $screen_name ?>"
-                                       data-dnt="true" href="<?= $stream_dash_tw_page ?>"
-                                       data-widget-id="713385267890155520"> @<?= $screen_name ?></a>
-                                    <script>!function (d, s, id) {
-                                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-                                            if (!d.getElementById(id)) {
-                                                js = d.createElement(s);
-                                                js.id = id;
-                                                js.src = p + "://platform.twitter.com/widgets.js";
-                                                fjs.parentNode.insertBefore(js, fjs);
-                                            }
-                                        }(document, "script", "twitter-wjs");
-                                    </script>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <?= __d('admin', 'Facebook') ?>
-                        </div>
-                        <div class="panel-body">
-                            <div id="fb-root"></div>
-                            <script>(function(d, s, id) {
-                                    var js, fjs = d.getElementsByTagName(s)[0];
-                                    if (d.getElementById(id)) return;
-                                    js = d.createElement(s); js.id = id;
-                                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=<?= $stream_dash_fb_id ?>";
-                                    fjs.parentNode.insertBefore(js, fjs);
-                                }(document, 'script', 'facebook-jssdk'));</script>
-                            <div class="fb-page"
-                                 data-href="<?= $stream_dash_fb_page ?>" data-tabs="timeline"
-                                 data-small-header="false" data-adapt-container-width="true" data-hide-cover="true"
-                                 data-show-facepile="false" data-width="500">
-                                <blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore">
-                                    <a href="https://www.facebook.com/facebook">Facebook</a>
-                                </blockquote>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php else: ?>
-            <div class="alert alert-warning">
-                <!-- <button class="close" data-dismiss="alert">×</button> -->
-                <!-- <strong>Warning!</strong> Your monthly traffic is reaching limit. -->
-                <span>Social stream disabled.</span><br/><span>Click <a href="/admin/Config/streams">here</a> to change configuration.</span>
-            </div>
-        <?php endif; ?>
+ 
         </div>
         <div class="col-md-4">
             <nz-card>
