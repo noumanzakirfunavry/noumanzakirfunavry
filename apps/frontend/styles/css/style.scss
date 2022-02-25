@@ -140,6 +140,7 @@ header{
   }
   .search-header{
     flex: 1;
+    position: relative;
   }
   .logo-header{
     flex: 3;
@@ -1502,6 +1503,7 @@ width: 110px;
   top: 37px;
   left: 0;
   box-shadow: 0 0 20px #00000038;
+  z-index: 9;
 
   .topBorderText{
     h3{
