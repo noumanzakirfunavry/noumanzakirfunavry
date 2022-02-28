@@ -14,11 +14,20 @@ const routes: Routes = [
 
     },
     {
+        path: 'list',
+        component: QuickLinkComponent,
+        data: {
+            title: 'All Quick Links',
+            // headerDisplay: "none"
+        },
+
+    },
+    {
         path: 'add',
         component: AddQuickLinksComponent,
         data: {
-            title: 'Add News',
-            headerDisplay: "none"
+            title: 'Add Quick Link',
+            // headerDisplay: "none"
         },
 
     },
