@@ -17,6 +17,11 @@ export * from './request/quickLinks/add.quick.links.request.dto'
 export * from './request/quickLinks/delete.quick.links.request'
 export * from './request/quickLinks/update.quick.links.request.dto'
 export * from './request/quickLinks/get.all.quick.links.request.dto'
+    //...............................Jobs.............................
+export * from './request/jobs/add.job.request.dto'
+export * from './request/jobs/get.all.jobs.request.dto'
+export * from './request/jobs/update.job.request.dto'
+export * from './request/jobs/delete.job.request.dto'
     //...............................breakingNews..........................
 export * from './request/breakingNews/add.breaking.news.request.dto'
 
@@ -40,5 +45,11 @@ export * from './response/quickLinks/add.quick.links.response.dto'
 export * from './response/quickLinks/get.all.quick.links.response.dto'
 export * from './response/quickLinks/get.quick.link.by.id.response.dto'
 export * from './response/quickLinks/update.quick.links.response.dto'
+    //.................................jobs..................................
+export * from './response/jobs/add.jobs.response.dto'
+export * from './response/jobs/get.all.jobs.response.dto'
+export * from './response/jobs/get.job.by.Id.response.dto'
+export * from './response/jobs/update.job.response.dto'
     //................................breakingNews/.........................
 export * from './response/breakingNews/add.breaking.news.response.dto'
+

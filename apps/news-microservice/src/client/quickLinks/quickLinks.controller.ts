@@ -9,7 +9,7 @@ export class QuickLinksController{
     ){}
 
     @Get('getAll')
-    async getAllQuickLinks(@Query() query:PaginatedRequestDto){
+    async getAllQuickLinks(@Query() query:PaginatedRequestDto){  
         return await this.quickLinksService.getAllQuickLinks(query)
     }
 

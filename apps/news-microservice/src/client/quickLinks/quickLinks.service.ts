@@ -11,6 +11,7 @@ export class QuickLinksService{
     ){}
 
     async getAllQuickLinks(query:PaginatedRequestDto){
+        //TODO: need to add current total functionality from siteconfiguration table
         let offset = 0
         query.pageNo = query.pageNo - 1;
         if (query.pageNo) offset =query.limit * query.pageNo;
@@ -20,7 +21,6 @@ export class QuickLinksService{
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
                 )
-          
         }
         return new GetAllQuickLinksResponseDto(HttpStatus.OK,"FETCHED SUCCESSFULLY",result.map((e:QuickLinks)=>{return {"title":e.title,"url":e.url} as any}))
     }
