@@ -4,18 +4,19 @@ import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import Title from "apps/frontend/components/Title"
 import Head from "next/head"
+import {getStaticProps}  from "apps/frontend/services/StaticData"
 
 const Index = ({post}) =>{
 
     return (
         <>
             <Head>
-                <meta name="description" content={post.activity} />
+                <meta name="description" content={post?.activity} />
 
                 <meta name="theme-color" content="#000000" />
 
-                <meta name="og:type" content={post.type} />
-                <meta name="og:title" content={post.key} />
+                <meta name="og:type" content={post?.type} />
+                <meta name="og:title" content={post?.key} />
 
             </Head>
 
@@ -38,15 +39,17 @@ const Index = ({post}) =>{
     
 }
 
-export async function getStaticProps() {
-    const res = await fetch('https://www.boredapi.com/api/activity')
-    const post = await res.json()
+export {getStaticProps}
+
+// export async function getStaticProps() {
+//     const res = await fetch('https://www.boredapi.com/api/activity')
+//     const post = await res.json()
   
-    return {
-      props: {
-        post,
-      },
-    }
-  }
+//     return {
+//       props: {
+//         post,
+//       },
+//     }
+//   }
 
 export default Index
