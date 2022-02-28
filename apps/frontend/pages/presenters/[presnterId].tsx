@@ -8,9 +8,11 @@ const Index = () =>{
         <>
             <div className="container">
                 <AdBanner />
+                </div>
                 <Title styles={"pageTitle PageTitleYellow"}>
                     <h2>مذيعة ومراسل قناة CNBC العربية</h2>
                 </Title>
+                <div className="container">
                 <PresenterDetails/>
             </div>
         </>

@@ -55,10 +55,10 @@ const RegistrationStep2 = ()=>{
 
                     <div className="row">
                         <div className="col-6">
-                            <button className="btn btn-primary mb-3">حفظ</button>
+                            <button className="btn btn-primary mb-3 btn-sm-wide">حفظ</button>
                         </div>
                         <div className="col-6 text-start">
-                            <button className="btn btn-outline-primary mb-3" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registrationStep2" >تخطي لاحقًا</button>
+                            <button className="btn btn-outline-primary mb-3 btn-sm-wide" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registrationStep2" >تخطي لاحقًا</button>
                         </div>
                     </div>
                     <div className="text-center">

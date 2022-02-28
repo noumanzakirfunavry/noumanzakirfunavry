@@ -12,8 +12,9 @@ const Index = () =>{
         <>
             <div className="container">
                 <AdBanner />
+                </div>
                 <Title styles="pageTitle PageTitleYellow mb-0"><h2>اكسبو في أسبوع</h2></Title>
-
+                <div className="container">
                 <ProgramDetails/> 
 
                 <div className='row'>
