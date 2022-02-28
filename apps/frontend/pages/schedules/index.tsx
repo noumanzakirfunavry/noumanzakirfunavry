@@ -9,6 +9,7 @@ const Index = () =>{
         <>
             <div className="container">
                 <AdBanner />
+                </div>
                 <Title styles={"pageTitle PageTitleYellow"}>
                     <div className="float-start">
                         <button className="btn btn-danger">شاهد البث المباشر</button>
@@ -16,6 +17,7 @@ const Index = () =>{
                     <h2>جدول البرامج</h2>
                     <div className="clearfix"></div>
                 </Title>
+                <div className="container">
                 <Schedules/>
             </div>
         </>
