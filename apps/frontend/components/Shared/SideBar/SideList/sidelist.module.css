@@ -77,10 +77,10 @@
 .sidenumberList li::before{
     content: counter(mynumberlist);
     color: #CFD8E2;
-    font-size: 20px;
+    font-size: 27px;
     font-weight: bold;
     width: 50px;
-    padding-top: 13px;
+    padding-top: 7px;
 }
 .sidenumberList li:last-child {
     border-bottom: none;

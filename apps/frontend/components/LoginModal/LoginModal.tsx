@@ -14,8 +14,8 @@ const LoginModal = ()=>{
                             <img className="img-fluid" style={{width:'86px'}} src={logo.src} />
                         </div>
                         <div className="col-sm-9 text-muted">
-                            <h2 className="text-primary">تسجيل الدخول</h2>
-                            <h6>هل أنت جديد في CNBC Arabia؟ <a>إنشاء حساب</a></h6>
+                            <h2 className="text-primary text-bold">تسجيل الدخول</h2>
+                            <h6>هل أنت جديد في CNBC Arabia؟ <a className="text-bold">إنشاء حساب</a></h6>
                         </div>
                     </div>
 

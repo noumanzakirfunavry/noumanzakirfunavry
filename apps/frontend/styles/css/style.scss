@@ -48,6 +48,7 @@ a:not([href]):not([class]):hover{
   }
   
   .btn-outline-primary {
+    background-color: $white;
     color: $primary-color;
     border-color: $primary-color;
     &:hover{
@@ -715,31 +716,40 @@ header{
 
 
 
-  .NewsTiles .newBox{
-    margin-bottom: 25px;
-    position: relative;
-    overflow: hidden;
-  }
-  .NewsTiles .newBox .NewsImage{
-    margin-bottom: 10px;
-    height: 180px;
-    overflow: hidden;
-    position: relative;
-  }
-  .NewsTiles .newBox .NewsInfo a{
-    color: $secondary-color;
-    margin-left: 15px;
-  }
-  .NewsTiles .newBox .NewsInfo h3{
-    font-size: 22px;
-    font-weight: bold;
-  }
-  .NewsTiles .newBox .NewsInfo h4{
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 1.5rem;
-  }
+  .NewsTiles {
+    .newBox{
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
 
+      .NewsImage{
+        margin-bottom: 10px;
+        height: 180px;
+        overflow: hidden;
+        position: relative;
+      }
+      .NewsInfo{
+        a{
+          color: $secondary-color;
+          margin-left: 15px;
+        }
+        h3{
+          font-size: 22px;
+          font-weight: bold;
+        }
+        h4{
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 1.5rem;
+        }
+        p{
+          font-size: 16px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+ 
 
 
 
