@@ -7,8 +7,9 @@ const Index = () =>{
         
             <div className="container">
                 <AdBanner />
+                </div>
                 <div className="PageTitleYellow pageTitle mb-5"><h2>تعديل ملفك الشخصي</h2></div>
-                
+                <div className="container">
                 <div className="row">
                 <div className="col-md-6">
                         <h3 className="mb-4">إعادة تعيين كلمة المرور</h3>

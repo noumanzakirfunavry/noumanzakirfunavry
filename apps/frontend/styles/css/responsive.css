@@ -200,6 +200,9 @@
     .searchResultList .NewsList li .newsText p{
         margin-top: 0;
     }
+    .btn-sm-wide{
+        width: 100%;
+    }
   }
 
 
