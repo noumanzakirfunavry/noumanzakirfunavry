@@ -69,7 +69,7 @@ const CareersSlider = () =>{
         <>
             <div className='jobsSlider'>
 
-                <div className="row">
+                <div className="row mt-5">
                     <div className="col-sm-6">
                         <div className="sliderArrows text-end">
                             <button className="slider-arrow arrow-prev" onClick={previous}>
@@ -81,7 +81,7 @@ const CareersSlider = () =>{
                         </div>
                     </div>
                     <div className="col-sm-6">
-                        <h2 className="text-primary text-start montserrat text-extra-bold">CURRENT JOBS</h2>
+                        <h2 className="text-primary text-start montserrat text-extra-bold mb-4">CURRENT JOBS</h2>
                     </div>
                 </div>
 

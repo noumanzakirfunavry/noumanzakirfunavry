@@ -14,8 +14,8 @@ const LoginModal = ()=>{
                             <img className="img-fluid" style={{width:'86px'}} src={logo.src} />
                         </div>
                         <div className="col-sm-9 text-muted">
-                            <h2 className="text-primary">تسجيل الدخول</h2>
-                            <h6>هل أنت جديد في CNBC Arabia؟ <a>إنشاء حساب</a></h6>
+                            <h2 className="text-primary text-bold">تسجيل الدخول</h2>
+                            <h6>هل أنت جديد في CNBC Arabia؟ <a className="text-bold">إنشاء حساب</a></h6>
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@ const LoginModal = ()=>{
                     </div>
 
                     <div className="text-center">
-                        <button className="btn btn-primary mb-3" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registrationModal">تسجيل الدخول</button>
+                        <button className="btn btn-primary mb-3 btn-sm-wide" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registrationModal">تسجيل الدخول</button>
                         <h6 className="text-muted mb-0">سياسة خاصة</h6>
                     </div>
                 </div>
