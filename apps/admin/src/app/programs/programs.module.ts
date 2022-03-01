@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { SharedModule } from '../shared/shared.module';
-import { CategoryRoutingModule} from "./programs-routing.module";
+import { ProgramsRoutingModule} from "./programs-routing.module";
 import { NgChartjsModule } from 'ng-chartjs';
 
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
@@ -25,6 +25,10 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { ProgramsComponent } from './programs.component';
 import { AddProgramsComponent } from './addProgram/add-programs.component';
 import { ProgramsFilterComponent } from './programFilter/programs-filter.component';
+import { antdModule } from '../AndModules/andModule';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { QuillModule } from 'ngx-quill';
 
 // import { DefaultDashboardComponent } from './default/default-dashboard.component';
 // import { EcommerceDashboardComponent } from './e-commerce/e-commerce-dashboard.component';
@@ -33,32 +37,36 @@ import { ProgramsFilterComponent } from './programFilter/programs-filter.compone
 
 
 
-const antdModule = [
-    NzButtonModule,
-    NzCardModule,
-    NzAvatarModule,
-    NzRateModule,
-    NzBadgeModule,
-    NzProgressModule,
-    NzRadioModule,
-    NzTableModule,
-    NzDropDownModule,
-    NzTimelineModule,
-    NzTabsModule,
-    NzTagModule,
-    NzListModule,
-    NzCalendarModule,
-    NzToolTipModule,
-    NzCheckboxModule
-]
+// const antdModule = [
+//     NzButtonModule,
+//     NzCardModule,
+//     NzAvatarModule,
+//     NzRateModule,
+//     NzBadgeModule,
+//     NzProgressModule,
+//     NzRadioModule,
+//     NzTableModule,
+//     NzDropDownModule,
+//     NzTimelineModule,
+//     NzTabsModule,
+//     NzTagModule,
+//     NzListModule,
+//     NzCalendarModule,
+//     NzToolTipModule,
+//     NzCheckboxModule
+// ]
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
-        CategoryRoutingModule,
+        ProgramsRoutingModule,
         NgChartjsModule,
-        ...antdModule
+        ReactiveFormsModule,
+        FormsModule,
+        ...antdModule,
+        NzUploadModule,
+        QuillModule.forRoot()
     ],
     exports: [],
     declarations: [
