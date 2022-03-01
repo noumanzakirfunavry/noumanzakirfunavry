@@ -8,7 +8,7 @@ const MainSection:FC = () =>{
     return (
         <>
             <div className="row">
-                    
+
                     <div className="col-lg-8">
                         <div className={styles.mainNews}>
                             <div className={styles.newscontent}>

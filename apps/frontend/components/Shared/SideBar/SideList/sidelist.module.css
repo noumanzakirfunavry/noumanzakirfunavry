@@ -12,6 +12,7 @@
     padding-top: 10px;
     margin-top: -11px;
     color: #002F6C;
+    font-weight: bold;
 }
 .sidebar .listBody{
     padding: 5px;
@@ -25,7 +26,7 @@
 
 .sideDotList{
     margin: 0;
-    padding: 0 15px 0 0;
+    padding: 0 17px 0 0;
 }
 .sideDotList li {
     border-bottom: 1px solid #DDDDDD;
