@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-
+// import {  } from "./../../../assets/lib/tinymce/js/tinymce/plugins/";
 @Component({
     selector: 'app-addNews',
     templateUrl: './addNews.component.html'
@@ -15,7 +15,7 @@ export class AddNewsComponent implements OnInit {
         suffix: '.min',
         height: 400,
         menubar: true,
-
+        // 'selector' : 'textarea#tinymce',
         'directionality': 'rtl',
         'init_instance_callback': "",
         'width': 680,
@@ -23,9 +23,9 @@ export class AddNewsComponent implements OnInit {
         'relative_urls': false,
         // 'file_browser_callback' : "filemanager",
         // 'filemanager_title' : "Responsive Filemanager",
-        // 'external_filemanager_path' : "/js/admin/file_manager/filemanager/",
+        // 'external_filemanager_path' : "/",
         // 'external_plugins' : [{
-        //     "filemanager" : "/js/admin/file_manager/filemanager/plugin.min.js"
+        //     "filemanager" : "filemanager/plugin.min.js"
         // }],
         // 'theme' : 'modern',
         'fontsize_formats': "8pt 9pt 10pt 11pt 12pt 26pt 36pt",
