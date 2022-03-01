@@ -1,3 +1,4 @@
+@import "/variables.scss";
 @media screen and (max-width: 1400px){
     .container-xl, 
     .container-lg, 
@@ -200,6 +201,9 @@
     .searchResultList .NewsList li .newsText p{
         margin-top: 0;
     }
+    .btn-sm-wide{
+        width: 100%;
+    }
   }
 
 
@@ -256,8 +260,10 @@
     .NewsTiles .newBox{
         display: flex;
     }
+
     .NewsTiles .newBox .NewsImage{
         flex: 2;
+        height: auto;
     }
     .NewsTiles .newBox .NewsInfo{
         flex: 3;
@@ -292,5 +298,29 @@
         margin-top: 0;
         margin-bottom: 10px;
     }
+
+    .NewsTiles .newBox .NewsInfo h4 {
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.2rem;
+    }
+    .NewsTiles .newBox .NewsInfo p {
+        font-size: 11px;
+        font-weight: bold;
+    }
+    .VideoNews .NewsImage {
+        height: 185px;
+    }
+    .VideoNews .NewsContent{
+        padding: 15px;
+    }
+    .VideoNews .NewsContent h4 {
+        font-size: 14px;
+    }
+    .VideoNews .NewsContent p {
+        font-size: 11px;
+        margin: 0;
+    }
+
 
   }

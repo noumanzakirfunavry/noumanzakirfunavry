@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const GetData = async (url:string,params:any, method:string): Promise<any>=>
+const notify = () => toast.success("Success Notification !", {
+    position: toast.POSITION.TOP_RIGHT
+  });
+
+const GetData = async (url:string,params:any, method:string, displayMessage:boolean): Promise<any>=>
 {
 
     const data = {
-       data:{},
+       data:null,
        error: null
     }
 
@@ -27,6 +32,7 @@ const GetData = async (url:string,params:any, method:string): Promise<any>=>
             if(error.response)
             {
                 data.error = {message: error.response.data.message}
+
             }
             else if (error.request)
             {
@@ -40,6 +46,7 @@ const GetData = async (url:string,params:any, method:string): Promise<any>=>
     }
     else if(method === 'get')
     {
+        displayMessage && notify()
         await client.get(url, {
             params: {
               ...(Object.keys(params).length && {...params})

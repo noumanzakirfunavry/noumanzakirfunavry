@@ -1,4 +1,7 @@
+/* eslint-disable @next/next/no-page-custom-font */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/css/globals.css';
 import '../styles/fontawesome/css/fontawesome.min.css';
 import '../styles/fontawesome/css/all.min.css';
@@ -11,6 +14,7 @@ import type { AppProps } from 'next/app'
 import { useEffect } from 'react';
 import Layout from '../components/Layout/Layout';
 import Head from 'next/head';
+import { ToastContainer } from 'react-toastify';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -32,6 +36,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
       </Head>
+
+      <ToastContainer/>
   
       <Component {...pageProps} />
     </Layout>
