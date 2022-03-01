@@ -1,20 +1,14 @@
 <div class="row">
     <div class="col-2">
-        <button nz-button [nzType]="'primary'" [routerLink]="['/tags/add']">Add News</button>
+        <button nz-button [nzType]="'primary'" [routerLink]="['/tags/add']">Add Tag</button>
     </div>
-    <div class="col-2">
+    <div class="col-10">
         <tag-filter></tag-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
-            <div class="d-flex justify-content-between align-items-center">
-                <h5>Recent Orders</h5>
-                <div>
-                    <a nz-button nzType="default" nzSize="small">View All</a>
-                </div>
-            </div>
-            <div class="m-t-30">
-                <nz-table #ordersListTable [nzData]="ordersList"  [nzShowPagination]="false" class="no-border-last">
+            <div>
+                <nz-table #ordersListTable [nzData]="ordersList"  [nzShowPagination]="true" class="no-border-last">
                     <thead>
                         <tr>
                             <th>ID</th>
