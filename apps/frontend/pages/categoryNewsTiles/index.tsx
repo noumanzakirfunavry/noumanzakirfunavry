@@ -19,10 +19,10 @@ const Index = () =>{
         </Title>
         <div className="container">
         <div className='row'>
-          <div className='col-lg-8'>
+          <div className='col-lg-9'>
             <CategoryNewsSection limit = {8} displayTitle={false} displayTopTwoNews={true} displayMoreButton={true}/>
           </div>
-          <div className='col-lg-4'>
+          <div className='col-lg-3'>
             <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
           </div>
         </div>
