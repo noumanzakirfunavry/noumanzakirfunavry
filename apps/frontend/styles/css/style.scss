@@ -147,7 +147,7 @@ header{
     flex: 3;
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
+    // overflow: hidden;
   }
   .cnbc-logo{
     margin: 10px 0;
@@ -234,6 +234,7 @@ header{
     margin: 0;
     padding: 0;
     display: flex;
+    justify-content: end;
   }
   .header-search-nav ul li a{
     font-size: 16px;
@@ -508,6 +509,7 @@ header{
   }
   .breakingNews .newsbox .newsaction .btn{
     font-weight: bold;
+    font-size: 15px;
   }
   .breakingNews .newsbox .newslink{
     flex: 4;
@@ -1719,6 +1721,40 @@ width: 110px;
 
         &:hover{
           color: $warning;
+        }
+      }
+    }
+  }
+}
+.breakingNews
+{
+  .newsbox {
+    .newsaction {
+      .btn{
+        &:hover{
+          background-color: $warning;
+          border-color: $warning;
+          color: $primary-color;
+
+        }
+      }
+    }
+  }
+}
+
+.NewsTiles {
+  .newBox{
+    &.newBoxf {
+      .NewsImage {
+        height: 300px;
+      }
+    }
+    &.newBoxfs{
+      .NewsImage {
+        height: 300px;
+        img{
+          object-fit: cover;
+          height: 100%;
         }
       }
     }
