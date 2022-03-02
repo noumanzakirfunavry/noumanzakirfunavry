@@ -176,6 +176,176 @@ export const CommonLayout_ROUTES: Routes = [
             }
         ]
     },
+    {
+        path: 'breakingNews',
+        data: {
+            title: 'Breaking News '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/breakingNews/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../breakingNews/breakingNews.module').then(m => m.BreakingNewsModule)
+            }
+        ]
+    },
+    {
+        path: 'presenters',
+        data: {
+            title: 'Presenters '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/presenters/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../presenters/presenters.module').then(m => m.PresentersModule)
+            }
+        ]
+    },
+    {
+        path: 'addresses',
+        data: {
+            title: 'Addresses '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/addresses/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../addresses/addresses.module').then(m => m.AddressesModule)
+            }
+        ]
+    },
+    {
+        path: 'subscribers',
+        data: {
+            title: 'Subscribers '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/subscribers/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../subscribers/subscribers.module').then(m => m.SubscribersModule)
+            }
+        ]
+    },
+    {
+        path: 'pages',
+        data: {
+            title: 'Pages '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/pages/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../pages/pages.module').then(m => m.PagesModule)
+            }
+        ]
+    },
+    {
+        path: 'menus',
+        data: {
+            title: 'Menus '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/menus/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../menus/menus.module').then(m => m.MenusModule)
+            }
+        ]
+    },
+    {
+        path: 'socialMedia',
+        data: {
+            title: 'Social Media '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/socialMedia/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../socialMedia/socialMedia.module').then(m => m.SocialMediaModule)
+            }
+        ]
+    },
+    {
+        path: 'announcements',
+        data: {
+            title: 'Announcements '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/announcements/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../announcements/announcements.module').then(m => m.AnnouncementsModule)
+            }
+        ]
+    },
+    {
+        path: 'banners',
+        data: {
+            title: 'Banners '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/banners/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../banners/banners.module').then(m => m.BannersModule)
+            }
+        ]
+    },
+    {
+        path: 'liveStream',
+        data: {
+            title: 'Live Stream '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/liveStream/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../liveStream/liveStream.module').then(m => m.LiveStreamModule)
+            }
+        ]
+    }
     // {
     //     path: 'quickLinks',
     //     loadChildren: () => import('../../quickLinks/quicklink.module').then(m => m.QuickLinkModule)

@@ -4,7 +4,7 @@
     <div class="col-12">
         <form nz-form [nzLayout]="'vertical'">
             <div class="row">
-                <div class="col-6">
+                <div class="col-8">
                     <div class="row">
                         <div class="col-md-12">
                             <nz-form-item>
@@ -16,7 +16,7 @@
                         </div>
                         <div class="col-md-12">
                             <nz-form-item>
-                                <nz-form-label>title</nz-form-label>
+                                <nz-form-label>Title</nz-form-label>
                                 <input type="text" placeholder="Enter Title" dir="rtl" nz-input>
                             </nz-form-item>
                         </div>
@@ -51,7 +51,7 @@
                                     alignleft aligncenter alignright alignjustify | \
                                     bullist numlist outdent indent | removeformat | help'
                                 } -->
-                                <editor apiKey="pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4" [init]="tinyMCEConfig"></editor>
+                                <editor id="tinyMce" apiKey="pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4" [init]="tinyMCEConfig"></editor>
 
                             </nz-form-control>
                         </nz-form-item>
@@ -110,7 +110,7 @@
                     </nz-card>
 
                 </div>
-                <div class="col-5 col-offset-1">
+                <div class="col-4 ">
                     <div>
                         <h4>General Settings</h4>
                         <nz-form-item>
@@ -185,15 +185,15 @@
                     </div>
 
                     <div class="mb-4">
-                        <h4 class="mb-2">Seo Settings</h4>
+                        <h4 class="mb-2">SEO Settings</h4>
                         <nz-form-item>
                             <nz-form-label>Slug Line</nz-form-label>
                             <nz-form-control>
-                                <input type="text" placeholder="Enter Title" dir="rtl" nz-input>
+                                <input type="text" placeholder="Enter Slug Line" dir="rtl" nz-input>
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item>
-                            <nz-form-label>title</nz-form-label>
+                            <nz-form-label>Title</nz-form-label>
                             <nz-form-control>
                                 <input type="text" placeholder="Enter Title" dir="rtl" nz-input>
                             </nz-form-control>
@@ -201,7 +201,7 @@
                         <nz-form-item>
                             <nz-form-label>Description</nz-form-label>
                             <nz-form-control>
-                                <textarea type="text" placeholder="Enter Title" dir="rtl" nz-input></textarea>
+                                <textarea type="text" placeholder="Enter Description" dir="rtl" nz-input></textarea>
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item>
