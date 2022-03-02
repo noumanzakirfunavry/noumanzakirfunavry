@@ -8,7 +8,7 @@ const routes: Routes = [
         path: '',
         component: EpisodeComponent,
         data: {
-            title: 'Tags',
+            title: 'All Episodes',
             // headerDisplay: "none"
         },
 
@@ -17,7 +17,7 @@ const routes: Routes = [
         path: 'list',
         component: EpisodeComponent,
         data: {
-            title: 'Episodes',
+            title: 'All Episodes',
             // headerDisplay: "none"
         },
 

@@ -8,7 +8,7 @@ const routes: Routes = [
         path: '',
         component: JobsComponent,
         data: {
-            title: 'Jobs',
+            title: 'All Jobs',
             // headerDisplay: "none"
         },
 
@@ -17,7 +17,7 @@ const routes: Routes = [
         path: 'list',
         component: JobsComponent,
         data: {
-            title: 'Jobs',
+            title: 'All Jobs',
             // headerDisplay: "none"
         },
 

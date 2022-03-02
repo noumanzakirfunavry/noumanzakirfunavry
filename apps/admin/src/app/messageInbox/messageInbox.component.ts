@@ -1,6 +1,21 @@
-import { Component } from '@angular/core'
+// import { Component, OnInit } from '@angular/core';
+
+// @Component({
+//     selector: 'app-dashboard',
+//     templateUrl: './dashboard.component.html',
+// })
+
+// export class DashboardComponent implements OnInit {
+//     constructor() { }
+
+//     ngOnInit(): void { }
+// }
+
+
+import { Component, OnInit } from '@angular/core'
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
 // import { ThemeConstantService } from '../../shared/services/theme-constant.service';
+
 export interface Data {
     id: number;
     name: string;
@@ -10,22 +25,23 @@ export interface Data {
 }
 
 @Component({
-       selector: 'app-addresses',
-    templateUrl: './addresses.component.html',
+       selector: 'app-messageInbox',
+    templateUrl: './messageInbox.component.html',
 })
 
-export class AddressesComponent {
-
+export class MessageInboxComponent {
+    isVisible = false;
+    isConfirmLoading = false;
 
     indeterminate = false;
     checked = false;
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData: Data[] = [];
 
+   
     constructor( private colorConfig:ThemeConstantService ) {}
 
-
-
+    
     ordersList = [
         {
             id: 5331,
@@ -134,4 +150,20 @@ export class AddressesComponent {
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
+
+    showModal(): void {
+        this.isVisible = true;
+      }
+    
+      handleOk(): void {
+        this.isConfirmLoading = true;
+        setTimeout(() => {
+          this.isVisible = false;
+          this.isConfirmLoading = false;
+        }, 3000);
+      }
+    
+      handleCancel(): void {
+        this.isVisible = false;
+      }
 }    

@@ -25,6 +25,10 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { InfographicsComponent } from './infographics.component';
 import { AddInfographicsComponent } from './addInfographics/add-Infographics.component';
 import { InfographicsFilterComponent } from './InfographicsFilter/infographics-filter.component';
+import { antdModule } from '../AndModules/andModule';
+import { QuillModule } from 'ngx-quill';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 // import { DefaultDashboardComponent } from './default/default-dashboard.component';
 // import { EcommerceDashboardComponent } from './e-commerce/e-commerce-dashboard.component';
@@ -33,24 +37,24 @@ import { InfographicsFilterComponent } from './InfographicsFilter/infographics-f
 
 
 
-const antdModule = [
-    NzButtonModule,
-    NzCardModule,
-    NzAvatarModule,
-    NzRateModule,
-    NzBadgeModule,
-    NzProgressModule,
-    NzRadioModule,
-    NzTableModule,
-    NzDropDownModule,
-    NzTimelineModule,
-    NzTabsModule,
-    NzTagModule,
-    NzListModule,
-    NzCalendarModule,
-    NzToolTipModule,
-    NzCheckboxModule
-]
+// const antdModule = [
+//     NzButtonModule,
+//     NzCardModule,
+//     NzAvatarModule,
+//     NzRateModule,
+//     NzBadgeModule,
+//     NzProgressModule,
+//     NzRadioModule,
+//     NzTableModule,
+//     NzDropDownModule,
+//     NzTimelineModule,
+//     NzTabsModule,
+//     NzTagModule,
+//     NzListModule,
+//     NzCalendarModule,
+//     NzToolTipModule,
+//     NzCheckboxModule
+// ]
 
 @NgModule({
     imports: [
@@ -58,7 +62,11 @@ const antdModule = [
         SharedModule,
         CategoryRoutingModule,
         NgChartjsModule,
-        ...antdModule
+        ReactiveFormsModule,
+        FormsModule,
+        ...antdModule,
+        NzUploadModule,
+        QuillModule.forRoot()
     ],
     exports: [],
     declarations: [
