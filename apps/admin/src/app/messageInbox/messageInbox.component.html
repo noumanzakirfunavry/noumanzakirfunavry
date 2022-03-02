@@ -1,9 +1,6 @@
 <div class="row">
-    <div class="col-2">
-        <button nz-button [nzType]="'primary'" [routerLink]="['/jobs/add']">Add Job</button>
-    </div>
-    <div class="col-10">
-        <job-filter></job-filter>
+    <div class="col-12">
+        <messageInbox-filter></messageInbox-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
@@ -12,12 +9,12 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Title</th>
-                            <th>Branch</th>
-                            <th>Created</th>
-                            <th>Modified</th>
-                            <th>Publisher</th>
-                            <th>Status</th>
+                            <th>Message</th>
+                            <th>Subject</th>
+                            <th>Type</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Received</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -27,20 +24,15 @@
                                 (nzCheckedChange)="onItemChecked(item.id, $event)">{{item.id}}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
-                                    <h6 class="m-l-10 m-b-0">{{item.name}}</h6>
+                                    <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar" (click)="showModal()"></nz-avatar>
+                                    <h6 class="m-l-10 m-b-0">View Messages</h6>
                                 </div>
                             </td>
-                            <td>Sample Title Test</td>
+                            <td>Sample Test</td>
+                            <td>Mesaage Type</td>
+                            <td>sample@email.com</td>
+                            <td>1234567890</td>
                             <td>{{item.date}}</td>
-                            <td>{{item.date}}</td>
-                            <td>Sample User</td>
-                            <td>
-                                <nz-badge *ngIf="item.status === 'approved'" nzStatus="success"></nz-badge>
-                                <nz-badge *ngIf="item.status === 'rejected'" nzStatus="error"></nz-badge>
-                                <nz-badge *ngIf="item.status === 'pending'"  nzStatus="processing"></nz-badge> 
-                                <span class="text-capitalize"></span>
-                            </td>
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i class="fas fa-external-link-alt"></i>
@@ -57,3 +49,30 @@
         </nz-card>
     </div>
 </div>
+
+<nz-modal
+      [(nzVisible)]="isVisible"
+      [nzTitle]="modalTitle"
+      [nzContent]="modalContent"
+      [nzFooter]="modalFooter"
+      (nzOnCancel)="handleCancel()"
+    >
+      <ng-template #modalTitle>
+        Custom Modal Title
+      </ng-template>
+
+      <ng-template #modalContent>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+      </ng-template>
+
+      <ng-template #modalFooter>
+        <!-- <span>Modal Footer: </span> -->
+        <button nz-button nzType="default">View Attachment</button>
+        <!-- <button nz-button nzType="default" (click)="handleCancel()">Custom Callback</button>
+        <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">Custom Submit</button> -->
+      </ng-template>
+    </nz-modal>

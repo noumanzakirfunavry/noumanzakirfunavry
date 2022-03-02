@@ -16,8 +16,8 @@ import 'tinymce/plugins/link';
 
 export class AddNewsComponent implements OnInit {
     @ViewChild('tinyMce', { static: false }) private tinyMce;
-    previewImage: string = '';
-    previewVisible: boolean = false;
+    previewImage = '';
+    previewVisible = false;
     value: string[] = ['0-0-0'];
     tinyMCEConfig = {
         base_url: '/tinymce',
@@ -105,8 +105,8 @@ export class AddNewsComponent implements OnInit {
            These lines of code extract the necessary parameters and add them back to the filebrowser URL again. */
     
         /* Here goes the URL to your server-side script which manages all file browser things. */
-        var cmsURL = window.location.pathname;     // your URL could look like "/scripts/my_file_browser.php"
-        var searchString = window.location.search; // possible parameters
+        const cmsURL = window.location.pathname;     // your URL could look like "/scripts/my_file_browser.php"
+        let searchString = window.location.search; // possible parameters
         if (searchString.length < 1) {
             // add "?" to the URL to include parameters (in other words: create a search string because there wasn't one before)
             searchString = "?";

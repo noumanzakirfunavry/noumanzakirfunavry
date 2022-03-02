@@ -19,7 +19,6 @@
                         <tr>
                             <th>Reorder </th>
                             <th>Title </th>
-                            <th>Parent Menu</th>
                             <th>Created</th>
                             <th>Modified</th>
                             <th>Publisher</th>
@@ -32,12 +31,8 @@
                             <td [nzChecked]="setOfCheckedId.has(item.id)" [nzDisabled]="item.disabled"
                                 (nzCheckedChange)="onItemChecked(item.id, $event)"></td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
-                                    <h6 class="m-l-10 m-b-0">{{item.name}}</h6>
-                                </div>
+                                <nz-tree [nzData]="nodes" nzDraggable nzBlockNode (nzOnDrop)="nzEvent($event)"> </nz-tree>
                             </td>
-                            <td>Sport</td>
                             <td>{{item.date}}</td>
                             <td>{{item.date}}</td>
                             <td>Sample User</td>
