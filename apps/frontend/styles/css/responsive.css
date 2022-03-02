@@ -1,4 +1,4 @@
-@import "/variables.scss";
+/* @import "/variables.scss"; */
 @media screen and (max-width: 1400px){
     .container-xl,
     .container-lg,
@@ -314,12 +314,12 @@
     }
 
     .NewsTiles .newBox .NewsInfo h4 {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: bold;
         line-height: 1.2rem;
     }
     .NewsTiles .newBox .NewsInfo p {
-        font-size: 11px;
+        font-size: 12px;
         font-weight: bold;
     }
     .VideoNews .NewsImage {
@@ -374,6 +374,59 @@
     .signinmodal a{
         font-weight: 500;
         font-size: 12px;
+    }
+    .newBox.newBoxf {
+        display: block;
+    }
+    .NewsTiles .newBox.newBoxf .NewsImage{
+        height: 165px;
+    }
+    .NewsTiles .newBox.newBoxf .NewsInfo {
+        padding-right: 0;
+    }
+    .NewsTiles .newBox.newBoxf .NewsInfo h3{
+        font-size: 21px;
+    }
+    .NewsTiles .newBox {
+        border-bottom: solid 1px #dddddd;
+    }
+    .more_btn .btn-outline-primary {
+        font-size: 15px;
+        font-weight: bold;
+        width: 100%;
+    }
+    .NewsTiles .newBox{
+        flex-direction: row-reverse;
+    }
+    .NewsTiles .newBox .NewsInfo{
+        padding-right: 0;
+        padding-left: 15px;
+    }
+    .livetvbox {
+        padding: 20px 0;
+        margin: 0px -12px;
+    }
+    .pageTitle h2 {
+        font-size: 21px;
+        font-weight: 900;
+    }
+    .yellowTitle h3{
+        font-size: 28px;
+    }
+    .newsSliderText .slick-slider .slick-list{
+        overflow-x: auto;
+    }
+    .newsSliderText .slick-slider .slick-prev, .newsSliderText .slick-slider .slick-next{
+        display: none !important;
+    }
+    .scheduleCalendar .nav .nav-item .nav-link span{
+        font-size: 11px;
+    }
+    .scheduleCalendar table h4{
+        font-size: 14px;
+    }
+    .scheduleCalendar table tr td{
+        width: inherit;
     }
 
   }
