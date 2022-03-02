@@ -25,6 +25,10 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { JobsComponent } from './jobs.component';
 import { AddJobComponent } from './addJobs/add-job.component';
 import { JobFilterComponent } from './filterJobs/job-filter.component';
+import { antdModule } from '../AndModules/andModule';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 
 // import { DefaultDashboardComponent } from './default/default-dashboard.component';
@@ -34,24 +38,24 @@ import { JobFilterComponent } from './filterJobs/job-filter.component';
 
 
 
-const antdModule = [
-    NzButtonModule,
-    NzCardModule,
-    NzAvatarModule,
-    NzRateModule,
-    NzBadgeModule,
-    NzProgressModule,
-    NzRadioModule,
-    NzTableModule,
-    NzDropDownModule,
-    NzTimelineModule,
-    NzTabsModule,
-    NzTagModule,
-    NzListModule,
-    NzCalendarModule,
-    NzToolTipModule,
-    NzCheckboxModule
-]
+// const antdModule = [
+//     NzButtonModule,
+//     NzCardModule,
+//     NzAvatarModule,
+//     NzRateModule,
+//     NzBadgeModule,
+//     NzProgressModule,
+//     NzRadioModule,
+//     NzTableModule,
+//     NzDropDownModule,
+//     NzTimelineModule,
+//     NzTabsModule,
+//     NzTagModule,
+//     NzListModule,
+//     NzCalendarModule,
+//     NzToolTipModule,
+//     NzCheckboxModule
+// ]
 
 @NgModule({
     imports: [
@@ -59,7 +63,12 @@ const antdModule = [
         SharedModule,
         CategoryRoutingModule,
         NgChartjsModule,
-        ...antdModule
+        ...antdModule,
+        ReactiveFormsModule,
+        FormsModule,
+        EditorModule,
+        QuillModule.forRoot()
+
     ],
     exports: [],
     declarations: [
@@ -68,7 +77,8 @@ const antdModule = [
         JobFilterComponent
     ],
     providers: [
-        ThemeConstantService
+        ThemeConstantService,
+        { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }   
     ],
 })
 export class JobsModule { }

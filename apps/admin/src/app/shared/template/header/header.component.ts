@@ -8,10 +8,37 @@ import { ThemeConstantService } from '../../services/theme-constant.service';
 
 export class HeaderComponent{
 
-    searchVisible : boolean = false;
-    quickViewVisible : boolean = false;
+    searchVisible = false;
+    quickViewVisible = false;
     isFolded : boolean;
     isExpand : boolean;
+
+    notificationList = [
+        {
+            title: 'You received a new message',
+            time: '8 min',
+            icon: 'mail',
+            color: 'ant-avatar-' + 'blue'
+        },
+        {
+            title: 'New user registered',
+            time: '7 hours',
+            icon: 'user-add',
+            color: 'ant-avatar-' + 'cyan'
+        },
+        {
+            title: 'System Alert',
+            time: '8 hours',
+            icon: 'warning',
+            color: 'ant-avatar-' + 'red'
+        },
+        {
+            title: 'You have a new update',
+            time: '2 days',
+            icon: 'sync',
+            color: 'ant-avatar-' + 'gold'
+        }
+    ]
 
     constructor( private themeService: ThemeConstantService) {}
 
@@ -40,30 +67,5 @@ export class HeaderComponent{
         this.quickViewVisible = !this.quickViewVisible;
     }
 
-    notificationList = [
-        {
-            title: 'You received a new message',
-            time: '8 min',
-            icon: 'mail',
-            color: 'ant-avatar-' + 'blue'
-        },
-        {
-            title: 'New user registered',
-            time: '7 hours',
-            icon: 'user-add',
-            color: 'ant-avatar-' + 'cyan'
-        },
-        {
-            title: 'System Alert',
-            time: '8 hours',
-            icon: 'warning',
-            color: 'ant-avatar-' + 'red'
-        },
-        {
-            title: 'You have a new update',
-            time: '2 days',
-            icon: 'sync',
-            color: 'ant-avatar-' + 'gold'
-        }
-    ];
+    
 }
