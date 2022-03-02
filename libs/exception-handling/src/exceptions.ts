@@ -28,7 +28,11 @@ export enum ExceptionType {
   CONFIGURATION_ALREADY_EXISTS = 'CONFIGURATION_ALREADY_EXISTS',
   STATUS_ALREADY_ASSIGNED='STATUS_ALREADY_ASSIGNED',
   MANAGER_IS_NOT_AN_EMPLOYEE = 'MANAGER_IS_NOT_AN_EMPLOYEE',
-  NO_FILE_FOUND='NO_FILE_FOUND'
+  NO_FILE_FOUND='NO_FILE_FOUND',
+  SOMETHING_WENT_WRONG = 'SOMETHING_WENT_WRONG',
+  SOCIAL_MEDIA_LINK_NOT_FOUND = 'SOCIAL_MEDIA_LINK_NOT_FOUND',
+  ADMIN_CANNOT_ADD_SUPER_ADMIN = 'ADMIN_CANNOT_ADD_SUPER_ADMIN',
+  UNABLE_TO_ADD_LOG = 'UNABLE_TO_ADD_LOG'
 }
 
 interface ExceptionOptions {
@@ -37,6 +41,22 @@ interface ExceptionOptions {
 }
 
 export const Exceptions: Record<ExceptionType, ExceptionOptions> = {
+  [ExceptionType.UNABLE_TO_ADD_LOG]: {
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    message: 'Unable to add log of the update',
+  },
+  [ExceptionType.ADMIN_CANNOT_ADD_SUPER_ADMIN]: {
+    status: HttpStatus.FORBIDDEN,
+    message: 'Admin cannot add super admin',
+  },
+  [ExceptionType.SOCIAL_MEDIA_LINK_NOT_FOUND]: {
+    status: HttpStatus.NOT_FOUND,
+    message: 'No such social media link found.',
+  },
+  [ExceptionType.SOMETHING_WENT_WRONG]: {
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    message: 'Something went wrong.',
+  },
   [ExceptionType.USER_BLOCKED]: {
     status: HttpStatus.FORBIDDEN,
     message: 'User account blocked.',

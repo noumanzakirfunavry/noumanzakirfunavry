@@ -1,8 +1,13 @@
-import { Injectable } from "@nestjs/common";
+import { ChangeLogs } from "@cnbc-monorepo/entity";
+import { Inject, Injectable } from "@nestjs/common";
 import * as bcrypt from 'bcrypt';
-
+import {AddLogRequestDto} from '@cnbc-monorepo/dtos'
 @Injectable()
 export class Helper {
+    constructor(
+        @Inject('CHANGE_LOGS_REPOSITORY')
+        private changeLogsRepository: typeof ChangeLogs,
+    ){}
     async comparePasswords(password, hash) {
         return await bcrypt.compare(password, hash)
     }
@@ -27,5 +32,27 @@ export class Helper {
     extractRights(rights) {
         const newrights = rights.map((item) => item.title)
         return newrights
+    }
+    offsetCalculator(pageNo : number,limit : number){
+        return (pageNo -1) * limit
+    }
+    stringTrimmerAndCaseLower(name :string){
+        return name.toLocaleLowerCase().trim()
+    }
+    async addLog(body : any){
+        return await this.changeLogsRepository.create(body)
+    }
+    logObjectCreator(changeType,entityType,id,changeDate,changeComment,req){
+        const logObject = {
+            changeType : changeType,
+            entityType : entityType,
+            entityId : id,
+            changeDate : changeDate,
+            changeComment : changeComment,
+            ipAddress : req.ip,
+            sessionsId : req.user.sessionId,
+            changedBy : req.user.data.id
+        }
+        return logObject;
     }
 }
