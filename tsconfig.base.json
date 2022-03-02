@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    // "assets": ["mail/templates/**/*"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "rootDir": ".",

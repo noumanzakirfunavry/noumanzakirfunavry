@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { Connection } from './connection';
 import { ConfigModule } from '@nestjs/config';
+
 @Module({
   controllers: [],
   providers: [...Connection],
@@ -11,7 +12,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath : '.env'
-    })
+    }),
   ]
 })
 export class EntityModule {
