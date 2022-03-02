@@ -4,10 +4,19 @@ import { CategoryComponent } from './Category.component';
 import { AddCategoryComponent } from './addCategory/addCategoy.component';
 const routes: Routes = [
     {
+        path: '',
+        component: CategoryComponent,
+        data: {
+            title: 'All Categories',
+            headerDisplay: "none"
+        },
+
+    },
+    {
         path: 'list',
         component: CategoryComponent,
         data: {
-            title: 'Category',
+            title: 'All Categories',
             // headerDisplay: "none"
         },
 
@@ -16,7 +25,7 @@ const routes: Routes = [
         path: 'add',
         component: AddCategoryComponent,
         data: {
-            title: 'Add News',
+            title: 'Add Category',
             headerDisplay: "none"
         },
 
