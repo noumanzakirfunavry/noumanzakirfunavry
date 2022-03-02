@@ -1,5 +1,13 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { NzUploadFile } from 'ng-zorro-antd/upload';
+import tinymce from 'tinymce/tinymce';
+
+// A theme is also required
+// import 'tinymce/themes/modern/theme';
+
+// Any plugins you want to use has to be imported
+import 'tinymce/plugins/paste';
+import 'tinymce/plugins/link';
 // import {  } from "./../../../assets/lib/tinymce/js/tinymce/plugins/";
 @Component({
     selector: 'app-addNews',
@@ -7,6 +15,7 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 })
 
 export class AddNewsComponent implements OnInit {
+    @ViewChild('tinyMce', { static: false }) private tinyMce;
     previewImage: string = '';
     previewVisible: boolean = false;
     value: string[] = ['0-0-0'];
@@ -18,14 +27,13 @@ export class AddNewsComponent implements OnInit {
         // 'selector' : 'textarea#tinymce',
         'directionality': 'rtl',
         'init_instance_callback': "",
-        'width': 680,
-        // 'height' : 300,
+        // 'width': 680,
         'relative_urls': false,
         // 'file_browser_callback' : "filemanager",
-        // 'filemanager_title' : "Responsive Filemanager",
+        'filemanager_title' : "Responsive Filemanager",
         // 'external_filemanager_path' : "/",
         // 'external_plugins' : [{
-        //     "filemanager" : "filemanager/plugin.min.js"
+        //     "filemanager" : "'./filemanager/plugin.min.js'"
         // }],
         // 'theme' : 'modern',
         'fontsize_formats': "8pt 9pt 10pt 11pt 12pt 26pt 36pt",
@@ -37,7 +45,9 @@ export class AddNewsComponent implements OnInit {
             "searchreplace visualblocks code fullscreen",
             "insertdatetime media table contextmenu paste qrcode youtube twitter"
         ],
-        'toolbar': "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect | fontselect | fontsizeselect",
+        file_browser_callback : 'myFileBrowser',
+        'toolbar1': " undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect | fontselect | fontsizeselect",
+        'toolbar2' : "youtube twitter | link | image media | qrcode | link unlink anchor | forecolor backcolor | print preview code ",
         // 'toolbar2' : "youtube twitter | responsivefilemanager | link image qrcode | link unlink anchor | image media | forecolor backcolor  | print preview code ",
         'image_advtab': true,
         // 'templates' : [
@@ -85,6 +95,40 @@ export class AddNewsComponent implements OnInit {
             ]
         }
     ];
+
+    myFileBrowser (field_name, url, type, win) {
+
+        // alert("Field_Name: " + field_name + "nURL: " + url + "nType: " + type + "nWin: " + win); // debug/testing
+    
+        /* If you work with sessions in PHP and your client doesn't accept cookies you might need to carry
+           the session name and session ID in the request string (can look like this: "?PHPSESSID=88p0n70s9dsknra96qhuk6etm5").
+           These lines of code extract the necessary parameters and add them back to the filebrowser URL again. */
+    
+        /* Here goes the URL to your server-side script which manages all file browser things. */
+        var cmsURL = window.location.pathname;     // your URL could look like "/scripts/my_file_browser.php"
+        var searchString = window.location.search; // possible parameters
+        if (searchString.length < 1) {
+            // add "?" to the URL to include parameters (in other words: create a search string because there wasn't one before)
+            searchString = "?";
+        }
+    
+        // newer writing style of the TinyMCE developers for tinyMCE.openWindow
+    
+        this.tinyMce.openWindow({
+            file : cmsURL + searchString + "&type=" + type, // PHP session ID is now included if there is one at all
+            title : "File Browser",
+            width : 420,  // Your dimensions may differ - toy around with them!
+            height : 400,
+            close_previous : "no"
+        }, {
+            window : win,
+            input : field_name,
+            resizable : "yes",
+            inline : "yes",  // This parameter only has an effect if you use the inlinepopups plugin!
+            editor_id : this.tinyMce.selectedInstance.editorId
+        });
+        return false;
+      }
 
     onChange($event: string[]): void {
         console.log($event);
@@ -160,6 +204,11 @@ export class AddNewsComponent implements OnInit {
             children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
         }
         this.listOfOption = children;
+
+      
+    }
+    init(): (editor: import("tinymce/tinymce").Editor) => void {
+        throw new Error('Method not implemented.');
     }
 
     handlePreview = (file: NzUploadFile) => {
