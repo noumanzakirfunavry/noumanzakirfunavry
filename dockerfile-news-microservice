@@ -1,0 +1,11 @@
+FROM node:latest as build-image
+
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm install pm2 -g
+RUN npm run build-news-microservice
+
+EXPOSE 3002
+
+CMD ["pm2-runtime", "./dist/apps/news-microservice/main.js"]

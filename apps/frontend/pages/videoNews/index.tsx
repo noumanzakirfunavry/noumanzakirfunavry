@@ -20,7 +20,8 @@ const Index = () =>{
                 </div>
             </div>
             </div>
-            <div className="mb-3">
+           <div className="container">
+           <div className="mb-3">
                 <Title styles={"yellowTitle"}>
                     <h3>فيديوهات ذات صلة</h3>
                 </Title>
@@ -32,7 +33,8 @@ const Index = () =>{
                 </Title>
                 <HorizontalFooter2NewsSlider />
             </div>
-            
+           </div>
+
         </>
     )
 }

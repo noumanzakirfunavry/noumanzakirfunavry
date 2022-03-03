@@ -20,6 +20,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 const icons: IconDefinition[] = [LeftOutline, RightOutline];
 
@@ -40,7 +41,8 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         NzMessageModule,
         NzModalModule,
         NzTreeSelectModule,
-        QuillModule.forRoot()
+        EditorModule
+        // QuillModule.forRoot()
     ],
     exports: [],
     declarations: [
@@ -49,7 +51,8 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         NewsComponent
     ],
     providers: [
-        ThemeConstantService
+        ThemeConstantService,
+            { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }          
     ],
 })
 export class NewsModule { }

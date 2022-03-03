@@ -32,6 +32,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzCascaderModule } from 'ng-zorro-antd/cascader';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { FormsModule } from '@angular/forms';
 const icons: IconDefinition[] = [LeftOutline, RightOutline];
 
@@ -61,6 +62,7 @@ export const antdModule = [
     NzMessageModule,
     NzPopoverModule,
     NzFormModule,
+    NzTreeModule,
     // NzFormLabelComponent,
     NzInputModule,
     NzDatePickerModule,

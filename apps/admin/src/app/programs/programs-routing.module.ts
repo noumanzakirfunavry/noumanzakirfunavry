@@ -17,7 +17,7 @@ const routes: Routes = [
         path: 'list',
         component: ProgramsComponent,
         data: {
-            title: 'Programs',
+            title: 'All Programs',
             // headerDisplay: "none"
         },
 
@@ -37,4 +37,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class CategoryRoutingModule { }
+export class ProgramsRoutingModule { }
