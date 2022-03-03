@@ -8,7 +8,7 @@ const LiveTvBox = () => {
                     <div className='liveTV'>
                         <img src={livetvimg.src} className="img-fluid"/>
                     </div>
-                    <button className="btn btn-outline-light">جدول البرامج</button>
+                    <button className="btn btn-outline-light fs15_b">جدول البرامج</button>
                 </div>
             </div>
         </>

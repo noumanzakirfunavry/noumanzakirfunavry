@@ -18,32 +18,32 @@ const RegistrationStep2 = ()=>{
                     <h6 className="text-primary mb-3 text-bold">دعنا نعرف المزيد عنك لمساعدتنا على خدمتك بشكل أفضل</h6>
 
 
-                    <div className="form-floating mb-3">
-                        <select className="form-select">
+                    <div className="form-floating mb-3 customSelect">
+                        <select className="form-select text-start">
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
                         <label>بلد</label>
                     </div>
-                    <div className="form-floating mb-3">
-                        <select className="form-select">
+                    <div className="form-floating mb-3 customSelect">
+                        <select className="form-select text-start">
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
                         <label>عنوان وظيفي</label>
                     </div>
-                    <div className="form-floating mb-3">
-                        <select className="form-select">
+                    <div className="form-floating mb-3 customSelect">
+                        <select className="form-select text-start">
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
                         <label>العمل</label>
                     </div>
-                    <div className="form-floating mb-4">
-                        <select className="form-select">
+                    <div className="form-floating mb-4 customSelect">
+                        <select className="form-select text-start">
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -51,7 +51,7 @@ const RegistrationStep2 = ()=>{
                         <label>سنة الولادة</label>
                     </div>
 
-                    
+
 
                     <div className="row">
                         <div className="col-6">
