@@ -175,6 +175,38 @@ export const ROUTES: SideNavInterface[] = [
         iconTheme: 'outline',
         icon: 'dashboard',
         submenu: []
+    },
+    {
+        path: 'trendingNow',
+        title: 'Trending Now',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'editorsChoice',
+        title: 'Editors Choice',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'featuredNews',
+        title: 'Featured News',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'exclusiveVideos',
+        title: 'Exclusive Videos',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
     }
    
     // {

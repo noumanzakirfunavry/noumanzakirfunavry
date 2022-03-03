@@ -11,11 +11,14 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
-import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { antdModule } from './AndModules/andModule';
+// import { antdModule } from './AndModules/andModule';
 import { ChangePasswordComponent } from './changePassword/changePassword.component';
+import { TrendingNowComponent } from './specialNews/trendingNow/trendingNow.component';
+import { EditorsChoiceComponent } from './editorsChoice/editorsChoice.component';
+import { FeaturedNewsComponent } from './specialNews/featuredNews/featuredNews.component';
+import { ExclusiveVideosComponent } from './exclusiveVideos/exclusiveVideos.component';
 
 
 registerLocaleData(en);
@@ -25,7 +28,11 @@ registerLocaleData(en);
         AppComponent,
         CommonLayoutComponent,
         FullLayoutComponent,
-        ChangePasswordComponent
+        ChangePasswordComponent,
+        TrendingNowComponent,
+        EditorsChoiceComponent,
+        FeaturedNewsComponent,
+        ExclusiveVideosComponent
     ],
     imports: [
         BrowserModule,
@@ -34,10 +41,9 @@ registerLocaleData(en);
         NzBreadCrumbModule,
         TemplateModule,
         SharedModule,
-        NgChartjsModule,
         ReactiveFormsModule,
         FormsModule,
-        ...antdModule
+        // ...antdModule
     ],
     providers: [
         { 
