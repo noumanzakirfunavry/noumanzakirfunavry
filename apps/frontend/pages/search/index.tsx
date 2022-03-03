@@ -35,7 +35,7 @@ const Index = () =>{
                         </div>
                     </div>
                     <div className='col-lg-4'>
-                        <div className='sidebar'>
+                        <div className='sidebar pt-0'>
                             <Title styles={'topBorderText'}>
                                 <h3>الأسهم ذات الصلة</h3>
                             </Title>
@@ -47,7 +47,7 @@ const Index = () =>{
                             </div>
                         </div>
                             <SideBar sideBarSequence={[{componentType:'SmallBanner', position:2}]}/>
-                        
+
                     </div>
                 </div>
             </div>
