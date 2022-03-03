@@ -79,8 +79,6 @@ const SplitScreenBarCharts = () =>{
         return xml
     }
 
-    console.log(data)
-
     return (
         <>
            <div className="marketChart">
@@ -102,23 +100,25 @@ const SplitScreenBarCharts = () =>{
                             <h3>Gainer</h3>
                             <div className="table-responsive">
                                 <table className="table table-borderless">
-                                     {
-                                       allGainers && allGainers['row'].map((gainer:GainerProps, index:number)=>{
-                                            const row = gainer['$']
-                                            return(
-                                                <tr key={index}>
-                                                    <td><strong>{row?.symbol}</strong></td>
-                                                    <td style ={{width:'30%'}}>{row?.symbol}</td>
-                                                    <td className="text-success">{`${row?.Percent}%`}</td>
-                                                    <td style ={{width:'50%'}}>
-                                                        <div className="progress p-0">
-                                                            <div className="progress-bar bg-success" style ={{width:`${row?.price}%`}}></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        })
-                                    } 
+                                     <tbody>
+                                        {
+                                            allGainers && allGainers['row'].map((gainer:GainerProps, index:number)=>{
+                                                const row = gainer['$']
+                                                return(
+                                                    <tr key={index}>
+                                                        <td><strong>{row?.symbol}</strong></td>
+                                                        <td style ={{width:'30%'}}>{row?.symbol}</td>
+                                                        <td className="text-success">{`${row?.Percent}%`}</td>
+                                                        <td style ={{width:'50%'}}>
+                                                            <div className="progress p-0">
+                                                                <div className="progress-bar bg-success" style ={{width:`${row?.price}%`}}></div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        } 
+                                    </tbody>
                                     {/* <tr>
                                         <td><strong>TSL</strong></td>
                                         <td style ={{width:'30%'}}>Tesla Inc</td>
@@ -166,24 +166,25 @@ const SplitScreenBarCharts = () =>{
                             <h3>Looser</h3>
                             <div className="table-responsive">
                                 <table className="table table-borderless">
-
-                                {
-                                       allLosers && allLosers['row'].map((loser:any, index:number)=>{
-                                            const row = loser['$']
-                                            return(
-                                                <tr key={index}>
-                                                    <td><strong>{row?.symbol}</strong></td>
-                                                    <td style ={{width:'30%'}}>{row?.symbol}</td>
-                                                    <td className="text-danger">{`${row?.Percent * -1}%${row?.Percent < 0 ? '-': ''}`}</td>
-                                                    <td style ={{width:'50%'}}>
-                                                        <div className="progress p-0">
-                                                            <div className="progress-bar bg-danger" style ={{width:`${row?.price}%`}}></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        })
-                                    } 
+                                    <tbody>
+                                        {
+                                            allLosers && allLosers['row'].map((loser:any, index:number)=>{
+                                                const row = loser['$']
+                                                return(
+                                                    <tr key={index}>
+                                                        <td><strong>{row?.symbol}</strong></td>
+                                                        <td style ={{width:'30%'}}>{row?.symbol}</td>
+                                                        <td className="text-danger">{`${row?.Percent * -1}%${row?.Percent < 0 ? '-': ''}`}</td>
+                                                        <td style ={{width:'50%'}}>
+                                                            <div className="progress p-0">
+                                                                <div className="progress-bar bg-danger" style ={{width:`${row?.price}%`}}></div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        } 
+                                    </tbody>
                                     {/* <tr>
                                     <td><strong>TSL</strong></td>
                                     <td style ={{width:'30%'}}>Tesla Inc</td>

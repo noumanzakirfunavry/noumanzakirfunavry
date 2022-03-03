@@ -39,3 +39,9 @@ export type TitleProps = {
 export type MobileHeaderProps = {
     handleMenuList: () =>void
 }
+
+export type User = {
+    email:string,
+    username:string,
+    password:string,
+}
