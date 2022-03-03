@@ -10,7 +10,7 @@ const Index = () =>{
             <div className="container">
                 <AdBanner />
                 </div>
-                <Title styles={"pageTitle PageTitleYellow"}>
+                <Title styles={"pageTitle PageTitleYellow "}>
                     <div className="float-start">
                         <button className="btn btn-danger">شاهد البث المباشر</button>
                     </div>

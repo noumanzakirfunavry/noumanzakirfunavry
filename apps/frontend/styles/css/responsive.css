@@ -1,9 +1,9 @@
-@import "/variables.scss";
+/* @import "/variables.scss"; */
 @media screen and (max-width: 1400px){
-    .container-xl, 
-    .container-lg, 
-    .container-md, 
-    .container-sm, 
+    .container-xl,
+    .container-lg,
+    .container-md,
+    .container-sm,
     .container {
         max-width: 96%;
     }
@@ -60,7 +60,7 @@
         font-size: 1.2rem;
     }
   }
-  
+
   @media screen and (max-width:992px){
     .logo-header {
         flex: 2 1;
@@ -115,7 +115,7 @@
         width: 33.333%;
     }
   }
-  
+
   @media screen and (max-width:768px){
       body{
           padding-bottom: 50px;
@@ -182,7 +182,7 @@
     .MobileToggleNav{
         display: block;
     }
-    
+
   }
   @media screen and (max-width:768px) and (min-width:576px){
     .searchResultList .NewsList li {
@@ -222,13 +222,30 @@
         margin-bottom: 5px;
     }
   }
+  @media screen and (max-width:767px){
+    .search-box.mobile_only {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        right: 0;
+    }
+    .search-box.mobile_only input{
+        display: none;
+    }
+    .search-box.mobile_only input{
+        display: none;
+    }
+    .NewsTiles .newBox.newBoxf .NewsImage, .NewsTiles .newBox.newBoxfs .NewsImage{
+        height: auto;
+    }
+  }
   @media screen and (max-width:575px){
 
     .NewsTilesBg{
         overflow-x: scroll;
         white-space: nowrap;
     }
-    
+
     .NewsTilesBg .VideoTiles{
         white-space: normal;
     }
@@ -269,7 +286,7 @@
         flex: 3;
         padding-right: 20px;
     }
-    
+
     .programDetailNews{
         overflow-x: inherit;
         white-space: inherit;
@@ -300,12 +317,12 @@
     }
 
     .NewsTiles .newBox .NewsInfo h4 {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: bold;
         line-height: 1.2rem;
     }
     .NewsTiles .newBox .NewsInfo p {
-        font-size: 11px;
+        font-size: 12px;
         font-weight: bold;
     }
     .VideoNews .NewsImage {
@@ -321,6 +338,98 @@
         font-size: 11px;
         margin: 0;
     }
-
+    header{
+        padding: 5px 0;
+    }
+    .top-bar .alert{
+        padding: 0.7rem 0;
+    }
+    .breakingNews .newsbox .newslink p{
+        font-size: 12px;
+    }
+    .breakingNews .newsbox .newslink a, .breakingNews .newsbox .newsaction .btn{
+        font-size: 14px;
+    }
+    .sidebanner_smallBanner__lXwev {
+        width: 300px;
+        height: 250px;
+        margin: auto;
+    }
+    .signinmodal .modal-dialog h2{
+        font-size: 20px;
+        font-weight: 900;
+    }
+    .signinmodal .modal-dialog h6{
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .btn-sm-wide {
+        width: 100%;
+        font-weight: bold;
+    }
+    .modal .modal-dialog .modal-content .modal-body {
+        padding: 15px;
+    }
+    .signinmodal .form-floating > label{
+        font-weight: bold;
+        color: #777777;
+    }
+    .signinmodal a{
+        font-weight: 500;
+        font-size: 12px;
+    }
+    .newBox.newBoxf {
+        display: block;
+    }
+    .NewsTiles .newBox.newBoxf .NewsImage{
+        height: 165px;
+    }
+    .NewsTiles .newBox.newBoxf .NewsInfo {
+        padding-right: 0;
+    }
+    .NewsTiles .newBox.newBoxf .NewsInfo h3{
+        font-size: 21px;
+    }
+    .NewsTiles .newBox {
+        border-bottom: solid 1px #dddddd;
+    }
+    .more_btn .btn-outline-primary {
+        font-size: 15px;
+        font-weight: bold;
+        width: 100%;
+    }
+    .NewsTiles .newBox{
+        flex-direction: row-reverse;
+    }
+    .NewsTiles .newBox .NewsInfo{
+        padding-right: 0;
+        padding-left: 15px;
+    }
+    .livetvbox {
+        padding: 20px 0;
+        margin: 0px -12px;
+    }
+    .pageTitle h2 {
+        font-size: 21px;
+        font-weight: 900;
+    }
+    .yellowTitle h3{
+        font-size: 28px;
+    }
+    .newsSliderText .slick-slider .slick-list{
+        overflow-x: auto;
+    }
+    .newsSliderText .slick-slider .slick-prev, .newsSliderText .slick-slider .slick-next{
+        display: none !important;
+    }
+    .scheduleCalendar .nav .nav-item .nav-link span{
+        font-size: 11px;
+    }
+    .scheduleCalendar table h4{
+        font-size: 14px;
+    }
+    .scheduleCalendar table tr td{
+        width: inherit;
+    }
 
   }
