@@ -9,12 +9,61 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
-        path: 'news/list',
+        path: 'news',
         title: 'News',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'dashboard',
-        submenu: []
+        submenu: [
+            {
+                path: 'news/list',
+                title: 'All News',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+            {
+                path: 'news/add',
+                title: 'Add News',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+            {
+                path: 'news/specialNews/editorsChoice',
+                title: 'Editors Choice',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+            {
+                path: 'news/specialNews/exclusiveVideos',
+                title: 'Exclusive Videos',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+            {
+                path: 'news/specialNews/featuredNews',
+                title: 'Featured News',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+            {
+                path: 'news/specialNews/trendingNow',
+                title: 'Trending Now',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+        ]
     },
     // {
     //     path: 'news',
@@ -171,38 +220,6 @@ export const ROUTES: SideNavInterface[] = [
     {
         path: 'messageInbox',
         title: 'Message Inbox',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'dashboard',
-        submenu: []
-    },
-    {
-        path: 'trendingNow',
-        title: 'Trending Now',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'dashboard',
-        submenu: []
-    },
-    {
-        path: 'editorsChoice',
-        title: 'Editors Choice',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'dashboard',
-        submenu: []
-    },
-    {
-        path: 'featuredNews',
-        title: 'Featured News',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'dashboard',
-        submenu: []
-    },
-    {
-        path: 'exclusiveVideos',
-        title: 'Exclusive Videos',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'dashboard',

@@ -40,20 +40,20 @@
                                 </div>
                             </div>
                         </li>
-                        <!-- <li nz-menu-item>
-                            <a class="p-v-5 d-flex align-items-center justify-content-between">
-                                <div>
-                                    <i class="opacity-04 font-size-16" nz-icon nzType="user" theme="outline"></i>
-                                    <span class="m-l-10">Edit Profile</span>
-                                </div>
-                                <i class="font-size-10" nz-icon nzType="right" theme="outline"></i>
-                            </a>
-                        </li> -->
                         <li nz-menu-item>
                             <a class="p-v-5 d-flex align-items-center justify-content-between">
                                 <div [routerLink]="['/changePassword']">
                                     <i class="opacity-04 font-size-16" nz-icon nzType="key" theme="outline"></i>
                                     <span class="m-l-10">Change Password</span>
+                                </div>
+                                <i class="font-size-10" nz-icon nzType="right" theme="outline"></i>
+                            </a>
+                        </li>
+                        <li nz-menu-item>
+                            <a class="p-v-5 d-flex align-items-center justify-content-between">
+                                <div>
+                                    <i class="opacity-04 font-size-16" nz-icon nzType="logout" theme="outline"></i>
+                                    <span class="m-l-10">Logout</span>
                                 </div>
                                 <i class="font-size-10" nz-icon nzType="right" theme="outline"></i>
                             </a>
@@ -79,7 +79,7 @@
                     </ul>
                 </nz-dropdown-menu >
             </li>
-            <li>
+            <!-- <li>
                 <a (click)="quickViewToggle()">
                     <i nz-icon nzType="appstore" theme="outline"></i>
                 </a>
@@ -88,7 +88,7 @@
                         <app-quick-view></app-quick-view>
                     </ng-container>
                 </nz-drawer>
-            </li>
+            </li> -->
         </ul>
     </div>
 </div>    
