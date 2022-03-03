@@ -18,17 +18,17 @@ const Header = () =>{
     }
 
     const handleEvent = (event:any) => {
-        
+
         getData(event.target.value).then((res)=>{
             setData(res)
         }).catch(err=>{
             console.warn(err)
         })
-         
+
     }
 
     const getData = async (value:string): Promise<any> => {
-        
+
         //fetch data and return
         const data = !value ? {}:{
             "16449": {
@@ -287,7 +287,7 @@ const Header = () =>{
 
     const staticMenu = ['Main', 'Infographic', 'program', 'presenters']
     return (
-        <>  
+        <>
             <header>
                 <div className="container">
                         <div className="header-box">
@@ -416,8 +416,12 @@ const Header = () =>{
                                 </div>
                             </div>
                             <div className="search-header">
-                                <div className="search-box">
+                                <div className="search-box desktop_only d-none d-md-block">
                                     <input type="text"  className="form-control" onChange={(e)=>handleEvent(e)} placeholder="ابحث في الموقع" />
+                                    <span className="input-group-text"><i className="fa fa-search"></i></span>
+                                </div>
+                                <div className="search-box mobile_only d-md-none">
+                                <input type="text"  className="form-control" onChange={(e)=>handleEvent(e)}  />
                                     <span className="input-group-text"><i className="fa fa-search"></i></span>
                                 </div>
                                 <div className="header-search-nav">
@@ -430,7 +434,7 @@ const Header = () =>{
                                 {
                                     Object.keys(data).length ? (<SearchDropDown data={data}/>) : ''
                                 }
-                                
+
                             </div>
 
                         </div>
@@ -438,17 +442,17 @@ const Header = () =>{
                 </header>
                 <div className='mobileHeader'>
                     <ul>
-                        <li><a onClick={handleMenuList}> 
+                        <li><a onClick={handleMenuList}>
                                 <span className='menuIcon'><i className='fa fa-bars'></i></span>
-                                قائمة 
+                                قائمة
                             </a></li>
                         <li><a>
                             <span className='menuIcon'><i className='fa fa-chart-line'></i></span>
-                                الأسواق 
+                                الأسواق
                             </a></li>
                         <li><a href="/liveTv">
                             <span className='menuIcon'><i className='fab fa-youtube-square'></i></span>
-                            المباشر 
+                            المباشر
                         </a></li>
                         <li className='pt-2'><a title='CNBC Arabia'><img className='img-fluid' src={smallLogo.src} /></a></li>
                     </ul>

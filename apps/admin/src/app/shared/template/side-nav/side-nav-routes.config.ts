@@ -66,7 +66,7 @@ export const ROUTES: SideNavInterface[] = [
     },
     {
         path: 'category/list',
-        title: 'Category',
+        title: 'Categories',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'dashboard',
@@ -88,6 +88,94 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'dashboard',
         submenu: []
     },
+    {
+        path: 'breakingNews',
+        title: 'Breaking News',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'presenters',
+        title: 'Presenters',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'addresses',
+        title: 'Addresses',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'subscribers',
+        title: 'Subscribers',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'pages',
+        title: 'Pages',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'menus',
+        title: 'Menus',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'socialMedia',
+        title: 'Social Media',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'announcements',
+        title: 'Announcements',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'banners',
+        title: 'Banners',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'liveStream',
+        title: 'Live Stream',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'messageInbox',
+        title: 'Message Inbox',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    }
    
     // {
     //     path: '',

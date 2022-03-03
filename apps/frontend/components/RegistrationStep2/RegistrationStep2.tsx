@@ -11,11 +11,11 @@ const RegistrationStep2 = ()=>{
                             <img className="img-fluid" style={{width:'86px'}} src={logo.src} />
                         </div>
                         <div className="col-sm-9 text-muted pt-3">
-                            <h6>لقد قمت بإنشاء حساب CNBC Arabia بنجاح. <a>johnsmith@email.com</a></h6>
+                            <h6>لقد قمت بإنشاء حساب CNBC Arabia بنجاح. <a className="text-bold">johnsmith@email.com</a></h6>
                         </div>
                     </div>
 
-                    <h6 className="text-primary mb-3">دعنا نعرف المزيد عنك لمساعدتنا على خدمتك بشكل أفضل</h6>
+                    <h6 className="text-primary mb-3 text-bold">دعنا نعرف المزيد عنك لمساعدتنا على خدمتك بشكل أفضل</h6>
 
 
                     <div className="form-floating mb-3">

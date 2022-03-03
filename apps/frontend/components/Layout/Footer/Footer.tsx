@@ -7,7 +7,7 @@ import styles from './footer.module.css';
 
 const Footer = () =>{
     const router = useRouter()
-    
+
     return (
         <>
         <div className={styles.footer}>
@@ -46,7 +46,7 @@ const Footer = () =>{
                             <li key={'dt4366'}><a href="#">الرئيسية </a></li>
                         </ul>
                     </div>
-                    <div className='col-lg-2 col-md-4 col-sm-6 pb-5 pb-lg-0'>
+                    <div className='col-lg-3 col-md-4 col-sm-6 pb-5 pb-lg-0'>
                     <ul className={styles.footerLink}>
                             <li key={'fdg4yt'}><a href="#">الرئيسية</a></li>
                             <li key={'dfgdfbgfh'}><a href="#" >إشترك في نشرتنا البريدية</a></li>
@@ -55,7 +55,7 @@ const Footer = () =>{
                             <li key={'hgf'}><a href="/careers">الرئيسية</a></li>
                         </ul>
                     </div>
-                    <div className='col-lg-3 col-md-6 col-sm-6 pb-5 pb-sm-0'>
+                    <div className='col-lg-2 col-md-6 col-sm-6 pb-5 pb-sm-0'>
                         <h4>اتصل بنا</h4>
                         <button className='btn btn-outline-light' onClick={() => router.push('/contact')}>ابقى على تواصل</button>
                     </div>

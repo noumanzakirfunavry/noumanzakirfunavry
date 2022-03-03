@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-6">
+        <div class="row">
+            <button nz-button [nzType]="'primary'" [routerLink]="['/banners/add']">Add Banner</button>
+            <button nz-button [nzType]="'primary'" [routerLink]="['/banners/configure']">Configure Default Banner</button>
+        </div>
+    </div>
+    <div class="col-6">
+        <banners-filter></banners-filter>
+    </div>
+    <div class="col-lg-12 mt-3">
+        <nz-card>
+            <!-- <div class="d-flex justify-content-between align-items-center">
+                <h5>Recent Orders</h5>
+                <div>
+                    <a nz-button nzType="default" nzSize="small">View All</a>
+                </div>
+            </div> -->
+            <div>
+                <nz-table #ordersListTable [nzData]="ordersList"  [nzShowPagination]="true" class="no-border-last">
+                    <thead>
+                        <tr>
+                            <th>Title </th>
+                            <th>Banner Type</th>
+                            <th>Content Type</th>
+                            <th>Created</th>
+                            <th>Publisher</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of ordersListTable.data">
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
+                                    <h6 class="m-l-10 m-b-0">{{item.name}}</h6>
+                                </div>
+                            </td>
+                            <td>Default Banner</td>
+                            <td>Sample Content</td>
+                            <!-- <td>{{item.date}}</td>
+                            <td>{{item.date}}</td>
+                            <td>${{item.amount | number:'3.2-5'}}</td> -->
+                            <td>{{item.date}}</td>
+                            <td>Sample User</td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <i nz-icon nzType="edit" nzTheme="outline"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+                <!-- <div class="m-t-20 text-center text-md-right">
+                    <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+                </div> -->
+            </div>
+        </nz-card>
+    </div>
+</div>
