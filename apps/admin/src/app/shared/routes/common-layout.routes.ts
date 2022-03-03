@@ -1,5 +1,9 @@
 import { Routes } from '@angular/router';
-import { ChangePasswordComponent } from 'src/app/changePassword/changePassword.component';
+// import { ChangePasswordComponent } from 'src/app/changePassword/changePassword.component';
+// import { EditorsChoiceComponent } from 'src/app/editorsChoice/editorsChoice.component';
+// import { ExclusiveVideosComponent } from 'src/app/exclusiveVideos/exclusiveVideos.component';
+// import { FeaturedNewsComponent } from 'src/app/featuredNews/featuredNews.component';
+// import { TrendingNowComponent } from 'src/app/trendingNow/trendingNow.component';
 
 export const CommonLayout_ROUTES: Routes = [
     {
@@ -364,13 +368,41 @@ export const CommonLayout_ROUTES: Routes = [
             }
         ]
     },
-    {
-        path: 'changePassword',
-        component: ChangePasswordComponent,
-        data: {
-            title: 'Change Password'
-        }
-    }
+    // {
+    //     path: 'changePassword',
+    //     component: ChangePasswordComponent,
+    //     data: {
+    //         title: 'Change Password'
+    //     }
+    // },
+    // {
+    //     path: 'trendingNow',
+    //     component: TrendingNowComponent,
+    //     data: {
+    //         title: 'Trending Now'
+    //     }
+    // },
+    // {
+    //     path: 'editorsChoice',
+    //     component: EditorsChoiceComponent,
+    //     data: {
+    //         title: 'Editors Choice'
+    //     }
+    // },
+    // {
+    //     path: 'featuredNews',
+    //     component: FeaturedNewsComponent,
+    //     data: {
+    //         title: 'Featured News'
+    //     }
+    // },
+    // {
+    //     path: 'exclusiveVideos',
+    //     component: ExclusiveVideosComponent,
+    //     data: {
+    //         title: 'Exclusive Videos'
+    //     }
+    // }
     // {
     //     path: 'quickLinks',
     //     loadChildren: () => import('../../quickLinks/quicklink.module').then(m => m.QuickLinkModule)
