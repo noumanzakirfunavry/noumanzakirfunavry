@@ -1475,6 +1475,10 @@ width: 110px;
       margin-bottom: 5px;
       font-size: 15px;
       color: $grey;
+      font-weight: 500;
+      a{
+        color: $secondary-color;
+      }
     }
   }
 }
@@ -1816,4 +1820,8 @@ select::-ms-expand {
 /* Transition */
 .customSelect:hover::after {
   color: $warning;
+}
+
+.fs32_bolder{
+  font-weight: 900;
 }
