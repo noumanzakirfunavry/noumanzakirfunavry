@@ -1098,6 +1098,12 @@ header{
   left: 70px;
   background: url(../images/arrow-right.svg) no-repeat !important;
 }
+// .slick-slider .slick-prev:hover{
+//   background: url(../images/arrow-left-hover.svg) no-repeat !important;
+// }
+// .slick-slider .slick-next:hover{
+//   background: url(../images/arrow-right-hover.svg) no-repeat !important;
+// }
 .slick-slider .slick-prev:before,
 .slick-slider .slick-next:before{
   content: none;
@@ -1249,10 +1255,16 @@ header{
   background: $primary-dark;
   padding: 50px;
   text-align: center;
+  .liveTV{
+    margin: 0 auto 30px;
+    width: 75%;
+  }
+  .fs15_b{
+    font-size: 15px;
+    font-weight: bold;
+  }
 }
-.livetvbox .liveTV{
-  margin: 0 0 30px;
-}
+
 
 
 

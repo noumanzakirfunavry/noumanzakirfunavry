@@ -14,8 +14,9 @@ const Index = () =>{
                 <Title styles={"pageTitle PageTitleYellow mb-0"}>
                     <h2 className="mb-3 fw-800">المباشر</h2>
                 </Title>
-                <div className="container-fluid">
                 <LiveTvBox/>
+                <div className="container">
+
                 <div className="mb-3">
                     <Title styles={"yellowTitle"}>
                         <h3>البرنامج</h3>
