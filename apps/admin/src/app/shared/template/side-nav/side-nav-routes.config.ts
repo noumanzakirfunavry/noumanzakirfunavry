@@ -224,6 +224,55 @@ export const ROUTES: SideNavInterface[] = [
         iconTheme: 'outline',
         icon: 'dashboard',
         submenu: []
+    },
+    {
+        path: 'adminLog',
+        title: 'Admin Log History',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'tvSchedule',
+        title: 'TV Schedule',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'mediaUploader',
+        title: 'Media Uploader',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'settings',
+        title: 'Settings',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: [
+            {
+                path: 'settings/googleAnalytics',
+                title: 'Google Analytics',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            }
+        ]
+    },
+    {
+        path: 'amazonAlexa',
+        title: 'Amazon Alexa',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
     }
    
     // {

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ChangePasswordComponent } from 'src/app/changePassword/changePassword.component';
 // import { ChangePasswordComponent } from 'src/app/changePassword/changePassword.component';
 // import { EditorsChoiceComponent } from 'src/app/editorsChoice/editorsChoice.component';
 // import { ExclusiveVideosComponent } from 'src/app/exclusiveVideos/exclusiveVideos.component';
@@ -31,7 +32,7 @@ export const CommonLayout_ROUTES: Routes = [
     {
         path: 'news',
         data: {
-            title: 'All News '
+            title: 'News '
         },
         children: [
             {
@@ -171,7 +172,7 @@ export const CommonLayout_ROUTES: Routes = [
     {
         path: 'admins',
         data: {
-            title: 'All Admins '
+            title: 'Admins '
         },
         children: [
             {
@@ -372,41 +373,98 @@ export const CommonLayout_ROUTES: Routes = [
             }
         ]
     },
-    // {
-    //     path: 'changePassword',
-    //     component: ChangePasswordComponent,
-    //     data: {
-    //         title: 'Change Password'
-    //     }
-    // },
-    // {
-    //     path: 'trendingNow',
-    //     component: TrendingNowComponent,
-    //     data: {
-    //         title: 'Trending Now'
-    //     }
-    // },
-    // {
-    //     path: 'editorsChoice',
-    //     component: EditorsChoiceComponent,
-    //     data: {
-    //         title: 'Editors Choice'
-    //     }
-    // },
-    // {
-    //     path: 'featuredNews',
-    //     component: FeaturedNewsComponent,
-    //     data: {
-    //         title: 'Featured News'
-    //     }
-    // },
-    // {
-    //     path: 'exclusiveVideos',
-    //     component: ExclusiveVideosComponent,
-    //     data: {
-    //         title: 'Exclusive Videos'
-    //     }
-    // }
+    {
+        path: 'adminLog',
+        data: {
+            title: 'Admin Log History '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/adminLog/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../adminLog/adminLog.module').then(m => m.AdminLogModule)
+            }
+        ]
+    },
+    {
+        path: 'tvSchedule',
+        data: {
+            title: 'TV Schedule '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/tvSchedule/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../tvSchedule/tvSchedule.module').then(m => m.TVScheduleModule)
+            }
+        ]
+    },
+    {
+        path: 'mediaUploader',
+        data: {
+            title: 'Media Uploader'
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/mediaUploader/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../mediaUploader/mediaUploader.module').then(m => m.MediaUploaderModule)
+            }
+        ]
+    },
+    {
+        path: 'settings',
+        data: {
+            title: 'Settings'
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/settings/googleAnalytics',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../settings/settings.module').then(m => m.SettingsModule)
+            }
+        ]
+    },
+    {
+        path: 'amazonAlexa',
+        data: {
+            title: 'Amazon Alexa '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/amazonAlexa/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../amazonAlexa/amazonAlexa.module').then(m => m.AmazonAlexaModule)
+            }
+        ]
+    },
+    {
+        path: 'changePassword',
+        component: ChangePasswordComponent,
+        data: {
+            title: 'Change Password'
+        }
+    },
     // {
     //     path: 'quickLinks',
     //     loadChildren: () => import('../../quickLinks/quicklink.module').then(m => m.QuickLinkModule)

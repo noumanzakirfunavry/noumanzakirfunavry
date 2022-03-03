@@ -1,0 +1,126 @@
+<div class="row">
+    <div class="col-2">
+        <button nz-button [nzType]="'primary'" (click)="showModal()">Upload Audio File</button>
+    </div>
+    <div class="col-10">
+        <amazonAlexa-filter></amazonAlexa-filter>
+    </div>
+    <div class="col-lg-12 mt-3">
+        <nz-card>
+            <div>
+                <nz-table #ordersListTable [nzData]="ordersList"  [nzShowPagination]="false" class="no-border-last">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Title</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of ordersListTable.data">
+                            <td [nzChecked]="setOfCheckedId.has(item.id)" [nzDisabled]="item.disabled"
+                            (nzCheckedChange)="onItemChecked(item.id, $event)">{{item.date}}</td>
+                            <td>10:30</td>
+                            <td>Title Text</td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <i nz-icon nzType="edit" nzTheme="outline"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+        </nz-card>
+    </div>
+    <div class="col-md-12">
+      <nz-form-item>
+        <nz-form-label class="text-left col-12">Generated JSON</nz-form-label>
+        <nz-form-control class="col-6">
+            <textarea rows="8" type="text" placeholder="Preview JSON Code" dir="rtl" nz-input></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    </div>
+</div>
+
+<nz-modal
+      [(nzVisible)]="isVisible"
+      [nzTitle]="modalTitle"
+      [nzContent]="modalContent"
+      [nzFooter]="null"
+      (nzOnCancel)="handleCancel()"
+    >
+      <ng-template #modalTitle>
+        Add Audio File
+      </ng-template>
+
+      <ng-template #modalContent>
+        <div class="col-12">
+            <form nz-form [nzLayout]="'vertical'">
+              <div class="row">
+                <div class="col-12">
+                <div class="col-12">
+                  <nz-form-item>
+                    <nz-form-label nzFor="date">Date</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker [nzDateRender]="tplRender"></nz-date-picker>
+                        <!-- <input type="date" nz-input placeholder="Date"> -->
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div class="col-md-12">
+                    <nz-form-item>
+                      <nz-form-label nzFor="text">Time</nz-form-label>
+                      <nz-form-control>
+                        <nz-time-picker [(ngModel)]="time" [nzUse12Hours]="true" nzFormat="h:mm a"></nz-time-picker>
+                        <!-- <input type="time" nz-input placeholder="Time"> -->
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-md-12">
+                    <nz-form-item>
+                      <nz-form-label nzFor="text">Title</nz-form-label>
+                      <nz-form-control>
+                        <input nz-input placeholder="Enter Title" dir="rtl" />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-md-12">
+                    <nz-form-item>
+                      <nz-form-label nzFor="text">Upload Audio File</nz-form-label>
+                    <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+                      <button nz-button><i nz-icon nzType="upload"></i>Select File</button>
+                    </nz-upload>
+                    <!-- <button
+                      nz-button
+                      [nzType]="'primary'"
+                      [nzLoading]="uploading"
+                      (click)="handleUpload()"
+                      [disabled]="fileList.length === 0"
+                      style="margin-top: 16px"
+                    >
+                      {{ uploading ? 'Uploading' : 'Start Upload' }}
+                    </button> -->
+                  </nz-form-item>
+                  </div>
+                  <div class="col-md-12">
+                    <nz-form-item>
+                      <nz-form-control>
+                        <button class="mr-3" nz-button nzType="primary">Save</button>
+                        <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+      </ng-template>
+    </nz-modal>
+    <ng-template #tplRender let-current>
+        <div class="ant-picker-cell-inner" [class.border]="current.getDate() === 1">
+          {{ current.getDate() }}
+        </div>
+      </ng-template>
