@@ -284,6 +284,8 @@ const Header = () =>{
         }
         return data
     }
+
+    const staticMenu = ['Main', 'Infographic', 'program', 'presenters']
     return (
         <>  
             <header>
