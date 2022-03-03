@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ChangePasswordComponent } from 'src/app/changePassword/changePassword.component';
 
 export const CommonLayout_ROUTES: Routes = [
     {
@@ -345,6 +346,30 @@ export const CommonLayout_ROUTES: Routes = [
                 loadChildren: () => import('../../liveStream/liveStream.module').then(m => m.LiveStreamModule)
             }
         ]
+    },
+    {
+        path: 'messageInbox',
+        data: {
+            title: 'Message Inbox '
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: '/messageInbox/list',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../messageInbox/messageInbox.module').then(m => m.MessageInboxModule)
+            }
+        ]
+    },
+    {
+        path: 'changePassword',
+        component: ChangePasswordComponent,
+        data: {
+            title: 'Change Password'
+        }
     }
     // {
     //     path: 'quickLinks',

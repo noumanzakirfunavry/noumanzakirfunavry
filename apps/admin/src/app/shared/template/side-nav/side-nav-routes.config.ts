@@ -66,7 +66,7 @@ export const ROUTES: SideNavInterface[] = [
     },
     {
         path: 'category/list',
-        title: 'Category',
+        title: 'Categories',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'dashboard',
@@ -163,6 +163,14 @@ export const ROUTES: SideNavInterface[] = [
     {
         path: 'liveStream',
         title: 'Live Stream',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'messageInbox',
+        title: 'Message Inbox',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'dashboard',

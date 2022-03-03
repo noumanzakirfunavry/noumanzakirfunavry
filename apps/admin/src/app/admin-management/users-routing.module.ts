@@ -8,7 +8,7 @@ const routes: Routes = [
         path: '',
         component: UsersComponent,
         data: {
-            title: 'Users',
+            title: 'All Admins',
         },
 
     },
@@ -16,7 +16,7 @@ const routes: Routes = [
         path: 'list',
         component: UsersComponent,
         data: {
-            title: 'Users',
+            title: 'All Admins',
         },
 
     },
@@ -24,7 +24,7 @@ const routes: Routes = [
         path: 'add',
         component: AddUserComponent,
         data: {
-            title: 'Add Admin',
+            title: 'Add Admins',
         },
 
     }
