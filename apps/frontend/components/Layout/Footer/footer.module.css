@@ -22,10 +22,11 @@
     padding: 0;
 }
 .footerSocial ul li{
-    margin: 0 10px 0 0;
+    margin: 0 20px 0 0;
 }
 .footerSocial ul li a{
     color: #fff !important;
+    font-size: 18px;
 }
 .footerSocial ul li a:hover{
     color: #fcb700 !important;

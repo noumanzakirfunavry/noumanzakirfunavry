@@ -12,7 +12,7 @@ const Index = () =>{
                 <div className="container">
                 <div className="row">
                 <div className="col-md-6 profilIinputWrap">
-                        <h3 className="mb-4 fs20_b_mobile">إعادة تعيين كلمة المرور</h3>
+                        <h3 className="mb-4 fs20_b_mobile fw-bold">إعادة تعيين كلمة المرور</h3>
                         <div className="mb-3 iconFiled">
                             <label className="form-label fs12_b_gray">كلمة سر قديمة</label>
                             <input type="password" className="form-control" />
@@ -35,33 +35,33 @@ const Index = () =>{
 
                     </div>
                     <div className="col-md-6">
-                        <h3 className="mb-4">تحديث تفاصيل الحساب</h3>
+                        <h3 className="mb-4 fs20_b_mobile fw-bold">تحديث تفاصيل الحساب</h3>
                         <div className="mb-3">
-                            <label className="form-label">الاسم</label>
+                            <label className="form-label fs12_b_gray">الاسم</label>
                             <input type="text" className="form-control" />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">اسم العائلة</label>
+                            <label className="form-label fs12_b_gray">اسم العائلة</label>
                             <input type="text" className="form-control" />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">البريد الإلكتروني</label>
+                            <label className="form-label fs12_b_gray">البريد الإلكتروني</label>
                             <input type="text" className="form-control" />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">بلد</label>
+                            <label className="form-label fs12_b_gray">بلد</label>
                             <input type="text" className="form-control" />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">عنوان وظيفي</label>
+                            <label className="form-label fs12_b_gray">عنوان وظيفي</label>
                             <input type="text" className="form-control" />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">العمل</label>
+                            <label className="form-label fs12_b_gray">العمل</label>
                             <input type="text" className="form-control" />
                         </div>
                         <div className="mb-5">
-                            <label className="form-label">سنة الولادة</label>
+                            <label className="form-label fs12_b_gray">سنة الولادة</label>
                             <input type="text" className="form-control" />
                         </div>
 
