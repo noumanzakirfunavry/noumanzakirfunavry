@@ -3,9 +3,7 @@ import { CommonModule } from "@angular/common";
 import { SharedModule } from '../shared/shared.module';
 import { TVScheduleRoutingModule} from "./tvSchedule-routing.module";
 import { NgChartjsModule } from 'ng-chartjs';
-
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
-
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
@@ -24,18 +22,11 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { TVScheduleFilterComponent } from './tvScheduleFilter/tvSchedule-filter.component';
 import { TVScheduleComponent } from './tvSchedule.component';
-// import { NzFormControlComponent } from 'ng-zorro-antd/form';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-
-// import { DefaultDashboardComponent } from './default/default-dashboard.component';
-// import { EcommerceDashboardComponent } from './e-commerce/e-commerce-dashboard.component';
-// import { ProjectsDashboardComponent } from './projects/projects-dashboard.component';
-// import { CrmDashboardComponent } from './crm/crm-dashboard.component';
 import { FormsModule } from '@angular/forms';
-// import { NzDemoFormDynamicRuleComponent } from './addTag/dynamic-rule';
 import { DemoComponentsShareModule } from '../demo-components-share/demo-components-share.module';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -43,8 +34,7 @@ import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-
-// import { antdModule } from '../AndModules/andModule';
+import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 
 
 
@@ -66,7 +56,6 @@ const antdModule = [
     NzToolTipModule,
     NzCheckboxModule,
     NzFormModule,
-    // NzFormLabelComponent,
     NzSwitchModule,
     FormsModule,
     NzInputModule,
@@ -89,13 +78,13 @@ const antdModule = [
         FormsModule,
         ...antdModule,
         DemoComponentsShareModule,
-        NzModalModule
+        NzModalModule,
+        NzTimePickerModule
     ],
     exports: [],
     declarations: [
         TVScheduleFilterComponent,
-        TVScheduleComponent,
-        // NzDemoFormDynamicRuleComponent
+        TVScheduleComponent
     ],
     providers: [
         ThemeConstantService

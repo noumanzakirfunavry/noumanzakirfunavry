@@ -65,7 +65,7 @@
                   <nz-form-item>
                     <nz-form-label nzFor="date">Date</nz-form-label>
                     <nz-form-control>
-                        <nz-date-picker [nzDateRender]="tplRender"></nz-date-picker>
+                        <nz-date-picker class="w-100" [nzDateRender]="tplRender"></nz-date-picker>
                         <!-- <input type="date" nz-input placeholder="Date"> -->
                     </nz-form-control>
                   </nz-form-item>
@@ -74,7 +74,7 @@
                     <nz-form-item>
                       <nz-form-label nzFor="text">Time</nz-form-label>
                       <nz-form-control>
-                        <nz-time-picker [(ngModel)]="time" [nzUse12Hours]="true" nzFormat="h:mm a"></nz-time-picker>
+                        <nz-time-picker class="w-100" [(ngModel)]="time" [nzUse12Hours]="true" nzFormat="h:mm a"></nz-time-picker>
                         <!-- <input type="time" nz-input placeholder="Time"> -->
                       </nz-form-control>
                     </nz-form-item>

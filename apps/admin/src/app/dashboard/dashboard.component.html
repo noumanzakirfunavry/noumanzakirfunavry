@@ -32,23 +32,23 @@
     <h3>Quick Actions</h3>
     <button nztype="primary" class="ant-btn ant-btn-primary m-r-10">
         <i nztype="download" class="anticon anticon-download"></i>
-        <span>Add News</span>
+        <span [routerLink]="['/news/add']">Add News</span>
     </button>
     <button nztype="primary" class="ant-btn ant-btn-primary m-r-10">
         <i nztype="download" class="anticon anticon-download"></i>
-        <span>Add Breaking News</span>
+        <span [routerLink]="['/breakingNews/add']">Add Breaking News</span>
     </button>
     <button nztype="primary" class="ant-btn ant-btn-primary m-r-10">
         <i nztype="download" class="anticon anticon-download"></i>
-        <span>Featured News</span>
+        <span [routerLink]="['/news/specialNews/featuredNews']">Featured News</span>
     </button>
     <button nztype="primary" class="ant-btn ant-btn-primary m-r-10">
         <i nztype="download" class="anticon anticon-download"></i>
-        <span>Trending News</span>
+        <span [routerLink]="['/news/specialNews/trendingNow']">Trending Now</span>
     </button>
     <button nztype="primary" class="ant-btn ant-btn-primary m-r-10">
         <i nztype="download" class="anticon anticon-download"></i>
-        <span>Editor's Choice</span>
+        <span [routerLink]="['/news/specialNews/editorsChoice']">Editor's Choice</span>
     </button>
 </div>
 <div class="mb-4">

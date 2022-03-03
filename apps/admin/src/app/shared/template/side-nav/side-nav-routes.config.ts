@@ -263,6 +263,14 @@ export const ROUTES: SideNavInterface[] = [
                 icon: '',
                 iconTheme: '',
                 submenu: []
+            },
+            {
+                path: 'settings/homeMarketBanner',
+                title: 'Home Market Banner',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
             }
         ]
     },

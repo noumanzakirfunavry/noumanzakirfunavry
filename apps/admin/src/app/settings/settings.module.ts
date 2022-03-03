@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoComponentsShareModule } from '../demo-components-share/demo-components-share.module';
 import { SettingsComponent } from './settings.component';
 import { GoogleAnalyticsComponent } from './googleAnalytics/googleAnalytics.component';
+import { HomeMarketBannerComponent } from './homeMarketBanner/homeMarketBanner.component';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { GoogleAnalyticsComponent } from './googleAnalytics/googleAnalytics.comp
     exports: [],
     declarations: [
         SettingsComponent,
-        GoogleAnalyticsComponent
+        GoogleAnalyticsComponent,
+        HomeMarketBannerComponent
     ],
     providers: [
         ThemeConstantService
