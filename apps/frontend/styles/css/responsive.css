@@ -431,5 +431,25 @@
     .scheduleCalendar table tr td{
         width: inherit;
     }
+    .w_sm_100 {
+        width: 100%;
+    }
+    .fs15_b_mobile{
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .fs20_b_mobile{
+        font-size: 20px;
+        font-weight: 900;
+    }
+    .fs12_b_gray{
+        font-size: 12px;
+        font-weight: bold;
+        color: #777777;
+    }
+    .fs12_b{
+        font-size: 12px;
+        font-weight: bold;
+    }
 
   }

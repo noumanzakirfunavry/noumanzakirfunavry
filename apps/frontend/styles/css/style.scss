@@ -92,6 +92,22 @@ a:not([href]):not([class]):hover{
     cursor: pointer;
   }
 }
+.profilIinputWrap{
+  .iconFiled{
+    position: relative;
+    .showIcon{
+      position: absolute;
+      right: 3%;
+      top: 57%;
+
+    }
+    input{
+      text-align: left;
+    }
+  }
+
+}
+
 
 
 // Top Bars/Alerts Style
