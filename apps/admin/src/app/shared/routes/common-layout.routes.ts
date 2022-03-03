@@ -42,6 +42,10 @@ export const CommonLayout_ROUTES: Routes = [
             {
                 path: '',
                 loadChildren: () => import('../../news/news.module').then(m => m.NewsModule)
+            },
+            {
+                path: 'specialNews',
+                loadChildren: () => import('../../specialNews/specialNews.module').then(m => m.SpecialNewsModule)
             }
         ],
     },

@@ -13,7 +13,7 @@ const routes: Routes = [
         component: EditorsChoiceComponent,
         data: {
             title: 'Editors Choice',
-            headerDisplay: "none"
+         
         },
 
     },

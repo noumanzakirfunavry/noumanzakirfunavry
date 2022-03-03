@@ -13,12 +13,8 @@ import { CommonLayoutComponent } from './layouts/common-layout/common-layout.com
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { antdModule } from './AndModules/andModule';
+import { antdModule } from './AndModules/andModule';
 import { ChangePasswordComponent } from './changePassword/changePassword.component';
-import { TrendingNowComponent } from './specialNews/trendingNow/trendingNow.component';
-import { EditorsChoiceComponent } from './editorsChoice/editorsChoice.component';
-import { FeaturedNewsComponent } from './specialNews/featuredNews/featuredNews.component';
-import { ExclusiveVideosComponent } from './exclusiveVideos/exclusiveVideos.component';
 
 
 registerLocaleData(en);
@@ -28,11 +24,7 @@ registerLocaleData(en);
         AppComponent,
         CommonLayoutComponent,
         FullLayoutComponent,
-        ChangePasswordComponent,
-        TrendingNowComponent,
-        EditorsChoiceComponent,
-        FeaturedNewsComponent,
-        ExclusiveVideosComponent
+        ChangePasswordComponent
     ],
     imports: [
         BrowserModule,
@@ -43,7 +35,7 @@ registerLocaleData(en);
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
-        // ...antdModule
+        ...antdModule
     ],
     providers: [
         { 
