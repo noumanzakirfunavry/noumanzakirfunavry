@@ -4,7 +4,7 @@ const ContactAddresses = () => {
     return (
         <>
             <div className='contactAddress'>
-                <h2 className="text-center text-primary mb-5">الفروع</h2>
+                <h2 className="text-center text-primary mb-5 fs32_bolder">الفروع</h2>
                 <div className="row">
                 <div className="col-lg-4 col-md-6">
                         <div className="addressBox">
@@ -12,7 +12,7 @@ const ContactAddresses = () => {
                             <ul>
                                 <li>+971 4 366 4900</li>
                                 <li>+971 4 366 4995</li>
-                                <li>sales@cnbcarabia.com</li>
+                                <li><a href="javascript:void(0)">sales@cnbcarabia.com</a></li>
                                 <li>مدينة دبي للإعلام</li>
                                 <li>المبنى رقم 7 – الطابق الأول</li>
                             </ul>
@@ -49,7 +49,7 @@ const ContactAddresses = () => {
                             <ul>
                                 <li>+971 4 366 4900</li>
                                 <li>+971 4 366 4995</li>
-                                <li>sales@cnbcarabia.com</li>
+                                <li><a href="javascript:void(0)">sales@cnbcarabia.com</a></li>
                                 <li>مدينة دبي للإعلام</li>
                                 <li>المبنى رقم 7 – الطابق الأول</li>
                             </ul>
@@ -79,7 +79,7 @@ const ContactAddresses = () => {
                             </ul>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </>
