@@ -3,8 +3,8 @@ const ContactUsForm = () => {
 
     return (
         <>
-        
-        <h2 className="text-center text-primary mb-5">تقديم استفسار</h2>
+
+        <h2 className="text-center text-primary mb-5 fs32_bolder">تقديم استفسار</h2>
         <div className="row justify-content-center">
             <div className="col-md-6">
             <form>
@@ -30,7 +30,7 @@ const ContactUsForm = () => {
                 </form>
             </div>
         </div>
-        
+
 
         </>
     )

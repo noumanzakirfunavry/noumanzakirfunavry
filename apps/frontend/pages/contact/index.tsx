@@ -10,9 +10,11 @@ const Index = () =>{
         <>
             <div className="container">
                 <AdBanner />
+                </div>
                 <Title styles={"pageTitle PageTitleYellow"} >
-                    <h2>اتصل بنا</h2>
+                    <h2 className="fs32_bolder">اتصل بنا</h2>
                 </Title>
+                <div className="container">
                 <ContactAddresses/>
                 <hr className="mb-5"></hr>
                 <div className='contactForm'>
@@ -21,7 +23,7 @@ const Index = () =>{
             </div>
 
         </>
-        
+
     )
 }
 

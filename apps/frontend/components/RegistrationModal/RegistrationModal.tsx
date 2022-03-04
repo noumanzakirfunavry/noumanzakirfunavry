@@ -7,13 +7,13 @@ const RegistrationModal = ()=>{
         <>
             <AccountModal modalId={'registrationModal'} >
             <div className="p-2">
-                    <div className="row mb-4">
-                        <div className="col-9 text-muted">
-                            <h2 className="text-primary">إنشاء حساب</h2>
-                            <h6>هل لديك حساب؟ <a>تسجيل الدخول</a></h6>
+                    <div className="row mb-4 flex-row-reverse">
+                    <div className="col-sm-3 text-sm-start text-center mb-3 mb-sm-0">
+                            <img className="img-fluid" style={{width:'86px'}} src={logo.src} />
                         </div>
-                        <div className="col-3 text-start">
-                            <img className="img-fluid" src={logo.src} />
+                        <div className="col-sm-9 text-muted">
+                            <h2 className="text-primary">إنشاء حساب</h2>
+                            <h6>هل لديك حساب؟ <a className="text-bold">تسجيل الدخول</a></h6>
                         </div>
                     </div>
 
@@ -21,9 +21,11 @@ const RegistrationModal = ()=>{
                         <input type="email" className="form-control" id="floatingInput" placeholder="البريد الإلكتروني"/>
                         <label htmlFor="floatingInput">البريد الإلكتروني</label>
                     </div>
-                    <div className="form-floating mb-3">
+                    <div className="form-floating mb-3 iconFiled">
                         <input type="password" className="form-control" id="floatingPassword" placeholder="Password"/>
                         <label htmlFor="floatingPassword">كلمه السر</label>
+                        <span className="showIcon"><i title="Show Password" className="fa fa-eye"></i></span>
+
                     </div>
 
                     <div className="mb-4">
@@ -31,14 +33,14 @@ const RegistrationModal = ()=>{
                                 <input className="float-end form-check-input ms-2" style={{width:'45px'}} type="checkbox" value="" id="flexCheckDefault"/>
                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                 بالنقر فوق الزر “إنشاء حساب” ، فإنك توافق على شروط الخدمة وسياسة الخصوصية لقناة CNBC Arabia
-                                <br></br>
+                                <br></br><br></br>
                                 يمكن مشاركة المعلومات التي تقدمها عند إنشاء حساب مع شركات NBCUniversal الأخرى واستخدامها لمساعدتنا على تخصيص خدماتنا ومنتجاتنا وإعلاناتنا لك بشكل أفضل. كجزء من حسابنا ، قد نرسل لك رسائل إخبارية وعروض ترويجية ومواد تسويقية أخرى.
                                 </label>
                             </div>
                     </div>
 
                     <div className="text-center">
-                        <button className="btn btn-primary mb-3" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registrationStep2" >إنشاء حساب</button>
+                        <button className="btn btn-primary mb-4 mt-3 btn-sm-wide" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registrationStep2" >إنشاء حساب</button>
                         <h6 className="text-muted mb-0">سياسة خاصة</h6>
                     </div>
                 </div>

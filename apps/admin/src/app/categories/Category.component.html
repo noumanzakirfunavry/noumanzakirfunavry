@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-2">
+        <button nz-button [nzType]="'primary'" [routerLink]="['/category/add']">Add Category</button>
+    </div>
+    <div class="col-10">
+        <app-filter></app-filter>
+    </div>
+    <div class="col-lg-12 mt-3">
+        <nz-card>
+            <div>
+                <nz-table #ordersListTable [nzData]="ordersList" [nzShowPagination]="true" class="no-border-last">
+                    <thead>
+                        <tr>
+                            <th>Reorder</th>
+                            <th>Title</th>
+                            <th>Created</th>
+                            <th>Modified</th>
+                            <th>Publisher</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of ordersListTable.data">
+                            <td [nzChecked]="setOfCheckedId.has(item.id)" [nzDisabled]="item.disabled"
+                            (nzCheckedChange)="onItemChecked(item.id, $event)">{{item.id}}</td>
+                            <td>
+                                <nz-tree [nzData]="nodes" nzDraggable nzBlockNode (nzOnDrop)="nzEvent($event)"></nz-tree>
+                            </td>
+                            <td>{{item.date}}</td>
+                            <td>{{item.date}}</td>
+                            <td>Sample User</td>
+                            <td>
+                                <nz-badge *ngIf="item.status === 'approved'" nzStatus="success"></nz-badge>
+                                <nz-badge *ngIf="item.status === 'rejected'" nzStatus="error"></nz-badge>
+                                <nz-badge *ngIf="item.status === 'pending'"  nzStatus="processing"></nz-badge> 
+                                <span class="text-capitalize"></span>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    <i nz-icon nzType="edit" nzTheme="outline"></i>
+                                    <i nz-icon nzType="bell" nzTheme="outline"></i>
+                                    <i nz-icon nzType="link" nzTheme="outline"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+        </nz-card>
+    </div>
+</div>

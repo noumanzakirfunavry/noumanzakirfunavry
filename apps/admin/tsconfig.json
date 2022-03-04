@@ -1,29 +1,53 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "extends": "../../tsconfig.base.json",
-  "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    },
-    {
-      "path": "./tsconfig.editor.json"
-    }
-  ],
+  "compileOnSave": false,
   "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "angularCompilerOptions": {
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ]
   }
 }
+
+// {
+//   "extends": "../../tsconfig.base.json",
+//   "files": [],
+//   "include": [],
+//   "references": [
+//     {
+//       "path": "./tsconfig.app.json"
+//     },
+//     {
+//       "path": "./tsconfig.spec.json"
+//     },
+//     {
+//       "path": "./tsconfig.editor.json"
+//     }
+//   ],
+//   "compilerOptions": {
+//     "forceConsistentCasingInFileNames": true,
+//     "strictPropertyInitialization": false,
+//     "noImplicitAny": false,
+//     "strict": false,
+//     "noImplicitOverride": true,
+//     "noPropertyAccessFromIndexSignature": true,
+//     "noImplicitReturns": false,
+//     "noFallthroughCasesInSwitch": true
+//   },
+//   "angularCompilerOptions": {
+//     "strictInjectionParameters": false,
+//     "strictPropertyInitialization": false,
+//     "strictInputAccessModifiers": false,
+//     "strictTemplates": false
+//   }
+// }

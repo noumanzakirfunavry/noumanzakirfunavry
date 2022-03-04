@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-12">
+        <messageInbox-filter></messageInbox-filter>
+    </div>
+    <div class="col-lg-12 mt-3">
+        <nz-card>
+            <div>
+                <nz-table #ordersListTable [nzData]="ordersList"  [nzShowPagination]="true" class="no-border-last">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Message</th>
+                            <th>Subject</th>
+                            <th>Type</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Received</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of ordersListTable.data">
+                            <td [nzChecked]="setOfCheckedId.has(item.id)" [nzDisabled]="item.disabled"
+                                (nzCheckedChange)="onItemChecked(item.id, $event)">{{item.id}}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar" (click)="showModal()"></nz-avatar>
+                                    <h6 class="m-l-10 m-b-0">View Messages</h6>
+                                </div>
+                            </td>
+                            <td>Sample Test</td>
+                            <td>Mesaage Type</td>
+                            <td>sample@email.com</td>
+                            <td>1234567890</td>
+                            <td>{{item.date}}</td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    <i nz-icon nzType="edit" nzTheme="outline"></i>
+                                    <i nz-icon nzType="bell" nzTheme="outline"></i>
+                                    <i nz-icon nzType="link" nzTheme="outline"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+        </nz-card>
+    </div>
+</div>
+
+<nz-modal
+      [(nzVisible)]="isVisible"
+      [nzTitle]="modalTitle"
+      [nzContent]="modalContent"
+      [nzFooter]="modalFooter"
+      (nzOnCancel)="handleCancel()"
+    >
+      <ng-template #modalTitle>
+        Custom Modal Title
+      </ng-template>
+
+      <ng-template #modalContent>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+      </ng-template>
+
+      <ng-template #modalFooter>
+        <!-- <span>Modal Footer: </span> -->
+        <button nz-button nzType="default">View Attachment</button>
+        <!-- <button nz-button nzType="default" (click)="handleCancel()">Custom Callback</button>
+        <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">Custom Submit</button> -->
+      </ng-template>
+    </nz-modal>

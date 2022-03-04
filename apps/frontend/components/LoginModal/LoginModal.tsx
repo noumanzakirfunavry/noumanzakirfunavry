@@ -9,13 +9,13 @@ const LoginModal = ()=>{
             <AccountModal modalId={"loginModal"}>
 
                 <div className="p-2">
-                    <div className="row mb-4">
-                        <div className="col-9 text-muted">
-                            <h2 className="text-primary">تسجيل الدخول</h2>
-                            <h6>هل أنت جديد في CNBC Arabia؟ <a>إنشاء حساب</a></h6>
+                    <div className="row mb-4 flex-row-reverse">
+                    <div className="col-sm-3 text-sm-start text-center mb-3 mb-sm-0">
+                            <img className="img-fluid" style={{width:'86px'}} src={logo.src} />
                         </div>
-                        <div className="col-3 text-start">
-                            <img className="img-fluid" src={logo.src} />
+                        <div className="col-sm-9 text-muted">
+                            <h2 className="text-primary text-bold">تسجيل الدخول</h2>
+                            <h6>هل أنت جديد في CNBC Arabia؟ <a className="text-bold">إنشاء حساب</a></h6>
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@ const LoginModal = ()=>{
                     </div>
 
                     <div className="row mb-4">
-                        <div className="col-md-6">
+                        <div className="col-7">
                             <div className="form-check">
                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                     ابق متصلا   
@@ -38,13 +38,13 @@ const LoginModal = ()=>{
                                 <input className="float-end form-check-input ms-2" type="checkbox" value="" id="flexCheckDefault"/>
                             </div>
                         </div>
-                        <div className="col-md-6 text-start">
+                        <div className="col-5 text-start">
                             <a> هل نسيت كلمة السر <span>?</span></a>
                         </div>
                     </div>
 
                     <div className="text-center">
-                        <button className="btn btn-primary mb-3" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registrationModal">تسجيل الدخول</button>
+                        <button className="btn btn-primary mb-3 btn-sm-wide" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registrationModal">تسجيل الدخول</button>
                         <h6 className="text-muted mb-0">سياسة خاصة</h6>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ const DetatilBoxes = () =>{
                                 <tbody>
                                 <tr>
                                     <th style={{width:'35%'}}>برنت</th>
-                                    <th>13,370.24</th>
+                                    <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
                                     <td><i className="fa fa-caret-down"></i></td>
@@ -29,7 +29,7 @@ const DetatilBoxes = () =>{
                                 <tbody>
                                 <tr>
                                     <th style={{width:'35%'}}>برنت</th>
-                                    <th>13,370.24</th>
+                                    <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
                                     <td><i className="fa fa-caret-down"></i></td>
@@ -47,7 +47,7 @@ const DetatilBoxes = () =>{
                             <tbody>
                                 <tr>
                                     <th style={{width:'35%'}}>برنت</th>
-                                    <th>13,370.24</th>
+                                    <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
                                     <td><i className="fa fa-caret-down"></i></td>
@@ -65,7 +65,7 @@ const DetatilBoxes = () =>{
                             <tbody>
                                 <tr>
                                     <th style={{width:'35%'}}>برنت</th>
-                                    <th>13,370.24</th>
+                                    <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
                                     <td><i className="fa fa-caret-up"></i></td>
@@ -83,7 +83,7 @@ const DetatilBoxes = () =>{
                             <tbody>
                                 <tr>
                                     <th style={{width:'35%'}}>برنت</th>
-                                    <th>13,370.24</th>
+                                    <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
                                     <td><i className="fa fa-caret-up"></i></td>
@@ -101,7 +101,7 @@ const DetatilBoxes = () =>{
                             <tbody>
                                 <tr>
                                     <th style={{width:'35%'}}>برنت</th>
-                                    <th>13,370.24</th>
+                                    <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
                                     <td><i className="fa fa-caret-up"></i></td>

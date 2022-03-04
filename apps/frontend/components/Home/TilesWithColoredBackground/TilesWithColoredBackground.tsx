@@ -7,6 +7,7 @@ const TilesWithColoredBackground: FC = () => {
     return (
         <>
             <div className="NewsTilesBg mb-4">
+                <div className="container">
                 <div className="TitleBar">
                     <div className="float-start">
                         <button className="btn btn-outline-light">جميع الفيديو</button>
@@ -118,10 +119,12 @@ const TilesWithColoredBackground: FC = () => {
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
 
             <div className="NewsLightTiles">
-                <Title styles={'TitleBar'}>
+               <div className="container">
+               <Title styles={'TitleBar'}>
                     <div className="text-end">
                         <h2>انفوغرافيك</h2>
                     </div>
@@ -179,13 +182,14 @@ const TilesWithColoredBackground: FC = () => {
                                     </div>
                                 </div>
                             </div>
-                            
-                            
-                            
+
+
+
                         </div>
                     </div>
                 </div>
-                
+               </div>
+
             </div>
         </>
     );
