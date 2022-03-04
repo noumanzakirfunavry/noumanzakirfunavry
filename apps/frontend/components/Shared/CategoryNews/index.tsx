@@ -9,7 +9,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
     const fields: JSX.Element[] = [];
         for (let i = 1; i <= limit; i++) {
         fields.push(
-            <>
+            <div className="row" key={i}>
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox ">
                         <div className="NewsImage">
@@ -33,7 +33,6 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                                   <button className="btn btn-warning VideoPlay"><i className="fa fa-play"></i></button>
                               </div>
                             </div>
-
                           </div>
                         <div className="NewsInfo">
                             <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</h4>
@@ -52,7 +51,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                         </div>
                     </div>
                 </div>
-            </>
+            </div>
         );
     }
     return (
@@ -87,6 +86,10 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                         </div>
                 )}
                 {/* 2 Top News End*/}
+               
+                {/* Remaining news */}
+                { fields}
+                
                 <div className="row">
                   { fields}
                 </div>

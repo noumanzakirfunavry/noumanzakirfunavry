@@ -15,12 +15,12 @@ const Index = () =>{
 
                 <Title styles={"pageSimpleTitle mb-5"}>
                     <span className="badge bg-success">PRO</span>
-                    <h1>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h1>
+                    <h1 className="fw-bold">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h1>
                 </Title>
 
                 <div className="SocialHeaderMobile">
                     <div className="row">
-                        
+
                         <div className="col-9">
                             <div className="newsSocial">
                                 <ul>

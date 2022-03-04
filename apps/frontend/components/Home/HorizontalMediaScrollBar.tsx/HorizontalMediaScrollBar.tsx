@@ -15,7 +15,7 @@ const HorizontalMediaScrollBar:FC = () =>{
        const previous = () =>{
         ref.current.slickPrev()
     }
-    
+
         const [settings, setSettings] = useState({
             dots: false,
             infinite: true,
@@ -59,7 +59,8 @@ const HorizontalMediaScrollBar:FC = () =>{
           });
     return (
         <>
-        <div className="newsSlider">
+      <div className="container">
+      <div className="newsSlider">
             <div className="sliderArrows">
                 <button className="slider-arrow arrow-prev" onClick={previous}>
                     Previous
@@ -126,8 +127,9 @@ const HorizontalMediaScrollBar:FC = () =>{
                         </div>
                     </div>
             </Slider>
-            
+
         </div>
+      </div>
         </>
     )
 }
