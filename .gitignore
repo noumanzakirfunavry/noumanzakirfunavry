@@ -6,6 +6,8 @@
 /out-tsc
 /tmpnodejsnpm-cache
 
+/.next
+
 # dependencies
 /node_modules
 
