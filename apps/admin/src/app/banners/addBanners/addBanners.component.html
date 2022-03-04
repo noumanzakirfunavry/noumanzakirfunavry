@@ -4,26 +4,26 @@
   <div class="col-12">
     <form nz-form [nzLayout]="'vertical'">
       <div class="row">
-        <div class="col-6">
+        <div class="col-12">
       <div class="row">
         <div class="col-12">
           <nz-form-item>
-            <nz-form-label nzFor="text">Title</nz-form-label>
-            <nz-form-control>
+            <nz-form-label [nzSpan]="6" nzFor="text">Title</nz-form-label>
+            <nz-form-control [nzSpan]="14">
               <input nz-input placeholder="Enter Title" dir="rtl" />
             </nz-form-control>
           </nz-form-item>
         </div>
           <div class="col-md-12">
             <nz-form-item>
-              <nz-form-label>Google Ad Code</nz-form-label>
-              <nz-form-control>
+              <nz-form-label [nzSpan]="6" nzFor="text">Google Ad Code</nz-form-label>
+              <nz-form-control [nzSpan]="14">
                   <textarea rows="4" type="text" placeholder="Enter Code" dir="rtl" nz-input></textarea>
               </nz-form-control>
           </nz-form-item>
           </div>
           <div class="col-md-12">
-              <nz-form-label class="mr-4">Select Content</nz-form-label>
+              <nz-form-label [nzSpan]="6" class="mr-4">Select Content</nz-form-label>
               <nz-radio-group [(ngModel)]="radioValue">
                 <label nz-radio nzValue="Page">Page</label>
                 <label nz-radio nzValue="Category">Category</label>
@@ -31,22 +31,24 @@
           </div>
           <div class="col-md-12">
             <nz-form-item>
-              <nz-form-label class="mt-3">Banner Section</nz-form-label>
+              <nz-form-label [nzSpan]="6" class="mt-3">Banner Section</nz-form-label>
+              <nz-form-control [nzSpan]="14">
               <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Choose Banner Section">
-
                 <nz-option nzValue="Banner 1" [nzLabel]="'Banner 1'"></nz-option>
                 <nz-option nzValue="Banner 2" [nzLabel]="'Banner 2'"></nz-option>
               </nz-select>
+            </nz-form-control>
             </nz-form-item>
           </div>
           <div class="col-md-12">
             <nz-form-item>
-              <nz-form-label>Banner Type</nz-form-label>
+              <nz-form-label [nzSpan]="6">Banner Type</nz-form-label>
+              <nz-form-control [nzSpan]="14">
               <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Choose Banner Type">
-
                 <nz-option nzValue="Banner Type 1" [nzLabel]="'Banner Type 1'"></nz-option>
                 <nz-option nzValue="Banner Type 2" [nzLabel]="'Banner Type 2'"></nz-option>
               </nz-select>
+            </nz-form-control>
             </nz-form-item>
           </div>
 
