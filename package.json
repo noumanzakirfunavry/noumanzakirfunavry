@@ -8,7 +8,8 @@
     "start": "nx serve",
     "frontend": "nx serve frontend --port 3000",
     "admin": "nx serve admin --port 4200",
-    "build": "nx build",
+    "build:frontend": "npx next build",
+    "build:admin": "nx build admin",
     "test": "nx test",
     "postinstall": "ngcc --properties es2015 browser module main"
   },
