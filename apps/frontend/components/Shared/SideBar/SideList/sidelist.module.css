@@ -12,6 +12,7 @@
     padding-top: 10px;
     margin-top: -11px;
     color: #002F6C;
+    font-weight: bold;
 }
 .sidebar .listBody{
     padding: 5px;
@@ -25,7 +26,7 @@
 
 .sideDotList{
     margin: 0;
-    padding: 0 15px 0 0;
+    padding: 0 17px 0 0;
 }
 .sideDotList li {
     border-bottom: 1px solid #DDDDDD;
@@ -77,16 +78,16 @@
 .sidenumberList li::before{
     content: counter(mynumberlist);
     color: #CFD8E2;
-    font-size: 20px;
+    font-size: 27px;
     font-weight: bold;
     width: 50px;
-    padding-top: 13px;
+    padding-top: 7px;
 }
 .sidenumberList li:last-child {
     border-bottom: none;
 }
 .sidenumberList li a{
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
     color: #1C1C1C;
     padding: 20px 0;

@@ -6,7 +6,7 @@ const AccountModal:FC<ModalProps> = ({modalId, children}) => {
 
     return (
         <>
-            <div className="modal fade" id={modalId} tabIndex={-1} aria-labelledby="accountModalLabel" aria-hidden="true">
+            <div className="modal fade signinmodal" id={modalId} tabIndex={-1} aria-labelledby="accountModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">

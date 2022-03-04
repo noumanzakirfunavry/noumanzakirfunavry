@@ -37,7 +37,8 @@ a:not([href]):not([class]):hover{
     background-color: $primary-color;
     border-color: $primary-color;
     &:hover{
-      background-color: $secondary-color;
+      background-color: $warning;
+      border-color: $warning;
     }
   }
 
@@ -45,8 +46,9 @@ a:not([href]):not([class]):hover{
     background-color: $warning;
     border-color: $warning;
   }
-  
+
   .btn-outline-primary {
+    background-color: $white;
     color: $primary-color;
     border-color: $primary-color;
     &:hover{
@@ -90,8 +92,24 @@ a:not([href]):not([class]):hover{
     cursor: pointer;
   }
 }
+.profilIinputWrap{
+  .iconFiled{
+    position: relative;
+    .showIcon{
+      position: absolute;
+      right: 3%;
+      top: 57%;
 
-  
+    }
+    input{
+      text-align: left;
+    }
+  }
+
+}
+
+
+
 // Top Bars/Alerts Style
 
 .top-bar .alert{
@@ -123,7 +141,7 @@ a:not([href]):not([class]):hover{
     border-radius: 0;
     border: none;
   }
-  
+
 
 
 //   Header Style
@@ -139,19 +157,20 @@ header{
   }
   .search-header{
     flex: 1;
+    position: relative;
   }
   .logo-header{
     flex: 3;
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
+    // overflow: hidden;
   }
   .cnbc-logo{
-    margin-bottom: 10px;
+    margin: 10px 0;
   }
-  
-  
-  
+
+
+
   .header-nav .navbar{
     margin: 0;
     padding: 0;
@@ -162,7 +181,7 @@ header{
     padding: 0;
   }
   .header-nav ul li{
-    margin: 0 5px;
+    margin: 0 1px;
   }
   .header-nav ul li a{
     font-size: 0.9rem;
@@ -196,9 +215,9 @@ header{
   .header-nav .navbar-toggler .navbar-toggler-icon{
     color: $white;
   }
-  
-  
-  
+
+
+
   .search-header .search-box{
     display: flex;
     position: relative;
@@ -223,14 +242,15 @@ header{
     top: 5px;
     color: $white;
   }
-  
-  
-  
+
+
+
   .header-search-nav ul{
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
+    justify-content: end;
   }
   .header-search-nav ul li a{
     font-size: 16px;
@@ -240,7 +260,7 @@ header{
     text-decoration: none;
     font-weight: bold;
   }
-  
+
   .youtube-icon{
     background: $danger;
     color: $white;
@@ -250,7 +270,7 @@ header{
     text-align: center;
     padding: 5px 7px;
   }
-  
+
 
 
 //   Page Navigation Style
@@ -300,7 +320,7 @@ header{
       font-size: 18px;
       font-weight: bold;
     }
- 
+
     ul{
       margin: 0;
       padding: 0;
@@ -331,7 +351,7 @@ header{
         }
 
     }
-  
+
 }
 
   //   Page Categories Style
@@ -390,9 +410,9 @@ header{
   .PageTitleYellow h2{
     color:$primary-color;
   }
-  
-  
-  
+
+
+
   .sectionTitle{
     border-top: 6px solid $primary-color;
     padding-top: 10px;
@@ -402,9 +422,9 @@ header{
     font-weight: 700;
     font-size: 24px;
   }
-  
-  
-  
+
+
+
   .yellowTitle{
     border-top: 1px solid $grey;
   }
@@ -429,7 +449,7 @@ header{
     padding-top: 10px;
     display: inline-block;
   }
-  
+
 
 
 
@@ -476,7 +496,7 @@ header{
     color: $secondary-color;
   }
 
-  
+
 
 
 
@@ -505,6 +525,7 @@ header{
   }
   .breakingNews .newsbox .newsaction .btn{
     font-weight: bold;
+    font-size: 15px;
   }
   .breakingNews .newsbox .newslink{
     flex: 4;
@@ -515,16 +536,16 @@ header{
     font-weight: bold;
     cursor: pointer;
   }
-  
+
   .breakingNews .newsbox .newslink p{
     margin: 0 0 5px 0;
     font-weight: bold;
   }
-  
-  
-  
-  
-  
+
+
+
+
+
   .NewsTilesBg{
     background: $primary-dark;
     padding: 20px;
@@ -567,7 +588,7 @@ header{
     background-color: $warning;
     border-color: $warning;
   }
-  
+
   .VideoNews .PlayTime .btn-text span{
     display: none;
     white-space: nowrap;
@@ -609,7 +630,7 @@ header{
     color: $white;
   }
 
-  
+
   .VideoTiles{
       display: flex;
       margin-bottom: 15px;
@@ -713,29 +734,38 @@ header{
 
 
 
-  .NewsTiles .newBox{
-    margin-bottom: 25px;
-    position: relative;
-    overflow: hidden;
-  }
-  .NewsTiles .newBox .NewsImage{
-    margin-bottom: 10px;
-    height: 180px;
-    overflow: hidden;
-    position: relative;
-  }
-  .NewsTiles .newBox .NewsInfo a{
-    color: $secondary-color;
-    margin-left: 15px;
-  }
-  .NewsTiles .newBox .NewsInfo h3{
-    font-size: 22px;
-    font-weight: bold;
-  }
-  .NewsTiles .newBox .NewsInfo h4{
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 1.5rem;
+  .NewsTiles {
+    .newBox{
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+
+      .NewsImage{
+        margin-bottom: 10px;
+        height: 180px;
+        overflow: hidden;
+        position: relative;
+      }
+      .NewsInfo{
+        a{
+          color: $secondary-color;
+          margin-left: 15px;
+        }
+        h3{
+          font-size: 24px;
+          font-weight: bold;
+        }
+        h4{
+          font-size: 20px;
+          font-weight: bold;
+          line-height: 1.5rem;
+        }
+        p{
+          font-size: 16px;
+          font-weight: bold;
+        }
+      }
+    }
   }
 
 
@@ -801,7 +831,7 @@ header{
     background-color: $warning;
     border-color: $warning;
   }
-  
+
   .newBox .PlayTime .btn-text span{
     display: none;
     white-space: nowrap;
@@ -904,6 +934,7 @@ header{
 .market-stats .marketBox{
     margin-bottom: 5px;
     min-width: 16%;
+    text-align: initial;
   }
   .marketBox{
     padding: 10px;
@@ -930,7 +961,7 @@ header{
   }
 
 
-  
+
 .stockMarketNews{
     margin: 15px 0;
   }
@@ -966,7 +997,7 @@ header{
     font-weight: bold;
     padding: 5px 20px;
   }
-  
+
   .marketChart .chartBox h3{
     font-weight: bold;
     margin: 20px 0 30px;
@@ -1067,7 +1098,13 @@ header{
   left: 70px;
   background: url(../images/arrow-right.svg) no-repeat !important;
 }
-.slick-slider .slick-prev:before, 
+// .slick-slider .slick-prev:hover{
+//   background: url(../images/arrow-left-hover.svg) no-repeat !important;
+// }
+// .slick-slider .slick-next:hover{
+//   background: url(../images/arrow-right-hover.svg) no-repeat !important;
+// }
+.slick-slider .slick-prev:before,
 .slick-slider .slick-next:before{
   content: none;
 }
@@ -1176,6 +1213,7 @@ header{
 .NewsInfobox .infoItem{
   font-size: 12px;
   color: $grey;
+  font-weight: bold;
 }
 .newsSocial ul{
   list-style: none;
@@ -1183,7 +1221,7 @@ header{
   padding: 0;
 }
 .newsSocial ul li{
-  margin-right: 10px;
+  margin-right: 15px;
 }
 .newsSocial ul li a{
   color: $secondary-color;
@@ -1215,13 +1253,19 @@ header{
 }
 
 .livetvbox{
-  background: $primary-color;
+  background: $primary-dark;
   padding: 50px;
   text-align: center;
+  .liveTV{
+    margin: 0 auto 30px;
+    width: 75%;
+  }
+  .fs15_b{
+    font-size: 15px;
+    font-weight: bold;
+  }
 }
-.livetvbox .liveTV{
-  margin: 0 0 30px;
-}
+
 
 
 
@@ -1290,7 +1334,7 @@ width: 110px;
       border-bottom: 1px solid $grey-light;
       padding: 0;
         .nav-item{
-          
+
           .nav-link{
             color: $grey;
             font-weight: bold;
@@ -1431,6 +1475,10 @@ width: 110px;
       margin-bottom: 5px;
       font-size: 15px;
       color: $grey;
+      font-weight: 500;
+      a{
+        color: $secondary-color;
+      }
     }
   }
 }
@@ -1460,7 +1508,7 @@ width: 110px;
 
 .modal{
   .modal-dialog{
-    
+
     .modal-content{
       border-radius: 0;
       background: $light-bright;
@@ -1500,7 +1548,7 @@ width: 110px;
   top: 37px;
   left: 0;
   box-shadow: 0 0 20px #00000038;
-  display: none;
+  z-index: 99;
 
 
   .topBorderText{
@@ -1510,7 +1558,13 @@ width: 110px;
   }
 
     .searchResultList{
-      background-color: greenyellow;
+
+      .NewsList {
+          li {
+            flex-flow: initial;
+          }
+      }
+
     .newsText{
       color: $grey-dark;
 
@@ -1530,7 +1584,7 @@ width: 110px;
   .NewsList{
     li{
       padding: 5px 0;
-      
+
       .newsImage{
         height: auto;
       }
@@ -1559,12 +1613,12 @@ width: 110px;
             p{
               margin: 0 0 15px;
             }
-            
+
           }
 
         }
     }
-  
+
 }
 
 
@@ -1662,4 +1716,112 @@ width: 110px;
     }
 
   }
+}
+
+
+.MobileToggleNav{
+  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  padding: 25px;
+  height: calc(100vh - 74px);
+  display: none;
+
+  .btn-cancel{
+    font-size: 24px;
+    color: $danger;
+    padding: 0;
+  }
+
+  .navbar-nav{
+    padding: 0;
+    max-height: 90%;
+    overflow-y: auto;
+    .nav-item{
+      border-bottom: 1px solid $grey-light;
+
+      &:last-child{
+        border-bottom: none;
+      }
+      .nav-link{
+        font-size: 15px;
+        font-weight: 600;
+        color: $primary-color;
+        padding: 10px;
+
+        &:hover{
+          color: $warning;
+        }
+      }
+    }
+  }
+}
+.breakingNews
+{
+  .newsbox {
+    .newsaction {
+      .btn{
+        &:hover{
+          background-color: $warning;
+          border-color: $warning;
+          color: $primary-color;
+
+        }
+      }
+    }
+  }
+}
+
+.NewsTiles {
+  .newBox{
+    &.newBoxf {
+      .NewsImage {
+        height: 300px;
+      }
+    }
+    &.newBoxfs{
+      .NewsImage {
+        height: 300px;
+        img{
+          object-fit: cover;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+.fs12_b_gray{
+  font-size: 12px;
+  font-weight: bold;
+  color: #777777;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Arrow */
+.customSelect::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: 3px;
+  padding: 1em;
+  background-color: #fff;
+  transition: .25s all ease;
+  pointer-events: none;
+  color: $grey;
+}
+/* Transition */
+.customSelect:hover::after {
+  color: $warning;
+}
+
+.fs32_bolder{
+  font-weight: 900;
 }

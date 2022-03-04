@@ -1,4 +1,8 @@
+/* eslint-disable @next/next/no-page-custom-font */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-loading-skeleton/dist/skeleton.css'
 import '../styles/css/globals.css';
 import '../styles/fontawesome/css/fontawesome.min.css';
 import '../styles/fontawesome/css/all.min.css';
@@ -16,6 +20,10 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { GTM_ID, pageview } from '../lib/gtag'
 
+import { ToastContainer } from 'react-toastify';
+import { store, persistor } from '../store/Store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -41,60 +49,82 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   }, []);
   return (
-    <Layout>
-      <Head>
-        <meta charSet="utf-8" />
-        <title>عربية CNBC</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta content="text/html; charset=UTF-8" httpEquiv="content-type" />
-        <meta httpEquiv="content-language" content="ar" />
-        <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+    // <Layout>
+    //   <Head>
+    //     <meta charSet="utf-8" />
+    //     <title>عربية CNBC</title>
+    //     <meta name='viewport' content='width=device-width, initial-scale=1' />
+    //     <meta content="text/html; charset=UTF-8" httpEquiv="content-type" />
+    //     <meta httpEquiv="content-language" content="ar" />
+    //     <link rel="icon" type="image/x-icon" href="../favicon.ico" />
 
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3125437156093673"
-          crossOrigin="anonymous"></script>
-        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3125437156093673"
-     crossOrigin="anonymous"></script> */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
-      </Head>
-      {/* new */}
-      <Script
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer', '${GTM_ID}');
-          `,
-        }}
-      />
+    //     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3125437156093673"
+    //       crossOrigin="anonymous"></script>
+    //     {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3125437156093673"
+    //  crossOrigin="anonymous"></script> */}
+    //     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    //     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+    //     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    //     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
+    //   </Head>
+    //   {/* new */}
+    //   <Script
+    //     strategy="afterInteractive"
+    //     dangerouslySetInnerHTML={{
+    //       __html: `
+    //         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    //         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    //         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    //         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    //         })(window,document,'script','dataLayer', '${GTM_ID}');
+    //       `,
+    //     }}
+    //   />
 
-      {/* old */}
-      {/* <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-      />
-      <Script
-        id="gtag-init"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${gtag.GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }} 
-       /> */}
+    //   {/* old */}
+    //   {/* <Script
+    //     strategy="afterInteractive"
+    //     src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+    //   />
+    //   <Script
+    //     id="gtag-init"
+    //     strategy="afterInteractive"
+    //     dangerouslySetInnerHTML={{
+    //       __html: `
+    //         window.dataLayer = window.dataLayer || [];
+    //         function gtag(){dataLayer.push(arguments);}
+    //         gtag('js', new Date());
+    //         gtag('config', '${gtag.GA_TRACKING_ID}', {
+    //           page_path: window.location.pathname,
+    //         });
+    //       `,
+    //     }} 
+    //    /> */}
 
-      <Component {...pageProps} />
-    </Layout>
+    //   <Component {...pageProps} />
+    // </Layout>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Layout>
+          <Head>
+            <meta charSet="utf-8"/>
+            <title>عربية CNBC</title>
+            <meta name='viewport' content='width=device-width, initial-scale=1' />
+            <meta content="text/html; charset=UTF-8" httpEquiv="content-type" />
+            <meta httpEquiv="content-language" content="ar" />
+            <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+            <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+            <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
+          </Head>
+
+          <ToastContainer/>
+      
+          <Component {...pageProps} />
+        </Layout>
+      </PersistGate>    
+    </Provider>
   )
 }
 

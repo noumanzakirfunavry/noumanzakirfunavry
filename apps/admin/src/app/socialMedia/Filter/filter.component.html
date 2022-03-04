@@ -1,0 +1,30 @@
+
+      <div class="float-right">
+        <div class="d-flex">
+            <nz-form-item class="mr-2">
+              <!-- <nz-form-label>Admin Role</nz-form-label> -->
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Status" nzSpan="8">
+  
+                <nz-option nzValue="Active" [nzLabel]="'Active'"></nz-option>
+                <nz-option nzValue="InActive" [nzLabel]="'InActive'"></nz-option>
+              </nz-select>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-input-group [nzPrefix]="prefiXTemplate">
+                    <input nz-input placeholder="Search Title" nzSize="small">
+                </nz-input-group>
+                <ng-template #prefiXTemplate>
+                    <i nz-icon nzType="search" theme="outline"></i>
+                </ng-template>
+            </nz-form-item>
+             
+          </div>
+            <!-- <nz-form-item>
+              <nz-form-control>
+                <input type="text" nz-input placeholder="Admin Name">
+              </nz-form-control>
+            </nz-form-item> -->
+        
+        </div>
+          
+  

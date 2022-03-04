@@ -4,10 +4,12 @@ const LiveTvBox = () => {
     return (
         <>
             <div className="livetvbox mb-5">
-                <div className='liveTV'>
-                    <img src={livetvimg.src} className="img-fluid"/>
+                <div className="container">
+                    <div className='liveTV'>
+                        <img src={livetvimg.src} className="img-fluid"/>
+                    </div>
+                    <button className="btn btn-outline-light fs15_b">جدول البرامج</button>
                 </div>
-                <button className="btn btn-outline-light">جدول البرامج</button>
             </div>
         </>
     )

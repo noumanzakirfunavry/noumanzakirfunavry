@@ -6,29 +6,52 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
+        "allowedCommonJsDependencies": [
+          "chart.js"
+        ],
         "outputPath": "dist/apps/admin",
         "index": "apps/admin/src/index.html",
         "main": "apps/admin/src/main.ts",
         "polyfills": "apps/admin/src/polyfills.ts",
         "tsConfig": "apps/admin/tsconfig.app.json",
-        "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
-        "styles": ["apps/admin/src/styles.css"],
-        "scripts": []
+        "assets": [
+          "apps/admin/src/favicon.ico",
+          "apps/admin/src/assets",
+          {
+            "glob": "**/*",
+            "input": "node_modules/@ant-design/icons-angular/src/inline-svg/",
+            "output": "/assets/"
+          },
+          { "glob": "**/*", "input": "node_modules/tinymce/skins", "output": "/tinymce/skins/" },
+          { "glob": "**/*", "input": "node_modules/tinymce/themes", "output": "/tinymce/themes/" },
+          { "glob": "**/*", "input": "node_modules/tinymce/plugins", "output": "/tinymce/plugins/"},
+          { "glob": "**/*", "input": "node_modules/tinymce/icons", "output": "/tinymce/icons/"}
+        ],
+        "styles": [
+          "apps/admin/src/styles.scss"
+        ],
+        "scripts": [
+          "node_modules/jquery/dist/jquery.js",
+          "apps/admin/src/assets/lib/hljs/highlight.pack.js",
+          "node_modules/tinymce/tinymce.min.js" 
+        ]
       },
       "configurations": {
         "production": {
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "5mb",
+              "maximumError": "3mb"
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "2mb",
+              "maximumError": "3mb"
             }
           ],
           "fileReplacements": [
@@ -79,7 +102,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/admin"],
+      "outputs": [
+        "coverage/apps/admin"
+      ],
       "options": {
         "jestConfig": "apps/admin/jest.config.js",
         "passWithNoTests": true

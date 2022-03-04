@@ -11,11 +11,12 @@ const Index = () =>{
             <div className="container">
                 <AdBanner />
             </div>
-            <div className="container-fluid">
                 <Title styles={"pageTitle PageTitleYellow mb-0"}>
-                    <h2>المباشر</h2>
+                    <h2 className="mb-3 fw-800">المباشر</h2>
                 </Title>
                 <LiveTvBox/>
+                <div className="container">
+
                 <div className="mb-3">
                     <Title styles={"yellowTitle"}>
                         <h3>البرنامج</h3>
