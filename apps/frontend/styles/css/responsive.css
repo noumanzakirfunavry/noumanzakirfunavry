@@ -238,6 +238,27 @@
     .NewsTiles .newBox.newBoxf .NewsImage, .NewsTiles .newBox.newBoxfs .NewsImage{
         height: auto;
     }
+    .footer_footerSocial__jAxyW{
+        display: none;
+    }
+    .d-sm-none .footer_footerSocial__jAxyW{
+        display: block;
+        float: inherit;
+        margin-bottom: 50px;
+    }
+    .d-sm-none .footer_footerSocial__jAxyW ul{
+        justify-content: center;
+    }
+    .d-sm-none .footer_footerSocial__jAxyW ul li a{
+       font-size: 24px;
+    }
+    .footer_footerBottom__yUmY5{
+        margin-top: 0 !important;
+    }
+    .footer_footerBottom__yUmY5 .row {
+        flex-direction: column-reverse;
+    }
+
   }
   @media screen and (max-width:575px){
 
@@ -446,6 +467,75 @@
     .fs12_b{
         font-size: 12px;
         font-weight: bold;
+    }
+    .footer_footer__eH5m2 button.btn.btn-primary
+     {
+        margin-bottom: 40px;
+    }
+    .footer_footer__eH5m2 button.btn.btn-primary,
+    .footer_footer__eH5m2 button.btn.btn-outline-light
+     {
+        width: 100%;
+    }
+    .addressBox h4{
+        font-size: 18px;
+        font-weight: 900;
+    }
+    .contactForm{
+        font-size: 21px;
+
+    }
+    .mt_sm_20{
+        margin-top: 20px;
+    }
+    .related_stock span{
+        font-size: 13px;
+        font-weight: bold;
+        width: 100%;
+        margin-bottom: 12px;
+        display: inline-block;
+    }
+    .related_stock ul{
+       display: flex;
+       flex-wrap: nowrap;
+       overflow: auto;
+    }
+    .related_stock ul li{
+       min-width: 222px;
+       margin-left: 0;
+       text-align: center;
+    }
+    .related_stock ul li span{
+      display: initial;
+    }
+    .SocialHeaderMobile .newsSocial ul li a {
+        font-size: 15px;
+    }
+    .newsDetailimg {
+        height: 180px;
+        overflow: hidden;
+    }
+    .newsDetailimg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+    h6.newsDetailtext {
+        font-size: 10px;
+        font-weight: bold;
+    }
+    .fadedNews p {
+        font-size: 18px;
+    }
+    .pageTitle.PageTitleYellow.program_schedule h2 {
+        font-size: 21px;
+        font-weight: 900;
+        text-align: right;
+    }
+    .program_schedule button.btn-danger{
+        font-size: 11px;
+    font-weight: bold;
     }
 
   }

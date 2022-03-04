@@ -3,13 +3,13 @@ import newslistimg from "../../../styles/images/biden2.jpg";
 import Title from "../../Title";
 
 const SearchDropDown:FC<any> = ({data}) => {
-    
+
     const keys = Object.keys(data)
     return (
-        
+
         <div className='searchResulstBox'>
             <Title styles={"topBorderText"}>
-                <h3>الأسهم ذات الصلة</h3>
+                <h3 className="fs24_bolder">الأسهم ذات الصلة</h3>
             </Title>
             <div className="wordCountList">
                 <div className="table-responsive">
@@ -125,4 +125,3 @@ const SearchDropDown:FC<any> = ({data}) => {
 }
 
 export default SearchDropDown
-    
