@@ -11,7 +11,7 @@ const SearchWordCountList = () => {
                                 Amazon Inc
                             </td>
                             <td className="text-start">
-                                <div className="p-0">3231.50</div>
+                                <div className="p-0 gray-dark">3231.50</div>
                                 <div className="p-0 text-success">(3.09%)  99.40</div>
                             </td>
                         </tr>
@@ -21,7 +21,7 @@ const SearchWordCountList = () => {
                                 Amazon Inc
                             </td>
                             <td className="text-start">
-                                <div className="p-0">3231.50</div>
+                                <div className="p-0 gray-dark">3231.50</div>
                                 <div className="p-0 text-success">(3.09%)  99.40</div>
                             </td>
                         </tr>
@@ -31,7 +31,7 @@ const SearchWordCountList = () => {
                                 Amazon Inc
                             </td>
                             <td className="text-start">
-                                <div className="p-0">3231.50</div>
+                                <div className="p-0 gray-dark">3231.50</div>
                                 <div className="p-0 text-success">(3.09%)  99.40</div>
                             </td>
                         </tr>
@@ -41,7 +41,7 @@ const SearchWordCountList = () => {
                                 Amazon Inc
                             </td>
                             <td className="text-start">
-                                <div className="p-0">3231.50</div>
+                                <div className="p-0 gray-dark">3231.50</div>
                                 <div className="p-0 text-success">(3.09%)  99.40</div>
                             </td>
                         </tr>
@@ -51,7 +51,7 @@ const SearchWordCountList = () => {
                                 Amazon Inc
                             </td>
                             <td className="text-start">
-                                <div className="p-0">3231.50</div>
+                                <div className="p-0 gray-dark">3231.50</div>
                                 <div className="p-0 text-success">(3.09%)  99.40</div>
                             </td>
                         </tr>
