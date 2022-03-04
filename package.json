@@ -10,6 +10,10 @@
     "admin": "nx serve admin --port 4200",
     "build:frontend": "npx next build",
     "build:admin": "nx build admin",
+    "build:admin-microservice": "nx build admin-microservice",
+    "build:news-microservice": "nx build news-microservice",
+    "build:notification-microservice": "nx build notification-microservice",
+    "build:operational-microservice": "nx build operational-microservice",
     "test": "nx test",
     "postinstall": "ngcc --properties es2015 browser module main"
   },
