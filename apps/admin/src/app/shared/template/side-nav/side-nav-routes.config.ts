@@ -9,12 +9,61 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
-        path: 'news/list',
+        path: 'news',
         title: 'News',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'dashboard',
-        submenu: []
+        submenu: [
+            {
+                path: 'news/list',
+                title: 'All News',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+            {
+                path: 'news/add',
+                title: 'Add News',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+            {
+                path: 'news/specialNews/editorsChoice',
+                title: 'Editors Choice',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+            {
+                path: 'news/specialNews/exclusiveVideos',
+                title: 'Exclusive Videos',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+            {
+                path: 'news/specialNews/featuredNews',
+                title: 'Featured News',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+            {
+                path: 'news/specialNews/trendingNow',
+                title: 'Trending Now',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+        ]
     },
     // {
     //     path: 'news',
@@ -171,6 +220,63 @@ export const ROUTES: SideNavInterface[] = [
     {
         path: 'messageInbox',
         title: 'Message Inbox',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'adminLog',
+        title: 'Admin Log History',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'tvSchedule',
+        title: 'TV Schedule',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'mediaUploader',
+        title: 'Media Uploader',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'settings',
+        title: 'Settings',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: [
+            {
+                path: 'settings/googleAnalytics',
+                title: 'Google Analytics',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            },
+            {
+                path: 'settings/homeMarketBanner',
+                title: 'Home Market Banner',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                submenu: []
+            }
+        ]
+    },
+    {
+        path: 'amazonAlexa',
+        title: 'Amazon Alexa',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'dashboard',

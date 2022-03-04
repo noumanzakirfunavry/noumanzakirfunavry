@@ -11,7 +11,6 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
-import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { antdModule } from './AndModules/andModule';
@@ -34,7 +33,6 @@ registerLocaleData(en);
         NzBreadCrumbModule,
         TemplateModule,
         SharedModule,
-        NgChartjsModule,
         ReactiveFormsModule,
         FormsModule,
         ...antdModule

@@ -8,11 +8,12 @@
             <div class="row">
               <div class="col-md-11">
                 <nz-form-item>
-                  <nz-form-label>Date </nz-form-label>
-                  <nz-form-control>
-                    <input type="datetime-local" nz-input placeholder="Date">
-                  </nz-form-control>
-                </nz-form-item>
+                    <nz-form-label nzFor="date">Date</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker class="w-100" [nzDateRender]="tplRender"></nz-date-picker>
+                        <!-- <input type="date" nz-input placeholder="Date"> -->
+                    </nz-form-control>
+                  </nz-form-item>
               </div>
               <div class="col-md-11">
                 <nz-form-item>
@@ -143,7 +144,7 @@
                     <nz-form-item>
                         <nz-form-label>Description</nz-form-label>
                         <nz-form-control>
-                            <textarea type="text" placeholder="Enter Description" dir="rtl" nz-input></textarea>
+                            <textarea rows="4" type="text" placeholder="Enter Description" dir="rtl" nz-input></textarea>
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item>
@@ -166,4 +167,9 @@
     </div>
   
   </section>
+  <ng-template #tplRender let-current>
+    <div class="ant-picker-cell-inner" [class.border]="current.getDate() === 1">
+      {{ current.getDate() }}
+    </div>
+  </ng-template>
   

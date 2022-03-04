@@ -3,7 +3,7 @@
         <div class="d-flex">
             <nz-form-item class="mr-2">
                     <nz-form-control>
-                      <input type="date" nz-input placeholder="Date">
+                        <nz-date-picker [nzDateRender]="tplRender"></nz-date-picker>
                     </nz-form-control>
               </nz-form-item>
             <nz-form-item class="mr-2">
@@ -31,5 +31,10 @@
             </nz-form-item>
           </div>
         </div>
+        <ng-template #tplRender let-current>
+            <div class="ant-picker-cell-inner" [class.border]="current.getDate() === 1">
+              {{ current.getDate() }}
+            </div>
+          </ng-template>
           
   
