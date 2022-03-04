@@ -9,6 +9,9 @@ import TilesWithColoredBackground from '../components/Home/TilesWithColoredBackg
 import AdBanner from '../components/Shared/AdBanner/AdBanner';
 import SideBar from '../components/Shared/SideBar/SideBar';
 import SplitScreenBarCharts from '../components/Shared/SplitScreenBarCharts/SplitScreenBarCharts';
+import { User } from '../types/Types';
+import { useAppDispatch } from '../store/Store';
+import { setUser } from '../reducers/UserSlice';
 
 export function Index() {
   /*
@@ -16,6 +19,16 @@ export function Index() {
    *
    * Note: The corresponding styles are in the ./index.css file.
    */
+
+  const user:User = {
+    email:'noman@gmail.com',
+    username:"Noman",
+    password:"12345"
+  } 
+
+  const dispatch = useAppDispatch()
+
+  dispatch(setUser(user))
 
   return (
     <>

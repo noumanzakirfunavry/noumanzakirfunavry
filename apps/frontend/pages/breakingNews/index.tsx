@@ -3,20 +3,32 @@ import NewsList from "apps/frontend/components/BreakingNews/NewsList/NewsList"
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import Title from "apps/frontend/components/Title"
+import { RootState } from "apps/frontend/reducers/Reducer"
+import { GetMetaData } from "apps/frontend/services/StaticData"
 import Head from "next/head"
-import {getStaticProps}  from "apps/frontend/services/StaticData"
+import { useSelector } from "react-redux"
 
-const Index = ({post}) =>{
+const Index = ({data}) =>{
+
+    const user = useSelector((state:RootState)=>{
+        return state.user
+    })
+
+    console.log(user)
 
     return (
         <>
             <Head>
-                <meta name="description" content={post?.activity} />
+                <meta name="description" content={data?.description} />
+                <meta name="title" content={data?.title} />
 
                 <meta name="theme-color" content="#000000" />
 
-                <meta name="og:type" content={post?.type} />
-                <meta name="og:title" content={post?.key} />
+                <meta name="og:description" content={data?.og?.description} />
+                <meta name="og:title" content={data.og?.title} />
+
+                <meta name="twitter:description" content={data?.twitter?.description} />
+                <meta name="twitter:title" content={data.twitter?.title} />
 
             </Head>
 
@@ -41,17 +53,16 @@ const Index = ({post}) =>{
     
 }
 
-export {getStaticProps}
+export async function getStaticProps() {
 
-// export async function getStaticProps() {
-//     const res = await fetch('https://www.boredapi.com/api/activity')
-//     const post = await res.json()
-  
-//     return {
-//       props: {
-//         post,
-//       },
-//     }
-//   }
+     
+    const data = GetMetaData()
+    
+    return {
+      props: {
+        data
+      },
+    }
+  }
 
 export default Index

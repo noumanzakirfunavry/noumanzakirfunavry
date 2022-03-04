@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-loading-skeleton/dist/skeleton.css'
 import '../styles/css/globals.css';
 import '../styles/fontawesome/css/fontawesome.min.css';
 import '../styles/fontawesome/css/all.min.css';
@@ -15,6 +16,9 @@ import { useEffect } from 'react';
 import Layout from '../components/Layout/Layout';
 import Head from 'next/head';
 import { ToastContainer } from 'react-toastify';
+import { store, persistor } from '../store/Store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -23,24 +27,28 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   }, []);
   return (
-    <Layout>
-      <Head>
-        <meta charSet="utf-8"/>
-        <title>عربية CNBC</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta content="text/html; charset=UTF-8" httpEquiv="content-type" />
-        <meta httpEquiv="content-language" content="ar" />
-        <link rel="icon" type="image/x-icon" href="../favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
-      </Head>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Layout>
+          <Head>
+            <meta charSet="utf-8"/>
+            <title>عربية CNBC</title>
+            <meta name='viewport' content='width=device-width, initial-scale=1' />
+            <meta content="text/html; charset=UTF-8" httpEquiv="content-type" />
+            <meta httpEquiv="content-language" content="ar" />
+            <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+            <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+            <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
+          </Head>
 
-      <ToastContainer/>
-  
-      <Component {...pageProps} />
-    </Layout>
+          <ToastContainer/>
+      
+          <Component {...pageProps} />
+        </Layout>
+      </PersistGate>    
+    </Provider>
   )
 }
 

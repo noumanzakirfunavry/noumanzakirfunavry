@@ -12,7 +12,7 @@ const Index = () =>{
                 <AdBanner />
                 </div>
                 <Title styles={"pageTitle PageTitleYellow"} >
-                    <h2>اتصل بنا</h2>
+                    <h2 className="fs32_bolder">اتصل بنا</h2>
                 </Title>
                 <div className="container">
                 <ContactAddresses/>
@@ -23,7 +23,7 @@ const Index = () =>{
             </div>
 
         </>
-        
+
     )
 }
 
