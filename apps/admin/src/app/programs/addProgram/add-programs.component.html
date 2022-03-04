@@ -8,10 +8,10 @@
             <div class="row">
               <div class="col-md-10">
                 <nz-form-item>
-                  <nz-form-label>Date </nz-form-label>
-                  <nz-form-control>
-                    <input type="datetime-local" nz-input placeholder="Date">
-                  </nz-form-control>
+                    <nz-form-label>Date</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker class="w-100" nzShowTime></nz-date-picker>
+                    </nz-form-control>
                 </nz-form-item>
               </div>
               <div class="col-md-10">
@@ -26,15 +26,38 @@
             <div class="row">
               <div class="col-md-10">
                 <nz-form-item>
-                  <nz-form-label>Description</nz-form-label>
-                  <nz-form-control>
-  
-                      <!-- formControlName="description" -->
-                      <quill-editor [style]="{height: '500px', background:'white'}" [modules]="editorConfig">
-                      </quill-editor>
-  
-                  </nz-form-control>
-              </nz-form-item>
+                    <nz-form-label>Description</nz-form-label>
+                    <nz-form-control>
+    
+                        <!-- formControlName="description" -->
+                        <!-- <quill-editor [style]="{height: '500px', background:'white'}" [modules]="editorConfig">
+                        </quill-editor> -->
+                        <!-- 'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount', -->
+    <!-- 
+                        {
+                            base_url: '/tinymce',
+                            suffix: '.min', 
+                          height: 400,
+                          menubar: true,
+                          plugins: [
+                            'advlist autolink link image lists charmap print preview hr anchor pagebreak',
+                            'searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking',
+                            'table contextmenu directionality emoticons paste textcolor responsivefilemanager code',
+                            'advlist autolink lists link image charmap print preview anchor',
+                            'searchreplace visualblocks code fullscreen',
+                            'insertdatetime media table contextmenu paste qrcode'
+                          ],
+                          toolbar:
+                            'undo redo | formatselect | bold italic backcolor | \
+                            alignleft aligncenter alignright alignjustify | \
+                            bullist numlist outdent indent | removeformat | help'
+                        } -->
+                        <editor id="tinyMce" apiKey="pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4" [init]="tinyMCEConfig"></editor>
+    
+                    </nz-form-control>
+                </nz-form-item>
               </div>
               <!-- <div class="col-md-6">
   
@@ -115,7 +138,7 @@
                     <nz-form-item>
                         <nz-form-label>Description</nz-form-label>
                         <nz-form-control>
-                            <textarea type="text" placeholder="Enter Description" dir="rtl" nz-input></textarea>
+                            <textarea rows="4" type="text" placeholder="Enter Description" dir="rtl" nz-input></textarea>
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item>
@@ -134,8 +157,6 @@
           </nz-form-control>
         </nz-form-item>
       </form>
-  
     </div>
-  
   </section>
   

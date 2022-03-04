@@ -44,7 +44,7 @@ export class AddNewsComponent implements OnInit {
             "table contextmenu directionality emoticons paste textcolor responsivefilemanager code",
             "advlist autolink lists link image charmap print preview anchor",
             "searchreplace visualblocks code fullscreen",
-            "insertdatetime media table contextmenu paste qrcode youtube twitter"
+            "insertdatetime media table contextmenu paste"
         ],
         external_plugins: {
             'youtube': 'plugins/youtube/plugin.min.js',

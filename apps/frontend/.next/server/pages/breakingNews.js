@@ -1,0 +1,514 @@
+"use strict";
+(() => {
+var exports = {};
+exports.id = 794;
+exports.ids = [794];
+exports.modules = {
+
+/***/ 8400:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ breakingNews),
+  "getStaticProps": () => (/* binding */ getStaticProps)
+});
+
+// EXTERNAL MODULE: external "react/jsx-runtime"
+var jsx_runtime_ = __webpack_require__(997);
+;// CONCATENATED MODULE: ./components/BreakingNews/NewsList/NewsList.tsx
+
+/* eslint-disable @next/next/no-html-link-for-pages */ const NewsList = ()=>{
+    return(/*#__PURE__*/ jsx_runtime_.jsx(jsx_runtime_.Fragment, {
+        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+            className: "breakingNews",
+            children: [
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    href: "/newsDetails",
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    className: "newsbox",
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "newslink",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("p", {
+                                    className: "text-danger",
+                                    children: "منذ 5 دقائق"
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                    children: "الشرطة السودانية: تسجيل 89 إصابة في صفوف قوات الأمن خلال مظاهرات أمس وإتلاف 4 عربات تابعة للشرطة"
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                            className: "newsaction",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("button", {
+                                className: "btn btn-outline-primary",
+                                children: "المزيد"
+                            })
+                        })
+                    ]
+                })
+            ]
+        })
+    }));
+};
+/* harmony default export */ const NewsList_NewsList = (NewsList);
+
+// EXTERNAL MODULE: ./components/Shared/AdBanner/AdBanner.tsx + 1 modules
+var AdBanner = __webpack_require__(9187);
+// EXTERNAL MODULE: ./components/Shared/SideBar/SideBar.tsx + 4 modules
+var SideBar = __webpack_require__(7194);
+// EXTERNAL MODULE: ./components/Title/index.tsx
+var Title = __webpack_require__(501);
+// EXTERNAL MODULE: external "next/head"
+var head_ = __webpack_require__(968);
+var head_default = /*#__PURE__*/__webpack_require__.n(head_);
+;// CONCATENATED MODULE: ./pages/breakingNews/index.tsx
+
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */ 
+
+
+
+
+const Index = ({ post  })=>{
+    return(/*#__PURE__*/ (0,jsx_runtime_.jsxs)(jsx_runtime_.Fragment, {
+        children: [
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)((head_default()), {
+                children: [
+                    /*#__PURE__*/ jsx_runtime_.jsx("meta", {
+                        name: "description",
+                        content: post.activity
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("meta", {
+                        name: "theme-color",
+                        content: "#000000"
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("meta", {
+                        name: "og:type",
+                        content: post.type
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("meta", {
+                        name: "og:title",
+                        content: post.key
+                    })
+                ]
+            }),
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                className: "container",
+                children: [
+                    /*#__PURE__*/ jsx_runtime_.jsx(AdBanner/* default */.Z, {
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx(Title/* default */.Z, {
+                        styles: "pageTitle",
+                        children: /*#__PURE__*/ jsx_runtime_.jsx("h2", {
+                            children: "أخبار عاجلة"
+                        })
+                    }),
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                        className: "row",
+                        children: [
+                            /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                                className: "col-lg-8",
+                                children: /*#__PURE__*/ jsx_runtime_.jsx(NewsList_NewsList, {
+                                })
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                                className: "col-lg-4",
+                                children: /*#__PURE__*/ jsx_runtime_.jsx(SideBar/* default */.Z, {
+                                    sideBarSequence: [
+                                        {
+                                            componentType: 'Latest',
+                                            position: 1
+                                        },
+                                        {
+                                            componentType: 'SmallBanner',
+                                            position: 2
+                                        }
+                                    ]
+                                })
+                            })
+                        ]
+                    })
+                ]
+            })
+        ]
+    }));
+};
+async function getStaticProps() {
+    const res = await fetch('https://www.boredapi.com/api/activity');
+    const post = await res.json();
+    return {
+        props: {
+            post
+        }
+    };
+}
+/* harmony default export */ const breakingNews = (Index);
+
+
+/***/ }),
+
+/***/ 968:
+/***/ ((module) => {
+
+module.exports = require("next/head");
+
+/***/ }),
+
+/***/ 997:
+/***/ ((module) => {
+
+module.exports = require("react/jsx-runtime");
+
+/***/ })
+
+};
+;
+
+// load runtime
+var __webpack_require__ = require("../webpack-runtime.js");
+__webpack_require__.C(exports);
+var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
+var __webpack_exports__ = __webpack_require__.X(0, [187,194], () => (__webpack_exec__(8400)));
+module.exports = __webpack_exports__;
+
+})();
