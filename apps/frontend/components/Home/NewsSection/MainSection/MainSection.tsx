@@ -38,7 +38,7 @@ const MainSection:FC = () =>{
                                         <img className="img-fluid" src={newsimage.src} />
                                     </div>
                                     <div className={styles.newsdetails}>
-                                        <a >بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة ال </a>
+                                        <a >بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </a>
                                     </div>
                                 </div>
                             </div>
