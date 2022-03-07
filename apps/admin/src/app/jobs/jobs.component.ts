@@ -12,7 +12,7 @@
 // }
 
 
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
 // import { ThemeConstantService } from '../../shared/services/theme-constant.service';
 
