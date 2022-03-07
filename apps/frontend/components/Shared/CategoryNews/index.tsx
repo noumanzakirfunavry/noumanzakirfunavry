@@ -86,10 +86,10 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                         </div>
                 )}
                 {/* 2 Top News End*/}
-               
+
                 {/* Remaining news */}
                 { fields}
-                
+
                 <div className="row">
                   { fields}
                 </div>

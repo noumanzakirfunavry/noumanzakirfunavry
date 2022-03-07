@@ -3,8 +3,8 @@ const JobOpportunities = () => {
 
     return (
         <>
-          
-          <div className="text-center pt-5 mb-5">
+
+          <div className="text-center pt-5 mb-5 job_opportunities">
               <h2 className="text-primary mb-4 montserrat text-extra-bold">FUTURE JOB OPPORTUNITIES</h2>
               <h5>Are you interested in working with CNBC Arabia? Fill the form below and we will keep you in mind for any future job offerings</h5>
           </div>
@@ -73,11 +73,16 @@ const JobOpportunities = () => {
               </div>
               <div className="mb-3">
                 <label className="form-label">Upload CV</label>
-                <input className="form-control" type="file" id="formFile"/>
+                {/* <input className="form-control" type="file" id="formFile"/> */}
+                <form className="form">
+    <div className="file-upload-wrapper" data-text="samplefile.pdf">
+      <input name="file-upload-field" type="file" className="file-upload-field" value=""/>
+    </div>
+  </form>
               </div>
 
               <div className="text-center mt-4">
-                <button className="btn btn-primary">Submit</button>
+                <button className="btn btn-primary btn-sm-wide">Submit</button>
               </div>
 
 
