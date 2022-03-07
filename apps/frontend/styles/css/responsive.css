@@ -335,6 +335,8 @@
     .searchResultList .NewsList li .newsText p{
         margin-top: 0;
         margin-bottom: 10px;
+        font-size: 14px;
+        color:#777777;
     }
 
     .NewsTiles .newBox .NewsInfo h4 {
@@ -537,5 +539,32 @@
         font-size: 11px;
     font-weight: bold;
     }
+    .text-extra-bold {
+        font-size: 21px;
+    }
+    .jobsSlider .sliderArrows {
+        display: none;
+    }
+    .jobsSlider h2.mb-4 {
+       margin-bottom: 0 !important;
+    }
+    .jobsSlider .newsSlider .slick-slider .slick-slide{
+        padding: 0;
+    }
+    .jobsSlider .newsSlider .slick-slider .NewsBox{
+        height: 110px;
+    }
+    .job_opportunities {
+        padding-top: 20px !important;
+    }
+    .job_opportunities h5 {
+       font-size: 15px;
+    }
+.w_sm_100{
+    width: 100% !important;
+}
+.NewsList li a{
+    font-size: 14px;
+}
 
   }
