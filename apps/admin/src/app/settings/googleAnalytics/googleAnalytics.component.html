@@ -4,43 +4,42 @@
   <div class="col-12">
     <form nz-form [nzLayout]="'vertical'">
       <div class="row">
-        <div class="col-6">
+        <div class="col-12">
       <div class="row">
           <div class="col-12">
             <nz-form-item>
-              <nz-form-control>
+              <nz-form-control [nzSpan]="14">
               <strong>Enable Tracking</strong> <nz-switch class="ml-3"> </nz-switch> 
               </nz-form-control>
             </nz-form-item>
           </div>
           <div class="col-md-12">
             <nz-form-item>
-              <nz-form-label>Embed Code</nz-form-label>
-              <nz-form-control>
+              <nz-form-label [nzSpan]="6">Embed Code</nz-form-label>
+              <nz-form-control [nzSpan]="14">
                   <textarea rows="4" type="text" placeholder="Embed Code" dir="rtl" nz-input></textarea>
               </nz-form-control>
           </nz-form-item>
           </div>
           <div class="col-md-12">
             <nz-form-item>
-              <nz-form-label>Google Site Key </nz-form-label>
-              <nz-form-control>
+              <nz-form-label [nzSpan]="6">Google Site Key </nz-form-label>
+              <nz-form-control [nzSpan]="14">
                 <input type="text" nz-input placeholder="Enter Site Key">
               </nz-form-control>
             </nz-form-item>
           </div>
           <div class="col-md-12">
             <nz-form-item>
-              <nz-form-label>Google Secret Key </nz-form-label>
-              <nz-form-control>
+              <nz-form-label [nzSpan]="6">Google Secret Key </nz-form-label>
+              <nz-form-control [nzSpan]="14">
                 <input type="text" nz-input placeholder="Enter Secret Key">
               </nz-form-control>
             </nz-form-item>
           </div>
-
           <div class="col-md-12">
             <nz-form-item>
-              <nz-form-control>
+              <nz-form-control [nzSpan]="14">
                 <button class="mr-3" nz-button nzType="primary">Save</button>
                 <button nz-button nzType="default">Cancel</button>
               </nz-form-control>
