@@ -190,7 +190,7 @@ const SearchResultList = () => {
                 </div>
 
                 <div className="text-center mt-3 mb-3">
-                    <button className="btn btn-outline-primary">المزيد</button>
+                    <button className="btn btn-outline-primary btn-sm-wide">المزيد</button>
                 </div>
 
             </div>
