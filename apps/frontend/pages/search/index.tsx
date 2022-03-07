@@ -24,7 +24,7 @@ const Index = () =>{
                 <div className='row'>
                     <div className='col-lg-8'>
                         <Title styles={'topBorderText'}>
-                            <h3>{`10 نتائج بحث عن "amazon"`}</h3>
+                            <h3 className="fs24_bolder">{`10 نتائج بحث عن "amazon"`}</h3>
                         </Title>
                         <hr></hr>
                         <div className='row'>
@@ -37,7 +37,7 @@ const Index = () =>{
                     <div className='col-lg-4'>
                         <div className='sidebar pt-0'>
                             <Title styles={'topBorderText'}>
-                                <h3>الأسهم ذات الصلة</h3>
+                                <h3 className="fs24_bolder">الأسهم ذات الصلة</h3>
                             </Title>
                             <div className="listBody">
                                 <SearchWordCountList/>
