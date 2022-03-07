@@ -21,10 +21,25 @@ const Index = () =>{
                         </div>
                     </div>
                 </div>
-                <div className='row'>
+                <div className='row flex-sm-row-reverse'>
+                <div className='col-lg-4'>
+                        <div className='sidebar pt-0'>
+                            <Title styles={'topBorderText'}>
+                                <h3 className="fs24_bolder">الأسهم ذات الصلة</h3>
+                            </Title>
+                            <div className="listBody">
+                                <SearchWordCountList/>
+                                <div className="text-center mb-3 mt-3">
+                                    <button className="btn btn-outline-primary btn-sm-wide">المزيد</button>
+                                </div>
+                            </div>
+                        </div>
+                            <SideBar sideBarSequence={[{componentType:'SmallBanner', position:2}]}/>
+
+                    </div>
                     <div className='col-lg-8'>
                         <Title styles={'topBorderText'}>
-                            <h3>{`10 نتائج بحث عن "amazon"`}</h3>
+                            <h3 className="fs24_bolder">{`10 نتائج بحث عن "amazon"`}</h3>
                         </Title>
                         <hr></hr>
                         <div className='row'>
@@ -34,21 +49,7 @@ const Index = () =>{
                             <SearchResultList/>
                         </div>
                     </div>
-                    <div className='col-lg-4'>
-                        <div className='sidebar pt-0'>
-                            <Title styles={'topBorderText'}>
-                                <h3>الأسهم ذات الصلة</h3>
-                            </Title>
-                            <div className="listBody">
-                                <SearchWordCountList/>
-                                <div className="text-center mb-3 mt-3">
-                                    <button className="btn btn-outline-primary">المزيد</button>
-                                </div>
-                            </div>
-                        </div>
-                            <SideBar sideBarSequence={[{componentType:'SmallBanner', position:2}]}/>
 
-                    </div>
                 </div>
             </div>
         </>
