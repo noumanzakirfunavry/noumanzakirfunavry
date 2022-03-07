@@ -21,7 +21,7 @@ export class AddBannersComponent {
     validateForm: FormGroup;
     uploading = false;
     fileList: NzUploadFile[] = [];
-    radioValue = 'Category';
+    radioValue = '';
 
     editorConfig = {
       toolbar: [
