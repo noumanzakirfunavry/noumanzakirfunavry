@@ -247,7 +247,7 @@ const AllProgrmasTilesList = () => {
                             </div>
                         </div>
                   </div>
-                  
+
                 </div>
             </div>
             <div className="text-center mt-3 mb-4">

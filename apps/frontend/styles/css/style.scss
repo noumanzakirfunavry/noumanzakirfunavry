@@ -491,12 +491,12 @@ header{
   }
   .NewsList li a{
     font-size: 20px;
-    color: $grey-dark;
+    color: $grey-dark !important;
     font-weight: bold;
   }
   .NewsList li p a{
     font-size: inherit;
-    color: $secondary-color;
+    color: $secondary-color !important;
   }
 
 
@@ -1654,7 +1654,7 @@ width: 110px;
         .menuIcon{
           display: block;
           margin:0px;
-          font-size: 24px;
+          font-size: 20px;
         }
       }
     }
@@ -1842,4 +1842,71 @@ select::-ms-expand {
 .fs24_bolder{
   font-size: 24px;
   font-weight: 900 !important;
+}
+.file-upload-wrapper {
+  $defaultColor: $warning;
+  $height: 50px;
+  position: relative;
+  width: 100%;
+  height: $height;
+  border: solid 1px #ced4da;
+
+
+  &:after {
+    content: attr(data-text);
+    font-size: 18px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    padding: 10px 15px;
+    display: block;
+    width: calc(100% - 40px);
+    pointer-events: none;
+    z-index: 20;
+    height: $height - 20px;
+    line-height: $height - 20px;
+    color: #999;
+    border-radius: 5px 10px 10px 5px;
+    font-weight: 300;
+  }
+
+  &:before {
+    content: 'Browse';
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+    height: 50px;
+    background: $grey;
+    color: #fff;
+    font-weight: 700;
+    z-index: 25;
+    font-size: 12px;
+    line-height: $height;
+    padding: 0 15px;
+    pointer-events: none;
+
+  }
+
+  &:hover {
+    &:before {
+      background: darken($defaultColor, 10%);
+    }
+  }
+   input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    display: block;
+    cursor: pointer;
+    width: 100%;
+  }
 }
