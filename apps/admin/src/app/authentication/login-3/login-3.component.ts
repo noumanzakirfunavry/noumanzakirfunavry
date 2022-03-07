@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
+import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
 
 
@@ -29,7 +30,7 @@ export class Login3Component implements OnInit {
             const obj= this.loginForm.value;
             obj['deviceId']= '995fb498-9621-11ec-b909-0242ac120002';
             obj['deviceType']= 'DESKTOP'
-            this.apiService.sendRequest('http://localhost:3333/api/authentication/login', 'post', obj).subscribe((res:any) => {
+            this.apiService.sendRequest(requests.login, 'post', obj).subscribe((res:any) => {
                 console.log("LOGIN", res);
             })
         }
