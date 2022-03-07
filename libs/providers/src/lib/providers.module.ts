@@ -1,7 +1,9 @@
-import { Jobs } from '@cnbc-monorepo/entity';
 import { Module } from '@nestjs/common';
-import { JobsProvider } from '../providers/jobs.provider';
+import { BranchesProvider } from '../providers/branches.provider';
 import { BreakingNewsProvider } from '../providers/breaking.news.provider';
+import { CategoriesProvider } from '../providers/categories.provider';
+import { DepartmentsProvider } from '../providers/departments.provider';
+import { JobsProvider } from '../providers/jobs.provider';
 import { QuickLinksProvider } from '../providers/quick.links.provider';
 import { QuotesProvider } from '../providers/quotes.provider';
 import { TagsProvider } from '../providers/tags.provider';
@@ -13,7 +15,10 @@ import { TagsProvider } from '../providers/tags.provider';
     ...QuotesProvider,
     ...QuickLinksProvider,
     ...BreakingNewsProvider,
-    ...JobsProvider
+    ...JobsProvider,
+    ...BranchesProvider,
+    ...DepartmentsProvider,
+    ...CategoriesProvider
 
   ],
   exports:[
@@ -21,7 +26,10 @@ import { TagsProvider } from '../providers/tags.provider';
     ...QuotesProvider,
     ...QuickLinksProvider,
     ...BreakingNewsProvider,
-    ...JobsProvider
+    ...JobsProvider,
+    ...BranchesProvider,
+    ...DepartmentsProvider,
+    ...CategoriesProvider
   
   ]
 })
