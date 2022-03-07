@@ -8,8 +8,9 @@ const NewsDetatilListWithMedia = () =>{
                 <ul>
                     <li>
                         <div className="newsText">
-                            <a href="#"><span className="badge bg-success">PRO</span> بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
-                            <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
+                            <a href="#"><span className="badge bg-success ms-3">PRO</span>
+                             سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </a>
+                            <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                         </div>
                         <div className="newsImage">
                             <img className="img-fluid" src={newsimg.src} />
@@ -18,7 +19,7 @@ const NewsDetatilListWithMedia = () =>{
                     <li>
                         <div className="newsText">
                             <a href="#">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
-                            <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
+                            <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                         </div>
                         <div className="newsImage">
                             {/* <img className="img-fluid" src={newsimg.src} /> */}
@@ -28,7 +29,19 @@ const NewsDetatilListWithMedia = () =>{
                     <li>
                         <div className="newsText">
                             <a href="#">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
-                            <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
+                            <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+
+                        </div>
+                        <div className="newsImage">
+                            <img className="img-fluid" src={newsimg.src} />
+                        </div>
+                    </li>
+{/*
+                    <li>
+                        <div className="newsText">
+                            <a href="#">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
+                            <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+
                         </div>
                         <div className="newsImage">
                             <img className="img-fluid" src={newsimg.src} />
@@ -69,23 +82,14 @@ const NewsDetatilListWithMedia = () =>{
                         <div className="newsImage">
                             <img className="img-fluid" src={newsimg.src} />
                         </div>
-                    </li>
-                    <li>
-                        <div className="newsText">
-                            <a href="#">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي  </a>
-                            <p><a href="#">أمريكا</a> منذ 5 دقائق</p>
-                        </div>
-                        <div className="newsImage">
-                            <img className="img-fluid" src={newsimg.src} />
-                        </div>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
 
 
-            <div className="text-center mt-3 mb-4 mb-md-3">
+            {/* <div className="text-center mt-3 mb-4 mb-md-3">
                 <button className="btn btn-outline-primary btn-sm-wide">المزيد</button>
-            </div>
+            </div> */}
 
         </>
     )
