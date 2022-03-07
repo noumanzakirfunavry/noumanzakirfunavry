@@ -2,11 +2,11 @@ import {Entities} from '@cnbc-monorepo/entity'
 import { Sequelize } from "sequelize-typescript";
 
 export const sequelize = new Sequelize({
-    dialect: 'mysql',
+    dialect: 'postgres',
     host: "localhost",
-    port: 3306,
-    username: 'root',
-    password: 'password',
+    port: 5432,
+    username: 'developer',
+    password: 'Dev@321',
     database: 'cnbc',
     logging: true,
     models : Entities,
