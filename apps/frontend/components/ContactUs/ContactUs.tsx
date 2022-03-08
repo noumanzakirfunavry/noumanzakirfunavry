@@ -3,18 +3,6 @@ const ContactAddresses = () => {
 
     return (
         <>
-<<<<<<< HEAD
-            <div className="container">
-                <AdBanner />
-                {/* <div className="pageTitle PageTitleYellow"> */}
-                    <h2>اتصل بنا</h2>
-                {/* </div> */}
-                <div className='row'>
-                    Addresses
-                </div>
-                <div className='row'>
-                    <ContactUsForm />
-=======
             <div className='contactAddress'>
                 <h2 className="text-center text-primary mb-5 fs32_bolder">الفروع</h2>
                 <div className="row">
@@ -92,7 +80,6 @@ const ContactAddresses = () => {
                         </div>
                     </div>
 
->>>>>>> 7fd24e8f5e47a5f157173105bdf6dd63ff98b78c
                 </div>
             </div>
         </>
