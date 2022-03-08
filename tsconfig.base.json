@@ -2,6 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     // "assets": ["mail/templates/**/*"],
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "rootDir": ".",
@@ -14,8 +15,9 @@
     "target": "es2015",
     "module": "esnext",
     "lib": ["es2017", "dom"],
-    "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
       "@cnbc-monorepo/auth-module": ["libs/auth-module/src/index.ts"],

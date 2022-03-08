@@ -1,0 +1,74 @@
+.footer{
+    background: #071D39;
+    padding: 15px 0;
+    color: #fff;
+    margin-top: 50px;
+}
+.footerTop{
+    border-bottom: 1px solid #002F6C;
+    padding:15px 0;
+    margin-bottom: 20px;
+}
+.footerSocial{
+    float: left;
+}
+.footerLogo{
+    float: right;
+}
+.footerSocial ul{
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.footerSocial ul li{
+    margin: 0 20px 0 0;
+}
+.footerSocial ul li a{
+    color: #fff !important;
+    font-size: 18px;
+}
+.footerSocial ul li a:hover{
+    color: #fcb700 !important;
+}
+.clearfix{
+    clear: both;
+}
+.footer h4{
+    margin-bottom: 25px;
+}
+.footerLink{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.footerLink li{
+    margin: 3px 0;
+}
+.footerLink li a{
+    color: #fff !important;
+    text-decoration: none;
+    padding: 5px 0;
+    display: block;
+    font-weight: 500;
+}
+.footerLink li a:hover{
+    color: #fcb700 !important;
+}
+.footerBottom{
+    padding: 10px 0;
+    margin-top: 50px;
+}
+.footer .searchBox{
+    margin-bottom: 15px;
+}
+.footer .searchBox input{
+    background: #071D39;
+    border: 1px solid #002F6C;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 0;
+}
+.footer .searchBox input::placeholder{
+    color: #fff;
+}
