@@ -6,6 +6,8 @@
 /out-tsc
 /tmpnodejsnpm-cache
 
+/.next
+
 # dependencies
 /node_modules
 
@@ -40,3 +42,5 @@ testem.log
 Thumbs.db
 
 .angular
+
+.vercel

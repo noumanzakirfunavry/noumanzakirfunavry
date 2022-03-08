@@ -1,0 +1,33 @@
+
+      <div class="float-right">
+        <div class="d-flex">
+          <nz-form-item class="mr-2">
+            <nz-form-control>
+              <nz-date-picker [nzDateRender]="tplRender"></nz-date-picker>
+            </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="mr-2">
+              <!-- <nz-form-label>Admin Role</nz-form-label> -->
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Admin" nzSpan="8">
+  
+                <nz-option nzValue="Admin 1" [nzLabel]="'Admin 1'"></nz-option>
+                <nz-option nzValue="Admin 2" [nzLabel]="'Admin 2'"></nz-option>
+              </nz-select>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-input-group [nzPrefix]="prefiXTemplate">
+                    <input nz-input placeholder="Search" nzSize="small">
+                </nz-input-group>
+                <ng-template #prefiXTemplate>
+                    <i nz-icon nzType="search" theme="outline"></i>
+                </ng-template>
+            </nz-form-item>
+          </div>
+         </div>
+         <ng-template #tplRender let-current>
+          <div class="ant-picker-cell-inner" [class.border]="current.getDate() === 1">
+            {{ current.getDate() }}
+          </div>
+        </ng-template>
+          
+  

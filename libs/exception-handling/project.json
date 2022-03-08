@@ -1,0 +1,23 @@
+{
+  "root": "libs/exception-handling",
+  "sourceRoot": "libs/exception-handling/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/exception-handling/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/exception-handling"],
+      "options": {
+        "jestConfig": "libs/exception-handling/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

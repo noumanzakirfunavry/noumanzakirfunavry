@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useRef, useState } from "react";
 import Slider from "react-slick";
 
@@ -14,12 +15,12 @@ const HorizontalMediaScrollBar:FC = () =>{
        const previous = () =>{
         ref.current.slickPrev()
     }
-    
+
         const [settings, setSettings] = useState({
             dots: false,
             infinite: true,
             speed: 500,
-            slidesToShow: 3,
+            slidesToShow: 4,
             autoplay: true,
             autoplaySpeed: 5000,
             pauseOnHover: true,
@@ -29,18 +30,18 @@ const HorizontalMediaScrollBar:FC = () =>{
             slidesToScroll: 3,
             initialSlide: 0,
             rtl: false,
+            arrows:false,
             responsive: [
               {
-                breakpoint: 1024,
+                breakpoint: 1800,
                 settings: {
                   slidesToShow: 3,
                   slidesToScroll: 3,
                   infinite: true,
-                  dots: true
                 }
               },
               {
-                breakpoint: 600,
+                breakpoint: 992,
                 settings: {
                   slidesToShow: 2,
                   slidesToScroll: 2,
@@ -48,7 +49,7 @@ const HorizontalMediaScrollBar:FC = () =>{
                 }
               },
               {
-                breakpoint: 480,
+                breakpoint: 575,
                 settings: {
                   slidesToShow: 1,
                   slidesToScroll: 1
@@ -58,7 +59,8 @@ const HorizontalMediaScrollBar:FC = () =>{
           });
     return (
         <>
-        <div className="newsSlider">
+      <div className="container">
+      <div className="newsSlider">
             <div className="sliderArrows">
                 <button className="slider-arrow arrow-prev" onClick={previous}>
                     Previous
@@ -125,8 +127,9 @@ const HorizontalMediaScrollBar:FC = () =>{
                         </div>
                     </div>
             </Slider>
-            
+
         </div>
+      </div>
         </>
     )
 }

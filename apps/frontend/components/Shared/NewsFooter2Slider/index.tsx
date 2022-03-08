@@ -7,7 +7,7 @@ import sliderimg from "../../../styles/images/biden2.jpg";
 const HorizontalFooter2NewsSlider:FC = () =>{
 
 
-    
+
         const [settings, setSettings] = useState({
             dots: false,
             infinite: true,
@@ -66,9 +66,9 @@ const HorizontalFooter2NewsSlider:FC = () =>{
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
+
+
+
                     <div className="slider-item">
                         <div className="NewsBox">
                             <div className="newsImage">
