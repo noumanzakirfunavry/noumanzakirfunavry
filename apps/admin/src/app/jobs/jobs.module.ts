@@ -10,7 +10,7 @@ import { JobFilterComponent } from './filterJobs/job-filter.component';
 import { antdModule } from '../AndModules/andModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
-import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 
@@ -23,7 +23,7 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
         ...antdModule,
         ReactiveFormsModule,
         FormsModule,
-        EditorModule,
+        CKEditorModule,
         QuillModule.forRoot()
 
     ],
@@ -34,8 +34,7 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
         JobFilterComponent
     ],
     providers: [
-        ThemeConstantService,
-        { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }   
+        ThemeConstantService
     ],
 })
 export class JobsModule { }

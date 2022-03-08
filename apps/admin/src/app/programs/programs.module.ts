@@ -11,7 +11,7 @@ import { antdModule } from '../AndModules/andModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { QuillModule } from 'ngx-quill';
-import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
         FormsModule,
         ...antdModule,
         NzUploadModule,
-        EditorModule,
+        CKEditorModule,
         QuillModule.forRoot()
     ],
     exports: [],
@@ -34,8 +34,7 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
        ProgramsFilterComponent
     ],
     providers: [
-        ThemeConstantService,
-        { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }  
+        ThemeConstantService
     ],
 })
 export class ProgramsModule { }
