@@ -1,4 +1,4 @@
-import { AddTagResponseDto, DeleteTagByIdResponseDto, GetAllTagsResponseDto, GetTagsByIdResponseDto, UpdateTagRequestDto, UpdateTagResponseDto } from "@cnbc-monorepo/dtos";
+import { AddTagResponseDto, DeleteTagByIdResponseDto, GetAllTagsRequestDto, GetAllTagsResponseDto, GetTagsByIdResponseDto, UpdateTagRequestDto, UpdateTagResponseDto } from "@cnbc-monorepo/dtos";
 import { Tags } from "@cnbc-monorepo/entity";
 import { CustomException, Exceptions, ExceptionType } from "@cnbc-monorepo/exception-handling";
 import { HttpStatus, Inject, Injectable } from "@nestjs/common";
@@ -10,8 +10,21 @@ export class TagsService{
         private tagsRepo: typeof Tags,
     ){}
 
-    async getTags(){   //TODO  need to add some filters functionality
-        const result= await this.tagsRepo.findAll()
+    async getTags(query:GetAllTagsRequestDto){  
+        let offset = 0
+        query.pageNo = query.pageNo - 1;
+        if (query.pageNo) offset =query.limit * query.pageNo;
+        let where={}
+        if(query.publishers){
+            where['publishedBy']=query.publishers
+        }
+        if(query.status){
+            where['isActive']=query.status
+        }
+        if(query.title){
+            where['title']=query.title
+        }
+        const result= await this.tagsRepo.findAll({where:where,offset:offset,limit:query.limit})
         if(!result.length){
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
