@@ -11,6 +11,11 @@
         padding: 5px 14px;
     }
 }
+@media (min-width: 1920px){
+    .container{
+        max-width: 1291px;
+    }
+}
 @media screen and (max-width:1280px){
     .logo-header {
         flex: 2;

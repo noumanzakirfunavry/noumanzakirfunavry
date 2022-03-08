@@ -67,7 +67,7 @@ a:not([href]):not([class]):hover{
     color: $primary-color !important;
   }
 .text-dim{
-  opacity: 0.7;
+  opacity: 0.6;
 }
 .text-bold{
   font-weight: bold;
@@ -154,6 +154,7 @@ header{
     padding: 12px 0;
     color: $white;
     margin-bottom: 10px;
+    height: 90px;
   }
   .header-box{
     display: flex;
@@ -169,7 +170,7 @@ header{
     // overflow: hidden;
   }
   .cnbc-logo{
-    margin: 10px 0;
+    margin: 5px 0 10px;
   }
 
 
@@ -184,7 +185,7 @@ header{
     padding: 0;
   }
   .header-nav ul li{
-    margin: 0 1px;
+    margin: 0 0 0 10px;
   }
   .header-nav ul li a{
     font-size: 0.9rem;
@@ -194,6 +195,7 @@ header{
     text-decoration: none;
     font-weight: bold;
     border-bottom: 3px solid transparent;
+    font-size: 15px;
   }
   .header-nav ul li a:hover,
   .header-nav ul li a:focus{
@@ -268,10 +270,11 @@ header{
     background: $danger;
     color: $white;
     font-size: 7px;
-    width: 30px;
-    height: 30px;
+    width: 17px;
+    height: 17px;
+    line-height: 17px;
+    display: inline-block;
     text-align: center;
-    padding: 5px 7px;
   }
 
 
@@ -280,7 +283,7 @@ header{
 
 
 .page-nav{
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
   .page-nav .navbar{
     padding-top: 0;
@@ -291,14 +294,14 @@ header{
     padding: 0;
   }
   .page-nav .navbar .navbar-nav .nav-item {
-    padding: 0px 15px;
+    padding: 0px 0 0 21px;
     margin-bottom: -2px;
   }
   .page-nav .navbar .navbar-nav .nav-item a{
     color: $grey;
     font-weight: bold;
-    font-size: 16px;
-    padding-bottom: 5px;
+    font-size: 15px;
+    padding-bottom: 10px;
   }
   .page-nav .navbar .navbar-nav .nav-item a.active{
     color: $secondary-color;
@@ -320,8 +323,9 @@ header{
     margin: 15px 0 15px 0;
 
     .CategoryTitle{
-      font-size: 18px;
+      font-size: 15px;
       font-weight: bold;
+      margin-left: 23px;
     }
 
     ul{
@@ -331,8 +335,9 @@ header{
       flex-wrap: nowrap;
       list-style: none;
       overflow-x: auto;
+      align-items: center;
         li{
-          margin: 0 0 0 20px;
+          margin: 0 0 0 10px;
           font-size: 18px;
           font-weight: bold;
           margin-bottom: 10px;
@@ -344,7 +349,7 @@ header{
               text-decoration: none;
               color: $secondary-color;
               font-weight: bold;
-              font-size: 14px;
+              font-size: 15px;
               display: block;
               &:hover{
                 background: $secondary-color;
@@ -477,17 +482,24 @@ header{
     height: 107px;
     overflow: hidden;
     padding-right: 15px;
+    width: 190px;
   }
   .NewsList li .newsText{
     flex: 3;
     padding: 5px 0 0 0px;
+    margin-left: 100px;
   }
   .NewsList li .newsText p{
-    margin-top: 15px;
+    margin-top: 6px;
     margin-bottom: 0;
   }
   .NewsList li .newsText p a{
     margin-left: 15px;
+    font-size: 12px;
+  }
+  .NewsList li .newsText p b{
+   font-size: 12px;
+   color: $grey;
   }
   .NewsList li a{
     font-size: 20px;
@@ -936,7 +948,7 @@ header{
 }
 .market-stats .marketBox{
     margin-bottom: 5px;
-    min-width: 16%;
+    min-width: 15%;
     text-align: initial;
   }
   .marketBox{
@@ -948,8 +960,8 @@ header{
     font-size: 12px;
   }
   .marketBox table th{
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 900;
   }
   .marketBox table th{
     line-height: 15px;
@@ -957,6 +969,11 @@ header{
   .marketBox table td{
     line-height: 10px;
     position: relative;
+    font-size: 12px;
+    font-weight: 600;
+    &.text-dim{
+      font-size: 10px;
+    }
   }
   .marketBox table .fa{
     font-size: 20px;
@@ -1909,4 +1926,27 @@ select::-ms-expand {
     cursor: pointer;
     width: 100%;
   }
+}
+// banner ads
+.bnner_add {
+  img {
+    width: 970px;
+    height: 90px;
+    margin-bottom: 5px;
+
+  }
+}
+// badge
+.badge {
+  display: inline-block;
+  font-size: 0.6em;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  width: 33px;
+  height: 16px;
+  line-height: 16px;
+  padding: 0;
 }
