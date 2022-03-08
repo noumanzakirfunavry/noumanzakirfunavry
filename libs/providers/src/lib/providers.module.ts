@@ -44,7 +44,8 @@ import { CategoriesProvider } from '../providers/categories.provider';
     ...JobsProvider,
     ...BranchesProvider,
     ...DepartmentsProvider,
-    ...CategoriesProvider
+    ...CategoriesProvider,
+    ...BreakingNewsProvider
 
   ],
   exports: [
@@ -67,7 +68,8 @@ import { CategoriesProvider } from '../providers/categories.provider';
     ...BranchesProvider,
     ...CategoriesProvider,
     ...JobsProvider,
-    ...DepartmentsProvider
+    ...DepartmentsProvider,
+    ...BreakingNewsProvider
   
   ]
 })
