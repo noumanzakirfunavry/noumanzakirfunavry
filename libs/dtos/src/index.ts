@@ -41,8 +41,12 @@ export * from './request/logger/add.log.request.dto'
 export * from './request/presenters/create.presenters.request.dto'
 export * from './request/presenters/get.all.presenters.request.dto'
 export * from './request/presenters/delete.presenters.request.dto'
-
-
+//...............................Users.............................
+export * from './request/admin/get.all.admins.request.dto'
+//...............................News.............................
+export * from './request/news/create.news.request.dto'
+//...............................Seo.............................
+export * from './request/seo/create.seo.request.dto'
 
 
 
@@ -79,4 +83,5 @@ export * from './response/presenters/get.presenters.by.id.response.dto'
 export * from './response/presenters/get.all.presenters.response.dto'
 //...............................Users.............................
 export * from './response/admin/get.admin.by.id.response.dto'
+export * from './response/admin/get.all.admins.response.dto'
 

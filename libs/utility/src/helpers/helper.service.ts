@@ -1,13 +1,13 @@
 import { ChangeLogs } from "@cnbc-monorepo/entity";
 import { Inject, Injectable } from "@nestjs/common";
 import * as bcrypt from 'bcrypt';
-import {AddLogRequestDto} from '@cnbc-monorepo/dtos'
+import { AddLogRequestDto, CreateNewsRequestDto } from '@cnbc-monorepo/dtos'
 @Injectable()
 export class Helper {
     constructor(
         @Inject('CHANGE_LOGS_REPOSITORY')
         private changeLogsRepository: typeof ChangeLogs,
-    ){}
+    ) { }
     async comparePasswords(password, hash) {
         return await bcrypt.compare(password, hash)
     }
@@ -33,26 +33,77 @@ export class Helper {
         const newrights = rights.map((item) => item.title)
         return newrights
     }
-    offsetCalculator(pageNo : number,limit : number){
-        return (pageNo -1) * limit
+    offsetCalculator(pageNo: number, limit: number) {
+        return (pageNo - 1) * limit
     }
-    stringTrimmerAndCaseLower(name :string){
+    stringTrimmerAndCaseLower(name: string) {
         return name.toLocaleLowerCase().trim()
     }
-    async addLog(body : any){
+    async addLog(body: any) {
         return await this.changeLogsRepository.create(body)
     }
-    logObjectCreator(changeType,entityType,id,changeDate,changeComment,req){
+    logObjectCreator(changeType, entityType, id, changeDate, changeComment, req) {
         const logObject = {
-            changeType : changeType,
-            entityType : entityType,
-            entityId : id,
-            changeDate : changeDate,
-            changeComment : changeComment,
-            ipAddress : req.ip,
-            sessionsId : req.user.sessionId,
-            changedBy : req.user.data.id
+            changeType: changeType,
+            entityType: entityType,
+            entityId: id,
+            changeDate: changeDate,
+            changeComment: changeComment,
+            ipAddress: req.ip,
+            sessionsId: req.user.sessionId,
+            changedBy: req.user.data.id
         }
         return logObject;
+    }
+
+    newsObjectCreator(body: CreateNewsRequestDto, seoDetailId: number, userId: number) {
+        const news_object = {
+            title: body.title,
+            content: body.content,
+            isPro: body.isPro,
+            visible: body.visible,
+            contentType: body.contentType,
+            ...(body.videoId && {
+                videoId: body.videoId
+            }),
+            ...(body.thumbnailId && {
+                thumbnailId: body.thumbnailId
+            }),
+            ...(body.imageId && {
+                imageId: body.imageId
+            }),
+            authorName: body.authorName,
+            ...(body.facebookLink && {
+                facebookLink: body.facebookLink
+            }),
+            ...(body.twitterLink && {
+                twitterLink: body.twitterLink
+            }),
+            newsType: body.newsType,
+            showOnHomePage: body.showOnHomepage,
+            isActive: body.isActive,
+            seoDetailId: seoDetailId,
+            publishedBy: userId
+        }
+        return news_object
+    }
+    categoryObject(categoryId, newsId) {
+        return {
+            categoryId: categoryId,
+            newsId: newsId
+        }
+    }
+    tagsObject(tagsId, newsId) {
+        return {
+            tagId: tagsId,
+            newsId: newsId
+        }
+    }
+    quotesObject(position,quotesId , newsId){
+        return{
+            position : position,
+            quotesId : quotesId,
+            newsId : newsId
+        }
     }
 }

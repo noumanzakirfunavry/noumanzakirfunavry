@@ -1,7 +1,7 @@
 import { Rights, Roles } from '@cnbc-monorepo/auth-module';
-import { GenericResponseDto, GetAdminByIdResponseDto } from '@cnbc-monorepo/dtos';
+import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto } from '@cnbc-monorepo/dtos';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import { AdminService } from './admin.service';
 
 @Controller('admin')
@@ -15,6 +15,20 @@ export class AdminController {
     @Get(":id")
     async getUserById(@Param("id") id : number) : Promise<GetAdminByIdResponseDto>{
         return await this.adminService.getUserById(id)
+    }
+
+    @Roles(RoleTypes.Admin)
+    @Rights(RightsTypes.GET)
+    @Get("all/admins")
+    async getAllAdmin(@Query() query : GetAllAdminsRequestDto) : Promise<GetAllAdminsResponseDto>{
+        return await this.adminService.getAllAdmin(query)
+    }
+
+    @Roles(RoleTypes.Admin)
+    @Rights(RightsTypes.GET)
+    @Delete()
+    async deleteAdmins(@Query() query : DeletePresentersRequestDto) : Promise<GenericResponseDto>{
+        return await this.adminService.deleteAdmins(query)
     }
 
 }
