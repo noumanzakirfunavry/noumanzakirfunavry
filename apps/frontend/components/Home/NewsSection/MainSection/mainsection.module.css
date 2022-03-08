@@ -1,10 +1,12 @@
 .mainNews{
     background: url(../../../../styles/images/biden.jpg) no-repeat;
     color: #fff;
-    height: 600px;
+    /* width: 630px; */
+    height: 510px;
     align-items: flex-end;
     display: flex;
     margin-bottom: 15px;
+    background-size: cover;
   }
   .newscontent{
     background-image: linear-gradient(to top, #071D39 60%, #071d3900);
@@ -12,10 +14,11 @@
   }
   .mainNews h1{
     line-height: 20px;
+    font-weight: bold;
   }
   .mainNews h1 a{
     font-size: 1.5rem;
-    color: #fff;
+    color: white !important;
     line-height: normal;
   }
   .mainNews h3{
@@ -23,8 +26,8 @@
     line-height: 20px;
   }
   .mainNews h3 a{
-    font-size: 1rem;
-    color: #fff;
+    font-size: 15px;
+    color: #fff !important;
   }
   .mainNews hr{
     color: #777777;
@@ -32,14 +35,23 @@
     margin: 10px 0;
   }
   .newsbox{
-    margin-bottom: 15px;
+    margin-bottom: 40px;
   }
+
   .newsimage{
     margin-bottom: 10px;
+    width: 300px;
+    height: 170px;
+    overflow: hidden;
+  }
+  .newsimage img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .newsdetails a{
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
-    color: #1C1C1C;
+    color: #1C1C1C !important;
     text-decoration: none;
   }

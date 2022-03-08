@@ -1,19 +1,9 @@
 
 
-import AdBanner from "../Shared/AdBanner/AdBanner"
 const Schedules = () => {
 
     return (
         <>
-            <div className="container">
-                <AdBanner />
-                <div className="pageTitle PageTitleYellow">
-                    <div className="float-start">
-                        <button className="btn btn-danger">شاهد البث المباشر</button>
-                    </div>
-                    <h2>جدول البرامج</h2>
-                    <div className="clearfix"></div>
-                </div>
                 <div className='scheduleCalendar'>
                     <ul className="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
                         <li className="nav-item" role="presentation">
@@ -138,7 +128,6 @@ const Schedules = () => {
                             <div className="tab-pane fade" id="schedule8">.8..</div>
                     </div>
                 </div>
-            </div>
 
         </>
     )

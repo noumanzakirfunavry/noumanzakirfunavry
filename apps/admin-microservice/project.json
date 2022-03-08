@@ -1,0 +1,52 @@
+{
+  "root": "apps/admin-microservice",
+  "sourceRoot": "apps/admin-microservice/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/admin-microservice",
+        "main": "apps/admin-microservice/src/main.ts",
+        "tsConfig": "apps/admin-microservice/tsconfig.app.json",
+        "assets": ["apps/admin-microservice/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/admin-microservice/src/environments/environment.ts",
+              "with": "apps/admin-microservice/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "admin-microservice:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/admin-microservice/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/admin-microservice"],
+      "options": {
+        "jestConfig": "apps/admin-microservice/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

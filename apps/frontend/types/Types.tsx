@@ -21,10 +21,27 @@ export type TileList = {
     categoryName: string,
     sourceName: string,
 }
-export type NewsListTilesProps = {
-    newsList :TileList[]
+export type CategoryNewsProps = {
+    limit: number,
+    displayTitle: boolean,
+    displayTopTwoNews:boolean,
+    displayMoreButton:boolean
 }
 
 export type ModalProps = {
-    title:string
+    modalId:string,
+}
+
+export type TitleProps = {
+    styles:string //for styles (color size etc) will be used as className
+}
+
+export type MobileHeaderProps = {
+    handleMenuList: () =>void
+}
+
+export type User = {
+    email:string,
+    username:string,
+    password:string,
 }

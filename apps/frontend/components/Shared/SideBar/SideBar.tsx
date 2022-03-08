@@ -1,6 +1,6 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { SideBar, SideBarProps } from "apps/frontend/types/Types"
 import { FC } from "react"
-import VideoSideList from "./VideoSideList/VideoSideList"
 import SideBanner from "./SideBanner/SideBanner"
 import SideList from "./SideList/SideList"
 
@@ -17,7 +17,7 @@ const SideBar:FC<SideBarProps> = ({sideBarSequence}) =>{
                     return (
                         <div key={sequence.componentType}>
                             {
-                                sequence.componentType === 'Latest' && (
+                                sequence.componentType === 'numbered' && (
                                     <SideList key={'numbered'} type={"numbered"}></SideList>
                                 )
                             }
@@ -27,8 +27,13 @@ const SideBar:FC<SideBarProps> = ({sideBarSequence}) =>{
                                  )
                             }
                             {
-                                 sequence.componentType === 'Trending' && (
-                                    <VideoSideList key={'dfgfdg'} ></VideoSideList>
+                                 sequence.componentType === 'simple' && (
+                                    <SideList key={'simple'} type={"simple"}></SideList>
+                                 )
+                            }
+                            {
+                                 sequence.componentType === 'dotList' && (
+                                    <SideList key={'dotList'} type={"dotList"}></SideList>
                                  )
                             }
                             {
