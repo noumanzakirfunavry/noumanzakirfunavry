@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/
 import { JobsService } from "./jobs.service";
 import {AddJobRequestDto, DeleteJobRequestDto, GetALLJobsRequestDto, GetJobByIdResponseDto, UpdateJobRequestDto} from '@cnbc-monorepo/dtos'
 
-@Controller("admin/api/admin/jobs")
+@Controller("Admin/api/admin/jobs")
 export class JobsController{
     constructor(
         private jobsService:JobsService,

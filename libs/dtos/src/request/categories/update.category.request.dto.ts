@@ -1,24 +1,28 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator"
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator"
 
-export class UpdateCategoriesRequeustDto{
+export class UpdateCategoriesRequestDto{
        
     @IsNotEmpty()
+    @IsNumber()
+    id:number
+
+    @IsOptional()
     @IsString()
     title:string
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsNumber()
     parentCategoryId:number
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsBoolean()
     isActive:Boolean
     
-    @IsNotEmpty()
+    @IsOptional()
     @IsBoolean()
     displayInCategoryMenu:boolean
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsBoolean()
     displayInHomePage:boolean
 }

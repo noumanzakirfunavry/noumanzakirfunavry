@@ -3,6 +3,7 @@ import {ExceptionHandlingModule} from '@cnbc-monorepo/exception-handling'
 import { JobsModule } from "./jobs/jobs.module";
 import { BranchesModule } from "./branches/branches.module";
 import { DepartmentModule } from "./departments/departments.module";
+import { CategoriesModule } from "./categories/categories.module";
 
 @Module({
 
@@ -10,7 +11,8 @@ import { DepartmentModule } from "./departments/departments.module";
         ExceptionHandlingModule,
         JobsModule,
         BranchesModule,
-        DepartmentModule
+        DepartmentModule,
+        CategoriesModule,
     ],
 
 

@@ -1,4 +1,4 @@
-import { AddCategoriesRequestDto, GetAllCategoriesRequestDto, GetByIdCategoryResponseDto, UpdateCategoriesRequeustDto } from "@cnbc-monorepo/dtos";
+import { AddCategoriesResponseDto, GenericResponseDto, GetAllCategoriesRequestDto, GetAllCategoriesResponseDto, GetByIdCategoryResponseDto, UpdateCategoriesRequestDto, UpdateCategoriesResponseDto } from "@cnbc-monorepo/dtos";
 import { Categories } from "@cnbc-monorepo/entity";
 import { CustomException, Exceptions, ExceptionType } from "@cnbc-monorepo/exception-handling";
 import { HttpStatus, Inject, Injectable } from "@nestjs/common";
@@ -6,7 +6,7 @@ import { HttpStatus, Inject, Injectable } from "@nestjs/common";
 @Injectable()
 export class CategoriesService{
     constructor(
-        @Inject('')
+        @Inject('CATEGORIES_REPOSITORY')
         private categoryRepo:typeof Categories
     ){}
 
@@ -20,15 +20,139 @@ export class CategoriesService{
         }
         return new GetByIdCategoryResponseDto(HttpStatus.OK,"FETCHED SUCCESSFULLY",result)
     }
- 
-    async add(body:AddCategoriesRequestDto){
-        
+    async add(body){
+        const result=await this.categoryRepo.create(body)
+        if (!result){
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+        return new AddCategoriesResponseDto(HttpStatus.OK,"FETCHED SUCCESSFULLY",result)
     }
-    async getAll(body:GetAllCategoriesRequestDto){}
+    async delete(ids:number[]){
+        const result=await this.categoryRepo.destroy({where:{id:ids}})
+        if(!result){
+            throw new CustomException(
+                Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
+                Exceptions[ExceptionType.UNABLE_TO_DELETE].status
+            )
+        }
+        return new GenericResponseDto(HttpStatus.OK,"DELETED SUCCESSFULLY")
+    }
+    async getAll(query:GetAllCategoriesRequestDto){
+        let offset = 0
+        query.pageNo = query.pageNo - 1;
+        if (query.pageNo) offset =query.limit * query.pageNo;
+        let where={}
+        if(query.status){
+            where['isActive']=query.status
+        }
+        if(query.parentCategoryId){
+            where['parentCategoryId']=query.parentCategoryId
+        }
+        if(query.title){
+            where['title']=query.title
+        }
+        if(query.publishers){
+            where['publishBy']=query.publishers
+        }
+        if(query.includeNews){ //TODO
 
-    async update(body:UpdateCategoriesRequeustDto){}
+        }
+        if(query.includeNews){//TODO
+
+        }
+        let result=await this.categoryRepo.findAll({where:where,limit:query.limit,offset:offset,raw:true})        
+        if(!result.length){
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+        
+        let categories=result.filter((item)=> item.parentCategoryId == null)
+
+        // Removing The Top Level Categories from the original result
+        for (let index = 0; index < categories.length; index++) {
+            const element = categories[index];
+            result = this.removeItemOnce(result,element);
+        }
+        // Now Calling to fit all remaining categories
+        this.makingNested(result,categories,0)
+        
+        return new GetAllCategoriesResponseDto(
+            HttpStatus.OK,
+            "FETCHED SUCCESSFULLY",
+            categories
+        );
+    }
+
+    async update(body:UpdateCategoriesRequestDto){
+        const category=await this.categoryRepo.findOne({where:{id:body.id}})
+        if(!category){
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+              )  
+        }
+        const {id,...rest}=body
+        const result=await category.update(rest)
+        return new UpdateCategoriesResponseDto(HttpStatus.OK,"UPDATED SUCCESSFULLY", result)  
+    }
 
 
     async updateOrder(){}
+
+
+    makingNested(categoryArray, endResult, i, pid?) {
+        if (categoryArray.length == 0) {
+            return;
+        } else {
+            // Finding All SUbcategories of parent Category at index i
+            let filteredArray = [];
+            if (pid) {
+                filteredArray = categoryArray.filter(
+                    (item) => item?.parentCategoryId == pid
+                );
+            } else
+                filteredArray = categoryArray.filter(
+                    (item) => item?.parentCategoryId == endResult[i]?.id
+                );
+            // If We haven't found the parent category then we need to look into the subcategories
+            // of parentCategory at index i
+            if (filteredArray.length == 0) {
+                // Looping over sub categories
+                for (let index = 0; index < endResult.length; index++) {
+                    if (endResult[index].sub == undefined) {
+                        endResult[index].sub = [];
+                    }
+                    // Finding Parent in sub
+                    //endResult[index].sub
+                    this.makingNested(categoryArray, endResult[index].sub, 0, endResult[index].id);
+                }
+            } else {
+                // If we have found
+                const newarr = JSON.parse(JSON.stringify(filteredArray));
+                newarr.map(function (v) {
+                    delete v.parentCategory;
+                });
+                if (pid) endResult.push(...filteredArray);
+                else endResult[i].sub = filteredArray;
+                for (let index = 0; index < filteredArray.length; index++) {
+                    const element = filteredArray[index];
+                    categoryArray = this.removeItemOnce(categoryArray, element);
+                }
+                this.makingNested(categoryArray, endResult, i + 1);
+            }
+        }
+    }
+    removeItemOnce(arr, value) {
+        var index = arr.findIndex((element) => element.id == value.id);
+        if (index > -1) {
+          arr.splice(index, 1);
+        }
+        return arr;
+    }
 
 }
