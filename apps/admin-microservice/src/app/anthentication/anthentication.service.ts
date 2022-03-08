@@ -1,6 +1,6 @@
 import { GenericResponseDto, RegisterAdminRequestDto, RequestResetPasswordRequestDto, ResetPasswordRequestDto, UpdatePasswordRequestDto, UserLoginDto } from '@cnbc-monorepo/dtos';
 import { Rights, Roles, Sessions, Users, UsersHasRights } from '@cnbc-monorepo/entity';
-import { ForbiddenException, HttpStatus, Inject, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Helper, sequelize } from '@cnbc-monorepo/utility'
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';

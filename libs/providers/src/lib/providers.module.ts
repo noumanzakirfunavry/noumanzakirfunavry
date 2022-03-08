@@ -10,6 +10,11 @@ import { SocialMediaLinkProvider } from '../providers/social.media.link.provider
 import { AlexaProvider } from '../providers/alexa.audio.provider';
 import { ChangeLogsProvider } from '../providers/change.logs.provider';
 import { PresentersProvider } from '../providers/presenters.provider';
+import { NewsProvider } from '../providers/news.provider';
+import { NewsHasQuotesProvider } from '../providers/news.has.quotes.provider';
+import { NewsHasTagsProvider } from '../providers/news.has.tags.provider';
+import { SeoDetailsProvider } from '../providers/seo.details.provider';
+import { NewsHasCategoriesProvider } from '../providers/news.has.categories.provider';
 
 @Module({
   providers: [
@@ -23,7 +28,12 @@ import { PresentersProvider } from '../providers/presenters.provider';
     ...SocialMediaLinkProvider,
     ...AlexaProvider,
     ...ChangeLogsProvider,
-    ...PresentersProvider
+    ...PresentersProvider,
+    ...NewsProvider,
+    ...NewsHasQuotesProvider,
+    ...NewsHasTagsProvider,
+    ...SeoDetailsProvider,
+    ...NewsHasCategoriesProvider
 
   ],
   exports: [
@@ -37,7 +47,12 @@ import { PresentersProvider } from '../providers/presenters.provider';
     ...SocialMediaLinkProvider,
     ...AlexaProvider,
     ...ChangeLogsProvider,
-    ...PresentersProvider
+    ...PresentersProvider,
+    ...NewsProvider,
+    ...NewsHasQuotesProvider,
+    ...NewsHasTagsProvider,
+    ...SeoDetailsProvider,
+    ...NewsHasCategoriesProvider
   ]
 })
 
