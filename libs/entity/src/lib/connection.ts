@@ -6,11 +6,11 @@ export const Connection = [
         provide: 'SEQUELIZE',
         useFactory: async () => {
           const sequelize = new Sequelize({
-            dialect: 'postgres',
+            dialect: 'mysql',
             host: "localhost",
-            port: 5432,
-            username: 'developer',
-            password: 'Dev@321',
+            port: 3306,
+            username: 'root',
+            password: 'password',
             database: 'cnbc',
             logging: true,
             models : Entities,
