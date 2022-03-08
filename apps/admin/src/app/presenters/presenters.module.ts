@@ -11,7 +11,7 @@ import { FilterComponent } from './Filter/filter.component';
 import { antdModule } from '../AndModules/andModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoComponentsShareModule } from '../demo-components-share/demo-components-share.module';
-import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
         DemoComponentsShareModule,
         QuillModule.forRoot(),
         NzUploadModule,
-        EditorModule
+        CKEditorModule
     ],
     exports: [],
     declarations: [
@@ -34,8 +34,7 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
         FilterComponent,
     ],
     providers: [
-        ThemeConstantService,
-        { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }  
+        ThemeConstantService
     ],
 })
 export class PresentersModule { }
