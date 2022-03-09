@@ -31,7 +31,7 @@ const SideBar:FC<SideBarProps> = ({sideBarSequence}) =>{
                                     <SideList key={'simple'} type={"simple"}></SideList>
                                  )
                             }
-                            {
+                            {/* {
                                  sequence.componentType === 'dotList' && (
                                     <SideList key={'dotList'} type={"dotList"}></SideList>
                                  )
@@ -40,8 +40,8 @@ const SideBar:FC<SideBarProps> = ({sideBarSequence}) =>{
                                  sequence.componentType === 'LargeBanner' && (
                                     <SideBanner key={'Large'} size={"Large"}></SideBanner>
                                 )
-                            }
-                            
+                            } */}
+
                         </div>
                     )
                 })

@@ -62,9 +62,9 @@ const SplitScreenBarCharts = () =>{
         }).catch(err=>{
             console.warn(err)
         })
-        
+
     },[])
-    
+
     const market = data?.Market
     const firstMarket = data?.Market && market[0]
     const gainers = firstMarket && firstMarket['Gainer']
@@ -74,7 +74,7 @@ const SplitScreenBarCharts = () =>{
     const allLosers = losers?.length && losers[0]
 
     const getData = async (): Promise<string> => {
-        
+
         //fetch data and convert to text here
         return xml
     }
@@ -97,7 +97,7 @@ const SplitScreenBarCharts = () =>{
 
                     <div className="row">
                         <div className="col-md-6">
-                            <h3>Gainer</h3>
+                            <h3>أعلى</h3>
                             <div className="table-responsive">
                                 <table className="table table-borderless">
                                      <tbody>
@@ -117,7 +117,7 @@ const SplitScreenBarCharts = () =>{
                                                     </tr>
                                                 )
                                             })
-                                        } 
+                                        }
                                     </tbody>
                                     {/* <tr>
                                         <td><strong>TSL</strong></td>
@@ -163,7 +163,7 @@ const SplitScreenBarCharts = () =>{
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <h3>Looser</h3>
+                            <h3>قاع</h3>
                             <div className="table-responsive">
                                 <table className="table table-borderless">
                                     <tbody>
@@ -183,7 +183,7 @@ const SplitScreenBarCharts = () =>{
                                                     </tr>
                                                 )
                                             })
-                                        } 
+                                        }
                                     </tbody>
                                     {/* <tr>
                                     <td><strong>TSL</strong></td>
@@ -193,7 +193,7 @@ const SplitScreenBarCharts = () =>{
                                             <div className="progress p-0">
                                                 <div className="progress-bar bg-danger" role="progressbar" style ={{width:'100%'}} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100}></div>
                                             </div>
-                                        </td> 
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><strong>AMZ</strong></td>
