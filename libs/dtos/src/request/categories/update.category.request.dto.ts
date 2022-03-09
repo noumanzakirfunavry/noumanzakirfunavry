@@ -16,7 +16,7 @@ export class UpdateCategoriesRequestDto{
 
     @IsOptional()
     @IsBoolean()
-    isActive:Boolean
+    isActive:boolean
     
     @IsOptional()
     @IsBoolean()

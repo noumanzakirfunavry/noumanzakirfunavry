@@ -34,6 +34,6 @@ export class AddBranchRequestDto{
 
     @IsNotEmpty()
     @IsBoolean()
-    isActive:Boolean
+    isActive:boolean
 
 }

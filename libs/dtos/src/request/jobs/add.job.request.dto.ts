@@ -17,7 +17,7 @@ export class AddJobRequestDto{
 
     @IsNotEmpty()
     @IsBoolean()
-    isActive:Boolean
+    isActive:boolean
 
     @IsNotEmpty()
     @IsDateString()

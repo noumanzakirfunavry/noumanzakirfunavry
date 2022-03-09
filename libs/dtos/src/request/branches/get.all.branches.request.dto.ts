@@ -6,7 +6,7 @@ export class GetALLBranchesRequestDto extends PaginatedRequestDto{
 
     @IsOptional()
     @IsBoolean()
-    status:Boolean
+    status:boolean
 
 
     @IsOptional()

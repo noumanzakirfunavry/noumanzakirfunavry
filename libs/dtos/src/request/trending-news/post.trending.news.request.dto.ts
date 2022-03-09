@@ -1,8 +1,11 @@
-import { ArrayNotEmpty, IsArray, IsNotEmpty, IsNumber, IsUrl } from "class-validator";
+import { Type } from "class-transformer";
+import { ArrayNotEmpty, IsArray, IsNotEmpty, IsNumber, IsUrl, ValidateNested } from "class-validator";
 
 export class UpdateTrendingNewsRequestDto{
    @ArrayNotEmpty()
    @IsArray()
+   @ValidateNested({ each: true })
+   @Type(() => TrendingNews)
    news :  TrendingNews[]
 }
 export class TrendingNews{
