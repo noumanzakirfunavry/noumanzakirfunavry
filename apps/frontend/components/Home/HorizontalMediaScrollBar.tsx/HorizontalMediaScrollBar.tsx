@@ -26,11 +26,13 @@ const HorizontalMediaScrollBar:FC = () =>{
             autoplaySpeed: 5000,
             pauseOnHover: true,
             className: "center",
-            centerMode: false,
+            centerMode: true,
             centerPadding: "60px",
             slidesToScroll: 3,
             initialSlide: 0,
             rtl: false,
+
+
             arrows:false,
             responsive: [
               {
