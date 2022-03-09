@@ -1,5 +1,5 @@
-import { AddTagRequestDto } from "@cnbc-monorepo/dtos";
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { AddTagRequestDto, GetAllTagsRequestDto } from "@cnbc-monorepo/dtos";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { GEOGRAPHY } from "sequelize/types";
 import { TagsService } from "./tags.service";
 
@@ -11,8 +11,8 @@ export class TagsController{
     ){}
 
     @Get('getAll')
-    async getTags(){
-        return await this.tagsService.getTags()
+    async getTags(@Query() query:GetAllTagsRequestDto){
+        return await this.tagsService.getTags(query)
     }
 
     @Get('getById/:id')
