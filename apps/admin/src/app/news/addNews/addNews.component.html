@@ -25,34 +25,7 @@
                         <nz-form-item>
                             <nz-form-label>Description</nz-form-label>
                             <nz-form-control>
-
-                                <!-- formControlName="description" -->
-                                <!-- <quill-editor [style]="{height: '500px', background:'white'}" [modules]="editorConfig">
-                                </quill-editor> -->
-                                <!-- 'advlist autolink lists link image charmap print preview anchor',
-                                'searchreplace visualblocks code fullscreen',
-                                'insertdatetime media table paste code help wordcount', -->
-<!-- 
-                                {
-                                    base_url: '/tinymce',
-                                    suffix: '.min', 
-                                  height: 400,
-                                  menubar: true,
-                                  plugins: [
-                                    'advlist autolink link image lists charmap print preview hr anchor pagebreak',
-                                    'searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking',
-                                    'table contextmenu directionality emoticons paste textcolor responsivefilemanager code',
-                                    'advlist autolink lists link image charmap print preview anchor',
-                                    'searchreplace visualblocks code fullscreen',
-                                    'insertdatetime media table contextmenu paste qrcode'
-                                  ],
-                                  toolbar:
-                                    'undo redo | formatselect | bold italic backcolor | \
-                                    alignleft aligncenter alignright alignjustify | \
-                                    bullist numlist outdent indent | removeformat | help'
-                                } -->
-                                <editor id="textarea#tinymce" apiKey="pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4" [init]="tinyMCEConfig"></editor>
-
+                                <ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -182,6 +155,12 @@
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
+                        <div class="d-flex">
+                            <nz-form-item>
+                                <input type="text" placeholder="Enter Quote" dir="rtl" nz-input>
+                                <button class="mr-3" nz-button nzType="default">Create</button>
+                            </nz-form-item>
+                        </div>
                     </div>
 
                     <div class="mb-4">
