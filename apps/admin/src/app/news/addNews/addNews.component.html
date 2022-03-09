@@ -81,7 +81,6 @@
                         </nz-list>
                         <!-- </div> -->
                     </nz-card>
-
                 </div>
                 <div class="col-4 ">
                     <div>
@@ -91,17 +90,14 @@
                                 <nz-switch> </nz-switch> Active
                             </nz-form-control>
                         </nz-form-item>
-
                         <nz-form-item>
                             <nz-form-control>
                                 <nz-switch> </nz-switch> Pro News
                             </nz-form-control>
                         </nz-form-item>
                     </div>
-
                     <div>
                         <h4 class="mb-2">Sharing Settings</h4>
-
                         <nz-form-item>
                             <nz-form-control>
                                 <button class="mr-3" nz-button nzType="default">Push Notification</button>
@@ -110,9 +106,7 @@
                             </nz-form-control>
                         </nz-form-item>
                     </div>
-
                     <div>
-
                         <nz-form-item>
                             <nz-form-label>Catogory</nz-form-label>
                             <nz-form-control>
@@ -125,7 +119,6 @@
                     </div>
                     <!-- tags -->
                     <div>
-
                         <nz-form-item>
                             <nz-form-label>Tags</nz-form-label>
                             <nz-form-control>
@@ -134,7 +127,6 @@
                                         [nzValue]="option.value"></nz-option>
                                 </nz-select>
                             </nz-form-control>
-
                         </nz-form-item>
                         <div class="d-flex">
                             <nz-form-item>
@@ -142,10 +134,10 @@
                                 <button class="mr-3" nz-button nzType="default">Create</button>
                             </nz-form-item>
                         </div>
-
                     </div>
                     <!-- quotes -->
                     <div>
+                        <form [formGroup]="quotesForm" nz-form [nzLayout]="'vertical'" (ngSubmit)="addNewQuote()">
                         <nz-form-item>
                             <nz-form-label>Related Quotes</nz-form-label>
                             <nz-form-control>
@@ -157,12 +149,12 @@
                         </nz-form-item>
                         <div class="d-flex">
                             <nz-form-item>
-                                <input type="text" placeholder="Enter Quote" dir="rtl" nz-input>
+                                <input formControlName="name" type="text" placeholder="Enter Quote" dir="rtl" nz-input>
                                 <button class="mr-3" nz-button nzType="default">Create</button>
                             </nz-form-item>
                         </div>
+                    </form>
                     </div>
-
                     <div class="mb-4">
                         <h4 class="mb-2">SEO Settings</h4>
                         <nz-form-item>
@@ -199,7 +191,5 @@
                 </nz-form-control>
             </nz-form-item>
         </form>
-
     </div>
-
 </section>
