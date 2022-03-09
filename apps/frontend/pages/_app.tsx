@@ -3,12 +3,12 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css'
-import '../styles/css/globals.css';
+import '../styles/css/globals.scss';
 import '../styles/fontawesome/css/fontawesome.min.css';
 import '../styles/fontawesome/css/all.min.css';
 import '../styles/fontawesome/css/all.css';
 import '../styles/css/style.scss';
-import '../styles/css/responsive.css';
+import '../styles/css/responsive.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css"
 import type { AppProps } from 'next/app'
