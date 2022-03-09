@@ -1,5 +1,10 @@
 .sidebarBanner{
-    padding:0 0 20px 0;
+    padding:20px 0 20px 0;
+}
+.smallBanner{
+  width: 300px;
+  height: 250px;
+  overflow: hidden;
 }
 .smallBanner img{
     width: 100%;
