@@ -19,6 +19,9 @@ const SideList:FC<SideListProps> = ({type}) =>{
               {
                 type === "numbered" && (
                   <>
+                   {/* <Title styles={styles.themeTitle}>
+            <h4>الأكثر تداولا</h4>
+          </Title> */}
                     <ul className={styles.sidenumberList}>
                       <li key={'12'} ><a href="/newsDetails">
                         أسعار النفط تصعد بأكثر من 1% بعد رفع السعودية
