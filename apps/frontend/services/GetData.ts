@@ -6,6 +6,8 @@ const notify = () => toast.success("Success Notification !", {
     position: toast.POSITION.TOP_RIGHT
   });
 
+  //const baseURL = 'http://157.90.67.186:3001/'
+
 const GetData = async (url:string,params:any, method:string, displayMessage:boolean): Promise<any>=>
 {
 
@@ -15,7 +17,7 @@ const GetData = async (url:string,params:any, method:string, displayMessage:bool
     }
 
     const client = axios.create({
-        //baseURL: baseURL,
+        baseURL: "",
         headers: {
             //Authorization : `Bearer ${token}`
         },
@@ -52,7 +54,7 @@ const GetData = async (url:string,params:any, method:string, displayMessage:bool
               ...(Object.keys(params).length && {...params})
             }
           }).then((res) => {
-            data.data = res.data  
+            data.data = res.data 
         }).catch( (error) => {
             if(error.response)
             {

@@ -45,3 +45,15 @@ export type User = {
     username:string,
     password:string,
 }
+
+export type QuickLink = {
+    addedBy: string
+    createdAt: Date
+    deletedAt: Date | null
+    id: number
+    position: number
+    title: string
+    updatedAt: Date | null
+    url: string
+    visible: boolean
+}
