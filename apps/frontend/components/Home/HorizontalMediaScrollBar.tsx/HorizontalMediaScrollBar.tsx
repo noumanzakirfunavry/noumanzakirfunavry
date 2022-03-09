@@ -62,8 +62,9 @@ const HorizontalMediaScrollBar:FC = () =>{
           });
     return (
         <>
-      <div className="container">
+      <div className="">
       <div className="newsSlider scrollbarWrap">
+          <div className="container">
           <div className="TileBar scrollbarHeader">
               <div className="float-start">
               <div className="sliderArrows">
@@ -84,7 +85,7 @@ const HorizontalMediaScrollBar:FC = () =>{
                 </Title>
                       </div>
                   <div className="clearfix"></div>
-              </div>
+              </div></div>
 
 
             <Slider ref={ref} {...settings}>
