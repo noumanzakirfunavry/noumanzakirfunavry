@@ -6,8 +6,8 @@
 }
 .footerTop{
     border-bottom: 1px solid #002F6C;
-    padding:15px 0;
-    margin-bottom: 20px;
+    padding:20px 0;
+    margin-bottom: 30px;
 }
 .footerSocial{
     float: left;
@@ -36,6 +36,8 @@
 }
 .footer h4{
     margin-bottom: 25px;
+    font-size: 20px;
+    font-weight: bold;
 }
 .footerLink{
     list-style: none;
@@ -51,13 +53,20 @@
     padding: 5px 0;
     display: block;
     font-weight: 500;
+    font-size: 12px;
+    font-weight: bold;
 }
 .footerLink li a:hover{
     color: #fcb700 !important;
 }
 .footerBottom{
     padding: 10px 0;
-    margin-top: 50px;
+    margin-top: 93px;
+}
+.footerBottom p{
+    font-size: 10px;
+    font-weight: normal;
+    letter-spacing: 0.7px;
 }
 .footer .searchBox{
     margin-bottom: 15px;
@@ -65,9 +74,12 @@
 .footer .searchBox input{
     background: #071D39;
     border: 1px solid #002F6C;
-    font-weight: 600;
+    font-weight: bold;
     color: #fff;
     border-radius: 0;
+    font-size: 10px;
+    text-align: left;
+    height: 31px;
 }
 .footer .searchBox input::placeholder{
     color: #fff;
