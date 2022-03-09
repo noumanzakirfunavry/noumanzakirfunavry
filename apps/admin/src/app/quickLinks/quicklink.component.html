@@ -21,17 +21,17 @@
                     <tbody>
                         <tr *ngFor="let link of allQuickLinks">
                             <td></td>
-                            <td>{{link.title}}</td>
-                            <td>{{link.url}}</td>
+                            <td>{{link?.title}}</td>
+                            <td>{{link?.url}}</td>
                             <td>
-                                <nz-badge *ngIf="link.visible === true" nzStatus="success"></nz-badge>
-                                <nz-badge *ngIf="link.visible === false" nzStatus="error"></nz-badge>
+                                <nz-badge *ngIf="link?.visible === true" nzStatus="success"></nz-badge>
+                                <nz-badge *ngIf="link?.visible === false" nzStatus="error"></nz-badge>
                                 <!-- <span class="text-capitalize">{{link.visible}}</span> -->
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i nz-icon nzType="edit" nzTheme="outline"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/quickLinks/add/' + link?.id]"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteQuickLink(link?.id)"></i>
                                 </div>
                             </td>
                         </tr>

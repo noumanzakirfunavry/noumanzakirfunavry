@@ -70,7 +70,7 @@ export const requests = {
     getDepartmentById: 'http://localhost:3333/api/department/',
     addNewTag: environment.baseUrlNews + 'tags/add',
     updateTag: environment.baseUrlNews + 'tags/update/',
-    getAllTags: environment.baseUrlNews + 'tags/getAlll',
+    getAllTags: environment.baseUrlNews + 'tags/getAll',
     getTagById: environment.baseUrlNews + 'tags/getById/',
     deleteTags: environment.baseUrlNews + 'tags/delete/',
     addNewQuote: environment.baseUrlNews + 'quotes/add',

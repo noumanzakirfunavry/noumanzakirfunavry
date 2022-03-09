@@ -31,6 +31,15 @@ const routes: Routes = [
         },
 
     },
+    {
+        path: 'add/:id',
+        component: AddQuickLinksComponent,
+        data: {
+            title: 'Update Quick Link',
+            // headerDisplay: "none"
+        },
+
+    },
     // {
     //     path: 'edit',
     //     component: EditQuickLinksComponent,
