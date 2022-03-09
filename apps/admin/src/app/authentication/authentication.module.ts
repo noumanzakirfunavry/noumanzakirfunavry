@@ -18,6 +18,7 @@ import { SignUp2Component } from './sign-up-2/sign-up-2.component';
 import { SignUp3Component } from './sign-up-3/sign-up-3.component';
 import { Error1Component } from './error-1/error-1.component';
 import { Error2Component } from './error-2/error-2.component';
+import { RouterModule } from '@angular/router';
 
 const antdModule= [
     NzFormModule,
@@ -33,6 +34,7 @@ const antdModule= [
         SharedModule,
         ReactiveFormsModule,
         AuthenticationRoutingModule,
+        RouterModule,
         ...antdModule
     ],
     declarations: [

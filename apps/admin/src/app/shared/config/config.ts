@@ -2,8 +2,8 @@ import { environment } from "src/environments/environment";
 
 
 export const requests = {
-    login: 'http://157.90.67.186:3333/api/authentication/login',
-    logout: 'http://localhost:3333/api/auth/logout',
+    login: 'http://157.90.67.186:3002/authentication/login',
+    logout: 'http://157.90.67.186:3002/authentication/logout',
     updatePassword: 'http://localhost:3333/api/admin/changePassword',
     resetPassword: 'http://localhost:3333/api/admin/resetPassword',
     requestPasswordReset: 'http://localhost:3333/api/admin/requestResetPassword',
@@ -28,11 +28,11 @@ export const requests = {
     getAllBanners: 'http://localhost:3333/api/admin/banner',
     getBannerById: 'http://localhost:3333/api/admin/banner/',
     editBanner: 'http://localhost:3333/api/admin/banner/',
-    getAllBranches: 'http://localhost:3333/api/branches',
-    addNewBranch: 'http://localhost:3333/api/branch',
-    updateBranch: 'http://localhost:3333/api/branches/',
-    deleteBranches: 'http://localhost:3333/api/branches/',
-    getBranchById: 'http://localhost:3333/api/branch/',
+    getAllBranches: environment.baseUrlAdmin + 'branches/getAll',
+    addNewBranch: environment.baseUrlAdmin + 'branches/add',
+    updateBranch: environment.baseUrlAdmin + 'branches/update/',
+    deleteBranches: environment.baseUrlAdmin + 'branches/delete/',
+    getBranchById: environment.baseUrlAdmin + 'branches/getById/',
     addChangeLog: 'http://localhost:3333/api/changeLog',
     getEntityChangeLog: 'http://localhost:3333/api/changeLog/',
     incrementNewsView: 'http://localhost:3333/api/news/analytics/incrementView/',

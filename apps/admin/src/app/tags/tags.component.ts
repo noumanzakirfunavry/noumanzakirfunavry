@@ -17,7 +17,7 @@ export interface Data {
 })
 
 export class TagsComponent implements OnInit {
-    pagination: {limit: number, pageNo: number, title?: string, status?: string} = {limit: 10, pageNo: 1}
+    pagination: { limit: number, pageNo: number, title?: string, status?: string, publishers?:Array<any> } = {limit: 10, pageNo: 1}
     allTags: any;
     indeterminate = false;
     checked = false;
