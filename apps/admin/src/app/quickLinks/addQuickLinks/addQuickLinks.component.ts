@@ -1,5 +1,7 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { requests } from 'src/app/shared/config/config';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
     selector: 'app-addquickLink',
@@ -13,37 +15,31 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
       ]
 })
 
-export class AddQuickLinksComponent {
-    validateForm: FormGroup;
+export class AddQuickLinksComponent implements OnInit {
+  quickLinkForm: FormGroup;
+  
+  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  
+  ngOnInit(): void {
+    this.quickLinkForm = this.fb.group({
+      title: [ null, [ Validators.required ] ],
+      url: [ null, [ Validators.required ] ],
+      visible: [false]
+  });
+  }
 
-    submitForm(): void {
-      for (const i in this.validateForm.controls) {
-        this.validateForm.controls[i].markAsDirty();
-        this.validateForm.controls[i].updateValueAndValidity();
-      }
+  addNewQuickLink(): void {
+    for (const i in this.quickLinkForm.controls) {
+      this.quickLinkForm.controls[i].markAsDirty();
+      this.quickLinkForm.controls[i].updateValueAndValidity();
     }
-  
-    get isHorizontal(): boolean {
-      return this.validateForm.controls.formLayout?.value === 'horizontal';
+    if(this.quickLinkForm.valid) {
+      const obj= this.quickLinkForm.value;
+      obj['position']= 1;
+      this.apiService.sendRequest(requests.addNewQuickLink, 'post', obj).subscribe((res:any) => {
+        console.log("ADD-QUICK-LINK", res);
+      })
     }
-  
-    constructor(private fb: FormBuilder) {}
-  
-    ngOnInit(): void {
-      this.validateForm = this.fb.group({
-        formLayout: ['horizontal'],
-        fieldA: [null, [Validators.required]],
-        filedB: [null, [Validators.required]]
-      });
-    }
+  }
+
 }    
-// import { Component } from '@angular/core'
-
-// @Component({
-//     selector: 'app-addquickLink',
-//     templateUrl: './addQuickLinks.component.html'
-// })
-
-// export class AddQuickLinksComponent {
-   
-// }    
