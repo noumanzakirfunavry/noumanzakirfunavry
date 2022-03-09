@@ -14,7 +14,7 @@ export class QuickLinksController{
     }
 
     @Put('update')
-    async updateQuickLinks(@Body() body:UpdateQuickLinksRequestDto){
+        async updateQuickLinks(@Query() body:UpdateQuickLinksRequestDto){
         return await this.quickLinksService.updateQuickLinks(body)
     }
     @Get('getAll')
