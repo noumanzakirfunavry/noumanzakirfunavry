@@ -28,7 +28,16 @@ const routes: Routes = [
         path: 'add',
         component: AddAddressesComponent,
         data: {
-            title: 'Add Addresses',
+            title: 'Add Address',
+            // headerDisplay: "none"
+        },
+
+    },
+    {
+        path: 'add/:id',
+        component: AddAddressesComponent,
+        data: {
+            title: 'Update Address',
             // headerDisplay: "none"
         },
 
