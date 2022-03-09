@@ -1,5 +1,5 @@
-import { AddQuoteRequestDto, UpdateQuoteRequestDto } from "@cnbc-monorepo/dtos";
-import { Body, Controller, Get, Post, Put, Req } from "@nestjs/common";
+import { AddQuoteRequestDto, GetAllQuotesRequestDto, UpdateQuoteRequestDto } from "@cnbc-monorepo/dtos";
+import { Body, Controller, Get, Post, Put, Query, Req } from "@nestjs/common";
 import { QuotesService } from "./quotes.service";
 
 
@@ -9,8 +9,8 @@ export class QuotesController{
     {}   
 
     @Get('getAll')
-    async getAllQuote(){
-        return await this.quotesService.getAll()
+    async getAllQuote(@Query() query:GetAllQuotesRequestDto){
+        return await this.quotesService.getAll(query)
     }
     @Post('add')
     async addQuote(@Body() body:AddQuoteRequestDto){
