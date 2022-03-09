@@ -486,6 +486,10 @@ header{
     padding-right: 15px;
     width: 190px;
   }
+  .NewsList li .newsImage iframe{
+    width: 100%;
+    height: 100%;
+  }
   .NewsList li .newsText{
     flex: 3;
     padding: 5px 0 0 0px;
@@ -507,6 +511,9 @@ header{
     font-size: 20px;
     color: $grey-dark !important;
     font-weight: bold;
+  }
+  .NewsList li a:hover{
+    text-decoration: underline;
   }
   .NewsList li p a{
     font-size: inherit;
@@ -543,9 +550,13 @@ header{
   .breakingNews .newsbox .newsaction .btn{
     font-weight: bold;
     font-size: 15px;
+    width: 77px;
+    height: 40px;
+    padding: 5px;
   }
   .breakingNews .newsbox .newslink{
-    flex: 4;
+    flex: 6;
+    margin-left: 20px;
   }
   .breakingNews .newsbox .newslink a{
     color: $grey-dark;
@@ -557,7 +568,11 @@ header{
   .breakingNews .newsbox .newslink p{
     margin: 0 0 5px 0;
     font-weight: bold;
+    &.text-danger{
+      font-size: 12px;
+    }
   }
+
 
 
 
@@ -678,6 +693,12 @@ header{
   .VideoNews .NewsContent h4{
     color: $white;
   }
+  .VideoNews .NewsContent h4:hover, .newsSlider .slick-slider .NewsBox .newscontent h3 a:hover,
+  .NewsTiles .newBox .NewsInfo h3:hover, .NewsTiles .newBox .NewsInfo h4:hover
+  {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 
 
   .VideoTiles{
@@ -689,7 +710,7 @@ header{
   }
   .VideoTiles .VideoNews .NewsImage{
     height: 119px;
-    width: 190px;
+    // width: 190px;
   }
   .VideoTiles .VideoNews .PlayTime{
       width: 100%;
@@ -784,6 +805,7 @@ header{
 }
 .NewsLightTiles .VideoTiles .VideoNews .NewsImage{
   height: 119px;
+  width: 190px;
 }
 .NewsLightTiles .VideoTiles .NewsContent h4{
     color: $primary-color;
@@ -1154,6 +1176,7 @@ header{
     background-repeat: no-repeat;
     height: 326px;
     position: relative;
+    background-size: contain;
  }
 
  .newsSlider .slick-slider .NewsBox .newscontent{
@@ -1167,6 +1190,7 @@ header{
     color: white;
     font-size: 20px;
     line-height: normal;
+    font-weight: bold;
 }
 
 .sliderArrows{
@@ -1185,6 +1209,12 @@ header{
 }
 .sliderArrows .arrow-next{
   background: url(../images/arrow-left.svg) no-repeat !important;
+}
+.sliderArrows .arrow-prev:hover{
+  background: url(../images/arrow-right-hover.svg) no-repeat !important;
+}
+.sliderArrows .arrow-next:hover{
+  background: url(../images/arrow-left-hover.svg) no-repeat !important;
 }
 
 
@@ -1896,6 +1926,7 @@ width: 110px;
       }
     }
     &.newBoxfs{
+      width: 300px;
       .NewsImage {
         height: 300px;
         width: 300px;
@@ -2067,4 +2098,27 @@ select::-ms-expand {
       color: #002F6C;
     }
   }
+}
+.fs12_bold{
+  font-size: 12px;
+  font-weight: bold;
+}
+.min_w111_h31{
+  min-width: 111px;
+  height: 31px;
+  padding:3px 5px;
+}
+.more_btn button.btn.btn-outline-primary {
+  min-width: 77px;
+  font-size: 15px;
+  font-weight: bold;
+  height: 40px;
+  padding: 5px;
+}
+.large_add {
+  margin-top: 54px;
+   img {
+    width: 300px;
+    height: 600px;
+}
 }

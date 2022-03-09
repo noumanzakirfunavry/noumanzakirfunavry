@@ -72,11 +72,11 @@ const Footer = () =>{
                         <div className={styles.searchBox}>
                                     <input type="text" className="form-control" placeholder="ابحث في الموقع" />
                                 </div>
-                                <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول </button>
+                                <button className='btn btn-primary fs12_bold min_w111_h31' data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول </button>
                     </div>
                     <div className='col-lg-2 col-md-4 col-sm-6 pb-5 pb-sm-0  order-lg-0 me-auto ms-0 offset-1'>
                         <h4>اتصل بنا</h4>
-                        <button className='btn btn-outline-light' onClick={() => router.push('/contact')}>ابقى على تواصل</button>
+                        <button className='btn btn-outline-light fs12_bold min_w111_h31' onClick={() => router.push('/contact')}>ابقى على تواصل</button>
                     </div>
 
 

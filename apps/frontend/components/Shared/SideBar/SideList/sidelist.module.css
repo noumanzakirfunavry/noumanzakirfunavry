@@ -67,6 +67,7 @@
 }
 .sideDotList li a:hover{
     color: #002F6C;
+    text-decoration: underline;
 }
 .sideDotList li a span{
     color: #777777;
@@ -171,6 +172,7 @@
 }
 .sidesimpleList li a:hover{
     color: #002F6C;
+    text-decoration: underline;
 }
 .sidesimpleList li a span{
     color: #777777;
