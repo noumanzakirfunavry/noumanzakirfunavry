@@ -6,7 +6,7 @@ export class GetALLJobsRequestDto extends PaginatedRequestDto{
 
     @IsOptional()
     @IsBoolean()
-    status:Boolean
+    status:boolean
 
     @IsOptional()
     @IsNumber()

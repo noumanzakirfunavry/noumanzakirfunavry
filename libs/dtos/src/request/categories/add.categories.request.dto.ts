@@ -12,7 +12,7 @@ export class AddCategoriesRequestDto{
 
     @IsNotEmpty()
     @IsBoolean()
-    isActive:Boolean
+    isActive:boolean
     
     @IsNotEmpty()
     @IsBoolean()

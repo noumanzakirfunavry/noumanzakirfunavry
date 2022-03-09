@@ -1,5 +1,5 @@
 import { JwtAuthGuard, Rights, Roles } from '@cnbc-monorepo/auth-module';
-import { GenericResponseDto, GetAllEditorsChoiceNewsResponseDto, GetAllFeaturedNewsResponseDto, GetAllTrendingNewsResponseDto, UpdateFeaturedNewsRequestDto, UpdateTrendingNewsRequestDto } from '@cnbc-monorepo/dtos';
+import { GenericResponseDto, GetAllEditorsChoiceNewsResponseDto, GetAllFeaturedNewsResponseDto, GetAllTrendingNewsResponseDto, UpdateEditorChoiceNewsRequestDto, UpdateFeaturedNewsRequestDto, UpdateTrendingNewsRequestDto } from '@cnbc-monorepo/dtos';
 import { EditorsChoiceNews, FeaturedNews, TrendingNews } from '@cnbc-monorepo/entity';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Body, Controller, Get, HttpStatus, Put, Req, UseGuards } from '@nestjs/common';
@@ -64,5 +64,13 @@ export class NewsTypeController {
     @Put("update/trending")
     async updateTrendingNews(@Req() req,@Body() body : UpdateTrendingNewsRequestDto) : Promise<GenericResponseDto>{
         return await this.newsService.updateNews(TrendingNews,body,req.user.data.id)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Rights(RightsTypes.UPDATE)
+    @Roles(RoleTypes.Admin)
+    @Put("update/editors-choice-news")
+    async updateEditorChoiceNews(@Req() req,@Body() body : UpdateEditorChoiceNewsRequestDto) : Promise<GenericResponseDto>{
+        return await this.newsService.updateNews(EditorsChoiceNews,body,req.user.data.id)
     }
 }

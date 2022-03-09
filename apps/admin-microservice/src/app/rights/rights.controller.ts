@@ -7,9 +7,7 @@ import { RightsService } from './rights.service';
 @Controller('rights')
 export class RightsController {
 
-    constructor(private rightsService: RightsService) {
-
-    }
+    constructor(private rightsService: RightsService) {}
 
     @UseGuards(JwtAuthGuard)
     @Get()

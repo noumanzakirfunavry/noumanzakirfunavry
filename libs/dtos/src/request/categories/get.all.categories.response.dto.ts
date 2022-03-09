@@ -13,11 +13,11 @@ export class GetAllCategoriesRequestDto extends PaginatedRequestDto{
 
     @IsOptional()
     @IsBoolean()
-    status:Boolean
+    status:boolean
 
     @IsOptional()
     @IsBoolean()
-    includeNews:Boolean
+    includeNews:boolean
 
     @IsOptional()
     @IsNumber()

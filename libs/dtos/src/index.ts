@@ -51,6 +51,8 @@ export * from './request/seo/create.seo.request.dto'
 export * from './request/featured-news/update.featured.news.request.dto'
 //...............................Trending news.............................
 export * from './request/trending-news/post.trending.news.request.dto'
+//...............................Editor choice news.............................
+export * from './request/editor-choice-news/update.editor.choice.news.request.dto'
 
 
 export * from './request/quickLinks/get.all.quick.links.request.dto'

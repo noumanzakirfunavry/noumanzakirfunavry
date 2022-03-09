@@ -1,9 +1,12 @@
 import { SectionTypes } from "@cnbc-monorepo/enums";
-import { ArrayNotEmpty, IsArray, IsEnum, IsNotEmpty, IsNumber } from "class-validator";
+import { Type } from "class-transformer";
+import { ArrayNotEmpty, IsArray, IsEnum, IsNotEmpty, IsNumber, ValidateNested } from "class-validator";
 
 export class UpdateFeaturedNewsRequestDto{
    @ArrayNotEmpty()
    @IsArray()
+   @ValidateNested({ each: true })
+   @Type(() => FeaturedNews)
    news :  FeaturedNews[]
 }
 export class FeaturedNews{
