@@ -178,6 +178,8 @@ header{
   .header-nav .navbar{
     margin: 0;
     padding: 0;
+    max-width: 900px;
+    overflow: auto;
   }
   .header-nav ul{
     list-style: none;
@@ -427,7 +429,7 @@ header{
   }
   .sectionTitle h3{
     color: $primary-color;
-    font-weight: 700;
+    font-weight: 900;
     font-size: 24px;
   }
 
@@ -438,7 +440,7 @@ header{
   }
   .yellowTitle h3{
     color: $primary-color;
-    font-weight: 700;
+    font-weight: 900;
     font-size: 32px;
     border-top: 6px solid $warning;
     margin-top: -6px;
@@ -563,11 +565,38 @@ header{
 
   .NewsTilesBg{
     background: $primary-dark;
-    padding: 20px;
+    padding-top: 31px;
     color: $white;
+    h2{
+      font-weight: 900;
+    }
+    .VideoTiles {
+      .VideoNews {
+        .NewsImage{
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+          }
+        }
+      }
+    }
   }
   .NewsTilesBg .TitleBar{
     margin-bottom: 10px;
+    .btn{
+      font-size: 15px;
+      font-weight: bold;
+      height: 40px;
+      padding: 4px;
+      &.btn-danger{
+        min-width: 165px;
+      }
+      &.btn-outline-light{
+        min-width: 129px;
+      }
+    }
   }
   .VideoNews{
     position: relative;
@@ -585,10 +614,13 @@ header{
     background: $warning;
     position: absolute;
     left: 0;
-    top: 0;
+    top: -6px;
     display: flex;
     transition: width .5s;
-    width: 60px;
+    width: 80px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
   }
   .VideoNews .PlayTime:hover .btn-text{
       width: 180px;
@@ -608,9 +640,9 @@ header{
     display: none;
     white-space: nowrap;
     color: $grey-dark;
-    font-weight: bold;
-    padding: 12px 15px 0 5px;
+    padding: 0px 15px 0 5px;
     font-size: 20px;
+    font-weight: 900;
   }
   .VideoNews .PlayTime:hover .btn-text span{
     display: block;
@@ -623,8 +655,10 @@ header{
     color: $white;
     padding: 10px 0 0 10px;
     position: absolute;
-    left: 65px;
-    top: 3px;
+    left: 90px;
+    top: 20px;
+    font-size: 15px;
+    font-weight: bold;
   }
   .VideoNews .NewsImage{
     height: 415px;
@@ -648,13 +682,14 @@ header{
 
   .VideoTiles{
       display: flex;
-      margin-bottom: 15px;
+      margin-bottom: 27px;
   }
   .VideoTiles .VideoNews{
     flex: 1;
   }
   .VideoTiles .VideoNews .NewsImage{
-    height: 123px;
+    height: 119px;
+    width: 190px;
   }
   .VideoTiles .VideoNews .PlayTime{
       width: 100%;
@@ -664,14 +699,15 @@ header{
     padding: 5px 10px;
 }
 .NewsTilesBg .VideoTiles .VideoNews .PlayTime .btn-text span {
-    padding: 5px 5px 0px;
+    padding: 0px 5px 0px;
     font-size: inherit;
 }
 .VideoTiles .VideoNews .PlayTime .btn i{
     font-size: inherit;
 }
 .NewsTilesBg .VideoTiles .VideoNews .PlayTime .btn-text{
-    width: 34px;
+    width: 35px;
+    height: 35px;
 }
 .NewsTilesBg .VideoTiles .VideoNews .PlayTime:hover .btn-text {
     width: 110px;
@@ -680,15 +716,19 @@ header{
       flex: 2;
       font-size: 12px;
       padding-right: 5px;
-      right: 0;
+      right: 8px;
+      font-weight: bold;
+      top: 0;
   }
   .VideoTiles .NewsContent{
-    flex: 2;
+    flex: 1.6;
     padding-right: 20px;
   }
   .VideoTiles .NewsContent h4{
       font-size: 15px;
       line-height: 25px;
+      font-weight: bold;
+      margin-right: 10px;
   }
 
 
@@ -706,8 +746,14 @@ header{
       padding: 20px;
     color: $grey-dark;
   }
-  .NewsLightTiles .TitleBar h2{
-    color: $primary-color;
+  .NewsLightTiles {
+    .TitleBar {
+      h2{
+        color: $primary-color;
+        font-weight: 900;
+        margin-bottom: 15px;
+      }
+    }
   }
   .NewsLightTiles .VideoNews{
     position: relative;
@@ -728,6 +774,7 @@ header{
   }
   .NewsLightTiles .VideoNews .NewsContent h4{
     color: $white;
+    font-weight: bold;
   }
   .NewsLightTiles .VideoTiles{
     display: flex;
@@ -736,7 +783,7 @@ header{
   flex: 1;
 }
 .NewsLightTiles .VideoTiles .VideoNews .NewsImage{
-  height: 127px;
+  height: 119px;
 }
 .NewsLightTiles .VideoTiles .NewsContent h4{
     color: $primary-color;
@@ -771,15 +818,24 @@ header{
           font-weight: bold;
         }
         h4{
-          font-size: 20px;
+          font-size: 16px;
           font-weight: bold;
           line-height: 1.5rem;
         }
         p{
-          font-size: 16px;
+          font-size: 12px;
           font-weight: bold;
+          color: $grey;
         }
       }
+    }
+    .newBoxfs{
+      .NewsInfo{
+        h4{
+          font-size: 20px;
+        }
+      }
+
     }
   }
 
@@ -795,14 +851,16 @@ header{
   padding: 8px 15px;
 }
 .NewsTiles .newBox .PlayTime .btn-text span {
-  padding: 10px 10px 0px;
+  padding: 0px 10px 0px;
   font-size: inherit;
+  font-weight: 900;
 }
 .NewsTiles .newBox .PlayTime .btn i{
   font-size: inherit;
 }
 .NewsTiles .newBox .PlayTime .btn-text{
-  width: 44px;
+  width: 50px;
+  height: 50px;
 }
 .NewsTiles .newBox .PlayTime:hover .btn-text {
   width: 130px;
@@ -828,7 +886,7 @@ header{
     background: $warning;
     position: absolute;
     left: 0;
-    top: 0;
+    top: -6px;
     display: flex;
     transition: width .5s;
     width: 60px;
@@ -983,16 +1041,19 @@ header{
 
 
 .stockMarketNews{
-    margin: 15px 0;
+    margin: 15px 0 80px;
+    .sectionTitle{
+      padding-top: 15px;
+    }
   }
   .marketChart{
-    margin: 30px 0;
+    margin: 34px 0;
   }
   .marketChart .chartBox{
     background: #FAFAFA;
     border: 1px solid $grey-light;
     border-top: 6px solid $primary-color;
-    padding: 30px;
+    padding: 25px 33px 10px;
     margin-top: 20px;
   }
   .marketChart .chartBox .chartTop{
@@ -1000,32 +1061,52 @@ header{
     list-style: none;
     margin: 0;
     padding:0;
+    align-items: center;
   }
   .marketChart .chartBox .chartTop h4{
-    padding-left: 20px;
+    padding-left: 22px;
     color: $primary-color;
-    font-weight: 700;
+    font-weight: 900;
     font-size: 24px;
   }
   .marketChart .chartBox .chartTop .active a{
-    color: $primary-color;
-    border-bottom: 2px solid $primary-color;
+    color: $secondary-color;
+    border-bottom: 2px solid $secondary-color;
+    padding-bottom: 5px;
+  }
+  .marketChart .chartBox .chartTop li{
+    padding: 5px 0 5px 26px;
   }
   .marketChart .chartBox .chartTop li a{
     color: $grey;
     font-size: 15px;
-    font-weight: bold;
-    padding: 5px 20px;
+    font-weight: 900;
+
   }
 
   .marketChart .chartBox h3{
-    font-weight: bold;
-    margin: 20px 0 30px;
+    font-weight: 900;
+    margin: 16px 0 15px;
+    font-size: 20px;
   }
   .marketChart .chartBox table{
-    font-weight: bold;
+    font-weight: 600;
     color: $grey;
     font-size: 15px;
+    td{
+      &.text-success {
+        font-weight: bold;
+        font-size: 12px;
+    }
+    &.text-danger{
+      font-weight: bold;
+        font-size: 12px;
+    }
+    .progress{
+      border-radius: 0;
+      background-color: transparent;
+    }
+    }
   }
 
 
@@ -1033,7 +1114,13 @@ header{
 
 
  .horizontalNumberList{
-     margin: 30px 0;
+     margin: 50px 0;
+     .primaryTitle{
+       h3{
+        border-top: 6px solid #0089D0;
+
+       }
+     }
  }
  .horizontalNumberList .hNumberList ol{
     display: flex;
@@ -1048,12 +1135,13 @@ header{
     counter-increment: mynumberlist;
     color: $grey-dark;
     font-size: 14px;
+    font-weight: bold;
  }
  .horizontalNumberList .hNumberList ol li::before{
      content: counter(mynumberlist);
      color: #CFD8E2;
      font-size: 45px;
-     font-weight: 700;
+     font-weight: 900;
      display: block;
  }
 
@@ -1804,11 +1892,13 @@ width: 110px;
     &.newBoxf {
       .NewsImage {
         height: 300px;
+        width: 630px;
       }
     }
     &.newBoxfs{
       .NewsImage {
         height: 300px;
+        width: 300px;
         img{
           object-fit: cover;
           height: 100%;
@@ -1949,4 +2039,32 @@ select::-ms-expand {
   height: 16px;
   line-height: 16px;
   padding: 0;
+}
+// dots list
+.dotListwrap{
+  position: relative;
+  border-bottom: solid 4px #071D39;
+}
+.dotListwrap::after{
+  background: -webkit-gradient(linear,left top,left bottom,from(hsla(0,0%,100%,0)),to(#fff));
+  background: linear-gradient(hsla(0,0%,100%,0),#fff);
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 100px;
+  pointer-events: none;
+  position: absolute;
+  width: 96%;
+}
+
+.scrollbarWrap{
+  margin-bottom: 55px;
+}
+.scrollbarHeader{
+  .TitleBar{
+    h2{
+      font-weight: 900;
+      color: #002F6C;
+    }
+  }
 }
