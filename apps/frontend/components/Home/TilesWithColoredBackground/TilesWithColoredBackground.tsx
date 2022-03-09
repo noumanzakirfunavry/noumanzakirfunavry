@@ -30,6 +30,7 @@ const TilesWithColoredBackground: FC = () => {
                                     <span>شاهد الآن</span>
                                     <button className="btn btn-warning VideoPlay">
                                         <i className="fa fa-play"></i>
+                                        {/* <img className="img-fluid" src={playicon.src} /> */}
                                     </button>
                                 </div>
                             </div>
