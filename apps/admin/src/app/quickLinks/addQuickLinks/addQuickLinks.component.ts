@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
 
@@ -17,8 +18,11 @@ import { ApiService } from 'src/app/shared/services/api.service';
 
 export class AddQuickLinksComponent implements OnInit {
   quickLinkForm: FormGroup;
+  selectedQuickLink: any;
+  quickLinkId: any;
+  quickLinkById: any;
   
-  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private activatedRoute: ActivatedRoute) {}
   
   ngOnInit(): void {
     this.quickLinkForm = this.fb.group({
@@ -26,9 +30,15 @@ export class AddQuickLinksComponent implements OnInit {
       url: [ null, [ Validators.required ] ],
       visible: [false]
   });
+  this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+    this.quickLinkId = + params.get('id');
+    if (this.quickLinkId) {
+      this.getQuickLinkById();
+    }
+  });
   }
 
-  addNewQuickLink(): void {
+  quickLink(): void {
     for (const i in this.quickLinkForm.controls) {
       this.quickLinkForm.controls[i].markAsDirty();
       this.quickLinkForm.controls[i].updateValueAndValidity();
@@ -36,10 +46,23 @@ export class AddQuickLinksComponent implements OnInit {
     if(this.quickLinkForm.valid) {
       const obj= this.quickLinkForm.value;
       obj['position']= 1;
-      this.apiService.sendRequest(requests.addNewQuickLink, 'post', obj).subscribe((res:any) => {
-        console.log("ADD-QUICK-LINK", res);
+      this.apiService.sendRequest(this.quickLinkId ? requests.updateQuickLink + this.quickLinkId : requests.addNewQuickLink, this.quickLinkId ? 'put' : 'post', obj).subscribe((res:any) => {
+        console.log("QUICK-LINK", res);
+        this.quickLinkForm.reset();
       })
     }
+  }
+
+  getQuickLinkById() {
+    this.apiService.sendRequest(requests.getQuickLinkById + this.quickLinkId, 'get').subscribe((res:any) => {
+      this.quickLinkById= res.quickLinks;
+      console.log("QUICK-LINK-BY-ID", this.quickLinkById);
+      this.quickLinkForm = this.fb.group({
+        title: [ this.quickLinkById?.title || null, [ Validators.required ] ],
+        url: [ this.quickLinkById?.url || null, [ Validators.required ] ],
+        visible: [this.quickLinkById?.visible || false]
+    });
+    })
   }
 
 }    
