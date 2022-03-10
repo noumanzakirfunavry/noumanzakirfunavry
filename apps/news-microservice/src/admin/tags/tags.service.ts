@@ -64,16 +64,15 @@ export class TagsService{
         }   
         return new AddTagResponseDto(HttpStatus.OK,"ADDED SUCCESSFULLY",result)
     }
-    async updateTag(body:UpdateTagRequestDto){
-        const tag=await this.tagsRepo.findOne({where:{id:body.id}})
+    async updateTag(id:number,body:UpdateTagRequestDto){
+        const tag=await this.tagsRepo.findOne({where:{id:id}})
         if(!tag){
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
               )  
         }
-        const {id,...rest}=body
-        const result=await tag.update(rest)
+        const result=await tag.update(body)
         return new UpdateTagResponseDto(HttpStatus.OK,"UPDATED SUCCESSFULLY", result)    
     }
 }

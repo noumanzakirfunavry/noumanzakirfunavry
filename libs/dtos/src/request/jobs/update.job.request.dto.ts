@@ -2,10 +2,6 @@ import { IsBoolean, IsDateString, IsNotEmpty, IsNumber, IsOptional, IsString } f
 
 export class UpdateJobRequestDto{
     
-    @IsNotEmpty()
-    @IsNumber()
-    id:number
-
     @IsOptional()
     @IsString()
     title:string

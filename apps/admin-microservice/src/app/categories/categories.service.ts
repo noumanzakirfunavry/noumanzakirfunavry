@@ -88,16 +88,15 @@ export class CategoriesService{
         );
     }
 
-    async update(body:UpdateCategoriesRequestDto){
-        const category=await this.categoryRepo.findOne({where:{id:body.id}})
+    async update(id:number,body:UpdateCategoriesRequestDto){
+        const category=await this.categoryRepo.findOne({where:{id:id}})
         if(!category){
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
               )  
         }
-        const {id,...rest}=body
-        const result=await category.update(rest)
+        const result=await category.update(body)
         return new UpdateCategoriesResponseDto(HttpStatus.OK,"UPDATED SUCCESSFULLY", result)  
     }
 

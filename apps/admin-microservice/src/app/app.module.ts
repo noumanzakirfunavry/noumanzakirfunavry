@@ -11,10 +11,21 @@ import { JobsModule } from './jobs/jobs.module';
 import { BranchesModule } from './branches/branches.module';
 import { DepartmentModule } from './departments/departments.module';
 import { CategoriesModule } from './categories/categories.module';
+import { BreakingNewsModule } from './breakingNews/breakingNews.module';
 @Module({
-  imports: [EntityModule, AnthenticationModule, RightsModule, SocialMediaLinksModule,UtilityModule, AlexaAudioModule, PresentersModule, AdminModule,        JobsModule,
+  imports: [EntityModule, 
+    AnthenticationModule, 
+    RightsModule, 
+    SocialMediaLinksModule,
+    UtilityModule, 
+    AlexaAudioModule, 
+    PresentersModule, 
+    AdminModule,        
+    JobsModule,
     BranchesModule,
     DepartmentModule,
-    CategoriesModule,],
+    CategoriesModule,
+    BreakingNewsModule,
+  ],
 })
 export class AppModule {}

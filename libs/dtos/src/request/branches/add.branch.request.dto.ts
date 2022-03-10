@@ -20,7 +20,7 @@ export class AddBranchRequestDto{
     email:string
 
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     zipCode:string
 
     @IsString()
