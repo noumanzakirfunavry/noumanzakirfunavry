@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddTagComponent } from './addTag/addTag.component';
-import { NzDemoFormDynamicRuleComponent } from './addTag/dynamic-rule';
 import { TagsComponent } from './tags.component';
 const routes: Routes = [
     {
@@ -10,8 +9,7 @@ const routes: Routes = [
         data: {
             title: 'Tags',
             // headerDisplay: "none"
-        },
-
+        }
     },
     {
         path: 'list',
@@ -19,8 +17,7 @@ const routes: Routes = [
         data: {
             title: 'Tags',
             // headerDisplay: "none"
-        },
-
+        }
     },
     {
         path: 'add',
@@ -29,8 +26,16 @@ const routes: Routes = [
         data: {
             title: 'Add Tag',
             // headerDisplay: "none"
-        },
-
+        }
+    },
+    {
+        path: 'add/:id',
+        component: AddTagComponent,
+        // component: NzDemoFormDynamicRuleComponent,
+        data: {
+            title: 'Update Tag',
+            // headerDisplay: "none"
+        }
     }
 ];
 

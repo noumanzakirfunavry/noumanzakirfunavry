@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { requests } from 'src/app/shared/config/config';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-addNews',
@@ -8,6 +11,9 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 })
 
 export class AddNewsComponent implements OnInit {
+    quotesForm: FormGroup;
+    allQuotes: any;
+    pagination: {limit: number, pageNo: number, name?: string} = {limit: 10, pageNo: 1}
     public Editor = ClassicEditor;
     previewImage = '';
     previewVisible = false;
@@ -104,7 +110,13 @@ export class AddNewsComponent implements OnInit {
     multipleValue = ['a10', 'c12'];
     tagValue = ['a10', 'c12', 'tag'];
 
+    constructor(private apiService: ApiService, private fb: FormBuilder) {}
+
     ngOnInit(): void {
+        this.quotesForm = this.fb.group({
+            name: [ null, [ Validators.required ] ]
+        });
+        this.getAllQuotes();
         const children: Array<{ label: string; value: string }> = [];
         for (let i = 10; i < 36; i++) {
             children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
@@ -122,5 +134,18 @@ export class AddNewsComponent implements OnInit {
 
     log(value: string[]): void {
         console.log(value);
+    }
+
+    getAllQuotes() {
+        this.apiService.sendRequest(requests.getAllQuotes, 'get', this.pagination).subscribe((res:any) => {
+            console.log("ALL-QUOTES", res);
+        })
+    }
+
+    addNewQuote() {
+        this.apiService.sendRequest(requests.addNewQuote, 'post', this.quotesForm.value).subscribe((res:any) => {
+            this.allQuotes= res.quote;
+            console.log("ADD-TAG", this.allQuotes);
+        })
     }
 }    
