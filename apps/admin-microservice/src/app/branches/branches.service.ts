@@ -63,16 +63,17 @@ export class BranchesService {
         }
         return new GenericResponseDto(HttpStatus.OK, "DELETED SUCCESSFULLY")
     }
-    async update(body: UpdateBranchRequestDto) {
-        const job = await this.branchRepo.findOne({ where: { id: body.id } })
+    
+    async update(id: number, body: UpdateBranchRequestDto) {
+        const job = await this.branchRepo.findOne({ where: { id: id } })
         if (!job) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
             )
         }
-        const { id, ...rest } = body
-        const result = await job.update(rest)
+
+        const result = await job.update(body)
         return new UpdateBranchResponseDto(HttpStatus.OK, "UPDATED SUCCESSFULLY", result)
     }
 }
