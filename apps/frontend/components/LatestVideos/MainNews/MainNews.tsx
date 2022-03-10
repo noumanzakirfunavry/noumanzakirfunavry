@@ -3,8 +3,8 @@
 const MainNews = () =>{
 
     return (
-        <>        
-            <div className="VideoNews mb-4">
+        <>
+            <div className="VideoNews mb-4 latestmainNews">
                 <div className="NewsImage">
                     <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg"/>
                 </div>
