@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
@@ -26,7 +27,7 @@ export class TagsComponent implements OnInit {
 
     
 
-    constructor(private apiService: ApiService ) {}
+    constructor(private apiService: ApiService, private message: NzMessageService ) {}
 
     ngOnInit() {
         this.getAllTags();
@@ -59,9 +60,10 @@ export class TagsComponent implements OnInit {
     }
 
     deleteTags(tagId: any) {
-        this.apiService.sendRequest(requests.deleteTags + tagId, 'delete').subscribe((res:any) => {
+        this.apiService.sendRequest(requests.deleteTags, 'delete', {ids:[tagId]}).subscribe((res:any) => {
             console.log("DELETE-TAG", res);
             this.getAllTags();
+            this.message.create('success', `Tag Deleted Successfully`)
         })
     }
     

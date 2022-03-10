@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
@@ -68,7 +69,7 @@ export class CategoryComponent implements OnInit {
           }
     ]
 
-    constructor(private apiService: ApiService ) {
+    constructor(private apiService: ApiService, private message: NzMessageService ) {
     }
 
     ngOnInit() : void {
@@ -79,6 +80,14 @@ export class CategoryComponent implements OnInit {
         this.apiService.sendRequest(requests.getAllCategories, 'get', this.pagination).subscribe((res:any) => {
             this.allCategories= res.response.categories;
             console.log("ALL-CATEGORIES", this.allCategories);
+        })
+    }
+
+    deleteCategories(categoryId: number) {
+        this.apiService.sendRequest(requests.deleteCategories, 'delete', {ids:[categoryId]}).subscribe((res:any) => {
+            console.log("DEL-CATEGORY", res);
+            this.getAllCategories();
+            this.message.create('success', `Category Deleted Successfully`)
         })
     }
 

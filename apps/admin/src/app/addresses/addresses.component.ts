@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
@@ -17,11 +17,10 @@ export interface Data {
     templateUrl: './addresses.component.html',
 })
 
-export class AddressesComponent {
+export class AddressesComponent implements OnInit{
 
     pagination: { limit: number, pageNo: number, status?: string, title?: string, publishers?:Array<any> } = {limit: 10, pageNo: 1}
     allBranches: any;
-    ids= [];
     indeterminate = false;
     checked = false;
     setOfCheckedId = new Set<number>();
@@ -41,14 +40,11 @@ export class AddressesComponent {
     }
 
     deleteBranch(branchId: any) {
-        if(branchId){
-            this.ids=[branchId];
-            this.apiService.sendRequest(requests.deleteBranches, 'delete', this.ids).subscribe((res:any) => {
-                console.log("DELETE-BRANCH", res);
-                this.getAllBranches();
-                this.message.create('success', `Address Deleted Successfully`);
-            })
-          }
+        this.apiService.sendRequest(requests.deleteBranches, 'delete', {ids:[branchId]}).subscribe((res:any) => {
+            console.log("DELETE-BRANCH", res);
+            this.getAllBranches();
+            this.message.create('success', `Address Deleted Successfully`);
+        }) 
     }
 
     updateCheckedSet(id: number, checked: boolean): void {

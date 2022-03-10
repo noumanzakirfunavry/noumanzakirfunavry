@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
-import { ThemeConstantService } from '../shared/services/theme-constant.service';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class QuickLinkComponent implements OnInit{
     pagination: {limit: number, pageNo: number, status?: string, title?: string} = {limit: 10, pageNo: 1}
     allQuickLinks: any;
 
-    constructor( private colorConfig: ThemeConstantService, private apiService: ApiService ) {}
+    constructor( private apiService: ApiService, private message: NzMessageService ) {}
 
     ngOnInit() {
         this.getAllQuickLinks();
@@ -27,8 +27,9 @@ export class QuickLinkComponent implements OnInit{
     }
 
     deleteQuickLink(link: number) {
-        this.apiService.sendRequest(requests.deleteQuickLink, 'delete',{ids:[link]}).subscribe((res:any) => {
+        this.apiService.sendRequest(requests.deleteQuickLink, 'delete', {ids:[link]}).subscribe((res:any) => {
             console.log("DEL-QUICK-LINK", res);
+            this.message.create('success', `Quick Link Deleted Successfully`)
         })
     }
 
