@@ -10,7 +10,7 @@ body{
 a{
   color: $primary-color;
   &:hover{
-    color: $warning;
+    // color: $warning;
   }
 }
 a:not([href]):not([class]) {
@@ -259,12 +259,13 @@ header{
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
   .header-search-nav ul li a{
     font-size: 16px;
     color: $white !important;
-    padding: 5px 15px;
+    // padding: 5px 15px;
+    padding: 0;
     text-align: center;
     text-decoration: none;
     font-weight: bold;
@@ -2264,12 +2265,20 @@ select::-ms-expand {
       &.text-secondary{
         font: normal normal bold 20px/20px Cairo;
         color: $secondary-color !important;
+        &:hover{
+          text-decoration: underline;
+          cursor: pointer;
+        }
 
       }
     }
     h1{
       font: normal normal bold 40px/65px Cairo;
       color: $grey-dark;
+      &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
   }
   p{
@@ -2319,6 +2328,10 @@ select::-ms-expand {
        a{
         color: $grey-dark;
         font: normal normal bold 16px/26px Cairo;
+        &:hover{
+          text-decoration: underline;
+          cursor: pointer;
+        }
        }
       }
       p{
@@ -2326,6 +2339,10 @@ select::-ms-expand {
         color: $grey;
         a{
           margin-left: 10px;
+          &:hover{
+            text-decoration: underline;
+            cursor: pointer;
+          }
         }
       }
     }
@@ -2348,6 +2365,18 @@ select::-ms-expand {
     .VideoNews{
       width: 145px;
       height: 80px;
+    }
+  }
+}
+
+
+.videNewspage_sidebar {
+  .sidebarvideo_sidebar__Xyuy_ {
+    border-bottom: none;
+    .sidebarvideo_themeTitle__onjDO h4 {
+      border-color: $grey-light;
+      width: 100%;
+      margin-top: -6px;
     }
   }
 }
