@@ -21,6 +21,9 @@
     color: white !important;
     line-height: normal;
   }
+  .mainNews h1 a:hover,.mainNews h3 a:hover, .newsdetails a:hover{
+   text-decoration: underline !important;
+  }
   .mainNews h3{
     margin: 0;
     line-height: 20px;
@@ -32,7 +35,7 @@
   .mainNews hr{
     color: #777777;
     height: 2px;
-    margin: 10px 0;
+    margin: 10px 0 5px;
   }
   .newsbox{
     margin-bottom: 40px;
