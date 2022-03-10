@@ -23,7 +23,7 @@ const Index = () =>{
                         <CategoryNewsSection limit={8} displayMoreButton={true} displayTopTwoNews={false} displayTitle={false} />
                     </div>
                     <div className='col-lg-4'>
-                        <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+                        <SideBar sideBarSequence={[ { componentType: 'LargeBanner', position: 1 }]} />
                     </div>
                 </div>
             </div>
