@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/link-passhref */
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Link from 'next/link'
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import logo from '../../../styles/images/cnbc-arabia-logo.svg';
 import smallLogo from "../../../styles/images/cnbc-logo-white.svg";
 import SearchDropDown from '../../Shared/SearchDropDown/SearchDropDown';
@@ -10,8 +11,18 @@ import MobileHeader from './MobileHeader';
 const Header = () =>{
 
     const [showMenuList, setShowMenuList] = useState<boolean>(false)
-
+    const [displaySerachDropDown, setDisplaySerachDropDown] = useState<boolean>(false)
     const [data, setData] = useState<any>({})
+    const router = useRouter()
+    const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/categoryNewsTiles'},{title:'أخبار عاجلة', url:'/breakingNews'}])
+    
+    
+    useEffect(()=>{
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    },[])
 
     const handleMenuList = () => {
         setShowMenuList(!showMenuList)
@@ -19,6 +30,7 @@ const Header = () =>{
 
     const handleEvent = (event:any) => {
 
+        setDisplaySerachDropDown(true)
         getData(event.target.value).then((res)=>{
             setData(res)
         }).catch(err=>{
@@ -27,10 +39,20 @@ const Header = () =>{
 
     }
 
-    const getData = async (value:string): Promise<any> => {
+    const handleClickOutside = () => {
+        setDisplaySerachDropDown(false)
+    }
 
+    const handleRouting = (url:string, index:number) =>{
+       index !== 4 && router.push(`/${url}`)
+       index === 4 && handleClickOutside()
+    }
+
+
+    const getData = async (value:string): Promise<any> => {
+        //!value ? {}:
         //fetch data and return
-        const data = !value ? {}:{
+        const data = {
             "16449": {
                 "MarketID": "105",
                 "PriceDecimal": 2,
@@ -285,7 +307,6 @@ const Header = () =>{
         return data
     }
 
-    const staticMenu = ['Main', 'Infographic', 'program', 'presenters']
     return (
         <>
             <header>
@@ -304,29 +325,25 @@ const Header = () =>{
                                         </button>
                                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                             <ul className="navbar-nav">
+                                                {/* {
+                                                    menuBar.length && menuBar.map((menuItem, index)=>{
+                                                        return(
+                                                            <li className="nav-item" key={index}>
+                                                                <a className="nav-link active" aria-current="page" onClick={(e)=>handleRouting(menuItem.url, index)}>{menuItem.title}</a>
+                                                            </li>
+                                                        )
+                                                    })
+                                                } */}
                                                 <li className="nav-item" key={'1'}>
-                                                    <a className="nav-link active" aria-current="page" href="/breakingNews">أخبار عاجلة</a>
+                                                    <a className="nav-link active" aria-current="page" href="/">الرئيسية</a>
                                                 </li>
                                                 <li className="nav-item" key={'2'}>
-                                                    <a className="nav-link" href="/infographics">إنفوغرافيك</a>
-                                                </li>
-
-                                                <li className="nav-item" key={'3'}>
-                                                    <a className="nav-link" href="/presenters" >مذيعو ومراسلو</a>
-                                                </li>
-                                                <li className="nav-item" key={'4'}>
-                                                    <a className="nav-link" href="/latestVideos" >أحدث مقاطع الفيديو</a>
-                                                </li>
-                                                <li className="nav-item" key={'5'}>
-                                                    <a className="nav-link" href="/schedules">جدول البرامج</a>
-                                                </li>
-                                                <li className="nav-item" key={'6'}>
                                                     <a className="nav-link" href="/videoNews">الفيديو</a>
                                                 </li>
-                                                <li className="nav-item dropdown" key={'7'}>
-                                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
+                                                <li className="nav-item dropdown" key={'3'}>
+                                                    <a className="nav-link dropdown-toggle" href="#" id="morePrograms" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
                                                     </a>
-                                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                                                    <ul className="dropdown-menu" aria-labelledby="morePrograms">
                                                         <li key={'8'}>
                                                             <a className="dropdown-item" href="/programs/100/">اكسبو في أسبوع</a>
                                                         </li>
@@ -401,13 +418,27 @@ const Header = () =>{
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li className="nav-item" key={'32'}>
-                                                    <a className="nav-link" href="/categoryNewsTiles">آخر الأخبار</a>
+                                                <li className="nav-item" key={'34'}>
+                                                    <a className="nav-link" href="/categoryNewsTiles">التصنيفات</a>
                                                 </li>
-                                                <li className="nav-item" key={'33'}>
-                                                    <a className="nav-link" href="#">الرئيسية</a>
+                                                <li className="nav-item" key={'35'}>
+                                                    <a className="nav-link" href="/marketGraph">الأسواق</a>
                                                 </li>
-
+                                                <li className="nav-item dropdown" key={'3'}>
+                                                    <a className="nav-link dropdown-toggle" href="#" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
+                                                    </a>
+                                                    <ul className="dropdown-menu" aria-labelledby="moreOtions">
+                                                        {
+                                                            moreMenuItems.length && moreMenuItems.map((menuItem)=>{
+                                                                return (
+                                                                        <li className="nav-item" key={menuItem.title}>
+                                                                            <a className="nav-link" href={menuItem.url} >{menuItem.title}</a>
+                                                                        </li>
+                                                                    )
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </li>
                                             </ul>
                                         </div>
                                     </nav>
@@ -417,7 +448,7 @@ const Header = () =>{
                             </div>
                             <div className="search-header">
                                 <div className="search-box desktop_only d-none d-md-block">
-                                    <input type="text"  className="form-control" onChange={(e)=>handleEvent(e)} placeholder="ابحث في الموقع" />
+                                    <input type="text"  className="form-control" onClick={(e)=>handleEvent(e)} placeholder="ابحث في الموقع" />
                                     <span className="input-group-text"><i className="fa fa-search"></i></span>
                                 </div>
                                 <div className="search-box mobile_only d-md-none">
@@ -432,7 +463,7 @@ const Header = () =>{
                                     </ul>
                                 </div>
                                 {
-                                    Object.keys(data).length ? (<SearchDropDown data={data}/>) : ''
+                                    displaySerachDropDown && (<SearchDropDown data={data}/>) 
                                 }
 
                             </div>
