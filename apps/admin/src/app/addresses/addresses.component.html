@@ -24,23 +24,23 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let branch of allBranches">
-                            <td [nzChecked]="setOfCheckedId.has(branch.id)" [nzDisabled]="branch.disabled"
-                                (nzCheckedChange)="onItemChecked(branch.id, $event)"></td>
-                            <td>{{branch.title}}</td>
-                            <td>{{branch.phone}}</td>
-                            <td>{{branch.fax}}</td>
-                            <td>{{branch.addressLine1}}</td>
-                            <td>{{branch.addressLine2}}</td>
-                            <td>{{branch.publishedBy}}</td>
+                            <td [nzChecked]="setOfCheckedId.has(branch?.id)" [nzDisabled]="branch.disabled"
+                                (nzCheckedChange)="onItemChecked(branch?.id, $event)"></td>
+                            <td>{{branch?.title}}</td>
+                            <td>{{branch?.phone}}</td>
+                            <td>{{branch?.fax}}</td>
+                            <td>{{branch?.addressLine1}}</td>
+                            <td>{{branch?.addressLine2}}</td>
+                            <td>{{branch?.publishedBy}}</td>
                             <td>
-                                <nz-badge *ngIf="branch.isActive === true" nzStatus="success"></nz-badge>
-                                <nz-badge *ngIf="branch.isActive === false" nzStatus="error"></nz-badge>
+                                <nz-badge *ngIf="branch?.isActive === true" nzStatus="success"></nz-badge>
+                                <nz-badge *ngIf="branch?.isActive === false" nzStatus="error"></nz-badge>
                                 <!-- <span class="text-capitalize">{{item.status}}</span> -->
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/addresses/add/' + branch?.id]"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteBranch(branch.id)"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteBranch(branch?.id)"></i>
                                 </div>
                             </td>
                         </tr>
