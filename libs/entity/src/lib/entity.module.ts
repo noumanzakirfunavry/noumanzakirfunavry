@@ -16,4 +16,7 @@ import { ConfigModule } from '@nestjs/config';
   ]
 })
 export class EntityModule {
+  constructor(){
+    console.log(process.env.DATABASE_USER);
+  }
 }

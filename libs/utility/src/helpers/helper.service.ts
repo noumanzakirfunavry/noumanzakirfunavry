@@ -99,11 +99,22 @@ export class Helper {
             newsId: newsId
         }
     }
-    quotesObject(position,quotesId , newsId){
-        return{
-            position : position,
-            quotesId : quotesId,
-            newsId : newsId
+    quotesObject(position, quotesId, newsId) {
+        return {
+            position: position,
+            quotesId: quotesId,
+            newsId: newsId
+        }
+    }
+    addUser(body, userId) {
+        if (body.news.length > 0) {
+            for (let i = 0; i < body.news.length; i++) {
+                body.news[i] = {
+                    ...body.news[i],
+                    addedBy: userId
+                }
+            }
+            return body
         }
     }
 }

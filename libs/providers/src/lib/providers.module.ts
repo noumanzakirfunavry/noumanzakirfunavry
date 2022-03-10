@@ -70,7 +70,6 @@ import { CategoriesProvider } from '../providers/categories.provider';
     ...JobsProvider,
     ...DepartmentsProvider,
     ...BreakingNewsProvider
-  
   ]
 })
 
