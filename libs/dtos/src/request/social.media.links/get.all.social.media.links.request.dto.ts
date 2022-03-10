@@ -1,4 +1,4 @@
-import {  IsBooleanString, IsNotEmpty, IsNumberString, IsOptional, IsString } from "class-validator"
+import {   IsNotEmpty, IsNumberString, IsOptional } from "class-validator"
 
 export class GetAllSocialMediaLinksRequestDto{
 
@@ -6,8 +6,7 @@ export class GetAllSocialMediaLinksRequestDto{
     @IsOptional()
     search : string
 
-    @IsNotEmpty()
-    @IsBooleanString()
+    @IsOptional()
     isActive : boolean
 
     @IsNotEmpty()

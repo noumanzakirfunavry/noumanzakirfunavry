@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import {EntityModule} from '@cnbc-monorepo/entity'
+import { EntityModule } from '@cnbc-monorepo/entity'
 import { AnthenticationModule } from './anthentication/anthentication.module';
 import { RightsModule } from './rights/rights.module';
 import { SocialMediaLinksModule } from './social-media-links/social-media-links.module';
@@ -11,10 +11,21 @@ import { JobsModule } from './jobs/jobs.module';
 import { BranchesModule } from './branches/branches.module';
 import { DepartmentModule } from './departments/departments.module';
 import { CategoriesModule } from './categories/categories.module';
+import { SystemConfigurationModule } from './system-configuration/system-configuration.module';
 @Module({
-  imports: [EntityModule, AnthenticationModule, RightsModule, SocialMediaLinksModule,UtilityModule, AlexaAudioModule, PresentersModule, AdminModule,        JobsModule,
+  imports: [
+    EntityModule,
+    AnthenticationModule,
+    RightsModule,
+    SocialMediaLinksModule,
+    UtilityModule,
+    AlexaAudioModule,
+    PresentersModule,
+    AdminModule,
+    JobsModule,
     BranchesModule,
     DepartmentModule,
-    CategoriesModule,],
+    CategoriesModule,
+    SystemConfigurationModule,],
 })
-export class AppModule {}
+export class AppModule { }

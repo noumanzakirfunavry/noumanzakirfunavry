@@ -1,55 +1,64 @@
-import { Table,Model, PrimaryKey, AutoIncrement, Unique, Column, DataType } from "sequelize-typescript";
+import { Table, Model, PrimaryKey, AutoIncrement, Unique, Column, DataType } from "sequelize-typescript";
 
 
 @Table({
-    paranoid : true,
-    timestamps : true
+    paranoid: true,
+    timestamps: true
 })
-export class SiteConfiguration extends Model{
+export class SiteConfiguration extends Model {
     @PrimaryKey
     @AutoIncrement
     @Unique
     @Column
-    id : number
+    id: number
 
     @Column
-    trendingNewsCount : number
+    trendingNewsCount: number
 
     @Column
-    quickLinksCount : number
+    quickLinksCount: number
 
     @Column
-    featuredNewsCount : number
+    featuredNewsCount: number
 
     @Column
-    editorsChoiceCount : number
+    editorsChoiceCount: number
 
     @Column
-    liveTvlink : string
+    liveTvlink: string
 
     @Column
-    googleAnalyticsLink : string
-
-    @Column
-    cnbcEmail : string
-
-    @Column
-    googleTag : string
-
-    @Column
-    alexaConfigurationJson : string
+    googleAnalyticsLink: string
 
     @Column({
-        type : DataType.BOOLEAN
+        allowNull: true,
+        defaultValue: null
     })
-    enableAnalytics : boolean
+    cnbcEmail: string | null
 
     @Column
-    googleSecretkey : string
+    hrEmail: string
 
     @Column
-    googleSiteKey : string
+    departmentEmail: string
 
     @Column
-    googleEmbeddedLink : string
+    googleTag: string
+
+    @Column
+    alexaConfigurationJson: string
+
+    @Column({
+        type: DataType.BOOLEAN
+    })
+    enableAnalytics: boolean
+
+    @Column
+    googleSecretkey: string
+
+    @Column
+    googleSiteKey: string
+
+    @Column
+    googleEmbeddedLink: string
 }
