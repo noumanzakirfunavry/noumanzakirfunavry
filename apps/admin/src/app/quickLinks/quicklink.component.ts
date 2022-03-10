@@ -27,7 +27,7 @@ export class QuickLinkComponent implements OnInit{
     }
 
     deleteQuickLink(link: number) {
-        this.apiService.sendRequest(requests.deleteQuickLink + link, 'delete').subscribe((res:any) => {
+        this.apiService.sendRequest(requests.deleteQuickLink, 'delete',{ids:[link]}).subscribe((res:any) => {
             console.log("DEL-QUICK-LINK", res);
         })
     }
