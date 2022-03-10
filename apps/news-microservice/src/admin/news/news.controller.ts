@@ -21,7 +21,7 @@ export class NewsController {
     @UseGuards(JwtAuthGuard)
     @Rights(RightsTypes.UPDATE)
     @Roles(RoleTypes.Admin)
-    @Put(":id")
+    @Put("update/:id")
     async updateNews(@Req() req ,@Param("id") id : number,@Body() body :  CreateNewsRequestDto) : Promise<GenericResponseDto>{
         return await this.newService.updateNews(body,id,req.user.data.id)
     }
@@ -29,7 +29,7 @@ export class NewsController {
     @UseGuards(JwtAuthGuard)
     @Rights(RightsTypes.UPDATE)
     @Roles(RoleTypes.Admin)
-    @Delete()
+    @Delete("delete")
     async deleteNews(@Query() body :  DeleteAlexaAudioRequestDto) : Promise<GenericResponseDto>{
         return await this.newService.deleteNews(body)
     }
@@ -37,7 +37,7 @@ export class NewsController {
     @UseGuards(JwtAuthGuard)
     @Rights(RightsTypes.UPDATE)
     @Roles(RoleTypes.Admin)
-    @Get(":id")
+    @Get("getById/:id")
     async getNewsById(@Param("id") id : number) : Promise<GetNewsByIdResponseDto>{
         return await this.newService.getNewsById(id)
     }
