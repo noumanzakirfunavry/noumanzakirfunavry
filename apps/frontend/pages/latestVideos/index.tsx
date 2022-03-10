@@ -9,7 +9,7 @@ const Index = () =>{
 
     return (
         <>
-            <div className="container"> 
+            <div className="container">
             <AdBanner />
             </div>
             <Title styles={"pageTitle PageTitleYellow"}>
@@ -17,13 +17,14 @@ const Index = () =>{
             </Title>
             <div className="container">
             <div className='row'>
-                <div className='col-lg-8'>
+                <div className='col-lg-9'>
                     <MainNews/>
                     {/* <CategoryNewsSection limit={8} displayTitle={false}  displayTopTwoNews={false} displayMoreButton={true}/> */}
                     <VideoNewsTiles/>
                 </div>
-                <div className='col-lg-4'>
-                    <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+                <div className='col-lg-3'>
+                    <div className="latestVideoPage-sidebar">
+                    <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 1 } /*, { componentType: 'SmallBanner', position: 2 }*/]} /></div>
                 </div>
             </div>
         </div>
