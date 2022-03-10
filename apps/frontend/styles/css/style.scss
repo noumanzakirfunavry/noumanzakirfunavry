@@ -126,6 +126,7 @@ a:not([href]):not([class]):hover{
     left: 0;
     right: auto;
     padding: 0.8rem;
+    top: -6px;
   }
   .top-grey-bar{
     background: $grey-dark;
@@ -179,8 +180,8 @@ header{
   .header-nav .navbar{
     margin: 0;
     padding: 0;
-    max-width: 900px;
-    overflow: auto;
+    // max-width: 900px;
+    // overflow: auto;
   }
   .header-nav ul{
     list-style: none;
@@ -408,12 +409,12 @@ header{
     border-bottom: 6px solid $danger;
     text-align: center;
     padding-bottom: 5px;
-    margin-bottom: 50px;
+    margin-bottom: 50px !important;
   }
   .pageTitle h2{
     color:$danger;
-    font-weight: bold;
-    font-size: 32px;
+    margin-bottom: 20px;
+    font: normal normal 900 32px/30px Cairo;
   }
   .PageTitleYellow{
     border-color: $warning;
@@ -445,8 +446,10 @@ header{
     font-size: 32px;
     border-top: 6px solid $warning;
     margin-top: -6px;
-    padding-top: 10px;
+    padding-top: 18px;
     display: inline-block;
+    margin-bottom: 0;
+
   }
   .primaryTitle{
     border-top: 1px solid $grey;
@@ -835,9 +838,10 @@ header{
 
       .NewsImage{
         margin-bottom: 10px;
-        height: 180px;
+        height: 170px;
         overflow: hidden;
         position: relative;
+        width: 300px;
       }
       .NewsInfo{
         a{
@@ -1001,7 +1005,12 @@ header{
 
   }
 }
-
+.program_schedule button.btn.btn-danger {
+  font: normal normal bold 15px/23px Cairo;
+  min-width: 165px;
+  height: 40px;
+  padding: 7px;
+}
 .presenterBox{
   margin-bottom: 25px;
     position: relative;
@@ -1026,6 +1035,10 @@ header{
       font-size: 18px;
       font-weight: bold;
       line-height: 1.5rem;
+    }
+    p{
+      font: normal normal bold 15px/26px Cairo;
+      color: $grey;
     }
 
   }
@@ -1245,6 +1258,7 @@ header{
   position: absolute;
   top: 0;
   width: 50px;
+  top: -16px;
 }
 .slick-slider .slick-prev{
   left: 10px;
@@ -1254,12 +1268,12 @@ header{
   left: 70px;
   background: url(../images/arrow-right.svg) no-repeat !important;
 }
-// .slick-slider .slick-prev:hover{
-//   background: url(../images/arrow-left-hover.svg) no-repeat !important;
-// }
-// .slick-slider .slick-next:hover{
-//   background: url(../images/arrow-right-hover.svg) no-repeat !important;
-// }
+.slick-slider .slick-prev:hover{
+  background: url(../images/arrow-left-hover.svg) no-repeat !important;
+}
+.slick-slider .slick-next:hover{
+  background: url(../images/arrow-right-hover.svg) no-repeat !important;
+}
 .slick-slider .slick-prev:before,
 .slick-slider .slick-next:before{
   content: none;
@@ -1294,14 +1308,16 @@ header{
   top: 0;
   display: flex;
   transition: width .5s;
-  width: 60px;
+  width: 50px;
+  height: 50px;
+  align-items: center;
 }
 .newsSliderText .NewsBox .newsImage .PlayTime:hover .btn-text{
     width: 180px;
     transition: width .5s;
 }
 .newsSliderText .NewsBox .newsImage .PlayTime .btn{
-  padding: 15px 20px 15px 20px;
+  padding: 9px 20px 9px 20px;
   text-align: center;
 }
 
@@ -1315,7 +1331,7 @@ header{
   white-space: nowrap;
   color: $grey-dark;
   font-weight: bold;
-  padding: 12px 15px 0 5px;
+  padding: 0px 15px 0 5px;
   font-size: 20px;
 }
 .newsSliderText .NewsBox .newsImage .PlayTime:hover .btn-text span{
@@ -1463,7 +1479,8 @@ font-size: inherit;
 font-size: inherit;
 }
 .VideoTextBox .VideoNews .PlayTime .btn-text{
-width: 34px;
+width: 35px;
+height: 35px;
 }
 .VideoTextBox .VideoNews .PlayTime:hover .btn-text {
 width: 110px;
@@ -1664,7 +1681,10 @@ width: 110px;
   max-height: 550px;
   overflow-y: auto;
 }
-
+.sidelist_sidebar__Nuc9n .sideSimpleListWrap .sidelist_themeTitle__1gobu h4 {
+  width: 100%;
+  border-color: #DDDDDD;
+}
 
 .modal{
   .modal-dialog{
@@ -1703,17 +1723,20 @@ width: 110px;
 
 .searchResulstBox{
   background: $white;
-  padding: 20px;
+  padding: 15px 30px 6px;
   position: absolute;
-  top: 37px;
+  top: 0;
   left: 0;
   box-shadow: 0 0 20px #00000038;
   z-index: 99;
+  width: 440px;
 
 
   .topBorderText{
     h3{
-      font-size: 15px;
+      font: normal normal 900 15px/30px Cairo;
+      margin-bottom: 0;
+
     }
   }
 
@@ -1727,26 +1750,34 @@ width: 110px;
 
     .newsText{
       color: $grey-dark;
+      margin-left: 15px;
 
       h6{
         margin: 0;
         a{
-          font-size: 12px;
+          font: normal normal bold 12px/21px Cairo;
+          &:hover{
+            text-decoration: underline;
+          }
         }
       }
       p{
-        font-size: 12px;
+        font: normal normal bold 12px/20px Cairo;
         margin: 0;
+        color: $grey;
       }
     }
+
   }
 
   .NewsList{
     li{
-      padding: 5px 0;
+      padding: 12px 0;
 
       .newsImage{
-        height: auto;
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
       }
     }
   }
@@ -1754,8 +1785,21 @@ width: 110px;
   .wordCountList{
     .table{
       font-size: 12px;
+      td{
+        font: normal normal 600 12px/ Cairo;
+        &.text-start{
+          div{
+            font: normal normal bold 12px/ Cairo;
+            color: $grey-dark;
+
+          }
+        }
+
+      }
       h5{
-        font-size: 15px;
+        font: normal normal 900 15px/30px Cairo;
+        color: $black;
+
       }
     }
   }
@@ -1771,7 +1815,7 @@ width: 110px;
             padding: 0;
 
             p{
-              margin: 0 0 15px;
+              margin: 0
             }
 
           }
@@ -2126,7 +2170,7 @@ select::-ms-expand {
   height: 31px;
   padding:3px 5px;
 }
-.more_btn button.btn.btn-outline-primary {
+ button.btn.btn-outline-primary {
   min-width: 77px;
   font-size: 15px;
   font-weight: bold;
@@ -2147,4 +2191,163 @@ select::-ms-expand {
 
 .VideoNews .NewsContent h4 {
   font: normal normal bold 24px/38px Cairo;
+}
+.dropsearch{
+  border-bottom: solid 1px $grey;
+  padding-bottom: 5px;
+  input{
+    border: none;
+    padding-right: 0;
+    &::placeholder{
+      font: normal normal bold 15px/30px Cairo;
+      color: $grey-dark;
+    }
+    &:focus{
+      box-shadow: none;
+    }
+
+  }
+  .search_icon{
+    width: 16px;
+  }
+
+}
+.backbar{
+  justify-content: space-between;
+  direction: ltr;
+  padding: 15px 0;
+  h5{
+    font: normal normal bold 20px/30px Cairo;
+    color: $primary-color;
+    margin: 0;
+    span{
+      font: normal normal normal 15px/30px Cairo;
+
+    }
+
+  }
+}
+.pt_0 .sidebanner_sidebarBanner__yvzDv{
+  padding-top: 0;
+}
+.latestmainNews{
+  margin-bottom: 80px !important;
+  .NewsImage{
+    height: 540px;
+  }
+  .NewsContent{
+    h4{
+      font: normal normal bold 32px/46px Cairo;
+
+    }
+    p{
+      font: normal normal bold 12px/20px Cairo;
+    }
+  }
+}
+.single_video_main{
+  margin-bottom: 55px;
+  .NewsImage{
+    height: 540px;
+  }
+  .pageSimpleTitle{
+    .newsSocial{
+      ul{
+        li{
+          a{
+            color:$secondary-color;
+          }
+        }
+      }
+    }
+    h6{
+      &.text-secondary{
+        font: normal normal bold 20px/20px Cairo;
+        color: $secondary-color !important;
+
+      }
+    }
+    h1{
+      font: normal normal bold 40px/65px Cairo;
+      color: $grey-dark;
+    }
+  }
+  p{
+    small{
+      font: normal normal bold 12px/20px Cairo;
+      color: $grey;
+    }
+  }
+  .fadenews{
+    p{
+      font: normal normal normal 18px/30px IBM Plex Sans Arabic;
+      color: $grey;
+
+    }
+  }
+.page-categories{
+  h6{
+    font: normal normal bold 15px/30px Cairo;
+    color: $grey-dark;
+  }
+  ul{
+    flex-wrap: wrap;
+    li{
+      display: inline-block;
+    }
+
+  }
+}
+
+}
+// newsslider2text
+.newsSlider2Text {
+  .NewsBox {
+    .newsImage {
+      width: 300px;
+      height: 170px;
+      .PlayTime{
+        h5{
+          font: normal normal 900 12px/30px Cairo;
+          padding-top: 5px;
+        }
+      }
+    }
+    .newscontent{
+      h5{
+        font: normal normal bold 16px/26px Cairo;
+       a{
+        color: $grey-dark;
+        font: normal normal bold 16px/26px Cairo;
+       }
+      }
+      p{
+        font: normal normal bold 12px/20px Cairo;
+        color: $grey;
+        a{
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+// video side news
+.NewsList.VideoTextBox {
+  li {
+    .newsText {
+      margin-left: 10px;
+      a{
+        font: normal normal bold 12px/18px Cairo;
+
+      }
+      p{
+        color: $grey;
+      }
+
+    }
+    .VideoNews{
+      width: 145px;
+      height: 80px;
+    }
+  }
 }
