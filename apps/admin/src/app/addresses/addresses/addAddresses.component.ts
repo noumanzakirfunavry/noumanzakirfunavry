@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
 
@@ -22,7 +23,11 @@ export class AddAddressesComponent implements OnInit {
     branchById: any;
   
 
-    constructor(private fb: FormBuilder, private apiService: ApiService, private activatedRoute: ActivatedRoute) {}
+    constructor(private fb: FormBuilder, 
+      private apiService: ApiService, 
+      private activatedRoute: ActivatedRoute, 
+      private message: NzMessageService
+      ) {}
   
     ngOnInit(): void {
       this.addressForm = this.fb.group({
@@ -53,6 +58,12 @@ export class AddAddressesComponent implements OnInit {
         this.apiService.sendRequest(this.branchId ? requests.updateBranch + this.branchId: requests.addNewBranch, this.branchId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("BRANCHES", res);
           this.addressForm.reset();
+          if(this.branchId) {
+            this.message.create('success', `Address Updated Successfully`);
+          }
+          else {
+            this.message.create('success', `Address Added Successfully`);
+          }
         })
       }
     }

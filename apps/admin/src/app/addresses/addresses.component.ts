@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
@@ -26,7 +27,7 @@ export class AddressesComponent {
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData: Data[] = [];
 
-    constructor(private apiService: ApiService ) {}
+    constructor(private apiService: ApiService, private message: NzMessageService ) {}
 
     ngOnInit(): void {
         this.getAllBranches();
@@ -45,6 +46,7 @@ export class AddressesComponent {
             this.apiService.sendRequest(requests.deleteBranches, 'delete', this.ids).subscribe((res:any) => {
                 console.log("DELETE-BRANCH", res);
                 this.getAllBranches();
+                this.message.create('success', `Address Deleted Successfully`);
             })
           }
     }
