@@ -15,6 +15,8 @@ import { ThemeConstantService } from './shared/services/theme-constant.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { antdModule } from './AndModules/andModule';
 import { ChangePasswordComponent } from './changePassword/changePassword.component';
+import { AuthInterceptor } from './shared/interceptor/authInterceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 registerLocaleData(en);
@@ -46,7 +48,8 @@ registerLocaleData(en);
             provide: LocationStrategy, 
             useClass: PathLocationStrategy
         },
-        ThemeConstantService
+        ThemeConstantService,
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
     ],
     bootstrap: [AppComponent]
 })

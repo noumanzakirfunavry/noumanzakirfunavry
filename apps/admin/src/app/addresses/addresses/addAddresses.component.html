@@ -2,70 +2,71 @@
   <br>
   <br>
   <div class="col-12">
-    <form nz-form [nzLayout]="'vertical'">
+    <form [formGroup]="addressForm" nz-form [nzLayout]="'vertical'" (ngSubmit)="branches()">
       <div class="row">
         <div class="col-6">
       <div class="row">
         <div class="col-md-12">
           <nz-form-item>
-            <nz-form-label  nzFor="text">Title</nz-form-label>
-            <nz-form-control >
-              <input nz-input placeholder="Enter Title" dir="rtl" />
+            <nz-form-label nzRequired nzFor="text">Title</nz-form-label>
+            <nz-form-control nzErrorTip="Please input Title!">
+              <input nz-input formControlName="title" placeholder="Enter Title" dir="rtl" />
             </nz-form-control>
           </nz-form-item>
         </div>
           <div class="col-md-6">
             <nz-form-item>
-              <nz-form-label >Phone </nz-form-label>
-              <nz-form-control >
-                <input type="text" nz-input placeholder="Enter Phone">
+              <nz-form-label nzRequired nzFor="phone">Phone </nz-form-label>
+              <nz-form-control [nzValidateStatus]="addressForm.controls['phone']" nzErrorTip="Please input correct Phone Number!">
+                <input type="text" nz-input formControlName="phone" placeholder="Enter Phone">
               </nz-form-control>
             </nz-form-item>
           </div>
           <div class="col-md-6">
             <nz-form-item>
-              <nz-form-label >Fax</nz-form-label>
-              <nz-form-control >
-                <input type="text" nz-input placeholder="Enter Fax">
+              <nz-form-label nzRequired>Fax</nz-form-label>
+              <nz-form-control nzErrorTip="Please input correct Fax!">
+                <input type="text" nz-input formControlName="fax" placeholder="Enter Fax">
               </nz-form-control>
             </nz-form-item>
           </div>
           <div class="col-md-6">
             <nz-form-item>
-              <nz-form-label >Address Line 1 </nz-form-label>
-              <nz-form-control >
-                <input type="text" nz-input placeholder="Enter Address">
+              <nz-form-label nzRequired>Address Line 1 </nz-form-label>
+              <nz-form-control nzErrorTip="Please input Address Line 1!">
+                <input type="text" nz-input formControlName="addressLine1" placeholder="Enter Address">
               </nz-form-control>
             </nz-form-item>
           </div>
           <div class="col-md-6">
             <nz-form-item>
-              <nz-form-label >Address Line 2</nz-form-label>
-              <nz-form-control >
-                <input type="text" nz-input placeholder="Enter Address">
+              <nz-form-label nzRequired>Address Line 2</nz-form-label>
+              <nz-form-control nzErrorTip="Please input Address Line 2!">
+                <input type="text" nz-input formControlName="addressLine2" placeholder="Enter Address">
               </nz-form-control>
             </nz-form-item>
           </div>
           <div class="col-md-12">
           <nz-form-item>
-            <nz-form-label nzFor="email">Email</nz-form-label>
-            <nz-form-control >
-              <input nz-input placeholder="Enter Email" />
+            <nz-form-label nzRequired nzFor="email">Email</nz-form-label>
+            <nz-form-control nzErrorTip="Please input valid Email!">
+              <input nz-input formControlName="email" placeholder="Enter Email" />
             </nz-form-control>
           </nz-form-item>
           </div>
           <div class="col-md-12">
             <nz-form-item>
               <nz-form-control >
-                <nz-switch class="mr-3"> </nz-switch> Active
+                <nz-switch class="mr-3" formControlName="isActive"> </nz-switch> Active
               </nz-form-control>
             </nz-form-item>
           </div>
           <div class="col-md-12">
             <nz-form-item>
               <nz-form-control >
-                <button class="mr-3" nz-button nzType="primary">Save</button>
-                <button nz-button nzType="default">Cancel</button>
+                <button *ngIf="!branchId" class="mr-3" nz-button nzType="primary">Save</button>
+                <button *ngIf="branchId" class="mr-3" nz-button nzType="primary">Update</button>
+                <!-- <button nz-button nzType="default">Cancel</button> -->
               </nz-form-control>
             </nz-form-item>
           </div>

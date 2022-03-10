@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThemeConstantService } from '../../services/theme-constant.service';
+import { Router } from '@angular/router';
+import { requests } from '../../config/config';
+import { ApiService } from '../../services/api.service';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html'
 })
 
-export class HeaderComponent{
+export class HeaderComponent implements OnInit{
 
     searchVisible = false;
     quickViewVisible = false;
@@ -40,7 +43,7 @@ export class HeaderComponent{
         }
     ]
 
-    constructor( private themeService: ThemeConstantService) {}
+    constructor( private themeService: ThemeConstantService, private route: Router, private apiService: ApiService) {}
 
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
@@ -67,5 +70,12 @@ export class HeaderComponent{
         this.quickViewVisible = !this.quickViewVisible;
     }
 
+    logout() {
+        this.apiService.sendRequest(requests.logout, 'get').subscribe((res:any) => {
+            console.log("LOGOUT", res);
+            localStorage.clear();
+            this.route.navigateByUrl('/full/authentication/login-3')
+        })
+    }
     
 }
