@@ -21,9 +21,9 @@ export class AuthInterceptor implements HttpInterceptor {
     if (!ifDisableLoader) { this.commonStore.loaderStart(); }
     if (
       (request.urlWithParams.match(/login$/) ||
-        request.urlWithParams.match(/requestResetPasswordLink$/) ||
+        request.urlWithParams.match(/requestResetPassword$/) ||
         request.urlWithParams.match(/resetPassword$/)) &&
-      request.method == ("POST" || "PUT")
+        request.method == ("POST" || "PUT" || "GET")
     ) {
       return next.handle(request).pipe(tap((evt: any) => {
         if (evt.body && evt.body.message) {
@@ -41,9 +41,9 @@ export class AuthInterceptor implements HttpInterceptor {
           throw (error)
         }));
     } else {
-      const employee = JSON.parse(localStorage.getItem('employee') || '{}');
+      const admin = JSON.parse(localStorage.getItem('admin') || '{}');
       const headers = request.headers
-        .set("Authorization", 'Bearer ' + employee.token)
+        .set("Authorization", 'Bearer ' + admin.access_token)
       const authReq = request.clone({ headers: headers });
       return next.handle(authReq).pipe(tap((evt: any) => {
         if (evt.body && (evt.body.message || evt.status==200)) {
