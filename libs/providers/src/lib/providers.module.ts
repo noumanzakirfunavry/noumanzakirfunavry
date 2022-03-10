@@ -21,6 +21,7 @@ import { JobsProvider } from '../providers/jobs.provider';
 import { BranchesProvider } from '../providers/branches.provider';
 import { DepartmentsProvider } from '../providers/departments.provider';
 import { CategoriesProvider } from '../providers/categories.provider';
+import { SiteConfigurationProvider } from '../providers/site.configuration.provider';
 
 @Module({
   providers: [
@@ -44,8 +45,8 @@ import { CategoriesProvider } from '../providers/categories.provider';
     ...JobsProvider,
     ...BranchesProvider,
     ...DepartmentsProvider,
-    ...CategoriesProvider
-
+    ...CategoriesProvider,
+    ...SiteConfigurationProvider
   ],
   exports: [
     ...UsersProvider,
@@ -68,7 +69,8 @@ import { CategoriesProvider } from '../providers/categories.provider';
     ...CategoriesProvider,
     ...JobsProvider,
     ...DepartmentsProvider,
-    ...BreakingNewsProvider
+    ...BreakingNewsProvider,
+    ...SiteConfigurationProvider
   ]
 })
 

@@ -29,15 +29,15 @@ export class RightsService {
             )
         }
     }
-    async updateUserRights(body: UpdateUserRightsRequestDto): Promise<GenericResponseDto> {
+    async updateUserRights(body: UpdateUserRightsRequestDto, userId: number): Promise<GenericResponseDto> {
         try {
             let response;
-            const delete_previous_rights = await this.deleteUserRights(body.userId);
+            const delete_previous_rights = await this.deleteUserRights(userId);
             if (delete_previous_rights) {
                 for (let i = 0; i < body.rights.length; i++) {
                     response = await this.userHasRightsRepository.create(
                         {
-                            usersId: body.userId,
+                            usersId: userId,
                             rightsId: body.rights[i]
                         })
                     if (!response) {

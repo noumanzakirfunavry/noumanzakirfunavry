@@ -43,7 +43,7 @@ export class AnthenticationController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get("logout")
+    @Post("logout")
     async logOut(@Req() req): Promise<GenericResponseDto> {
         return await this.authService.logOut(req.user.sessionId)
     }

@@ -1,4 +1,4 @@
-import { Rights, Roles } from '@cnbc-monorepo/auth-module';
+import { Public, Rights, Roles } from '@cnbc-monorepo/auth-module';
 import { CreatePresentersRequestDto, DeletePresentersRequestDto, GenericResponseDto, GetAllPresentersRequestDto, GetAllPresentersResponseDto, GetPresentersByIdResponseDto } from '@cnbc-monorepo/dtos';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req } from '@nestjs/common';
@@ -44,5 +44,17 @@ export class PresentersController {
     @Delete()
     async deletePresenterById(@Query() query : DeletePresentersRequestDto) : Promise<GenericResponseDto>{
         return await this.presentersService.deletePresenterById(query)
+    }
+
+    @Public()
+    @Get("client/:id")
+    async getPresenterByIdClient(@Param("id") id : number) : Promise<GetPresentersByIdResponseDto>{
+        return await this.presentersService.getPresenterById(id)
+    }
+
+    @Public()
+    @Get("client/all/presenter")
+    async getAllPresentersClient(@Query() query : GetAllPresentersRequestDto) : Promise<GetAllPresentersResponseDto>{
+        return await this.presentersService.getAllPresenters(query)
     }
 }

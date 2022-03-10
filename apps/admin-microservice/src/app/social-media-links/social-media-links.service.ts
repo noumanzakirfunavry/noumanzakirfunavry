@@ -17,12 +17,16 @@ export class SocialMediaLinksService {
     async getAllSocialMediaLinks(query: GetAllSocialMediaLinksRequestDto) {
         try {
             const offset = this.helperService.offsetCalculator(query.pageNo, query.limit)
-            const platform = this.helperService.stringTrimmerAndCaseLower(query.search)
             const response = await this.socialMediaLinksRepository.findAndCountAll({
                 where: {
-                    platform: {
-                        [Op.like]: `%${platform ? platform : ""}%`
-                    }
+                    ...(query.search && {
+                        platform: {
+                            [Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.search)}%`
+                        }
+                    }),
+                    ...(query.isActive && {
+                        isActive: JSON.parse(query.isActive.toString())
+                    })
                 },
                 offset: offset,
                 limit: parseInt(query.limit.toString())
@@ -138,13 +142,13 @@ export class SocialMediaLinksService {
             throw err
         }
     }
-    async updateSocialMediaLink(body: any,postId: number): Promise<GenericResponseDto> {
+    async updateSocialMediaLink(body: any, postId: number): Promise<GenericResponseDto> {
         try {
             const link_exists = await this.socialMediaLinkExistance(postId)
             if (link_exists) {
-                const add_link = this.socialMediaLinksRepository.update(body,{
-                    where : {
-                        id : postId
+                const add_link = this.socialMediaLinksRepository.update(body, {
+                    where: {
+                        id: postId
                     }
                 })
                 if (add_link) {

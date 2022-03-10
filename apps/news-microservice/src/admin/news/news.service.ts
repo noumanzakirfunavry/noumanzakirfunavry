@@ -26,6 +26,7 @@ export class NewsService {
         try {
             return await sequelize.transaction(async t => {
                 const transactionHost = { transaction: t };
+                console.log("la here");
                 const seo_added = await this.addSeo(body, transactionHost)
                 if (seo_added) {
                     const news_object = this.helperService.newsObjectCreator(body, seo_added.id, userId)
