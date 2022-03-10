@@ -35,7 +35,7 @@ const Index = () =>{
                                 </div>
                             </div>
                         </div>
-                            <SideBar sideBarSequence={[{componentType:'SmallBanner', position:2}]}/>
+                            <SideBar sideBarSequence={[{componentType:'SmallBanner', position:1}]}/>
 
                     </div>
                     <div className='col-lg-8'>

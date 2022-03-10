@@ -2,6 +2,8 @@
 export type SideBar = {
     componentType: string,  //Latest , Trending , SmallBanner, LargeBanner
     position: number,
+    title?:string
+    designType?:string
 }
 export type SideBarProps = {
    sideBarSequence:SideBar[]
@@ -12,6 +14,7 @@ export type SideBannerProps = {
 }
 export type SideListProps = {
     type:string    //numbered or simple
+    title:string
 }
 
 export type TileList = {
@@ -44,4 +47,16 @@ export type User = {
     email:string,
     username:string,
     password:string,
+}
+
+export type QuickLink = {
+    addedBy: string
+    createdAt: Date
+    deletedAt: Date | null
+    id: number
+    position: number
+    title: string
+    updatedAt: Date | null
+    url: string
+    visible: boolean
 }
