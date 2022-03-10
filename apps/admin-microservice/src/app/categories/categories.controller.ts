@@ -28,9 +28,9 @@ export class CategoriesController{
         return this.categoryService.getAll(query)
     }
 
-    @Put('update')
-    async update(@Body() body:UpdateCategoriesRequestDto){
-        return await this.categoryService.update(body)
+    @Put('update/:id')
+    async update(id:number,@Body() body:UpdateCategoriesRequestDto){
+        return await this.categoryService.update(id,body)
     }
 
     @Put('updateOrder')

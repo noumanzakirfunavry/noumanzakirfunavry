@@ -30,8 +30,8 @@ export class TagsController{
         return await this.tagsService.addTag(body)
     }
 
-    @Put('update')
-    async updateTag(@Body() body){
-        return await this.tagsService.updateTag(body)
+    @Put('update/:id')
+    async updateTag(@Param('id') id:number,@Body() body){
+        return await this.tagsService.updateTag(id,body)
     }
 }

@@ -37,16 +37,15 @@ export class QuotesService{
         }
         return new AddQuoteResponseDto(HttpStatus.OK,"CREATED SUCCESSFULLY",result)
     }
-    async updateQuote(body:UpdateQuoteRequestDto){
-        const quote=await this.quotesRepo.findOne({where:{id:body.id}})
+    async updateQuote(id:number,body:UpdateQuoteRequestDto){
+        const quote=await this.quotesRepo.findOne({where:{id:id}})
         if(!quote){
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status  
             ) 
         }
-        const {id,...rest}=body
-        const result=await quote.update(rest)
+        const result=await quote.update(body)
         return new UpdateQuoteResponseDto(HttpStatus.OK,"UPDATED SUCCESSFULLY", result)  
     }
 }

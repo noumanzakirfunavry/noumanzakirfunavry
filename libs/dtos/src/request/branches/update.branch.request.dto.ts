@@ -2,10 +2,6 @@ import { IsArray, IsBoolean, IsBooleanString, IsDate, IsDateString, IsEmail, IsN
 
 export class UpdateBranchRequestDto{
     
-    @IsNotEmpty()
-    @IsNumber()
-    id:number
-    
     @IsOptional()
     @IsString()
     title:string

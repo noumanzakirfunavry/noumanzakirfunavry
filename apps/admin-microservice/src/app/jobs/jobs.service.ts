@@ -1,7 +1,7 @@
 import { HttpStatus, Inject } from "@nestjs/common";
 import {Jobs} from "@cnbc-monorepo/entity"
 import { CustomException, Exceptions, ExceptionType } from "@cnbc-monorepo/exception-handling";
-import { AddJobRequestDto, AddJobResponseDto, DeleteJobRequestDto, GenericResponseDto, GetAllJobResponseDto, GetALLJobsRequestDto, GetJobByIdResponseDto, UpdateJobResponseDto } from "@cnbc-monorepo/dtos";
+import { AddJobRequestDto, AddJobResponseDto, DeleteJobRequestDto, GenericResponseDto, GetAllJobResponseDto, GetALLJobsRequestDto, GetJobByIdResponseDto, UpdateJobRequestDto, UpdateJobResponseDto } from "@cnbc-monorepo/dtos";
 export class JobsService{
     constructor(
         @Inject('JOBS_REPOSITORY')
@@ -55,16 +55,15 @@ export class JobsService{
         }
         return new GetJobByIdResponseDto(HttpStatus.OK,"FETCHED SUCCESSFULLY",result)
     }
-    async update(body){
-        const job=await this.jobRepo.findOne({where:{id:body.id}})
+    async update(id:number,body:UpdateJobRequestDto){
+        const job=await this.jobRepo.findOne({where:{id:id}})
         if(!job){
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
               )  
         }
-        const {id,...rest}=body
-        const result=await job.update(rest)
+        const result=await job.update(body)
         return new UpdateJobResponseDto(HttpStatus.OK,"UPDATED SUCCESSFULLY", result)    
     }
     async delete(query:DeleteJobRequestDto){
