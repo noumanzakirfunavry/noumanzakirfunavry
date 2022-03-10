@@ -44,10 +44,10 @@ const HorizontalFooter2NewsSlider:FC = () =>{
           });
     return (
         <>
-        <div className="newsSliderText">
+        <div className="newsSliderText newsSlider2Text">
             <Slider {...settings}>
                     <div className="slider-item">
-                        <div className="NewsBox">
+                        <div className="NewsBox ">
                             <div className="newsImage">
                                 <img className="img-fluid" src={sliderimg.src} />
                                 <div className="PlayTime">

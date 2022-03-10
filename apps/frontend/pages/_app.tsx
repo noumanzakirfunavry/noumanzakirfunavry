@@ -98,7 +98,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     //           page_path: window.location.pathname,
     //         });
     //       `,
-    //     }} 
+    //     }}
     //    /> */}
 
     //   <Component {...pageProps} />
@@ -120,10 +120,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Head>
 
           <ToastContainer/>
-      
+
           <Component {...pageProps} />
         </Layout>
-      </PersistGate>    
+      </PersistGate>
     </Provider>
   )
 }
