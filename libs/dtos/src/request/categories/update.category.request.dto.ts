@@ -2,9 +2,6 @@ import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-val
 
 export class UpdateCategoriesRequestDto{
        
-    @IsNotEmpty()
-    @IsNumber()
-    id:number
 
     @IsOptional()
     @IsString()

@@ -46,7 +46,9 @@ import { SiteConfigurationProvider } from '../providers/site.configuration.provi
     ...BranchesProvider,
     ...DepartmentsProvider,
     ...CategoriesProvider,
-    ...SiteConfigurationProvider
+    ...SiteConfigurationProvider,
+    ...BreakingNewsProvider
+
   ],
   exports: [
     ...UsersProvider,

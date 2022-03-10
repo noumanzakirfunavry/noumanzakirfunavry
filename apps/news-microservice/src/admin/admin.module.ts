@@ -5,7 +5,7 @@ import { QuotesModule } from "./quotes/quotes.module";
 import { TagsModule } from "./tags/tags.module";
 import { NewsModule } from './news/news.module';
 import { NewsTypeModule } from './news-type/news-type.module';
-import { BreakingNewsModule } from "./breakingNews/breakingNews.module";
+
 
 @Module({
     imports:[
@@ -14,7 +14,7 @@ import { BreakingNewsModule } from "./breakingNews/breakingNews.module";
         QuickLinksModule,
         NewsModule,
         NewsTypeModule,
-        BreakingNewsModule,
+
     ],
 })
 export class  AdminModule{}

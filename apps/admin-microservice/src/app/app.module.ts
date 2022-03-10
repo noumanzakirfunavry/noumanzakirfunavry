@@ -12,6 +12,8 @@ import { BranchesModule } from './branches/branches.module';
 import { DepartmentModule } from './departments/departments.module';
 import { CategoriesModule } from './categories/categories.module';
 import { SystemConfigurationModule } from './system-configuration/system-configuration.module';
+import { BreakingNewsModule } from './breakingNews/breakingNews.module';
+
 @Module({
   imports: [
     EntityModule,
@@ -26,6 +28,8 @@ import { SystemConfigurationModule } from './system-configuration/system-configu
     BranchesModule,
     DepartmentModule,
     CategoriesModule,
-    SystemConfigurationModule,],
+    SystemConfigurationModule,
+    BreakingNewsModule
+  ]
 })
 export class AppModule { }
