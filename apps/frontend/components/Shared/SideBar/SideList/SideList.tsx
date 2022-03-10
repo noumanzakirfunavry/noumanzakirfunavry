@@ -5,23 +5,20 @@ import styles from "./sidelist.module.css";
 import { FC } from "react"
 import Title from "apps/frontend/components/Title";
 
-const SideList:FC<SideListProps> = ({type}) =>{
+const SideList:FC<SideListProps> = ({type, title}) =>{
 
     return (
         <>
         <div className={styles.sidebar}>
-          <Title styles={styles.themeTitle}>
-            <h4>آخر الأخبار</h4>
-          </Title>
+         
             <div className={styles.listBody}>
-
 
               {
                 type === "numbered" && (
                   <>
-                   {/* <Title styles={styles.themeTitle}>
-            <h4>الأكثر تداولا</h4>
-          </Title> */}
+                     <Title styles={styles.themeTitle}>
+                        <h4> {title} </h4>
+                     </Title>
                     <ul className={styles.sidenumberList}>
                       <li key={'12'} ><a href="/newsDetails">
                         أسعار النفط تصعد بأكثر من 1% بعد رفع السعودية
@@ -59,11 +56,11 @@ const SideList:FC<SideListProps> = ({type}) =>{
                 type === "simple" && (
 
                   <>
-                          <div className="sideSimpleListWrap">
-                          <Title styles={styles.themeTitle}>
-            <h4>الأكثر قراءة</h4>
-          </Title>
-
+                    <div className="sideSimpleListWrap">
+                      <Title styles={styles.themeTitle}>
+                          <h4> {title} </h4>
+                      </Title>
+                    
                     <ul className={styles.sidesimpleList}>
                         <li key={'12'} ><a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
@@ -128,46 +125,49 @@ const SideList:FC<SideListProps> = ({type}) =>{
               {
                 type === 'dotList' && (
                   <>
+                      <Title styles={styles.themeTitle}>
+                          <h4> {title} </h4>
+                      </Title>
                       <div  className="dotListwrap">
-                      <ul className={styles.sideDotList}>
-                        <li key={'12'} ><a href="/newsDetails">
-                          <span>منذ 5 دقائق</span>
-                          أسعار النفط تصعد بأكثر من 1% بعد رفع السعودية
-                          لأسعار الخام لآسيا بأك بايدن: سيفقد حوالى 10 ملايين
-                          أميركي إعانات البطالة ثر من المتوقع
-                          </a></li>
-                          <li key={'343'}><a href="#">
-                          <span>قبل 30 دقيقة</span>
-                          النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
-                          </a></li>
-                          <li key={'675'}><a href="#">
-                          <span>منذ 1 ساعة</span>
-                          بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة
-                          </a></li>
-                          <li key={'34543'}><a href="#">
-                          <span>منذ 5 ساعات</span>
-                          النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
-                          </a></li>
-                          <li key={'fdw43'}><a href="#">
-                          <span>منذ 5 دقائق</span>
-                          أسعار النفط تصعد بأكثر من 1% بعد رفع السعودية
-                          لأسعار الخام لآسيا بأك بايدن: سيفقد حوالى 10 ملايين
-                          أميركي إعانات البطالة ثر من المتوقع
-                          </a></li>
-                          <li key={'fd43re3f'}><a href="#">
-                          <span>قبل 30 دقيقة</span>
-                          النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
-                          </a></li>
-                          <li key={'sdf43t'}><a href="#">
-                          <span>منذ 1 ساعة</span>
-                          بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة
-                          </a></li>
-                          <li key={'sdf54'}><a href="#">
-                          <span>منذ 5 ساعات</span>
-                          النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
-                          </a></li>
-                      </ul>
-                        </div>
+                        <ul className={styles.sideDotList}>
+                          <li key={'12'} ><a href="/newsDetails">
+                            <span>منذ 5 دقائق</span>
+                            أسعار النفط تصعد بأكثر من 1% بعد رفع السعودية
+                            لأسعار الخام لآسيا بأك بايدن: سيفقد حوالى 10 ملايين
+                            أميركي إعانات البطالة ثر من المتوقع
+                            </a></li>
+                            <li key={'343'}><a href="#">
+                            <span>قبل 30 دقيقة</span>
+                            النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
+                            </a></li>
+                            <li key={'675'}><a href="#">
+                            <span>منذ 1 ساعة</span>
+                            بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة
+                            </a></li>
+                            <li key={'34543'}><a href="#">
+                            <span>منذ 5 ساعات</span>
+                            النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
+                            </a></li>
+                            <li key={'fdw43'}><a href="#">
+                            <span>منذ 5 دقائق</span>
+                            أسعار النفط تصعد بأكثر من 1% بعد رفع السعودية
+                            لأسعار الخام لآسيا بأك بايدن: سيفقد حوالى 10 ملايين
+                            أميركي إعانات البطالة ثر من المتوقع
+                            </a></li>
+                            <li key={'fd43re3f'}><a href="#">
+                            <span>قبل 30 دقيقة</span>
+                            النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
+                            </a></li>
+                            <li key={'sdf43t'}><a href="#">
+                            <span>منذ 1 ساعة</span>
+                            بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة
+                            </a></li>
+                            <li key={'sdf54'}><a href="#">
+                            <span>منذ 5 ساعات</span>
+                            النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
+                            </a></li>
+                        </ul>
+                      </div>
                   </>
                 )
               }
