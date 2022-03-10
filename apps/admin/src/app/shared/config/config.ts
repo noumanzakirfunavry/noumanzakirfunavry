@@ -84,7 +84,7 @@ export const requests = {
     updateQuickLink: environment.baseUrlNews + 'quickLinks/update/',
     getAllQuickLinks: environment.baseUrlNews + 'quickLinks/getAll',
     getQuickLinkById: environment.baseUrlNews + 'quickLinks/getById/',
-    deleteQuickLink: environment.baseUrlNews + 'quickLinks/',
+    deleteQuickLink: environment.baseUrlNews + 'quickLinks/delete',
     addNewQualification: 'http://localhost:3333/api/qualification',
     updateQualification: 'http://localhost:3333/api/qualification/',
     getAllQualifications: 'http://localhost:3333/api/qualification',
