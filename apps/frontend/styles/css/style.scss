@@ -121,7 +121,11 @@ a:not([href]):not([class]):hover{
 
 
 // Top Bars/Alerts Style
-
+.top-bar{
+  strong{
+    margin-left: 20px;
+  }
+}
 .top-bar .alert{
     padding: .7rem .7rem;
   }
@@ -223,11 +227,11 @@ header{
   .header-nav ul li.nav-item .dropdown-menu{
     background: $white;
     padding: 0;
-    max-height: 300px;
-    overflow-y: auto;
+    // max-height: 300px;
+    // overflow-y: auto;
     border-radius: 0;
     border: none;
-    min-width: 288px;
+    min-width: 230px;
   }
   .header-nav ul li.nav-item .dropdown-menu li{
     padding: 0;
