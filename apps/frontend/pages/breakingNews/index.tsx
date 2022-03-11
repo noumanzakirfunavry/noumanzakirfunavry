@@ -44,7 +44,7 @@ const Index = ({data}) =>{
                         <NewsList/>
                     </div>
                     <div className='col-lg-3'>
-                        <SideBar sideBarSequence={[{componentType:'numbered', position:1, title:'آخر الأخبار'}, {componentType:'SmallBanner', position:2}, {componentType:'simple', position:2, title:'الأكثر قراءة'}, {componentType:'LargeBanner', position:2}]}/>
+                        <SideBar sideBarSequence={[{componentType:'numbered', position:1, title:'الأكثر قراءة'}, {componentType:'SmallBanner', position:2}, {componentType:'simple', position:2, title:'الأكثر قراءة'}, {componentType:'LargeBanner', position:2}]}/>
                     </div>
                 </div>
             </div>
