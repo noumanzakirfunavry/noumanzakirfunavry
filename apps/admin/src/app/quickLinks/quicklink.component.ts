@@ -3,6 +3,14 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
+export interface Data {
+    id: number;
+    title: string;
+    link: string;
+    status: boolean;
+    disabled: boolean;
+  }
+
 
 @Component({
        selector: 'app-quickLink',
@@ -15,7 +23,7 @@ export class QuickLinkComponent implements OnInit{
     indeterminate = false;
     checked = false;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData:Array<any> = []; 
+    listOfCurrentPageData: Data[] = []; 
 
     constructor( private apiService: ApiService, private message: NzMessageService ) {}
 
@@ -33,6 +41,7 @@ export class QuickLinkComponent implements OnInit{
     deleteQuickLink(link: number) {
         this.apiService.sendRequest(requests.deleteQuickLink, 'delete', {ids:[link]}).subscribe((res:any) => {
             console.log("DEL-QUICK-LINK", res);
+            this.getAllQuickLinks()
             this.message.create('success', `Quick Link Deleted Successfully`)
         })
     }
@@ -55,5 +64,10 @@ export class QuickLinkComponent implements OnInit{
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
+
+    onCurrentPageDataChange(listOfCurrentPageData: Data[]): void {
+        this.listOfCurrentPageData = listOfCurrentPageData;
+        this.refreshCheckedStatus();
+      }
 
 }    

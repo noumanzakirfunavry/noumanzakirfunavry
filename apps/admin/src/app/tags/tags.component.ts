@@ -60,7 +60,7 @@ export class TagsComponent implements OnInit {
     }
 
     deleteTags(tagId: any) {
-        this.apiService.sendRequest(requests.deleteTags, 'delete', {ids:[tagId]}).subscribe((res:any) => {
+        this.apiService.sendRequest(requests.deleteTags, 'delete', {id:[tagId]}).subscribe((res:any) => {
             console.log("DELETE-TAG", res);
             this.getAllTags();
             this.message.create('success', `Tag Deleted Successfully`)

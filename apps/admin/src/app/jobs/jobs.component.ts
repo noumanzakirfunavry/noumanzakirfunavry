@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
@@ -18,13 +19,14 @@ export interface Data {
 
 export class JobsComponent implements OnInit {
     pagination: {pageNo: number, limit: number, status?: string, title?: string, branchId?:Array<any>, publishers?:Array<any>} = {pageNo: 1, limit: 10}
+    allJobs: any;
     indeterminate = false;
     checked = false;
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData: Data[] = [];
 
 
-    constructor(private apiService: ApiService ) {}
+    constructor(private apiService: ApiService, private message: NzMessageService ) {}
 
     ngOnInit(): void {
         this.getAllJobs()
@@ -32,7 +34,16 @@ export class JobsComponent implements OnInit {
 
     getAllJobs() {
         this.apiService.sendRequest(requests.getAllJobs, 'get', this.pagination).subscribe((res:any) => {
-            console.log("ALL-JOBS", res);
+            this.allJobs= res.response.jobs;
+            console.log("ALL-JOBS", this.allJobs);
+        })
+    }
+
+    deleteJobs(jobId: number) {
+        this.apiService.sendRequest(requests.deleteJobs, 'delete', {ids:[jobId]}).subscribe((res:any) => {
+            console.log("DELETE-JOBS", res);
+            this.getAllJobs();
+            this.message.create('success', `Job Deleted Successfully`)
         })
     }
 

@@ -9,6 +9,7 @@ import { AddCategoryComponent } from './addCategory/addCategoy.component';
 import { FilterComponent } from './categoryFilter/Filter.component';
 import { antdModule } from '../AndModules/andModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         NgChartjsModule,
         ReactiveFormsModule,
         FormsModule,
-        ...antdModule
+        ...antdModule,
+        DragDropModule
     ],
     exports: [],
     declarations: [

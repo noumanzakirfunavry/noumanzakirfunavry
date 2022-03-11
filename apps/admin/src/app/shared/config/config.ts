@@ -122,7 +122,7 @@ export const requests = {
     applyForJob: 'http://localhost:3333/api/job/apply',
     getJobApplicants: 'http://localhost:3333/api/job/applicants',
     deleteJobs: environment.baseUrlAdmin + 'jobs/delete/',
-    updateJob: environment.baseUrlAdmin + 'jobs/update',
+    updateJob: environment.baseUrlAdmin + 'jobs/update/',
     getJobById: environment.baseUrlAdmin + 'jobs/getById/',
     getAllAlexa: 'http://localhost:3333/api/admin/configuration/alexa',
     getAlexaById: 'http://localhost:3333/api/admin/configuration/alexa/',
