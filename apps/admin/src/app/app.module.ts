@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
@@ -17,6 +17,7 @@ import { antdModule } from './AndModules/andModule';
 import { ChangePasswordComponent } from './changePassword/changePassword.component';
 import { AuthInterceptor } from './shared/interceptor/authInterceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 registerLocaleData(en);
@@ -37,6 +38,7 @@ registerLocaleData(en);
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
+        DragDropModule,
         ...antdModule
     ],
     providers: [
@@ -51,6 +53,7 @@ registerLocaleData(en);
         ThemeConstantService,
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
