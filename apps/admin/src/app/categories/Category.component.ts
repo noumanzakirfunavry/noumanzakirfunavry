@@ -1,18 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
-
-
-export interface Data {
-    id: number;
-    name: string;
-    age: number;
-    address: string;
-    disabled: boolean;
-}
 
 @Component({
        selector: 'app-category',
@@ -35,39 +25,7 @@ export class CategoryComponent implements OnInit {
     indeterminate = false;
     checked = false;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData: Data[] = [];    
-
-    nodes = [
-        {
-            title: '0-1',
-            key: '01',
-            children: [
-              {
-                title: '0-1-0',
-                key: '010',
-                children: [
-                  { title: '0-1-0-0', key: '0100', isLeaf: true },
-                  { title: '0-1-0-1', key: '0101', isLeaf: true },
-                  { title: '0-1-0-2', key: '0102', isLeaf: true }
-                ]
-              },
-              {
-                title: '0-1-1',
-                key: '011',
-                children: [
-                  { title: '0-1-1-0', key: '0110', isLeaf: true },
-                  { title: '0-1-1-1', key: '0111', isLeaf: true },
-                  { title: '0-1-1-2', key: '0112', isLeaf: true }
-                ]
-              }
-            ]
-          },
-          {
-            title: '0-2',
-            key: '02',
-            isLeaf: true
-          }
-    ]
+    listOfCurrentPageData:Array<any> = [];    
 
     constructor(private apiService: ApiService, private message: NzMessageService ) {
     }
@@ -90,10 +48,6 @@ export class CategoryComponent implements OnInit {
             this.message.create('success', `Category Deleted Successfully`)
         })
     }
-
-    nzEvent(event: NzFormatEmitEvent): void {
-        console.log(event);
-      }
 
     updateCheckedSet(id: number, checked: boolean): void {
         if (checked) {

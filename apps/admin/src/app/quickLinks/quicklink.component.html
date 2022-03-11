@@ -7,8 +7,8 @@
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
-            <div class="m-t-30">
-                <nz-table [nzShowPagination]="true" class="no-border-last">
+            <div>
+                <nz-table [nzShowPagination]="true" nzShowSizeChanger [nzData]="allQuickLinks" class="no-border-last">
                     <thead>
                         <tr>
                             <th>Reorder</th>
@@ -20,7 +20,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let link of allQuickLinks">
-                            <td></td>
+                            <td [nzChecked]="setOfCheckedId.has(link?.id)" (nzCheckedChange)="onItemChecked(link?.id, $event)"></td>
                             <td>{{link?.title}}</td>
                             <td>{{link?.url}}</td>
                             <td>
