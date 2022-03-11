@@ -1227,11 +1227,17 @@ header{
     color: $grey-dark;
     font-size: 14px;
     font-weight: bold;
- }
- .horizontalNumberList .hNumberList ol li:hover{
-   text-decoration: underline;
+    a{
+      color: $grey-dark;
+      font: normal normal bold 14px/22px Cairo;
+      &:hover{
+        text-decoration: underline;
    cursor: pointer;
+      }
+
+    }
  }
+
  .horizontalNumberList .hNumberList ol li::before{
      content: counter(mynumberlist);
      color: #CFD8E2;
@@ -1268,7 +1274,7 @@ header{
 
 .sliderArrows{
   text-align: left;
-  padding: 20px 10px 0px;
+  padding: 10px 10px 0px;
 }
 .sliderArrows .slider-arrow{
   font-size: 0;
