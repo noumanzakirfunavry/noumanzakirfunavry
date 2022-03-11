@@ -15,8 +15,8 @@ const Header = () =>{
     const [data, setData] = useState<any>({})
     const router = useRouter()
     const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/categoryNewsTiles'},{title:'أخبار عاجلة', url:'/breakingNews'}])
-    
-    
+
+
     useEffect(()=>{
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
@@ -374,6 +374,8 @@ const Header = () =>{
                                                         <li key={'17'}>
                                                             <a className="dropdown-item" href="/program/10/حوار الأسبوع">حوار الأسبوع</a>
                                                         </li>
+
+{/*
                                                         <li key={'18'}>
                                                             <a className="dropdown-item" href="/program/16/برنامج بموضوعية ">بموضوعية </a>
                                                         </li>
@@ -415,7 +417,7 @@ const Header = () =>{
                                                         </li>
                                                         <li key={'31'}>
                                                             <a className="dropdown-item" href="/program/84/خبر خام">خبر خام</a>
-                                                        </li>
+                                                        </li> */}
                                                     </ul>
                                                 </li>
                                                 <li className="nav-item" key={'34'}>
@@ -463,7 +465,7 @@ const Header = () =>{
                                     </ul>
                                 </div>
                                 {
-                                    displaySerachDropDown && (<SearchDropDown data={data}/>) 
+                                    displaySerachDropDown && (<SearchDropDown data={data}/>)
                                 }
 
                             </div>
