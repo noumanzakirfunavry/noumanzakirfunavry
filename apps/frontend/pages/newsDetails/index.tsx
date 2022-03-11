@@ -13,13 +13,18 @@ const Index = () =>{
             <div className="container">
                 <AdBanner/>
 
-                <Title styles={"pageSimpleTitle mb-5"}>
-                    <span className="badge bg-success">PRO</span>
-                    <h1 className="fw-bold">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h1>
-                </Title>
+               <div className="row justify-content-center">
+                   <div className="col-9">
+                   <Title styles={"pageSimpleTitle mb-5"}>
+                   <div className="newsdetail_title">
+                   <span className="badge bg-success">PRO</span>
+                    <h1 className="fw-bold">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h1></div>
+                </Title></div>
+                <div className="col-1"></div>
+                   </div>
 
                 <div className="SocialHeaderMobile">
-                    <div className="row">
+                    <div className="row ">
 
                         <div className="col-9">
                             <div className="newsSocial">
@@ -50,17 +55,19 @@ const Index = () =>{
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className='col-md-8'>
+                <div className="row justify-content-center">
+                    <div className='col-md-7'>
                         <NewsInfoBox/>
                     </div>
+                    <div className='col-md-3'>
+                    </div>
                 </div>
-                <div className="row">
-                    <div className='col-lg-8'>
+                <div className="row justify-content-center">
+                    <div className='col-lg-7'>
                         <NewsDetails/>
                     </div>
-                    <div className='col-lg-4'>
-                        <SideBar sideBarSequence={[{componentType:'Latest', position:1}, {componentType:'SmallBanner', position:2}]}/>
+                    <div className='col-lg-3'>
+                        <SideBar sideBarSequence={[{componentType:'Latest', position:1},  {componentType:'numbered', position:1, title:'الأكثر قراءة'}, {componentType:'SmallBanner', position:2}]}/>
                     </div>
                 </div>
             </div>

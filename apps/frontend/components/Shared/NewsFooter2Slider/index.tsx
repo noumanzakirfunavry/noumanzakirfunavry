@@ -97,6 +97,7 @@ const HorizontalFooter2NewsSlider:FC = () =>{
                             </div>
                             <div className="newscontent">
                                 <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
+                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
                             </div>
                         </div>
                     </div>
@@ -107,6 +108,7 @@ const HorizontalFooter2NewsSlider:FC = () =>{
                             </div>
                             <div className="newscontent">
                                 <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
+                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
                             </div>
                         </div>
                     </div>
@@ -126,6 +128,7 @@ const HorizontalFooter2NewsSlider:FC = () =>{
                             </div>
                             <div className="newscontent">
                                 <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
+                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
                             </div>
                         </div>
                     </div>
