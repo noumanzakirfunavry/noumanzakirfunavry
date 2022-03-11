@@ -14,7 +14,7 @@ const Header = () =>{
     const [displaySerachDropDown, setDisplaySerachDropDown] = useState<boolean>(false)
     const [data, setData] = useState<any>({})
     const router = useRouter()
-    const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/categoryNewsTiles'},{title:'أخبار عاجلة', url:'/breakingNews'}])
+    const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/categoryNewsTiles'},{title:'أخبار عاجلة', url:'/breakingNews'}, {title:"أخبار الموالية", url:"/newsDetails"}])
 
 
     useEffect(()=>{
@@ -348,31 +348,31 @@ const Header = () =>{
                                                             <a className="dropdown-item" href="/programs/100/">اكسبو في أسبوع</a>
                                                         </li>
                                                         <li key={'9'}>
-                                                            <a className="dropdown-item" href="/program/95/حديث المملكة مع راشد الفوزان">حديث المملكة مع راشد الفوزان</a>
+                                                            <a className="dropdown-item" href="/programs/95/">حديث المملكة مع راشد الفوزان</a>
                                                         </li>
                                                         <li key={'10'}>
-                                                            <a className="dropdown-item" href="/program/96/تحت الضوء">تحت الضوء</a>
+                                                            <a className="dropdown-item" href="/programs/96/">تحت الضوء</a>
                                                         </li>
                                                         <li key={'11'}>
-                                                            <a className="dropdown-item" href="/program/78/وثائقيات">ملفات</a>
+                                                            <a className="dropdown-item" href="/programs/78/">وثائقيات</a>
                                                         </li>
                                                         <li key={'12'}>
-                                                            <a className="dropdown-item" href="/program/90/Tech Talks">Tech Talks</a>
+                                                            <a className="dropdown-item" href="/programs/90/">Tech Talks</a>
                                                         </li>
                                                         <li key={'13'}>
-                                                            <a className="dropdown-item" href="/program/89/CEO Talks">CEO Talks</a>
+                                                            <a className="dropdown-item" href="/programs/89/">CEO Talks</a>
                                                         </li>
                                                         <li key={'14'}>
-                                                            <a className="dropdown-item" href="/program/61/مسار السوق">مسار السوق</a>
+                                                            <a className="dropdown-item" href="/programs/61/">مسار السوق</a>
                                                         </li>
                                                         <li key={'15'}>
-                                                            <a className="dropdown-item" href="/program/33/كلام أسواق">كلام أسواق</a>
+                                                            <a className="dropdown-item" href="/programs/33/">كلام أسواق</a>
                                                         </li>
                                                         <li key={'16'}>
-                                                            <a className="dropdown-item" href="/program/87/بين قوسين">بين قوسين</a>
+                                                            <a className="dropdown-item" href="/programs/87/">بين قوسين</a>
                                                         </li>
                                                         <li key={'17'}>
-                                                            <a className="dropdown-item" href="/program/10/حوار الأسبوع">حوار الأسبوع</a>
+                                                            <a className="dropdown-item" href="/programs/10/">حوار الأسبوع</a>
                                                         </li>
 
 {/*
