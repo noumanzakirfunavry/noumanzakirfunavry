@@ -10,7 +10,7 @@ import {UtilityModule} from '@cnbc-monorepo/utility'
   controllers: [NewsController],
   imports : [
     ProvidersModule,
-    AuthModuleModule,
+    
     UtilityModule,
     ExceptionHandlingModule,
   ]

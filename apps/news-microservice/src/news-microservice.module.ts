@@ -3,11 +3,13 @@ import {AppLoggerMiddleware, RequestCheckerMiddleware } from "@cnbc-monorepo/mid
 import { AdminModule } from "./admin/admin.module";
 import { ClientModule } from "./client/client.module";
 import {ExceptionHandlingModule} from '@cnbc-monorepo/exception-handling'
+import { UtilityModule } from "@cnbc-monorepo/utility";
 @Module({
     imports:[
         AdminModule,
         ClientModule,
-        ExceptionHandlingModule
+
+        ExceptionHandlingModule,
     ],
 })
 export class  NewsMicroserviceModule implements NestModule {

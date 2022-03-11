@@ -48,16 +48,18 @@ export class QuickLinksService{
     }
 
     async updateQuickLinks(id:number,body:UpdateQuickLinksRequestDto){
-        const quote=await this.quickLinksRepo.findOne({where:{id:id}})
-        if(!quote){
+        const result=await this.quickLinksRepo.update(body, {where:{id}})
+        if(!result[0]){
             throw new CustomException(
-                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-                Exceptions[ExceptionType.RECORD_NOT_FOUND].status  
+                Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
+                Exceptions[ExceptionType.UNABLE_TO_UPDATE].status  
             ) 
         }
-        const result=await quote.update(body)
-        return new UpdateQuickLinksResponsDto(HttpStatus.OK,"UPDATED SUCCESSFULLY", result)  
+        const link=await this.quickLinksRepo.findOne({where:{id}})
+        return new UpdateQuickLinksResponsDto(HttpStatus.OK,"UPDATED SUCCESSFULLY", link)  
     }
+
+
     async deleteByIds(ids:number[]){
         const result=await this.quickLinksRepo.destroy({where:{id:ids}})
         if(!result){
