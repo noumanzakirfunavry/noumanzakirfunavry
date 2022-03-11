@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../shared/config/config';
@@ -67,4 +68,9 @@ export class CategoryComponent implements OnInit {
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
+
+    drop(event: CdkDragDrop<string[] | any>) {
+        moveItemInArray(this.allCategories, event.previousIndex, event.currentIndex);
+      }
+      
 }    
