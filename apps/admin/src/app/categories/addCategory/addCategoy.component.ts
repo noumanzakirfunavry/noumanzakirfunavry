@@ -11,6 +11,17 @@ import { ApiService } from 'src/app/shared/services/api.service';
 })
 
 export class AddCategoryComponent implements OnInit {
+    pagination: {
+        limit: number, 
+        pageNo: number, 
+        parentCategoryId?:Array<any>, 
+        publishers?:Array<any>, 
+        status?: string, 
+        title?: string, 
+        includeNews?: any, 
+        newsLImit?: any 
+    } = {limit: 1000, pageNo: 1}
+    allCategories: any;
     categoryForm: FormGroup;
     categoryId: number
     categoryById: any;
@@ -22,6 +33,7 @@ export class AddCategoryComponent implements OnInit {
         private activatedRoute: ActivatedRoute) {}
 
     ngOnInit(): void {
+        this.getAllCategories();
         this.categoryForm = this.fb.group({
             title: [null, [Validators.required]],
             parentCategoryId: [null, [Validators.required]],
@@ -44,11 +56,16 @@ export class AddCategoryComponent implements OnInit {
         }
         if(this.categoryForm.valid) {
             const obj= this.categoryForm.value;
-            obj['parentCategoryId'] = null;
-            // obj['parentCategoryId'] = parseInt(this.categoryForm.value.parentCategoryId);
-            this.apiService.sendRequest(requests.addCategory, 'post', this.categoryForm.value).subscribe((res:any) => {
+            obj['parentCategoryId'] = parseInt(this.categoryForm.value.parentCategoryId);
+            this.apiService.sendRequest(this.categoryId ? requests.updateCategory + this.categoryId : requests.addCategory, this.categoryId ? 'put' : 'post', obj).subscribe((res:any) => {
                 console.log("CATEGORIES", res);
                 this.categoryForm.reset();
+                if(this.categoryId) {
+                    this.message.create('success', `Category Updated Successfully`)
+                }
+                else {
+                    this.message.create('success', `Category Added Successfully`)
+                }
             })
         }
     }
@@ -64,6 +81,13 @@ export class AddCategoryComponent implements OnInit {
                 displayInCategoryMenu: [this.categoryById?.displayInCategoryMenu || false],
                 displayInHomePage: [this.categoryById?.displayInHomePage || false]
               });
+        })
+    }
+
+    getAllCategories() {
+        this.apiService.sendRequest(requests.getAllCategories, 'get', this.pagination).subscribe((res:any) => {
+            this.allCategories= res.response.categories;
+            console.log("ALL-CATEGORIES", this.allCategories);
         })
     }
 }    
