@@ -5,6 +5,7 @@ const SideBarWithVideo = () => {
 
     return (
         <>
+        <div className="videNewspage_sidebar">
             <div className={styles.sidebar}>
             <div className={styles.themeTitle}>
                 <h4>أحدث مقاطع الفيديو</h4>
@@ -135,6 +136,7 @@ const SideBarWithVideo = () => {
                     </ul>
                 </div>
                 </div>
+            </div>
             </div>
         </>
     )

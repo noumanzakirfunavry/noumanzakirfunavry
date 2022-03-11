@@ -10,12 +10,13 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
     return (
         <>
         <div className={styles.sidebar}>
-         
+
             <div className={styles.listBody}>
 
               {
                 type === "numbered" && (
                   <>
+                    <div className="sideSimpleListWrap">
                      <Title styles={styles.themeTitle}>
                         <h4> {title} </h4>
                      </Title>
@@ -49,6 +50,7 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
                         النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                         </a></li>
                     </ul>
+                    </div>
                   </>
                 )
               }
@@ -60,7 +62,7 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
                       <Title styles={styles.themeTitle}>
                           <h4> {title} </h4>
                       </Title>
-                    
+
                     <ul className={styles.sidesimpleList}>
                         <li key={'12'} ><a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب

@@ -10,7 +10,7 @@ body{
 a{
   color: $primary-color;
   &:hover{
-    color: $warning;
+    // color: $warning;
   }
 }
 a:not([href]):not([class]) {
@@ -76,7 +76,13 @@ a:not([href]):not([class]):hover{
 .text-extra-bold{
   font-weight: 900 !important;
 }
-
+.btn-outline-light{
+  &:hover{
+    color: $primary-color;
+    background-color: $warning;
+    border-color: $warning;
+  }
+}
 
   // Form Style
   .form-check-input:checked {
@@ -206,23 +212,47 @@ header{
     color: $white;
     border-bottom-color: $warning;
   }
+  .header-nav ul li.nav-item{
+    &:hover{
+      .dropdown-menu{
+        display: block;
+      }
+    }
+
+  }
   .header-nav ul li.nav-item .dropdown-menu{
-    background: $secondary-color;
+    background: $white;
     padding: 0;
     max-height: 300px;
     overflow-y: auto;
+    border-radius: 0;
+    border: none;
+    min-width: 288px;
   }
   .header-nav ul li.nav-item .dropdown-menu li{
     padding: 0;
     margin: 0;
+    border-bottom: solid 1px $grey-light;
+    &:last-child{
+      border-bottom: 0;
+    }
   }
   .header-nav ul li.nav-item .dropdown-menu li a{
-    background: $secondary-color;
-    border-bottom: 1px solid #0066b1;
+    background: $white;
+    // border-bottom: 1px gray;
     font-size: 14px;
+    color: $primary-color;
+    text-align: right;
+    padding:  10px 15px;
+    &:hover{
+      background-color: $grey-light;
+      color: $primary-color;
+      font-weight: 900;
+     border-bottom-color: transparent;
+    }
   }
   .header-nav .navbar-toggler .navbar-toggler-icon{
-    color: $white;
+    color: $primary-color;
   }
 
 
@@ -259,15 +289,19 @@ header{
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
   .header-search-nav ul li a{
     font-size: 16px;
     color: $white !important;
-    padding: 5px 15px;
+    // padding: 5px 15px;
+    padding: 0;
     text-align: center;
     text-decoration: none;
     font-weight: bold;
+    &:hover{
+      color: $warning !important ;
+    }
   }
 
   .youtube-icon{
@@ -983,7 +1017,8 @@ header{
     overflow: hidden;
   .programImage{
     margin-bottom: 10px;
-    height: 180px;
+    height: 170px;
+    width: 300px;
     overflow: hidden;
     position: relative;
   }
@@ -998,9 +1033,12 @@ header{
       font-weight: bold;
     }
     h4{
-      font-size: 18px;
-      font-weight: bold;
-      line-height: 1.5rem;
+
+      font: normal normal bold 16px/26px Cairo;
+      &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
 
   }
@@ -1422,6 +1460,30 @@ header{
 .proNews{
   border: 1px solid $grey-light;
   padding: 30px;
+  p{
+    font: normal normal bold 12px/30px Cairo;
+    color: $grey;
+    a{
+      margin-right: 10px;
+      &:hover{
+        text-decoration: underline;
+
+      }
+    }
+
+
+  }
+  h3{
+    font: normal normal bold 20px/20px Cairo;
+    &:hover{
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+  button{
+    font: normal normal bold 15px/23px Cairo;
+
+  }
 }
 
 .livetvbox{
@@ -2264,12 +2326,20 @@ select::-ms-expand {
       &.text-secondary{
         font: normal normal bold 20px/20px Cairo;
         color: $secondary-color !important;
+        &:hover{
+          text-decoration: underline;
+          cursor: pointer;
+        }
 
       }
     }
     h1{
       font: normal normal bold 40px/65px Cairo;
       color: $grey-dark;
+      &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
   }
   p{
@@ -2319,6 +2389,10 @@ select::-ms-expand {
        a{
         color: $grey-dark;
         font: normal normal bold 16px/26px Cairo;
+        &:hover{
+          text-decoration: underline;
+          cursor: pointer;
+        }
        }
       }
       p{
@@ -2326,6 +2400,10 @@ select::-ms-expand {
         color: $grey;
         a{
           margin-left: 10px;
+          &:hover{
+            text-decoration: underline;
+            cursor: pointer;
+          }
         }
       }
     }
@@ -2351,3 +2429,117 @@ select::-ms-expand {
     }
   }
 }
+
+
+.videNewspage_sidebar {
+  .sidebarvideo_sidebar__Xyuy_ {
+    border-bottom: none;
+    .sidebarvideo_themeTitle__onjDO h4 {
+      border-color: $grey-light;
+      width: 100%;
+      margin-top: -6px;
+    }
+  }
+}
+.livetvSlider{
+  background-color: $primary-dark;
+  .newsSlider2Text {
+    .NewsBox {
+      .newscontent{
+        h5{
+          font: normal normal bold 20px/35px Cairo;
+         a{
+           color: #fff;
+         }
+        }
+      }
+      .newsImage{
+        img{
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+}
+
+.signinmodal {
+  .form-floating {
+    input {
+      text-align: left;
+      direction: ltr;
+      height: 50px;
+    }
+    label{
+      padding: .9rem 0.75rem;
+    }
+    &.iconFiled {
+      .showIcon{
+        top: 33%;
+      }
+    }
+
+  }
+  button{
+&.btn-primary{
+  font: normal normal bold 15px/23px Cairo;
+
+}
+  }
+
+}
+
+.pageSimpleTitle{
+  .newsSocial{
+    ul{
+      li{
+        a{
+          color:$secondary-color;
+        }
+      }
+    }
+  }
+
+  h1{
+    font: normal normal bold 40px/65px Cairo;
+    color: $grey-dark;
+    &:hover{
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+.related_stock {
+  &.in_details{
+   span{
+    font: normal normal bold 12px/20px Cairo;
+   }
+
+  }
+}
+.mb-3.newsDetailimg {
+  height: 415px;
+  overflow: hidden;
+  width: 740px;
+  img{
+    height: 100%;
+    object-fit: cover;
+  }
+}
+h6.newsDetailtext
+  {
+    font: normal normal bold 12px/20px Cairo;
+    &:hover{
+      cursor: pointer;
+     text-decoration: underline;
+    }
+
+  }
+  .fadeNewsDetail{
+    margin-bottom: 0 !important;
+    p{
+      font: normal normal normal 18px/30px IBM Plex Sans Arabic;
+      color: $grey;
+
+    }
+  }

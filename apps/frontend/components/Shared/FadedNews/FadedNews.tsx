@@ -3,7 +3,7 @@ const FadedNews = () =>{
     return (
         <>
             {/* <div className="fadedNews mb-3"> */}
-            <div className="fadenews mb-5">
+            <div className="fadenews fadeNewsDetail mb-5 fadedNews">
                 <p>لا يتوقع شرقاوي أن ينجح مشروع القانون المقدم في الكونغرس في تصنيف الجماعة إرهابية، لكنه “سيمثل أداة ضغط على الإدارة الأميركية لتغير سياستها في التعاطي مع التنظيم”، فضلا عن كونه “خطوة في طريق حظره”.
                 </p>
                 {/* <p>
