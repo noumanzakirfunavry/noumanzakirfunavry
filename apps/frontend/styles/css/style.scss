@@ -299,6 +299,9 @@ header{
     text-align: center;
     text-decoration: none;
     font-weight: bold;
+    &:hover{
+      color: $warning !important ;
+    }
   }
 
   .youtube-icon{
