@@ -15,14 +15,14 @@ const Index = () =>{
                 </div>
                 <Title styles="pageTitle PageTitleYellow mb-0"><h2>اكسبو في أسبوع</h2></Title>
                 <div className="container">
-                <ProgramDetails/> 
+                <ProgramDetails/>
 
                 <div className='row'>
-                    <div className='col-lg-8'>
+                    <div className='col-lg-9'>
                         <Title styles="yellowTitle mb-4"><h3>الحلقات اكسبو في أسبوع</h3></Title>
                         <CategoryNewsSection limit={8} displayMoreButton={true} displayTopTwoNews={false} displayTitle={false} />
                     </div>
-                    <div className='col-lg-4'>
+                    <div className='col-lg-3'>
                         <SideBar sideBarSequence={[ { componentType: 'LargeBanner', position: 1 }]} />
                     </div>
                 </div>

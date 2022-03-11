@@ -2,7 +2,7 @@ const CategoryDetailsBoxes = () => {
 
     return (
         <>
-            <div className="Simplecategories related_stock  my-4">
+            <div className="Simplecategories related_stock in_details  my-4">
         <div className="d-md-flex">
         <span className="pt-2 ms-3">الأسهم ذات الصلة</span>
                 <ul>
