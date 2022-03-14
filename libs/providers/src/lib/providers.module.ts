@@ -22,6 +22,8 @@ import { BranchesProvider } from '../providers/branches.provider';
 import { DepartmentsProvider } from '../providers/departments.provider';
 import { CategoriesProvider } from '../providers/categories.provider';
 import { SiteConfigurationProvider } from '../providers/site.configuration.provider';
+import { LiveStreamLinksProvider } from '../providers/live.stream.links.provider';
+import { AlertsProvider } from '../providers/alerts.provider';
 
 @Module({
   providers: [
@@ -47,7 +49,9 @@ import { SiteConfigurationProvider } from '../providers/site.configuration.provi
     ...DepartmentsProvider,
     ...CategoriesProvider,
     ...SiteConfigurationProvider,
-    ...BreakingNewsProvider
+    ...BreakingNewsProvider,
+    ...LiveStreamLinksProvider,
+    ...AlertsProvider
 
   ],
   exports: [
@@ -72,7 +76,9 @@ import { SiteConfigurationProvider } from '../providers/site.configuration.provi
     ...JobsProvider,
     ...DepartmentsProvider,
     ...BreakingNewsProvider,
-    ...SiteConfigurationProvider
+    ...SiteConfigurationProvider,
+    ...LiveStreamLinksProvider,
+    ...AlertsProvider
   ]
 })
 

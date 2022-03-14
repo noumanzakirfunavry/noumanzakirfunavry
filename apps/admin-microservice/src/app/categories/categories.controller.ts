@@ -2,7 +2,7 @@ import { AddCategoriesRequestDto, DeleteCategoryRequestDto, GetAllCategoriesRequ
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { CategoriesService } from "./categories.service";
 
-@Controller('Admin/api/admin/categories')
+@Controller('admin/api/admin/categories')
 export class CategoriesController{
     constructor(
         private categoryService:CategoriesService

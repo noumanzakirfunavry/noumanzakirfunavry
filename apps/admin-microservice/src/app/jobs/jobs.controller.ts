@@ -3,7 +3,7 @@ import { JobsService } from "./jobs.service";
 import {AddJobRequestDto, DeleteJobRequestDto, GetALLJobsRequestDto, GetJobByIdResponseDto, UpdateJobRequestDto} from '@cnbc-monorepo/dtos'
 import { Public } from "@cnbc-monorepo/auth-module";
 
-@Controller("Admin/api/admin/jobs")
+@Controller("admin/api/admin/jobs")
 export class JobsController{
     constructor(
         private jobsService:JobsService,
