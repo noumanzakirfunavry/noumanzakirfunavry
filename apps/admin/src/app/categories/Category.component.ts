@@ -8,6 +8,7 @@ import { ApiService } from '../shared/services/api.service';
 @Component({
        selector: 'app-category',
     templateUrl: './Category.component.html',
+    styleUrls: ['./Category.component.scss']
 })
 
 export class CategoryComponent implements OnInit {
