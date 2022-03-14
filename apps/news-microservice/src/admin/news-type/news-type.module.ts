@@ -1,4 +1,5 @@
 import { AuthModuleModule } from '@cnbc-monorepo/auth-module';
+import { EntityModule } from '@cnbc-monorepo/entity';
 import { ExceptionHandlingModule } from '@cnbc-monorepo/exception-handling';
 import { ProvidersModule } from '@cnbc-monorepo/providers';
 import { UtilityModule } from '@cnbc-monorepo/utility';
@@ -11,9 +12,7 @@ import { NewsTypeService } from './news-type.service';
   providers: [NewsTypeService],
   imports : [
     ProvidersModule,
-    AuthModuleModule,
     UtilityModule,
-    ExceptionHandlingModule,
   ]
 })
 export class NewsTypeModule {}
