@@ -18,7 +18,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                         <div className="NewsInfo">
                             <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
                             <p>
-                                {/* <a>الإمارات</a> */}
+                                <a>الإمارات</a>
                              منذ 5 دقائق</p>
                         </div>
                     </div>
@@ -39,7 +39,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                         <div className="NewsInfo">
                             <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</h4>
                             <p>
-                                {/* <a>الإمارات</a>  */}
+                                <a>الإمارات</a>
                             منذ 5 دقائق</p>
                         </div>
                     </div>
@@ -52,7 +52,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                         <div className="NewsInfo">
                             <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
                             <p>
-                                {/* <a>الإمارات</a>  */}
+                                <a>الإمارات</a>
                             منذ 5 دقائق</p>
                         </div>
                     </div>
@@ -74,7 +74,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                                         </div>
                                         <div className="NewsInfo">
                                             <h3>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h3>
-                                            <p> منذ 5 دقائق</p>
+                                            <p><a className="ms-3">الإمارات</a> منذ 5 دقائق</p>
                                         </div>
                                     </div>
                             </div>
@@ -83,7 +83,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                                         <div className="NewsImage">
                                             <img className="img-fluid" src={newsImage.src} />
                                         </div>
-                                        <div className="PlayTime">
+                                        {/* <div className="PlayTime">
                                 <h5>05:21</h5>
                                 <div className="btn-text">
                                     <span>شاهد الآن</span>
@@ -91,10 +91,10 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                                         <i className="fa fa-play"></i>
                                     </button>
                                 </div>
-                            </div>
+                            </div> */}
                                         <div className="NewsInfo">
                                             <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                                            <p> منذ 5 دقائق</p>
+                                            <p> <a className=" ms-3">الإمارات</a> منذ 5 دقائق</p>
                                         </div>
                                     </div>
                             </div>

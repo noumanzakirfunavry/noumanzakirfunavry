@@ -66,14 +66,26 @@
 .sideDotList li:first-child a{
     padding-top:0;
 }
+.sideDotList li a{
+    padding-top:0;
+}
 .sideDotList li a:hover{
     /* color: #002F6C; */
     text-decoration: underline;
 }
+
 .sideDotList li a span{
     color: #777777;
     display: block;
     margin-bottom: 5px;
+}
+.sideDotList li span{
+    color: #777777;
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    font: normal normal bold 12px/20px Cairo;
+
 }
 
 

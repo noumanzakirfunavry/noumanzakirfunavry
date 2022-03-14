@@ -4,7 +4,7 @@ import sliderimg from "../../../styles/images/biden2.jpg";
 
 
 
-const HorizontalFooter2NewsSlider:FC = () =>{
+const NewsFooter2SliderWithColoredBackGround:FC = () =>{
 
 
 
@@ -12,8 +12,8 @@ const HorizontalFooter2NewsSlider:FC = () =>{
             dots: false,
             infinite: true,
             speed: 500,
-            slidesToShow: 4,
-            slidesToScroll: 4,
+            slidesToShow: 3,
+            slidesToScroll: 1,
             initialSlide: 0,
             responsive: [
               {
@@ -97,7 +97,6 @@ const HorizontalFooter2NewsSlider:FC = () =>{
                             </div>
                             <div className="newscontent">
                                 <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
-                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
                             </div>
                         </div>
                     </div>
@@ -108,7 +107,6 @@ const HorizontalFooter2NewsSlider:FC = () =>{
                             </div>
                             <div className="newscontent">
                                 <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
-                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
                             </div>
                         </div>
                     </div>
@@ -128,7 +126,6 @@ const HorizontalFooter2NewsSlider:FC = () =>{
                             </div>
                             <div className="newscontent">
                                 <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
-                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
                             </div>
                         </div>
                     </div>
@@ -170,4 +167,4 @@ const HorizontalFooter2NewsSlider:FC = () =>{
     )
 }
 
-export default HorizontalFooter2NewsSlider
+export default NewsFooter2SliderWithColoredBackGround
