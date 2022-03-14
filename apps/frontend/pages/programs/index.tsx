@@ -8,7 +8,7 @@ const Index = () =>{
 
     return (
         <>
-            <div className="container"> 
+            <div className="container">
                 <AdBanner />
                 </div>
                 <Title styles="pageTitle PageTitleYellow">
@@ -16,11 +16,11 @@ const Index = () =>{
                 </Title>
                 <div className="container">
                 <div className='row'>
-                    <div className='col-lg-8'>
+                    <div className='col-lg-9'>
                     <AllProgrmasTilesList />
                     </div>
-                    <div className='col-lg-4'>
-                        <SideBar sideBarSequence={[{ componentType: 'numbered', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+                    <div className='col-lg-3 pt_0'>
+                        <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 1 }]} />
                     </div>
                 </div>
             </div>
