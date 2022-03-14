@@ -56,7 +56,15 @@ export * from './request/editor-choice-news/update.editor.choice.news.request.dt
 //...............................Site configuration.............................
 export * from './request/site-configuration/update.site.configuration.request.dto'
 //...............................Google analytics.............................
-export * from './request//google-analytics/update.google.analytics.request.dto'
+export * from './request/google-analytics/update.google.analytics.request.dto'
+//...............................Live Stream Links.............................
+export * from './request/live-stream-links/create.live.stream.links.request.dto'
+export * from './request/live-stream-links/get.all.live.stream.links.request.dto'
+export * from './request/generic-get-by-id/get.by.id.request.dto'
+//...............................Alerts.............................
+export * from './request/alert/create.alert.request.dto'
+export * from './request/alert/get.all.alerts.request.dto'
+
 
 
 export * from './request/quickLinks/get.all.quick.links.request.dto'
@@ -147,3 +155,9 @@ export * from './response/breakingNews/add.breaking.news.response.dto'
 export * from './response/breakingNews/update.breaking.news.response.dto'
 export * from './response/breakingNews/get.all.breaking.news.response.dto'
 export * from './response/breakingNews/get.by.id.breaking.news.response.dto'
+//...............................Live Stream Links.............................
+export * from './response/live-stream-links/get.all.live.stream.links.response.dto'
+export * from './response/live-stream-links/get.live.stream.link.by.id.response.dto'
+//...............................Alerts.............................
+export * from './response/alert/get.all.alerts.response.dto'
+export * from './response/alert/get.alert.by.id.request.dto'

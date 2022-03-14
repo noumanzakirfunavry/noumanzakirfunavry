@@ -2,7 +2,7 @@ import { GetAllDepartmentsRequestDto } from "@cnbc-monorepo/dtos";
 import { Controller, Get, Query } from "@nestjs/common";
 import { DepartmentService } from "./departments.service";
 
-@Controller('Admin/api/admin/departments')
+@Controller('admin/api/admin/departments')
 export class DepartmentController{
     constructor(private departmentService:DepartmentService){}
 

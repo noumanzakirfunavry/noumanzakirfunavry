@@ -117,4 +117,10 @@ export class Helper {
             return body
         }
     }
+    liveStreamObj(body,userId){
+        return {
+            ...body,
+            userId : userId
+        }
+    }
 }

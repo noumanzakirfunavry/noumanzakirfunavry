@@ -3,7 +3,7 @@ import { AddBranchRequestDto, DeleteBranchRequestDto, GetALLBranchesRequestDto, 
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { BranchesService } from "./branches.service";
 
-@Controller("Admin/api/admin/branches")
+@Controller("admin/api/admin/branches")
 export class BranchesController {
     constructor(private breanchService: BranchesService) { }
 
