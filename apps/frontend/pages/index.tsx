@@ -43,11 +43,10 @@ export function Index() {
             <NewsSection />
           </div>
           <div className='col-lg-3'>
-            <SideBar sideBarSequence={[{ componentType: 'dotList', position: 1 }, { componentType: 'SmallBanner', position: 2 }]} />
+            <SideBar sideBarSequence={[{ componentType: 'dotList', position: 1, title:'آخر الأخبار' }, { componentType: 'SmallBanner', position: 2 }]} />
           </div>
         </div>
         <div>
-
           <SplitScreenBarCharts />
         </div>
         <div>
@@ -76,7 +75,7 @@ export function Index() {
 
         </div>
         <div className='col-lg-3'>
-          <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 }, /*{ componentType: 'dotList', position: 2 }*/ ]} />
+          <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
         </div>
       </div>
       <div className='row'>
@@ -95,17 +94,12 @@ export function Index() {
 
         </div>
         <div className='col-lg-3 large_add'>
-        <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
+          <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
         </div>
       </div>
       <div className='row'>
         <div className='col-lg-9'>
-
-
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
-
-
-
         </div>
         <div className='col-lg-3'>
 
@@ -113,12 +107,7 @@ export function Index() {
       </div>
       <div className='row'>
         <div className='col-lg-9'>
-
-
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
-
-
-
         </div>
         <div className='col-lg-3'>
 

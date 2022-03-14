@@ -76,7 +76,8 @@ const Footer = () =>{
                     </div>
                     <div className='col-lg-2 col-md-4 col-sm-6 pb-5 pb-sm-0  order-lg-0 me-auto ms-0 offset-1'>
                         <h4>اتصل بنا</h4>
-                        <button className='btn btn-outline-light fs12_bold min_w111_h31' onClick={() => router.push('/contact')}>ابقى على تواصل</button>
+                        {/* <button className='btn btn-outline-light fs12_bold min_w111_h31' onClick={() => router.push('/contact')}>ابقى على تواصل</button> */}
+                        <button className='btn btn-primary fs12_bold min_w111_h31' onClick={() => router.push('/contact')}>ابقى على تواصل</button>
                     </div>
 
 

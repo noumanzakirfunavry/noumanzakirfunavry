@@ -1,6 +1,8 @@
+
 export const GTM_ID = 'G-BGX8ER4Y2J'
 
 export const pageview = (url) => {
+  window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     event: 'pageview',
     page: url,

@@ -9,9 +9,10 @@
 .sidebar .themeTitle h4{
     display: inline-block;
     border-top: 6px solid #0089D0;
-    padding-top: 10px;
+    padding-top: 15px;
     margin-top: -11px;
     color: #002F6C;
+    font-weight: 900;
 }
 .sidebar .listBody{
     padding: 5px;
@@ -27,6 +28,7 @@
     color: #FCB700;
     font-size: 16px;
 }
+
 .sidenumberList li:last-child {
     border-bottom: none;
 }
@@ -76,4 +78,5 @@
     display: block;
     margin-bottom: 5px;
 }
+
 

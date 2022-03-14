@@ -17,8 +17,8 @@ const Index = () =>{
     }, [])
 
    const  getDataFromApi = async ()=>{
-        
-        
+
+
 
         await GetData('https://jsonplaceholder.typicode.com/todos/1' , {} , 'get', false).then(res=>{
             setTimeout(()=>{
@@ -27,7 +27,7 @@ const Index = () =>{
                 setData({...data})
             }, 3000)
         }).catch(err=>{
-            
+
             setTimeout(()=>{
                 data.error = err
                 data.loading = false
@@ -36,12 +36,12 @@ const Index = () =>{
         })
     }
 
-    
-    
+
+
     return (
         <>
-            
-            <div className="container"> 
+
+            <div className="container">
                 {data.loading && (
                     <Skeleton/>
                 )}
@@ -58,7 +58,7 @@ const Index = () =>{
                     <h2>مذيعو ومراسلو CNBC عربية</h2>
                 </Title>
             )}
-          
+
             <div className="container">
                 {data.loading && (
                     <Skeleton/>
@@ -68,11 +68,15 @@ const Index = () =>{
                         <div className='col-lg-9'>
                             <Presenters/>
                         </div>
+                        <div className='col-lg-3'>
+                <div className="pt_0">
+                <SideBar sideBarSequence={[ {componentType:'LargeBanner', position:1}]}/></div>
+                </div>
                     </div>
                 )}
             </div>
-            
-            
+
+
         </>
     )
 }
