@@ -43,8 +43,8 @@ export class TagsService{
         }
         return new GetTagsByIdResponseDto(HttpStatus.OK,"FETCHED SUCCESSFULLY",result)
     }
-    async deleteTag(id:number){
-        const result=await this.tagsRepo.destroy({where:{id}})
+    async deleteTag(ids:number[]){
+        const result=await this.tagsRepo.destroy({where:{id:ids}})
         if(!result){
             throw new CustomException(
                 Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
