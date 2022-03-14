@@ -1,5 +1,5 @@
 import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core'
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';

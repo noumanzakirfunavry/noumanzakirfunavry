@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppsRoutingModule } from './apps-routing.module';
-import { QuillModule } from 'ngx-quill';
+// import { QuillModule } from 'ngx-quill';
 
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
 import { AppsService } from '../shared/services/apps.service';
@@ -74,7 +74,7 @@ const antdModule = [
         SharedModule,
         ReactiveFormsModule,
         AppsRoutingModule,
-        QuillModule.forRoot(),
+        // QuillModule.forRoot(),
         ...antdModule
     ],
     declarations: [
