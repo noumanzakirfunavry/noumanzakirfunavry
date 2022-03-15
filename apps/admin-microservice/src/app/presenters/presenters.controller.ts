@@ -8,53 +8,53 @@ import { PresentersService } from './presenters.service';
 export class PresentersController {
 
     constructor(
-        private presentersService : PresentersService 
-    ){}
+        private presentersService: PresentersService
+    ) { }
 
+    @Roles(RoleTypes.Admin)
+    @Rights(RightsTypes.GET)
+    @Get("getAll")
+    async getAllPresenters(@Query() query: GetAllPresentersRequestDto): Promise<GetAllPresentersResponseDto> {
+        return await this.presentersService.getAllPresenters(query)
+    }
 
     @Roles(RoleTypes.Admin)
     @Rights(RightsTypes.CREATE)
     @Post()
-    async addPresenter(@Req() req, @Body() body : CreatePresentersRequestDto) : Promise<GenericResponseDto>{
-        return await this.presentersService.addPresenter(body,req)
+    async addPresenter(@Req() req, @Body() body: CreatePresentersRequestDto): Promise<GenericResponseDto> {
+        return await this.presentersService.addPresenter(body, req)
     }
 
     @Roles(RoleTypes.Admin)
     @Rights(RightsTypes.UPDATE)
     @Put(":id")
-    async updatePresenter(@Param("id") id : number,@Body() body : CreatePresentersRequestDto) : Promise<GenericResponseDto>{
-        return await this.presentersService.updatePresenter(body,id)
+    async updatePresenter(@Param("id") id: number, @Body() body: CreatePresentersRequestDto): Promise<GenericResponseDto> {
+        return await this.presentersService.updatePresenter(body, id)
     }
 
     @Roles(RoleTypes.Admin)
     @Rights(RightsTypes.GET)
     @Get(":id")
-    async getPresenterById(@Param("id") id : number) : Promise<GetPresentersByIdResponseDto>{
+    async getPresenterById(@Param("id") id: number): Promise<GetPresentersByIdResponseDto> {
         return await this.presentersService.getPresenterById(id)
     }
 
-    @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
-    @Get("getAll")
-    async getAllPresenters(@Query() query : GetAllPresentersRequestDto) : Promise<GetAllPresentersResponseDto>{
-        return await this.presentersService.getAllPresenters(query)
-    }
 
     @Roles(RoleTypes.Admin)
     @Delete()
-    async deletePresenterById(@Query() query : DeletePresentersRequestDto) : Promise<GenericResponseDto>{
+    async deletePresenterById(@Query() query: DeletePresentersRequestDto): Promise<GenericResponseDto> {
         return await this.presentersService.deletePresenterById(query)
     }
 
     @Public()
     @Get("client/:id")
-    async getPresenterByIdClient(@Param("id") id : number) : Promise<GetPresentersByIdResponseDto>{
+    async getPresenterByIdClient(@Param("id") id: number): Promise<GetPresentersByIdResponseDto> {
         return await this.presentersService.getPresenterById(id)
     }
 
     @Public()
     @Get("client/getAll")
-    async getAllPresentersClient(@Query() query : GetAllPresentersRequestDto) : Promise<GetAllPresentersResponseDto>{
+    async getAllPresentersClient(@Query() query: GetAllPresentersRequestDto): Promise<GetAllPresentersResponseDto> {
         return await this.presentersService.getAllPresenters(query)
     }
 }
