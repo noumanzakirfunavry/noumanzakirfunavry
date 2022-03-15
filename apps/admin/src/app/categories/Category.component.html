@@ -37,7 +37,7 @@
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/add/' + cat?.id]"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteCategories(cat?.id)"></i>
+                                    <i nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="deleteCategories(cat?.id)"></i>
                                 </div>
                             </td>
                         </tr>
