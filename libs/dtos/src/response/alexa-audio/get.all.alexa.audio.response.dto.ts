@@ -4,13 +4,13 @@ export class GetAllAlexaAudioByIdResponseDto{
     statusCode: number
     message: string
     response = {
-        alexaAudio : AlexaAudio[""],
+        alexaAudios : AlexaAudio[""],
         totalCount : 0
     }
     constructor(statusCode: number, message: string, alexaAudio: any,totalCount : number) {
         this.statusCode = statusCode
         this.message = message
-        this.response.alexaAudio = alexaAudio,
+        this.response.alexaAudios = alexaAudio,
         this.response.totalCount = totalCount
     }
 }

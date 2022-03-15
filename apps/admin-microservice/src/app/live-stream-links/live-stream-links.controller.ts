@@ -13,6 +13,14 @@ export class LiveStreamLinksController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
+    @Rights(RightsTypes.GET)
+    @Get("getAll")
+    async getAllLiveStreamLinks(@Query() query: GetAllLiveStreamLinksRequestDto): Promise<GetAllLiveStreamLinksResponseDto> {
+        return await this.liveStreamLinksService.getAllLiveStreamLinks(query)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Roles(RoleTypes.Admin)
     @Rights(RightsTypes.CREATE)
     @Post()
     async addLiveStreamLinks(@Req() req, @Body() body: CreateLiveStreamLinksRequestDto): Promise<GenericResponseDto> {
@@ -27,13 +35,6 @@ export class LiveStreamLinksController {
         return await this.liveStreamLinksService.updateLiveStreamLinks(body, id)
     }
 
-    @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
-    @Get("getAll")
-    async getAllLiveStreamLinks(@Query() query: GetAllLiveStreamLinksRequestDto): Promise<GetAllLiveStreamLinksResponseDto> {
-        return await this.liveStreamLinksService.getAllLiveStreamLinks(query)
-    }
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
