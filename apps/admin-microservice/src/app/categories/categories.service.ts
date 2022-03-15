@@ -1,8 +1,8 @@
-import { AddCategoriesResponseDto, GenericResponseDto, GetAllCategoriesRequestDto, GetAllCategoriesResponseDto, GetByIdCategoryResponseDto, UpdateCategoriesRequestDto, UpdateCategoriesResponseDto } from "@cnbc-monorepo/dtos";
+import { AddCategoriesResponseDto, GenericResponseDto, GetAllCategoriesRequestDto, GetAllCategoriesResponseDto, GetByIdCategoryResponseDto, UpdateCategoriesRequestDto, UpdateCategoriesResponseDto, UpdateOrderCategoriesRequestDto } from "@cnbc-monorepo/dtos";
 import { Categories } from "@cnbc-monorepo/entity";
 import { CustomException, Exceptions, ExceptionType } from "@cnbc-monorepo/exception-handling";
+import { sequelize } from "@cnbc-monorepo/utility";
 import { HttpStatus, Inject, Injectable } from "@nestjs/common";
-
 @Injectable()
 export class CategoriesService{
     constructor(
@@ -101,8 +101,46 @@ export class CategoriesService{
     }
 
 
-    async updateOrder(){}
-
+    async updateOrder(query:UpdateOrderCategoriesRequestDto){
+        const result=await this.categoryRepo.findAll()
+        if(!result){
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+        try{
+            return await sequelize.transaction(async t => {
+                const transactionHost = { transaction: t };
+                for (let i = 0; i  < query.ids.length; ++i) {
+                    const item = query.ids[i];
+                    const updateRes=await this.updateCategoryPosition(i+1,item,transactionHost)
+                    if (!updateRes[0]){
+                        throw new CustomException(
+                            Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
+                            Exceptions[ExceptionType.UNABLE_TO_UPDATE].status
+                        )
+                    }   
+                }
+                return new GenericResponseDto(
+                    HttpStatus.OK,
+                    "Categories updated successfully"
+                )
+            })
+        }
+        catch(err){
+            throw err
+        }      
+    }
+    async updateCategoryPosition(pos:number,id:number,transactionHost){
+        return await this.categoryRepo.update({orders:pos},{
+            where:{
+                id:id
+            },
+            transaction: transactionHost.transaction
+        })
+        
+    }
 
     makingNested(categoryArray, endResult, i, pid?) {
         if (categoryArray.length == 0) {
