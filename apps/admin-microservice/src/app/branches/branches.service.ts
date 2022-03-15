@@ -76,4 +76,27 @@ export class BranchesService {
         const result = await job.update(body)
         return new UpdateBranchResponseDto(HttpStatus.OK, "UPDATED SUCCESSFULLY", result)
     }
+
+    async getAllforClient(query:GetALLBranchesRequestDto){
+        let offset = 0
+        query.pageNo = query.pageNo - 1;
+        if (query.pageNo) offset = query.limit * query.pageNo;
+        let where = {}        
+        where['isActive'] = true
+        if (query.publishers) {
+            where['publishedBy'] = query.publishers
+        }
+        if (query.title) {
+            where['title'] = query.title
+        }
+        const result = await this.branchRepo.findAll({ where: where, limit: query.limit, offset: offset })
+        if (!result.length) {
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+        return new GetAllBranchResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
+    
+    }
 }

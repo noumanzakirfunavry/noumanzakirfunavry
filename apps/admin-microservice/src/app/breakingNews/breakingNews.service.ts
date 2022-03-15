@@ -79,5 +79,27 @@ export class BreakingNewsService{
         return new GetByIdBreakingNewsResponseDto(HttpStatus.OK,"FETCHED SUCCESSFULLY",result)
 
     }
+
+    async getAllForClient(query:GetAllBreakingNewsRequestDto){
+        let offset = 0
+        query.pageNo = query.pageNo - 1;
+        if (query.pageNo) offset =query.limit * query.pageNo;
+        let where={}
+        where['isActive']=true
+        if(query.title){
+            where['title']=query.title
+        }
+        if (query.publishers){
+            where['addedBy']=query.publishers
+        }
+        const result=await this.breakingNewsRepo.findAll({where:where,limit:query.limit,offset:offset})
+        if(!result.length){
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+              )   
+        }
+        return new GetAllBreakingNewsResponseDto(HttpStatus.OK,"FETCHED SUCCESSFULLY",result)
+    }
 }
 

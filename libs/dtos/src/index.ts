@@ -85,6 +85,7 @@ export * from './request/categories/add.categories.request.dto'
 export * from './request/categories/delete.category.request.dto'
 export * from './request/categories/get.all.categories.response.dto'
 export * from './request/categories/update.category.request.dto'
+export * from './request/categories/update.order.categories.request.dto'
 
 //...............................breakingNews..........................
 export * from './request/breakingNews/add.breaking.news.request.dto'
@@ -93,7 +94,7 @@ export * from './request/breakingNews/delete.breaking.news.request.dto'
 export * from './request/breakingNews/get.all.breaking.news.request.dto'
 
 
-//.............................response dtos..............................
+//.............................response dtos.......................................
 export * from './response/generic.response.dto'
 
 //...............................tags..................................
@@ -150,6 +151,7 @@ export * from './response/categories/add.categories.request.dto'
 export * from './response/categories/get.all.categories.response.dto'
 export * from './response/categories/get.by.id.categories.response.dto'
 export * from './response/categories/update.categories.response.dto'
+export * from './response/categories/update.order.in.categories.response.dto'
 //................................breakingNews/.........................
 export * from './response/breakingNews/add.breaking.news.response.dto'
 export * from './response/breakingNews/update.breaking.news.response.dto'
