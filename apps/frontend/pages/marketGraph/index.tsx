@@ -20,7 +20,7 @@ const Index = () =>{
 
                 {/* <div className="SocialHeaderMobile">
                     <div className="row">
-                        
+
                         <div className="col-9">
                             <div className="newsSocial">
                                 <ul>
@@ -56,11 +56,11 @@ const Index = () =>{
                     </div>
                 </div> */}
                 <div className="row">
-                    <div className='col-lg-8'>
+                    <div className='col-lg-9'>
                         <iframe height={'100%'} width="100%" src={"http://localhost//zagtrader/widgets/watchlist/index.php?ticker_id=10696,1128,1130,10905,11489,105847"}></iframe>
                     </div>
-                    <div className='col-lg-4'>
-                        <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 }, {componentType:'SmallBanner', position:2}]}/>
+                    <div className='col-lg-3'>
+                        <SideBar sideBarSequence={[{ componentType: 'simple', position: 2 }, {componentType:'SmallBanner', position:1}]}/>
                     </div>
                 </div>
             </div>
