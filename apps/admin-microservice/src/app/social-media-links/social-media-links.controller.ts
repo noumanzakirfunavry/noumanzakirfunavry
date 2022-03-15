@@ -1,10 +1,10 @@
-import { JwtAuthGuard, Public, Rights, Roles } from '@cnbc-monorepo/auth-module';
+import { JwtAuthGuard, Rights, Roles } from '@cnbc-monorepo/auth-module';
 import { CreateSocialMediaLinkRequestDto, DeleteSocialMediaLinkById, GenericResponseDto, GetAllSocialMediaLinksRequestDto, GetAllSocialMediaLinksResponseDto, GetSocialMediaLinkByIdRequestDto, GetSocialMediaLinkByIdResponseDto } from '@cnbc-monorepo/dtos';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 import { SocialMediaLinksService } from './social-media-links.service';
 
-@Controller('social-media-links')
+@Controller('admin/api/admin/social-media-links')
 export class SocialMediaLinksController {
     constructor(
         private socialMediaLinksService: SocialMediaLinksService
@@ -12,7 +12,7 @@ export class SocialMediaLinksController {
 
     }
     @UseGuards(JwtAuthGuard)
-    @Get('all')
+    @Get('getAll')
     async getAllSocialMediaLinks(@Query() query: GetAllSocialMediaLinksRequestDto): Promise<GetAllSocialMediaLinksResponseDto> {
         return await this.socialMediaLinksService.getAllSocialMediaLinks(query)
     }

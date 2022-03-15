@@ -4,7 +4,7 @@ import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 import { AlexaAudioService } from './alexa-audio.service';
 
-@Controller('alexa-audio')
+@Controller('admin/api/admin/alexa-audio')
 export class AlexaAudioController {
 constructor(
     private alexaService : AlexaAudioService
@@ -36,7 +36,7 @@ constructor(
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
     @Rights(RightsTypes.GET)
-    @Get("all/audio")
+    @Get("getAll")
     async getAllAlexaAudio(@Query() query : GetAllAlexaAudioRequestDto) :  Promise<GetAllAlexaAudioByIdResponseDto>{
         return await this.alexaService.getAllAlexaAudio(query)
     }

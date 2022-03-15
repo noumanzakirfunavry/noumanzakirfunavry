@@ -13,6 +13,10 @@ import { DepartmentModule } from './departments/departments.module';
 import { CategoriesModule } from './categories/categories.module';
 import { SystemConfigurationModule } from './system-configuration/system-configuration.module';
 import { BreakingNewsModule } from './breakingNews/breakingNews.module';
+import { LiveStreamLinksModule } from './live-stream-links/live-stream-links.module';
+import { ProvidersModule } from '@cnbc-monorepo/providers';
+import { AuthModuleModule } from '@cnbc-monorepo/auth-module';
+import { AlertsModule } from './alerts/alerts.module';
 
 @Module({
   imports: [
@@ -29,7 +33,11 @@ import { BreakingNewsModule } from './breakingNews/breakingNews.module';
     DepartmentModule,
     CategoriesModule,
     SystemConfigurationModule,
-    BreakingNewsModule
+    BreakingNewsModule,
+    LiveStreamLinksModule,
+    ProvidersModule,
+    AuthModuleModule,
+    AlertsModule
   ]
 })
 export class AppModule { }
