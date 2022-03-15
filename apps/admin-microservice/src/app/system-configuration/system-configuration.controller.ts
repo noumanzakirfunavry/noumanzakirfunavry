@@ -4,7 +4,7 @@ import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Body, Controller, Put, UseGuards } from '@nestjs/common';
 import { SystemConfigurationService } from './system-configuration.service';
 
-@Controller('site-configuration')
+@Controller('admin/api/admin/site-configuration')
 export class SystemConfigurationController {
     constructor(
         private systemConfigurationService : SystemConfigurationService
@@ -21,7 +21,7 @@ export class SystemConfigurationController {
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
     @Rights(RightsTypes.UPDATE)
-    @Put("/google-analytics")
+    @Put("google-analytics")
     async updateGoogleAnalytics(@Body() body : UpdateGoogleAnalyticsRequestDto) : Promise<GenericResponseDto>{
         return await this.systemConfigurationService.updateSystemConfiguration(body)
     }
