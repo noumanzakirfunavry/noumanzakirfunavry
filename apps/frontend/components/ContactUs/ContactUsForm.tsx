@@ -6,7 +6,7 @@ const ContactUsForm = () => {
 
         <h2 className="text-center text-primary mb-5 fs32_bolder">تقديم استفسار</h2>
         <div className="row justify-content-center">
-            <div className="col-md-6">
+            <div className="col-md-4">
             <form>
                     <div className="mb-3">
                         <label className="form-label fs12_gray">الاسم</label>
@@ -25,7 +25,7 @@ const ContactUsForm = () => {
                         <textarea className="form-control" rows={6}></textarea>
                     </div>
                     <div className="text-center">
-                        <button className="btn btn-primary btn-sm-wide">إرسال</button>
+                        <button className="btn btn-primary btn-sm-wide fw-bold">إرسال</button>
                     </div>
                 </form>
             </div>
