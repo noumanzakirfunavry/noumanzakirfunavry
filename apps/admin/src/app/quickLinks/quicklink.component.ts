@@ -3,13 +3,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
-export interface Data {
-    id: number;
-    title: string;
-    link: string;
-    status: boolean;
-    disabled: boolean;
-  }
+
 
 
 @Component({
@@ -18,12 +12,14 @@ export interface Data {
 })
 
 export class QuickLinkComponent implements OnInit{
-    pagination: {limit: number, pageNo: number, status?: string, title?: string} = {limit: 10, pageNo: 1}
+    pagination: {limit: number, pageNo: number, status?: boolean, title?: string} = {limit: 10, pageNo: 1}
     allQuickLinks: any;
+    status: boolean;
     indeterminate = false;
     checked = false;
+    loading = true;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData: Data[] = []; 
+    listOfCurrentPageData = []; 
 
     constructor( private apiService: ApiService, private message: NzMessageService ) {}
 
@@ -35,6 +31,7 @@ export class QuickLinkComponent implements OnInit{
         this.apiService.sendRequest(requests.getAllQuickLinks, 'get', this.pagination).subscribe((res:any) => {
             this.allQuickLinks= res.quickLinks;
             console.log("ALL-QUICK-LINKS", this.allQuickLinks);
+            this.loading = false;
         })
     }
 
@@ -44,6 +41,12 @@ export class QuickLinkComponent implements OnInit{
             this.getAllQuickLinks()
             this.message.create('success', `Quick Link Deleted Successfully`)
         })
+    }
+
+    receiveStatus() {
+        this.pagination.status= this.status;
+        this.pagination.pageNo= 1;
+        this.getAllQuickLinks();
     }
 
     onItemChecked(id: number, checked: boolean): void {
@@ -65,7 +68,7 @@ export class QuickLinkComponent implements OnInit{
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
 
-    onCurrentPageDataChange(listOfCurrentPageData: Data[]): void {
+    onCurrentPageDataChange(listOfCurrentPageData: any): void {
         this.listOfCurrentPageData = listOfCurrentPageData;
         this.refreshCheckedStatus();
       }

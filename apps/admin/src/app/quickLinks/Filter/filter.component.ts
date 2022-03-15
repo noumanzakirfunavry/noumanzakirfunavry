@@ -1,4 +1,6 @@
-import { Component } from '@angular/core'
+import { Component, EventEmitter, Output } from '@angular/core';
+import { requests } from 'src/app/shared/config/config';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
     selector: 'quick-filter',
@@ -6,5 +8,29 @@ import { Component } from '@angular/core'
 })
 
 export class FilterComponent {
+    @Output() statusEmitter = new EventEmitter <boolean> (); 
+    status: boolean;
+    // allQuickLinks: any;
+    // loading= true;
+
+
+    constructor( private apiService: ApiService ) {}
+
+
+    // getAllQuickLinks() {
+    //     this.apiService.sendRequest(requests.getAllQuickLinks, 'get', this.pagination).subscribe((res:any) => {
+    //         this.allQuickLinks= res.quickLinks;
+    //         console.log("ALL-QUICK-LINKS", this.allQuickLinks);
+    //         this.loading = false;
+    //     })
+    // }
+
+    onChangeStatus(status: boolean) {
+        this.status= status;
+        this.statusEmitter.emit(this.status);
+        console.log("STATUS", this.status);
+
+    }
+   
    
 }    

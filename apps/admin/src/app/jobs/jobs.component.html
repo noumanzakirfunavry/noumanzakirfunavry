@@ -8,7 +8,7 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
-                <nz-table [nzShowPagination]="true" nzShowSizeChanger [nzData]="allJobs" class="no-border-last">
+                <nz-table [nzShowPagination]="true" [nzLoading]="loading" nzShowSizeChanger [nzData]="allJobs" class="no-border-last">
                     <thead>
                         <tr>
                             <th>ID</th>

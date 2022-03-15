@@ -17,7 +17,7 @@ import { antdModule } from './AndModules/andModule';
 import { ChangePasswordComponent } from './changePassword/changePassword.component';
 import { AuthInterceptor } from './shared/interceptor/authInterceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+// import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 registerLocaleData(en);
@@ -38,7 +38,7 @@ registerLocaleData(en);
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
-        DragDropModule,
+        // DragDropModule,
         ...antdModule
     ],
     providers: [

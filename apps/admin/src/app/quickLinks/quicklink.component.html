@@ -3,12 +3,12 @@
         <button nz-button [nzType]="'primary'" [routerLink]="['/quickLinks/add']">Add Quick Link</button>
     </div>
     <div class="col-md-9">
-        <quick-filter></quick-filter>
+        <quick-filter (statusEmitter)="receiveStatus()"></quick-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
-                <nz-table [nzShowPagination]="true" nzShowSizeChanger [nzData]="allQuickLinks" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" class="no-border-last">
+                <nz-table [nzShowPagination]="true" [nzLoading]="loading" nzShowSizeChanger [nzData]="allQuickLinks" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" class="no-border-last">
                     <thead>
                         <tr>
                             <th>Reorder</th>
@@ -20,7 +20,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let link of allQuickLinks">
-                            <td [nzChecked]="setOfCheckedId.has(link?.id)" (nzCheckedChange)="onItemChecked(link?.id, $event)"></td>
+                            <td [nzChecked]="setOfCheckedId.has(link?.id)" (nzCheckedChange)="onItemChecked(link?.id, $event)">
+                                <i nz-icon nzType="drag" nzTheme="outline"></i>
+                            </td>
                             <td>{{link?.title}}</td>
                             <td>{{link?.url}}</td>
                             <td>
