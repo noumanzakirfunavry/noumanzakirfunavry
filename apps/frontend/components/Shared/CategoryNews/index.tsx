@@ -28,13 +28,13 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                         <div className="NewsImage">
                         <img className="img-fluid" src={newsImage.src} />
 
-                            {/* <div className="PlayTime">
+                            <div className="PlayTime">
                               <h5>05:21</h5>
                               <div className="btn-text">
                                   <span>شاهد الآن</span>
                                   <button className="btn btn-warning VideoPlay"><i className="fa fa-play"></i></button>
                               </div>
-                            </div> */}
+                            </div>
                           </div>
                         <div className="NewsInfo">
                             <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</h4>

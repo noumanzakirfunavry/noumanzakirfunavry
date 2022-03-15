@@ -9,12 +9,15 @@ const Index = () =>{
             <div className="container">
                 <AdBanner />
                 </div>
+                <div className="presenter_detail">
                 <Title styles={"pageTitle PageTitleYellow"}>
                     <h2>مذيعة ومراسل قناة CNBC العربية</h2>
                 </Title>
                 <div className="container">
                 <PresenterDetails/>
             </div>
+                </div>
+
         </>
     )
 }

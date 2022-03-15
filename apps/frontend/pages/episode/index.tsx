@@ -16,14 +16,14 @@ const Index = () =>{
                     <VideoNews/>
                 </div>
                 <div className='col-lg-3'>
-                    <SideBarWithVideo title={'أحدث مقاطع الفيديو'}/>
+                    <SideBarWithVideo title={'آخرون من اكسبو في أسبوع'}/>
                 </div>
             </div>
             </div>
            <div className="container">
            <div className="mb-3">
                 <Title styles={"yellowTitle"}>
-                    <h3>فيديوهات ذات صلة</h3>
+                    <h3>أحدث حلقات البرنامج</h3>
                 </Title>
                 <HorizontalFooter2NewsSlider />
             </div>
