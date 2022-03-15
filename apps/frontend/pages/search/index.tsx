@@ -22,7 +22,7 @@ const Index = () =>{
                     </div>
                 </div>
                 <div className='row flex-sm-row-reverse'>
-                <div className='col-lg-4'>
+                <div className='col-lg-3'>
                         <div className='sidebar pt-0'>
 
                             <Title styles={'topBorderText'}>
@@ -38,7 +38,7 @@ const Index = () =>{
                             <SideBar sideBarSequence={[{componentType:'SmallBanner', position:1}]}/>
 
                     </div>
-                    <div className='col-lg-8'>
+                    <div className='col-lg-9'>
                         <Title styles={'topBorderText'}>
                             <h3 className="fs24_bolder">{`10 نتائج بحث عن "amazon"`}</h3>
                         </Title>
