@@ -363,7 +363,10 @@ header{
 
 .page-categories{
     margin: 15px 0 15px 0;
-
+h6{
+  font: normal normal bold 15px/30px Cairo;
+    color: $grey-dark;
+}
     .CategoryTitle{
       font-size: 15px;
       font-weight: bold;
@@ -373,8 +376,8 @@ header{
     ul{
       margin: 0;
       padding: 0;
-      display: flex;
-      flex-wrap: nowrap;
+      // display: flex;
+      // flex-wrap: nowrap;
       list-style: none;
       overflow-x: auto;
       align-items: center;
@@ -384,6 +387,7 @@ header{
           font-weight: bold;
           margin-bottom: 10px;
           white-space: nowrap;
+          display: inline-block;
             a{
               background: #f1f1f1;
               padding: 5px 20px;
@@ -2115,6 +2119,13 @@ select::-ms-expand {
   font-size: 24px;
   font-weight: 900 !important;
 }
+.fs20_bold{
+  font: normal normal bold 20px/20px Cairo;
+
+}
+.color-secondary{
+  color: $secondary-color !important;
+}
 .file-upload-wrapper {
   $defaultColor: $warning;
   $height: 50px;
@@ -2455,6 +2466,13 @@ select::-ms-expand {
   background-color: $primary-dark;
   .newsSlider2Text {
     .NewsBox {
+      .newsImage{
+        width: 100%;
+        height: 226px;
+        img{
+          height: 100%;
+        }
+      }
       .newscontent{
         h5{
           font: normal normal bold 20px/35px Cairo;
@@ -2551,5 +2569,52 @@ h6.newsDetailtext
       font: normal normal normal 18px/30px IBM Plex Sans Arabic;
       color: $grey;
 
+    }
+  }
+  // category news tabs
+  .category_news_tab{
+    text-align: center;
+    margin-bottom: 50px;
+    li{
+      list-style: none;
+      display: inline-block;
+      padding: 0 25px;
+      border-left: solid 2px $primary-color;
+      &:last-child{
+        border-left: 0;
+      }
+      a{
+        font: normal normal bold 15px/20px Cairo;
+
+
+      }
+    }
+  }
+  .newsDetailPtext{
+    margin-bottom: 30px;
+    p{
+      font: normal normal normal 18px/30px IBM Plex Sans Arabic;
+      color: $grey-dark;
+      a{
+        color: $info;
+        display: block;
+        text-decoration: underline;
+      }
+
+    }
+
+  }
+  .companies_announced{
+    h5{
+      font: normal normal bold 22px/30px Cairo;
+
+    }
+  }
+  // infographic detail
+  .infographics_detail{
+    img{
+      width: 740px;
+      height: 415px;
+      object-fit: cover;
     }
   }

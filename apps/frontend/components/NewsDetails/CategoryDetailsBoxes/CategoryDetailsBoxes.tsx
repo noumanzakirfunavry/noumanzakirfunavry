@@ -1,4 +1,4 @@
-const CategoryDetailsBoxes = () => {
+const NewsRealtedStock = () => {
 
     return (
         <>
@@ -18,4 +18,4 @@ const CategoryDetailsBoxes = () => {
     )
 }
 
-export default CategoryDetailsBoxes
+export default NewsRealtedStock

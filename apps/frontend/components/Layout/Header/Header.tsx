@@ -14,7 +14,7 @@ const Header = () =>{
     const [displaySerachDropDown, setDisplaySerachDropDown] = useState<boolean>(false)
     const [data, setData] = useState<any>({})
     const router = useRouter()
-    const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/categoryNewsTiles'},{title:'أخبار عاجلة', url:'/breakingNews'}])
+    const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}])
 
 
     useEffect(()=>{
