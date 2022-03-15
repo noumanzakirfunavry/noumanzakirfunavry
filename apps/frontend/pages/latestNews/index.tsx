@@ -15,30 +15,14 @@ const Index = () =>{
         <AdBanner />
 </div>
         <Title styles={"pageTitle PageTitleYellow"} >
-            <h2>الشرق الأوسط</h2>
+            <h2>آخر الأخبار</h2>
         </Title>
 
         <div className="container">
-        <ul className="category_news_tab">
-        <li>
-            <a href="javascript:void(0)">السعودية</a>
-          </li>
-
-
-          <li>
-            <a href="javascript:void(0)">الإمارات</a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">قطر</a>
-          </li>
-
-        </ul>
         <div className='row'>
           <div className='col-lg-9'>
-            <CategoryNewsSection limit = {3} displayTitle={false} displayTopTwoNews={true} displayMoreButton={false}/>
-            <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
-            <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
-            <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
+            <CategoryNewsSection limit = {8} displayTitle={false} displayTopTwoNews={true} displayMoreButton={true}/>
+
           </div>
 
 
