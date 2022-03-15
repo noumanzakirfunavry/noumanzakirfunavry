@@ -4,7 +4,7 @@ import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Body, Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
 import { RightsService } from './rights.service';
 
-@Controller('rights')
+@Controller('admin/api/admin/rights')
 export class RightsController {
 
     constructor(private rightsService: RightsService) { }

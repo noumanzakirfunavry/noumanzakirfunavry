@@ -4,7 +4,7 @@ import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import { AdminService } from './admin.service';
 
-@Controller('admin')
+@Controller('admin/api/admin')
 export class AdminController {
     constructor(
         private adminService : AdminService
@@ -19,7 +19,7 @@ export class AdminController {
 
     @Roles(RoleTypes.Admin)
     @Rights(RightsTypes.GET)
-    @Get("all/admins")
+    @Get("getAll")
     async getAllAdmin(@Query() query : GetAllAdminsRequestDto) : Promise<GetAllAdminsResponseDto>{
         return await this.adminService.getAllAdmin(query)
     }
