@@ -1014,6 +1014,23 @@ h6{
   .programDetailNews{
     overflow-x: inherit;
     white-space: inherit;
+    .VideoNews{
+      .NewsImage{
+        height: 540px;
+      }
+      .NewsContent{
+       h4{
+        font: normal normal bold 32px/46px Cairo;
+
+       }
+       p{
+        font: normal normal bold 12px/20px Cairo;
+        margin-top: 15px;
+
+       }
+      }
+    }
+
   }
 
 
@@ -1576,6 +1593,21 @@ width: 110px;
 .SimpleDarkNews{
   border-top: 6px solid $grey;
   padding: 15px 0;
+  H5{
+    font: normal normal 900 20px/30px Cairo;
+
+  }
+  p{
+    font: normal normal normal 18px/30px IBM Plex Sans Arabic;
+
+  }
+  .btn-outline-light{
+    min-width: 130px;
+    height: 40px;
+    padding: 4px 10px;
+    font-weight: bold;
+  }
+
 }
 
 .scheduleCalendar{
@@ -2464,6 +2496,7 @@ select::-ms-expand {
 }
 .livetvSlider{
   background-color: $primary-dark;
+  margin-top: 40px;
   .newsSlider2Text {
     .NewsBox {
       .newsImage{
@@ -2618,3 +2651,19 @@ h6.newsDetailtext
       object-fit: cover;
     }
   }
+
+// presenter detail
+.presenter_detail{
+  h1{
+    font: normal normal bold 40px/65px Cairo;
+
+  }
+  h5{
+    font: normal normal bold 20px/33px Cairo;
+    color: $grey;
+  }
+  p{
+    font: normal normal normal 18px/30px IBM Plex Sans Arabic;
+    color: $grey-dark;
+  }
+}
