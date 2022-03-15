@@ -8,7 +8,7 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
-                <nz-table #ordersListTable [nzData]="ordersList"  [nzShowPagination]="true" class="no-border-last">
+                <nz-table [nzShowPagination]="true" nzShowSizeChanger [nzData]="allJobs" class="no-border-last">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -22,32 +22,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of ordersListTable.data">
-                            <td [nzChecked]="setOfCheckedId.has(item.id)" [nzDisabled]="item.disabled"
-                                (nzCheckedChange)="onItemChecked(item.id, $event)">{{item.id}}</td>
+                        <tr *ngFor="let job of allJobs">
+                            <td [nzChecked]="setOfCheckedId.has(job?.id)" [nzDisabled]="job.disabled"
+                                (nzCheckedChange)="onItemChecked(job?.id, $event)">{{job?.id}}</td>
+                            <td>{{job?.title}}</td>
+                            <td>{{job?.branchId}}</td>
+                            <td>{{job?.createdAt | date: 'dd-MM-YYYY'}}</td>
+                            <td>{{job?.updatedAt | date: 'dd-MM-YYYY'}}</td>
+                            <td>{{job?.publishedBy}}</td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
-                                    <h6 class="m-l-10 m-b-0">{{item.name}}</h6>
-                                </div>
-                            </td>
-                            <td>Sample Title Test</td>
-                            <td>{{item.date}}</td>
-                            <td>{{item.date}}</td>
-                            <td>Sample User</td>
-                            <td>
-                                <nz-badge *ngIf="item.status === 'approved'" nzStatus="success"></nz-badge>
-                                <nz-badge *ngIf="item.status === 'rejected'" nzStatus="error"></nz-badge>
-                                <nz-badge *ngIf="item.status === 'pending'"  nzStatus="processing"></nz-badge> 
-                                <span class="text-capitalize"></span>
+                                <nz-badge *ngIf="job?.isActive === true" nzStatus="success"></nz-badge>
+                                <nz-badge *ngIf="job?.isActive === false" nzStatus="error"></nz-badge>
+                                <!-- <span class="text-capitalize"></span> -->
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i class="fas fa-external-link-alt"></i>
-                                    <i nz-icon nzType="edit" nzTheme="outline"></i>
-                                    <i nz-icon nzType="bell" nzTheme="outline"></i>
-                                    <i nz-icon nzType="link" nzTheme="outline"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/jobs/add/' + job?.id]"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteJobs(job?.id)"></i>
                                 </div>
                             </td>
                         </tr>

@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoComponentsShareModule } from '../demo-components-share/demo-components-share.module';
 import { AddAddressesComponent } from './addresses/addAddresses.component';
 import { AddressesComponent } from './addresses.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../shared/interceptor/authInterceptor';
 
 @NgModule({
     imports: [
@@ -31,7 +33,7 @@ import { AddressesComponent } from './addresses.component';
         FilterComponent,
     ],
     providers: [
-        ThemeConstantService
+        ThemeConstantService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
     ],
 })
 export class AddressesModule { }
