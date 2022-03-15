@@ -4,7 +4,7 @@ import { AnthenticationService } from './anthentication.service';
 import { JwtAuthGuard, Public, Rights, Roles } from '@cnbc-monorepo/auth-module';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 
-@Controller('authentication')
+@Controller('admin/api/admin/authentication')
 export class AnthenticationController {
     constructor(
         private authService: AnthenticationService

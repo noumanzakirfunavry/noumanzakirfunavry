@@ -4,7 +4,7 @@ import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req } from '@nestjs/common';
 import { PresentersService } from './presenters.service';
 
-@Controller('presenters')
+@Controller('admin/api/admin/presenters')
 export class PresentersController {
 
     constructor(
@@ -35,7 +35,7 @@ export class PresentersController {
 
     @Roles(RoleTypes.Admin)
     @Rights(RightsTypes.GET)
-    @Get("all/presenter")
+    @Get("getAll")
     async getAllPresenters(@Query() query : GetAllPresentersRequestDto) : Promise<GetAllPresentersResponseDto>{
         return await this.presentersService.getAllPresenters(query)
     }
@@ -53,7 +53,7 @@ export class PresentersController {
     }
 
     @Public()
-    @Get("client/all/presenter")
+    @Get("client/getAll")
     async getAllPresentersClient(@Query() query : GetAllPresentersRequestDto) : Promise<GetAllPresentersResponseDto>{
         return await this.presentersService.getAllPresenters(query)
     }
