@@ -22,6 +22,7 @@ export class TagsComponent implements OnInit {
     allTags: any;
     indeterminate = false;
     checked = false;
+    loading = true;
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData: Data[] = [];
 
@@ -37,6 +38,7 @@ export class TagsComponent implements OnInit {
         this.apiService.sendRequest(requests.getAllTags, 'get', this.pagination).subscribe((res:any) => {
             this.allTags= res.tags;
             console.log("ALL-TAGS", this.allTags);
+            this.loading= false;
         })
     }
 

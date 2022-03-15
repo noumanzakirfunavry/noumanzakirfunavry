@@ -4,9 +4,9 @@ import { environment } from "src/environments/environment";
 export const requests = {
     login: 'http://157.90.67.186:3002/authentication/login',
     logout: 'http://157.90.67.186:3002/authentication/logout',
-    updatePassword: 'http://localhost:3333/api/admin/changePassword',
-    resetPassword: 'http://localhost:3333/api/admin/resetPassword',
-    requestPasswordReset: 'http://localhost:3333/api/admin/requestResetPassword',
+    updatePassword: 'http://157.90.67.186:3002/authentication/password/update',
+    resetPassword: 'http://157.90.67.186:3002/api/admin/resetPassword',
+    requestPasswordReset: 'http://157.90.67.186:3002/api/admin/requestResetPassword',
     addNewAttachment: 'http://localhost:3333/api/social-media-links/',
     getAttachmentDetailsById: 'http://localhost:3333/api/attachment/',
     getAllAttachments: 'http://localhost:3333/api/attachment/',

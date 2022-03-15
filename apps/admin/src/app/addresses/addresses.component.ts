@@ -23,6 +23,7 @@ export class AddressesComponent implements OnInit{
     allBranches: any;
     indeterminate = false;
     checked = false;
+    loading = true;
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData: Data[] = [];
 
@@ -36,6 +37,7 @@ export class AddressesComponent implements OnInit{
         this.apiService.sendRequest(requests.getAllBranches, 'get', this.pagination).subscribe((res:any) => {
             this.allBranches= res.response.branches;
             console.log("ALL-BRANCHES", this.allBranches);
+            this.loading= false;
         })
     }
 

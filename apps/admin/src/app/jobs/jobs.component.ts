@@ -22,6 +22,7 @@ export class JobsComponent implements OnInit {
     allJobs: any;
     indeterminate = false;
     checked = false;
+    loading = true;
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData: Data[] = [];
 
@@ -36,6 +37,7 @@ export class JobsComponent implements OnInit {
         this.apiService.sendRequest(requests.getAllJobs, 'get', this.pagination).subscribe((res:any) => {
             this.allJobs= res.response.jobs;
             console.log("ALL-JOBS", this.allJobs);
+            this.loading= false;
         })
     }
 

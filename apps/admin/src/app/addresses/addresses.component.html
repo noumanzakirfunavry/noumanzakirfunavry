@@ -8,7 +8,7 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
-                <nz-table [nzShowPagination]="true" nzShowSizeChanger [nzData]="allBranches" class="no-border-last">
+                <nz-table [nzShowPagination]="true" [nzLoading]="loading" nzShowSizeChanger [nzData]="allBranches" class="no-border-last">
                     <thead>
                         <tr>
                             <th>Reorder </th>
@@ -25,7 +25,9 @@
                     <tbody>
                         <tr *ngFor="let branch of allBranches">
                             <td [nzChecked]="setOfCheckedId.has(branch?.id)" [nzDisabled]="branch.disabled"
-                                (nzCheckedChange)="onItemChecked(branch?.id, $event)"></td>
+                                (nzCheckedChange)="onItemChecked(branch?.id, $event)">
+                                <i nz-icon nzType="drag" nzTheme="outline"></i>
+                            </td>
                             <td>{{branch?.title}}</td>
                             <td>{{branch?.phone}}</td>
                             <td>{{branch?.fax}}</td>

@@ -26,6 +26,7 @@ export class CategoryComponent implements OnInit {
 
     indeterminate = false;
     checked = false;
+    loading= true;
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData:Array<any> = [];    
 
@@ -40,6 +41,7 @@ export class CategoryComponent implements OnInit {
         this.apiService.sendRequest(requests.getAllCategories, 'get', this.pagination).subscribe((res:any) => {
             this.allCategories= res.response.categories;
             console.log("ALL-CATEGORIES", this.allCategories);
+            this.loading= false;
         })
     }
 
