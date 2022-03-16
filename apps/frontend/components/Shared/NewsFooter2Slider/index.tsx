@@ -4,7 +4,7 @@ import sliderimg from "../../../styles/images/biden2.jpg";
 
 
 
-const HorizontalFooter2NewsSlider:FC =  ({ displayTitle})=>{
+const HorizontalFooter2NewsSlider:FC =  ()=>{
 
 
 
