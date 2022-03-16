@@ -233,10 +233,17 @@ header{
     border: none;
     min-width: 230px;
   }
+  .header-nav ul li.nav-item.dropdown{
+    .dropdown-toggle{
+      &::after{
+        display: none;
+      }
+    }
+  }
   .header-nav ul li.nav-item .dropdown-menu li{
     padding: 0;
     margin: 0;
-    border-bottom: solid 1px $grey-light;
+    border-bottom: solid 1px #f3f5f7;
     &:last-child{
       border-bottom: 0;
     }
@@ -249,7 +256,7 @@ header{
     text-align: right;
     padding:  10px 15px;
     &:hover{
-      background-color: $grey-light;
+      background-color: #f3f5f7;
       color: $primary-color;
       font-weight: 900;
      border-bottom-color: transparent;
@@ -1674,6 +1681,7 @@ width: 110px;
       h5{
         font-weight: 900;
         font-size: 15px;
+        color: #000;
       }
     }
   }
@@ -1835,9 +1843,12 @@ width: 110px;
   position: absolute;
   top: 0;
   left: 0;
-  box-shadow: 0 0 20px #00000038;
+  box-shadow: 0 2px 4px 0 hsl(0deg 0% 59% / 50%);
+    height: auto;
+    max-height: calc(100vh - 130px);
   z-index: 99;
   width: 440px;
+  overflow-y: auto;
 
 
   .topBorderText{
@@ -1853,6 +1864,7 @@ width: 110px;
       .NewsList {
           li {
             flex-flow: initial;
+
           }
       }
 
@@ -1864,6 +1876,7 @@ width: 110px;
         margin: 0;
         a{
           font: normal normal bold 12px/21px Cairo;
+
           &:hover{
             text-decoration: underline;
           }
@@ -1875,20 +1888,21 @@ width: 110px;
         color: $grey;
       }
     }
+    .NewsList{
+      li{
+        padding: 12px 0;
 
-  }
-
-  .NewsList{
-    li{
-      padding: 12px 0;
-
-      .newsImage{
-        width: 80px;
-        height: 80px;
-        overflow: hidden;
+        .newsImage{
+          width: 80px;
+          height: 80px;
+          overflow: hidden;
+        }
       }
     }
+
   }
+
+
 
   .wordCountList{
     .table{
@@ -1921,11 +1935,34 @@ width: 110px;
 
           .newsText{
             padding: 0;
-
-            p{
-              margin: 0
+            margin-left: 40px;
+            h6{
+              &:hover{
+                text-decoration: underline;
+              }
             }
 
+            p{
+              margin: 0;
+              font: normal normal normal 15px/28px IBM Plex Sans Arabic;
+              color: $grey;
+              a{
+                &:hover{
+                  text-decoration: underline;
+                }
+              }
+
+            }
+
+
+          }
+          .newsImage{
+            width: 300px;
+            height: 170px;
+            img{
+              height: 100%;
+              object-fit: contain;
+            }
           }
 
         }
@@ -1993,7 +2030,10 @@ width: 110px;
   }
 }
 
+.currentJob_heading{
+  font: normal normal 900 32px/30px Montserrat;
 
+}
 
 .jobsSlider{
   margin-bottom: 50px;
@@ -2010,11 +2050,18 @@ width: 110px;
           a{
             font-size: 20px;
             color: $primary-dark;
+            font-weight: 700;
+            &:hover{
+                  text-decoration: underline;
+            }
           }
         }
+
         h6{
           margin: 0;
           color: $secondary-color;
+          font: normal normal bold 12px/20px Montserrat;
+
         }
 
         .newscontent{
@@ -2022,11 +2069,19 @@ width: 110px;
           padding: 0;
           p{
             color: $grey;
+            font: normal normal medium 12px/20px Montserrat;
+
           }
         }
       }
     }
 
+  }
+}
+.job_opportunities{
+  h5{
+    font: normal normal normal 20px/30px Montserrat;
+    color: $grey;
   }
 }
 
@@ -2135,6 +2190,13 @@ select::-ms-expand {
 /* Transition */
 .customSelect:hover::after {
   color: $warning;
+}
+.simpleSelect{
+  position: relative;
+&::after{
+  padding: .5em .7rem;
+}
+
 }
 
 
@@ -2665,5 +2727,73 @@ h6.newsDetailtext
   p{
     font: normal normal normal 18px/30px IBM Plex Sans Arabic;
     color: $grey-dark;
+  }
+}
+.search_page_search{
+  margin-bottom: 30px;
+  .input-group-text{
+    cursor: pointer;
+    padding-left: 0;
+  }
+  input,  .input-group-text{
+    border: none;
+    border-bottom: solid 1px $grey-light;
+    border-radius: 0;
+    padding-right: 0;
+    &::placeholder{
+      font: normal normal bold 20px/30px Cairo;
+      color: $grey-dark;
+
+    }
+    &:focus{
+      box-shadow: none;
+    }
+  }
+}
+.job_detail_container {
+  text-align: left;
+  direction: ltr;
+  .NewsBox{
+    margin-bottom: 50px;
+    h6{
+      font: normal normal 600 20px/30px Montserrat;
+      color: $primary-color;
+    }
+    h2{
+      a{
+        font: normal normal bold 32px/30px Montserrat;
+        color: $grey-dark !important;
+      }
+    }
+    .newscontent{
+  p{
+    font: normal normal 600 15px/30px Montserrat;
+    color: $grey;
+  }
+    }
+  }
+  h5{
+    font: normal normal bold 20px/30px Montserrat;
+    color: $grey-dark;
+    margin-top: 40px;
+  }
+  p{
+    font: normal normal normal 15px/25px Montserrat;
+    color: $grey;
+
+  }
+  ul{
+    padding: 0;
+    &.simpleLits{
+      li{
+        list-style: none;
+      }
+    }
+    li{
+      font: normal normal normal 15px/25px Montserrat;
+      color: $grey;
+      list-style: disc;
+      list-style-position: inside;
+    }
   }
 }

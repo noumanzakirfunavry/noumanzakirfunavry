@@ -16,9 +16,9 @@ const Index = () =>{
                     <h2 className="montserrat text-extra-bold">CNBC ARABIA CAREERS</h2>
                 </div>
 
-                <div className='row justify-content-center'>
-                    <div className="col-md-6">
-                        <JobDetails/>
+                <div className='row justify-content-center m-0'>
+                    <div className="col-md-8">
+                        <JobDetails title={'APPLY TO JOB'} description={'Fill the form below and submit your job application.'}/>
                     </div>
                 </div>
         </>

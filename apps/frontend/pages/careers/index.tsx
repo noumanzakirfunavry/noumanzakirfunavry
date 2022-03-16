@@ -20,7 +20,7 @@ const Index = () =>{
                 <hr></hr>
                 <div className='row justify-content-center'>
                     <div className="col-md-6">
-                        <JobOpportunities/>
+                        <JobOpportunities title={'FUTURE JOB OPPORTUNITIES'} description={'Are you interested in working with CNBC Arabia? Fill the form below and we will keep you in mind for any future job offerings'}/>
                     </div>
                 </div>
             </div>
