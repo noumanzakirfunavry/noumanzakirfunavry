@@ -17,8 +17,7 @@
                 <nz-table #ordersListTable [nzData]="ordersList"  [nzShowPagination]="true" class="no-border-last">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Title</th>
+                            <th colspan="2">Title</th>
                             <th>Created</th>
                             <th>Modified</th>
                             <th>Publisher</th>
@@ -29,7 +28,9 @@
                     <tbody>
                         <tr *ngFor="let item of ordersListTable.data">
                             <td [nzChecked]="setOfCheckedId.has(item.id)" [nzDisabled]="item.disabled"
-                                (nzCheckedChange)="onItemChecked(item.id, $event)"></td>
+                                (nzCheckedChange)="onItemChecked(item.id, $event)">
+                                <i nz-icon nzType="drag" nzTheme="outline"></i>
+                            </td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>

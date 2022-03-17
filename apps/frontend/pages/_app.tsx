@@ -17,8 +17,7 @@ import Layout from '../components/Layout/Layout';
 import Head from 'next/head';
 // import * as gtag from './../lib/gtag';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
-import { GTM_ID, pageview } from '../lib/gtag'
+// import { GTM_ID, pageview } from '../lib/gtag'
 
 import { ToastContainer } from 'react-toastify';
 import { store, persistor } from '../store/Store';
@@ -27,12 +26,13 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
-  useEffect(() => {
-    router.events.on('routeChangeComplete', pageview)
-    return () => {
-      router.events.off('routeChangeComplete', pageview)
-    }
-  }, [router.events])
+  // TODO gtag 
+  // useEffect(() => {
+  //   router.events.on('routeChangeComplete', pageview)
+  //   return () => {
+  //     router.events.off('routeChangeComplete', pageview)
+  //   }
+  // }, [router.events])
 
   // useEffect(() => {
   //   const handleRouteChange = (url) => {
