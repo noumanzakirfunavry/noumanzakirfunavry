@@ -3,6 +3,7 @@
 /.env
 # compiled output
 /dist
+/apps/frontend/.next
 /tmp
 /out-tsc
 /tmpnodejsnpm-cache
