@@ -1,7 +1,7 @@
 import { ChangeLogs } from "@cnbc-monorepo/entity";
 import { Inject, Injectable } from "@nestjs/common";
 import * as bcrypt from 'bcrypt';
-import { AddLogRequestDto, CreateNewsRequestDto } from '@cnbc-monorepo/dtos'
+import { AddLogRequestDto, CreateEpisodeRequestDto, CreateNewsRequestDto } from '@cnbc-monorepo/dtos'
 @Injectable()
 export class Helper {
     constructor(
@@ -87,6 +87,24 @@ export class Helper {
         }
         return news_object
     }
+    episodesObjectCreator(body: CreateEpisodeRequestDto, seoDetailId: number, userId: number) {
+        const news_object = {
+            airedOn: body.airedOn,
+            title: body.title,
+            description: body.description,
+            isActive: body.isActive,
+            ...(body.videoId && {
+                videoId: body.videoId
+            }),
+            ...(body.thumbnailId && {
+                thumbnailId: body.thumbnailId
+            }),
+            seoDetailId: seoDetailId,
+            publishedBy: userId,
+            programId : body.programId
+        }
+        return news_object
+    }
     categoryObject(categoryId, newsId) {
         return {
             categoryId: categoryId,
@@ -99,11 +117,23 @@ export class Helper {
             newsId: newsId
         }
     }
+    tagsObjectEpisode(tagsId,episodesId){
+        return{
+            tagsId : tagsId,
+            episodesId : episodesId
+        }
+    }
     quotesObject(position, quotesId, newsId) {
         return {
             position: position,
             quotesId: quotesId,
             newsId: newsId
+        }
+    }
+    quotesObjectEpisode(quotesId,episodesId){
+        return {
+            quotesId : quotesId,
+            episodesId : episodesId
         }
     }
     addUser(body, userId) {
