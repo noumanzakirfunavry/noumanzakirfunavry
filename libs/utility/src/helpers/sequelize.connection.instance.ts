@@ -3,7 +3,7 @@ import { Sequelize } from "sequelize-typescript";
 import 'dotenv/config'
 
 export const sequelize = new Sequelize({
-  dialect: process.env.DATABASE_TYPE as 'mysql',
+  dialect: process.env.DATABASE_TYPE as 'postgres' | 'mysql',
   host: process.env.DATABASE_HOST,
   port: parseInt(process.env.DATABASE_PORT),
   username: process.env.DATABASE_USERNAME,
