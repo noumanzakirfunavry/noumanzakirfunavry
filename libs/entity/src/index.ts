@@ -121,6 +121,9 @@ export * from './entities/tags.entity'
 export * from './entities/trending.news.entity'
 export * from './entities/users.entity'
 export * from './entities/users.has.rights.entity'
+export * from './entities/news.has.tags.entity'
+export * from './entities/news.has.quotes.entity'
+export * from './entities/news.has.categories.entity'
 
 export const Entities=[
     Alerts,
