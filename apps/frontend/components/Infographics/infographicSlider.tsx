@@ -3,7 +3,7 @@ import Slider from "react-slick";
 
 
 
-const HorizontalFooterNewsSlider:FC = () =>{
+const InfoSlider:FC = () =>{
 
 
     
@@ -107,4 +107,4 @@ const HorizontalFooterNewsSlider:FC = () =>{
     )
 }
 
-export default HorizontalFooterNewsSlider
+export default InfoSlider
