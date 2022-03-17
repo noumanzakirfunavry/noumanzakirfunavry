@@ -3,7 +3,6 @@ import { Episodes } from "./episodes.entity";
 import { Tags } from "./tags.entity";
 
 @Table({
-    paranoid : true,
     timestamps : true
 })
 export class EpisodesHasTags extends Model{

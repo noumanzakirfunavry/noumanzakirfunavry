@@ -24,6 +24,11 @@ import { CategoriesProvider } from '../providers/categories.provider';
 import { SiteConfigurationProvider } from '../providers/site.configuration.provider';
 import { LiveStreamLinksProvider } from '../providers/live.stream.links.provider';
 import { AlertsProvider } from '../providers/alerts.provider';
+import { MessageProvider } from '../providers/message.provider';
+import { ExclusiveVideosProvider } from '../providers/exclusive.videos.provider';
+import { EpisodesProvider } from '../providers/episodes.provider';
+import { EpisodeHasTagsProvider } from '../providers/episodes.has.tags.provider';
+import { EpisodeHasQuotesProvider } from '../providers/episodes.has.quotes.provider';
 
 @Module({
   providers: [
@@ -51,8 +56,12 @@ import { AlertsProvider } from '../providers/alerts.provider';
     ...SiteConfigurationProvider,
     ...BreakingNewsProvider,
     ...LiveStreamLinksProvider,
-    ...AlertsProvider
-
+    ...AlertsProvider,
+    ...MessageProvider,
+    ...ExclusiveVideosProvider,
+    ...EpisodesProvider,
+    ...EpisodeHasTagsProvider,
+    ...EpisodeHasQuotesProvider
   ],
   exports: [
     ...UsersProvider,
@@ -78,7 +87,12 @@ import { AlertsProvider } from '../providers/alerts.provider';
     ...BreakingNewsProvider,
     ...SiteConfigurationProvider,
     ...LiveStreamLinksProvider,
-    ...AlertsProvider
+    ...AlertsProvider,
+    ...MessageProvider,
+    ...ExclusiveVideosProvider,
+    ...EpisodesProvider,
+    ...EpisodeHasTagsProvider,
+    ...EpisodeHasQuotesProvider
   ]
 })
 
