@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { SharedModule } from '../shared/shared.module';
 import { CategoryRoutingModule} from "./Category-routing.module";
@@ -9,7 +9,7 @@ import { AddCategoryComponent } from './addCategory/addCategoy.component';
 import { FilterComponent } from './categoryFilter/Filter.component';
 import { antdModule } from '../AndModules/andModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     imports: [
@@ -19,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         NgChartjsModule,
         ReactiveFormsModule,
         FormsModule,
-        ...antdModule
+        ...antdModule,
+        DragDropModule
     ],
     exports: [],
     declarations: [
@@ -30,5 +31,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     providers: [
         ThemeConstantService
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CategoryModule { }
