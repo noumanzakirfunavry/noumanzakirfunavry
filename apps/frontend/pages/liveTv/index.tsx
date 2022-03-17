@@ -33,7 +33,7 @@ const Index = () =>{
 
                 <AdBanner />
 
-                <div className="sliderTextBg mb-4 livetvSlider">
+                <div className="sliderTextBg mb-5 livetvSlider ">
                     <Title styles={"TitleBar"}>
                         <h2>حصرية CNBC Arabia </h2>
                     </Title>

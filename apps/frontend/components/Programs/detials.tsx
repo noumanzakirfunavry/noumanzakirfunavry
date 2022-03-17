@@ -4,9 +4,10 @@ const ProgramDetails = () => {
 
     return (
         <>
-            <div className="NewsTilesBg mb-4 programDetailNews">
-                <div className="row">
-                    <div className="col-md-8">
+            <div className="NewsTilesBg mb-5 programDetailNews">
+        <div className="container">
+        <div className="row">
+                    <div className="col-md-9">
                         <div className="VideoNews">
                             <div className="NewsImage"><img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" /></div>
                             <div className="PlayTime">
@@ -21,10 +22,10 @@ const ProgramDetails = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-4">
-                        
+                    <div className="col-md-3">
+
                         <div className="SimpleDarkNews d-none d-md-block">
-                            <h5 className="mb-3">عن البرنامج</h5>
+                            <h5 className="mb-4">عن البرنامج</h5>
                             <p className="mb-5">أبرزالأحداث والفعاليات التي قامت CNBC عربية بتغطيتها على مدار الأسبوع تأتيكم في برنامج “اكسبو في أسبوع” مع لين خضير </p>
                             <button className="btn btn-outline-light ms-3">تحميل المزيد</button>
                             <button className="btn btn-outline-light">تحميل المزيد</button>
@@ -36,6 +37,7 @@ const ProgramDetails = () => {
 
                     </div>
                 </div>
+        </div>
             </div>
         </>
     )

@@ -1,13 +1,13 @@
 import newsImage from "../../styles/images/biden.jpg";
-import CategoryDetailsBoxes from "./CategoryDetailsBoxes/CategoryDetailsBoxes";
 import FadedNews from "../Shared/FadedNews/FadedNews";
 import ProNews from "./ProNews/ProNews";
+import NewsRealtedStock from "./CategoryDetailsBoxes/CategoryDetailsBoxes";
 
 const NewsDetails = () => {
 
     return (
         <>
-            <CategoryDetailsBoxes/>
+            <NewsRealtedStock/>
 
             <div className="mb-3 newsDetailimg">
                 <img className="img-fluid" src={newsImage.src} />

@@ -14,8 +14,9 @@ const Index = () =>{
                 <AdBanner />
                 </div>
                 <Title styles="pageTitle PageTitleYellow mb-0"><h2>اكسبو في أسبوع</h2></Title>
-                <div className="container">
                 <ProgramDetails/>
+<div className="container">
+
 
                 <div className='row'>
                     <div className='col-lg-9'>

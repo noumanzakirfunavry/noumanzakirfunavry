@@ -2,7 +2,9 @@ import { Table,Model, Column, ForeignKey } from "sequelize-typescript";
 import { News } from "./news.entity";
 import { Tags } from "./tags.entity";
 
-@Table
+@Table({
+    timestamps : true
+})
 export class NewsHasTags extends Model{
 
 

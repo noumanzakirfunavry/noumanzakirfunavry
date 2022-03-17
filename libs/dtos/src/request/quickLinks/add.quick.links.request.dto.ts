@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsUrl } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
 
 export class AddQuickLinksRequestDto{
     @IsNotEmpty()
@@ -9,7 +9,7 @@ export class AddQuickLinksRequestDto{
     @IsUrl()
     url:string
     
-    @IsNotEmpty()
+    @IsOptional()
     @IsNumber()
     position:number
     
