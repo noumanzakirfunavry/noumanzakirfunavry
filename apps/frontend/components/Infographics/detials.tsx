@@ -1,5 +1,7 @@
 
 import NewsImage from "../../styles/images/biden2.jpg";
+import InfographiscModal from "./infographicModal";
+import MediaSlider from "./mediaSlider";
 import MediaSliderModal from "./mediaSlider";
 
 const InfographicsDetails = () => {
@@ -26,9 +28,9 @@ const InfographicsDetails = () => {
                     <img className="img-fluid" data-bs-toggle="modal" data-bs-target="#mediaSlider" src={NewsImage.src} />
                 </div>
 
-                <MediaSliderModal modalId={"mediaSlider"} >
-
-                </MediaSliderModal>
+                <InfographiscModal modalId={"mediaSlider"} >
+                    <MediaSlider />
+                </InfographiscModal>
 
             </div>
         </>
