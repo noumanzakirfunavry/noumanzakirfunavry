@@ -28,6 +28,14 @@ const routes: Routes = [
             title: 'Add Category',
             headerDisplay: "none"
         },
+    },
+    {
+        path: 'add/:id',
+        component: AddCategoryComponent,
+        data: {
+            title: 'Update Category',
+            headerDisplay: "none"
+        },
 
     }
 ];
