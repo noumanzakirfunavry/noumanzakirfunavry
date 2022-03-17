@@ -3,7 +3,6 @@ import { Episodes } from "./episodes.entity";
 import { Quotes } from "./quotes.entity";
 
 @Table({
-    paranoid : true,
     timestamps : true
 })
 export class EpisodesHasQuotes extends Model{
