@@ -3,7 +3,6 @@ import { Categories } from "./categories.entity";
 import { News } from "./news.entity";
 
 @Table({
-    paranoid : true,
     timestamps : true
 })
 export class NewsHasCategories extends Model{

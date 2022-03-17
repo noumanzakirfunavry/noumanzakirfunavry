@@ -4,7 +4,6 @@ import { Users } from "./users.entity";
 
 
 @Table({
-    paranoid : true,
     timestamps : true
 })
 export class EditorsChoiceNews extends Model{
@@ -25,7 +24,7 @@ news : News
 
 @ForeignKey(() => Users)
 @Column
-userId : number
+addedBy : number
 @BelongsTo(() => Users)
 user : Users
 }
