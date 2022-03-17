@@ -2,6 +2,7 @@
 import LiveTvBox from "apps/frontend/components/LiveTv/LiveTvBox/LiveTvBox"
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import HorizontalFooter2NewsSlider from "apps/frontend/components/Shared/NewsFooter2Slider"
+import NewsFooter2SliderWithColoredBackGround from "apps/frontend/components/Shared/NewsFooter2SliderWithColoredBackGround"
 import Title from "apps/frontend/components/Title"
 
 const Index = () =>{
@@ -32,11 +33,11 @@ const Index = () =>{
 
                 <AdBanner />
 
-                <div className="sliderTextBg mb-4">
+                <div className="sliderTextBg mb-5 livetvSlider ">
                     <Title styles={"TitleBar"}>
                         <h2>حصرية CNBC Arabia </h2>
                     </Title>
-                    <HorizontalFooter2NewsSlider />
+                    <NewsFooter2SliderWithColoredBackGround/>
 
                 </div>
 

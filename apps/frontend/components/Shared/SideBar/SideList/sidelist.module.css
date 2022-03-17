@@ -1,5 +1,5 @@
 .sidebar{
-    border-bottom: 4px solid #071D39;
+    /* border-bottom: 4px solid #071D39; */
     padding-bottom: 25px;
 }
 .sidebar .themeTitle{
@@ -12,12 +12,14 @@
     padding-top: 10px;
     margin-top: -11px;
     color: #002F6C;
-    font-weight: bold;
+    font-weight: 900;
+    font-size: 20px;
 }
 .sidebar .listBody{
-    padding: 5px;
+    /* padding: 5px;
     max-height: 550px;
-    overflow-y: auto;
+    overflow-y: auto; */
+
 }
 
 
@@ -26,34 +28,64 @@
 
 .sideDotList{
     margin: 0;
-    padding: 0 17px 0 0;
+    padding:  10px 0 0 5px;
+    height: 470px;
+    overflow: auto;
 }
+
+
 .sideDotList li {
     border-bottom: 1px solid #DDDDDD;
     color: #FCB700;
     font-size: 16px;
+    display: flex;
+    align-items: baseline;
+}
+.sideDotList li::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FCB700;
+    margin-left: 0.5rem;
+    display: inline-block;
+    flex-shrink: 0;
 }
 .sideDotList li:last-child {
     border-bottom: none;
 }
 .sideDotList li a{
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     color: #1C1C1C;
     padding: 20px 0;
     display: block;
     text-decoration: none;
+    line-height: 20px;
 }
 .sideDotList li:first-child a{
     padding-top:0;
 }
-.sideDotList li a:hover{
-    color: #002F6C;
+.sideDotList li a{
+    padding-top:0;
 }
+.sideDotList li a:hover{
+    /* color: #002F6C; */
+    text-decoration: underline;
+}
+
 .sideDotList li a span{
     color: #777777;
     display: block;
     margin-bottom: 5px;
+}
+.sideDotList li span{
+    color: #777777;
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    font: normal normal bold 12px/20px Cairo;
+
 }
 
 
@@ -93,12 +125,15 @@
     padding: 20px 0;
     display: block;
     text-decoration: none;
+    margin-right: 15px;
+    line-height: 23px;
 }
 .sidenumberList li:first-child a{
     padding-top:15px;
 }
 .sidenumberList li a:hover{
-    color: #002F6C;
+    /* color: #002F6C; */
+    text-decoration: underline;
 }
 .sidenumberList li a span{
     color: #777777;
@@ -121,23 +156,39 @@
     border-bottom: 1px solid #DDDDDD;
     color: #FCB700;
     font-size: 16px;
+    padding: 21px 0;
+}
+.sidesimpleList li p {
+    margin: 0;
+}
+.sidesimpleList li p a {
+    display: inline-block;
+    font-size: 12px;
+    color: #005594;
+    margin-left: 10px;
+}
+.sidesimpleList li p  b {
+   color: #777777;
+   font-size: 12px;
 }
 .sidesimpleList li:last-child {
     border-bottom: none;
 }
 .sidesimpleList li a{
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
     color: #1C1C1C;
-    padding: 20px 0;
+    /* padding: 20px 0; */
     display: block;
     text-decoration: none;
+    line-height: 26px;
 }
 .sidesimpleList li:first-child a{
     padding-top:0;
 }
 .sidesimpleList li a:hover{
-    color: #002F6C;
+    /* color: #002F6C; */
+    text-decoration: underline;
 }
 .sidesimpleList li a span{
     color: #777777;

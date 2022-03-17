@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-2">
+    <div class="col-md-2">
         <button nz-button [nzType]="'primary'" (click)="showModal()">Upload Audio File</button>
     </div>
-    <div class="col-10">
+    <div class="col-md-10">
         <amazonAlexa-filter></amazonAlexa-filter>
     </div>
     <div class="col-lg-12 mt-3">
@@ -37,8 +37,8 @@
     </div>
     <div class="col-md-12">
       <nz-form-item>
-        <nz-form-label class="text-left col-12">Generated JSON</nz-form-label>
-        <nz-form-control class="col-6">
+        <nz-form-label [nzSpan]="6" class="text-left col-12">Generated JSON</nz-form-label>
+        <nz-form-control  [nzSpan]="14">
             <textarea rows="8" type="text" placeholder="Preview JSON Code" dir="rtl" nz-input></textarea>
         </nz-form-control>
     </nz-form-item>

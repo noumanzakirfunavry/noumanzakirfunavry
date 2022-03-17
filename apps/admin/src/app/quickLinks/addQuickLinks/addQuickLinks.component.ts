@@ -1,5 +1,8 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { requests } from 'src/app/shared/config/config';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
     selector: 'app-addquickLink',
@@ -13,37 +16,53 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
       ]
 })
 
-export class AddQuickLinksComponent {
-    validateForm: FormGroup;
+export class AddQuickLinksComponent implements OnInit {
+  quickLinkForm: FormGroup;
+  selectedQuickLink: any;
+  quickLinkId: any;
+  quickLinkById: any;
+  
+  constructor(private fb: FormBuilder, private apiService: ApiService, private activatedRoute: ActivatedRoute) {}
+  
+  ngOnInit(): void {
+    this.quickLinkForm = this.fb.group({
+      title: [ null, [ Validators.required ] ],
+      url: [ null, [ Validators.required ] ],
+      visible: [false]
+  });
+  this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+    this.quickLinkId = + params.get('id');
+    if (this.quickLinkId) {
+      this.getQuickLinkById();
+    }
+  });
+  }
 
-    submitForm(): void {
-      for (const i in this.validateForm.controls) {
-        this.validateForm.controls[i].markAsDirty();
-        this.validateForm.controls[i].updateValueAndValidity();
-      }
+  quickLink(): void {
+    for (const i in this.quickLinkForm.controls) {
+      this.quickLinkForm.controls[i].markAsDirty();
+      this.quickLinkForm.controls[i].updateValueAndValidity();
     }
-  
-    get isHorizontal(): boolean {
-      return this.validateForm.controls.formLayout?.value === 'horizontal';
+    if(this.quickLinkForm.valid) {
+      const obj= this.quickLinkForm.value;
+      obj['position']= 1;
+      this.apiService.sendRequest(this.quickLinkId ? requests.updateQuickLink + this.quickLinkId : requests.addNewQuickLink, this.quickLinkId ? 'put' : 'post', obj).subscribe((res:any) => {
+        console.log("QUICK-LINK", res);
+        this.quickLinkForm.reset();
+      })
     }
-  
-    constructor(private fb: FormBuilder) {}
-  
-    ngOnInit(): void {
-      this.validateForm = this.fb.group({
-        formLayout: ['horizontal'],
-        fieldA: [null, [Validators.required]],
-        filedB: [null, [Validators.required]]
-      });
-    }
+  }
+
+  getQuickLinkById() {
+    this.apiService.sendRequest(requests.getQuickLinkById + this.quickLinkId, 'get').subscribe((res:any) => {
+      this.quickLinkById= res.quickLinks;
+      console.log("QUICK-LINK-BY-ID", this.quickLinkById);
+      this.quickLinkForm = this.fb.group({
+        title: [ this.quickLinkById?.title || null, [ Validators.required ] ],
+        url: [ this.quickLinkById?.url || null, [ Validators.required ] ],
+        visible: [this.quickLinkById?.visible || false]
+    });
+    })
+  }
+
 }    
-// import { Component } from '@angular/core'
-
-// @Component({
-//     selector: 'app-addquickLink',
-//     templateUrl: './addQuickLinks.component.html'
-// })
-
-// export class AddQuickLinksComponent {
-   
-// }    

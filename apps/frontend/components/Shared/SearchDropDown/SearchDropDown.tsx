@@ -1,15 +1,31 @@
 import { FC } from "react";
 import newslistimg from "../../../styles/images/biden2.jpg";
+import search from "../../../styles/images/search.svg";
+import backArrow from "../../../styles/images/backArrow.svg";
+import searchimg from "../../../styles/images/searchimg.jpg";
 import Title from "../../Title";
 
 const SearchDropDown:FC<any> = ({data}) => {
-    
+
     const keys = Object.keys(data)
     return (
-        
+
         <div className='searchResulstBox'>
+            <div className="dropsearch d-flex align-items-center">
+            <input type="text" className="form-control" placeholder="amazon"/>
+            <a href="javascript:void(0)" className="search_icon">
+                <img src={search.src} alt="search" />
+                </a>
+                </div>
+            <div className="backbar d-flex align-items-center">
+                                <a href="javascript:void(0)">
+                                    <img src={backArrow.src} alt="backarrow" />
+                                    </a>
+
+                                    <h5>amazon <span>عرض جميع نتائج البحث</span></h5>
+                                </div>
             <Title styles={"topBorderText"}>
-                <h3>الأسهم ذات الصلة</h3>
+                <h3 className="fs24_bolder">الأسهم ذات الصلة</h3>
             </Title>
             <div className="wordCountList">
                 <div className="table-responsive">
@@ -91,11 +107,12 @@ const SearchDropDown:FC<any> = ({data}) => {
                     <ul>
                         <li>
                             <div className="newsText">
-                                <h6><a> بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </a></h6>
-                                <p><a>أمريكا</a> منذ 5 دقائق</p>
+                                <h6><a>
+                                ايدن: سيفقد حوالى 10 ملايين أميركي إعانات Amazon البطالة في حال عدم توقيع ترامب خطة الاقتصادي                                     </a></h6>
+                                <p><a>أمريكا</a> 07 مارس 2022</p>
                             </div>
                             <div className="newsImage">
-                                <img className="img-fluid" src={newslistimg.src} />
+                                <img className="img-fluid" src={searchimg.src} />
                             </div>
                         </li>
                         <li>
@@ -104,7 +121,8 @@ const SearchDropDown:FC<any> = ({data}) => {
                                 <p><a>أمريكا</a> منذ 5 دقائق</p>
                             </div>
                             <div className="newsImage">
-                                <img className="img-fluid" src={newslistimg.src} />
+                            <img className="img-fluid" src={searchimg.src} />
+
                             </div>
                         </li>
                         <li>
@@ -113,7 +131,8 @@ const SearchDropDown:FC<any> = ({data}) => {
                                 <p><a>أمريكا</a> منذ 5 دقائق</p>
                             </div>
                             <div className="newsImage">
-                                <img className="img-fluid" src={newslistimg.src} />
+                            <img className="img-fluid" src={searchimg.src} />
+
                             </div>
                         </li>
                     </ul>
@@ -125,4 +144,3 @@ const SearchDropDown:FC<any> = ({data}) => {
 }
 
 export default SearchDropDown
-    

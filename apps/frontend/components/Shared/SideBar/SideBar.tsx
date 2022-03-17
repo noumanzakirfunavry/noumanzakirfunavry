@@ -18,22 +18,24 @@ const SideBar:FC<SideBarProps> = ({sideBarSequence}) =>{
                         <div key={sequence.componentType}>
                             {
                                 sequence.componentType === 'numbered' && (
-                                    <SideList key={'numbered'} type={"numbered"}></SideList>
+                                    <SideList key={'numbered'} type={"numbered"} title={sequence.title}></SideList>
                                 )
                             }
                             {
                                  sequence.componentType === 'SmallBanner' && (
-                                    <SideBanner  key={'Small'} size={"Small"}></SideBanner>
+                                    <div className="mb-4">
+                                        <SideBanner  key={'Small'} size={"Small"}></SideBanner>
+                                    </div>
                                  )
                             }
                             {
                                  sequence.componentType === 'simple' && (
-                                    <SideList key={'simple'} type={"simple"}></SideList>
+                                    <SideList key={'simple'} type={"simple"} title={sequence.title}></SideList>
                                  )
                             }
                             {
                                  sequence.componentType === 'dotList' && (
-                                    <SideList key={'dotList'} type={"dotList"}></SideList>
+                                    <SideList key={'dotList'} type={"dotList"} title={sequence.title}></SideList>
                                  )
                             }
                             {
@@ -41,7 +43,7 @@ const SideBar:FC<SideBarProps> = ({sideBarSequence}) =>{
                                     <SideBanner key={'Large'} size={"Large"}></SideBanner>
                                 )
                             }
-                            
+
                         </div>
                     )
                 })
