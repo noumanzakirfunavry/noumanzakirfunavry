@@ -29,7 +29,14 @@ const routes: Routes = [
             title: 'Add Job',
             // headerDisplay: "none"
         },
-
+    },
+    {
+        path: 'add/:id',
+        component: AddJobComponent,
+        data: {
+            title: 'Update Job',
+            // headerDisplay: "none"
+        },
     }
 ];
 

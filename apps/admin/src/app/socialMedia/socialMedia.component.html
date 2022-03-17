@@ -26,8 +26,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of ordersListTable.data">
-                            <td [nzChecked]="setOfCheckedId.has(item.id)" [nzDisabled]="item.disabled"
-                                (nzCheckedChange)="onItemChecked(item.id, $event)"></td>
+                            <td>
+                                <i nz-icon nzType="drag" nzTheme="outline"></i>
+                            </td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>

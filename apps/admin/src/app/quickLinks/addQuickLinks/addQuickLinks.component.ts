@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
 
@@ -22,7 +23,11 @@ export class AddQuickLinksComponent implements OnInit {
   quickLinkId: any;
   quickLinkById: any;
   
-  constructor(private fb: FormBuilder, private apiService: ApiService, private activatedRoute: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, 
+    private apiService: ApiService, 
+    private activatedRoute: ActivatedRoute, 
+    private message: NzMessageService
+    ) {}
   
   ngOnInit(): void {
     this.quickLinkForm = this.fb.group({
@@ -49,6 +54,12 @@ export class AddQuickLinksComponent implements OnInit {
       this.apiService.sendRequest(this.quickLinkId ? requests.updateQuickLink + this.quickLinkId : requests.addNewQuickLink, this.quickLinkId ? 'put' : 'post', obj).subscribe((res:any) => {
         console.log("QUICK-LINK", res);
         this.quickLinkForm.reset();
+        if(this.quickLinkId) {
+          this.message.create('success', `Quick Link Updated Successfully`)
+        }
+        else {
+          this.message.create('success', `Quick Link Added Successfully`)
+        }
       })
     }
   }
