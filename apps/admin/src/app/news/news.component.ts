@@ -14,12 +14,6 @@ export interface Data {
 })
 
 export class NewsComponent {
-    // checked = false;
-    // loading = false;
-    // indeterminate = false;
-    // listOfData: Data[] | any = [];
-    // listOfCurrentPageData: Data[] = [];
-    // setOfCheckedId = new Set<number>();
 
     constructor(private colorConfig: ThemeConstantService) { }
 

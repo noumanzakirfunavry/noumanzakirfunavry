@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 // import { UserModel } from '../shared/models/user';
 // import { cloneDeep } from 'lodash';
 import { SnakbarModel } from './snakbar.model';
-import { NgxSpinnerService } from "ngx-spinner";
+// import { NgxSpinnerService } from "ngx-spinner";
 
 declare let $: any;
 @Injectable({
@@ -13,7 +13,9 @@ export class CommonStore {
   globalAlert: SnakbarModel | any;
   alertArray: Array<SnakbarModel> = [];
   redirectUrl:any;
-  constructor(private spinner: NgxSpinnerService) {
+  constructor(
+    // private spinner: NgxSpinnerService
+    ) {
     if (window.localStorage['redirectUrl']) {
       const redUrl = JSON.parse(localStorage["redirectUrl"]);
       this.redirectUrl=Object.assign({}, redUrl);
@@ -21,7 +23,7 @@ export class CommonStore {
   }
 
    loaderStart() {
-    this.spinner.show()
+    // this.spinner.show()
   }
 
   loaderState(){
@@ -30,7 +32,7 @@ export class CommonStore {
 
   loaderEnd() {
     setTimeout(() => {       
-        this.spinner.hide();
+        // this.spinner.hide();
     }, 1000);
   }
 

@@ -2,13 +2,13 @@
     <div class="col-md-2">
         <button nz-button [nzType]="'primary'" [routerLink]="['/category/add']">Add Category</button>
     </div>
-    <div class="col-md-10">
+    <div class="wrapper col-md-10">
         <app-filter></app-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
-            <div>
-                <nz-table #ordersListTable [nzData]="ordersList" [nzShowPagination]="true" class="no-border-last">
+            <div cdkDropList (cdkDropListDropped)="drop($event)">
+                <nz-table [nzShowPagination]="true" [nzLoading]="loading" nzShowSizeChanger [nzData]="allCategories" class="no-border-last">
                     <thead>
                         <tr>
                             <th>Reorder</th>
@@ -21,28 +21,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of ordersListTable.data">
-                            <td [nzChecked]="setOfCheckedId.has(item.id)" [nzDisabled]="item.disabled"
-                            (nzCheckedChange)="onItemChecked(item.id, $event)">{{item.id}}</td>
-                            <td>
-                                <nz-tree [nzData]="nodes" nzDraggable nzBlockNode (nzOnDrop)="nzEvent($event)"></nz-tree>
+                        <tr class="category-block" *ngFor="let cat of allCategories" cdkDrag>
+                            <td [nzChecked]="setOfCheckedId.has(cat?.id)" (nzCheckedChange)="onItemChecked(cat?.id, $event)">
+                                    <i nz-icon nzType="drag" nzTheme="outline"></i>
                             </td>
-                            <td>{{item.date}}</td>
-                            <td>{{item.date}}</td>
-                            <td>Sample User</td>
+                            <td>{{cat?.title}}</td>
+                            <td>{{cat?.createdAt | date:'dd-MM-YYYY'}}</td>
+                            <td>{{cat?.updatedAt | date:'dd-MM-YYYY'}}</td>
+                            <td>{{cat?.publishedBy}}</td>
                             <td>
-                                <nz-badge *ngIf="item.status === 'approved'" nzStatus="success"></nz-badge>
-                                <nz-badge *ngIf="item.status === 'rejected'" nzStatus="error"></nz-badge>
-                                <nz-badge *ngIf="item.status === 'pending'"  nzStatus="processing"></nz-badge> 
-                                <span class="text-capitalize"></span>
+                                <nz-badge *ngIf="cat?.isActive === true" nzStatus="success"></nz-badge>
+                                <nz-badge *ngIf="cat?.isActive === false" nzStatus="error"></nz-badge>
+                                <!-- <span class="text-capitalize"></span> -->
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i class="fas fa-external-link-alt"></i>
-                                    <i nz-icon nzType="edit" nzTheme="outline"></i>
-                                    <i nz-icon nzType="bell" nzTheme="outline"></i>
-                                    <i nz-icon nzType="link" nzTheme="outline"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/add/' + cat?.id]"></i>
+                                    <i nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="deleteCategories(cat?.id)"></i>
                                 </div>
                             </td>
                         </tr>

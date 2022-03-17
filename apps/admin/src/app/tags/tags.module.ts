@@ -29,6 +29,7 @@ import { TagsComponent } from './tags.component';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 // import { DefaultDashboardComponent } from './default/default-dashboard.component';
 // import { EcommerceDashboardComponent } from './e-commerce/e-commerce-dashboard.component';
@@ -74,7 +75,8 @@ const antdModule = [
     NzDatePickerModule,
     NzIconModule,
     NzToolTipModule,
-    NzButtonModule
+    NzButtonModule,
+    NzMessageModule
 ]
 
 @NgModule({
