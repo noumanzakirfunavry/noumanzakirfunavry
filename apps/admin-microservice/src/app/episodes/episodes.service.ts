@@ -1,8 +1,9 @@
-import { CreateEpisodeRequestDto, GenericResponseDto } from '@cnbc-monorepo/dtos';
+import { CreateEpisodeRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllEpisodesRequestDto } from '@cnbc-monorepo/dtos';
 import { Episodes, EpisodesHasQuotes, EpisodesHasTags, SeoDetails } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class EpisodesService {
@@ -149,6 +150,119 @@ export class EpisodesService {
             console.log("🚀 ~ file: news.service.ts ~ line 12 ~ NewsService ~ addNews ~ err", err)
             throw err;
         }
+    }
+    async getEpisodeById(id: number): Promise<GenericResponseDto> {
+        try {
+            const response = await this.episodeExistsQuery(id)
+            if (response) {
+                return new GenericResponseDto(
+                    HttpStatus.OK,
+                    "Fetched successfully",
+                    { episode: response }
+                )
+            }
+            else {
+                throw new CustomException(
+                    Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                    Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+                )
+            }
+        }
+        catch (err) {
+            console.log("🚀 ~ file: episodes.service.ts ~ line 167 ~ EpisodesService ~ getEpisodeById ~ err", err)
+            throw err
+        }
+    }
+    async getAllEpisodes(query: GetAllEpisodesRequestDto): Promise<GenericResponseDto> {
+        try {
+            const search_episodes = await this.searchEpisodesQuery(query)
+            return new GenericResponseDto(
+                HttpStatus.OK,
+                "Fetched successfully",
+                {
+                    episodes: search_episodes.rows,
+                    totalCount: search_episodes.count
+                }
+            )
+        }
+        catch (err) {
+            console.log("🚀 ~ file: episodes.service.ts ~ line 180 ~ EpisodesService ~ getAllEpisodes ~ err", err)
+            throw err
+        }
+    }
+
+    private async searchEpisodesQuery(query: GetAllEpisodesRequestDto) {
+        return await this.episodeRepository.findAndCountAll(
+            {
+                where: {
+                    ...(query.search && {
+                        title: {
+                            [Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.search)}%`
+                        }
+                    }),
+                    ...(query.isActive && {
+                        isActive: JSON.parse(query.isActive.toString())
+                    }),
+                    ...(query.date && {
+                        airedOn: query.date
+                    }),
+                    ...(query.programId && {
+                        programId: query.programId
+                    }),
+                    ...(query.publishedBy &&
+                    {
+                        publishedBy: query.publishedBy
+                    })
+                },
+                limit: parseInt(query.limit.toString()),
+                offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
+            }
+        );
+    }
+
+    async deleteEpisodes(query: DeleteAlexaAudioRequestDto): Promise<GenericResponseDto> {
+        let episode_exists;
+        let response;
+        try {
+            return await sequelize.transaction(async t => {
+                const transactionHost = { transaction: t };
+                for (let i = 0; i < query.id.length; i++) {
+                    episode_exists = await this.episodeExistsQuery(query.id[i])
+                    if (episode_exists) {
+                        response = await this.deleteEpisodeQuery(query.id[i], transactionHost)
+                        if (!response) {
+                            throw new CustomException(
+                                Exceptions[ExceptionType.SOMETHING_WENT_WRONG].message,
+                                Exceptions[ExceptionType.SOMETHING_WENT_WRONG].status
+                            )
+                        }
+                    }
+                    else {
+                        throw new CustomException(
+                            Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                            Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+                        )
+                    }
+                }
+                return new GenericResponseDto(
+                    HttpStatus.OK,
+                    "Deleted successfully"
+                )
+            })
+        }
+        catch (err) {
+            console.log("🚀 ~ file: live-stream-links.service.ts ~ line 141 ~ LiveStreamLinksService ~ deleteLiveStreamLinkById ~ err", err)
+            throw err
+        }
+    }
+
+    private async deleteEpisodeQuery(id, transactionHost) {
+        return await this.episodeRepository.destroy({
+            where: {
+                id: id
+            },
+            transaction: transactionHost.transaction
+        })
     }
 
     private async episodeExistsQuery(id: number) {
