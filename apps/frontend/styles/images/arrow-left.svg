@@ -1,6 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="44.882" height="17.778" viewBox="0 0 44.882 17.778">
-  <g id="Group_686" data-name="Group 686" transform="translate(1.768 0.884)">
-    <path id="Path_3223" data-name="Path 3223" d="M-3628.832-4814.413l-8-8,8-8.005" transform="translate(3636.836 4830.423)" fill="none" stroke="#1c1c1c" stroke-miterlimit="10" stroke-width="2.5"/>
-    <line id="Line_194" data-name="Line 194" x2="43" transform="translate(0.114 7.728)" fill="none" stroke="#1c1c1c" stroke-miterlimit="10" stroke-width="2.5"/>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 44.9 17.8" style="enable-background:new 0 0 44.9 17.8;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#DDDDDD;stroke-width:2.5;stroke-miterlimit:10;}
+</style>
+<g id="Group_686" transform="translate(1.768 0.884)">
+	<path id="Path_3223" class="st0" d="M8,16L0,8l8-8"/>
+	<line id="Line_194" class="st0" x1="0.1" y1="7.7" x2="43.1" y2="7.7"/>
+</g>
 </svg>

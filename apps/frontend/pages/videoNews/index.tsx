@@ -12,11 +12,11 @@ const Index = () =>{
             <div className="container">
                 <AdBanner/>
                 <div className='row mb-3'>
-                <div className='col-lg-8'>
+                <div className='col-lg-9'>
                     <VideoNews/>
                 </div>
-                <div className='col-lg-4'>
-                    <SideBarWithVideo/>
+                <div className='col-lg-3'>
+                    <SideBarWithVideo title={'أحدث مقاطع الفيديو'}/>
                 </div>
             </div>
             </div>

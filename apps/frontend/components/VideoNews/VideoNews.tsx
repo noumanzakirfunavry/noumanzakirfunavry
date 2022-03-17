@@ -6,7 +6,8 @@ const VideoNews = () => {
 
     return (
         <>
-          <div className="VideoNews mb-4">
+        <div className="single_video_main">
+          <div className="VideoNews mb-4 ">
             <div className="NewsImage">
                 <img className="img-fluid" src={newsImage.src} />
             </div>
@@ -21,7 +22,7 @@ const VideoNews = () => {
             </div>
           </div>
 
-          <div className="pageSimpleTitle mb-5">
+          <div className="pageSimpleTitle mb-4">
               <div className="float-start">
                   <div className="newsSocial">
                       <ul>
@@ -34,7 +35,7 @@ const VideoNews = () => {
                   </div>
               </div>
               <div className="float-end">
-              <h6 className="text-primary">الإمارات</h6>
+              <h6 className="text-secondary">الإمارات</h6>
               </div>
               <div className="clearfix"></div>
               <h1>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</h1>
@@ -44,6 +45,7 @@ const VideoNews = () => {
 
           <FadedNews/>
           <PageCatgories/>
+          </div>
         </>
     )
 }

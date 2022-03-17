@@ -15,40 +15,33 @@
               <input nz-input placeholder="Enter Link"  />
             </nz-form-control>
           </nz-form-item >
-          
           <nz-form-item>
-            <!-- <input nz-input placeholder="Active"   /> -->
-            <!-- <nz-form-label [nzSpan]="6" nzFor="active">Active</nz-form-label> -->
-      
             <h4 class="mb-2">General Settings</h4>
             <nz-form-control [nzSpan]="14">
               <nz-switch class="mr-3"> </nz-switch>  Active
             </nz-form-control>
           </nz-form-item >
-
           <div>
             <h4 class="mb-2">Sharing Settings</h4>
-
             <nz-form-item>
-                <nz-form-control>
+                <nz-form-control [nzSpan]="14">
                     <button class="mr-3" nz-button nzType="default">Push Notification</button>
                     <button class="mr-3" nz-button nzType="default">Twitter</button>
                     <button class="mr-3" nz-button nzType="default">Facebook</button>
                 </nz-form-control>
             </nz-form-item>
         </div>
-
-        <nz-form-item class="col-2">
-          <nz-form-label nzFor="text">Set Visibility Time: </nz-form-label>
-          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Visibility Time" nzSpan="8">
-
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzFor="text">Set Visibility Time: </nz-form-label>
+          <nz-form-control [nzSpan]="4">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Visibility Time">
             <nz-option nzValue="5 min" [nzLabel]="'5 min'"></nz-option>
             <nz-option nzValue="10 min" [nzLabel]="'10 min'"></nz-option>
             <nz-option nzValue="15 min" [nzLabel]="'15 min'"></nz-option>
             <nz-option nzValue="20 min" [nzLabel]="'20 min'"></nz-option>
           </nz-select>
+        </nz-form-control>
         </nz-form-item>
-  
           <nz-form-item>
             <nz-form-control [nzSpan]="14" >
               <button class="mr-3" nz-button nzType="primary">Save</button>
@@ -57,37 +50,4 @@
           </nz-form-item>
         </form>
     </div>
-  
-  </section><div class="row">
-  
-  
-  
-    <!-- <form nz-form class="ant-advanced-search-form" [nzLayout]="validateForm.get('formLayout')?.value" [formGroup]="validateForm" (ngSubmit)="submitForm()">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="isHorizontal ? 4 : null">Form Layout</nz-form-label>
-        <nz-form-control [nzSpan]="isHorizontal ? 14 : null">
-          <nz-radio-group formControlName="formLayout">
-            <label nz-radio-button [nzValue]="'horizontal'">Horizontal</label>
-            <label nz-radio-button [nzValue]="'vertical'">Vertical</label>
-            <label nz-radio-button [nzValue]="'inline'">Inline</label>
-          </nz-radio-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label [nzSpan]="isHorizontal ? 4 : null">Field A</nz-form-label>
-        <nz-form-control [nzSpan]="isHorizontal ? 14 : null" nzErrorTip="Please input your username!">
-          <input nz-input formControlName="fieldA" placeholder="input placeholder" />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label [nzSpan]="isHorizontal ? 4 : null">Field B</nz-form-label>
-        <nz-form-control [nzSpan]="isHorizontal ? 14 : null" nzErrorTip="Please input your Password!">
-          <input nz-input formControlName="filedB" placeholder="input placeholder" />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control [nzSpan]="isHorizontal ? 14 : null" [nzOffset]="isHorizontal ? 4 : null">
-          <button nz-button nzType="primary">Submit</button>
-        </nz-form-control>
-      </nz-form-item>
-    </form> -->
+  </section>

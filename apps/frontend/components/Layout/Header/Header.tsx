@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/link-passhref */
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Link from 'next/link'
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import logo from '../../../styles/images/cnbc-arabia-logo.svg';
 import smallLogo from "../../../styles/images/cnbc-logo-white.svg";
 import SearchDropDown from '../../Shared/SearchDropDown/SearchDropDown';
@@ -10,8 +11,18 @@ import MobileHeader from './MobileHeader';
 const Header = () =>{
 
     const [showMenuList, setShowMenuList] = useState<boolean>(false)
-
+    const [displaySerachDropDown, setDisplaySerachDropDown] = useState<boolean>(false)
     const [data, setData] = useState<any>({})
+    const router = useRouter()
+    const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}])
+
+
+    useEffect(()=>{
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    },[])
 
     const handleMenuList = () => {
         setShowMenuList(!showMenuList)
@@ -19,6 +30,7 @@ const Header = () =>{
 
     const handleEvent = (event:any) => {
 
+        setDisplaySerachDropDown(true)
         getData(event.target.value).then((res)=>{
             setData(res)
         }).catch(err=>{
@@ -27,10 +39,20 @@ const Header = () =>{
 
     }
 
-    const getData = async (value:string): Promise<any> => {
+    const handleClickOutside = () => {
+        setDisplaySerachDropDown(false)
+    }
 
+    const handleRouting = (url:string, index:number) =>{
+       index !== 4 && router.push(`/${url}`)
+       index === 4 && handleClickOutside()
+    }
+
+
+    const getData = async (value:string): Promise<any> => {
+        //!value ? {}:
         //fetch data and return
-        const data = !value ? {}:{
+        const data = {
             "16449": {
                 "MarketID": "105",
                 "PriceDecimal": 2,
@@ -105,187 +127,186 @@ const Header = () =>{
                 "SymbolAlias": "A",
                 "SecurityTypeID": "1",
                 "InitialMargin": "0.0"
-            },
-            "352610": {
-                "MarketID": "144",
-                "PriceDecimal": 3,
-                "ContractSize": 1,
-                "LastPrice": 2.5899999999999999,
-                "MinPrice": 0,
-                "MaxPrice": 0,
-                "LastBid": 0,
-                "LastAsk": 0,
-                "TickerID": 352610,
-                "Symbol": "01712",
-                "ISIN": "AU000000DRA1",
-                "BloombergCode": "",
-                "Desc": "Dragon Mining Limited - Ordinary Shares",
-                "DescAR": "Dragon Mining Limited - Ordinary Shares",
-                "MarketSymbol": "HONGKONG",
-                "MarketMIC": "XHKG",
-                "MarketDesc": "Hong Kong Stock Exchange",
-                "FeedSource": "HTTP",
-                "IDCSymbol": "01712",
-                "IDCMarketSymbol": "",
-                "SymbolAlias": "01712",
-                "SecurityTypeID": "1",
-                "InitialMargin": "0.0"
-            },
-            "352630": {
-                "MarketID": "144",
-                "PriceDecimal": 3,
-                "ContractSize": 1,
-                "LastPrice": 0.28999999999999998,
-                "MinPrice": 0,
-                "MaxPrice": 0,
-                "LastBid": 0,
-                "LastAsk": 0,
-                "TickerID": 352630,
-                "Symbol": "01752",
-                "ISIN": "AU0000007296",
-                "BloombergCode": "",
-                "Desc": "Top Education Group Ltd - Ordinary Shares",
-                "DescAR": "Top Education Group Ltd - Ordinary Shares",
-                "MarketSymbol": "HONGKONG",
-                "MarketMIC": "XHKG",
-                "MarketDesc": "Hong Kong Stock Exchange",
-                "FeedSource": "HTTP",
-                "IDCSymbol": "01752",
-                "IDCMarketSymbol": "",
-                "SymbolAlias": "01752",
-                "SecurityTypeID": "1",
-                "InitialMargin": "0.0"
-            },
-            "172715": {
-                "MarketID": "144",
-                "PriceDecimal": 3,
-                "ContractSize": 1,
-                "LastPrice": 11.800000000000001,
-                "MinPrice": 0,
-                "MaxPrice": 0,
-                "LastBid": 0,
-                "LastAsk": 0,
-                "TickerID": 172715,
-                "Symbol": "03668",
-                "ISIN": "AU000000YAL0",
-                "BloombergCode": "",
-                "Desc": "Chinalco Mining Corporation International",
-                "DescAR": "Chinalco Mining Corporation International",
-                "MarketSymbol": "HONGKONG",
-                "MarketMIC": "XHKG",
-                "MarketDesc": "Hong Kong Stock Exchange",
-                "FeedSource": "HTTP",
-                "IDCSymbol": "03668",
-                "IDCMarketSymbol": "",
-                "SymbolAlias": "03668",
-                "SecurityTypeID": "1",
-                "InitialMargin": "0.0"
-            },
-            "325492": {
-                "MarketID": "108",
-                "PriceDecimal": 3,
-                "ContractSize": 1,
-                "LastPrice": 2.71,
-                "MinPrice": 0,
-                "MaxPrice": 0,
-                "LastBid": 0,
-                "LastAsk": 0,
-                "TickerID": 325492,
-                "Symbol": "0A2N",
-                "ISIN": "AU000000LYC6",
-                "BloombergCode": "",
-                "Desc": "Lynas Corporation Ltd. - Ordinary Shares",
-                "DescAR": "Lynas Corporation Ltd. - Ordinary Shares",
-                "MarketSymbol": "LSE",
-                "MarketMIC": "XLON",
-                "MarketDesc": "London Stock Exchange",
-                "FeedSource": "HTTP",
-                "IDCSymbol": "0A2N",
-                "IDCMarketSymbol": "LON",
-                "SymbolAlias": "0A2N",
-                "SecurityTypeID": "1",
-                "InitialMargin": "0.0"
-            },
-            "327545": {
-                "MarketID": "116",
-                "PriceDecimal": 3,
-                "ContractSize": 1,
-                "LastPrice": 0,
-                "MinPrice": 0,
-                "MaxPrice": 0,
-                "LastBid": 0,
-                "LastAsk": 0,
-                "TickerID": 327545,
-                "Symbol": "0A2N",
-                "ISIN": "AU000000LYC6",
-                "BloombergCode": "",
-                "Desc": "Lynas Corporation Ltd. - Ordinary Shares",
-                "DescAR": "Lynas Corporation Ltd. - Ordinary Shares",
-                "MarketSymbol": "EGGDR",
-                "MarketMIC": "",
-                "MarketDesc": "Egyptian GDRs",
-                "FeedSource": "HTTP",
-                "IDCSymbol": "0A2N",
-                "IDCMarketSymbol": "",
-                "SymbolAlias": "0A2N",
-                "SecurityTypeID": "1",
-                "InitialMargin": "0.0"
-            },
-            "153976": {
-                "MarketID": "108",
-                "PriceDecimal": 3,
-                "ContractSize": 1,
-                "LastPrice": 0.84999999999999998,
-                "MinPrice": 0,
-                "MaxPrice": 0,
-                "LastBid": 0,
-                "LastAsk": 0,
-                "TickerID": 153976,
-                "Symbol": "0C6Y",
-                "ISIN": "AT0000625108",
-                "BloombergCode": "",
-                "Desc": "Oberbank AG",
-                "DescAR": "Oberbank AG",
-                "MarketSymbol": "LSE",
-                "MarketMIC": "XLON",
-                "MarketDesc": "London Stock Exchange",
-                "FeedSource": "HTTP",
-                "IDCSymbol": "0C6Y",
-                "IDCMarketSymbol": "LON",
-                "SymbolAlias": "0C6Y",
-                "SecurityTypeID": "1",
-                "InitialMargin": "0.0"
-            },
-            "233862": {
-                "MarketID": "108",
-                "PriceDecimal": 3,
-                "ContractSize": 1,
-                "LastPrice": 0,
-                "MinPrice": 0,
-                "MaxPrice": 0,
-                "LastBid": 0,
-                "LastAsk": 0,
-                "TickerID": 233862,
-                "Symbol": "0CT7",
-                "ISIN": "AT0000779061",
-                "BloombergCode": "",
-                "Desc": "Schlumberger AG",
-                "DescAR": "Schlumberger AG",
-                "MarketSymbol": "LSE",
-                "MarketMIC": "XLON",
-                "MarketDesc": "London Stock Exchange",
-                "FeedSource": "HTTP",
-                "IDCSymbol": "0CT7",
-                "IDCMarketSymbol": "LON",
-                "SymbolAlias": "0CT7",
-                "SecurityTypeID": "1",
-                "InitialMargin": "0.0"
-            }
+             },
+            // "352610": {
+            //     "MarketID": "144",
+            //     "PriceDecimal": 3,
+            //     "ContractSize": 1,
+            //     "LastPrice": 2.5899999999999999,
+            //     "MinPrice": 0,
+            //     "MaxPrice": 0,
+            //     "LastBid": 0,
+            //     "LastAsk": 0,
+            //     "TickerID": 352610,
+            //     "Symbol": "01712",
+            //     "ISIN": "AU000000DRA1",
+            //     "BloombergCode": "",
+            //     "Desc": "Dragon Mining Limited - Ordinary Shares",
+            //     "DescAR": "Dragon Mining Limited - Ordinary Shares",
+            //     "MarketSymbol": "HONGKONG",
+            //     "MarketMIC": "XHKG",
+            //     "MarketDesc": "Hong Kong Stock Exchange",
+            //     "FeedSource": "HTTP",
+            //     "IDCSymbol": "01712",
+            //     "IDCMarketSymbol": "",
+            //     "SymbolAlias": "01712",
+            //     "SecurityTypeID": "1",
+            //     "InitialMargin": "0.0"
+            // },
+            // "352630": {
+            //     "MarketID": "144",
+            //     "PriceDecimal": 3,
+            //     "ContractSize": 1,
+            //     "LastPrice": 0.28999999999999998,
+            //     "MinPrice": 0,
+            //     "MaxPrice": 0,
+            //     "LastBid": 0,
+            //     "LastAsk": 0,
+            //     "TickerID": 352630,
+            //     "Symbol": "01752",
+            //     "ISIN": "AU0000007296",
+            //     "BloombergCode": "",
+            //     "Desc": "Top Education Group Ltd - Ordinary Shares",
+            //     "DescAR": "Top Education Group Ltd - Ordinary Shares",
+            //     "MarketSymbol": "HONGKONG",
+            //     "MarketMIC": "XHKG",
+            //     "MarketDesc": "Hong Kong Stock Exchange",
+            //     "FeedSource": "HTTP",
+            //     "IDCSymbol": "01752",
+            //     "IDCMarketSymbol": "",
+            //     "SymbolAlias": "01752",
+            //     "SecurityTypeID": "1",
+            //     "InitialMargin": "0.0"
+            // },
+            // "172715": {
+            //     "MarketID": "144",
+            //     "PriceDecimal": 3,
+            //     "ContractSize": 1,
+            //     "LastPrice": 11.800000000000001,
+            //     "MinPrice": 0,
+            //     "MaxPrice": 0,
+            //     "LastBid": 0,
+            //     "LastAsk": 0,
+            //     "TickerID": 172715,
+            //     "Symbol": "03668",
+            //     "ISIN": "AU000000YAL0",
+            //     "BloombergCode": "",
+            //     "Desc": "Chinalco Mining Corporation International",
+            //     "DescAR": "Chinalco Mining Corporation International",
+            //     "MarketSymbol": "HONGKONG",
+            //     "MarketMIC": "XHKG",
+            //     "MarketDesc": "Hong Kong Stock Exchange",
+            //     "FeedSource": "HTTP",
+            //     "IDCSymbol": "03668",
+            //     "IDCMarketSymbol": "",
+            //     "SymbolAlias": "03668",
+            //     "SecurityTypeID": "1",
+            //     "InitialMargin": "0.0"
+            // },
+            // "325492": {
+            //     "MarketID": "108",
+            //     "PriceDecimal": 3,
+            //     "ContractSize": 1,
+            //     "LastPrice": 2.71,
+            //     "MinPrice": 0,
+            //     "MaxPrice": 0,
+            //     "LastBid": 0,
+            //     "LastAsk": 0,
+            //     "TickerID": 325492,
+            //     "Symbol": "0A2N",
+            //     "ISIN": "AU000000LYC6",
+            //     "BloombergCode": "",
+            //     "Desc": "Lynas Corporation Ltd. - Ordinary Shares",
+            //     "DescAR": "Lynas Corporation Ltd. - Ordinary Shares",
+            //     "MarketSymbol": "LSE",
+            //     "MarketMIC": "XLON",
+            //     "MarketDesc": "London Stock Exchange",
+            //     "FeedSource": "HTTP",
+            //     "IDCSymbol": "0A2N",
+            //     "IDCMarketSymbol": "LON",
+            //     "SymbolAlias": "0A2N",
+            //     "SecurityTypeID": "1",
+            //     "InitialMargin": "0.0"
+            // },
+            // "327545": {
+            //     "MarketID": "116",
+            //     "PriceDecimal": 3,
+            //     "ContractSize": 1,
+            //     "LastPrice": 0,
+            //     "MinPrice": 0,
+            //     "MaxPrice": 0,
+            //     "LastBid": 0,
+            //     "LastAsk": 0,
+            //     "TickerID": 327545,
+            //     "Symbol": "0A2N",
+            //     "ISIN": "AU000000LYC6",
+            //     "BloombergCode": "",
+            //     "Desc": "Lynas Corporation Ltd. - Ordinary Shares",
+            //     "DescAR": "Lynas Corporation Ltd. - Ordinary Shares",
+            //     "MarketSymbol": "EGGDR",
+            //     "MarketMIC": "",
+            //     "MarketDesc": "Egyptian GDRs",
+            //     "FeedSource": "HTTP",
+            //     "IDCSymbol": "0A2N",
+            //     "IDCMarketSymbol": "",
+            //     "SymbolAlias": "0A2N",
+            //     "SecurityTypeID": "1",
+            //     "InitialMargin": "0.0"
+            // },
+            // "153976": {
+            //     "MarketID": "108",
+            //     "PriceDecimal": 3,
+            //     "ContractSize": 1,
+            //     "LastPrice": 0.84999999999999998,
+            //     "MinPrice": 0,
+            //     "MaxPrice": 0,
+            //     "LastBid": 0,
+            //     "LastAsk": 0,
+            //     "TickerID": 153976,
+            //     "Symbol": "0C6Y",
+            //     "ISIN": "AT0000625108",
+            //     "BloombergCode": "",
+            //     "Desc": "Oberbank AG",
+            //     "DescAR": "Oberbank AG",
+            //     "MarketSymbol": "LSE",
+            //     "MarketMIC": "XLON",
+            //     "MarketDesc": "London Stock Exchange",
+            //     "FeedSource": "HTTP",
+            //     "IDCSymbol": "0C6Y",
+            //     "IDCMarketSymbol": "LON",
+            //     "SymbolAlias": "0C6Y",
+            //     "SecurityTypeID": "1",
+            //     "InitialMargin": "0.0"
+            // },
+            // "233862": {
+            //     "MarketID": "108",
+            //     "PriceDecimal": 3,
+            //     "ContractSize": 1,
+            //     "LastPrice": 0,
+            //     "MinPrice": 0,
+            //     "MaxPrice": 0,
+            //     "LastBid": 0,
+            //     "LastAsk": 0,
+            //     "TickerID": 233862,
+            //     "Symbol": "0CT7",
+            //     "ISIN": "AT0000779061",
+            //     "BloombergCode": "",
+            //     "Desc": "Schlumberger AG",
+            //     "DescAR": "Schlumberger AG",
+            //     "MarketSymbol": "LSE",
+            //     "MarketMIC": "XLON",
+            //     "MarketDesc": "London Stock Exchange",
+            //     "FeedSource": "HTTP",
+            //     "IDCSymbol": "0CT7",
+            //     "IDCMarketSymbol": "LON",
+            //     "SymbolAlias": "0CT7",
+            //     "SecurityTypeID": "1",
+            //     "InitialMargin": "0.0"
+            // }
         }
         return data
     }
 
-    const staticMenu = ['Main', 'Infographic', 'program', 'presenters']
     return (
         <>
             <header>
@@ -304,59 +325,57 @@ const Header = () =>{
                                         </button>
                                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                             <ul className="navbar-nav">
+                                                {/* {
+                                                    menuBar.length && menuBar.map((menuItem, index)=>{
+                                                        return(
+                                                            <li className="nav-item" key={index}>
+                                                                <a className="nav-link active" aria-current="page" onClick={(e)=>handleRouting(menuItem.url, index)}>{menuItem.title}</a>
+                                                            </li>
+                                                        )
+                                                    })
+                                                } */}
                                                 <li className="nav-item" key={'1'}>
-                                                    <a className="nav-link active" aria-current="page" href="/breakingNews">أخبار عاجلة</a>
+                                                    <a className="nav-link active" aria-current="page" href="/">الرئيسية</a>
                                                 </li>
                                                 <li className="nav-item" key={'2'}>
-                                                    <a className="nav-link" href="/infographics">إنفوغرافيك</a>
-                                                </li>
-
-                                                <li className="nav-item" key={'3'}>
-                                                    <a className="nav-link" href="/presenters" >مذيعو ومراسلو</a>
-                                                </li>
-                                                <li className="nav-item" key={'4'}>
-                                                    <a className="nav-link" href="/latestVideos" >أحدث مقاطع الفيديو</a>
-                                                </li>
-                                                <li className="nav-item" key={'5'}>
-                                                    <a className="nav-link" href="/schedules">جدول البرامج</a>
-                                                </li>
-                                                <li className="nav-item" key={'6'}>
                                                     <a className="nav-link" href="/videoNews">الفيديو</a>
                                                 </li>
-                                                <li className="nav-item dropdown" key={'7'}>
-                                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
+                                                <li className="nav-item dropdown" key={'3'}>
+                                                    <a className="nav-link dropdown-toggle" href="#" id="morePrograms" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
                                                     </a>
-                                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                                                    <ul className="dropdown-menu" aria-labelledby="morePrograms">
                                                         <li key={'8'}>
                                                             <a className="dropdown-item" href="/programs/100/">اكسبو في أسبوع</a>
                                                         </li>
                                                         <li key={'9'}>
-                                                            <a className="dropdown-item" href="/program/95/حديث المملكة مع راشد الفوزان">حديث المملكة مع راشد الفوزان</a>
+                                                            <a className="dropdown-item" href="/programs/95/">حديث المملكة مع راشد الفوزان</a>
                                                         </li>
                                                         <li key={'10'}>
-                                                            <a className="dropdown-item" href="/program/96/تحت الضوء">تحت الضوء</a>
+                                                            <a className="dropdown-item" href="/programs/96/">تحت الضوء</a>
                                                         </li>
                                                         <li key={'11'}>
-                                                            <a className="dropdown-item" href="/program/78/وثائقيات">ملفات</a>
+                                                            <a className="dropdown-item" href="/programs/78/">وثائقيات</a>
                                                         </li>
                                                         <li key={'12'}>
-                                                            <a className="dropdown-item" href="/program/90/Tech Talks">Tech Talks</a>
+                                                            <a className="dropdown-item" href="/programs/90/">Tech Talks</a>
                                                         </li>
                                                         <li key={'13'}>
-                                                            <a className="dropdown-item" href="/program/89/CEO Talks">CEO Talks</a>
+                                                            <a className="dropdown-item" href="/programs/89/">CEO Talks</a>
                                                         </li>
                                                         <li key={'14'}>
-                                                            <a className="dropdown-item" href="/program/61/مسار السوق">مسار السوق</a>
+                                                            <a className="dropdown-item" href="/programs/61/">مسار السوق</a>
                                                         </li>
                                                         <li key={'15'}>
-                                                            <a className="dropdown-item" href="/program/33/كلام أسواق">كلام أسواق</a>
+                                                            <a className="dropdown-item" href="/programs/33/">كلام أسواق</a>
                                                         </li>
                                                         <li key={'16'}>
-                                                            <a className="dropdown-item" href="/program/87/بين قوسين">بين قوسين</a>
+                                                            <a className="dropdown-item" href="/programs/87/">بين قوسين</a>
                                                         </li>
                                                         <li key={'17'}>
-                                                            <a className="dropdown-item" href="/program/10/حوار الأسبوع">حوار الأسبوع</a>
+                                                            <a className="dropdown-item" href="/programs/10/">حوار الأسبوع</a>
                                                         </li>
+
+{/*
                                                         <li key={'18'}>
                                                             <a className="dropdown-item" href="/program/16/برنامج بموضوعية ">بموضوعية </a>
                                                         </li>
@@ -398,16 +417,30 @@ const Header = () =>{
                                                         </li>
                                                         <li key={'31'}>
                                                             <a className="dropdown-item" href="/program/84/خبر خام">خبر خام</a>
-                                                        </li>
+                                                        </li> */}
                                                     </ul>
                                                 </li>
-                                                <li className="nav-item" key={'32'}>
-                                                    <a className="nav-link" href="/categoryNewsTiles">آخر الأخبار</a>
+                                                <li className="nav-item" key={'34'}>
+                                                    <a className="nav-link" href="/categoryNewsTiles">التصنيفات</a>
                                                 </li>
-                                                <li className="nav-item" key={'33'}>
-                                                    <a className="nav-link" href="#">الرئيسية</a>
+                                                <li className="nav-item" key={'35'}>
+                                                    <a className="nav-link" href="/marketGraph">الأسواق</a>
                                                 </li>
-
+                                                <li className="nav-item dropdown" key={'3'}>
+                                                    <a className="nav-link dropdown-toggle" href="#" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
+                                                    </a>
+                                                    <ul className="dropdown-menu" aria-labelledby="moreOtions">
+                                                        {
+                                                            moreMenuItems.length && moreMenuItems.map((menuItem)=>{
+                                                                return (
+                                                                        <li className="nav-item" key={menuItem.title}>
+                                                                            <a className="nav-link" href={menuItem.url} >{menuItem.title}</a>
+                                                                        </li>
+                                                                    )
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </li>
                                             </ul>
                                         </div>
                                     </nav>
@@ -417,7 +450,7 @@ const Header = () =>{
                             </div>
                             <div className="search-header">
                                 <div className="search-box desktop_only d-none d-md-block">
-                                    <input type="text"  className="form-control" onChange={(e)=>handleEvent(e)} placeholder="ابحث في الموقع" />
+                                    <input type="text"  className="form-control" onClick={(e)=>handleEvent(e)} placeholder="ابحث في الموقع" />
                                     <span className="input-group-text"><i className="fa fa-search"></i></span>
                                 </div>
                                 <div className="search-box mobile_only d-md-none">
@@ -432,7 +465,7 @@ const Header = () =>{
                                     </ul>
                                 </div>
                                 {
-                                    Object.keys(data).length ? (<SearchDropDown data={data}/>) : ''
+                                    displaySerachDropDown && (<SearchDropDown data={data}/>)
                                 }
 
                             </div>

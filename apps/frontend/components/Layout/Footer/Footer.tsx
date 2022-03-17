@@ -56,16 +56,28 @@ const Footer = () =>{
                             <li key={'hgf'}><a href="/careers">الرئيسية</a></li>
                         </ul>
                     </div>
+                    <div className="col-12 text-center d-sm-none">
+                    <div className={styles.footerSocial}>
+                        <ul>
+                            <li  key={'asdlhsa'}><a title='Youtube'><i className='fab fa-youtube'></i></a></li>
+                            <li  key={'sdv3w'}><a title='Instagram'><i className='fab fa-instagram'></i></a></li>
+                            <li  key={'fcvxv'}><a title='Linkedin'><i className='fab fa-linkedin'></i></a></li>
+                            <li  key={'vd4w'}><a title='Twitter'><i className='fab fa-twitter'></i></a></li>
+                            <li  key={'cvfdh65'}><a title='Facebook'><i className='fab fa-facebook-f'></i></a></li>
+                        </ul>
+                    </div>
+                    </div>
                     <div className='col-lg-3 col-md-6 col-sm-6 order-lg-1 '>
                         <h4>إشترك في نشرتنا البريدية</h4>
                         <div className={styles.searchBox}>
                                     <input type="text" className="form-control" placeholder="ابحث في الموقع" />
                                 </div>
-                                <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول </button>
+                                <button className='btn btn-primary fs12_bold min_w111_h31' data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول </button>
                     </div>
                     <div className='col-lg-2 col-md-4 col-sm-6 pb-5 pb-sm-0  order-lg-0 me-auto ms-0 offset-1'>
                         <h4>اتصل بنا</h4>
-                        <button className='btn btn-outline-light' onClick={() => router.push('/contact')}>ابقى على تواصل</button>
+                        {/* <button className='btn btn-outline-light fs12_bold min_w111_h31' onClick={() => router.push('/contact')}>ابقى على تواصل</button> */}
+                        <button className='btn btn-primary fs12_bold min_w111_h31' onClick={() => router.push('/contact')}>ابقى على تواصل</button>
                     </div>
 
 
@@ -76,7 +88,7 @@ const Footer = () =>{
                 <div className={styles.footerBottom}>
                     <div className='row'>
                         <div className='col-md-6'>
-                            <p>© 2021 cnbcarabia.com All Rights Reserved </p>
+                            <p className='text-uppercase'>© 2021 cnbcarabia.com All Rights Reserved </p>
                         </div>
                         <div className='col-md-6 text-end text-md-start'>
                             <p>MARKET TECHNOLOGY POWERED BY ZAGTRADER</p>

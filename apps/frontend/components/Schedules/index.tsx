@@ -33,7 +33,9 @@ const Schedules = () => {
                         </ul>
                         <div className="tab-content" id="pills-tabContent">
                             <div className="tab-pane fade show active" id="schedule1">
-                                <p>KSA (GMT+3)</p>
+                                <div className="row">
+                                    <div className="col-11 offset-1 ms-0 me-auto">
+                                    <p>KSA (GMT+3)</p>
                                 <div className="table-responsive">
                                     <table className="table">
                                         <tr>
@@ -117,7 +119,8 @@ const Schedules = () => {
                                             </td>
                                         </tr>
                                     </table>
-                                </div>
+                                </div></div>
+                                    </div>
                             </div>
                             <div className="tab-pane fade" id="schedule2">..2.</div>
                             <div className="tab-pane fade" id="schedule3">.3..</div>

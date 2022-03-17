@@ -1,39 +1,38 @@
 <div class="row">
-    <div class="col-2">
+    <div class="col-md-3">
         <button nz-button [nzType]="'primary'" [routerLink]="['/quickLinks/add']">Add Quick Link</button>
     </div>
-    <div class="col-10">
+    <div class="col-md-9">
         <quick-filter></quick-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div class="m-t-30">
-                <nz-table #ordersListTable [nzData]="ordersList"  [nzShowPagination]="true" class="no-border-last">
+                <nz-table [nzShowPagination]="true" class="no-border-last">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Customer</th>
-                            <th>Date</th>
-                            <th>Amount</th>
+                            <th>Reorder</th>
+                            <th>Title</th>
+                            <th>Link</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of ordersListTable.data">
-                            <td>#{{item.id}}</td>
+                        <tr *ngFor="let link of allQuickLinks">
+                            <td></td>
+                            <td>{{link?.title}}</td>
+                            <td>{{link?.url}}</td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
-                                    <h6 class="m-l-10 m-b-0">{{item.name}}</h6>
-                                </div>
+                                <nz-badge *ngIf="link?.visible === true" nzStatus="success"></nz-badge>
+                                <nz-badge *ngIf="link?.visible === false" nzStatus="error"></nz-badge>
+                                <!-- <span class="text-capitalize">{{link.visible}}</span> -->
                             </td>
-                            <td>{{item.date}}</td>
-                            <td>${{item.amount | number:'3.2-5'}}</td>
                             <td>
-                                <nz-badge *ngIf="item.status == 'approved'" nzStatus="success"></nz-badge>
-                                <nz-badge *ngIf="item.status == 'rejected'" nzStatus="error"></nz-badge>
-                                <nz-badge *ngIf="item.status == 'pending'"  nzStatus="processing"></nz-badge> 
-                                <span class="text-capitalize">{{item.status}}</span>
+                                <div class="d-flex justify-content-between">
+                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/quickLinks/add/' + link?.id]"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteQuickLink(link?.id)"></i>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
