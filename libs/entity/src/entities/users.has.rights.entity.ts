@@ -4,7 +4,6 @@ import { Users } from "./users.entity";
 
 
 @Table({
-    paranoid : true,
     timestamps : true
 })
 export class UsersHasRights extends Model{
