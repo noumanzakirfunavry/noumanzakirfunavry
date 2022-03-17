@@ -64,7 +64,14 @@ export * from './request/generic-get-by-id/get.by.id.request.dto'
 //...............................Alerts.............................
 export * from './request/alert/create.alert.request.dto'
 export * from './request/alert/get.all.alerts.request.dto'
-
+//...............................Messages.............................
+export * from './request/message/create.message.request.dto'
+export * from './request/message/get.all.message.request.dto'
+//...............................Exclusive videos.............................
+export * from './request/exclusive-videos/create.exclusive.videos.request.dto'
+export * from './request/exclusive-videos/get.all.exclusive.videos.request.dto'
+//...............................Episodes.............................
+export * from './request/episodes/create.episode.request.dto'
 
 
 export * from './request/quickLinks/get.all.quick.links.request.dto'
@@ -163,3 +170,9 @@ export * from './response/live-stream-links/get.live.stream.link.by.id.response.
 //...............................Alerts.............................
 export * from './response/alert/get.all.alerts.response.dto'
 export * from './response/alert/get.alert.by.id.request.dto'
+//...............................Messages.............................
+export * from './response/message/get.all.messages.response.dto'
+export * from './response/message/get.message.by.id.response.dto'
+//...............................Exclusive videos.............................
+export * from './response/exclusive-videos/get.all.exclusive.videos.response.dto'
+export * from './response/exclusive-videos/get.exclusive.video.by.id.response.dto'

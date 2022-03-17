@@ -61,9 +61,13 @@ export class CreateNewsRequestDto{
     @Type(() => CreateSeoRequestDto)
     seoDetails : CreateSeoRequestDto
 
+    @IsArray()
+    @ArrayNotEmpty()
     @IsOptional()
     tagsIds : number[]
 
+    @IsArray()
+    @ArrayNotEmpty()
     @IsOptional()
     quotesIds : []
 
