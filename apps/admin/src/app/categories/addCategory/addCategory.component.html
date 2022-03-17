@@ -2,25 +2,24 @@
     <br>
     <br>
     <div class="col-12">
-      <form nz-form [nzLayout]="'vertical'">
+      <form [formGroup]="categoryForm" nz-form [nzLayout]="'vertical'" (ngSubmit)="categories()">
         <div class="row">
           <div class="col-12">
         <div class="row">
-          <div class="col-12">
+          <div class="col-md-12">
             <nz-form-item>
-              <nz-form-label [nzSpan]="6" nzFor="text">Title</nz-form-label>
-              <nz-form-control [nzSpan]="14">
-                <input nz-input placeholder="Enter Title" dir="rtl" />
+              <nz-form-label nzRequired [nzSpan]="6" nzFor="text">Title</nz-form-label>
+              <nz-form-control [nzSpan]="14" nzErrorTip="Please input Title!">
+                <input nz-input formControlName="title" placeholder="Enter Title" dir="rtl" />
               </nz-form-control>
             </nz-form-item>
           </div>
           <div class="col-md-12">
             <nz-form-item>
-              <nz-form-label [nzSpan]="6" >Parent Category</nz-form-label>
-              <nz-form-control [nzSpan]="14">
-              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Choose Parent Category (Optional)">
-                <nz-option nzValue="Parent Category 1" [nzLabel]="'Parent Category 1'"></nz-option>
-                <nz-option nzValue="Parent Category 2" [nzLabel]="'Parent Category 2'"></nz-option>
+              <nz-form-label nzRequired [nzSpan]="6" >Parent Category</nz-form-label>
+              <nz-form-control [nzSpan]="14" nzErrorTip="Please select Parent Category!">
+              <nz-select formControlName="parentCategoryId" nzShowSearch nzAllowClear nzPlaceHolder="Choose Parent Category">
+                <nz-option *ngFor="let cat of allCategories" [nzValue]="cat?.id" [nzLabel]="cat?.title"></nz-option>
               </nz-select>
             </nz-form-control>
             </nz-form-item>
@@ -28,29 +27,30 @@
             <div class="col-md-12">
               <nz-form-item>
                 <nz-form-control [nzSpan]="14">
-                  <nz-switch class="mr-3"> </nz-switch> Active 
+                  <nz-switch class="mr-3" formControlName="isActive"> </nz-switch> Active 
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-12">
               <nz-form-item>
                 <nz-form-control [nzSpan]="14">
-                  <nz-switch class="mr-3"> </nz-switch> Display in Category Menu 
+                  <nz-switch class="mr-3" formControlName="displayInCategoryMenu"> </nz-switch> Display in Category Menu 
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-12">
               <nz-form-item>
                 <nz-form-control [nzSpan]="14">
-                  <nz-switch class="mr-3"> </nz-switch> Display in Homepage 
+                  <nz-switch class="mr-3" formControlName="displayInHomePage"> </nz-switch> Display in Homepage 
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-12">
               <nz-form-item>
                 <nz-form-control [nzSpan]="14">
-                  <button class="mr-3" nz-button nzType="primary">Save</button>
-                  <button nz-button nzType="default">Cancel</button>
+                  <button *ngIf="!categoryId" class="mr-3" nz-button nzType="primary">Save</button>
+                  <button *ngIf="categoryId" class="mr-3" nz-button nzType="primary">Update</button>
+                  <!-- <button nz-button nzType="default">Cancel</button> -->
                 </nz-form-control>
               </nz-form-item>
             </div>
