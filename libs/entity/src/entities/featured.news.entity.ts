@@ -5,7 +5,6 @@ import { Users } from "./users.entity";
 
 
 @Table({
-    paranoid : true,
     timestamps : true
 })
 export class FeaturedNews extends Model{

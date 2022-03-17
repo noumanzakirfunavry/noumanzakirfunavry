@@ -1,8 +1,10 @@
-import { GenericResponseDto, RegisterAdminRequestDto, UpdatePasswordRequestDto, UserLoginDto } from '@cnbc-monorepo/dtos';
+import { GenericResponseDto, RegisterAdminRequestDto, RequestResetPasswordRequestDto, ResetPasswordRequestDto, UpdatePasswordRequestDto, UserLoginDto } from '@cnbc-monorepo/dtos';
 import { Rights, Roles, Sessions, Users, UsersHasRights } from '@cnbc-monorepo/entity';
-import { ForbiddenException, HttpStatus, Inject, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Helper, sequelize } from '@cnbc-monorepo/utility'
+import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
+import { MailService } from '@cnbc-monorepo/mail';
 @Injectable()
 export class AnthenticationService {
     constructor
@@ -14,7 +16,8 @@ export class AnthenticationService {
             private jwtService: JwtService,
             @Inject('SESSIONS_REPOSITORY')
             private sessionRepository: typeof Sessions,
-            private helperService: Helper
+            private helperService: Helper,
+            private mailService: MailService
         ) {
     }
 
@@ -133,12 +136,15 @@ export class AnthenticationService {
     }
 
 
-    async registerAdmin(roles, body: RegisterAdminRequestDto) {
+    async registerAdmin(roles, body: RegisterAdminRequestDto): Promise<GenericResponseDto> {
         try {
-            await sequelize.transaction(async t => {
+            return await sequelize.transaction(async t => {
                 const transactionHost = { transaction: t };
                 if (roles === "Admin" && body.rolesId === 3) {
-                    throw new ForbiddenException("Admin cannot add a super admin")
+                    throw new CustomException(
+                        Exceptions[ExceptionType.ADMIN_CANNOT_ADD_SUPER_ADMIN].message,
+                        Exceptions[ExceptionType.ADMIN_CANNOT_ADD_SUPER_ADMIN].status
+                    )
                 }
                 else {
                     // Create User
@@ -146,28 +152,30 @@ export class AnthenticationService {
                     if (user_info) {
                         const rights_added = await this.addUserRights(body.rights, user_info, transactionHost)
                         if (rights_added) {
-                            console.log("🚀 ~ file: anthentication.service.ts ~ line 149 ~ AnthenticationService ~ registerAdmin ~ rights_added", rights_added)
                             return new GenericResponseDto(
                                 HttpStatus.OK,
                                 "Added Successfully!"
                             )
                         }
                         else {
-                            throw new InternalServerErrorException("Failed to add admin")
+                            throw new CustomException(
+                                Exceptions[ExceptionType.SOMETHING_WENT_WRONG].message,
+                                Exceptions[ExceptionType.SOMETHING_WENT_WRONG].status
+                            )
                         }
                     }
                     else {
-                        throw new InternalServerErrorException("Failed to add admin")
+                        throw new CustomException(
+                            Exceptions[ExceptionType.SOMETHING_WENT_WRONG].message,
+                            Exceptions[ExceptionType.SOMETHING_WENT_WRONG].status
+                        )
                     }
                 }
             });
         }
         catch (err) {
             console.log("🚀 ~ file: anthentication.service.ts ~ line 139 ~ AnthenticationService ~ registerAdmin ~ err", err)
-            return new GenericResponseDto(
-                err.status,
-                err.message
-            )
+            return err
         }
     }
     async addUserRights(rights, user, transactionHost) {
@@ -183,6 +191,105 @@ export class AnthenticationService {
         const userObj = body
         userObj.password = await this.helperService.encryptPassword(userObj.password)
         return await this.usersRepository.create(userObj, transactionHost)
+    }
+    async requestResetPassword(body: RequestResetPasswordRequestDto): Promise<GenericResponseDto> {
+        try {
+            const email_exists = await this.emailExists(body.email)
+            if (email_exists) {
+                const result = await this.mailService.mailTester(body.email)
+                if (result) {
+                    return new GenericResponseDto(
+                        HttpStatus.OK,
+                        "Email sent successfully"
+                    )
+                }
+                else {
+                    throw new CustomException(
+                        Exceptions[ExceptionType.SOMETHING_WENT_WRONG].message,
+                        Exceptions[ExceptionType.SOMETHING_WENT_WRONG].status
+                    )
+                }
+            }
+            else {
+                throw new CustomException(
+                    Exceptions[ExceptionType.EMAIL_NOT_FOUND].message,
+                    Exceptions[ExceptionType.EMAIL_NOT_FOUND].status
+                )
+            }
+        }
+        catch (err) {
+            console.log("🚀 ~ file: anthentication.service.ts ~ line 206 ~ AnthenticationService ~ mailtesting ~ err", err)
+            throw err
+        }
+    }
+
+    async emailExists(email) {
+        return await this.usersRepository.findOne({
+            where: {
+                email: email
+            }
+        })
+    }
+
+    async resetPassword(token, body: ResetPasswordRequestDto): Promise<GenericResponseDto> {
+        try {
+            const decodedToken = this.jwtService.decode(token)
+            if (decodedToken["exp"] > 0) {
+                const response = await this.usersRepository.update(
+                    {
+                        password: await this.helperService.encryptPassword(body.password)
+                    },
+                    {
+                        where: {
+                            email: decodedToken['email']
+                        }
+                    })
+                if (response) {
+                    return new GenericResponseDto(
+                        HttpStatus.OK,
+                        "Reset password successfully"
+                    )
+                }
+                else {
+                    throw new CustomException(
+                        Exceptions[ExceptionType.SOMETHING_WENT_WRONG].message,
+                        Exceptions[ExceptionType.SOMETHING_WENT_WRONG].status
+                    )
+                }
+
+            }
+            else {
+                throw new CustomException(
+                    Exceptions[ExceptionType.TIME_EXPIRED].message,
+                    Exceptions[ExceptionType.TIME_EXPIRED].status
+                )
+            }
+
+        }
+        catch (err) {
+            console.log("🚀 ~ file: anthentication.service.ts ~ line 239 ~ AnthenticationService ~ resetPassword ~ err", err)
+            throw err
+        }
+
+    }
+    async logOut(sessionId): Promise<GenericResponseDto> {
+        const response = this.sessionRepository.update({ endTime: new Date() }, {
+            where: {
+                id: sessionId
+            }
+        })
+        if (response) {
+            return new GenericResponseDto(
+                HttpStatus.OK,
+                "Logged out successfully"
+            )
+        }
+        else {
+            throw new CustomException(
+                Exceptions[ExceptionType.SOMETHING_WENT_WRONG].message,
+                Exceptions[ExceptionType.SOMETHING_WENT_WRONG].status
+            )
+        }
     }
 }
 
