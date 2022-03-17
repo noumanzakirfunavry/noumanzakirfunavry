@@ -14,7 +14,7 @@ export class QuickLinksService{
         let offset = 0
         query.pageNo = query.pageNo - 1;
         if (query.pageNo) offset =query.limit * query.pageNo;
-        const result=await this.quickLinksRepo.findAll({offset:offset,limit:query.limit})
+        const result=await this.quickLinksRepo.findAll({limit:query.limit,offset:offset})
         if(!result.length){
             throw new CustomException( 
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -36,6 +36,7 @@ export class QuickLinksService{
         return new GetQuickLinkByIdResponseDto(HttpStatus.OK,"FETCHED SUCCESSFULLY",result)
     }
     async addQuickLinks(body){
+        //TODO need to add new positioning at top feature or position shift feature
         const result=await this.quickLinksRepo.create(body)
         if(!result){
             throw new CustomException(   
@@ -46,18 +47,19 @@ export class QuickLinksService{
         return new AddQuickLinksResponseDto(HttpStatus.OK,"CREATED SUCCESSFULLY",result)
     }
 
-    async updateQuickLinks(body:UpdateQuickLinksRequestDto){
-        const quote=await this.quickLinksRepo.findOne({where:{id:body.id}})
-        if(!quote){
+    async updateQuickLinks(id:number,body:UpdateQuickLinksRequestDto){
+        const result=await this.quickLinksRepo.update(body, {where:{id}})
+        if(!result[0]){
             throw new CustomException(
-                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-                Exceptions[ExceptionType.RECORD_NOT_FOUND].status  
+                Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
+                Exceptions[ExceptionType.UNABLE_TO_UPDATE].status  
             ) 
         }
-        const {id,...rest}=body
-        const result=await quote.update(rest)
-        return new UpdateQuickLinksResponsDto(HttpStatus.OK,"UPDATED SUCCESSFULLY", result)  
+        const link=await this.quickLinksRepo.findOne({where:{id}})
+        return new UpdateQuickLinksResponsDto(HttpStatus.OK,"UPDATED SUCCESSFULLY", link)  
     }
+
+
     async deleteByIds(ids:number[]){
         const result=await this.quickLinksRepo.destroy({where:{id:ids}})
         if(!result){

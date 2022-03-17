@@ -16,7 +16,7 @@ const Index = () =>{
                     <VideoNews/>
                 </div>
                 <div className='col-lg-3'>
-                    <SideBarWithVideo/>
+                    <SideBarWithVideo title={'أحدث مقاطع الفيديو'}/>
                 </div>
             </div>
             </div>

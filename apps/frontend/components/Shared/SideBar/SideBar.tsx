@@ -23,7 +23,9 @@ const SideBar:FC<SideBarProps> = ({sideBarSequence}) =>{
                             }
                             {
                                  sequence.componentType === 'SmallBanner' && (
-                                    <SideBanner  key={'Small'} size={"Small"}></SideBanner>
+                                    <div className="mb-4">
+                                        <SideBanner  key={'Small'} size={"Small"}></SideBanner>
+                                    </div>
                                  )
                             }
                             {
