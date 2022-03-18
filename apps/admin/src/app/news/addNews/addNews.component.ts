@@ -4,13 +4,18 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { NewsModal } from 'src/app/modals/newsModal';
 @Component({
     selector: 'app-addNews',
     templateUrl: './addNews.component.html'
 })
 
 export class AddNewsComponent implements OnInit {
+    currentDate=new Date()
+    newsModal:NewsModal;
+    newsForm:FormGroup;
+    seoForm: FormGroup;
+
     quotesForm: FormGroup;
     allQuotes: any;
     pagination: {limit: number, pageNo: number, name?: string} = {limit: 10, pageNo: 1}
@@ -83,32 +88,14 @@ export class AddNewsComponent implements OnInit {
             comment: 'The palatable sensation we lovingly refer to as The Cheeseburger has a distinguished and illustrious history. It was born from humble roots, only to rise to well-seasoned greatness.'
         }
     ];
-    fileList = [
-        {
-            uid: -1,
-            name: 'product-1.jpg',
-            status: 'done',
-            url: 'assets/images/others/product-1.jpg'
-        },
-        {
-            uid: 0,
-            name: 'product-2.jpg',
-            status: 'done',
-            url: 'assets/images/others/product-2.jpg'
-        },
-        {
-            uid: 1,
-            name: 'product-3.jpg',
-            status: 'done',
-            url: 'assets/images/others/product-3.jpg'
-        }
-    ];
+
 
     listOfOption: Array<{ label: string; value: string }> = [];
     size = 'default';
     singleValue = 'a10';
     multipleValue = ['a10', 'c12'];
     tagValue = ['a10', 'c12', 'tag'];
+    
 
     constructor(private apiService: ApiService, private fb: FormBuilder) {}
 
@@ -122,9 +109,61 @@ export class AddNewsComponent implements OnInit {
             children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
         }
         this.listOfOption = children;
+        this.initNewsForm()
+    }
+    initNewsForm(){
+        this.newsForm = this.fb.group({
+            title: [null, [Validators.required]],
+            content: [null, [Validators.required]],
+            isPro: [null, [Validators.required]],
+            visible: [null, [Validators.required]],
+            contentType: [null, [Validators.required]],
+            authorName: [null, [Validators.required]],
+            newsType: [null, [Validators.required]],
+            showOnHomepage: [null, [Validators.required]],
+            isActive: [null, [Validators.required]],
+            categoryIds: [null, [Validators.required]],
+            tagsIds: [null, [Validators.required]],
+            quotesIds: [null, [Validators.required]],
+            seoTitle: [null, [Validators.required]],
+            slugLine: [null, [Validators.required]],
+            description: [null, [Validators.required]],
+            keywords: [null, [Validators.required]]
+          });
+          this.seoForm = this.fb.group({
+            title: [null, [Validators.required]],
+            slugLine: [null, [Validators.required]],
+            description: [null, [Validators.required]],
+            keywords: [null, [Validators.required]]
+          });
+
     }
     onChange($event: string[]): void {
         console.log($event);
+    }
+
+    saveNews(){
+        for (const i in this.newsForm.controls) {
+            this.newsForm.controls[i].markAsDirty();
+            this.newsForm.controls[i].updateValueAndValidity();
+        }
+        if(this.newsForm.valid) {
+            const obj= this.newsForm.value;
+            ;
+            obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
+            this.apiService.sendRequest(requests.addNews,'post', this.newsModal.toServerModal(obj)).subscribe((res:any) => {
+                console.log("News", res);
+                this.newsForm.reset();
+                // if(this.categoryId) {
+                //     this.message.create('success', `Category Updated Successfully`)
+                // }
+                // else {
+                //     // this.message.create('success', `Category Added Successfully`)
+                // }
+            })
+        }
+        console.log("form",this.newsForm.value);
+        
     }
 
     handlePreview = (file: NzUploadFile) => {
