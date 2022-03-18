@@ -1,14 +1,14 @@
 import styles from "./sidebarvideo.module.css";
 import newsImage from "../../styles/images/biden2.jpg";
 
-const SideBarWithVideo = () => {
+const SideBarWithVideo = ({title}) => {
 
     return (
         <>
         <div className="videNewspage_sidebar">
             <div className={styles.sidebar}>
             <div className={styles.themeTitle}>
-                <h4>أحدث مقاطع الفيديو</h4>
+             <h4>{title}</h4>
             </div>
             <div className={styles.listBody}>
                 <div className="NewsList VideoTextBox">

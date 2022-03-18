@@ -216,6 +216,13 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
                               </div>
                             </li>
                         </ul>
+                        {
+
+                    <div className="text-center mt-3 d-lg-none more_btn">
+                        <button className="btn btn-outline-primary">المزيد</button>
+                    </div>
+
+            }
                       </div>
                   </>
                 )

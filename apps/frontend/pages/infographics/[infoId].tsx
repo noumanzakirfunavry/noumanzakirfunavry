@@ -2,8 +2,10 @@
 
 import InfographicsDetails from "apps/frontend/components/Infographics/detials";
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
+import HorizontalFooter2NewsSlider from "apps/frontend/components/Shared/NewsFooter2Slider";
 import NewsInfoBox from "apps/frontend/components/Shared/NewsInfoBox/NewsInfoBox";
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
+import Title from "apps/frontend/components/Title";
 import NewsImage from "../../styles/images/biden2.jpg";
 
 const Index = () =>{
@@ -80,23 +82,58 @@ const Index = () =>{
             <div className="container">
                 <AdBanner />
 
-                <div className="pageSimpleTitle mb-5">
-                    <h6 className="text-primary">إنفوغرافيك</h6>
+                <div className="row">
+                    <div className="col-1"></div>
+                    <div className="col-9">
+                    <div className="pageSimpleTitle mb-5">
+                    <h6 className="text-secondary color-secondary fs20_bold">إنفوغرافيك</h6>
                     <h1>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h1>
                 </div>
-                <div className="row">
-                    <div className="col-lg-8">
-                        <NewsInfoBox/>
                     </div>
                 </div>
                 <div className="row">
-                    <div className='col-lg-8'>
-                        <InfographicsDetails/>
+
+                    <div className="col-lg-7 ofset-1 ms-0 me-auto">
+                        <NewsInfoBox/>
                     </div>
-                    <div className='col-lg-4'>
+                    <div className='col-lg-3 offset-1'>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className='col-lg-7 offset-1 ms-0 me-auto'>
+                        <div className="infographics_detail">
+                        <InfographicsDetails/>
+                        </div>
+                    </div>
+                    <div className='col-lg-3 offset-1'>
                         <SideBar sideBarSequence={[{componentType:'numbered', position:1, title:'الأكثر تداولا'}, {componentType:'SmallBanner', position:2}, {componentType:'simple', position:2, title:'الأكثر قراءة'}, {componentType:'LargeBanner', position:2}]}/>
                     </div>
                 </div>
+                <div className="row">
+                    <div className="col-8">
+                    <div className="page-categories">
+                    <h6>العلامات</h6>
+                    <ul>
+                        <li><a href="">الرئيسية تسجيل الدخول </a></li>
+                        <li><a href="">تسجيل الدخول </a></li>
+                        <li><a href="">الرئيسية</a></li>
+                        <li><a href="">الرئيسية تسجيل الدخول </a></li>
+                        <li><a href="">الرئيسية</a></li>
+                        <li><a href="">تسجيل الدخول </a></li>
+                        <li><a href="">الرئيسية</a></li>
+                        <li><a href="">الرئيسية تسجيل الدخول </a></li>
+                        <li><a href="">الرئيسية</a></li>
+                        <li><a href="">تسجيل الدخول </a></li>
+                    </ul>
+                </div>
+                    </div>
+                </div>
+                <div className="mb-3 mt-5">
+                <Title styles={"yellowTitle"}>
+                    <h3>أخبار ذات صلة</h3>
+                </Title>
+                <HorizontalFooter2NewsSlider />
+            </div>
             </div>
         </>
     )

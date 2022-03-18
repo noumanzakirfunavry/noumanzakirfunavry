@@ -14,7 +14,7 @@ const Header = () =>{
     const [displaySerachDropDown, setDisplaySerachDropDown] = useState<boolean>(false)
     const [data, setData] = useState<any>({})
     const router = useRouter()
-    const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/categoryNewsTiles'},{title:'أخبار عاجلة', url:'/breakingNews'}, {title:"أخبار الموالية", url:"/newsDetails"}])
+    const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}])
 
 
     useEffect(()=>{
@@ -449,14 +449,14 @@ const Header = () =>{
                                 </div>
                             </div>
                             <div className="search-header">
-                                <div className="search-box desktop_only d-none d-md-block">
+                                <div className="search-box desktop_only">
                                     <input type="text"  className="form-control" onClick={(e)=>handleEvent(e)} placeholder="ابحث في الموقع" />
                                     <span className="input-group-text"><i className="fa fa-search"></i></span>
                                 </div>
-                                <div className="search-box mobile_only d-md-none">
+                                {/* <div className="search-box mobile_only d-md-none">
                                 <input type="text"  className="form-control" onChange={(e)=>handleEvent(e)}  />
                                     <span className="input-group-text"><i className="fa fa-search"></i></span>
-                                </div>
+                                </div> */}
                                 <div className="header-search-nav">
                                     <ul>
                                         <li key={'wser'}><a href="/liveTv">المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></li>

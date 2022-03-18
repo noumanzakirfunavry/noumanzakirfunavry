@@ -14,7 +14,7 @@ const CareersSlider = () =>{
        const previous = () =>{
         ref.current.slickPrev()
     }
-    
+
         const [settings, setSettings] = useState({
             dots: false,
             infinite: true,
@@ -81,13 +81,13 @@ const CareersSlider = () =>{
                         </div>
                     </div>
                     <div className="col-sm-6">
-                        <h2 className="text-primary text-start montserrat text-extra-bold mb-4">CURRENT JOBS</h2>
+                        <h2 className="text-primary text-start montserrat text-extra-bold mb- currentJob_heading">CURRENT JOBS</h2>
                     </div>
                 </div>
 
 
                 <div className="newsSlider">
-                    
+
                     <Slider ref={ref} {...settings}>
                             <div className="slider-item">
                                 <div className="NewsBox">
@@ -108,7 +108,7 @@ const CareersSlider = () =>{
                                     <div className="newscontent">
                                         <p>Posted 28 November 2021</p>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div className="slider-item">
@@ -119,7 +119,7 @@ const CareersSlider = () =>{
                                     <div className="newscontent">
                                         <p>Posted 28 November 2021</p>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div className="slider-item">
@@ -130,7 +130,7 @@ const CareersSlider = () =>{
                                     <div className="newscontent">
                                         <p>Posted 28 November 2021</p>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div className="slider-item">
@@ -141,7 +141,7 @@ const CareersSlider = () =>{
                                     <div className="newscontent">
                                         <p>Posted 28 November 2021</p>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div className="slider-item">
@@ -152,7 +152,7 @@ const CareersSlider = () =>{
                                     <div className="newscontent">
                                         <p>Posted 28 November 2021</p>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div className="slider-item">
@@ -163,7 +163,7 @@ const CareersSlider = () =>{
                                     <div className="newscontent">
                                         <p>Posted 28 November 2021</p>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div className="slider-item">
@@ -174,7 +174,7 @@ const CareersSlider = () =>{
                                     <div className="newscontent">
                                         <p>Posted 28 November 2021</p>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                     </Slider>

@@ -47,7 +47,7 @@ export class AppLoggerMiddleware implements NestMiddleware {
         AppLoggerMiddleware.logger.log(
           `${id}: -RESPONSE- : ${method} path: ${baseUrl} Code: ${response.statusCode}  BODY:  ${body}`,
         );
-        oldEnd.apply(response, arguments);
+        return oldEnd.apply(response, arguments);
       };
     }
     next();

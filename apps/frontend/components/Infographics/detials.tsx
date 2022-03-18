@@ -1,5 +1,8 @@
 
 import NewsImage from "../../styles/images/biden2.jpg";
+import InfographiscModal from "./infographicModal";
+import MediaSlider from "./mediaSlider";
+import MediaSliderModal from "./mediaSlider";
 
 const InfographicsDetails = () => {
 
@@ -7,39 +10,28 @@ const InfographicsDetails = () => {
         <>
             <div className='pt-3'>
                 <div className="mb-3">
-                    <img className="img-fluid" src={NewsImage.src} />
+                    <img className="img-fluid" data-bs-toggle="modal" data-bs-target="#mediaSlider" src={NewsImage.src} />
                 </div>
                 <div className="mb-3">
-                    <img className="img-fluid" src={NewsImage.src} />
+                    <img className="img-fluid" data-bs-toggle="modal" data-bs-target="#mediaSlider" src={NewsImage.src} />
                 </div>
                 <div className="mb-3">
-                    <img className="img-fluid" src={NewsImage.src} />
+                    <img className="img-fluid" data-bs-toggle="modal" data-bs-target="#mediaSlider" src={NewsImage.src} />
                 </div>
                 <div className="mb-3">
-                    <img className="img-fluid" src={NewsImage.src} />
+                    <img className="img-fluid" data-bs-toggle="modal" data-bs-target="#mediaSlider" src={NewsImage.src} />
                 </div>
                 <div className="mb-3">
-                    <img className="img-fluid" src={NewsImage.src} />
+                    <img className="img-fluid" data-bs-toggle="modal" data-bs-target="#mediaSlider" src={NewsImage.src} />
                 </div>
                 <div className="mb-3">
-                    <img className="img-fluid" src={NewsImage.src} />
+                    <img className="img-fluid" data-bs-toggle="modal" data-bs-target="#mediaSlider" src={NewsImage.src} />
                 </div>
 
-                <div className="page-categories">
-                    <h6>العلامات</h6>
-                    <ul>
-                        <li><a href="">الرئيسية تسجيل الدخول </a></li>
-                        <li><a href="">تسجيل الدخول </a></li>
-                        <li><a href="">الرئيسية</a></li>
-                        <li><a href="">الرئيسية تسجيل الدخول </a></li>
-                        <li><a href="">الرئيسية</a></li>
-                        <li><a href="">تسجيل الدخول </a></li>
-                        <li><a href="">الرئيسية</a></li>
-                        <li><a href="">الرئيسية تسجيل الدخول </a></li>
-                        <li><a href="">الرئيسية</a></li>
-                        <li><a href="">تسجيل الدخول </a></li>
-                    </ul>
-                </div>
+                <InfographiscModal modalId={"mediaSlider"} >
+                    <MediaSlider />
+                </InfographiscModal>
+
             </div>
         </>
     )
