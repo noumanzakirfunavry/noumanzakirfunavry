@@ -32,7 +32,9 @@ export class QuickLinkComponent implements OnInit{
             this.allQuickLinks= res.quickLinks;
             console.log("ALL-QUICK-LINKS", this.allQuickLinks);
             this.loading = false;
-        })
+        },err => {
+            this.loading = false;
+          })
     }
 
     deleteQuickLink(link: number) {
@@ -45,8 +47,9 @@ export class QuickLinkComponent implements OnInit{
 
     receiveStatus() {
         this.pagination.status= this.status;
+        console.log("PAG-STATUS", this.pagination.status);
         this.pagination.pageNo= 1;
-        this.getAllQuickLinks();
+        this.getAllQuickLinks();        
     }
 
     onItemChecked(id: number, checked: boolean): void {
