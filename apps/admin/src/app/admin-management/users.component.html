@@ -9,7 +9,7 @@
         <nz-card>
           
             <div class="">
-                <nz-table #ordersListTable [nzData]="ordersList"  [nzShowPagination]="true" class="no-border-last">
+                <nz-table [nzData]="allAdmins" [nzLoading]="loading" [nzShowPagination]="true" class="no-border-last">
                     <thead>
                         <tr>
                             <th>Admin Name</th>
@@ -21,26 +21,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of ordersListTable.data">
-                            <td [nzChecked]="setOfCheckedId.has(cat?.id)" (nzCheckedChange)="onItemChecked(cat?.id, $event)">{{item.name}}</td>
+                        <tr *ngFor="let admin of allAdmins">
+                            <td [nzChecked]="setOfCheckedId.has(admin?.id)" (nzCheckedChange)="onItemChecked(admin?.id, $event)">{{admin?.name}}</td>
+                            <td>{{admin?.userName}}</td>
+                            <td></td>
+                            <td>{{admin?.email}}</td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
-                                    <h6 class="m-l-10 m-b-0">{{item.name}}</h6>
-                                </div>
-                            </td>
-                            <td>{{item.date}}</td>
-                            <td>${{item.amount | number:'3.2-5'}}</td>
-                            <td>
-                                <nz-badge *ngIf="item.status === 'approved'" nzStatus="success"></nz-badge>
-                                <nz-badge *ngIf="item.status === 'rejected'" nzStatus="error"></nz-badge>
-                                <nz-badge *ngIf="item.status === 'pending'"  nzStatus="processing"></nz-badge> 
+                                <nz-badge *ngIf="admin?.isActive === true" nzStatus="success"></nz-badge>
+                                <nz-badge *ngIf="admin?.isActive === false" nzStatus="error"></nz-badge>
                                 <!-- <span class="text-capitalize">{{item.status}}</span> -->
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/add/' + cat?.id]"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteCategories(cat?.id)"></i>
+                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/admins/update/' + admin?.id]"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteAdmins(admin?.id)"></i>
                                 </div>
                             </td>
                         </tr>

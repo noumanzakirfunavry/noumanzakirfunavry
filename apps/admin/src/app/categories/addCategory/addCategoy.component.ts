@@ -36,7 +36,7 @@ export class AddCategoryComponent implements OnInit {
         this.getAllCategories();
         this.categoryForm = this.fb.group({
             title: [null, [Validators.required]],
-            parentCategoryId: [null, [Validators.required]],
+            parentCategoryId: [null],
             isActive: [false],
             displayInCategoryMenu: [false],
             displayInHomePage: [false]
@@ -76,7 +76,7 @@ export class AddCategoryComponent implements OnInit {
             console.log("CATEGORY-BY-ID", this.categoryById);
             this.categoryForm = this.fb.group({
                 title: [this.categoryById?.title || null, [Validators.required]],
-                parentCategoryId: [this.categoryById?.parentCategoryId || null, [Validators.required]],
+                parentCategoryId: [this.categoryById?.parentCategoryId || null],
                 isActive: [this.categoryById?.isActive || false],
                 displayInCategoryMenu: [this.categoryById?.displayInCategoryMenu || false],
                 displayInHomePage: [this.categoryById?.displayInHomePage || false]

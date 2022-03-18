@@ -1,5 +1,7 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { requests } from 'src/app/shared/config/config';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
     selector: 'app-addBreakingNews',
@@ -13,37 +15,41 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
       ]
 })
 
-export class AddBreakingNewsComponent {
-    validateForm: FormGroup;
-
-    submitForm(): void {
-      for (const i in this.validateForm.controls) {
-        this.validateForm.controls[i].markAsDirty();
-        this.validateForm.controls[i].updateValueAndValidity();
-      }
-    }
+export class AddBreakingNewsComponent implements OnInit {
+  breakingNewsForm: FormGroup;
   
-    get isHorizontal(): boolean {
-      return this.validateForm.controls.formLayout?.value === 'horizontal';
-    }
-  
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder, private apiService: ApiService) {}
   
     ngOnInit(): void {
-      this.validateForm = this.fb.group({
-        formLayout: ['horizontal'],
-        fieldA: [null, [Validators.required]],
-        filedB: [null, [Validators.required]]
+      this.breakingNewsForm = this.fb.group({
+        title: [null, [Validators.required]],
+        newsLink: [null, [Validators.required]],
+        isActive: [false],
+        isPushNotificationActive: [false],
+        IsTwitterActive: [false],
+        isFacebookActive: [false]
       });
     }
-}    
-// import { Component } from '@angular/core'
 
-// @Component({
-//     selector: 'app-addquickLink',
-//     templateUrl: './addQuickLinks.component.html'
-// })
+    breakingNews() {
+      for (const i in this.breakingNewsForm.controls) {
+        this.breakingNewsForm.controls[i].markAsDirty();
+        this.breakingNewsForm.controls[i].updateValueAndValidity();
+      }
+      if(this.breakingNewsForm.valid) {
+        const obj= this.breakingNewsForm.value;
+        obj['newsId']= 1;
+        this.apiService.sendRequest(requests.addBreakingNews, 'post', obj).subscribe((res:any) => {
+          console.log("ADD-BREAKING-NEWS", res);
+        })
+      }
+    }
 
-// export class AddQuickLinksComponent {
-   
-// }    
+    enableDisable(e?: MouseEvent) {
+      this.breakingNewsForm.value.isPushNotificationActive= !this.breakingNewsForm.value.isPushNotificationActive; 
+      console.log("PUSH-NOTIF", this.breakingNewsForm.value.isPushNotificationActive);
+      e.preventDefault();
+           
+    }
+
+}  
