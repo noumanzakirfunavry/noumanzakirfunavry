@@ -14,13 +14,13 @@ const Index = () =>{
                 <div className="pageTitle PageTitleYellow">
                     <h2 className="montserrat text-extra-bold">CNBC ARABIA CAREERS</h2>
                 </div>
-                
+
                 <div className="container">
                 <CareersSlider/>
                 <hr></hr>
                 <div className='row justify-content-center'>
                     <div className="col-md-6">
-                        <JobOpportunities/>
+                        <JobOpportunities title={'FUTURE JOB OPPORTUNITIES'} description={'Are you interested in working with CNBC Arabia? Fill the form below and we will keep you in mind for any future job offerings'}/>
                     </div>
                 </div>
             </div>

@@ -4,13 +4,13 @@ const PresenterDetails = () => {
     return (
         <>
             <div className='row'>
-                <div className="col-md-4 mb-4">
+                <div className="col-md-4 offset-1 mb-4 ms-0 me-auto">
                     <img className="img-fluid" src={presenterimg.src} />
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-6 offset-1">
                     <h1>الطيب عبد الماجد</h1>
                     <h5 className="mb-3">كبير مذيعي CNBC عربية</h5>
-                    <a className="mb-3 text-primary d-block" title="Follow on Twitter">
+                    <a className="mb-3 text-secondary color-secondary fs20_bold d-block" title="Follow on Twitter">
                         <i className="fab fa-twitter"></i>
                     </a>
                     <p>كان يؤهل نفسه في بداية حياته ليكون رجل قانون، يطبق المواد والبنود واللوائح بحذافيرها ولا يسمح بالخروج عنها!

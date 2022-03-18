@@ -21,14 +21,14 @@ const HorizontalMediaScrollBar:FC = () =>{
             dots: false,
             infinite: true,
             speed: 500,
-            slidesToShow: 3,
+            slidesToShow: 2.5,
             autoplay: true,
             autoplaySpeed: 5000,
             pauseOnHover: true,
             className: "center",
-            centerMode: true,
+            centerMode: false,
             centerPadding: "60px",
-            slidesToScroll: 3,
+            slidesToScroll: 1,
             initialSlide: 0,
             rtl: false,
 
@@ -38,16 +38,24 @@ const HorizontalMediaScrollBar:FC = () =>{
               {
                 breakpoint: 1800,
                 settings: {
-                  slidesToShow: 3,
-                  slidesToScroll: 3,
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                }
+              },
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 1.5,
+                  slidesToScroll: 1,
                   infinite: true,
                 }
               },
               {
                 breakpoint: 992,
                 settings: {
-                  slidesToShow: 2,
-                  slidesToScroll: 2,
+                  slidesToShow: 1.5,
+                  slidesToScroll: 1,
                   initialSlide: 2
                 }
               },
@@ -62,7 +70,7 @@ const HorizontalMediaScrollBar:FC = () =>{
           });
     return (
         <>
-      <div className="">
+      <div className="container">
       <div className="newsSlider scrollbarWrap">
           <div className="container">
           <div className="TileBar scrollbarHeader">

@@ -83,6 +83,8 @@ export * from './entities/editors.choice.news.entity'
 export * from './entities/email.subscribers.entity'
 export * from './entities/episodes.entity'
 export * from './entities/episode.visitors.entity'
+export * from './entities/episodes.has.quotes.entity'
+export * from './entities/episodes.has.tags.entity'
 export * from './entities/exclusive.videos.entity'
 export * from './entities/featured.news.entity'
 export * from './entities/infographics.attachments.entity'
@@ -121,7 +123,9 @@ export * from './entities/tags.entity'
 export * from './entities/trending.news.entity'
 export * from './entities/users.entity'
 export * from './entities/users.has.rights.entity'
-
+export * from './entities/news.has.tags.entity'
+export * from './entities/news.has.quotes.entity'
+export * from './entities/news.has.categories.entity'
 export const Entities=[
     Alerts,
     AlexaAudio,
