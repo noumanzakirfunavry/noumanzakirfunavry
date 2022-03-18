@@ -4,21 +4,25 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NewsModal } from 'src/app/modals/newsModal';
+import { NewsModal } from 'src/app/common/models/newsModal';
 @Component({
     selector: 'app-addNews',
     templateUrl: './addNews.component.html'
 })
 
 export class AddNewsComponent implements OnInit {
-    currentDate=new Date()
-    newsModal:NewsModal;
-    newsForm:FormGroup;
-    seoForm: FormGroup;
+    currentDate = new Date()
+    newsModal: NewsModal;
+    newsForm: FormGroup;
 
     quotesForm: FormGroup;
-    allQuotes: any;
-    pagination: {limit: number, pageNo: number, name?: string} = {limit: 10, pageNo: 1}
+    tagForm: FormGroup;
+
+    allQuotes: any = [];
+    allTags: any = [];
+    allCategories: any = [];
+
+    pagination: { limit: number, pageNo: number, name?: string } = { limit: 10, pageNo: 1 }
     public Editor = ClassicEditor;
     previewImage = '';
     previewVisible = false;
@@ -89,29 +93,36 @@ export class AddNewsComponent implements OnInit {
         }
     ];
 
-
     listOfOption: Array<{ label: string; value: string }> = [];
     size = 'default';
     singleValue = 'a10';
     multipleValue = ['a10', 'c12'];
     tagValue = ['a10', 'c12', 'tag'];
-    
+ 
 
-    constructor(private apiService: ApiService, private fb: FormBuilder) {}
+
+    constructor(private apiService: ApiService, private fb: FormBuilder) { }
 
     ngOnInit(): void {
         this.quotesForm = this.fb.group({
-            name: [ null, [ Validators.required ] ]
+            name: [null, [Validators.required]]
         });
-        this.getAllQuotes();
-        const children: Array<{ label: string; value: string }> = [];
-        for (let i = 10; i < 36; i++) {
-            children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
-        }
-        this.listOfOption = children;
-        this.initNewsForm()
+        this.tagForm = this.fb.group({
+            title: [null, [Validators.required]]
+        });
+        // const children: Array<{ label: string; value: string }> = [];
+        // for (let i = 10; i < 36; i++) {
+        //     children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
+        // }
+        // this.listOfOption = children;
+        this.newsModal = new NewsModal()
+        this.initNewsForm();
+
+        this.getTags();
+        this.getAllCategories();
+        this.getAllQuotes()
     }
-    initNewsForm(){
+    initNewsForm() {
         this.newsForm = this.fb.group({
             title: [null, [Validators.required]],
             content: [null, [Validators.required]],
@@ -119,8 +130,8 @@ export class AddNewsComponent implements OnInit {
             visible: [null, [Validators.required]],
             contentType: [null, [Validators.required]],
             authorName: [null, [Validators.required]],
-            newsType: [null, [Validators.required]],
-            showOnHomepage: [null, [Validators.required]],
+            newsType: ['NEWS', [Validators.required]],
+            showOnHomepage: [true, [Validators.required]],
             isActive: [null, [Validators.required]],
             categoryIds: [null, [Validators.required]],
             tagsIds: [null, [Validators.required]],
@@ -129,29 +140,23 @@ export class AddNewsComponent implements OnInit {
             slugLine: [null, [Validators.required]],
             description: [null, [Validators.required]],
             keywords: [null, [Validators.required]]
-          });
-          this.seoForm = this.fb.group({
-            title: [null, [Validators.required]],
-            slugLine: [null, [Validators.required]],
-            description: [null, [Validators.required]],
-            keywords: [null, [Validators.required]]
-          });
+        });
 
     }
     onChange($event: string[]): void {
         console.log($event);
     }
 
-    saveNews(){
+    saveNews() {
         for (const i in this.newsForm.controls) {
             this.newsForm.controls[i].markAsDirty();
             this.newsForm.controls[i].updateValueAndValidity();
         }
-        if(this.newsForm.valid) {
-            const obj= this.newsForm.value;
+        if (this.newsForm.valid) {
+            const obj = this.newsForm.value;
             ;
-            obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
-            this.apiService.sendRequest(requests.addNews,'post', this.newsModal.toServerModal(obj)).subscribe((res:any) => {
+            // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
+            this.apiService.sendRequest(requests.addNews, 'post', this.newsModal.toServerModal(obj)).subscribe((res: any) => {
                 console.log("News", res);
                 this.newsForm.reset();
                 // if(this.categoryId) {
@@ -162,8 +167,8 @@ export class AddNewsComponent implements OnInit {
                 // }
             })
         }
-        console.log("form",this.newsForm.value);
-        
+        console.log("form", this.newsForm.value);
+
     }
 
     handlePreview = (file: NzUploadFile) => {
@@ -175,15 +180,36 @@ export class AddNewsComponent implements OnInit {
         console.log(value);
     }
 
-    getAllQuotes() {
-        this.apiService.sendRequest(requests.getAllQuotes, 'get', this.pagination).subscribe((res:any) => {
-            console.log("ALL-QUOTES", res);
+    getAllQuotes(value?) {
+        this.pagination.name=value ? value:'';
+        this.apiService.sendRequest(requests.getAllQuotes, 'get', this.pagination).subscribe((res: any) => {
+            console.log("ALL-QUOTES", res.quotes);
+            this.allQuotes = res.quotes;
+        })
+    }
+    getTags() {
+        this.apiService.sendRequest(requests.getAllTags, 'get', this.pagination).subscribe((res: any) => {
+            console.log("ALL-tags", res);
+            this.allTags = res.tags;
         })
     }
 
-    addNewQuote() {
-        this.apiService.sendRequest(requests.addNewQuote, 'post', this.quotesForm.value).subscribe((res:any) => {
-            this.allQuotes= res.quote;
+    getAllCategories() {
+        this.apiService.sendRequest(requests.getAllCategories, 'get', this.pagination).subscribe((res: any) => {
+            console.log("ALL-cat", res);
+            this.allCategories = res.quotes;
+        })
+    }
+
+    addNewQuote(value) {
+        this.apiService.sendRequest(requests.addNewQuote, 'post', this.quotesForm.value).subscribe((res: any) => {
+            this.allQuotes = res.quote;
+            console.log("ADD-TAG", this.allQuotes);
+        })
+    }
+    addNewTag() {
+        this.apiService.sendRequest(requests.addNewTag, 'post', this.tagForm.value).subscribe((res: any) => {
+            this.allQuotes = res.quote;
             console.log("ADD-TAG", this.allQuotes);
         })
     }

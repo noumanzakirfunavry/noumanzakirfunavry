@@ -70,7 +70,7 @@ export class AuthInterceptor implements HttpInterceptor {
             window.localStorage.clear();
             this.router.navigateByUrl('/full/authentication/login-3');
           }
-          else if (error.status == 404 && error.statusText == 'Not Found') {
+          else if (!ifDisableLoader && error.status == 404 && error.statusText == 'Not Found') {
             this.message.create('error', error.error?.message || error.message)
           }
           console.log("error auth http call", error)
