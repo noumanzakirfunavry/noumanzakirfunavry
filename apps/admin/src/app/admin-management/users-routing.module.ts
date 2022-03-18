@@ -24,9 +24,15 @@ const routes: Routes = [
         path: 'add',
         component: AddUserComponent,
         data: {
-            title: 'Add Admins',
+            title: 'Add Admin',
         },
-
+    },
+    {
+        path: 'update/:id',
+        component: AddUserComponent,
+        data: {
+            title: 'Update Admin',
+        },
     }
 ];
 
