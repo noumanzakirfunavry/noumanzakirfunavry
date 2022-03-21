@@ -30,6 +30,14 @@ export class AnthenticationController {
         return await this.authService.registerAdmin(req.user.roles[0], body)
     }
 
+    @UseGuards(JwtAuthGuard)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
+    @Rights(RightsTypes.UPDATE)
+    @Put("update/:id")
+    async updateAdmin(@Param("id") id : number, @Body() body: RegisterAdminRequestDto): Promise<GenericResponseDto> {
+        return await this.authService.updateAdmin(id, body)
+    }
+
     @Public()
     @Post('request/password/reset')
     async requestResetPassword(@Body() body : RequestResetPasswordRequestDto):Promise<GenericResponseDto>{
