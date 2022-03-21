@@ -29,6 +29,7 @@ import { ExclusiveVideosProvider } from '../providers/exclusive.videos.provider'
 import { EpisodesProvider } from '../providers/episodes.provider';
 import { EpisodeHasTagsProvider } from '../providers/episodes.has.tags.provider';
 import { EpisodeHasQuotesProvider } from '../providers/episodes.has.quotes.provider';
+import { AttachmentsProvider } from '../providers/attachments.provider';
 
 @Module({
   providers: [
@@ -61,7 +62,8 @@ import { EpisodeHasQuotesProvider } from '../providers/episodes.has.quotes.provi
     ...ExclusiveVideosProvider,
     ...EpisodesProvider,
     ...EpisodeHasTagsProvider,
-    ...EpisodeHasQuotesProvider
+    ...EpisodeHasQuotesProvider,
+    ...AttachmentsProvider
   ],
   exports: [
     ...UsersProvider,
@@ -92,7 +94,8 @@ import { EpisodeHasQuotesProvider } from '../providers/episodes.has.quotes.provi
     ...ExclusiveVideosProvider,
     ...EpisodesProvider,
     ...EpisodeHasTagsProvider,
-    ...EpisodeHasQuotesProvider
+    ...EpisodeHasQuotesProvider,
+    ...AttachmentsProvider
   ]
 })
 
