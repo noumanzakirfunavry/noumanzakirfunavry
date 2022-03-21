@@ -29,47 +29,6 @@ export class AddNewsComponent implements OnInit {
     previewVisible = false;
     value: string[] = ['0-0-0'];
 
-    nodes = [
-        {
-            title: 'Node1',
-            value: '0-0',
-            key: '0-0',
-            children: [
-                {
-                    title: 'Child Node1',
-                    value: '0-0-0',
-                    key: '0-0-0',
-                    isLeaf: true
-                }
-            ]
-        },
-        {
-            title: 'Node2',
-            value: '0-1',
-            key: '0-1',
-            children: [
-                {
-                    title: 'Child Node3',
-                    value: '0-1-0',
-                    key: '0-1-0',
-                    isLeaf: true
-                },
-                {
-                    title: 'Child Node4',
-                    value: '0-1-1',
-                    key: '0-1-1',
-                    isLeaf: true
-                },
-                {
-                    title: 'Child Node5',
-                    value: '0-1-2',
-                    key: '0-1-2',
-                    isLeaf: true
-                }
-            ]
-        }
-    ];
-
     commentListData = [
         {
             name: 'Lillian Stone',
@@ -94,14 +53,6 @@ export class AddNewsComponent implements OnInit {
         }
     ];
 
-    listOfOption: Array<{ label: string; value: string }> = [];
-    size = 'default';
-    singleValue = 'a10';
-    multipleValue = ['a10', 'c12'];
-    tagValue = ['a10', 'c12', 'tag'];
- 
-
-
     constructor(private apiService: ApiService, private fb: FormBuilder) { }
 
     ngOnInit(): void {
@@ -111,12 +62,9 @@ export class AddNewsComponent implements OnInit {
         this.tagForm = this.fb.group({
             title: [null, [Validators.required]]
         });
-        // const children: Array<{ label: string; value: string }> = [];
-        // for (let i = 10; i < 36; i++) {
-        //     children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
-        // }
-        // this.listOfOption = children;
+      
         this.newsModal = new NewsModal()
+        
         this.initNewsForm();
 
         this.getTags();
