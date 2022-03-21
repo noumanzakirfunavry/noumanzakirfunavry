@@ -1828,7 +1828,7 @@ width: 110px;
           border-radius: 0;
           margin: 0;
           opacity: 1;
-          background-image: url(../images/close-arrow.svg);
+          // background-image: url(../images/close-arrow.svg);
         }
       }
       .modal-body{
@@ -2798,4 +2798,56 @@ h6.newsDetailtext
       list-style-position: inside;
     }
   }
+}
+
+// infographics slider
+.infographic_slider {
+  .newsSlider2Text{
+    .NewsBox {
+      .newsImage {
+        width: 100%;
+        height: 600px;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .newscontent{
+        margin-top: 60px;
+        h5{
+          text-align: center;
+          a{
+            font: normal normal bold 12px/20px Cairo;
+          }
+        }
+      }
+    }
+  }
+
+
+  .slick-slider {
+    .slick-prev, .slick-next{
+      top: auto;
+      bottom: 55px;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+    .slick-prev{
+      left: -100px;
+    }
+    .slick-next{
+      right: -100px;
+    }
+  }
+  .modal-dialog{
+    .modal-content {
+      .modal-header {
+        .btn-close {
+          background-color: transparent;
+        }
+      }
+    }
+   }
+
 }
