@@ -78,7 +78,8 @@ export class AddUserComponent implements OnInit{
     if(this.adminForm.valid) {
       const obj= this.adminForm.value;
       obj['isProUser']= false;
-      obj['rights']= [this.adminForm.value.rights];
+      obj['rights']= [1];
+      // obj['rights']= [this.adminForm.value.rights];
       delete obj['confirmPassword'];
       this.apiService.sendRequest(requests.registerUser, 'post', obj).subscribe((res:any) => {
         console.log("ADMINS", res);
