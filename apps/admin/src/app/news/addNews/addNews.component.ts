@@ -21,6 +21,7 @@ export class AddNewsComponent implements OnInit {
     allQuotes: any = [];
     allTags: any = [];
     allCategories: any = [];
+    strucCategories: any;
 
     pagination: { limit: number, pageNo: number, name?: string } = { limit: 10, pageNo: 1 }
     public Editor = ClassicEditor;
@@ -152,7 +153,7 @@ export class AddNewsComponent implements OnInit {
             this.newsForm.controls[i].markAsDirty();
             this.newsForm.controls[i].updateValueAndValidity();
         }
-        if (this.newsForm.valid) {
+        // if (this.newsForm.valid) {
             const obj = this.newsForm.value;
             ;
             // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
@@ -166,7 +167,7 @@ export class AddNewsComponent implements OnInit {
                 //     // this.message.create('success', `Category Added Successfully`)
                 // }
             })
-        }
+        // }
         console.log("form", this.newsForm.value);
 
     }
@@ -197,11 +198,16 @@ export class AddNewsComponent implements OnInit {
     getAllCategories() {
         this.apiService.sendRequest(requests.getAllCategories, 'get', this.pagination).subscribe((res: any) => {
             console.log("ALL-cat", res);
-            this.allCategories = res.quotes;
+            this.allCategories = res.response.categories;
+            debugger
+            this.strucCategories=this.catToNodes(this.allCategories);
+            console.log("structured nodes categories=>",this.strucCategories);
+            
         })
     }
 
-    addNewQuote(value) {
+    addNewQuote(value?) {
+        debugger
         this.apiService.sendRequest(requests.addNewQuote, 'post', this.quotesForm.value).subscribe((res: any) => {
             this.allQuotes = res.quote;
             console.log("ADD-TAG", this.allQuotes);
@@ -212,5 +218,30 @@ export class AddNewsComponent implements OnInit {
             this.allQuotes = res.quote;
             console.log("ADD-TAG", this.allQuotes);
         })
+    }
+
+    catToNodes(catorgories){
+        let nodes=[];
+        this.allCategories.forEach(cat=>{
+            let parent={
+                title:cat.title,
+                value:cat.id,
+                key:cat.id,
+                children:[]
+            }
+            if(cat.sub){
+                parent.children=cat.sub.map(x=>{
+                    return {
+                        title: x.title,
+                        value: x.id,
+                        key: x.id,
+                        isLeaf: true
+                    }
+                    
+                })
+            }
+            nodes.push(parent);
+        })
+        return nodes;
     }
 }    
