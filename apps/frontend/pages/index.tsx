@@ -33,9 +33,14 @@ export function Index() {
 
   return (
     <>
-      <MarketIndices />
+     <div className="d">
+     <MarketIndices />
+      {/* <div className="container">
+      <AdBanner />
+      </div> */}
+     </div>
       <div className="container">
-        <AdBanner />
+
         <QuickLinks />
 
         <div className='row'>
