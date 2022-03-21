@@ -58,7 +58,7 @@ export const requests = {
     getEditorsChoiceNews: 'http://localhost:3333/api/admin/news/editorChoice/',
     getAllEditorsChoiceNews: 'http://localhost:3333/api/admin/news/editorChoiceAll',
     getAllNews: 'http://localhost:3333/api/admin/allnews',
-    addNews: 'http://localhost:3333/api/admin/allnews',
+    addNews: 'http://157.90.67.186:3001/news/api/admin/news/add',
     updateNews: 'http://localhost:3333/api/admin/allnews/',
     deleteNews: 'http://localhost:3333/api/admin/allnews/',
     getNewsById: 'http://localhost:3333/api/admin/allnews/',
