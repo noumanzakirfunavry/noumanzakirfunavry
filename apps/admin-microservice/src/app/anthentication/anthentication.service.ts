@@ -43,11 +43,17 @@ export class AnthenticationService {
                     }
                 }
                 else {
-                    throw new NotFoundException()
+                    throw new CustomException(
+                        Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].message,
+                        Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].status
+                    )
                 }
             }
             else {
-                throw new NotFoundException()
+                throw new CustomException(
+                    Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].message,
+                    Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].status
+                )
             }
         }
         catch (err) {
