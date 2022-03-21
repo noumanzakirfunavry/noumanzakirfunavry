@@ -1,7 +1,7 @@
 import { Rights, Roles } from '@cnbc-monorepo/auth-module';
-import { CreateAttachmentRequestDto, GenericResponseDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
+import { CreateAttachmentRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
-import { Body, Controller, Param, Post, Put, Req, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Put, Query, Req, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { AttachmentsService } from './attachments.service';
 import {FileFieldsInterceptor} from '@nestjs/platform-express'
 
@@ -26,5 +26,12 @@ export class AttachmentsController {
     @Put(":id")
     async updateAttachment(@Param("id") id : number, @Body() body : UpdateAttachmentRequestDto) : Promise<GenericResponseDto>{
        return await this.attachmentsService.updateAttachment(id,body);
+    }
+
+    @Roles(RoleTypes.Admin)
+    @Rights(RightsTypes.UPDATE)
+    @Delete()
+    async deleteAttachments(@Query() query : DeleteAlexaAudioRequestDto) : Promise<GenericResponseDto>{
+       return await this.attachmentsService.deleteAttachments(query);
     }
 }

@@ -1,7 +1,7 @@
-import { CreateAttachmentRequestDto, GenericResponseDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
+import { CreateAttachmentRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
 import { Attachments } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
-import { Helper } from '@cnbc-monorepo/utility';
+import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -64,6 +64,52 @@ export class AttachmentsService {
             console.log("🚀 ~ file: attachments.service.ts ~ line 43 ~ AttachmentsService ~ updateAttachment ~ err", err)
             throw err
         }
+    }
+
+    async deleteAttachments(query: DeleteAlexaAudioRequestDto): Promise<GenericResponseDto> {
+        let attachment_exists;
+        let response;
+        try {
+            return await sequelize.transaction(async t => {
+                const transactionHost = { transaction: t };
+                for (let i = 0; i < query.id.length; i++) {
+                    attachment_exists = await this.attachmentExistsQuery(query.id[i])
+                    if (attachment_exists) {
+                        response = await this.deleteAttachmentsQuery(query.id[i], transactionHost)
+                        if (!response) {
+                            throw new CustomException(
+                                Exceptions[ExceptionType.SOMETHING_WENT_WRONG].message,
+                                Exceptions[ExceptionType.SOMETHING_WENT_WRONG].status
+                            )
+                        }
+                    }
+                    else {
+                        throw new CustomException(
+                            Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                            Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+                        )
+                    }
+                }
+                return new GenericResponseDto(
+                    HttpStatus.OK,
+                    "Deleted successfully"
+                )
+            })
+        }
+        catch (err) {
+            console.log("🚀 ~ file: live-stream-links.service.ts ~ line 141 ~ LiveStreamLinksService ~ deleteLiveStreamLinkById ~ err", err)
+            throw err
+        }
+    }
+
+    
+    private async deleteAttachmentsQuery(id, transactionHost) {
+        return await this.attachmentsRepository.destroy({
+            where: {
+                id: id
+            },
+            transaction: transactionHost.transaction
+        })
     }
 
     private async updateAttachmentQuery(body: UpdateAttachmentRequestDto, id: number) {
