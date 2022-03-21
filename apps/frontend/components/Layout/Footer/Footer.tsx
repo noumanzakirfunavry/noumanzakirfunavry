@@ -29,7 +29,7 @@ const Footer = () =>{
                 </div>
                 <div className='row'>
 
-                    <div className='col-lg-2 col-md-4 col-6 pb-5 pb-lg-0'>
+                    <div className='col-xl-2 col-lg-4 col-6 pb-5 pb-lg-0'>
                         <ul className={styles.footerLink}>
                         <li><a href="#">الرئيسية</a></li>
                             <li key={'zxc'}><a href="#">إشترك في نشرتنا البريدية</a></li>
@@ -38,7 +38,7 @@ const Footer = () =>{
                             <li key={'dvsfdf'}><a href="#">الرئيسية</a></li>
                         </ul>
                     </div>
-                    <div className='col-lg-2 col-md-4 col-6 pb-5 pb-lg-0'>
+                    <div className='col-xl-2 col-lg-4 col-6 pb-5 pb-lg-0'>
                     <ul className={styles.footerLink}>
                     <li><a >إشترك في نشرتنا البريدية</a></li>
                             <li key={'xcve'}><a href="#">الرئيسية</a></li>
@@ -47,7 +47,7 @@ const Footer = () =>{
                             <li key={'dt4366'}><a href="#">الرئيسية </a></li>
                         </ul>
                     </div>
-                    <div className='col-lg-3 col-md-4 col-sm-6 pb-5 pb-lg-0'>
+                    <div className='col-xl-3 col-lg-4 col-sm-6 pb-5 pb-lg-0'>
                     <ul className={styles.footerLink}>
                             <li key={'fdg4yt'}><a href="#">الرئيسية</a></li>
                             <li key={'dfgdfbgfh'}><a href="#" >إشترك في نشرتنا البريدية</a></li>
@@ -67,14 +67,14 @@ const Footer = () =>{
                         </ul>
                     </div>
                     </div>
-                    <div className='col-lg-3 col-md-6 col-sm-6 order-lg-1 '>
+                    <div className='col-xl-3 col-lg-6 col-sm-6 order-xl-1 mt-lg-5 mt-xl-0 '>
                         <h4>إشترك في نشرتنا البريدية</h4>
                         <div className={styles.searchBox}>
                                     <input type="text" className="form-control" placeholder="ابحث في الموقع" />
                                 </div>
                                 <button className='btn btn-primary fs12_bold min_w111_h31' data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول </button>
                     </div>
-                    <div className='col-lg-2 col-md-4 col-sm-6 pb-5 pb-sm-0  order-lg-0 me-auto ms-0 offset-1'>
+                    <div className='col-xl-2 col-lg-4 col-sm-6 pb-5 pb-sm-0  order-xl-0 me-auto ms-0 offset-1 mt-lg-5 mt-xl-0'>
                         <h4>اتصل بنا</h4>
                         {/* <button className='btn btn-outline-light fs12_bold min_w111_h31' onClick={() => router.push('/contact')}>ابقى على تواصل</button> */}
                         <button className='btn btn-primary fs12_bold min_w111_h31' onClick={() => router.push('/contact')}>ابقى على تواصل</button>

@@ -252,12 +252,11 @@ header{
     background: $white;
     // border-bottom: 1px gray;
     font-size: 14px;
-    color: $primary-color;
+    color: $secondary-color;
     text-align: right;
     padding:  10px 15px;
     &:hover{
       background-color: #f3f5f7;
-      color: $primary-color;
       font-weight: 900;
      border-bottom-color: transparent;
     }
@@ -505,7 +504,7 @@ h6{
   }
   .primaryTitle h3{
     color: $primary-color;
-    font-weight: 700;
+    font-weight: 900;
     font-size: 32px;
     border-top: 6px solid $secondary-color;
     margin-top: -6px;
@@ -1649,6 +1648,9 @@ width: 110px;
       tr{
          td{
            padding: 15px;
+           &:first-child{
+             max-width: 100px;
+           }
          }
       }
       h4{
