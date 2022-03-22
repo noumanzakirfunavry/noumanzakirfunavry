@@ -105,7 +105,8 @@ export class AttachmentsService {
                     HttpStatus.OK,
                     "Attachment fetched successfully",
                     {
-                        attachment: file
+                        attachment: attachment_exists,
+                        file : file
                     }
                 )
             }
