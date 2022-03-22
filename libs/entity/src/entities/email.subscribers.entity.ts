@@ -1,43 +1,66 @@
-import { Table,Model, PrimaryKey, AutoIncrement, Unique, Column, DataType } from "sequelize-typescript";
-
+import {
+  Table,
+  Model,
+  PrimaryKey,
+  AutoIncrement,
+  Unique,
+  Column,
+  DataType,
+  BeforeCreate,
+} from 'sequelize-typescript';
+import { hash } from 'bcrypt';
 
 @Table({
-    paranoid : true,
-    timestamps : true
+  paranoid: true,
+  timestamps: true,
+  defaultScope: {
+    attributes: { exclude: ['password'] },
+  },
 })
-export class EmailSubscribers extends Model{
-@PrimaryKey
-@AutoIncrement
-@Unique
-@Column
-id : number
+export class EmailSubscribers extends Model {
+  @PrimaryKey
+  @AutoIncrement
+  @Unique
+  @Column
+  id: number;
 
-@Column
-name : string
+  @Column
+  name: string;
 
-@Column
-email : string
+  @Column({ unique: true })
+  email: string;
 
-@Column
-phone : string
+  @Column
+  password: string;
 
-@Column
-jobPosition : string
+  @Column({ unique: true })
+  phone: string;
 
-@Column
-industry : string
+  @Column
+  jobPosition: string;
 
-@Column
-DOB : Date
+  @Column
+  industry: string;
 
-@Column
-country : string
+  @Column
+  DOB: Date;
 
-@Column
-gender : string
+  @Column
+  country: string;
 
-@Column({
-    type : DataType.BOOLEAN
-})
-status : boolean
+  @Column
+  gender: string;
+
+  @Column({
+    type: DataType.BOOLEAN,
+  })
+  status: boolean;
+
+  @BeforeCreate
+  static async hashPassword(instance: EmailSubscribers) {
+    instance.password = await hash(
+      instance.password,
+      parseInt(process.env.HASH_SALT_ROUNDS)
+    );
+  }
 }

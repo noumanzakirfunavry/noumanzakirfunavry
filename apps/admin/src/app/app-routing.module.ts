@@ -23,6 +23,10 @@ const appRoutes: Routes = [
         component: FullLayoutComponent, 
         children: FullLayout_ROUTES
     },
+    {
+      path: '**',
+      redirectTo: ''
+    }
     // { 
     //     path: 'full', 
     //     component: FullLayoutComponent, 

@@ -38,7 +38,9 @@ export class JobsComponent implements OnInit {
             this.allJobs= res.response.jobs;
             console.log("ALL-JOBS", this.allJobs);
             this.loading= false;
-        })
+        },err => {
+            this.loading = false;
+          })
     }
 
     deleteJobs(jobId: number) {

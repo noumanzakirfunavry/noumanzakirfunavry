@@ -19,7 +19,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-
+// import * as  DtosModule from "./../../../../../libs/dtos/src";
 const icons: IconDefinition[] = [LeftOutline, RightOutline];
 
 
@@ -39,7 +39,8 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         NzMessageModule,
         NzModalModule,
         NzTreeSelectModule,
-        CKEditorModule
+        CKEditorModule,
+        // DtosModule
     ],
     exports: [],
     declarations: [

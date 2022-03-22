@@ -38,7 +38,9 @@ export class AddressesComponent implements OnInit{
             this.allBranches= res.response.branches;
             console.log("ALL-BRANCHES", this.allBranches);
             this.loading= false;
-        })
+        },err => {
+            this.loading = false;
+          })
     }
 
     deleteBranch(branchId: any) {
