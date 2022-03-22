@@ -132,13 +132,12 @@ export class AttachmentsService {
         try {
             const attachment_exists = await this.attachmentExistsQuery(id)
             if (attachment_exists) {
-                const file = fs.readFileSync(attachment_exists.path);
+                // const file = fs.readFileSync(attachment_exists.path);
                 return new GenericResponseDto(
                     HttpStatus.OK,
                     "Attachment fetched successfully",
                     {
-                        attachment: attachment_exists,
-                        file: file
+                        attachment: attachment_exists
                     }
                 )
             }
