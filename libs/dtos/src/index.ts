@@ -184,3 +184,4 @@ export * from './response/exclusive-videos/get.exclusive.video.by.id.response.dt
 
 //...............................Subscribers.............................
 export * from './response/subscribers/create.subscriber.response.dto';
+export * from './response/subscribers/get.subscriber.by.id.response.dto';
