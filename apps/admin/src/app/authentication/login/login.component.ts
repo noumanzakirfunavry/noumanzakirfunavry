@@ -6,10 +6,10 @@ import { ApiService } from 'src/app/shared/services/api.service';
 
 
 @Component({
-    templateUrl: './login-3.component.html'
+    templateUrl: './login.component.html'
 })
 
-export class Login3Component implements OnInit {
+export class LoginComponent implements OnInit {
     loginForm: FormGroup;
 
     constructor(private fb: FormBuilder, private apiService: ApiService, private route: Router) {

@@ -1,8 +1,26 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
+
+export class Data extends Pagination {
+    parentCategoryId?:Array<any>;
+    publishers?:Array<any>;
+    title?: string;
+    includeNews?: any; 
+    newsLImit?: any;
+
+    constructor() {
+        super();
+        this.parentCategoryId= [];
+        this.publishers= [];
+        this.title= "";
+        this.includeNews= "";
+        this.newsLImit= "";
+    }
+}
 
 
 @Component({
@@ -12,18 +30,8 @@ import { ApiService } from '../shared/services/api.service';
 })
 
 export class CategoryComponent implements OnInit {
-    pagination: {
-        limit: number, 
-        pageNo: number, 
-        parentCategoryId?:Array<any>, 
-        publishers?:Array<any>, 
-        status?: string, 
-        title?: string, 
-        includeNews?: any, 
-        newsLImit?: any 
-    } = {limit: 10, pageNo: 1}
+    pagination: Data= new Data();
     allCategories: any;
-
     indeterminate = false;
     checked = false;
     loading= true;
@@ -38,12 +46,23 @@ export class CategoryComponent implements OnInit {
     }
 
     getAllCategories() {
-        this.apiService.sendRequest(requests.getAllCategories, 'get', this.pagination).subscribe((res:any) => {
+        this.apiService.sendRequest(requests.getAllCategories, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allCategories= res.response.categories;
             console.log("ALL-CATEGORIES", this.allCategories);
             this.loading= false;
-        })
+        },err => {
+            this.loading = false;
+          })
     }
+
+    clean(obj:any) {
+        for (const propName in obj) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            delete obj[propName];
+          }
+        }
+        return obj
+      }
 
     deleteCategories(categoryId: number) {
         this.apiService.sendRequest(requests.deleteCategories, 'delete', {ids:[categoryId]}).subscribe((res:any) => {
