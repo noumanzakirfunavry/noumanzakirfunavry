@@ -1,7 +1,7 @@
 import { Rights, Roles } from '@cnbc-monorepo/auth-module';
 import { CreateAttachmentRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllEpisodesRequestDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
-import { Body, Controller, Delete, Param, Post, Put, Query, Req, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Put, Query, Get,Req, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { AttachmentsService } from './attachments.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express'
 
