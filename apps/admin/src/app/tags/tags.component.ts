@@ -39,7 +39,9 @@ export class TagsComponent implements OnInit {
             this.allTags= res.tags;
             console.log("ALL-TAGS", this.allTags);
             this.loading= false;
-        })
+        },err => {
+            this.loading = false;
+          })
     }
 
     updateCheckedSet(id: number, checked: boolean): void {
