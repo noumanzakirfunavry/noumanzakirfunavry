@@ -12,7 +12,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
             <div className="row" key={i}>
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox ">
-                        <div className="NewsImage">
+                        <div className="NewsImage img_sm_none">
                             <img className="img-fluid" src={newsImage.src} />
                         </div>
                         <div className="NewsInfo">
@@ -25,7 +25,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                 </div>
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
-                        <div className="NewsImage">
+                        <div className="NewsImage img_sm_none">
                         <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
@@ -46,7 +46,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                 </div>
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox">
-                        <div className="NewsImage">
+                        <div className="NewsImage img_sm_none">
                             <img className="img-fluid" src={newsImage.src} />
                         </div>
                         <div className="NewsInfo">
