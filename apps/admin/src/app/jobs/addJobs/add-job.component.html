@@ -7,7 +7,7 @@
           <div class="col-md-6">
             <nz-form-item>
               <nz-form-label nzRequired [nzSpan]="6" nzFor="text">Title</nz-form-label>
-              <nz-form-control [nzSpan]="14">
+              <nz-form-control [nzSpan]="14" nzErrorTip="Please input Title!">
                 <input nz-input formControlName="title" placeholder="Enter Title" dir="rtl" />
               </nz-form-control>
             </nz-form-item>
@@ -15,7 +15,7 @@
           <div class="col-md-6">
             <nz-form-item>
               <nz-form-label nzRequired [nzSpan]="6">Branch</nz-form-label>
-              <nz-form-control [nzSpan]="14">
+              <nz-form-control [nzSpan]="14" nzErrorTip="Please select Branch!">
               <nz-select nzShowSearch nzAllowClear formControlName="branchId" nzPlaceHolder="Choose Branch">
                 <nz-option *ngFor="let branch of allBranches" [nzValue]="branch?.id" [nzLabel]="branch?.title"></nz-option>
               </nz-select>
@@ -25,7 +25,7 @@
           <div class="col-md-12">
             <nz-form-item>
                 <nz-form-label nzRequired [nzSpan]="6">Description</nz-form-label>
-                <nz-form-control [nzSpan]="14">
+                <nz-form-control [nzSpan]="14" nzErrorTip="Please input Description!">
                     <ckeditor [editor]="Editor" formControlName="description"></ckeditor>
                 </nz-form-control>
             </nz-form-item>
