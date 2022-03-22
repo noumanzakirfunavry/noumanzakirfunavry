@@ -27,7 +27,10 @@ export class CreateSubscriberRequestDto {
 
   @IsString()
   @IsNotEmpty()
-  @IsPhoneNumber()
+  // undefined is used to bypass a parameter
+  @IsPhoneNumber(undefined, {
+    message: 'Phone number must be valid phone number with country code',
+  })
   phone: string;
 
   @IsString()

@@ -2,8 +2,16 @@ import { Public } from '@cnbc-monorepo/auth-module';
 import {
   CreateSubscriberRequestDto,
   CreateSubscriberResponseDto,
+  GetSubscriberByIdResponseDto,
 } from '@cnbc-monorepo/dtos';
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { SubscribersService } from './subscribers.service';
 
 @Controller('admin/api/client/subscribers')
@@ -18,5 +26,13 @@ export class SubscribersClientController {
     return this.subscribersService.addEmailSubscriber(
       createSubscriberRequestDto
     );
+  }
+
+  @Public()
+  @Get('/:subscriberId')
+  getSubscriberById(
+    @Param('subscriberId', ParseIntPipe) subscriberId: number
+  ): Promise<GetSubscriberByIdResponseDto> {
+    return this.subscribersService.getSubscriberById(subscriberId);
   }
 }
