@@ -1,9 +1,11 @@
 
-import { CreateAttachmentRequestDto, DeleteAlexaAudioRequestDto,GetAllEpisodesRequestDto, GenericResponseDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
+import { CreateAttachmentRequestDto, DeleteAlexaAudioRequestDto, GetAllEpisodesRequestDto, GenericResponseDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
 import { Attachments } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import * as fs from 'fs';
+import { Blob } from 'buffer'
 
 @Injectable()
 export class AttachmentsService {
@@ -126,8 +128,34 @@ export class AttachmentsService {
             throw err
         }
     }
+    async getAttachmentById(id: number): Promise<GenericResponseDto> {
+        try {
+            const attachment_exists = await this.attachmentExistsQuery(id)
+            if (attachment_exists) {
+                const file = fs.readFileSync(attachment_exists.path);
+                return new GenericResponseDto(
+                    HttpStatus.OK,
+                    "Attachment fetched successfully",
+                    {
+                        attachment: attachment_exists,
+                        file: file
+                    }
+                )
+            }
+            else {
+                throw new CustomException(
+                    Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                    Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+                )
+            }
+        }
+        catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 102 ~ AttachmentsService ~ getAttachmentById ~ err", err)
+            throw err
+        }
+    }
 
-    
+
     private async deleteAttachmentsQuery(id, transactionHost) {
         return await this.attachmentsRepository.destroy({
             where: {

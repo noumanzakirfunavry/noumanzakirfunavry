@@ -39,4 +39,11 @@ export class AttachmentsController {
     async deleteAttachments(@Query() query: DeleteAlexaAudioRequestDto): Promise<GenericResponseDto> {
         return await this.attachmentsService.deleteAttachments(query);
     }
+
+    @Roles(RoleTypes.Admin)
+    @Rights(RightsTypes.GET)
+    @Get(":id")
+    async getAttachmentById(@Param("id") id : number) : Promise<GenericResponseDto>{
+       return await this.attachmentsService.getAttachmentById(id);
+    }
 }
