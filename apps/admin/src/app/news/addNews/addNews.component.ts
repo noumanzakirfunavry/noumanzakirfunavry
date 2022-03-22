@@ -16,6 +16,8 @@ export class AddNewsComponent implements OnInit {
     newsModal: NewsModal;
     newsForm: FormGroup;
 
+    size='default';
+
     quotesForm: FormGroup;
     tagForm: FormGroup;
 
