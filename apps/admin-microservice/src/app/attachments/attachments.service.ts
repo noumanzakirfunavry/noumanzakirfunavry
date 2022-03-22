@@ -1,8 +1,11 @@
-import { CreateAttachmentRequestDto, GenericResponseDto, GetAllEpisodesRequestDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
+
+import { CreateAttachmentRequestDto, DeleteAlexaAudioRequestDto, GetAllEpisodesRequestDto, GenericResponseDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
 import { Attachments } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
-import { Helper } from '@cnbc-monorepo/utility';
+import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import * as fs from 'fs';
+import { Blob } from 'buffer'
 
 @Injectable()
 export class AttachmentsService {
@@ -31,7 +34,6 @@ export class AttachmentsService {
             }
         }
         catch (err) {
-            console.log("🚀 ~ file: attachments.service.ts ~ line 19 ~ AttachmentsService ~ createAttachment ~ err", err)
             throw err
         }
     }
@@ -49,7 +51,6 @@ export class AttachmentsService {
             )
         }
         catch (err) {
-            console.log("🚀 ~ file: attachments.service.ts ~ line 44 ~ AttachmentsService ~ getAllAttachments ~ err", err)
             throw err
         }
     }
@@ -89,9 +90,78 @@ export class AttachmentsService {
             }
         }
         catch (err) {
-            console.log("🚀 ~ file: attachments.service.ts ~ line 43 ~ AttachmentsService ~ updateAttachment ~ err", err)
             throw err
         }
+    }
+
+    async deleteAttachments(query: DeleteAlexaAudioRequestDto): Promise<GenericResponseDto> {
+        let attachment_exists;
+        let response;
+        try {
+            return await sequelize.transaction(async t => {
+                const transactionHost = { transaction: t };
+                for (let i = 0; i < query.id.length; i++) {
+                    attachment_exists = await this.attachmentExistsQuery(query.id[i])
+                    if (attachment_exists) {
+                        response = await this.deleteAttachmentsQuery(query.id[i], transactionHost)
+                        if (!response) {
+                            throw new CustomException(
+                                Exceptions[ExceptionType.SOMETHING_WENT_WRONG].message,
+                                Exceptions[ExceptionType.SOMETHING_WENT_WRONG].status
+                            )
+                        }
+                    }
+                    else {
+                        throw new CustomException(
+                            Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                            Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+                        )
+                    }
+                }
+                return new GenericResponseDto(
+                    HttpStatus.OK,
+                    "Deleted successfully"
+                )
+            })
+        }
+        catch (err) {
+            throw err
+        }
+    }
+    async getAttachmentById(id: number): Promise<GenericResponseDto> {
+        try {
+            const attachment_exists = await this.attachmentExistsQuery(id)
+            if (attachment_exists) {
+                // const file = fs.readFileSync(attachment_exists.path);
+                return new GenericResponseDto(
+                    HttpStatus.OK,
+                    "Attachment fetched successfully",
+                    {
+                        attachment: attachment_exists
+                    }
+                )
+            }
+            else {
+                throw new CustomException(
+                    Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                    Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+                )
+            }
+        }
+        catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 102 ~ AttachmentsService ~ getAttachmentById ~ err", err)
+            throw err
+        }
+    }
+
+
+    private async deleteAttachmentsQuery(id, transactionHost) {
+        return await this.attachmentsRepository.destroy({
+            where: {
+                id: id
+            },
+            transaction: transactionHost.transaction
+        })
     }
 
     private async updateAttachmentQuery(body: UpdateAttachmentRequestDto, id: number) {
