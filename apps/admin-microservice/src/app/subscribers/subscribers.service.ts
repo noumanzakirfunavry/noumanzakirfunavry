@@ -1,6 +1,7 @@
 import {
   CreateSubscriberRequestDto,
   CreateSubscriberResponseDto,
+  GetSubscriberByIdResponseDto,
 } from '@cnbc-monorepo/dtos';
 import { EmailSubscribers } from '@cnbc-monorepo/entity';
 import {
@@ -9,6 +10,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { UniqueConstraintError } from 'sequelize';
 
@@ -43,5 +45,23 @@ export class SubscribersService {
         throw new InternalServerErrorException(JSON.stringify(error.errors));
       }
     }
+  }
+
+  async getSubscriberById(
+    subscriberId: number
+  ): Promise<GetSubscriberByIdResponseDto> {
+    const emailSubscriber = await this.emailSubscriberRepo.findByPk(
+      subscriberId
+    );
+
+    if (!emailSubscriber) {
+      throw new NotFoundException();
+    }
+
+    return new GetSubscriberByIdResponseDto(
+      HttpStatus.OK,
+      'Request Successful',
+      emailSubscriber
+    );
   }
 }
