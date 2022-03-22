@@ -29,7 +29,7 @@ const routes: Routes = [
         }
     },
     {
-        path: 'add/:id',
+        path: 'update/:id',
         component: AddTagComponent,
         // component: NzDemoFormDynamicRuleComponent,
         data: {
