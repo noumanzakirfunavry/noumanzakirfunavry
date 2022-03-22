@@ -73,6 +73,9 @@ export * from './request/exclusive-videos/get.all.exclusive.videos.request.dto'
 //...............................Episodes.............................
 export * from './request/episodes/create.episode.request.dto'
 export * from './request/episodes/get.all.episodes.request.dto'
+//...............................Attachments.............................
+export * from './request/attachments/create.attachment.request.dto'
+export * from './request/attachments/update.attachment.request.dto'
 
 
 export * from './request/quickLinks/get.all.quick.links.request.dto'
