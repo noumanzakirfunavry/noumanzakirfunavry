@@ -1,11 +1,12 @@
-import { DeleteAlexaAudioRequestDto, GenericResponseDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
-import { News, SeoDetails } from '@cnbc-monorepo/entity';
+import { DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
+import { Categories, News, SeoDetails } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility'
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { NewsHasCategories } from '@cnbc-monorepo/entity';
 import { NewsHasQuotes } from '@cnbc-monorepo/entity';
 import { NewsHasTags } from '@cnbc-monorepo/entity';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class NewsService {
@@ -219,6 +220,58 @@ export class NewsService {
             throw err;
         }
     }
+    async getAllNews(query: GetAllNewsRequestDto): Promise<GenericResponseDto> {
+        try {
+            const response = await this.getAllNewsQuery(query)
+            return new GenericResponseDto(
+                HttpStatus.OK,
+                "News fectched successfully",
+                {
+                    news: response.rows,
+                    totalCount: response.count
+                }
+            )
+        }
+        catch (err) {
+            console.log("🚀 ~ file: news.service.ts ~ line 227 ~ NewsService ~ getAllNews ~ err", err)
+            throw err
+        }
+    }
+
+    private async getAllNewsQuery(query: GetAllNewsRequestDto) {
+        return await this.newsRepository.findAndCountAll({
+            include: [{
+                model: Categories,
+                where: {
+                    ...(query.categoryId && {
+                        id: query.categoryId
+                    })
+                }
+
+            }],
+            where: {
+                ...(query.search && {
+                    title: {
+                        [Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.search)}%`
+                    }
+                }),
+                ...(query.isActive && {
+                    isActive: JSON.parse(query.isActive.toString())
+                }),
+                ...(query.newsType && {
+                    newsType: query.newsType
+                }),
+                ...(query.date && {
+                    createdAt: query.date
+                }),
+                ...(query.publishedBy && {
+                    publishedBy: query.publishedBy
+                })
+            },
+            limit: parseInt(query.limit.toString()),
+            offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
+        });
+    }
 
     private async deletePreviousQuotes(newsId: number, transactionHost: any) {
         const response = await this.newsHasQuotes.destroy({
@@ -312,7 +365,7 @@ export class NewsService {
 
     async newsExists(id: number) {
         return await this.newsRepository.findOne({
-            include : ['tags','categories','quotes'],
+            include: ['tags', 'categories', 'quotes'],
             where: {
                 id: id
             }
