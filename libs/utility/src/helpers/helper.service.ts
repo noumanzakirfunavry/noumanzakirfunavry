@@ -101,7 +101,7 @@ export class Helper {
             }),
             seoDetailId: seoDetailId,
             publishedBy: userId,
-            programId : body.programId
+            programId: body.programId
         }
         return news_object
     }
@@ -117,10 +117,10 @@ export class Helper {
             newsId: newsId
         }
     }
-    tagsObjectEpisode(tagsId,episodesId){
-        return{
-            tagsId : tagsId,
-            episodesId : episodesId
+    tagsObjectEpisode(tagsId, episodesId) {
+        return {
+            tagsId: tagsId,
+            episodesId: episodesId
         }
     }
     quotesObject(position, quotesId, newsId) {
@@ -130,10 +130,10 @@ export class Helper {
             newsId: newsId
         }
     }
-    quotesObjectEpisode(quotesId,episodesId){
+    quotesObjectEpisode(quotesId, episodesId) {
         return {
-            quotesId : quotesId,
-            episodesId : episodesId
+            quotesId: quotesId,
+            episodesId: episodesId
         }
     }
     addUser(body, userId) {
@@ -147,10 +147,17 @@ export class Helper {
             return body
         }
     }
-    liveStreamObj(body,userId){
+    liveStreamObj(body, userId) {
         return {
             ...body,
-            userId : userId
+            userId: userId
+        }
+    }
+    attachmentObj(body, userId,path) {
+        return {
+            ...body,
+            uploadedBy : userId,
+            path : path
         }
     }
 }
