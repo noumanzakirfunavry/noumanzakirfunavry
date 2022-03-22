@@ -25,7 +25,41 @@
                             <td [nzChecked]="setOfCheckedId.has(cat?.id)" (nzCheckedChange)="onItemChecked(cat?.id, $event)">
                                     <i nz-icon nzType="drag" nzTheme="outline"></i>
                             </td>
-                            <td>{{cat?.title}}</td>
+                            <td>{{cat?.title}}
+                                <thead>
+                                    <tr>
+                                        <th>Reorder</th>
+                                        <th>Title</th>
+                                        <th>Created</th>
+                                        <th>Modified</th>
+                                        <th>Publisher</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="category-block" *ngFor="let cat of allCategories" cdkDrag>
+                                        <td [nzChecked]="setOfCheckedId.has(cat?.id)" (nzCheckedChange)="onItemChecked(cat?.id, $event)">
+                                                <i nz-icon nzType="drag" nzTheme="outline"></i>
+                                        </td>
+                                        <td>{{cat?.title}}</td>
+                                        <td>{{cat?.createdAt | date:'dd-MM-YYYY'}}</td>
+                                        <td>{{cat?.updatedAt | date:'dd-MM-YYYY'}}</td>
+                                        <td>{{cat?.publishedBy}}</td>
+                                        <td>
+                                            <nz-badge *ngIf="cat?.isActive === true" nzStatus="success"></nz-badge>
+                                            <nz-badge *ngIf="cat?.isActive === false" nzStatus="error"></nz-badge>
+                                            <!-- <span class="text-capitalize"></span> -->
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-between">
+                                                <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/update/' + cat?.id]"></i>
+                                                <i nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="deleteCategories(cat?.id)"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </td>
                             <td>{{cat?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{cat?.updatedAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{cat?.publishedBy}}</td>

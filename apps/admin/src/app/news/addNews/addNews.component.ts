@@ -163,7 +163,6 @@ export class AddNewsComponent implements OnInit {
         this.apiService.sendRequest(requests.getAllCategories, 'get', this.pagination).subscribe((res: any) => {
             console.log("ALL-cat", res);
             this.allCategories = res.response.categories;
-            debugger
             this.strucCategories = this.catToNodes(this.allCategories);
             console.log("structured nodes categories=>", this.strucCategories);
 
@@ -171,7 +170,6 @@ export class AddNewsComponent implements OnInit {
     }
 
     addNewQuote(value?) {
-        debugger
         this.apiService.sendRequest(requests.addNewQuote, 'post', this.quotesForm.value).subscribe((res: any) => {
             this.allQuotes = res.quote;
             console.log("ADD-TAG", this.allQuotes);
