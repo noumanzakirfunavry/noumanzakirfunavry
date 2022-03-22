@@ -34,4 +34,11 @@ export class AttachmentsController {
     async getAllAttachments(@Query() query : GetAllEpisodesRequestDto) : Promise<GenericResponseDto>{
        return await this.attachmentsService.getAllAttachments(query);
     }
+
+    @Roles(RoleTypes.Admin)
+    @Rights(RightsTypes.GET)
+    @Get(":id")
+    async getAttachmentById(@Param("id") id : number) : Promise<GenericResponseDto>{
+       return await this.attachmentsService.getAttachmentById(id);
+    }
 }
