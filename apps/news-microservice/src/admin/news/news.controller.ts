@@ -1,5 +1,5 @@
 import { JwtAuthGuard, Rights, Roles } from '@cnbc-monorepo/auth-module';
-import { CreateNewsRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
+import { CreateNewsRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 import { NewsService } from './news.service';
@@ -40,5 +40,13 @@ export class NewsController {
     @Get("getById/:id")
     async getNewsById(@Param("id") id : number) : Promise<GetNewsByIdResponseDto>{
         return await this.newService.getNewsById(id)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Rights(RightsTypes.CREATE)
+    @Roles(RoleTypes.Admin)
+    @Get('getAll')
+    async getAllNews(@Query() query : GetAllNewsRequestDto) : Promise<GenericResponseDto>{
+        return await this.newService.getAllNews(query)
     }
 }
