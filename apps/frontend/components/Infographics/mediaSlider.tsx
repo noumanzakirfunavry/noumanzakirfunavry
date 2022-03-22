@@ -11,7 +11,7 @@ const MediaSlider:FC =  ()=>{
 
 
         const [settings, setSettings] = useState({
-            dots: false,
+            dots: true,
             infinite: true,
             speed: 500,
             slidesToShow: 1,
@@ -46,7 +46,7 @@ const MediaSlider:FC =  ()=>{
           });
     return (
         <>
-        <div className="newsSliderText newsSlider2Text">
+        <div className="newsSliderText newsSlider2Text ">
             <Slider {...settings}>
                     <div className="slider-item">
                         <div className="NewsBox ">
@@ -63,8 +63,8 @@ const MediaSlider:FC =  ()=>{
                                 </div>
                             </div>
                             <div className="newscontent">
-                                <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
-                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
+                                <h5><a>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</a></h5>
+                                {/* <p><a href="#">الإمارات</a> منذ 5 دقائق</p> */}
                             </div>
                         </div>
                     </div>
@@ -77,8 +77,7 @@ const MediaSlider:FC =  ()=>{
                                 <img className="img-fluid" src={sliderimg.src} />
                             </div>
                             <div className="newscontent">
-                                <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
-                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
+                            <h5><a>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</a></h5>
                             </div>
                         </div>
                     </div>
@@ -98,8 +97,7 @@ const MediaSlider:FC =  ()=>{
                                 </div>
                             </div>
                             <div className="newscontent">
-                                <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
-                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
+                            <h5><a>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</a></h5>
                             </div>
                         </div>
                     </div>
@@ -109,62 +107,11 @@ const MediaSlider:FC =  ()=>{
                                 <img className="img-fluid" src={sliderimg.src} />
                             </div>
                             <div className="newscontent">
-                                <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
-                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
+                            <h5><a>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</a></h5>
                             </div>
                         </div>
                     </div>
-                    <div className="slider-item">
-                        <div className="NewsBox">
-                            <div className="newsImage">
-                                <img className="img-fluid" src={sliderimg.src} />
-                                <div className="PlayTime">
-                                    <h5>05:21</h5>
-                                    <div className="btn-text">
-                                        <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
-                                        </button>
-                                        <span>شاهد الآن</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="newscontent">
-                                <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
-                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="slider-item">
-                        <div className="NewsBox">
-                            <div className="newsImage">
-                                <img className="img-fluid" src={sliderimg.src} />
-                            </div>
-                            <div className="newscontent">
-                                <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
-                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="slider-item">
-                        <div className="NewsBox">
-                            <div className="newsImage">
-                                <img className="img-fluid" src={sliderimg.src} />
-                                <div className="PlayTime">
-                                    <h5>05:21</h5>
-                                    <div className="btn-text">
-                                        <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
-                                        </button>
-                                        <span>شاهد الآن</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="newscontent">
-                                <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
-                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
-                            </div>
-                        </div>
-                    </div>
+
 
             </Slider>
         </div>

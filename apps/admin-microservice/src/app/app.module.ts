@@ -20,6 +20,7 @@ import { AlertsModule } from './alerts/alerts.module';
 import { MessagesModule } from './messages/messages.module';
 import { ExclusiveVideosModule } from './exclusive-videos/exclusive-videos.module';
 import { EpisodesModule } from './episodes/episodes.module';
+import { AttachmentsModule } from './attachments/attachments.module';
 
 @Module({
   imports: [
@@ -43,7 +44,8 @@ import { EpisodesModule } from './episodes/episodes.module';
     AlertsModule,
     MessagesModule,
     ExclusiveVideosModule,
-    EpisodesModule
+    EpisodesModule,
+    AttachmentsModule
   ]
 })
 export class AppModule { }
