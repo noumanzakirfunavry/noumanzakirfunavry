@@ -30,7 +30,7 @@ const routes: Routes = [
         },
     },
     {
-        path: 'add/:id',
+        path: 'update/:id',
         component: AddCategoryComponent,
         data: {
             title: 'Update Category',

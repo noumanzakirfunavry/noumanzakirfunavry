@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
 
@@ -17,10 +19,26 @@ import { ApiService } from 'src/app/shared/services/api.service';
 
 export class AddBreakingNewsComponent implements OnInit {
   breakingNewsForm: FormGroup;
+  breakingNewsId: number;
+  breakingNewsById: any;
   
-    constructor(private fb: FormBuilder, private apiService: ApiService) {}
+    constructor(private fb: FormBuilder, 
+      private apiService: ApiService, 
+      private activatedRoute: ActivatedRoute, 
+      private message: NzMessageService
+      ) {}
   
     ngOnInit(): void {
+      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+        this.breakingNewsId = + params.get('id');
+        if (this.breakingNewsId) {
+          this.getBreakingNewsById();
+        }
+      });
+      this.inItForm();
+    }
+
+    inItForm() {
       this.breakingNewsForm = this.fb.group({
         title: [null, [Validators.required]],
         newsLink: [null, [Validators.required]],
@@ -39,10 +57,32 @@ export class AddBreakingNewsComponent implements OnInit {
       if(this.breakingNewsForm.valid) {
         const obj= this.breakingNewsForm.value;
         obj['newsId']= 1;
-        this.apiService.sendRequest(requests.addBreakingNews, 'post', obj).subscribe((res:any) => {
+        this.apiService.sendRequest(this.breakingNewsId ? requests.updateBreakingNews + this.breakingNewsById : requests.addBreakingNews, this.breakingNewsId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("ADD-BREAKING-NEWS", res);
+          this.inItForm();
+          if(this.breakingNewsId) {
+            this.message.create('success', `Breaking News Updated Successfully`);
+          }
+          else {
+            this.message.create('success', `Breaking News Added Successfully`);
+          }
         })
       }
+    }
+
+    getBreakingNewsById() {
+      this.apiService.sendRequest(requests.getBreakingNewsById + this.breakingNewsId, 'get').subscribe((res:any) => {
+        this.breakingNewsById= res.breakingNews;
+        console.log("BREAKING-NEWS-BY-ID", res);
+        this.breakingNewsForm = this.fb.group({
+          title: [this.breakingNewsById?.title || null, [Validators.required]],
+          newsLink: [this.breakingNewsById?.newsLink || null, [Validators.required]],
+          isActive: [this.breakingNewsById?.isActive || false],
+          isPushNotificationActive: [this.breakingNewsById?.isPushNotificationActive || false],
+          IsTwitterActive: [this.breakingNewsById?.IsTwitterActive || false],
+          isFacebookActive: [this.breakingNewsById?.isFacebookActive || false]
+        });
+      })
     }
 
     enableDisable(e?: MouseEvent) {
