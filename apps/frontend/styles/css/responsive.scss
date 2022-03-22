@@ -472,6 +472,93 @@
     .search-header .header-search-nav{
         display: none;
     }
+    .top-grey-bar, .top-red-bar {
+        font-size: 13px;
+    }
+    header{
+        height: 45px;
+
+    }
+    .search-header .search-box {
+        top: -37px;
+
+    }
+    .search-header .search-box .input-group-text {
+        padding-left: 0;
+    }
+    .bnner_add img {
+        width: 320px;
+        height: 50px;
+    }
+    .mainsection_mainNews__oiuM_ {
+        margin-left: -19px;
+        margin-right: -19px;
+    }
+    .market-stats {
+        margin-left: -19px;
+    }
+    .order_flex_sm{
+        display: flex;
+        flex-direction: column;
+        .bnner_add{
+            order: 1;
+        }
+        .page-nav{
+            order: 2;
+        }
+        .market-stats{
+            order: 3;
+        }
+    }
+    .mainsection_mainNews__oiuM_ {
+        height: 440px;
+        background-size: contain !important;
+    }
+    .mainsection_mainNews__oiuM_ h1 a {
+        font: normal normal bold 21px/32px Cairo;
+
+    }
+    .mainsection_mainNews__oiuM_ h3 a{
+        font-size: 13px;
+    }
+    .NewsList ul li  {
+        border-bottom: 1px solid #dddddd;
+    }
+    .NewsList li {
+        padding-top: 0;
+    }
+    .sidelist_sidebar__Nuc9n .sidelist_themeTitle__1gobu h4 {
+
+        font: normal normal 900 21px/30px Cairo;
+    }
+    .sidelist_sideDotList__hUN6M li span {
+        margin-top: 0px;
+        font: normal normal bold 11px/20px Cairo;
+    }
+    .sidelist_sideDotList__hUN6M li a {
+        font: normal normal bold 13px/21px Cairo;
+    }
+    .sidelist_sideDotList__hUN6M li{
+        margin-bottom: 15px;
+    }
+    .sidelist_sideDotList__hUN6M li span{margin-top: 0 !important;}
+    .marketChart .chartBox{
+        padding: 15px 15px 10px;
+    }
+    .marketChart .chartBox .chartTop {
+        margin-bottom: 15px;
+        li{
+            margin-bottom: 5px;
+            &:first-child{
+                display: block;
+                width: 100%;
+            }
+            a {
+                padding: 0px 0px;
+                font-size: 13px;
+            }
+        }
+    }
 
   }
   @media screen and (max-width:575px){

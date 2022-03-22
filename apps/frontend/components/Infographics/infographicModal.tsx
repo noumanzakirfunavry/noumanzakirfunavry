@@ -6,8 +6,8 @@ const InfographiscModal:FC<ModalProps> = ({modalId, children}) => {
 
     return (
         <>
-            <div className="modal fade signinmodal" id={modalId} tabIndex={-1} aria-labelledby="accountModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div className="modal fade signinmodal infographic_slider" id={modalId} tabIndex={-1} aria-labelledby="accountModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
                     <div className="modal-content">
                         <div className="modal-header">
                             {/* <h5 className="modal-title" id="accountModalLabel">{title}</h5> */}

@@ -1,4 +1,4 @@
-import { CreateAttachmentRequestDto, GenericResponseDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
+import { CreateAttachmentRequestDto, GenericResponseDto, GetAllEpisodesRequestDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
 import { Attachments } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
@@ -19,7 +19,8 @@ export class AttachmentsService {
             if (response) {
                 return new GenericResponseDto(
                     HttpStatus.OK,
-                    "Attachment added successfully"
+                    "Attachment added successfully",
+                    response
                 )
             }
             else {
@@ -33,6 +34,33 @@ export class AttachmentsService {
             console.log("🚀 ~ file: attachments.service.ts ~ line 19 ~ AttachmentsService ~ createAttachment ~ err", err)
             throw err
         }
+    }
+
+    async getAllAttachments(query: GetAllEpisodesRequestDto): Promise<GenericResponseDto> {
+        try {
+            const response = await this.getAllAttachmentsQuery(query.limit, query.pageNo)
+            return new GenericResponseDto(
+                HttpStatus.OK,
+                "Attachments fetched successfully",
+                {
+                    attachments: response.rows,
+                    totalCount: response.count
+                }
+            )
+        }
+        catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 44 ~ AttachmentsService ~ getAllAttachments ~ err", err)
+            throw err
+        }
+    }
+
+    private async getAllAttachmentsQuery(limit: number, pageNo: number) {
+        return await this.attachmentsRepository.findAndCountAll(
+            {
+                limit: parseInt(limit.toString()),
+                offset: this.helperService.offsetCalculator(pageNo, limit)
+            }
+        );
     }
 
     async updateAttachment(id: number, body: UpdateAttachmentRequestDto): Promise<GenericResponseDto> {

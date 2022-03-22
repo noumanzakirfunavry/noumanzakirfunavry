@@ -29,7 +29,7 @@ const Footer = () =>{
                 </div>
                 <div className='row'>
 
-                    <div className='col-xl-2 col-lg-4 col-6 pb-5 pb-lg-0'>
+                    <div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0'>
                         <ul className={styles.footerLink}>
                         <li><a href="#">الرئيسية</a></li>
                             <li key={'zxc'}><a href="#">إشترك في نشرتنا البريدية</a></li>
@@ -38,7 +38,7 @@ const Footer = () =>{
                             <li key={'dvsfdf'}><a href="#">الرئيسية</a></li>
                         </ul>
                     </div>
-                    <div className='col-xl-2 col-lg-4 col-6 pb-5 pb-lg-0'>
+                    <div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0'>
                     <ul className={styles.footerLink}>
                     <li><a >إشترك في نشرتنا البريدية</a></li>
                             <li key={'xcve'}><a href="#">الرئيسية</a></li>
@@ -47,7 +47,7 @@ const Footer = () =>{
                             <li key={'dt4366'}><a href="#">الرئيسية </a></li>
                         </ul>
                     </div>
-                    <div className='col-xl-3 col-lg-4 col-sm-6 pb-5 pb-lg-0'>
+                    <div className='col-xl-3 col-md-4 col-sm-6 pb-5 pb-lg-0'>
                     <ul className={styles.footerLink}>
                             <li key={'fdg4yt'}><a href="#">الرئيسية</a></li>
                             <li key={'dfgdfbgfh'}><a href="#" >إشترك في نشرتنا البريدية</a></li>

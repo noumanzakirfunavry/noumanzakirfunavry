@@ -1,26 +1,20 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//     selector: 'app-dashboard',
-//     templateUrl: './dashboard.component.html',
-// })
-
-// export class DashboardComponent implements OnInit {
-//     constructor() { }
-
-//     ngOnInit(): void { }
-// }
-
 
 import { Component, OnInit } from '@angular/core'
+import { Pagination } from '../common/models/pagination';
+import { requests } from '../shared/config/config';
+import { ApiService } from '../shared/services/api.service';
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
-// import { ThemeConstantService } from '../../shared/services/theme-constant.service';
-export interface Data {
-    id: number;
-    name: string;
-    age: number;
-    address: string;
-    disabled: boolean;
+
+
+export class Data extends Pagination {
+    publishers: Array<any>;
+    title: string;
+
+    constructor () {
+        super();
+        this.publishers= [];
+        this.title= "";
+    }
 }
 
 @Component({
@@ -28,107 +22,35 @@ export interface Data {
     templateUrl: './breakingnews.component.html',
 })
 
-export class BreakingNewsComponent {
+export class BreakingNewsComponent implements OnInit{
+    pagination: Data = new Data()
 
 
     indeterminate = false;
     checked = false;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData: Data[] = [];
+    listOfCurrentPageData: Array<any>;
 
-    constructor( private colorConfig:ThemeConstantService ) {}
+    constructor( private apiService: ApiService ) {}
 
+    ngOnInit(): void {
+        this.getAllBreakingNews();
+    }   
 
+    getAllBreakingNews() {
+        this.apiService.sendRequest(requests.getAllBreakingNews, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
+            console.log("ALL-BREAKING-NEWS", res);
+        })
+    }
 
-    ordersList = [
-        {
-            id: 5331,
-            name: 'Erin Gonzales',
-            avatar: 'assets/images/avatars/thumb-1.jpg',
-            date: '8 May 2019',
-            amount: 137,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5375,
-            name: 'Darryl Day',
-            avatar: 'assets/images/avatars/thumb-2.jpg',
-            date: '6 May 2019',
-            amount: 322,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5762,
-            name: 'Marshall Nichols',
-            avatar: 'assets/images/avatars/thumb-3.jpg',
-            date: '1 May 2019',
-            amount: 543,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5865,
-            name: 'Virgil Gonzales',
-            avatar: 'assets/images/avatars/thumb-4.jpg',
-            date: '28 April 2019',
-            amount: 876,
-            status: 'pending',
-            checked : false
-        },
-        {
-            id: 5213,
-            name: 'Nicole Wyne',
-            avatar: 'assets/images/avatars/thumb-5.jpg',
-            date: '28 April 2019',
-            amount: 241,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5311,
-            name: 'Riley Newman',
-            avatar: 'assets/images/avatars/thumb-6.jpg',
-            date: '19 April 2019',
-            amount: 872,
-            status: 'rejected',
-            checked : false
+    clean(obj:any) {
+        for (const propName in obj) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            delete obj[propName];
+          }
         }
-    ]    
-
-    productsList = [
-        {
-            name: 'Gray Sofa',
-            avatar: 'assets/images/others/thumb-9.jpg',
-            category: 'Home Decoration',
-            growth: 18.3
-        },
-        {
-            name: 'Beat Headphone',
-            avatar: 'assets/images/others/thumb-10.jpg',
-            category: 'Eletronic',
-            growth: 12.7
-        },
-        {
-            name: 'Wooden Rhino',
-            avatar: 'assets/images/others/thumb-11.jpg',
-            category: 'Home Decoration',
-            growth: 9.2
-        },
-        {
-            name: 'Red Chair',
-            avatar: 'assets/images/others/thumb-12.jpg',
-            category: 'Home Decoration',
-            growth: 7.7
-        },
-        {
-            name: 'Wristband',
-            avatar: 'assets/images/others/thumb-13.jpg',
-            category: 'Eletronic',
-            growth: 5.8
-        }
-    ]    
+        return obj
+      }
 
     updateCheckedSet(id: number, checked: boolean): void {
         if (checked) {

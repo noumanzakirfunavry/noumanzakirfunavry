@@ -20,6 +20,18 @@ const ContactUsForm = () => {
                         <label className="form-label fs12_gray">رقم الهاتف</label>
                         <input type="email" className="form-control"/>
                     </div>
+                    <div className="mb-3">
+                <label className="form-label">الدول</label>
+                <div className="customSelect simpleSelect">
+                <select className="form-select text-start">
+                  <option value="1">مبيعات </option>
+                  <option value="2"> تسويق </option>
+                  <option value="3"> أخبار</option>
+                  <option value="3">  إداري</option>
+                  <option value="3">   وظائف شاغرة</option>
+                </select>
+                </div>
+              </div>
                     <div className="mb-4">
                         <label className="form-label fs12_gray">الموضوع</label>
                         <textarea className="form-control" rows={6}></textarea>
