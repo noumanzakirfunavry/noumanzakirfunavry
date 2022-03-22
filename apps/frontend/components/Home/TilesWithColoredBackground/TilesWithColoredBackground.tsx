@@ -29,7 +29,7 @@ const TilesWithColoredBackground: FC = () => {
                                 <div className="btn-text">
                                     <span>شاهد الآن</span>
                                     <button className="btn btn-warning VideoPlay">
-                                        <i className="fa fa-play"></i>
+                                        <i className="fa play_big"></i>
                                         {/* <img className="img-fluid" src={playicon.src} /> */}
                                     </button>
                                 </div>
@@ -55,7 +55,7 @@ const TilesWithColoredBackground: FC = () => {
                                             <div className="btn-text">
                                                 <span>شاهد الآن</span>
                                                 <button className="btn btn-warning VideoPlay">
-                                                    <i className="fa fa-play"></i>
+                                                    <i className="fa play_small"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -78,7 +78,7 @@ const TilesWithColoredBackground: FC = () => {
                                             <div className="btn-text">
                                                 <span>شاهد الآن</span>
                                                 <button className="btn btn-warning VideoPlay">
-                                                    <i className="fa fa-play"></i>
+                                                    <i className="fa play_small"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -101,7 +101,7 @@ const TilesWithColoredBackground: FC = () => {
                                             <div className="btn-text">
                                                 <span>شاهد الآن</span>
                                                 <button className="btn btn-warning VideoPlay">
-                                                    <i className="fa fa-play"></i>
+                                                    <i className="fa play_small"></i>
                                                 </button>
                                             </div>
                                         </div>
