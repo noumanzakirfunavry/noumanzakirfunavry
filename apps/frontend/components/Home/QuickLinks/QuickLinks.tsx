@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import Skeleton from "react-loading-skeleton"
 
 const QuickLinks = () =>{
-    
+
     const [quickLinks, setQuickLinks] = useState<QuickLink[]>([])
 
     useEffect(()=>{
@@ -20,7 +20,7 @@ const QuickLinks = () =>{
             console.log(err)
         })
     }
-    
+
     return (
         <>
             {
@@ -28,8 +28,8 @@ const QuickLinks = () =>{
             }
             {
                 quickLinks.length && (
-                <div className="page-categories">
-                    <h6 className="CategoryTitle d-block d-lg-none">روابط سريعة</h6>
+                <div className="page-categories d-flex">
+                    <h6 className="CategoryTitle  ">روابط سريعة</h6>
                     <ul>
                         {/* <li className="CategoryTitle d-none d-lg-block">روابط سريعة</li>
                         <li><a href="">الرئيسية تسجيل الدخول </a></li>
