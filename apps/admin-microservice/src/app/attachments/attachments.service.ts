@@ -3,6 +3,8 @@ import { Attachments } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import * as fs from 'fs';
+import { Blob } from 'buffer'
 
 @Injectable()
 export class AttachmentsService {
@@ -90,6 +92,32 @@ export class AttachmentsService {
         }
         catch (err) {
             console.log("🚀 ~ file: attachments.service.ts ~ line 43 ~ AttachmentsService ~ updateAttachment ~ err", err)
+            throw err
+        }
+    }
+
+    async getAttachmentById(id: number): Promise<GenericResponseDto> {
+        try {
+            const attachment_exists = await this.attachmentExistsQuery(id)
+            if (attachment_exists) {
+                const file = fs.readFileSync(attachment_exists.path);
+                return new GenericResponseDto(
+                    HttpStatus.OK,
+                    "Attachment fetched successfully",
+                    {
+                        attachment: file
+                    }
+                )
+            }
+            else {
+                throw new CustomException(
+                    Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                    Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+                )
+            }
+        }
+        catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 102 ~ AttachmentsService ~ getAttachmentById ~ err", err)
             throw err
         }
     }
