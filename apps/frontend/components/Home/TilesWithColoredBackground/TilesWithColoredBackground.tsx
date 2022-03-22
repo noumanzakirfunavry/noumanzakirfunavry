@@ -18,6 +18,7 @@ const TilesWithColoredBackground: FC = () => {
                     </Title>
                     <div className="clearfix"></div>
                 </div>
+                <div className="VideoTilesContent">
                 <div className="row">
                     <div className="col-lg-7 d-none d-sm-block">
                         <div className="VideoNews mb-4 mb-lg-0">
@@ -115,6 +116,7 @@ const TilesWithColoredBackground: FC = () => {
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
                 </div>
             </div>
