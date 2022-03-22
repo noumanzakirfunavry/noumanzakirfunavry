@@ -24,10 +24,7 @@ export const Connection = [
 
 
       await sequelize.sync({
-        force: true
       });
-      console.log('AUTHENTICATION RESULT', 'Face')
-
       return sequelize;
     },
   },

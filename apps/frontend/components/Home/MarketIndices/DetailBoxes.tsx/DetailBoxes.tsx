@@ -1,7 +1,6 @@
 
-
 const DetatilBoxes = () =>{
-   
+
     return (
         <>
             <div className="market-stats">
@@ -14,7 +13,11 @@ const DetatilBoxes = () =>{
                                     <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
-                                    <td><i className="fa fa-caret-down"></i></td>
+                                    <td>
+                                        {/* <i className="fa fa-caret-down"></i> */}
+                                        <div className="caret_icon_down"></div>
+
+                                        </td>
                                     <td className="ltr">-0.93   -1.30%</td>
                                 </tr>
                                 <tr>
@@ -32,7 +35,9 @@ const DetatilBoxes = () =>{
                                     <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
-                                    <td><i className="fa fa-caret-down"></i></td>
+                                    <td>
+                                    <div className="caret_icon_down"></div>
+                                    </td>
                                     <td className="ltr">-0.93   -1.30%</td>
                                 </tr>
                                 <tr>
@@ -50,7 +55,9 @@ const DetatilBoxes = () =>{
                                     <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
-                                    <td><i className="fa fa-caret-down"></i></td>
+                                    <td>
+                                    <div className="caret_icon_down"></div>
+                                    </td>
                                     <td className="ltr">-0.93   -1.30%</td>
                                 </tr>
                                 <tr>
@@ -68,7 +75,9 @@ const DetatilBoxes = () =>{
                                     <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
-                                    <td><i className="fa fa-caret-up"></i></td>
+                                    <td>
+                                    <div className="caret_icon_up"></div>
+                                    </td>
                                     <td className="ltr">-0.93   -1.30%</td>
                                 </tr>
                                 <tr>
@@ -86,7 +95,9 @@ const DetatilBoxes = () =>{
                                     <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
-                                    <td><i className="fa fa-caret-up"></i></td>
+                                    <td>
+                                    <div className="caret_icon_up"></div>
+                                    </td>
                                     <td className="ltr">-0.93   -1.30%</td>
                                 </tr>
                                 <tr>
@@ -104,7 +115,9 @@ const DetatilBoxes = () =>{
                                     <th className="text-start">13,370.24</th>
                                 </tr>
                                 <tr>
-                                    <td><i className="fa fa-caret-up"></i></td>
+                                    <td>
+                                    <div className="caret_icon_up"></div>
+                                    </td>
                                     <td className="ltr">-0.93   -1.30%</td>
                                 </tr>
                                 <tr>
@@ -114,10 +127,10 @@ const DetatilBoxes = () =>{
                             </tbody>
                             </table>
 
-                    
+
                 </div>
             </div>
-           
+
         </>
     )
 }
