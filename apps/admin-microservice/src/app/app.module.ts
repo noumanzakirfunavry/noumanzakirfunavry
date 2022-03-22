@@ -21,6 +21,7 @@ import { MessagesModule } from './messages/messages.module';
 import { ExclusiveVideosModule } from './exclusive-videos/exclusive-videos.module';
 import { EpisodesModule } from './episodes/episodes.module';
 import { AttachmentsModule } from './attachments/attachments.module';
+import { SubscribersModule } from './subscribers/subscribers.module';
 
 @Module({
   imports: [
@@ -45,7 +46,8 @@ import { AttachmentsModule } from './attachments/attachments.module';
     MessagesModule,
     ExclusiveVideosModule,
     EpisodesModule,
-    AttachmentsModule
+    AttachmentsModule,
+    SubscribersModule
   ]
 })
 export class AppModule { }
