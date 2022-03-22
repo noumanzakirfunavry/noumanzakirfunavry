@@ -16,7 +16,7 @@ export class AddNewsComponent implements OnInit {
     newsModal: NewsModal;
     newsForm: FormGroup;
 
-    size='default';
+    size = 'default';
 
     quotesForm: FormGroup;
     tagForm: FormGroup;
@@ -56,6 +56,8 @@ export class AddNewsComponent implements OnInit {
         }
     ];
     newsId: number;
+    uploadProgress: number;
+    file: any;
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
@@ -72,9 +74,9 @@ export class AddNewsComponent implements OnInit {
         this.newsModal = new NewsModal()
         this.activatedRoute.params.subscribe(params => {
             this.newsId = parseInt(params.id);
-            if(!this.newsId){
+            if (!this.newsId) {
                 this.initNewsForm();
-            }else{
+            } else {
                 this.getNews(this.newsId)
             }
         })
@@ -84,29 +86,30 @@ export class AddNewsComponent implements OnInit {
         this.getAllQuotes()
     }
     getNews(newsId: number) {
-       this.apiService.sendRequest(requests.getNewsById+this.newsId,'get').subscribe(res=>{
-           console.log("news data",res);
-           
-       })
+        this.apiService.sendRequest(requests.getNewsById + this.newsId, 'get').subscribe(res => {
+            console.log("news data", res);
+
+        })
     }
     initNewsForm() {
         this.newsForm = this.fb.group({
             title: [null, [Validators.required]],
             content: [null, [Validators.required]],
-            isPro: [null, [Validators.required]],
+            isPro: [false,],
             visible: [null, [Validators.required]],
-            contentType: [null, [Validators.required]],
-            authorName: [null, [Validators.required]],
-            newsType: ['NEWS', [Validators.required]],
+            contentType: ['TEXT', [Validators.required]],
+            authorName: [null,],
+            newsType: ['NEWS',],
             showOnHomepage: [true, [Validators.required]],
-            isActive: [null, [Validators.required]],
+            isActive: [true,],
             categoryIds: [null, [Validators.required]],
             tagsIds: [null, [Validators.required]],
             quotesIds: [null, [Validators.required]],
             seoTitle: [null, [Validators.required]],
             slugLine: [null, [Validators.required]],
             description: [null, [Validators.required]],
-            keywords: [null, [Validators.required]]
+            keywords: [null, [Validators.required]],
+            file: [null],
         });
 
     }
@@ -136,6 +139,23 @@ export class AddNewsComponent implements OnInit {
         // }
         console.log("form", this.newsForm.value);
 
+    }
+
+    uploadFile() {
+        this.apiService.uploadFileProgress(this.file, this.newsForm.value.description).subscribe((res: any) => {
+            // saving files on upload so that no need to load from s3.
+
+            if (res?.type == 1 && res?.loaded && res?.total) {
+                this.uploadProgress = Math.round(100 * (res.loaded / res.total));
+                console.log("file progress", this.uploadProgress);
+            }
+        })
+    }
+
+
+
+    fileRead($event) {
+        this.file = $event.target.files[0];
     }
 
     handlePreview = (file: NzUploadFile) => {

@@ -7,7 +7,7 @@ export const requests = {
     updatePassword: environment.baseUrlAdmin + 'authentication/password/update',
     resetPassword: 'http://157.90.67.186:3002/api/admin/resetPassword',
     requestPasswordReset: environment.baseUrlAdmin + 'authentication/request/password/reset',
-    addNewAttachment: 'http://localhost:3333/api/social-media-links/',
+    addNewAttachment: environment.baseUrlAdmin+'attachments',
     getAttachmentDetailsById: 'http://localhost:3333/api/attachment/',
     getAllAttachments: 'http://localhost:3333/api/attachment/',
     updateAttachment: 'http://localhost:3333/api/attachment/',
