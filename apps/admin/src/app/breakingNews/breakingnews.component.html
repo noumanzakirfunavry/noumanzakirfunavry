@@ -8,7 +8,7 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
-                <nz-table [nzShowPagination]="true" class="no-border-last">
+                <nz-table [nzShowPagination]="true" [nzLoading]="loading" [nzData]="allBreakingNews" class="no-border-last">
                     <thead>
                         <tr>
                             <th>ID </th>
@@ -22,26 +22,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr >
-                            <!-- <td [nzChecked]="setOfCheckedId.has(item.id)" [nzDisabled]="item.disabled"
-                                (nzCheckedChange)="onItemChecked(item.id, $event)">{{item.id}}</td> -->
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr *ngFor="let breakingNews of allBreakingNews">
+                            <td [nzChecked]="setOfCheckedId.has(breakingNews?.id)" [nzDisabled]="item.disabled"
+                                (nzCheckedChange)="onItemChecked(breakingNews?.id, $event)">{{breakingNews?.id}}</td>
+                            <td>{{breakingNews?.title}}</td>
+                            <td>{{breakingNews?.newsLink}}</td>
+                            <td>{{breakingNews?.createdAt | date: 'dd-MM-YYYY'}}</td>
+                            <td>{{breakingNews?.updatedAt | date: 'dd-MM-YYYY'}}</td>
+                            <td>{{breakingNews?.addedBy}}</td>
                             <td>
-                                <!-- <nz-badge *ngIf="item.status === 'approved'" nzStatus="success"></nz-badge>
-                                <nz-badge *ngIf="item.status === 'rejected'" nzStatus="error"></nz-badge> -->
+                                <nz-badge *ngIf="breakingNews?.status === true" nzStatus="success"></nz-badge>
+                                <nz-badge *ngIf="breakingNews?.status === false" nzStatus="error"></nz-badge>
                                 <!-- <span class="text-capitalize">{{item.status}}</span> -->
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i class="fas fa-external-link-alt"></i>
-                                    <i nz-icon nzType="edit" nzTheme="outline"></i>
-                                    <i nz-icon nzType="bell" nzTheme="outline"></i>
-                                    <i nz-icon nzType="link" nzTheme="outline"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/breakingNews/update/' + breakingNews?.id]"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteBreakingNews(breakingNews?.id)"></i>
                                 </div>
                             </td>
                         </tr>

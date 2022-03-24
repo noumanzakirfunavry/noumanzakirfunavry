@@ -9,7 +9,7 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div class="m-t-30">
-                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="listOfData"
+                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allNews"
                     (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
                     <thead>
                         <tr>

@@ -19,6 +19,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FileSelectorComponent } from './file-selector/file-selector.component';
 // import * as  DtosModule from "./../../../../../libs/dtos/src";
 const icons: IconDefinition[] = [LeftOutline, RightOutline];
 
@@ -46,7 +47,8 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
     declarations: [
         AddNewsComponent,
         FilterNewsComponent,
-        NewsComponent
+        NewsComponent,
+        FileSelectorComponent
     ],
     providers: [
         ThemeConstantService

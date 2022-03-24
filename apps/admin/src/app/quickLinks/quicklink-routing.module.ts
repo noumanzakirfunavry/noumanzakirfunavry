@@ -32,7 +32,7 @@ const routes: Routes = [
 
     },
     {
-        path: 'add/:id',
+        path: 'update/:id',
         component: AddQuickLinksComponent,
         data: {
             title: 'Update Quick Link',
