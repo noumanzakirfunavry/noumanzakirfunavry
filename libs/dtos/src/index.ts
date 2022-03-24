@@ -106,6 +106,7 @@ export * from './request/breakingNews/get.all.breaking.news.request.dto';
 
 //...............................Subscribers..........................
 export * from './request/subscribers/create.subscriber.request.dto';
+export * from './request/subscribers/login.subscriber.request.dto';
 
 //.............................response dtos.......................................
 export * from './response/generic.response.dto';
