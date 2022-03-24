@@ -38,7 +38,7 @@ const Index = () =>{
             <CategoryNewsSection limit = {3} displayTitle={false} displayTopTwoNews={true} displayMoreButton={false}/>
             <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
             <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
-            <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
+            <CategoryNewsSection limit = {3} displayTitle={true} displayTopTwoNews={false} displayMoreButton={true}/>
           </div>
 
 
