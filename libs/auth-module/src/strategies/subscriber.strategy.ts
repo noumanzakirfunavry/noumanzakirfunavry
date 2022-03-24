@@ -13,7 +13,7 @@ export class SubscriberStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    if (payload.subscriber) {
+    if (payload.data) {
       return { isSubscriber: true, data: payload.data };
     }
   }
