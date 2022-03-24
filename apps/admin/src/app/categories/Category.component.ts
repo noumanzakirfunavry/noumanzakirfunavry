@@ -80,6 +80,12 @@ export class CategoryComponent implements OnInit {
         })
     }
 
+    updateCategoryOrder() {
+        this.apiService.sendRequest(requests.updateCategoryOrder, 'put', {ids:[9,1]}).subscribe((res:any) => {
+            console.log("CATEGORY-ORDER", res);
+        })
+    }
+
     updateCheckedSet(id: number, checked: boolean): void {
         if (checked) {
             this.setOfCheckedId.add(id);
@@ -101,6 +107,12 @@ export class CategoryComponent implements OnInit {
 
     drop(event: CdkDragDrop<string[] | any>) {
         moveItemInArray(this.allCategories, event.previousIndex, event.currentIndex);
+        this.updateCategoryOrder();
+      }
+
+      dropSubCategories(event: CdkDragDrop<string[] | any>, index: number) {
+        moveItemInArray(this.allCategories[index].sub, event.previousIndex, event.currentIndex);
+        this.updateCategoryOrder();
       }
 
       toggle(catId: any) {
