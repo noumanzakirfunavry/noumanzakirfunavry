@@ -17,6 +17,11 @@ import { LiveStreamLinksModule } from './live-stream-links/live-stream-links.mod
 import { ProvidersModule } from '@cnbc-monorepo/providers';
 import { AuthModuleModule } from '@cnbc-monorepo/auth-module';
 import { AlertsModule } from './alerts/alerts.module';
+import { MessagesModule } from './messages/messages.module';
+import { ExclusiveVideosModule } from './exclusive-videos/exclusive-videos.module';
+import { EpisodesModule } from './episodes/episodes.module';
+import { AttachmentsModule } from './attachments/attachments.module';
+import { SubscribersModule } from './subscribers/subscribers.module';
 
 @Module({
   imports: [
@@ -37,7 +42,12 @@ import { AlertsModule } from './alerts/alerts.module';
     LiveStreamLinksModule,
     ProvidersModule,
     AuthModuleModule,
-    AlertsModule
+    AlertsModule,
+    MessagesModule,
+    ExclusiveVideosModule,
+    EpisodesModule,
+    AttachmentsModule,
+    SubscribersModule
   ]
 })
 export class AppModule { }

@@ -60,3 +60,15 @@ export type QuickLink = {
     url: string
     visible: boolean
 }
+
+export type BreakingNewsProps= {
+    id: number,
+    newsLink: string,
+    title: string,
+    isActive: boolean,
+    addedBy: string | null,
+    newsId: number,
+    createdAt: Date | null,
+    updatedAt: Date | null,
+    deletedAt: Date | null
+}
