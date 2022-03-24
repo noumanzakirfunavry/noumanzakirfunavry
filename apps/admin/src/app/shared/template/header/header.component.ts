@@ -74,7 +74,7 @@ export class HeaderComponent implements OnInit{
         this.apiService.sendRequest(requests.logout, 'post').subscribe((res:any) => {
             console.log("LOGOUT", res);
             localStorage.clear();
-            this.route.navigateByUrl('/full/authentication/login-3')
+            this.route.navigateByUrl('/full/authentication/login')
         })
     }
     

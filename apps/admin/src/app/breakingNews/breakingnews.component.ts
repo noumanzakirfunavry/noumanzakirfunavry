@@ -1,9 +1,9 @@
 
 import { Component, OnInit } from '@angular/core'
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
-import { ThemeConstantService } from '../shared/services/theme-constant.service';
 
 
 export class Data extends Pagination {
@@ -24,6 +24,8 @@ export class Data extends Pagination {
 
 export class BreakingNewsComponent implements OnInit{
     pagination: Data = new Data()
+    allBreakingNews: any;
+    loading= true;
 
 
     indeterminate = false;
@@ -31,7 +33,7 @@ export class BreakingNewsComponent implements OnInit{
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData: Array<any>;
 
-    constructor( private apiService: ApiService ) {}
+    constructor( private apiService: ApiService, private message: NzMessageService ) {}
 
     ngOnInit(): void {
         this.getAllBreakingNews();
@@ -39,8 +41,12 @@ export class BreakingNewsComponent implements OnInit{
 
     getAllBreakingNews() {
         this.apiService.sendRequest(requests.getAllBreakingNews, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
-            console.log("ALL-BREAKING-NEWS", res);
-        })
+            this.allBreakingNews= res.response.breakingNews;
+            console.log("ALL-BREAKING-NEWS", this.allBreakingNews);
+            this.loading= false;
+        },err => {
+            this.loading = false;
+          })
     }
 
     clean(obj:any) {
@@ -50,6 +56,14 @@ export class BreakingNewsComponent implements OnInit{
           }
         }
         return obj
+      }
+
+      deleteBreakingNews(breakingNewsId: number) {
+          this.apiService.sendRequest(requests.deleteBreakingNews, 'delete', {ids:[breakingNewsId]}).subscribe((res:any) => {
+              console.log("DEL-BREAKING-NEWS", res);
+              this.getAllBreakingNews();
+              this.message.create('success', `Breaking News Deleted Successfully`);
+          })
       }
 
     updateCheckedSet(id: number, checked: boolean): void {

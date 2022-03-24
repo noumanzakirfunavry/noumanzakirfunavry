@@ -18,7 +18,7 @@
               <nz-form-item>
                 <nz-form-label nzRequired>Admin Role</nz-form-label>
                 <nz-form-control nzErrorTip="Please select Admin Role!">
-                <nz-select nzShowSearch nzAllowClear formControlName="roleId" nzPlaceHolder="Select Role">
+                <nz-select nzShowSearch nzAllowClear formControlName="rolesId" nzPlaceHolder="Select Role">
                   <nz-option [nzValue]="3" [nzLabel]="'Super Admin'"></nz-option>
                   <nz-option [nzValue]="1" [nzLabel]="'Admin'"></nz-option>
                   <nz-option [nzValue]="2" [nzLabel]="'User'"></nz-option>
@@ -88,11 +88,9 @@
           <h5>Admin Rights</h5>
           <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log($event)">
             <div nz-row>
-              <div nz-col nzSpan="12"><label nz-checkbox nzValue="A" [ngModel]="true">News</label></div>
-              <div nz-col nzSpan="12"><label nz-checkbox nzValue="B">Infographics</label></div>
-              <div nz-col nzSpan="12"><label nz-checkbox nzValue="C">Categories</label></div>
-              <div nz-col nzSpan="12"><label nz-checkbox nzValue="D">Tags</label></div>
-              <div nz-col nzSpan="12"><label nz-checkbox nzValue="E">Menus</label></div>
+              <div nz-col nzSpan="12">
+                <label *ngFor="let right of allRights" nz-checkbox [nzValue]="right?.id" formControlName="rights">{{right?.title}}</label>
+              </div>
             </div>
           </nz-checkbox-wrapper>
         </div>
@@ -104,7 +102,5 @@
         </nz-form-control>
       </nz-form-item>
     </form>
-
   </div>
-
 </section>

@@ -68,7 +68,7 @@ export class AuthInterceptor implements HttpInterceptor {
           else if ((error.status == 401 && (error.error?.message == 'Unauthorized' || error.message == 'Unauthorized')) || error.status == 403 || error.statusText == 'Forbidden' || error.error?.message == 'Invalid Token' || error.message == 'Invalid Token') {
             // this.profileStore.reset();
             window.localStorage.clear();
-            this.router.navigateByUrl('/full/authentication/login-3');
+            this.router.navigateByUrl('/full/authentication/login');
           }
           else if (!ifDisableLoader && error.status == 404 && error.statusText == 'Not Found') {
             this.message.create('error', error.error?.message || error.message)
