@@ -114,11 +114,4 @@ export class SubscribersService {
       emailSubscriber
     );
   }
-
-  async validatePassword(
-    receivedPassword: string,
-    realHashedPassword: string
-  ): Promise<boolean> {
-    return await compare(receivedPassword, realHashedPassword);
-  }
 }
