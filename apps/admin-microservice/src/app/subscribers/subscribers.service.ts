@@ -2,8 +2,15 @@ import {
   CreateSubscriberRequestDto,
   CreateSubscriberResponseDto,
   GetSubscriberByIdResponseDto,
+  LoginSubscriberRequestDto,
 } from '@cnbc-monorepo/dtos';
 import { EmailSubscribers } from '@cnbc-monorepo/entity';
+import {
+  CustomException,
+  Exceptions,
+  ExceptionType,
+} from '@cnbc-monorepo/exception-handling';
+import { Helper } from '@cnbc-monorepo/utility';
 import {
   BadRequestException,
   HttpStatus,
@@ -12,14 +19,57 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { compare } from 'bcrypt';
 import { UniqueConstraintError } from 'sequelize';
 
 @Injectable()
 export class SubscribersService {
   constructor(
     @Inject('EMAIL_SUBSCRIBERS_REPOSITORY')
-    private emailSubscriberRepo: typeof EmailSubscribers
+    private emailSubscriberRepo: typeof EmailSubscribers,
+    private helperService: Helper,
+    private jwtService: JwtService
   ) {}
+
+  async loginSubscriber(loginSubscriberRequestDto: LoginSubscriberRequestDto) {
+    const emailSubscriber = await this.emailSubscriberRepo.findOne({
+      where: { email: loginSubscriberRequestDto.email },
+      attributes: { include: ['password'] },
+      raw: true,
+    });
+
+    if (!emailSubscriber) {
+      throw new CustomException(
+        Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].message,
+        Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].status
+      );
+    }
+
+    const isPasswordValid = await this.helperService.comparePasswords(
+      loginSubscriberRequestDto.password,
+      emailSubscriber.password
+    );
+
+    if (!isPasswordValid) {
+      throw new CustomException(
+        Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].message,
+        Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].status
+      );
+    }
+
+    const payload = {
+      subscriber: {
+        id: emailSubscriber.id,
+        email: emailSubscriber.email,
+        name: emailSubscriber.name,
+      },
+    };
+
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
+  }
 
   async addEmailSubscriber(
     CreateSubscriberRequestDto: CreateSubscriberRequestDto
@@ -63,5 +113,12 @@ export class SubscribersService {
       'Request Successful',
       emailSubscriber
     );
+  }
+
+  async validatePassword(
+    receivedPassword: string,
+    realHashedPassword: string
+  ): Promise<boolean> {
+    return await compare(receivedPassword, realHashedPassword);
   }
 }

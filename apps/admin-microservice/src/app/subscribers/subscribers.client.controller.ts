@@ -3,6 +3,7 @@ import {
   CreateSubscriberRequestDto,
   CreateSubscriberResponseDto,
   GetSubscriberByIdResponseDto,
+  LoginSubscriberRequestDto,
 } from '@cnbc-monorepo/dtos';
 import {
   Body,
@@ -17,6 +18,14 @@ import { SubscribersService } from './subscribers.service';
 @Controller('admin/api/client/subscribers')
 export class SubscribersClientController {
   constructor(private readonly subscribersService: SubscribersService) {}
+
+  @Public()
+  @Post('/login')
+  loginSubscriber(
+    @Body() loginSubscriberRequestDto: LoginSubscriberRequestDto
+  ) {
+    return this.subscribersService.loginSubscriber(loginSubscriberRequestDto);
+  }
 
   @Public()
   @Post('/sign-up')
