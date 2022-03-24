@@ -80,16 +80,48 @@ export class AddNewsComponent implements OnInit {
                 this.getNews(this.newsId)
             }
         })
-
-        this.getTags();
-        this.getAllCategories();
-        this.getAllQuotes()
+        setTimeout(() => {
+            this.getTags();
+            this.getAllCategories();
+            this.getAllQuotes()
+        }, 2000);
     }
     getNews(newsId: number) {
-        this.apiService.sendRequest(requests.getNewsById + this.newsId, 'get').subscribe(res => {
-            console.log("news data", res);
+        this.apiService.sendRequest(requests.getNewsById + this.newsId, 'get').subscribe((res:any) => {
+            console.log("news data", res.response.news);
+            // this.newsModal=new NewsModal();
+            this.newsModal.populateFromServerModal(res.response.news);
+            this.newsModal.seoDetailId=res.response.news.seoDetailId;
+            console.log("view modal",this.newsModal);
+            
+            this.populateNewsForm(res.response.news);
 
         })
+    }
+    populateNewsForm(news:any){
+        this.newsForm = this.fb.group({
+            title: [news.title || null, [Validators.required]],
+            content: [news?.content || null, [Validators.required]],
+            isPro: [news.isPro || false],
+            visible: [news.visible, [Validators.required]],
+            contentType: [news.contentType || 'TEXT', [Validators.required]],
+            authorName: [news?.authorName || 'CNBC News',],
+            newsType: [news?.newsType || 'NEWS',],
+            showOnHomepage: [news.showOnHomepage || true, [Validators.required]],
+            isActive: [news.isActive || true,],
+            categoryIds: [news?.categories.map(x=>x.id) || null, [Validators.required]],
+            tagsIds: [news?.tags.map(x=>x.id) || null, [Validators.required]],
+            quotesIds: [news?.quotes.map(x=>x.id) || null, [Validators.required]],
+            seoTitle: [news?.seoDetail?.title || null, [Validators.required]],
+            slugLine: [news?.seoDetail?.slugLine || null, [Validators.required]],
+            description: [news?.seoDetail?.description || null, [Validators.required]],
+            keywords: [news?.seoDetail?.keywords || null, [Validators.required]],
+            // seoTitle: [ null, [Validators.required]],
+            // slugLine: [ null, [Validators.required]],
+            // description: [ null, [Validators.required]],
+            // keywords: [ null, [Validators.required]],
+            file: [null],
+        });
     }
     initNewsForm() {
         this.newsForm = this.fb.group({
@@ -126,7 +158,7 @@ export class AddNewsComponent implements OnInit {
         const obj = this.newsForm.value;
         ;
         // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
-        this.apiService.sendRequest(requests.addNews, 'post', this.newsModal.toServerModal(obj)).subscribe((res: any) => {
+        this.apiService.sendRequest(this.newsId ? requests.updateNews+this.newsId :requests.addNews, this.newsId ? 'put':'post', {...this.newsModal.toServerModal(obj,this.newsModal.seoDetailId),...this.newsId ? {id:this.newsId}:null}).subscribe((res: any) => {
             console.log("News", res);
             this.newsForm.reset();
             // if(this.categoryId) {
@@ -149,6 +181,12 @@ export class AddNewsComponent implements OnInit {
                 this.uploadProgress = Math.round(100 * (res.loaded / res.total));
                 console.log("file progress", this.uploadProgress);
             }
+            else if(res?.body){
+                console.log("Data Uploaded");
+                console.log(res.body);
+                this.newsModal.imageId=res.body.response.id
+                console.log("news modal with image id",this.newsModal);
+              }
         })
     }
 
