@@ -31,7 +31,6 @@ export class CategoriesController{
 
     @Put('update/:id')
     async update(@Param("id") id:number,@Body() body:UpdateCategoriesRequestDto){
-        console.log("🚀 ~ file: categories.controller.ts ~ line 34 ~ CategoriesController ~ update ~ id", id)
         return await this.categoryService.update(id,body)
     }
 
