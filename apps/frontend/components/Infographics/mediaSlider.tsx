@@ -11,7 +11,7 @@ const MediaSlider:FC =  ()=>{
 
 
         const [settings, setSettings] = useState({
-            dots: true,
+            dots: false,
             infinite: true,
             speed: 500,
             slidesToShow: 1,
