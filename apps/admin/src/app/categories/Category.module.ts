@@ -10,6 +10,7 @@ import { FilterComponent } from './categoryFilter/Filter.component';
 import { antdModule } from '../AndModules/andModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TempCatComponent } from './tempCat/tempCategory.component';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     declarations: [
         AddCategoryComponent,
         CategoryComponent,
-        FilterComponent
+        FilterComponent,
+        TempCatComponent
     ],
     providers: [
         ThemeConstantService
