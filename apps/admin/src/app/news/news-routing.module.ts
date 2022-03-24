@@ -21,6 +21,15 @@ const routes: Routes = [
         },
 
     },
+    {
+        path: 'edit/:id',
+        component: AddNewsComponent,
+        data: {
+            title: 'Edit News',
+            // headerDisplay: "none"
+        },
+
+    },
    
 ];
 

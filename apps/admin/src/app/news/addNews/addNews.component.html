@@ -17,7 +17,7 @@
                         <div class="col-md-12">
                             <nz-form-item>
                                 <nz-form-label>Title</nz-form-label>
-                                <nz-form-control>
+                                <nz-form-control nzErrorTip="Please input Title!">
                                 <input type="text" formControlName="title" placeholder="Enter Title" dir="rtl" nz-input>
                             </nz-form-control>
                             </nz-form-item>
@@ -134,8 +134,8 @@
                             <nz-form-label>Tags</nz-form-label>
                             <nz-form-control>
                                 <nz-select [nzSize]="size" formControlName="tagsIds"  nzMode="multiple" nzPlaceHolder="Please select">
-                                    <nz-option *ngFor="let option of allTags" [nzLabel]="option.id"
-                                        [nzValue]="option.title"></nz-option>
+                                    <nz-option *ngFor="let option of allTags" [nzLabel]="option.title"
+                                        [nzValue]="option.id"></nz-option>
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
