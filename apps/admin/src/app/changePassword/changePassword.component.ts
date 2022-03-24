@@ -46,6 +46,7 @@ export class ChangePasswordComponent implements OnInit{
               delete obj['confirmPassword'];
               this.apiService.sendRequest(requests.updatePassword, 'put', obj).subscribe((res:any) => {
                   console.log("CHSANGE-PASSWORD", res);
+                  this.changePasswordForm.reset();
               })
           }
       }
