@@ -57,7 +57,7 @@ export const requests = {
     deleteEditorsChoiceNews: 'http://localhost:3333/api/admin/news/editorChoice/',
     getEditorsChoiceNews: 'http://localhost:3333/api/admin/news/editorChoice/',
     getAllEditorsChoiceNews: 'http://localhost:3333/api/admin/news/editorChoiceAll',
-    getAllNews: environment.baseUrlNews+,
+    getAllNews: environment.baseUrlNews+'news/getAll',
     addNews: environment.baseUrlNews+'news/add',
     updateNews: environment.baseUrlNews+'news/update/',
     deleteNews: 'http://localhost:3333/api/admin/allnews/',
