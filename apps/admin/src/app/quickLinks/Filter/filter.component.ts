@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
@@ -14,7 +13,8 @@ export class FilterComponent {
     // loading= true;
 
 
-    constructor( private apiService: ApiService ) {}
+    constructor( private apiService: ApiService ) {
+    }
 
 
     // getAllQuickLinks() {
@@ -25,11 +25,10 @@ export class FilterComponent {
     //     })
     // }
 
-    onChangeStatus(status: boolean) {
-        this.status= status;
+    onChangeStatus() {
+        // this.status= status;
         this.statusEmitter.emit(this.status);
         console.log("STATUS", this.status);
-
     }
    
    

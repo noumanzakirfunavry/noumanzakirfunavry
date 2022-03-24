@@ -19,7 +19,9 @@ export const RequestsWithoutAccesstoken=[
 
 export const DisableNotification=[
     'pdstatus',
-    'listusers'
+    'listusers',
+    'admin/quotes',
+    'admin/tags'
 ]
 export const DisableLoaderCalls=[
     'eduopeningprivatebucket.s3.amazonaws.com',

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { Connection } from './connection';
 import { ConfigModule } from '@nestjs/config';
+import 'dotenv/config'
 
 @Module({
   controllers: [],
@@ -16,7 +17,8 @@ import { ConfigModule } from '@nestjs/config';
   ]
 })
 export class EntityModule {
+  
   constructor(){
-    console.log(process.env.DATABASE_USER);
+    console.log("logs for the server ",Connection);
   }
 }

@@ -22,6 +22,7 @@ import { FooterComponent } from "./footer/footer.component";
 
 import { SideNavDirective } from "../directives/side-nav.directive";
 import { ThemeConstantService } from '../services/theme-constant.service';
+import { ServerDownComponent } from './server-down/server-down.component';
 
 const antdModule = [
     NzAvatarModule,
@@ -44,7 +45,8 @@ const antdModule = [
         QuickViewComponent,
         SideNavComponent,
         SideNavDirective,
-        FooterComponent
+        FooterComponent,
+        ServerDownComponent
     ],
     imports: [
         RouterModule,
@@ -58,7 +60,8 @@ const antdModule = [
         QuickViewComponent,
         SideNavComponent,
         SideNavDirective,
-        FooterComponent
+        FooterComponent,
+        ServerDownComponent
     ],
     providers: [ 
         ThemeConstantService

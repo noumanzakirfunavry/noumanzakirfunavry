@@ -43,11 +43,17 @@ export class AnthenticationService {
                     }
                 }
                 else {
-                    throw new NotFoundException()
+                    throw new CustomException(
+                        Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].message,
+                        Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].status
+                    )
                 }
             }
             else {
-                throw new NotFoundException()
+                throw new CustomException(
+                    Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].message,
+                    Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].status
+                )
             }
         }
         catch (err) {
@@ -178,6 +184,80 @@ export class AnthenticationService {
             return err
         }
     }
+
+    async updateAdmin(id: number, body: RegisterAdminRequestDto): Promise<GenericResponseDto> {
+        try {
+            return await sequelize.transaction(async t => {
+                const transactionHost = { transaction: t };
+                const admin_exists = await this.adminExistsQuery(id)
+                if (admin_exists) {
+                    const update_user = await this.updateAdminQuery(body, id, transactionHost)
+                    if (update_user) {
+                        const delete_rights = await this.deleteAdminRightsQuery(id)
+                        if (delete_rights) {
+                            const rights_added = await this.addUserRights(body.rights, { id: id }, transactionHost)
+                            if (rights_added) {
+                                return new GenericResponseDto(
+                                    HttpStatus.OK,
+                                    "Updated Successfully!"
+                                )
+                            }
+                            else {
+                                throw new CustomException(
+                                    Exceptions[ExceptionType.SOMETHING_WENT_WRONG].message,
+                                    Exceptions[ExceptionType.SOMETHING_WENT_WRONG].status
+                                )
+                            }
+                        }
+                    }
+                    else {
+                        throw new CustomException(
+                            Exceptions[ExceptionType.SOMETHING_WENT_WRONG].message,
+                            Exceptions[ExceptionType.SOMETHING_WENT_WRONG].status
+                        )
+                    }
+                }
+                else {
+                    throw new CustomException(
+                        Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                        Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+                    )
+                }
+            });
+        }
+        catch (err) {
+            console.log("🚀 ~ file: anthentication.service.ts ~ line 139 ~ AnthenticationService ~ registerAdmin ~ err", err)
+            return err
+        }
+    }
+
+    private async adminExistsQuery(id: number) {
+        return await this.usersRepository.findOne({
+            where: {
+                id: id
+            }
+        });
+    }
+
+    private async deleteAdminRightsQuery(id: number) {
+        const response = await this.usersHasRigths.destroy({
+            where: {
+                usersId: id
+            }
+        });
+        return response === 0 ? true : response
+    }
+
+    private async updateAdminQuery(body: RegisterAdminRequestDto, id: number, transactionHost) {
+        body.password = await this.helperService.encryptPassword(body.password)
+        return await this.usersRepository.update(body, {
+            where: {
+                id: id
+            },
+            transaction: transactionHost.transaction
+        });
+    }
+
     async addUserRights(rights, user, transactionHost) {
         for (let i = 0; i < rights.length; i++) {
             await this.usersHasRigths.create({
