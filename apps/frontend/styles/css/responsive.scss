@@ -518,11 +518,14 @@
         }
     }
     .mainsection_mainNews__oiuM_ {
-        height: 440px;
+        height: 440px !important;
         background-size: contain !important;
     }
+    .mainsection_newscontent__y_KUp{
+        padding: 15px !important;
+    }
     .mainsection_mainNews__oiuM_ h1 a {
-        font: normal normal bold 21px/32px Cairo;
+        font: normal normal bold 21px/32px Cairo !important;
 
     }
     .mainsection_mainNews__oiuM_ h3 a{
@@ -581,8 +584,8 @@
     }
     .scrollbarWrap{
         .slick-list{
-            margin-left: -28px;
-            margin-right: -28px;
+            margin-left: -19px;
+            margin-right: -19px;
         }
     }
     .NewsLightTiles .VideoTiles .VideoNews{

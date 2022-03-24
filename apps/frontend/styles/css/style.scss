@@ -305,7 +305,7 @@ header{
     font-size: 15px;
     color: $white !important;
     // padding: 5px 15px;
-    padding: 0;
+    padding: 0 !important;
     text-align: center;
     text-decoration: none;
     font-weight: bold;
@@ -1670,6 +1670,7 @@ width: 110px;
               display: block;
               font-size: 15px;
               padding: 5px 0;
+              direction: ltr;
             }
           }
           .active{
