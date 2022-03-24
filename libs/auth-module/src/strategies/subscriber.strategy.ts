@@ -13,15 +13,10 @@ export class SubscriberStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    if (payload.subscriber) {
+    if (payload.data) {
       return { isSubscriber: true, data: payload.data };
-    }else{
-      return {
-        data: payload.user,
-        rights: payload.rights,
-        roles: payload.roles,
-        sessionId: payload.sessionId,
-      };
-    }
+    } else {
+			return true;
+		}
   }
 }
