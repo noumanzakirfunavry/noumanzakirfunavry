@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
-import 'dotenv/config'
+require('dotenv').config({ path: 'W:/Projects/CNBC-Monorepo/.env'})
 import { Entities } from "..";
 export const Connection = [
   {
