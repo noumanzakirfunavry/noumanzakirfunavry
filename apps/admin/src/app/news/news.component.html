@@ -9,8 +9,7 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div class="m-t-30">
-                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allNews"
-                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+                <nz-table [nzLoading]="loading" nzShowPagination nzShowSizeChanger [nzData]="allNews">
                     <thead>
                         <tr>
                             <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
@@ -28,35 +27,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of rowSelectionTable.data">
-                            <td [nzChecked]="setOfCheckedId.has(data.id)" [nzDisabled]="data.disabled"
-                                (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
-
+                        <tr *ngFor="let news of allNews">
+                            <td [nzChecked]="setOfCheckedId.has(news?.id)" [nzDisabled]="news.disabled"
+                                (nzCheckedChange)="onItemChecked(news?.id, $event)"></td>
+                            <td>{{news?.title}}</td>
+                            <td>{{news?.newsType}}</td>
+                            <td *ngFor="let catNews of news?.categories">{{catNews?.title}}</td>
+                            <td>{{news?.createdAt | date:'dd-MM-YYYY'}}</td>
+                            <td>{{news?.updatedAt | date:'dd-MM-YYYY'}}</td>
+                            <td>{{news?.publishedBy}}</td>
+                            <td>{{news?.name}}</td>
+                            <td>{{news?.name}}</td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <h6 class="m-l-10 m-b-0">{{data.name}}</h6>
-                                </div>
-                            </td>
-                            <td>{{data.age}}</td>
-                            <td>${{data.name}}</td>
-                            <td>${{data.name}}</td>
-                            <td>${{data.name}}</td>
-                            <td>${{data.name}}</td>
-                            <td>${{data.name}}</td>
-                            <td>${{data.name}}</td>
-                            <td>
-                                <nz-badge nzStatus="success"></nz-badge>
-                                <!-- <nz-badge *ngIf="item.status == 'rejected'" nzStatus="error"></nz-badge>
-            <nz-badge *ngIf="item.status == 'pending'"  nzStatus="processing"></nz-badge>  -->
-
+                                <nz-badge *ngIf="news?.isActive === true" nzStatus="success"></nz-badge>
+                                <nz-badge *ngIf="news?.isActive === false"  nzStatus="error"></nz-badge> 
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i class="fas fa-external-link-alt"></i>
-                                    <i nz-icon nzType="edit" nzTheme="outline"></i>
-                                    <i nz-icon nzType="bell" nzTheme="outline"></i>
-                                    <i nz-icon nzType="link" nzTheme="outline"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/news/edit/' + news?.id]"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteNews(news?.id)"></i>
                                 </div>
                             </td>
                         </tr>
