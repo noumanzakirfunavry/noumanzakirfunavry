@@ -1,4 +1,4 @@
-import { Public } from '@cnbc-monorepo/auth-module';
+import { Public, SubscriberAuthGuard, SubscriberOnly } from '@cnbc-monorepo/auth-module';
 import {
   CreateSubscriberRequestDto,
   CreateSubscriberResponseDto,
@@ -12,6 +12,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+	UseGuards,
 } from '@nestjs/common';
 import { SubscribersService } from './subscribers.service';
 
@@ -35,6 +36,13 @@ export class SubscribersClientController {
     return this.subscribersService.addEmailSubscriber(
       createSubscriberRequestDto
     );
+  }
+
+	@SubscriberOnly()
+	@UseGuards(SubscriberAuthGuard)
+  @Get('/protected')
+  protected() {
+    return 'protected route'
   }
 
   @Public()
