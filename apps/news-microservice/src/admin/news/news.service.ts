@@ -365,7 +365,7 @@ export class NewsService {
 
     async newsExists(id: number) {
         return await this.newsRepository.findOne({
-            include: ['tags', 'categories', 'quotes','seodetails'],
+            include: ['tags', 'categories', 'quotes','seoDetail'],
             where: {
                 id: id
             }
