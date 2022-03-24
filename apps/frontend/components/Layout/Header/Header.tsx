@@ -138,20 +138,20 @@ const Header = () =>{
                 "SecurityTypeID": "1",
                 "InitialMargin": "0.0"
              },
-           
+
         }
         return data
     }
 
     return (
         <>
-            <header>
+            <header  className={scroll ? 'default':'sticky_header'}>
                 <div className="container">
-                   
-                        <div className={scroll ? 'header-box':'test-class'}>
+
+                        <div className={'header-box'}>
                             <div className="logo-header">
                                 <div className="cnbc-logo">
-                                    
+
                                     <Link href="/">
                                         <img role={'button'} title="CNBC Arabia" alt="logo" src={logo.src}/>
                                     </Link>
@@ -306,7 +306,7 @@ const Header = () =>{
                                     <ul>
                                         <li key={'wser'}><a href="/liveTv">المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></li>
                                         <li><a key={'dsad'} href="/breakingNews">عاجل</a></li>
-                                        <li><a key={'adss'} data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a></li>
+                                        <li className='sticky_none'><a key={'adss'} data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a></li>
                                     </ul>
                                 </div>
                                 {
