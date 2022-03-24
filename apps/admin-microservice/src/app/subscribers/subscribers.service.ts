@@ -1,26 +1,27 @@
 import {
-  CreateSubscriberRequestDto,
-  CreateSubscriberResponseDto,
-  GetSubscriberByIdResponseDto,
-  LoginSubscriberRequestDto,
+	CreateSubscriberRequestDto,
+	CreateSubscriberResponseDto,
+	GetSubscriberByIdResponseDto,
+	LoginSubscriberRequestDto,
+	UpdateSubscriberRequestDto,
+	UpdateSubscriberResponseDto
 } from '@cnbc-monorepo/dtos';
 import { EmailSubscribers } from '@cnbc-monorepo/entity';
 import {
-  CustomException,
-  Exceptions,
-  ExceptionType,
+	CustomException,
+	Exceptions,
+	ExceptionType
 } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
 import {
-  BadRequestException,
-  HttpStatus,
-  Inject,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
+	BadRequestException,
+	HttpStatus,
+	Inject,
+	Injectable,
+	InternalServerErrorException,
+	NotFoundException
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compare } from 'bcrypt';
 import { UniqueConstraintError } from 'sequelize';
 
 @Injectable()
@@ -114,4 +115,24 @@ export class SubscribersService {
       emailSubscriber
     );
   }
+
+	async updateEmailSubscriber(
+		subscriberId:number, 
+		updateSubscriberRequestDto: UpdateSubscriberRequestDto
+		): Promise<UpdateSubscriberResponseDto> {
+	 const updateResult = await this.emailSubscriberRepo.update<EmailSubscribers>(
+		 updateSubscriberRequestDto, 
+		 { where: {id: subscriberId}})
+
+		 // if no rows were affected, that means subscriber was not found, 
+		//  so throw not found exception
+		 if (updateResult[0] === 0) {
+      throw new NotFoundException();
+    }
+
+		return new UpdateSubscriberResponseDto(
+      HttpStatus.NO_CONTENT,
+      'Subscriber Updated Successfully',
+    );
+	}
 }
