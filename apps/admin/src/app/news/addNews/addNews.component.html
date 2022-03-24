@@ -134,8 +134,8 @@
                             <nz-form-label>Tags</nz-form-label>
                             <nz-form-control>
                                 <nz-select [nzSize]="size" formControlName="tagsIds"  nzMode="multiple" nzPlaceHolder="Please select">
-                                    <nz-option *ngFor="let option of allTags" [nzLabel]="option.title"
-                                        [nzValue]="option.id"></nz-option>
+                                    <nz-option *ngFor="let option of allTags" [nzLabel]="option?.title"
+                                        [nzValue]="option?.id"></nz-option>
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
@@ -155,15 +155,15 @@
                             <nz-form-label>Related Quotes</nz-form-label>
                             <nz-form-control>
                                 <nz-select (keyup)="getAllQuotes($event.target.value)" formControlName="quotesIds" [nzSize]="size" nzMode="multiple" nzPlaceHolder="Please select">
-                                    <nz-option *ngFor="let option of allQuotes" [nzLabel]="option.name"
-                                        [nzValue]="option.id"></nz-option>
+                                    <nz-option *ngFor="let option of allQuotes" [nzLabel]="option?.name"
+                                        [nzValue]="option?.id"></nz-option>
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
                         <form [formGroup]="quotesForm" nz-form [nzLayout]="'horizontal'" (ngSubmit)="addNewQuote()">
                         <div class="d-flex w-100">
                             <nz-form-item>
-                                <input  type="text" formControlName="name" placeholder="Enter Quote" dir="rtl" nz-input>
+                                <input type="text" formControlName="name" placeholder="Enter Quote" dir="rtl" nz-input>
                             </nz-form-item>
                             <nz-form-item>
                                 <button class="mr-3" nz-button nzType="default">Create</button>

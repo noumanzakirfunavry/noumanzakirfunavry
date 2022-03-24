@@ -6,7 +6,7 @@
       <form nz-form [nzLayout]="'vertical'">
         <div class="row">
           <div class="col-12">
-          <nz-table class="no-border-last">
+          <nz-table [nzData]="allFeaturedNews" class="no-border-last">
             <thead>
                 <tr>
                     <th class="text-left" colspan="4">Reorder</th>
@@ -18,19 +18,20 @@
                     <td>1</td>
                     <td class="col-4">
                       <nz-form-item>
-                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
-          
-                          <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
-                          <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
-                        </nz-select>
+                        <nz-form-control >
+                        <!-- <nz-select nzMode="default" (nzBlur)="getCategoryNews()" [ngModel]="cat1"  nzAllowClear nzPlaceHolder="Select Category">
+                          <nz-option *ngFor="let cat of allCategories" [nzValue]="cat?.id" [nzLabel]="cat?.title"></nz-option>
+                        </nz-select> -->
+                        <select (change)="getCategoryNews($event.target.value)">
+                          <option *ngFor="let cat of allCategories" [value]="cat.id">{{cat.title}}</option>
+                        </select>
+                      </nz-form-control>
                       </nz-form-item>
                     </td>
                     <td>
                       <nz-form-item>
                         <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-          
-                          <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
-                          <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
+                          <nz-option *ngFor="let catNews of allCategoryNews" [nzValue]="catNews?.id" [nzLabel]="catNews?.title"></nz-option>
                         </nz-select>
                       </nz-form-item>
                     </td>
@@ -50,7 +51,6 @@
                   <td>
                     <nz-form-item>
                       <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-        
                         <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
                         <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
                       </nz-select>
@@ -63,7 +63,6 @@
                 <td class="col-4">
                   <nz-form-item>
                     <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
-      
                       <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
                       <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
                     </nz-select>
@@ -72,7 +71,6 @@
                 <td>
                   <nz-form-item>
                     <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-      
                       <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
                       <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
                     </nz-select>
@@ -85,7 +83,6 @@
               <td class="col-4">
                 <nz-form-item>
                   <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
-    
                     <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
                     <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
                   </nz-select>
@@ -94,7 +91,6 @@
               <td>
                 <nz-form-item>
                   <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-    
                     <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
                     <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
                   </nz-select>
@@ -107,7 +103,6 @@
             <td class="col-4">
               <nz-form-item>
                 <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
-  
                   <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
                   <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
                 </nz-select>
@@ -116,7 +111,6 @@
             <td>
               <nz-form-item>
                 <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-  
                   <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
                   <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
                 </nz-select>
@@ -129,7 +123,6 @@
           <td class="col-4">
             <nz-form-item>
               <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
-
                 <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
                 <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
               </nz-select>
@@ -138,7 +131,6 @@
           <td>
             <nz-form-item>
               <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-
                 <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
                 <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
               </nz-select>
@@ -151,7 +143,6 @@
         <td class="col-4">
           <nz-form-item>
             <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
-
               <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
               <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
             </nz-select>
@@ -160,7 +151,6 @@
         <td>
           <nz-form-item>
             <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-
               <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
               <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
             </nz-select>
@@ -182,7 +172,6 @@
       <td>
         <nz-form-item>
           <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-
             <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
             <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
           </nz-select>
@@ -196,7 +185,7 @@
             <nz-form-item>
               <nz-form-control>
                 <button class="mr-3" nz-button nzType="primary">Save</button>
-                <button nz-button nzType="default">Cancel</button>
+                <!-- <button nz-button nzType="default">Cancel</button> -->
               </nz-form-control>
             </nz-form-item>
           </div>
