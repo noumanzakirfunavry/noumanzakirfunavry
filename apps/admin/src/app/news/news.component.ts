@@ -36,13 +36,18 @@ export class NewsComponent implements OnInit {
     getAllJobs() {
         this.apiService.sendRequest(requests.getAllNews, 'get', this.pagination).subscribe((res:any) => {
             this.allNews= res.response.news;
+            
+            
             console.log("ALL-JOBS", this.allNews);
             this.loading= false;
         },err => {
             this.loading = false;
           })
     }
-
+    onCurrentPageDataChange(listOfCurrentPageData: Data[]): void {
+        this.listOfCurrentPageData = listOfCurrentPageData;
+        this.refreshCheckedStatus();
+    }
     deleteJobs(jobId: number) {
         this.apiService.sendRequest(requests.deleteJobs, 'delete', {ids:[jobId]}).subscribe((res:any) => {
             console.log("DELETE-JOBS", res);
@@ -61,6 +66,11 @@ export class NewsComponent implements OnInit {
 
     onItemChecked(id: number, checked: boolean): void {
         this.updateCheckedSet(id, checked);
+        this.refreshCheckedStatus();
+    }
+
+        onAllChecked(checked: boolean): void {
+        this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
         this.refreshCheckedStatus();
     }
 
