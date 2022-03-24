@@ -30,7 +30,7 @@ export class CategoriesController{
     }
 
     @Put('update/:id')
-    async update(id:number,@Body() body:UpdateCategoriesRequestDto){
+    async update(@Param("id") id:number,@Body() body:UpdateCategoriesRequestDto){
         return await this.categoryService.update(id,body)
     }
 
