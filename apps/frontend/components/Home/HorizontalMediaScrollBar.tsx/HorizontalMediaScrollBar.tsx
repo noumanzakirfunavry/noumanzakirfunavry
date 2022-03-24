@@ -62,7 +62,7 @@ const HorizontalMediaScrollBar:FC = () =>{
               {
                 breakpoint: 575,
                 settings: {
-                  slidesToShow: 1,
+                  slidesToShow: 1.5,
                   slidesToScroll: 1
                 }
               }
