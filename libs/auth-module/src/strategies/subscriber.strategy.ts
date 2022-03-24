@@ -13,8 +13,9 @@ export class SubscriberStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    if (payload.subscriber) {
+    if (payload.data) {
       return { isSubscriber: true, data: payload.data };
+<<<<<<< HEAD
     }else{
       return {
         data: payload.user,
@@ -23,5 +24,10 @@ export class SubscriberStrategy extends PassportStrategy(Strategy) {
         sessionId: payload.sessionId,
       };
     }
+=======
+    } else {
+			return true;
+		}
+>>>>>>> CNBC-162
   }
 }
