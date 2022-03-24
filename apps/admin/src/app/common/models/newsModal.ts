@@ -14,6 +14,11 @@ export class NewsModal {
     tagsIds: Array<string | number>;
     quotesIds: Array<string | number>;
     seoDetails: SeoModal;
+    seoDetailId: number;
+
+    videoId : number
+    thumbnailId : number
+    imageId : number
 
     constructor() {
         this.title = ""
@@ -28,32 +33,52 @@ export class NewsModal {
         this.categoryIds = []
         this.tagsIds = []
         this.quotesIds = []
-        this.seoDetails = new SeoModal()
+        this.seoDetails = new SeoModal();
+        this.seoDetailId = null
     }
 
-    toServerModal(form: any) {
+    populateFromServerModal(serverNews: any) {
+        this.title=serverNews.title
+        this.content=serverNews.content
+        this.isPro=serverNews.isPro
+        this.visible=serverNews.visible
+        this.contentType=serverNews.contentType
+        this.authorName=serverNews.authorName
+        this.newsType=serverNews.newsType
+        this.showOnHomepage=serverNews.showOnHomepage
+        this.isActive=serverNews.isActive
+        this.categoryIds=serverNews.categories.map(x=>x.id);
+        this.tagsIds=serverNews.tags.map(x=>x.id);
+        this.quotesIds=serverNews.quotes.map(x=>x.id);
+        this.seoDetails=serverNews.seoDetail
+        this.seoDetailId=serverNews.seoDetailId
+    }
+
+    toServerModal(form: any, seoId?) {
 
         return {
             title: form.title,
             content: form.content,
-            isPro: form.isPro,
+            isPro: form.isPro || false,
             visible: form.visible || true,
             contentType: form.contentType || 'TEXT',
             authorName: form.authorName || 'CNBC News',
             newsType: form.newsType || 'NEWS',
             showOnHomepage: form.showOnHomepage || false,
-            isActive: form.isActive,
+            isActive: form.isActive || false,
             // this.categoryIds=form.categoryIds;
-            categoryIds : [1],
+            categoryIds: [1],
             // this.tagsIds=form.tagsIds;
-           tagsIds : [1],
-            // this.quotesIds=form.quotesIds;
+            tagsIds: [1],
+            quotesId: form.quotesIds,
+            imageId:this.imageId,
 
-           seoDetails : {
+            seoDetails: {
                 title: form.seoTitle,
                 description: form.description,
                 keywords: form.keywords,
-                slugLine: form.slugLine
+                slugLine: form.slugLine,
+                ...(seoId ? { id: seoId } : null)
             }
         }
     }
