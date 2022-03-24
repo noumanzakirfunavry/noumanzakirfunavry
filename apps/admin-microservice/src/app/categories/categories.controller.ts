@@ -36,8 +36,8 @@ export class CategoriesController{
 
     @Public()
     @Put('updateOrder')
-    async updateOrder(@Query() query:UpdateOrderCategoriesRequestDto){
-        return await this.categoryService.updateOrder(query)
+    async updateOrder(@Body() body:UpdateOrderCategoriesRequestDto){
+        return await this.categoryService.updateOrder(body)
     }
 
 }
