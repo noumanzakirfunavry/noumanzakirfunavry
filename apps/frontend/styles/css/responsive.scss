@@ -398,6 +398,9 @@
     .NewsTiles .newBox .NewsInfo h4{
         font-size: 14px;
     }
+    .NewsLightTiles .VideoTiles .VideoNews{
+        width: 100%;
+    }
   }
   @media screen and (max-width:768px) and (min-width:576px){
     .searchResultList .NewsList li {
