@@ -59,7 +59,7 @@ export class SubscribersService {
     }
 
     const payload = {
-      subscriber: {
+      data: {
         id: emailSubscriber.id,
         email: emailSubscriber.email,
         name: emailSubscriber.name,
