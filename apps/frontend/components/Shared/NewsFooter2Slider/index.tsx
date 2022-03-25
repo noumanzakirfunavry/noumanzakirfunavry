@@ -22,7 +22,7 @@ const HorizontalFooter2NewsSlider:FC =  ()=>{
                   slidesToShow: 3,
                   slidesToScroll: 3,
                   infinite: true,
-                  dots: true
+                  dots: false
                 }
               },
               {
@@ -54,7 +54,7 @@ const HorizontalFooter2NewsSlider:FC =  ()=>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>
@@ -89,7 +89,7 @@ const HorizontalFooter2NewsSlider:FC =  ()=>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>
@@ -120,7 +120,7 @@ const HorizontalFooter2NewsSlider:FC =  ()=>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>
@@ -151,7 +151,7 @@ const HorizontalFooter2NewsSlider:FC =  ()=>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>

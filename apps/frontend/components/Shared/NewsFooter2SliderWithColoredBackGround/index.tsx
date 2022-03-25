@@ -54,7 +54,7 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>
@@ -89,7 +89,7 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>
@@ -118,7 +118,7 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>
@@ -148,7 +148,7 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>
