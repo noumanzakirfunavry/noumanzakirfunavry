@@ -170,7 +170,10 @@
     .infographics_detail img{
         height: 354px;
     }
-
+    .searchResultList .NewsList li .newsImage {
+        max-width: 190px;
+        height: 107px;
+    }
 
   }
   @media screen and (max-width:1140px){
@@ -224,6 +227,9 @@
         height: 95px;
         width: 100%
 
+    }
+    .presenterBox .presenterImage{
+        width: 100%;
     }
   }
 
@@ -585,7 +591,22 @@
     .programDetailNews .VideoNews .NewsImage {
         height: 200px;
     }
+    .searchResultList .NewsList ul {
+        display: block;
+    }
+    .searchResultList .NewsList li .newsImage {
+        max-width: 324px;
+        height: 165px;
+    }
+    .searchResultList .NewsList li .newsText p {
 
+        font: normal normal normal 14px/28px IBM Plex Sans Arabic;
+
+    }
+    .fs24_bolder {
+        font-size: 21px;
+
+    }
   }
   @media screen and (max-width:768px) and (min-width:576px){
     .searchResultList .NewsList li {
@@ -932,6 +953,30 @@
     .programBox .programImage {
         height: 165px;
         width: 100%;
+    }
+    .presenter_detail img {
+        height: 246px;
+        width: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+    .simpleSelect::after {
+        padding: 0.6em 0.7rem;
+        font-size: 13px;
+    }
+    .searchResulstBox{
+        padding: 15px 15px 6px;
+        width: 320px;
+    }
+    .job_detail_container .NewsBox {
+        h6 {
+            font: normal normal 600 16px/26px Montserrat;
+            color: #002f6c;
+        }
+        h2{
+            font: normal normal bold 24px/20px Montserrat;
+
+        }
     }
   }
   @media screen and (max-width:575px){
