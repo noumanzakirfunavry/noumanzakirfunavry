@@ -16,13 +16,13 @@ const Index = () =>{
                 <AdBanner/>
 
                <div className="row justify-content-center">
-                   <div className="col-9">
+                   <div className="col-xl-9">
                    <Title styles={"pageSimpleTitle mb-5"}>
                    <div className="newsdetail_title">
                    {/* <span className="badge bg-success">PRO</span> */}
                     <h1 className="fw-bold">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h1></div>
                 </Title></div>
-                <div className="col-1"></div>
+                <div className="col-xl-1"></div>
                    </div>
 
                 <div className="SocialHeaderMobile">
@@ -58,22 +58,22 @@ const Index = () =>{
                 </div>
 
                 <div className="row justify-content-center">
-                    <div className='col-md-7'>
+                    <div className='col-xl-7 col-lg-9'>
                         <NewsInfoBox/>
                     </div>
-                    <div className='col-md-3'>
+                    <div className='col-xl-3 col-lg-3'>
                     </div>
                 </div>
-                <div className="row justify-content-center">
-                    <div className='col-lg-7'>
+                <div className="row justify-content-center news_artical_detail">
+                    <div className='col-xl-7 col-lg-9'>
                         <ArticleDetails/>
                     </div>
-                    <div className='col-lg-3'>
+                    <div className='col-xl-3 col-lg-3'>
                         <SideBar sideBarSequence={[{componentType:'Latest', position:1},  {componentType:'numbered', position:1, title:'الأكثر قراءة'}, {componentType:'SmallBanner', position:2}]}/>
                     </div>
                 </div>
                 <div className="row mb-4">
-                    <div className="col-8"><PageCatgories/></div>
+                    <div className="col-lg-8"><PageCatgories/></div>
                 </div>
                 <div className="mb-3">
                 <Title styles={"yellowTitle"}>
