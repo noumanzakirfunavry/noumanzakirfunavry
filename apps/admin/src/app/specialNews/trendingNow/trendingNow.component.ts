@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Pagination } from 'src/app/common/models/pagination';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -27,36 +28,78 @@ export class Data extends Pagination {
 
 export class TrendingNowComponent implements OnInit{
     pagination: Data= new Data();
+    trendingNowForm: FormGroup;
+    loading= true;
     allCategories: any;
+    allTrendingNow: any;
+
+    tNews: any[] = [
+        {
+            "position": 1,
+            "externalURL": "http://www.google.com",
+            newsId: null
+        },
+        {
+            "position": 2,
+            "externalURL": "http://www.google.com",
+            newsId: null
+        },
+        {
+            "position": 3,
+            "externalURL": "http://www.google.com",
+            newsId: null
+        },
+        {
+            "position": 4,
+            "externalURL": "http://www.google.com",
+            newsId: null
+        },
+        {
+            "position": 5,
+            "externalURL": "http://www.google.com",
+            newsId: null
+        }
+    ];
 
 
-    constructor (private apiService: ApiService) {}
+    constructor (private apiService: ApiService, private fb: FormBuilder) {}
 
     ngOnInit(): void {
+        this.trendingNowForm = this.fb.group({
+        });
         this.getAllTrendingNews();
-        this.getAllCategories();
     }
 
     getAllTrendingNews() {
         this.apiService.sendRequest(requests.getAllTrendingNews, 'get').subscribe((res:any) => {
-            console.log("ALL-TRENDING-NEWS", res);
+            this.allTrendingNow= res
+            console.log("ALL-TRENDING-NEWS", this.allTrendingNow);
+            this.loading = false;
+        }, err => {
+            this.loading = false;
         })
     }
 
-    getAllCategories() {
-        this.apiService.sendRequest(requests.getAllCategories, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
-            this.allCategories= res.response.categories;
-            console.log("ALL-CATEGORIES", this.allCategories);
-        })
-    }
-
-    clean(obj:any) {
-        for (const propName in obj) {
-          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
-            delete obj[propName];
-          }
+    changedNews(updatedNews) {
+        const news = this.tNews.findIndex(x => x.position == updatedNews.position);
+        if (news > -1) {
+            this.tNews[news] = updatedNews;
         }
-        return obj
-      }
+    }
+
+    updateTrendingNow() {
+        for (const i in this.trendingNowForm.controls) {
+            this.trendingNowForm.controls[i].markAsDirty();
+            this.trendingNowForm.controls[i].updateValueAndValidity();
+        }
+        if(this.trendingNowForm.valid) {
+            this.tNews.forEach(news=>{
+                news.newsId=parseInt(news.newsId);
+            })
+            this.apiService.sendRequest(requests.updateTrendingNews, 'put', {news:[this.tNews]}).subscribe((res:any) => {
+                console.log("UPDATE-TRENDING-NOW", res);
+            })
+        }
+    }
 
 }    
