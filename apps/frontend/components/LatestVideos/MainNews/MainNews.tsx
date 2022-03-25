@@ -10,7 +10,7 @@ const MainNews = () =>{
                 </div>
                 <div className="PlayTime"><h5>05:21</h5>
                     <div className="btn-text"><span>شاهد الآن</span>
-                        <button className="btn btn-warning VideoPlay"><i className="fa fa-play"></i></button>
+                        <button className="btn btn-warning VideoPlay"><i className="fa play_big"></i></button>
                     </div>
                 </div>
                 <div className="NewsContent">

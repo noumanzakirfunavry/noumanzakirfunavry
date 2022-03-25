@@ -34,6 +34,7 @@ const Index = () =>{
                 <h2>إنفوغرافيك</h2>
             </div>
             <div className="container">
+            <div className="infographics_container">
             <div className='row'>
                 <div className='col-lg-9'>
                 <News2TopTiles/>
@@ -42,6 +43,7 @@ const Index = () =>{
                 <div className='col-lg-3'>
                     <SideBar sideBarSequence={[{componentType:'numbered', position:1, title:'الأكثر تداولا'}, {componentType:'SmallBanner', position:2}, {componentType:'simple', position:2, title:'الأكثر قراءة'}, {componentType:'LargeBanner', position:2}]}/>
                 </div>
+            </div>
             </div>
         </div>
         </>
