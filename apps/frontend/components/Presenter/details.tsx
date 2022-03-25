@@ -4,10 +4,10 @@ const PresenterDetails = () => {
     return (
         <>
             <div className='row'>
-                <div className="col-md-4 offset-1 mb-4 ms-0 me-auto">
+                <div className="col-xl-4 offset-xl-1 col-md-5 mb-4 ms-0 me-auto">
                     <img className="img-fluid" src={presenterimg.src} />
                 </div>
-                <div className="col-md-6 offset-1">
+                <div className="col-xl-6 col-md-7 offset-xl-1">
                     <h1>الطيب عبد الماجد</h1>
                     <h5 className="mb-3">كبير مذيعي CNBC عربية</h5>
                     <a className="mb-3 text-secondary color-secondary fs20_bold d-block" title="Follow on Twitter">

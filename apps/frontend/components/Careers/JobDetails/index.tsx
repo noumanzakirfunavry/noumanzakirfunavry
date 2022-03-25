@@ -51,7 +51,7 @@ const JobDetails = ({title,description}) => {
 </div>
 
                 <div className='row justify-content-center'>
-                    <div className="col-md-8">
+                    <div className="col-lg-8">
                         <JobOpportunities title={title} description={description}/>
                     </div>
                 </div>
