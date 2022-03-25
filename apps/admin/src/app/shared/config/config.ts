@@ -149,6 +149,7 @@ export const requests = {
     deleteCategories: environment.baseUrlAdmin + 'categories/delete/',
     addCategory: environment.baseUrlAdmin + 'categories/add',
     updateCategory: environment.baseUrlAdmin + 'categories/update/',
+    updateCategoryOrder: environment.baseUrlAdmin + 'categories/updateOrder',
     updateExclusiveVideos: 'http://localhost:3333/api/admin/videos/exclusive/',
     addExclusiveVideos: 'http://localhost:3333/api/admin/videos/exclusive',
     deleteExclusiveVideos: 'http://localhost:3333/api/admin/videos/exclusive/',

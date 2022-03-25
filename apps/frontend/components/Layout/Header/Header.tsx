@@ -336,13 +336,16 @@ const Header = () =>{
                                                 } */}
                                                 <li className="nav-item" key={'1'}>
                                                     <a className="nav-link active" aria-current="page" href="/">الرئيسية</a>
+                                                    <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 <li className="nav-item" key={'2'}>
                                                     <a className="nav-link" href="/videoNews">الفيديو</a>
+                                                    <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 <li className="nav-item dropdown" key={'3'}>
                                                     <a className="nav-link dropdown-toggle" href="#" id="morePrograms" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
                                                     </a>
+                                                    <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="morePrograms">
                                                         <li key={'8'}>
                                                             <a className="dropdown-item" href="/programs/100/">اكسبو في أسبوع</a>
@@ -422,13 +425,16 @@ const Header = () =>{
                                                 </li>
                                                 <li className="nav-item" key={'34'}>
                                                     <a className="nav-link" href="/categoryNewsTiles">التصنيفات</a>
+                                                    <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 <li className="nav-item" key={'35'}>
                                                     <a className="nav-link" href="/marketGraph">الأسواق</a>
+                                                    <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 <li className="nav-item dropdown" key={'3'}>
                                                     <a className="nav-link dropdown-toggle" href="#" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
+                                                    <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="moreOtions">
                                                         {
                                                             moreMenuItems.length && moreMenuItems.map((menuItem)=>{
@@ -441,6 +447,7 @@ const Header = () =>{
                                                         }
                                                     </ul>
                                                 </li>
+
                                             </ul>
                                         </div>
                                     </nav>

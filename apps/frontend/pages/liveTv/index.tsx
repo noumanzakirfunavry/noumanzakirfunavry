@@ -17,29 +17,39 @@ const Index = () =>{
                 </Title>
                 <LiveTvBox/>
                 <div className="container">
-
                 <div className="mb-3">
                     <Title styles={"yellowTitle"}>
                         <h3>البرنامج</h3>
                     </Title>
                     <HorizontalFooter2NewsSlider />
                 </div>
+                </div>
+                <div className="container">
                 <div className="mb-3">
                     <Title styles={"yellowTitle"}>
                         <h3>أحدث الحلقات</h3>
                     </Title>
                     <HorizontalFooter2NewsSlider />
                 </div>
-
                 <AdBanner />
-
+                </div>
                 <div className="sliderTextBg mb-5 livetvSlider ">
+                    <div className="container">
                     <Title styles={"TitleBar"}>
                         <h2>حصرية CNBC Arabia </h2>
                     </Title>
                     <NewsFooter2SliderWithColoredBackGround/>
+                    </div>
 
                 </div>
+                <div className="container">
+
+
+
+
+
+
+
 
                 <div className="mb-3">
                     <Title styles={"yellowTitle"}>
