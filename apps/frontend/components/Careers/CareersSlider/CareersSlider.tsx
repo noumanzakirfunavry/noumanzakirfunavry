@@ -5,11 +5,15 @@ import { JobProps } from "apps/frontend/types/Types";
 import { FC, useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import dateFormat from "dateformat";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 
 const CareersSlider = () =>{
 
     const [jobs, setJobs] = useState<JobProps[]>([])
+    const router = useRouter()
+    const path = router.pathname
     const ref:any = useRef()
 
        const next = () =>{
@@ -111,7 +115,7 @@ const CareersSlider = () =>{
                                             <div className="NewsBox">
 
                                                 <h6>{job.branchId}</h6>
-                                                <h2><a>{job.title}</a></h2>
+                                                <h2><Link href={`${path}/${job.id}`}>{job.title}</Link></h2>
                                                 <div className="newscontent">
                                                     <p>{`Posted ${dateFormat(job.closingDate, 'dd mmmm yyyy')}`}</p>
                                                 </div>
