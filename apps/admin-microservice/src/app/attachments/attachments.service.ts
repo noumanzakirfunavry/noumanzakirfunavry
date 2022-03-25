@@ -34,6 +34,7 @@ export class AttachmentsService {
             }
         }
         catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 37 ~ AttachmentsService ~ createAttachment ~ err", err)
             throw err
         }
     }
@@ -51,6 +52,7 @@ export class AttachmentsService {
             )
         }
         catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 54 ~ AttachmentsService ~ getAllAttachments ~ err", err)
             throw err
         }
     }
@@ -90,6 +92,7 @@ export class AttachmentsService {
             }
         }
         catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 93 ~ AttachmentsService ~ updateAttachment ~ err", err)
             throw err
         }
     }
@@ -125,6 +128,7 @@ export class AttachmentsService {
             })
         }
         catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 129 ~ AttachmentsService ~ deleteAttachments ~ err", err)
             throw err
         }
     }
