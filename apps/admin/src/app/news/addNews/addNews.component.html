@@ -33,12 +33,16 @@
                     </div>
                     <div class="col-md-12">
                          <nz-form-item>
+                             <!-- <dynamic-file-selector></dynamic-file-selector> -->
+                             <shared-file-uploader [title]="'Select Image/Video'" [btnLable]="'Upload'" [fileTypes]="'image/png, image/jpeg, image/jpg,video/mp4'"></shared-file-uploader>
+
+                             <!-- <shared-file-uploader></shared-file-uploader> -->
                              <nz-form-label>Upload File</nz-form-label>
                              <nz-form-control>
                                  <input (change)="fileRead($event)" formControlName="file" type="file" accept="jpg jpeg png gif" />
                              </nz-form-control>
                          </nz-form-item>
-                         <button (click)="uploadFile()">Upload</button>
+                         <button (click)="[getCaptcha($event),uploadFile()]">Upload</button>
                      </div>
                     <!-- <div class="col-md-12">
                     

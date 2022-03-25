@@ -1,19 +1,25 @@
 <!-- <button class="btn btn-primary"  (click)="fileSelector()" >Profile Picture</button> -->
 <ng-container>
 <div class="" [formGroup]="formField">
-  <label class="col-form-labe" for="{{field.colName}}">{{field.label}}</label>
-  <!-- <button title="{{field.label}}" class="ml-3 float-right btn btn-success waves-effect btn-circle waves-light"
-    type="button" (click)="fileSelector()"> <i class="mdi mdi-upload"></i>
+  <label class="col-form-label" for="{{field.colName}}">{{field.label}}</label>
+  <!-- <button *ngIf="field.properties?.fileData?.path" title="{{field.label}}" class="ml-3 float-right btn btn-success waves-effect btn-circle waves-light"
+    type="button" (click)="fileSelector()">
+    <i class="mdi mdi-upload"></i>
   </button> -->
+<button  type="button" (click)="fileSelector()" class="ml-3 form-control2">
+  Choose File<i class="ml-1 mdi mdi-upload"></i>
+  </button> 
 <!-- {{field | json}} -->
   <!-- <i class="mdi mdi-upload ml-2" role="button" title="Profile Picture" (click)="fileSelector()"></i> -->
-  <input name="{{field.colName}}" [formControlName]="field.colName" #imageSelector placeholder="{{field.label}}" type="file" (change)="fileRead($event)"
+  
+  <input style="display: none;"  name="{{field.colName}}" [formControlName]="field.colName"  #imageSelector placeholder="{{field.label}}" type="file" (change)="fileRead($event)"
     accept="{{fileTypes}}" class="form-control" [id]="field.colName">
 </div>
 </ng-container>
 <!-- <br> -->
 
-<div class="mt-4" *ngIf="mediaObj && mediaObj.name">
+<div class="mt-4" *ngIf="(mediaObj && mediaObj.name|| field.properties?.fileData?.path)">
+  
   <!-- <img style="height: 40px;" src="{{mediaObj.src}}">{{mediaObj && mediaObj.name ? mediaObj.name:''}} -->
   <button title="Delete" class="ml-3 btn btn-success waves-effect btn-circle waves-light" type="button"
     (click)="removePicture()"> <i class="ti ti-trash"></i>
