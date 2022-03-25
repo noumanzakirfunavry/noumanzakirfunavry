@@ -1,82 +1,100 @@
 import { Component, OnInit } from '@angular/core';
-import { Pagination } from 'src/app/common/models/pagination';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
-
-export class Data extends Pagination {
-    parentCategoryId?:Array<any>;
-    publishers?:Array<any>;
-    title?: string;
-    includeNews?: any; 
-    newsLImit?: any;
-    categoryId?: number;
-
-
-    constructor() {
-        super();
-        this.parentCategoryId= [];
-        this.publishers= [];
-        this.title= "";
-        this.includeNews= "";
-        this.newsLImit= "";
-        this.categoryId= null;
-    }
-}
 
 
 @Component({
     templateUrl: './featuredNews.component.html'
 })
 
-export class FeaturedNewsComponent implements OnInit{
-    pagination: Data = new Data();
+export class FeaturedNewsComponent implements OnInit {
     allFeaturedNews: any;
-    allCategories: any;
-    allCategoryNews: any;
-    loading= true;
+    loading = true;
+    featuredNewsForm: FormGroup;
 
-    cat1:any=null
-    constructor(private apiService: ApiService) {}
+    fNews: any[] = [
+        {
+            "position": 1,
+            "section": "MAIN",
+            newsId: null
+        },
+        {
+            "position": 2,
+            "section": "MAIN",
+            newsId: null
+        },
+        {
+            "position": 3,
+            "section": "MAIN",
+            newsId: null
+        },
+        {
+            "position": 4,
+            "section": "MAIN",
+            newsId: null
+        },
+        {
+            "position": 5,
+            "section": "MAIN",
+            newsId: null
+        },
+        {
+            "position": 6,
+            "section": "SECONDARY",
+            newsId: null
+        },
+        {
+            "position": 7,
+            "section": "SECONDARY",
+            newsId: null
+        },
+        {
+            "position": 8,
+            "section": "SECONDARY",
+            newsId: null
+        }
+    ];
+
+    constructor(private apiService: ApiService, private fb: FormBuilder) { }
 
 
     ngOnInit(): void {
+        this.featuredNewsForm = this.fb.group({
+        });
         this.getAllFeaturedNews();
-        this.getAllCategories();
     }
 
     getAllFeaturedNews() {
-        this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res:any) => {
-            this.allFeaturedNews= res.response.featuredNews;
+        this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res: any) => {
+            this.allFeaturedNews = res.response.featuredNews;
             console.log("ALL-FEATURED-NEWS", this.allFeaturedNews);
-            this.loading= false;
-        },err => {
             this.loading = false;
-          })
-    }
-
-    getAllCategories() {
-        this.apiService.sendRequest(requests.getAllCategories, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
-            this.allCategories= res.response.categories;
-            console.log("ALL-CATEGORIES", this.allCategories);
+        }, err => {
+            this.loading = false;
         })
     }
 
-    getCategoryNews(catId?: any) {
-        console.log(this.cat1);        
-        this.pagination.categoryId= catId ? catId : null;
-        this.apiService.sendRequest(requests.getAllNews, 'get', {pageNo:1, limit:30, categoryId:parseInt(catId)}).subscribe((res:any) => {
-            this.allCategoryNews= res.response.news;
-            console.log("CATEGORY-NEWS", this.allCategoryNews);
-        })
-    }
-
-    clean(obj:any) {
-        for (const propName in obj) {
-          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
-            delete obj[propName];
-          }
+    changedNews(updatedNews) {
+        const news = this.fNews.findIndex(x => x.position == updatedNews.position);
+        if (news > -1) {
+            this.fNews[news] = updatedNews;
         }
-        return obj
-      }
+    }
+
+    updateFeaturedNews() {
+        for (const i in this.featuredNewsForm.controls) {
+            this.featuredNewsForm.controls[i].markAsDirty();
+            this.featuredNewsForm.controls[i].updateValueAndValidity();
+        }
+        if (this.featuredNewsForm.valid) {
+            this.fNews.forEach(news=>{
+                news.newsId=parseInt(news.newsId);
+            })
+            this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: [this.fNews] }).subscribe((res: any) => {
+                console.log("UPDATE-FEATURED-NEWS", res);
+            })
+        }
+    }
 
 }    
