@@ -1,4 +1,4 @@
-import { SeoModal } from "src/app/common/models/seo.modal";
+import { SeoModal } from "../../common/models/seo.modal";
 
 export class NewsModal {
     title: string;
@@ -19,6 +19,7 @@ export class NewsModal {
     videoId : number
     thumbnailId : number
     imageId : number
+    mainFile: any;
 
     constructor() {
         this.title = ""
