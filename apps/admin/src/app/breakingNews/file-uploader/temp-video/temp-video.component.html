@@ -1,0 +1,22 @@
+<div>
+    <div> Max Length: {{videoLength}} {{customTimer ? 'Seconds':'Minute'}}
+    </div>
+    <div>
+      <button class="btn btn-primary" *ngIf="!isVideoRecording && !videoBlobUrl" (click)="startVideoRecording()">Start Video Recording</button>
+      <button class="btn btn-danger" *ngIf="isVideoRecording && !videoBlobUrl && seconds> 5" (click)="stopVideoRecording()">Stop Video Recording</button>
+      <button class="btn btn-primary btn-circle" *ngIf="!isVideoRecording && videoBlobUrl" (click)="clearVideoRecordedData()"><i class="fa fa-times"></i></button>
+      <!-- <button class="download-button" *ngIf="!isVideoRecording && videoBlobUrl" (click)="downloadVideoRecordedData()">Download Video Recording</button> -->
+      <div id="videoTimer" *ngIf="isVideoRecording && !videoBlobUrl"> {{ videoRecordedTime }} </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center">
+        <h3>
+            <video #videoElement >
+              <source *ngIf="!isVideoRecording && videoBlobUrl" [src]="videoBlobUrl">
+            </video>
+        </h3>
+      </div>
+    </div>
+  </div>
