@@ -1,4 +1,3 @@
-
 export type SideBar = {
     componentType: string,  //Latest , Trending , SmallBanner, LargeBanner
     position: number,
@@ -69,6 +68,36 @@ export type BreakingNewsProps= {
     addedBy: string | null,
     newsId: number,
     createdAt: Date | null,
+    updatedAt: Date | null,
+    deletedAt: Date | null
+}
+
+export type BranchProps = {
+    id: number,
+    title: string,
+    isActive: boolean,
+    phone: string,
+    fax: string,
+    email: string,
+    zipCode: string,
+    addressLine1: string,
+    addressLine2: string,
+    publishedBy: number | null,
+    createdAt: Date,
+    updatedAt: Date | null,
+    deletedAt: Date | null,
+}
+
+export type JobProps = {
+    id: number,
+    title: string,
+    totalOpenings: number,
+    isActive: boolean,
+    closingDate: Date,
+    description: string,
+    branchId: number,
+    publishedBy: number | null,
+    createdAt: Date,
     updatedAt: Date | null,
     deletedAt: Date | null
 }
