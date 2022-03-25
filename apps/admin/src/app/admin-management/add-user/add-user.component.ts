@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Pagination } from 'src/app/common/models/pagination';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { Pagination } from '../../common/models/pagination';
+// import { Pagination } from 'src/app/common/models/pagination';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 
 export class Data extends Pagination {

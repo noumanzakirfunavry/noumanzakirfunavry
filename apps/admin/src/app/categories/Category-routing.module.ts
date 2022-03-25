@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoryComponent } from './Category.component';
 import { AddCategoryComponent } from './addCategory/addCategoy.component';
-import { TempCatComponent } from './tempCat/tempCategory.component';
+
+
 const routes: Routes = [
     {
         path: '',
@@ -35,15 +36,6 @@ const routes: Routes = [
         component: AddCategoryComponent,
         data: {
             title: 'Update Category',
-            headerDisplay: "none"
-        },
-
-    },
-    {
-        path: 'temp',
-        component: TempCatComponent,
-        data: {
-            title: 'Temp Category',
             headerDisplay: "none"
         },
     }
