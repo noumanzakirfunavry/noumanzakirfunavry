@@ -15,7 +15,7 @@ RUN npm install -g @angular/cli
 RUN npm install -f
 
 # Generate the build of the application
-RUN npm run build-website
+RUN npm run build:admin
 
 
 # Stage 2: Serve app with nginx server
