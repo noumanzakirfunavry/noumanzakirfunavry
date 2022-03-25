@@ -1,7 +1,6 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
-    "extends": "../../tsconfig.base.json",
     "references": [
     {
       "path": "./tsconfig.app.json"
@@ -14,8 +13,6 @@
     }
   ],
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
@@ -24,10 +21,21 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
+    "paths": {
+      "os":[
+        "src/empty.ts"
+      ]
+    },
     "lib": [
       "es2018",
       "dom"
     ]
+  },
+    "angularCompilerOptions": {
+    "strictInjectionParameters": false,
+    "strictPropertyInitialization": false,
+    "strictInputAccessModifiers": false,
+    "strictTemplates": false
   }
 }
 
