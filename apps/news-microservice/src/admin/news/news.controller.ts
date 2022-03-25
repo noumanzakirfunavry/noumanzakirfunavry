@@ -35,8 +35,8 @@ export class NewsController {
     }
 
     @UseGuards(JwtAuthGuard)
-    // @Rights(RightsTypes.GET)
-    // @Roles(RoleTypes.Admin)
+    @Rights(RightsTypes.GET)
+    @Roles(RoleTypes.Admin)
     @Get("getById/:id")
     async getNewsById(@Param("id") id : number) : Promise<GetNewsByIdResponseDto>{
         return await this.newService.getNewsById(id)
