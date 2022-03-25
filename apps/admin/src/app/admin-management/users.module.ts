@@ -40,9 +40,9 @@ import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-import { AddUserComponent } from './add-user/add-user.component';
 import { UserFilterComponent } from './user-filter/user-filter.component';
 import { UsersComponent } from './users.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 
