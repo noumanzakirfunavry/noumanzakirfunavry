@@ -6,11 +6,11 @@ export class LoginGuard implements CanActivate {
     constructor(private router:Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const employee = JSON.parse(localStorage.getItem('employee') || '{}');
-        if(employee.token){
-            this.router.navigate(['auth']);
+        const admin = JSON.parse(localStorage.getItem('admin') || '{}');
+        if(admin.access_token){
+            this.router.navigate(['dashboard']);
             return false
         }
-        return !employee.token;
+        return !admin.access_token;
     }
 }

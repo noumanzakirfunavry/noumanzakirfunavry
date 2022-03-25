@@ -28,9 +28,16 @@ const routes: Routes = [
         data: {
             title: 'Add Breaking News',
             // headerDisplay: "none"
-        },
-
+        }
     },
+    {
+        path: 'update/:id',
+        component: AddBreakingNewsComponent,
+        data: {
+            title: 'Update Breaking News',
+            // headerDisplay: "none"
+        }
+    }
     // {
     //     path: 'edit',
     //     component: EditQuickLinksComponent,
