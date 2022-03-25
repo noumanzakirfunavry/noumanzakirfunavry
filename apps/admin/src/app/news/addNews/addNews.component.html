@@ -37,14 +37,14 @@
                         <nz-form-item>
                             <!-- <dynamic-file-selector></dynamic-file-selector> -->
                             <!-- <shared-file-uploader [title]="'Select Image/Video'" [btnLable]="'Upload'" [fileTypes]="'image/png, image/jpeg, image/jpg,video/mp4'"></shared-file-uploader> -->
-                            <app-file-uploader [fileLimit]="1" [fileTypes]="'image/png, image/jpeg, image/jpg,video/mp4'"
-                                (onFileSelection)="fileSelection($event)"></app-file-uploader>
+                            <!-- <app-file-uploader [fileLimit]="1" [fileTypes]="'image/png, image/jpeg, image/jpg,video/mp4'"
+                                (onFileSelection)="fileSelection($event)"></app-file-uploader> -->
 
                             <!-- <shared-file-uploader></shared-file-uploader> -->
-                            <!-- <nz-form-label>Upload File</nz-form-label>
+                            <nz-form-label>Upload File</nz-form-label>
                              <nz-form-control>
                                  <input (change)="fileRead($event)" formControlName="file" type="file" accept="jpg jpeg png gif" />
-                             </nz-form-control> -->
+                             </nz-form-control>
                              <span *ngIf="uploadProgress" class="ml-4 mb-2">File Uploading Progress :{{uploadProgress}}%</span>
 
                         </nz-form-item>
