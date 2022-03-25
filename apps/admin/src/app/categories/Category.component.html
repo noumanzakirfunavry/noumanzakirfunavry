@@ -8,7 +8,7 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div cdkDropList (cdkDropListDropped)="drop($event)">
-                <nz-table [nzShowPagination]="true" [nzLoading]="loading" nzShowSizeChanger [nzData]="allCategories" class="no-border-last">
+                <nz-table [nzLoading]="loading" [nzData]="allCategories" class="no-border-last">
                     <thead>
                         <tr>
                             <th>Reorder</th>
@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor="let cat of allCategories">
+                        <ng-container *ngFor="let cat of allCategories; let i=index">
                             <tr class="category-block" cdkDrag>
                                 <td [nzChecked]="setOfCheckedId.has(cat?.id)" (nzCheckedChange)="onItemChecked(cat?.id, $event)">
                                         <i nz-icon nzType="drag" nzTheme="outline"></i>
@@ -46,7 +46,7 @@
                                     </div>
                                 </td>
                             </tr>
-                                <div *ngIf="expandedId===cat?.id" cdkDropList (cdkDropListDropped)="drop($event)">
+                                <div *ngIf="expandedId===cat?.id" cdkDropList (cdkDropListDropped)="dropSubCategories($event, i)">
                                     <tr class="category-block" *ngFor="let subCat of cat?.sub" cdkDrag>
                                         <td [nzChecked]="setOfCheckedId.has(subCat?.id)" (nzCheckedChange)="onItemChecked(subCat?.id, $event)">
                                                 <i nz-icon nzType="drag" nzTheme="outline"></i>
