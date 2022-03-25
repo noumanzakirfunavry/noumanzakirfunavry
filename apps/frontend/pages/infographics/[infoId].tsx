@@ -83,8 +83,8 @@ const Index = () =>{
                 <AdBanner />
 
                 <div className="row">
-                    <div className="col-1"></div>
-                    <div className="col-9">
+                    <div className="col-xl-1"></div>
+                    <div className="col-xl-9">
                     <div className="pageSimpleTitle mb-5">
                     <h6 className="text-secondary color-secondary fs20_bold">إنفوغرافيك</h6>
                     <h1>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h1>
@@ -93,24 +93,24 @@ const Index = () =>{
                 </div>
                 <div className="row">
 
-                    <div className="col-lg-7 ofset-1 ms-0 me-auto">
+                    <div className="col-xl-7 col-lg-9 ofset-xl-1 ms-0 me-auto">
                         <NewsInfoBox/>
                     </div>
-                    <div className='col-lg-3 offset-1'>
+                    <div className='col-xl-3 col-lg-3 offset-xl-1'>
                     </div>
                 </div>
                 <div className="row">
-                    <div className='col-lg-7 offset-1 ms-0 me-auto'>
+                    <div className='col-xl-7 col-lg-9 offset-xl-1 ms-0 me-auto'>
                         <div className="infographics_detail">
                         <InfographicsDetails/>
                         </div>
                     </div>
-                    <div className='col-lg-3 offset-1'>
+                    <div className='col-xl-3 col-lg-3 offset-xl-1'>
                         <SideBar sideBarSequence={[{componentType:'numbered', position:1, title:'الأكثر تداولا'}, {componentType:'SmallBanner', position:2}, {componentType:'simple', position:2, title:'الأكثر قراءة'}, {componentType:'LargeBanner', position:2}]}/>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-8">
+                    <div className="col-xl-8">
                     <div className="page-categories">
                     <h6>العلامات</h6>
                     <ul>

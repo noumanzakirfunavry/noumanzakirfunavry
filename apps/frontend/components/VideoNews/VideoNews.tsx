@@ -16,7 +16,7 @@ const VideoNews = () => {
                 <div className="btn-text">
                     <span>شاهد الآن</span>
                     <button className="btn btn-warning VideoPlay">
-                        <i className="fa fa-play"></i>
+                        <i className="fa play_big"></i>
                     </button>
                 </div>
             </div>

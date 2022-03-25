@@ -16,8 +16,8 @@ const ArticleDetails = () => {
             <hr></hr>
 
             <div className="row">
-                <div className="col-lg-1"></div>
-                    <div className="col-lg-11">
+                <div className="col-1"></div>
+                    <div className="col-11">
                         <div className="newsDetailPtext">
                         <p>
                       لا يتوقع شرقاوي أن ينجح مشروع القانون المقدم في الكونغرس في تصنيف الجماعة إرهابية، لكنه “سيمثل أداة ضغط على الإدارة الأميركية لتغير سياستها في التعاطي مع التنظيم”، فضلا عن كونه “خطوة في طريق حظره”.
@@ -41,7 +41,7 @@ const ArticleDetails = () => {
                 </div>
                 <div className="PlayTime"><h5>05:21</h5>
                     <div className="btn-text"><span>شاهد الآن</span>
-                        <button className="btn btn-warning VideoPlay"><i className="fa fa-play"></i></button>
+                        <button className="btn btn-warning VideoPlay"><i className="fa play_big"></i></button>
                     </div>
                 </div>
                 <div className="NewsContent">
