@@ -113,6 +113,68 @@
     .NewsLightTiles .VideoTiles .VideoNews{
         width: 150px;
     }
+    .VideoNews .NewsContent{
+        background-image: linear-gradient(to top, #071D39 0%, #071d3900);
+    }
+    // single video page
+    .single_video_main{
+        .VideoNews {
+            .NewsImage{
+                height: 354px;
+            }
+        }
+        .pageSimpleTitle {
+            h1 {
+
+                font: normal normal bold 30px/48px Cairo;
+            }
+        }
+    }
+    // program details page
+    .programDetailNews {
+        padding: 50px 0;
+        .VideoNews .NewsImage {
+            height: 354px;
+        }
+         .VideoNews .NewsContent h4 {
+            font: normal normal bold 24px/38px Cairo;
+        }
+        button.btn.btn-outline-light.ms-3 {
+            margin-left: 5px !important;
+
+        }
+        .SimpleDarkNews .btn-outline-light {
+            min-width: 108px;
+            font-size: 13px;
+        }
+    }
+    // breaking news page
+    .breakingNews {
+        .newsbox .newslink a {
+
+            font: normal normal bold 15px/23px Cairo;
+        }
+    }
+    .mb-3.newsDetailimg{
+        width: 100%;
+    }
+    .news_artical_detail{
+        .VideoNews .NewsImage {
+            height: 354px;
+        }
+        .VideoNews .NewsContent h4 {
+
+            font: normal normal bold 24px/38px Cairo;
+        }
+    }
+    .infographics_detail img{
+        height: 354px;
+    }
+    .searchResultList .NewsList li .newsImage {
+        max-width: 190px;
+        height: 107px;
+    }
+
   }
   @media screen and (max-width:1140px){
     .header-nav ul li a {
@@ -142,6 +204,32 @@
     }
     .scheduleCalendar .nav .nav-item .nav-link{
         font-size: 1.2rem;
+    }
+    .VideoNews .NewsImage {
+        height: 354px;
+    }
+    .VideoNews .NewsContent h4 {
+        font: normal normal bold 24px/38px Cairo;
+    }
+    .NewsTiles .newBox .PlayTime .btn-text {
+        width: 35px;
+        height: 35px;
+    }
+    .NewsTiles .newBox .PlayTime .btn {
+
+        padding: 11px 12px;
+    }
+    .newBox.VideoNews .PlayTime h5 {
+        left: 45px;
+        top: 0px;
+    }
+    .programBox .programImage {
+        height: 95px;
+        width: 100%
+
+    }
+    .presenterBox .presenterImage{
+        width: 100%;
     }
   }
 
@@ -233,6 +321,11 @@
             left: 0;
         }
     }
+    .sticky_header{
+        .search-header .search-box{
+            top: 0;
+        }
+    }
 
     .page-nav{
         overflow-x: auto;
@@ -250,11 +343,11 @@
         margin-top: 20px;
     }
     .newsSliderText .slick-slider .slick-slide {
-        padding: 0px;
+        // padding: 0px;
     }
-    .newsSliderText .NewsBox .newscontent{
-        padding:0 25px;
-    }
+    // .newsSliderText .NewsBox .newscontent{
+    //     padding:0 25px;
+    // }
 
     .SocialHeaderMobile{
         display: block;
@@ -401,6 +494,119 @@
     .NewsLightTiles .VideoTiles .VideoNews{
         width: 100%;
     }
+    .single_video_main  {
+        .VideoNews .NewsImage{
+            height: 380px;
+        }
+
+    }
+    .videNewspage_sidebar{
+
+        .NewsList.VideoTextBox li .VideoNews {
+            width: 100%;
+            height: 200px;
+        }
+    }
+    .newsSlider2Text .NewsBox .newsImage {
+        width: 100%;
+        height: 118px;
+    }
+    .newsSlider2Text .NewsBox .newscontent h5 a {
+        font: normal normal bold 14px/26px Cairo;
+    }
+    .sticky_header .cnbc-logo {
+        margin: 0px 0 0px 15px;
+        img{
+            width: 120px;
+        }
+    }
+    .NewsTiles .newBox.newBoxfs .NewsInfo h4 {
+        font: normal normal bold 16px/23px Cairo !important;
+    }
+    .NewsTiles .newBox .PlayTime .btn-text {
+        width: 35px;
+        height: 35px;
+    }
+    .NewsTiles .newBox .PlayTime .btn {
+        padding: 5px 5px;
+    }
+    .pageSimpleTitle h1 {
+        font: normal normal bold 36px/60px Cairo;
+        color: #1c1c1c;
+    }
+    .NewsInfobox {
+        justify-content: flex-start;
+        .infoItem {
+
+            margin-left: 24px;
+        }
+
+    }
+    .mb-3.newsDetailimg {
+        height: 380px;
+
+    }
+    .news_artical_detail .VideoNews .NewsImage {
+        height: 380px;
+    }
+    .newsSliderText .NewsBox .newsImage .PlayTime .btn-text{
+        width: 35px;
+        height: 35px;
+        align-items: center;
+    }
+    .newsSliderText .NewsBox .newsImage .PlayTime .btn{
+        padding: 0 0 0 10px;
+    }
+    .play_medium {
+        border-top: solid 7px transparent;
+        border-bottom: solid 7px transparent;
+        border-left: solid 12px #fff;
+        height: 0;
+        width: 0;
+    }
+    .infographics_container{
+        .NewsList ul {
+            display: block;
+            li{
+                flex-flow: inherit;
+                padding: 15px 0;
+                .newsImage {
+        height: 107px;
+        overflow: hidden;
+        padding-right: 15px;
+        max-width: 190px;
+                }
+            }
+        }
+        .NewsTiles .newBox.newBoxfs .NewsImage{
+            display: block;
+        }
+    }
+    .programDetailNews .VideoNews .NewsImage {
+        height: 380px;
+    }
+    .programDetailNews .VideoNews .NewsContent h4 {
+        font: normal normal bold 14px/22px Cairo;
+    }
+    .programDetailNews .VideoNews .NewsImage {
+        height: 200px;
+    }
+    .searchResultList .NewsList ul {
+        display: block;
+    }
+    .searchResultList .NewsList li .newsImage {
+        max-width: 324px;
+        height: 165px;
+    }
+    .searchResultList .NewsList li .newsText p {
+
+        font: normal normal normal 14px/28px IBM Plex Sans Arabic;
+
+    }
+    .fs24_bolder {
+        font-size: 21px;
+
+    }
   }
   @media screen and (max-width:768px) and (min-width:576px){
     .searchResultList .NewsList li {
@@ -425,6 +631,7 @@
   }
 
 
+
   @media screen and (max-width:640px){
     .header-box {
         display: block;
@@ -439,6 +646,7 @@
         font-size: 14px;
         margin-bottom: 5px;
     }
+
   }
   @media screen and (max-width:767px){
     .search-box.mobile_only {
@@ -518,11 +726,14 @@
         }
     }
     .mainsection_mainNews__oiuM_ {
-        height: 440px;
+        height: 440px !important;
         background-size: contain !important;
     }
+    .mainsection_newscontent__y_KUp{
+        padding: 15px !important;
+    }
     .mainsection_mainNews__oiuM_ h1 a {
-        font: normal normal bold 21px/32px Cairo;
+        font: normal normal bold 21px/32px Cairo !important;
 
     }
     .mainsection_mainNews__oiuM_ h3 a{
@@ -581,8 +792,8 @@
     }
     .scrollbarWrap{
         .slick-list{
-            margin-left: -28px;
-            margin-right: -28px;
+            margin-left: -19px;
+            margin-right: -19px;
         }
     }
     .NewsLightTiles .VideoTiles .VideoNews{
@@ -602,7 +813,8 @@
         width: 50%;
     }
     .NewsTiles .newBox.newBoxf .NewsInfo h3 {
-        font: normal normal bold 18px/28px Cairo;
+        // font: normal normal bold 18px/28px Cairo;
+        font: normal normal bold 21px/32px Cairo;
     }
     .NewsTiles .newBox.newBoxfs .NewsImage{
         display: none;
@@ -623,6 +835,147 @@
     vertical-align: middle;
     text-overflow: ellipsis;
             }
+        }
+    }
+    .single_video_main .VideoNews .NewsImage {
+        height: 190px;
+    }
+    .VideoNews .PlayTime .btn-text{
+        width: 50px;
+        height: 50px;
+    }
+    .play_big {
+        border-top: solid 8px transparent;
+        border-bottom: solid 8px transparent;
+        border-left: solid 16px #fff;
+        height: 0;
+        width: 0;
+    }
+    .single_video_main .pageSimpleTitle h1 {
+        font: normal normal bold 24px/38px Cairo;
+    }
+    .single_video_main .page-categories h6 {
+        font: normal normal bold 13px/30px Cairo;
+    }
+    .page-categories ul li a {
+        font: normal normal bold 13px/14px Cairo;
+    }
+    .sidelist_sidenumberList__d8ptP li a{
+        font-size: 14px !important;
+    }
+    .pageTitle h2 {
+
+        font: normal normal 900 22px/30px Cairo;
+    }
+    .NewsTiles .newBox.newBoxf .NewsImage,.NewsTiles .newBox.newBoxfs .NewsImage {
+        height: 213px;
+    }
+    .pageTitle h2 {
+        margin-bottom: 10px;
+    }
+    .pageTitle {
+        margin-bottom: 30px !important;
+    }
+    .category_news_tab li {
+        padding: 0 15px;
+
+    }
+    .category_news_tab {
+        margin-bottom: 24px;
+    }
+    .pageSimpleTitle h1{
+        font: normal normal bold 24px/38px Cairo;
+    }
+    .NewsInfobox .infoItem{
+        font-size: 13px;
+    }
+    .pageSimpleTitle.mb-5 {
+        margin-bottom: 1rem !IMPORTANT;
+    }
+    .newsSocial.mt_sm_20 {
+        display: none;
+    }
+    .NewsInfobox {
+        padding-bottom: 24px;
+    }
+    .mb-3.newsDetailimg, .news_artical_detail .VideoNews .NewsImage {
+        height: 185px;
+    }
+    .news_artical_detail .VideoNews .NewsContent h4 {
+        font: normal normal bold 14px/22px Cairo;
+    }
+    .VideoNews .PlayTime h5 {
+
+        left: 60px;
+        top: 4px;
+
+    }
+    .NewsTiles .newBox.newBoxf .NewsInfo h3{
+        font: normal normal bold 14px/22px Cairo;
+
+    }
+    .infographics_container {
+        .NewsList ul li {
+            flex-flow: column-reverse;
+        }
+        .NewsTiles .newBox.newBoxfs {
+
+            display: block;
+        }
+    }
+    .infographics_container .NewsList ul li .newsImage{
+        height: 165px;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+    .infographics_detail img {
+        height: 185px;
+    }
+    .livetvbox .liveTV {
+        margin: 0 auto 30px;
+        width: 100%;
+        margin-left: 0;
+    }
+    .livetvSlider{
+        padding: 30px 0;
+    }
+    .livetvSlider .newsSlider2Text .NewsBox .newsImage {
+
+        height: 120px;
+    }
+    .livetvSlider.sliderTextBg .NewsBox .newscontent{
+        background-image: linear-gradient(to top, #071D39 0%, #071d3900);
+    }
+    .livetvSlider .newsSlider2Text .NewsBox .newscontent h5 {
+        font: normal normal bold 14px/22px Cairo;
+    }
+    .programBox .programImage {
+        height: 165px;
+        width: 100%;
+    }
+    .presenter_detail img {
+        height: 246px;
+        width: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+    .simpleSelect::after {
+        padding: 0.6em 0.7rem;
+        font-size: 13px;
+    }
+    .searchResulstBox{
+        padding: 15px 15px 6px;
+        width: 320px;
+    }
+    .job_detail_container .NewsBox {
+        h6 {
+            font: normal normal 600 16px/26px Montserrat;
+            color: #002f6c;
+        }
+        h2{
+            font: normal normal bold 24px/20px Montserrat;
+
         }
     }
   }
@@ -796,7 +1149,7 @@
     }
     .livetvbox {
         padding: 20px 0;
-        margin: 0px -12px;
+        // margin: 0px -12px;
     }
     .pageTitle h2 {
         font-size: 21px;
@@ -805,9 +1158,9 @@
     .yellowTitle h3{
         font-size: 28px;
     }
-    .newsSliderText .slick-slider .slick-list{
-        overflow-x: auto;
-    }
+    // .newsSliderText .slick-slider .slick-list{
+    //     overflow-x: auto;
+    // }
     .newsSliderText .slick-slider .slick-prev, .newsSliderText .slick-slider .slick-next{
         display: none !important;
     }
