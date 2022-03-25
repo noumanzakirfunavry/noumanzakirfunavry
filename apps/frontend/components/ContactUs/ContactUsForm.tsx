@@ -6,7 +6,7 @@ const ContactUsForm = () => {
 
         <h2 className="text-center text-primary mb-5 fs32_bolder">تقديم استفسار</h2>
         <div className="row justify-content-center">
-            <div className="col-md-4">
+            <div className="col-md-5">
             <form>
                     <div className="mb-3">
                         <label className="form-label fs12_gray">الاسم</label>
