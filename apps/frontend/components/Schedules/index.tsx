@@ -34,7 +34,7 @@ const Schedules = () => {
                         <div className="tab-content" id="pills-tabContent">
                             <div className="tab-pane fade show active" id="schedule1">
                                 <div className="row">
-                                    <div className="col-10 offset-1 ms-auto me-auto">
+                                    <div className="col-xl-10 offset-xl-1 ms-auto me-auto">
                                     <p>KSA (GMT+3)</p>
                                 <div className="table-responsive">
                                     <table className="table">
