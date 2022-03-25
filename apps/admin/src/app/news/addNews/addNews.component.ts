@@ -172,6 +172,9 @@ export class AddNewsComponent implements OnInit {
         console.log("form", this.newsForm.value);
 
     }
+    getCaptcha(e: MouseEvent): void {
+        e.preventDefault();
+      }
 
     uploadFile() {
         this.apiService.uploadFileProgress(this.file, this.newsForm.value.description).subscribe((res: any) => {
