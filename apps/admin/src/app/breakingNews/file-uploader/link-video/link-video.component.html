@@ -1,0 +1,9 @@
+<div class="form-group">
+  <label>Enter Your Video Link</label>
+ <form [formGroup]="linkForm">
+  <i role="button" title="hint" class="hint mr-2"> Url format: e.g https://eduopenings.com</i>
+   <input type="text" name="videolink" (change)="fileSelction()" (keyup)="fileSelction()" formControlName="videolink" class="form-control" id="videolink"
+     placeholder="Paste Link Here ....">
+   <div [innerHTML]="($errorMessage | async).videolink" class="font-14 text-danger"></div>
+ </form>
+</div>
