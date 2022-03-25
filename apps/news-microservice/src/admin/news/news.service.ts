@@ -1,5 +1,5 @@
 import { DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
-import { Categories, News, SeoDetails } from '@cnbc-monorepo/entity';
+import { Categories, News, SeoDetails, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility'
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -248,7 +248,11 @@ export class NewsService {
                     })
                 }
 
-            }],
+            },
+            {
+                model: Users
+            }
+            ],
             where: {
                 ...(query.search && {
                     title: {
@@ -365,7 +369,9 @@ export class NewsService {
 
     async newsExists(id: number) {
         return await this.newsRepository.findOne({
-            include: ['tags', 'categories', 'quotes','seoDetail','image','thumbnail','video'],
+            include: ['tags', 'categories', 'quotes', 'seoDetail', 'image', 'thumbnail', 'video', {
+                model: Users
+            }],
             where: {
                 id: id
             }
