@@ -13,6 +13,7 @@ import { EditorsChoiceComponent } from './editorsChoice/editorsChoice.component'
 import { ExclusiveVideosComponent } from './exclusiveVideos/exclusiveVideos.component';
 import { FeaturedNewsComponent } from './featuredNews/featuredNews.component';
 import { TrendingNowComponent } from './trendingNow/trendingNow.component';
+import { NewsTableRowComponent } from './newsTableRow/newsTableRow.component';
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import { TrendingNowComponent } from './trendingNow/trendingNow.component';
         EditorsChoiceComponent,
         ExclusiveVideosComponent,
         FeaturedNewsComponent,
-        TrendingNowComponent
+        TrendingNowComponent,
+        NewsTableRowComponent
     ],
     providers: [
         ThemeConstantService
