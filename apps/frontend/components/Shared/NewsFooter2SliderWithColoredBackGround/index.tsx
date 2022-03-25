@@ -19,8 +19,8 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
               {
                 breakpoint: 1024,
                 settings: {
-                  slidesToShow: 2.5,
-                  slidesToScroll: 3,
+                  slidesToShow: 1.5,
+                  slidesToScroll: 1,
                   infinite: true,
                   dots: true
                 }
@@ -36,7 +36,7 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
               {
                 breakpoint: 480,
                 settings: {
-                  slidesToShow: 1,
+                  slidesToShow: 1.5,
                   slidesToScroll: 1
                 }
               }
@@ -54,7 +54,7 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>
@@ -89,7 +89,7 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>
@@ -118,7 +118,7 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>
@@ -148,7 +148,7 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
                                     <h5>05:21</h5>
                                     <div className="btn-text">
                                         <button className="btn btn-warning VideoPlay">
-                                            <i className="fa fa-play"></i>
+                                            <i className="fa play_medium"></i>
                                         </button>
                                         <span>شاهد الآن</span>
                                     </div>

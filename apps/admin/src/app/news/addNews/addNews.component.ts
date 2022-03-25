@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NewsModal } from 'src/app/common/models/newsModal';
+import { NewsModal } from '../../common/models/newsModal';
 import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: 'app-addNews',
@@ -58,6 +58,7 @@ export class AddNewsComponent implements OnInit {
     newsId: number;
     uploadProgress: number;
     file: any;
+    fileType: string;
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
@@ -172,6 +173,27 @@ export class AddNewsComponent implements OnInit {
         console.log("form", this.newsForm.value);
 
     }
+    getCaptcha(e: MouseEvent): void {
+        e.preventDefault();
+      }
+
+      fileSelection(fileObject) {
+ 
+        // this.isRecodedFile=fileObject.recorded ? fileObject.recorded:false;
+        if (fileObject.file) {
+          this.fileType = 'file';
+          this.newsModal.mainFile = fileObject.file;
+          this.file= fileObject.file;
+        } else if (fileObject.link) {
+          this.fileType = 'link';
+          this.file = fileObject.link;
+        } else if (fileObject.fileId) {
+          this.fileType = 'fileId';
+          this.file = fileObject.fileId;
+        }else{
+          this.file=null
+        }
+      }
 
     uploadFile() {
         this.apiService.uploadFileProgress(this.file, this.newsForm.value.description).subscribe((res: any) => {

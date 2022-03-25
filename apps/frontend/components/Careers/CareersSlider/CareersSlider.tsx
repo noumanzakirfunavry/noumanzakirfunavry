@@ -26,7 +26,7 @@ const CareersSlider = () =>{
             className: "center",
             centerMode: false,
             centerPadding: "60px",
-            slidesToScroll: 5,
+            slidesToScroll: 1,
             initialSlide: 0,
             rtl: false,
             arrows:false,
@@ -35,7 +35,7 @@ const CareersSlider = () =>{
                 breakpoint: 1800,
                 settings: {
                   slidesToShow: 4,
-                  slidesToScroll: 4,
+                  slidesToScroll: 1,
                   infinite: true,
                 }
               },
@@ -43,7 +43,7 @@ const CareersSlider = () =>{
                 breakpoint: 1400,
                 settings: {
                   slidesToShow: 3,
-                  slidesToScroll: 3,
+                  slidesToScroll: 1,
                   infinite: true,
                 }
               },
@@ -51,7 +51,7 @@ const CareersSlider = () =>{
                 breakpoint: 992,
                 settings: {
                   slidesToShow: 2,
-                  slidesToScroll: 2,
+                  slidesToScroll: 1,
                   initialSlide: 2
                 }
               },

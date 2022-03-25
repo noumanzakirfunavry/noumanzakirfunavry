@@ -18,7 +18,7 @@ const LiveTvBox = () => {
                                 </div>
                             </div>
                     </div>
-                    <button className="btn btn-outline-light fs15_b">جدول البرامج</button>
+                    <button className="btn btn-outline-light fs15_b btn-sm-wide">جدول البرامج</button>
                 </div>
             </div>
         </>

@@ -1,0 +1,46 @@
+<!-- <div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="onClose('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div> -->
+
+<!-- <ul class="nav nav-tabs">
+  <li class="nav-item" *ngFor="let tab of tabs">
+    <a class="nav-link" *ngIf="allowedFileSources && allowedFileSources[tab.flag]" role="button"
+      [class.active]="tab.flag==selectedTab" (click)="onSelectTab(tab.flag)">{{tab.label}}</a>
+  </li>
+</ul> -->
+<!-- <ng-template #content1 let-modal> -->
+
+<!-- <div class="modal-body"> -->
+  
+  <ng-content select="[customData]"></ng-content>
+<div class="card-body" *ngIf="selectedTab=='upload'">
+  <app-file-uploader [size]="size" [fileLimit]="4" [fileTypes]="fileTypes" (onFileSelection)="fileSelection($event)"></app-file-uploader>
+</div>
+<!-- <div class="card-body" *ngIf="selectedTab=='record'">
+  <app-vjs-recorder [customTimer]="maxDuration" (onFileSelection)="fileSelection($event)"></app-vjs-recorder>
+</div>
+<div class="card-body" *ngIf="selectedTab=='link'">
+  <link-video (onFileSelection)="fileSelection($event)"></link-video>
+</div>
+<div class="card-body" *ngIf="selectedTab=='mine'">
+  <app-my-videos-selector  (onFileSelection)="fileSelection($event)"></app-my-videos-selector>
+</div>
+<div class="card-body" *ngIf="selectedTab=='voice'">
+  <app-voice-recorder [customTimer]="maxDuration" (onFileSelection)="fileSelection($event)"></app-voice-recorder>
+</div> -->
+
+<span *ngIf="uploadProgress" class="ml-4 mb-2">File Uploading Progress :{{uploadProgress}}%</span>
+
+<!-- <shared-file-uploader [allowedFileSources]="{record:true,link:true,upload:true,mine:false}"
+        (onFileSelection)="onFileSelection($event)"></shared-file-uploader> -->
+<!-- <app-file-uploader (onFileSelection)="onFileSelection($event)"></app-file-uploader> -->
+<!-- </div> -->
+<div class="alert alert-danger" *ngIf="errorToShow">{{errorToShow}}</div>
+<div class="modal-footer">
+  <ng-content select="[customButton]"></ng-content>
+  <button *ngIf="!uploading" type="button" [disabled]="!file" class="btn btn-outline-dark" (click)="uploadFile()">{{btnLable ? btnLable:'Upload'}}</button>
+</div>
+<!-- </ng-template> -->

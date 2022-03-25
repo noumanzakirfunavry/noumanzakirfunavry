@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileSelectorComponent } from './file-selector.component';
+import { LinkVideoComponent } from './link-video.component';
 
-describe('FileSelectorComponent', () => {
-  let component: FileSelectorComponent;
-  let fixture: ComponentFixture<FileSelectorComponent>;
+describe('LinkVideoComponent', () => {
+  let component: LinkVideoComponent;
+  let fixture: ComponentFixture<LinkVideoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FileSelectorComponent ]
+      declarations: [ LinkVideoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FileSelectorComponent);
+    fixture = TestBed.createComponent(LinkVideoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
