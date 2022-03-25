@@ -110,6 +110,9 @@
     .sidebanner_smallBanner__lXwev{
         width: 100% !important;
     }
+    .NewsLightTiles .VideoTiles .VideoNews{
+        width: 150px;
+    }
   }
   @media screen and (max-width:1140px){
     .header-nav ul li a {
@@ -306,6 +309,7 @@
                 padding-right: 0;
                 width: 100%;
                  height: 170px;
+                 max-width: 100%;
             }
             a{
                 font-size: 14px;
@@ -385,7 +389,7 @@
         margin-right: 0;
     }
     .NewsLightTiles .VideoTiles .VideoNews .NewsImage {
-        height: 118px;
+        height: 120px;
         width: 100%;
     }
     .NewsTiles .newBox .NewsImage {
@@ -393,6 +397,9 @@
     }
     .NewsTiles .newBox .NewsInfo h4{
         font-size: 14px;
+    }
+    .NewsLightTiles .VideoTiles .VideoNews{
+        width: 100%;
     }
   }
   @media screen and (max-width:768px) and (min-width:576px){
@@ -559,11 +566,71 @@
             }
         }
     }
+    .TileBar.scrollbarHeader {
+        border-top: solid 6px #002F6C;
+        padding-top: 15px;
+    }
+    .scrollbarHeader .TitleBar h2 {
+        font: normal normal 900 28px/30px Cairo;
+    }
+    .newsSlider .slick-slider .NewsBox .newscontent h3 a {
+        font: normal normal bold 14px/22px Cairo;
+    }
+    .newsSlider .slick-slider .NewsBox {
+        height: 230px;
+    }
+    .scrollbarWrap{
+        .slick-list{
+            margin-left: -28px;
+            margin-right: -28px;
+        }
+    }
+    .NewsLightTiles .VideoTiles .VideoNews{
+        width: 100%;
+    }
+    .NewsLightTiles{
+        padding: 20px 0;
+    }
+    .NewsLightTiles .TitleBar h2 {
+        margin-bottom: 24px;
+    }
+    .primaryTitle h3 {
+        padding-top: 22px;
+        font: normal normal 900 28px/30px Cairo;
+    }
+    .horizontalNumberList .hNumberList ol li {
+        width: 50%;
+    }
+    .NewsTiles .newBox.newBoxf .NewsInfo h3 {
+        font: normal normal bold 18px/28px Cairo;
+    }
+    .NewsTiles .newBox.newBoxfs .NewsImage{
+        display: none;
+    }
+    .NewsTiles .newBox .NewsImage{
+        &.img_sm_none{
+            display: none;
+        }
 
+    }
+    .top-bar{
+        .alert{
+            span{
+                white-space: nowrap;
+    max-width: 222px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+            }
+        }
+    }
   }
   @media screen and (max-width:575px){
-
-    .NewsTilesBg{
+    .sliderArrows{
+        display: none;
+    }
+    .VideoTilesContent{
         overflow-x: scroll;
         white-space: nowrap;
     }
@@ -572,13 +639,13 @@
         white-space: normal;
     }
     .NewsTilesBg .TitleBar{
-        min-width: 410px;
+        // min-width: 410px;
     }
     .NewsTilesBg .row{
-        min-width: 1000px;
+        min-width: 830px;
     }
     .NewsLightTiles .row{
-        min-width: 1000px;
+        min-width: 760px;
     }
     .NewsLightTiles .VideoTiles{
         white-space: normal;
@@ -711,9 +778,7 @@
     .NewsTiles .newBox.newBoxf .NewsInfo {
         padding-right: 0;
     }
-    .NewsTiles .newBox.newBoxf .NewsInfo h3{
-        font-size: 21px;
-    }
+
     .NewsTiles .newBox {
         border-bottom: solid 1px #dddddd;
     }
@@ -867,5 +932,18 @@
 .NewsList li a{
     font-size: 14px;
 }
+.NewsTilesBg {
+    padding-top: 25px;
+    .TitleBar {
+        margin-bottom: 27px;
+        .btn.btn-danger{
+            display: none;
+        }
+    }
+}
+.VideoTiles .NewsContent h4 {
+    font: normal normal bold 14px/22px Cairo;
+}
+
 
   }
