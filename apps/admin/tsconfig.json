@@ -1,17 +1,6 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
-    "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    },
-    {
-      "path": "./tsconfig.editor.json"
-    }
-  ],
   "compilerOptions": {
     "sourceMap": true,
     "declaration": false,
@@ -21,21 +10,10 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "paths": {
-      "os":[
-        "src/empty.ts"
-      ]
-    },
     "lib": [
       "es2018",
       "dom"
     ]
-  },
-    "angularCompilerOptions": {
-    "strictInjectionParameters": false,
-    "strictPropertyInitialization": false,
-    "strictInputAccessModifiers": false,
-    "strictTemplates": false
   }
 }
 
