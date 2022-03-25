@@ -305,7 +305,7 @@ header{
     font-size: 15px;
     color: $white !important;
     // padding: 5px 15px;
-    padding: 0;
+    padding: 0 !important;
     text-align: center;
     text-decoration: none;
     font-weight: bold;
@@ -1670,6 +1670,7 @@ width: 110px;
               display: block;
               font-size: 15px;
               padding: 5px 0;
+              direction: ltr;
             }
           }
           .active{
@@ -2935,6 +2936,13 @@ h6.newsDetailtext
   height: 0;
   width: 0;
 }
+.play_medium {
+  border-top: solid 9px transparent;
+  border-bottom: solid 9px transparent;
+  border-left: solid 15px #fff;
+  height: 0;
+  width: 0;
+}
 .play_small {
   border-top: solid 6px transparent;
   border-bottom: solid 6px transparent;
@@ -2986,3 +2994,54 @@ h6.newsDetailtext
     .nav-item:hover .nav-menu-navUnderline:after{
      width: 100%;
     }
+
+    .sticky_header {
+      height: 55px;
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      transition: all .25s;
+
+      .logo-header{
+        display: flex;
+        align-items: center;
+        transition: all .25s;
+      }
+      .header-search-nav{
+        ul{
+          justify-content: end;
+          margin-left: 26px;
+          li{
+            margin-left: 26px;
+            transition: all .25s;
+            &.sticky_none{
+              display: none;
+            }
+          }
+        }
+      }
+
+      .search-header {
+
+        .search-box{
+          margin: 0;
+          input {
+            display: none;
+        }
+        .input-group-text{
+    left: 0;
+    top: -2px;
+    padding-left: 0;
+    cursor: pointer;
+        }
+        }
+      }
+      .cnbc-logo {
+        margin: 0px 0 0px 25px;
+    }
+    .header-box{
+      align-items: baseline;
+    }
+  }
