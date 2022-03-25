@@ -398,6 +398,9 @@
     .NewsTiles .newBox .NewsInfo h4{
         font-size: 14px;
     }
+    .NewsLightTiles .VideoTiles .VideoNews{
+        width: 100%;
+    }
   }
   @media screen and (max-width:768px) and (min-width:576px){
     .searchResultList .NewsList li {
@@ -610,12 +613,24 @@
         }
 
     }
+    .top-bar{
+        .alert{
+            span{
+                white-space: nowrap;
+    max-width: 222px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+            }
+        }
+    }
   }
   @media screen and (max-width:575px){
     .sliderArrows{
         display: none;
     }
-    .NewsTilesBg{
+    .VideoTilesContent{
         overflow-x: scroll;
         white-space: nowrap;
     }
