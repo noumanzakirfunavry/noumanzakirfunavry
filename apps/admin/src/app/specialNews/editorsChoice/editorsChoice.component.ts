@@ -68,7 +68,7 @@ export class EditorsChoiceComponent{
 
     getAllEditorsChoiceNews() {
         this.apiService.sendRequest(requests.getAllEditorsChoiceNews, 'get').subscribe((res:any) => {
-            this.allEditorsChoice= res
+            this.allEditorsChoice= res.response.editorsChoiceNews;
             console.log("ALL-EDITORS-CHOICE", this.allEditorsChoice);
             this.loading= false;
         }, err => {

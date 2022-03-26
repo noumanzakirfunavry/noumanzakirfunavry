@@ -12,9 +12,9 @@
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let choice of editorsChoice">
+              <tr *ngFor="let news of editorsChoice">
                   <td>#</td>
-                  <td>{{choice?.position}}</td>
+                  <td>{{news?.position}}</td>
                   <news-table-row [news]="news"></news-table-row>
               </tr>
           </tbody>
