@@ -35,7 +35,7 @@ export class NewsController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Rights(RightsTypes.UPDATE)
+    @Rights(RightsTypes.GET)
     @Roles(RoleTypes.Admin)
     @Get("getById/:id")
     async getNewsById(@Param("id") id : number) : Promise<GetNewsByIdResponseDto>{
@@ -43,7 +43,7 @@ export class NewsController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Rights(RightsTypes.CREATE)
+    @Rights(RightsTypes.GET)
     @Roles(RoleTypes.Admin)
     @Get('getAll')
     async getAllNews(@Query() query : GetAllNewsRequestDto) : Promise<GenericResponseDto>{
