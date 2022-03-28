@@ -1,0 +1,16 @@
+<!-- Max Length: {{videoLength}} Minute
+<label class="float-right"> 
+  {{hours && hours > 0 ? hours +' hours:' : '' }}
+  {{minutes && minutes > 0 ? minutes+' min:' : ''}}
+  {{seconds && seconds > 0 ? seconds + ' sec':'00:00:00'}}</label>
+<div class="modal-body">
+  <video #video class="video" (loadedmetadata)="onMetadata($event, video)"></video>
+
+  <div calss="row">
+    <button class=" btn btn btn-primary" id="rec" (click)="startRecording()"> Record </button>
+    <button class="btn btn-danger" id="stop" (click)="stopRecording()"> Stop</button>
+  
+  </div>
+</div> -->
+<!-- Testing .. -->
+<app-temp-video [customTimer]="customTimer" (onFileSelection)="fileSelection($event)"></app-temp-video>

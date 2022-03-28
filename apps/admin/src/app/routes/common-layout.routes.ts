@@ -9,7 +9,7 @@ import { ChangePasswordComponent } from 'src/app/changePassword/changePassword.c
 export const CommonLayout_ROUTES: Routes = [
     {
         path: 'dashboard',
-        loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule),
+        loadChildren: () => import('src/app/dashboard/dashboard.module').then(m => m.DashboardModule),
     },
     // {
     //     path: 'dasboard',
@@ -24,8 +24,8 @@ export const CommonLayout_ROUTES: Routes = [
     //         // }, 
     //         {
     //             path: '',
-    //                 loadChildren: () => import('./../../dashboard/dashboard.module').then(m => m.DashboardModule),
-    //             // loadChildren: () => import('./../../news/news.module').then(m => m.NewsModule)
+    //                 loadChildren: () => import('./src/app/src/app/dashboard/dashboard.module').then(m => m.DashboardModule),
+    //             // loadChildren: () => import('./src/app/src/app/news/news.module').then(m => m.NewsModule)
     //         }
     //     ],
     // },
@@ -42,11 +42,11 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../news/news.module').then(m => m.NewsModule)
+                loadChildren: () => import('src/app/news/news.module').then(m => m.NewsModule)
             },
             {
                 path: 'specialNews',
-                loadChildren: () => import('../specialNews/specialNews.module').then(m => m.SpecialNewsModule)
+                loadChildren: () => import('src/app/specialNews/specialNews.module').then(m => m.SpecialNewsModule)
             }
         ],
     },
@@ -63,7 +63,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../categories/Category.module').then(m => m.CategoryModule)
+                loadChildren: () => import('src/app/categories/Category.module').then(m => m.CategoryModule)
             }
         ]
     },
@@ -80,7 +80,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../tags/tags.module').then(m => m.TagsModule)
+                loadChildren: () => import('src/app/tags/tags.module').then(m => m.TagsModule)
             }
         ]
     },
@@ -97,7 +97,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../infographics/infographics.module').then(m => m.InfographicsModule)
+                loadChildren: () => import('src/app/infographics/infographics.module').then(m => m.InfographicsModule)
             }
         ]
     },
@@ -114,7 +114,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../programs/programs.module').then(m => m.ProgramsModule)
+                loadChildren: () => import('src/app/programs/programs.module').then(m => m.ProgramsModule)
             }
         ]
     },
@@ -131,7 +131,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../episodes/episode.module').then(m => m.EpisodeModule)
+                loadChildren: () => import('src/app/episodes/episode.module').then(m => m.EpisodeModule)
             }
         ]
     },
@@ -148,7 +148,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../jobs/jobs.module').then(m => m.JobsModule)
+                loadChildren: () => import('src/app/jobs/jobs.module').then(m => m.JobsModule)
             }
         ]
     },
@@ -165,7 +165,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../quickLinks/quicklink.module').then(m => m.QuickLinkModule)
+                loadChildren: () => import('src/app/quickLinks/quicklink.module').then(m => m.QuickLinkModule)
             }
         ]
     },
@@ -182,7 +182,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../admin-management/users.module').then(m => m.AdminsModule)
+                loadChildren: () => import('src/app/admin-management/users.module').then(m => m.AdminsModule)
             }
         ]
     },
@@ -199,7 +199,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../breakingNews/breakingNews.module').then(m => m.BreakingNewsModule)
+                loadChildren: () => import('src/app/breakingNews/breakingnews.module').then(m => m.BreakingNewsModule)
             }
         ]
     },
@@ -216,7 +216,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../presenters/presenters.module').then(m => m.PresentersModule)
+                loadChildren: () => import('src/app/presenters/presenters.module').then(m => m.PresentersModule)
             }
         ]
     },
@@ -233,7 +233,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../addresses/addresses.module').then(m => m.AddressesModule)
+                loadChildren: () => import('src/app/addresses/addresses.module').then(m => m.AddressesModule)
             }
         ]
     },
@@ -250,7 +250,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../subscribers/subscribers.module').then(m => m.SubscribersModule)
+                loadChildren: () => import('src/app/subscribers/subscribers.module').then(m => m.SubscribersModule)
             }
         ]
     },
@@ -267,7 +267,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../pages/pages.module').then(m => m.PagesModule)
+                loadChildren: () => import('src/app/pages/pages.module').then(m => m.PagesModule)
             }
         ]
     },
@@ -284,7 +284,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../menus/menus.module').then(m => m.MenusModule)
+                loadChildren: () => import('src/app/menus/menus.module').then(m => m.MenusModule)
             }
         ]
     },
@@ -301,7 +301,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../socialMedia/socialMedia.module').then(m => m.SocialMediaModule)
+                loadChildren: () => import('src/app/socialMedia/socialMedia.module').then(m => m.SocialMediaModule)
             }
         ]
     },
@@ -318,7 +318,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../announcements/announcements.module').then(m => m.AnnouncementsModule)
+                loadChildren: () => import('src/app/announcements/announcements.module').then(m => m.AnnouncementsModule)
             }
         ]
     },
@@ -335,7 +335,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../banners/banners.module').then(m => m.BannersModule)
+                loadChildren: () => import('src/app/banners/banners.module').then(m => m.BannersModule)
             }
         ]
     },
@@ -352,7 +352,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../liveStream/liveStream.module').then(m => m.LiveStreamModule)
+                loadChildren: () => import('src/app/liveStream/liveStream.module').then(m => m.LiveStreamModule)
             }
         ]
     },
@@ -369,7 +369,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../messageInbox/messageInbox.module').then(m => m.MessageInboxModule)
+                loadChildren: () => import('src/app/messageInbox/messageInbox.module').then(m => m.MessageInboxModule)
             }
         ]
     },
@@ -386,7 +386,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../adminLog/adminLog.module').then(m => m.AdminLogModule)
+                loadChildren: () => import('src/app/adminLog/adminLog.module').then(m => m.AdminLogModule)
             }
         ]
     },
@@ -403,7 +403,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../tvSchedule/tvSchedule.module').then(m => m.TVScheduleModule)
+                loadChildren: () => import('src/app/tvSchedule/tvSchedule.module').then(m => m.TVScheduleModule)
             }
         ]
     },
@@ -420,7 +420,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../mediaUploader/mediaUploader.module').then(m => m.MediaUploaderModule)
+                loadChildren: () => import('src/app/mediaUploader/mediaUploader.module').then(m => m.MediaUploaderModule)
             }
         ]
     },
@@ -437,7 +437,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../settings/settings.module').then(m => m.SettingsModule)
+                loadChildren: () => import('src/app/settings/settings.module').then(m => m.SettingsModule)
             }
         ]
     },
@@ -454,7 +454,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../amazonAlexa/amazonAlexa.module').then(m => m.AmazonAlexaModule)
+                loadChildren: () => import('src/app/amazonAlexa/amazonAlexa.module').then(m => m.AmazonAlexaModule)
             }
         ]
     },
@@ -467,6 +467,6 @@ export const CommonLayout_ROUTES: Routes = [
     },
     // {
     //     path: 'quickLinks',
-    //     loadChildren: () => import('./../../quickLinks/quicklink.module').then(m => m.QuickLinkModule)
+    //     loadChildren: () => import('./src/app/src/app/quickLinks/quicklink.module').then(m => m.QuickLinkModule)
     // }
 ];

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from "@angular/common";
 import { SharedModule } from '../shared/shared.module';
 import { NewsRoutingModule } from "./news-routing.module";
 import { NgChartjsModule } from 'ng-chartjs';
@@ -19,7 +18,9 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { FileSelectorComponent } from './file-selector/file-selector.component';
+// import { FileSelectorComponent } from './file-selector/file-selector.component';
+// import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
+import { CommonModule } from '@angular/common';
 // import * as  DtosModule from "./../../../../../libs/dtos/src";
 const icons: IconDefinition[] = [LeftOutline, RightOutline];
 
@@ -28,8 +29,8 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        CommonModule,
         SharedModule,
+        CommonModule,
         NewsRoutingModule,
         NgChartjsModule,
         ...antdModule,
@@ -41,6 +42,7 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         NzModalModule,
         NzTreeSelectModule,
         CKEditorModule,
+        // FileUploaderModule
         // DtosModule
     ],
     exports: [],
@@ -48,7 +50,7 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         AddNewsComponent,
         FilterNewsComponent,
         NewsComponent,
-        FileSelectorComponent
+        // FileSelectorComponent
     ],
     providers: [
         ThemeConstantService
