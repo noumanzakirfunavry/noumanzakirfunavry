@@ -16,23 +16,31 @@ const Header = () =>{
     const router = useRouter()
     const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}])
 
-    const [scroll, setScroll] = useState(false)
+    const [scroll, setScroll] = useState(true)
 
     useEffect(() => {
-      document.addEventListener("scroll", () => {
-        const scrollCheck = window.scrollY < 100
-        if (scrollCheck !== scroll) {
-          setScroll(scrollCheck)
-        }
-      })
+      document.addEventListener("scroll", handleScroll)
+
+      return () => {
+        document.removeEventListener("scroll", handleScroll)
+      }
+   
     })
 
     useEffect(()=>{
         document.addEventListener("mousedown", handleClickOutside);
+        window.scrollTo(0,0)
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         }
     },[])
+
+    const handleScroll = () => {
+        const scrollCheck = window.scrollY < 100 
+        if (scrollCheck !== scroll) {
+          setScroll(scrollCheck)
+        }
+    }
 
     const handleMenuList = () => {
         setShowMenuList(!showMenuList)
@@ -173,11 +181,11 @@ const Header = () =>{
                                                     })
                                                 } */}
                                                 <li className="nav-item" key={'1'}>
-                                                    <a className="nav-link active" aria-current="page" href="/">الرئيسية</a>
+                                                    <Link href="/"><a className="nav-link active" aria-current="page">الرئيسية</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 <li className="nav-item" key={'2'}>
-                                                    <a className="nav-link" href="/videoNews">الفيديو</a>
+                                                    <Link href="/videoNews"><a className="nav-link">الفيديو</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 <li className="nav-item dropdown" key={'3'}>
@@ -186,34 +194,34 @@ const Header = () =>{
                                                     <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="morePrograms">
                                                         <li key={'8'}>
-                                                            <a className="dropdown-item" href="/programs/100/">اكسبو في أسبوع</a>
+                                                            <Link href="/programs/100/"><a className="dropdown-item">اكسبو في أسبوع</a></Link>
                                                         </li>
                                                         <li key={'9'}>
-                                                            <a className="dropdown-item" href="/programs/95/">حديث المملكة مع راشد الفوزان</a>
+                                                            <Link href="/programs/95/"><a className="dropdown-item">حديث المملكة مع راشد الفوزان</a></Link>
                                                         </li>
                                                         <li key={'10'}>
-                                                            <a className="dropdown-item" href="/programs/96/">تحت الضوء</a>
+                                                            <Link href="/programs/96/"><a className="dropdown-item">تحت الضوء</a></Link>
                                                         </li>
                                                         <li key={'11'}>
-                                                            <a className="dropdown-item" href="/programs/78/">وثائقيات</a>
+                                                            <Link href="/programs/78/"><a className="dropdown-item">وثائقيات</a></Link>
                                                         </li>
                                                         <li key={'12'}>
-                                                            <a className="dropdown-item" href="/programs/90/">Tech Talks</a>
+                                                            <Link href="/programs/90/"><a className="dropdown-item">Tech Talks</a></Link>
                                                         </li>
                                                         <li key={'13'}>
-                                                            <a className="dropdown-item" href="/programs/89/">CEO Talks</a>
+                                                            <Link href="/programs/89/"><a className="dropdown-item">CEO Talks</a></Link>
                                                         </li>
                                                         <li key={'14'}>
-                                                            <a className="dropdown-item" href="/programs/61/">مسار السوق</a>
+                                                            <Link href="/programs/61/"><a className="dropdown-item">مسار السوق</a></Link>
                                                         </li>
                                                         <li key={'15'}>
-                                                            <a className="dropdown-item" href="/programs/33/">كلام أسواق</a>
+                                                            <Link href="/programs/33/"><a className="dropdown-item">كلام أسواق</a></Link>
                                                         </li>
                                                         <li key={'16'}>
-                                                            <a className="dropdown-item" href="/programs/87/">بين قوسين</a>
+                                                            <Link href="/programs/87/"><a className="dropdown-item">بين قوسين</a></Link>
                                                         </li>
                                                         <li key={'17'}>
-                                                            <a className="dropdown-item" href="/programs/10/">حوار الأسبوع</a>
+                                                            <Link href="/programs/10/"><a className="dropdown-item">حوار الأسبوع</a></Link>
                                                         </li>
 
 {/*
@@ -262,11 +270,11 @@ const Header = () =>{
                                                     </ul>
                                                 </li>
                                                 <li className="nav-item" key={'34'}>
-                                                    <a className="nav-link" href="/categoryNewsTiles">التصنيفات</a>
+                                                    <Link href="/categoryNewsTiles"><a className="nav-link">التصنيفات</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 <li className="nav-item" key={'35'}>
-                                                    <a className="nav-link" href="/marketGraph">الأسواق</a>
+                                                    <Link href="/marketGraph"><a className="nav-link">الأسواق</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 <li className="nav-item dropdown" key={'3'}>
@@ -278,7 +286,7 @@ const Header = () =>{
                                                             moreMenuItems.length && moreMenuItems.map((menuItem)=>{
                                                                 return (
                                                                         <li className="nav-item" key={menuItem.title}>
-                                                                            <a className="nav-link" href={menuItem.url} >{menuItem.title}</a>
+                                                                            <Link href={menuItem.url}><a className="nav-link" >{menuItem.title}</a></Link>
                                                                         </li>
                                                                     )
                                                             })
@@ -304,9 +312,9 @@ const Header = () =>{
                                 </div> */}
                                 <div className="header-search-nav">
                                     <ul>
-                                        <li key={'wser'}><a href="/liveTv">المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></li>
-                                        <li><a key={'dsad'} href="/breakingNews">عاجل</a></li>
-                                        <li className='sticky_none'><a key={'adss'} data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a></li>
+                                        <li key={'wser'}><Link href="/liveTv"><a >المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></Link></li>
+                                        <li key={'dsad'}><Link href="/breakingNews"><a>عاجل</a></Link></li>
+                                        <li key={'adss'} className='sticky_none'><a data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a></li>
                                     </ul>
                                 </div>
                                 {

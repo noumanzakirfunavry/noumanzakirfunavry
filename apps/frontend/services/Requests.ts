@@ -7,5 +7,6 @@ export const requests={
     signup:newsAPI+'register',
     quickLinks:newsAPI+'quickLinks',
     breakingNews:adminApi+'breakingNews',
+    branches:adminApi+'branches',
+    jobs:adminApi+'jobs'
 }
-
