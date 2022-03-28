@@ -1,4 +1,8 @@
-import { Public, SubscriberAuthGuard, SubscriberOnly } from '@cnbc-monorepo/auth-module';
+import {
+	Public,
+	SubscriberAuthGuard,
+	SubscriberOnly
+} from '@cnbc-monorepo/auth-module';
 import {
 	CreateSubscriberRequestDto,
 	CreateSubscriberResponseDto,
@@ -42,24 +46,26 @@ export class SubscribersClientController {
     );
   }
 
-  
-	@SubscriberOnly()
-	@UseGuards(SubscriberAuthGuard)
-	@Patch('/update-subscriber')
-	updateEmailSubscriber(
-		@Req() req, 
-		@Body() updateSubscriberRequestDto: UpdateSubscriberRequestDto
-		): Promise<UpdateSubscriberResponseDto> {
-		return this.subscribersService.updateEmailSubscriber(
-			req.user.data.id, 
-			updateSubscriberRequestDto)
-	}
+  @SubscriberOnly()
+  @UseGuards(SubscriberAuthGuard)
+  @Patch('/update-subscriber')
+  updateEmailSubscriber(
+    @Req() req,
+    @Body() updateSubscriberRequestDto: UpdateSubscriberRequestDto
+  ): Promise<UpdateSubscriberResponseDto> {
+    return this.subscribersService.updateEmailSubscriber(
+      req.user.data.id,
+      updateSubscriberRequestDto
+    );
+  }
 
-  @Public()
-  @Get('/:subscriberId')
-  getSubscriberById(
-    @Param('subscriberId', ParseIntPipe) subscriberId: number
-  ): Promise<GetSubscriberByIdResponseDto> {
-    return this.subscribersService.getSubscriberById(subscriberId);
+  
+  @SubscriberOnly()
+  @UseGuards(SubscriberAuthGuard)
+  @Get('/profile')
+  getLoggedInSubscriberProfile(@Req() req): Promise<GetSubscriberByIdResponseDto> {
+		console.log(req.user);
+		
+    return this.subscribersService.getSubscriberById(req.user.subscriber.id);
   }
 }
