@@ -14,10 +14,7 @@ import {
 import {
 	Body,
 	Controller,
-	Get,
-	Param,
-	ParseIntPipe,
-	Patch,
+	Get, Patch,
 	Post,
 	Req,
 	UseGuards
