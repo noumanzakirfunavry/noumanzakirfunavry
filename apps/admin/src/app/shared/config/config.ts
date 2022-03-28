@@ -60,7 +60,7 @@ export const requests = {
     getAllNews: environment.baseUrlNews+'news/getAll',
     addNews: environment.baseUrlNews+'news/add',
     updateNews: environment.baseUrlNews+'news/update/',
-    deleteNews: 'http://localhost:3333/api/admin/allnews/',
+    deleteNews: environment.baseUrlNews+'news/delete',
     getNewsById: environment.baseUrlNews+'news/getById/',
     getRelatedNews: 'http://localhost:3333/api/admin/new/related/',
     addNewDepartment: 'http://localhost:3333/api/department',
