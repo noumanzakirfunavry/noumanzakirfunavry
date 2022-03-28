@@ -1,65 +1,67 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { CategoryNewsProps } from "apps/frontend/types/Types";
-import { FC } from "react";
+import { FC ,useEffect} from "react";
 import newsImage from "../../../styles/images/biden.jpg";
 import Title from "../../Title";
 
 const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displayTopTwoNews, displayMoreButton}) => {
 
     const fields: JSX.Element[] = [];
+    useEffect(()=>{
         for (let i = 1; i <= limit; i++) {
-        fields?.push(
-            <div className="row" key={i}>
-                <div className="col-md-4 col-sm-6">
-                    <div className="newBox ">
-                        <div className="NewsImage img_sm_none">
-                            <img className="img-fluid" src={newsImage.src} />
-                        </div>
-                        <div className="NewsInfo">
-                            <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                            <p>
-                                <a>الإمارات</a>
-                             منذ 5 دقائق</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-4 col-sm-6">
-                    <div className="newBox VideoNews">
-                        <div className="NewsImage img_sm_none">
-                        <img className="img-fluid" src={newsImage.src} />
-
-                            <div className="PlayTime">
-                              <h5>05:21</h5>
-                              <div className="btn-text">
-                                  <span>شاهد الآن</span>
-                                  <button className="btn btn-warning VideoPlay"><i className="fa play_small"></i></button>
-                              </div>
+            fields.push(
+                <div className="row" key={i}>
+                    <div className="col-md-4 col-sm-6">
+                        <div className="newBox ">
+                            <div className="NewsImage img_sm_none">
+                                <img className="img-fluid" src={newsImage.src} />
                             </div>
-                          </div>
-                        <div className="NewsInfo">
-                            <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</h4>
-                            <p>
-                                <a>الإمارات</a>
-                            منذ 5 دقائق</p>
+                            <div className="NewsInfo">
+                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
+                                <p>
+                                    <a>الإمارات</a>
+                                 منذ 5 دقائق</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="col-md-4 col-sm-6">
-                    <div className="newBox">
-                        <div className="NewsImage img_sm_none">
+                    <div className="col-md-4 col-sm-6">
+                        <div className="newBox VideoNews">
+                            <div className="NewsImage img_sm_none">
                             <img className="img-fluid" src={newsImage.src} />
+    
+                                <div className="PlayTime">
+                                  <h5>05:21</h5>
+                                  <div className="btn-text">
+                                      <span>شاهد الآن</span>
+                                      <button className="btn btn-warning VideoPlay"><i className="fa play_small"></i></button>
+                                  </div>
+                                </div>
+                              </div>
+                            <div className="NewsInfo">
+                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</h4>
+                                <p>
+                                    <a>الإمارات</a>
+                                منذ 5 دقائق</p>
+                            </div>
                         </div>
-                        <div className="NewsInfo">
-                            <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
-                            <p>
-                                <a>الإمارات</a>
-                            منذ 5 دقائق</p>
+                    </div>
+                    <div className="col-md-4 col-sm-6">
+                        <div className="newBox">
+                            <div className="NewsImage img_sm_none">
+                                <img className="img-fluid" src={newsImage.src} />
+                            </div>
+                            <div className="NewsInfo">
+                                <h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>
+                                <p>
+                                    <a>الإمارات</a>
+                                منذ 5 دقائق</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
-    }
+            );
+        }
+     }, [])
     return (
         <>
            {displayTitle && <Title styles={"yellowTitle mb-3"}><h3>أميركا في أزمة</h3></Title> }
