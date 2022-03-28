@@ -4,8 +4,6 @@ import { Attachments } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import * as fs from 'fs';
-import { Blob } from 'buffer'
 
 @Injectable()
 export class AttachmentsService {
