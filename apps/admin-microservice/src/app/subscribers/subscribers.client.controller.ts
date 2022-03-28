@@ -54,7 +54,7 @@ export class SubscribersClientController {
     @Body() updateSubscriberRequestDto: UpdateSubscriberRequestDto
   ): Promise<UpdateSubscriberResponseDto> {
     return this.subscribersService.updateEmailSubscriber(
-      req.user.data.id,
+      req.user.subscriber.id,
       updateSubscriberRequestDto
     );
   }
