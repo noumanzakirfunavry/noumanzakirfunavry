@@ -13,7 +13,7 @@ const NewsList = () => {
 
     const [pageData, setPageData] = useState<BreakingNewsPageProps>({newsList:[], displayMoreButton:false})
     const [params, setParams] = useState<any>({
-      limit:10,
+      limit:20,
       pageNo:1
     })
 
@@ -26,7 +26,7 @@ const NewsList = () => {
         GetData(`${requests.breakingNews}/getAll?limit=${params.limit}&pageNo=${params.pageNo}`, {}, 'get', false).then(res=>{
           // eslint-disable-next-line no-unsafe-optional-chaining
           pageData.newsList = res.data?.response?.breakingNews && res.data?.response?.breakingNews.length ? [...pageData.newsList, ...res.data?.response?.breakingNews] : pageData.newsList
-          pageData.displayMoreButton = res.data?.response?.breakingNews && res.data?.response?.breakingNews.length >= 10 ? true : false
+          pageData.displayMoreButton = res.data?.response?.breakingNews && res.data?.response?.breakingNews.length >= params.limit ? true : false
           setPageData({...pageData})
         }).catch(err=>{
           console.warn(err)
@@ -45,9 +45,13 @@ const NewsList = () => {
                           <p className="text-danger">{news.title}</p>
                           <a href="/newsDetails">{news.title}</a>
                       </div>
-                      <div className="newsaction">
-                        <button className="btn btn-outline-primary">المزيد</button>
-                      </div>
+                      {
+                        news.newsLink && (
+                          <div className="newsaction">
+                            <a className="btn btn-outline-primary" href={news.newsLink}>المزيد</a>
+                          </div>
+                        )
+                      }
                     </div>
                   )
                 })
