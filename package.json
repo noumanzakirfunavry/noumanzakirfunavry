@@ -47,6 +47,7 @@
     "@nrwl/next": "^13.4.3",
     "@popperjs/core": "^2.11.2",
     "@reduxjs/toolkit": "^1.8.0",
+    "@types/dateformat": "^5.0.0",
     "axios": "^0.26.0",
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.1.3",
