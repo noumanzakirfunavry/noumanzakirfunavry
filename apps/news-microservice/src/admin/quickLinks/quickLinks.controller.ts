@@ -1,5 +1,5 @@
 import { Public } from "@cnbc-monorepo/auth-module";
-import { AddQuickLinksRequestDto, DeleteQuickLinkRequestDto, PaginatedRequestDto, UpdateQuickLinksRequestDto } from "@cnbc-monorepo/dtos";
+import { AddQuickLinksRequestDto, DeleteQuickLinkRequestDto, GetAllQuickLinksRequestDto, PaginatedRequestDto, UpdateQuickLinksRequestDto } from "@cnbc-monorepo/dtos";
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { QuickLinksService } from "./quickLinks.service";
 
@@ -21,7 +21,7 @@ export class QuickLinksController{
     }
     @Public()
     @Get('getAll')
-    async getAllQuickLinks(@Query() query:PaginatedRequestDto){
+    async getAllQuickLinks(@Query() query:GetAllQuickLinksRequestDto){
         return await this.quickLinksService.getAllQuickLinks(query)
     }
     

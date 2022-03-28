@@ -22,6 +22,7 @@ import { ExclusiveVideosModule } from './exclusive-videos/exclusive-videos.modul
 import { EpisodesModule } from './episodes/episodes.module';
 import { AttachmentsModule } from './attachments/attachments.module';
 import { SubscribersModule } from './subscribers/subscribers.module';
+import { JobApplicantModule } from './job-applicant/job-applicant.module';
 
 @Module({
   imports: [
@@ -47,7 +48,8 @@ import { SubscribersModule } from './subscribers/subscribers.module';
     ExclusiveVideosModule,
     EpisodesModule,
     AttachmentsModule,
-    SubscribersModule
+    SubscribersModule,
+    JobApplicantModule
   ]
 })
 export class AppModule { }
