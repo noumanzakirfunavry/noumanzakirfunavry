@@ -2777,6 +2777,10 @@ h6.newsDetailtext
 .presenter_detail{
   h1{
     font: normal normal bold 40px/65px Cairo;
+    cursor: pointer;
+    &:hover{
+      text-decoration: underline;
+    }
 
   }
   h5{

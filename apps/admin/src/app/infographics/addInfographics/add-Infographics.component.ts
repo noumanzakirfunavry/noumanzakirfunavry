@@ -7,7 +7,7 @@ import { filter } from 'rxjs';
 
 @Component({
     selector: 'add-infographics',
-    templateUrl: './add-infographics.component.html'
+    templateUrl: './add-Infographics.component.html'
 })
 
 export class AddInfographicsComponent {

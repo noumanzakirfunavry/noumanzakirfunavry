@@ -1,0 +1,41 @@
+         
+                      <!-- <td class="col-4">
+                        <nz-form-item>
+                          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
+                            <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
+                            <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
+                          </nz-select>
+                        </nz-form-item>
+                      </td>
+                      <td>
+                        <nz-form-item>
+                          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
+                            <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
+                            <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
+                          </nz-select>
+                        </nz-form-item>
+                      </td> -->
+
+                      <td class="col-4">
+                        <nz-form-item>
+                          <nz-form-control >
+                          <select (change)="getCategoryNews($event.target.value)">
+                            <option *ngFor="let cat of allCategories" [value]="cat?.id">{{cat?.title}}</option>
+                          </select>
+                        </nz-form-control>
+                        </nz-form-item>
+                      </td>
+                      <td>
+                        <nz-form-item>
+                          <nz-form-control >
+                            <select (change)="onChangeNews($event.target.value)" [(ngModel)]="news.newsId">
+                              <option *ngFor="let catNews of allCategoryNews" [value]="catNews?.id">{{catNews?.title}}</option>
+                            </select>
+                          <!-- <nz-select nzShowSearch nzAllowClear [(ngModel)]="News.newsId" nzPlaceHolder="Select News">
+                            <nz-option *ngFor="let catNews of allCategoryNews"  [nzValue]="catNews?.id" [nzLabel]="catNews?.title"></nz-option>
+                          </nz-select> -->
+                        </nz-form-control>
+                        </nz-form-item>
+                      </td>
+        
+          
