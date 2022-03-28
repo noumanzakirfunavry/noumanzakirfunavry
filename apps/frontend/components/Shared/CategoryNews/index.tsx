@@ -8,7 +8,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
 
     const fields: JSX.Element[] = [];
         for (let i = 1; i <= limit; i++) {
-        fields.push(
+        fields?.push(
             <div className="row" key={i}>
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox ">
