@@ -17,7 +17,7 @@ export class AttachmentsService {
 
     async createAttachment(file, body: CreateAttachmentRequestDto, userId): Promise<GenericResponseDto> {
         try {
-            const attachment_obj = this.helperService.attachmentObj(body, userId, file[0].path)
+            const attachment_obj = this.helperService.attachmentObj(body, userId, file[0].filename)
             const response = await this.attachmentCreationQuery(attachment_obj)
             if (response) {
                 return new GenericResponseDto(
