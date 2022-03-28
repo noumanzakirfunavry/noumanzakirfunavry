@@ -23,14 +23,24 @@ export class BranchesService {
         if (query.title) {
             where['title'] = query.title
         }
-        const result = await this.branchRepo.findAll({ where: where, limit: query.limit, offset: offset })
-        if (!result.length) {
+        const result = await this.branchRepo.findAndCountAll(
+
+            {
+                include: ['user'],
+                where: where,
+                limit: query.limit,
+                offset: offset
+            })
+        if (!result.count) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
             )
         }
-        return new GetAllBranchResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
+        return new GenericResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", {
+            branches: result.rows,
+            totalCount: result.count
+        })
     }
     async getById(id) {
         const result = await this.branchRepo.findOne({ where: { id } })
@@ -63,7 +73,7 @@ export class BranchesService {
         }
         return new GenericResponseDto(HttpStatus.OK, "DELETED SUCCESSFULLY")
     }
-    
+
     async update(id: number, body: UpdateBranchRequestDto) {
         const job = await this.branchRepo.findOne({ where: { id: id } })
         if (!job) {
@@ -77,11 +87,11 @@ export class BranchesService {
         return new UpdateBranchResponseDto(HttpStatus.OK, "UPDATED SUCCESSFULLY", result)
     }
 
-    async getAllforClient(query:GetALLBranchesRequestDto){
+    async getAllforClient(query: GetALLBranchesRequestDto) {
         let offset = 0
         query.pageNo = query.pageNo - 1;
         if (query.pageNo) offset = query.limit * query.pageNo;
-        let where = {}        
+        let where = {}
         where['isActive'] = true
         if (query.publishers) {
             where['publishedBy'] = query.publishers
@@ -97,6 +107,6 @@ export class BranchesService {
             )
         }
         return new GetAllBranchResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
-    
+
     }
 }
