@@ -24,7 +24,9 @@ export class TagsService{
         if(query.title){
             where['title']=query.title
         }
-        const result= await this.tagsRepo.findAll({where:where,offset:offset,limit:query.limit})
+        const result= await this.tagsRepo.findAll({
+            include : ['user'],
+            where:where,offset:offset,limit:query.limit})
         if(!result.length){
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
