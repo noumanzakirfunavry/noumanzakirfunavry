@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
 
-export interface Data {
-    id: number;
-    name: string;
-    age: number;
-    address: string;
-    disabled: boolean;
+export class Data extends Pagination {
+    title?: string;
+    publishers?: Array<any>;
+
+    constructor() {
+        super()
+        this.title= '',
+        this.publishers= []
+    }
 }
 
 @Component({
@@ -19,13 +23,14 @@ export interface Data {
 
 export class AddressesComponent implements OnInit{
 
-    pagination: { limit: number, pageNo: number, status?: string, title?: string, publishers?:Array<any> } = {limit: 10, pageNo: 1}
+    pagination: Data= new Data();
     allBranches: any;
+    branchesCount: any;
     indeterminate = false;
     checked = false;
     loading = true;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData: Data[] = [];
+    listOfCurrentPageData = [];
 
     constructor(private apiService: ApiService, private message: NzMessageService ) {}
 
@@ -34,13 +39,23 @@ export class AddressesComponent implements OnInit{
     }
 
     getAllBranches() {
-        this.apiService.sendRequest(requests.getAllBranches, 'get', this.pagination).subscribe((res:any) => {
+        this.apiService.sendRequest(requests.getAllBranches, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allBranches= res.response.branches;
+            this.branchesCount= res.response.totalCount;
             console.log("ALL-BRANCHES", this.allBranches);
             this.loading= false;
         },err => {
             this.loading = false;
           })
+    }
+
+    clean(obj:any) {
+        for (const propName in obj) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            delete obj[propName];
+          }
+        }
+        return obj
     }
 
     deleteBranch(branchId: any) {
@@ -49,6 +64,18 @@ export class AddressesComponent implements OnInit{
             this.getAllBranches();
             this.message.create('success', `Address Deleted Successfully`);
         }) 
+    }
+
+    onPageIndexChange(pageNo: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
+        this.getAllBranches();
+    }
+
+    onPageSizeChange(limit: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, limit: limit})
+        this.getAllBranches();
     }
 
     updateCheckedSet(id: number, checked: boolean): void {

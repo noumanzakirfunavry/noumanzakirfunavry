@@ -20,9 +20,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let link of allQuickLinks">
-                            <td [nzChecked]="setOfCheckedId.has(link?.id)" (nzCheckedChange)="onItemChecked(link?.id, $event)">
-                                <i nz-icon nzType="drag" nzTheme="outline"></i>
-                            </td>
+                            <td [nzChecked]="setOfCheckedId.has(link?.id)" (nzCheckedChange)="onItemChecked(link?.id, $event)"></td>
                             <td>{{link?.title}}</td>
                             <td>{{link?.url}}</td>
                             <td>
