@@ -93,7 +93,7 @@ export class NewsComponent implements OnInit {
         this.refreshCheckedStatus();
     }
 
-        onAllChecked(checked: boolean): void {
+    onAllChecked(checked: boolean): void {
         this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
         this.refreshCheckedStatus();
     }

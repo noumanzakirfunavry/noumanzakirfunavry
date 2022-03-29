@@ -3,7 +3,7 @@
         <button nz-button [nzType]="'primary'" [routerLink]="['/quickLinks/add']">Add Quick Link</button>
     </div>
     <div class="col-md-9">
-        <quick-filter (statusEmitter)="receiveStatus()"></quick-filter>
+        <quick-filter (statusEmitter)="receiveStatus($event)" (filterEmitter)="receiveFilter($event)"></quick-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
@@ -11,7 +11,8 @@
                 <nz-table [nzShowPagination]="false" [nzLoading]="loading" [nzData]="allQuickLinks" class="no-border-last">
                     <thead>
                         <tr>
-                            <th>Reorder</th>
+                            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                            (nzCheckedChange)="onAllChecked($event)"></th>
                             <th>Title</th>
                             <th>Link</th>
                             <th>Status</th>
