@@ -9,7 +9,7 @@
         <nz-card>
           
             <div class="">
-                <nz-table [nzData]="allAdmins" [nzLoading]="loading" [nzShowPagination]="true" class="no-border-last">
+                <nz-table [nzData]="allAdmins" [nzLoading]="loading" [nzShowPagination]="false" class="no-border-last">
                     <thead>
                         <tr>
                             <th>Admin Name</th>
@@ -24,7 +24,7 @@
                         <tr *ngFor="let admin of allAdmins">
                             <td [nzChecked]="setOfCheckedId.has(admin?.id)" (nzCheckedChange)="onItemChecked(admin?.id, $event)">{{admin?.name}}</td>
                             <td>{{admin?.userName}}</td>
-                            <td></td>
+                            <td>{{admin?.roles?.title}}</td>
                             <td>{{admin?.email}}</td>
                             <td>
                                 <nz-badge *ngIf="admin?.isActive === true" nzStatus="success"></nz-badge>
@@ -40,6 +40,10 @@
                         </tr>
                     </tbody>
                 </nz-table>
+                <div class="text-right mt-2">
+                    <nz-pagination [nzPageIndex]="pagination.pageNo" [nzTotal]="adminsCount" [nzPageSize]="pagination.limit" [nzShowSizeChanger]="true"
+                    [nzResponsive]="true" (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"></nz-pagination>
+                </div>
             </div>
         </nz-card>
     </div>
