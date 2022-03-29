@@ -27,7 +27,6 @@ export class NewsService {
         try {
             return await sequelize.transaction(async t => {
                 const transactionHost = { transaction: t };
-                console.log("la here");
                 const seo_added = await this.addSeo(body, transactionHost)
                 if (seo_added) {
                     const news_object = this.helperService.newsObjectCreator(body, seo_added.id, userId)
@@ -122,7 +121,7 @@ export class NewsService {
         let quotes_added;
         let quotes_object;
         for (let i = 0; i < quotesIds.length; i++) {
-            quotes_object = this.helperService.quotesObject(quotesIds[i].position, quotesIds[i].id, newsId)
+            quotes_object = this.helperService.quotesObject(i + 1, quotesIds[i], newsId)
             quotes_added = await this.newsHasQuotes.create(quotes_object, transactionHost)
             if (!quotes_added) {
                 return false
