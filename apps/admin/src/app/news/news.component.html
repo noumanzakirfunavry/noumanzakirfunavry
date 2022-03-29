@@ -8,6 +8,12 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
+                <div class="send-request" *ngIf="setOfCheckedId.size">
+                    <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="deleteSelected()">
+                      Delete Selected
+                    </button>
+                    <span>Selected {{ setOfCheckedId.size }} items</span>
+                  </div>
                 <nz-table [nzLoading]="loading" [nzShowPagination]="false" [nzData]="allNews">
                     <thead>
                         <tr>
