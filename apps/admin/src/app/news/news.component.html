@@ -30,7 +30,7 @@
                                 (nzCheckedChange)="onItemChecked(news?.id, $event)"></td>
                             <td>{{news?.title}}</td>
                             <td>{{news?.newsType}}</td>
-                            <td ><span *ngFor="let catNews of news?.categories">{{catNews?.title}}</span></td>
+                            <td ><span *ngFor="let catNews of news?.categories">{{catNews?.title}}, </span></td>
                             <td>{{news?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{news?.user?.name}}</td>
                             <td>{{news?.updatedAt | date:'dd-MM-YYYY'}}</td>
