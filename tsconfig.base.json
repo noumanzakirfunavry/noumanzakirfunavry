@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    // "assets": ["mail/templates/**/*"],
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -22,6 +21,7 @@
     "paths": {
       "@cnbc-monorepo/auth-module": ["libs/auth-module/src/index.ts"],
       "@cnbc-monorepo/dtos": ["libs/dtos/src/index.ts"],
+      "@cnbc-monorepo/elk": ["libs/elk/src/index.ts"],
       "@cnbc-monorepo/entity": ["libs/entity/src/index.ts"],
       "@cnbc-monorepo/enums": ["libs/enums/src/index.ts"],
       "@cnbc-monorepo/exception-handling": [
