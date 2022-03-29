@@ -276,8 +276,8 @@ export class AddNewsComponent implements OnInit {
     getTags(value?) {
         this.pagination.title = value ? value : '';
         this.apiService.sendRequest(requests.getAllTags, 'get', this.pagination).subscribe((res: any) => {
-            console.log("ALL-tags", res);
-            this.allTags = res.tags;
+            console.log("ALL-tags", res.response.tags);
+            this.allTags = res.response.tags;
         })
     }
 

@@ -105,6 +105,12 @@ export class NewsComponent implements OnInit {
     }
 
     deleteSelected(){
-      alert("are you sure you want to delete")
+    //   alert("are you sure you want to delete"+ JSON.stringify(this.setOfCheckedId));
+    let id=[];
+      console.log(this.setOfCheckedId.forEach(x=>{
+        id.push(x)
+      }));
+      this.apiService.sendRequest(requests.deleteNews,'delete',{id:id}).subscribe()
+      
     }
 }    
