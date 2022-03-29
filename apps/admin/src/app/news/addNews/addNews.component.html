@@ -28,7 +28,7 @@
                         <nz-form-item>
                             <nz-form-label>Description</nz-form-label>
                             <nz-form-control>
-                                <ckeditor formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>">
+                                <ckeditor [config]="config" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>">
                                 </ckeditor>
                             </nz-form-control>
                         </nz-form-item>
@@ -221,8 +221,9 @@
             </div>
             <nz-form-item>
                 <nz-form-control [nzSpan]="14">
-                    <button class="mr-3" nz-button nzType="primary">Save</button>
-                    <button nz-button nzType="default">Cancel</button>
+                    <button *ngIf="!newsId" class="mr-3" nz-button nzType="primary">Save</button>
+                    <button *ngIf="newsId" class="mr-3" nz-button nzType="primary">Update</button>
+                    <!-- <button nz-button nzType="default">Cancel</button> -->
                 </nz-form-control>
             </nz-form-item>
         </form>

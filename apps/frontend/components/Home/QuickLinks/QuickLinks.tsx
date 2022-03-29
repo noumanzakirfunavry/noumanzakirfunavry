@@ -38,7 +38,7 @@ const QuickLinks = () =>{
                         <li><a href="">الرئيسية تسجيل الدخول </a></li>
                         <li><a href="">الرئيسية</a></li>
                         <li><a href="">تسجيل الدخول </a></li> */}
-                        {quickLinks.map((quickLink:QuickLink, index:number)=>{
+                        {quickLinks?.map((quickLink:QuickLink, index:number)=>{
                            return <li key={index}><a href={quickLink.url}>{quickLink.title}</a></li>
                         })}
                     </ul>
