@@ -1,5 +1,4 @@
 <div class="row">
-
     <div class="col-md-2">
         <button nz-button [nzType]="'primary'" [routerLink]="['/news/add']">Add News</button>
     </div>
@@ -8,8 +7,8 @@
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
-            <div class="m-t-30">
-                <nz-table [nzLoading]="loading" nzShowPagination nzShowSizeChanger [nzData]="allNews">
+            <div>
+                <nz-table [nzLoading]="loading" [nzShowPagination]="false" [nzData]="allNews">
                     <thead>
                         <tr>
                             <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
@@ -51,6 +50,10 @@
                         </tr>
                     </tbody>
                 </nz-table>
+                <div class="text-right mt-2">
+                    <nz-pagination [nzPageIndex]="pagination.pageNo" [nzTotal]="newsCount" [nzPageSize]="pagination.limit" [nzShowSizeChanger]="true"
+                    [nzResponsive]="true" (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"></nz-pagination>
+                </div>
             </div>
         </nz-card>
     </div>
