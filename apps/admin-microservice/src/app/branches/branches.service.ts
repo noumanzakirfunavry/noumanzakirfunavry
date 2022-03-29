@@ -1,7 +1,7 @@
 import { AddBranchResponseDto, GenericResponseDto, GetALLBranchesRequestDto, GetAllBranchResponseDto, GetBranchByIdResponseDto, UpdateBranchRequestDto, UpdateBranchResponseDto } from "@cnbc-monorepo/dtos";
 import { Branches } from "@cnbc-monorepo/entity";
 import { CustomException, Exceptions, ExceptionType } from "@cnbc-monorepo/exception-handling";
-import { Get, HttpStatus, Inject, Injectable } from "@nestjs/common";
+import { HttpStatus, Inject, Injectable } from "@nestjs/common";
 
 @Injectable()
 export class BranchesService {
@@ -52,8 +52,12 @@ export class BranchesService {
         }
         return new GetBranchByIdResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
     }
-    async addBranch(body) {
-        const result = await this.branchRepo.create(body)
+    async addBranch(body, userId: number) {
+        const new_body = {
+            ...body,
+            publishedBy: userId
+        }
+        const result = await this.branchRepo.create(new_body)
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.UNABLE_TO_CREATE_RECORD].message,
