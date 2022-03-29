@@ -1,9 +1,26 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import styles from "./mainsection.module.css";
 import newsimage from "../../../../styles/images/biden.jpg";
+import GetData from "apps/frontend/services/GetData";
+import { requests } from "apps/frontend/services/Requests";
 
 const MainSection:FC = () =>{
+
+    const [featuredNews, setFeaturedNews] = useState({})
+    
+    useEffect(()=>{
+        getDataFromApi()
+    },[])
+
+    const getDataFromApi = () =>{
+        GetData(`${requests.featuredNews}/getAll`,{},"get", false).then((res)=>{
+            setFeaturedNews(res.data?.response?.featuredNews)
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
 
     return (
         <>
