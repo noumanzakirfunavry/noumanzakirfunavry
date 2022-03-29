@@ -7,14 +7,16 @@
                 <nz-option [nzValue]="false" [nzLabel]="'InActive'"></nz-option>
               </nz-select>
             </nz-form-item>
-            <nz-form-item>
+            <nz-form-item class="mr-2">
                 <nz-input-group>
-                    <input nz-input placeholder="Search" nzSize="small">
+                    <input nz-input placeholder="Search">
                 </nz-input-group>
-                <!-- <ng-template #prefiXTemplate>
-                    <i nz-icon nzType="search" theme="outline"></i>
-                </ng-template> -->
-            </nz-form-item>    
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <button nz-button [nzType]="'primary'">Search</button>
+              </nz-form-control>
+            </nz-form-item>
           </div>
           </div>
           

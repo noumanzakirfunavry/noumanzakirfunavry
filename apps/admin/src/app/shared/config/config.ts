@@ -1,5 +1,4 @@
-import { environment } from "src/environments/environment";
-
+import { environment } from "../../../environments/environment";
 
 export const requests = {
     login: environment.baseUrlAdmin + 'authentication/login',

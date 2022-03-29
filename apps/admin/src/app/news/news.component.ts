@@ -6,8 +6,8 @@ import { ApiService } from '../shared/services/api.service';
 
 
 export class Data extends Pagination {
-    publishers?:Array<any>;
-    branchId?:Array<any>;
+    publishers?: Array<any>;
+    branchId?: Array<any>;
     title?: string;
 
     constructor() {
@@ -26,6 +26,7 @@ export class Data extends Pagination {
 export class NewsComponent implements OnInit {
     pagination: Data = new Data();
     allNews: any;
+    newsCount: any;
     indeterminate = false;
     checked = false;
     loading = true;
@@ -40,13 +41,23 @@ export class NewsComponent implements OnInit {
     }
 
     getAllNews() {
-        this.apiService.sendRequest(requests.getAllNews, 'get', this.pagination).subscribe((res:any) => {
+        this.apiService.sendRequest(requests.getAllNews, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allNews= res.response.news;
+            this.newsCount= res.response.totalCount;
             console.log("ALL-NEWS", this.allNews);
             this.loading= false;
         },err => {
             this.loading = false;
           })
+    }
+
+    clean(obj:any) {
+        for (const propName in obj) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            delete obj[propName];
+          }
+        }
+        return obj
     }
     
     deleteNews(newsId: number) {
@@ -55,6 +66,18 @@ export class NewsComponent implements OnInit {
             this.getAllNews();
             this.message.create('success', `News Deleted Successfully`)
         })
+    }
+
+    onPageIndexChange(pageNo: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
+        this.getAllNews();
+    }
+
+    onPageSizeChange(limit: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, limit: limit})
+        this.getAllNews();
     }
 
     updateCheckedSet(id: number, checked: boolean): void {
@@ -71,13 +94,23 @@ export class NewsComponent implements OnInit {
     }
 
         onAllChecked(checked: boolean): void {
-        this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+        this.allNews.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
         this.refreshCheckedStatus();
     }
 
     refreshCheckedStatus(): void {
-        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        const listOfEnabledData = this.allNews.filter(({ disabled }) => !disabled);
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+    }
+
+    deleteSelected(){
+    //   alert("are you sure you want to delete"+ JSON.stringify(this.setOfCheckedId));
+    let id=[];
+      console.log(this.setOfCheckedId.forEach(x=>{
+        id.push(x)
+      }));
+      this.apiService.sendRequest(requests.deleteNews,'delete',{id:id}).subscribe()
+      
     }
 }    

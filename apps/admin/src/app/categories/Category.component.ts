@@ -50,7 +50,6 @@ export class CategoryComponent implements OnInit {
         this.apiService.sendRequest(requests.getAllCategories, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allCategories= res.response.categories;
             console.log("ALL-CATEGORIES", this.allCategories);
-            // this.strucCategories = this.catToNodes(this.allCategories);
             this.loading= false;
         },err => {
             this.loading = false;
@@ -65,13 +64,7 @@ export class CategoryComponent implements OnInit {
         }
         return obj
       }
-
-    //   catToNodes() {
-    //       for(let i=0; i<=this.allCategories.length; i++) {
-    //           this.allCategories[i].expand = false;
-    //       }
-    // }
-
+      
     deleteCategories(categoryId: number) {
         this.apiService.sendRequest(requests.deleteCategories, 'delete', {ids:[categoryId]}).subscribe((res:any) => {
             console.log("DEL-CATEGORY", res);
