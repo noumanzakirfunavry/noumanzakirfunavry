@@ -48,8 +48,16 @@ export class NewsComponent implements OnInit {
             this.loading= false;
         },err => {
             this.loading = false;
+            throw this.handleError(err);
           })
     }
+
+    handleError(err: any) {
+        if (err) {
+          this.allNews = [];
+        }
+        return err
+      }
 
     clean(obj:any) {
         for (const propName in obj) {
@@ -58,6 +66,18 @@ export class NewsComponent implements OnInit {
           }
         }
         return obj
+    }
+
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publishedBy: data.publishedBy, categoryId: data.categoryId, newsType: data.newsType, date: data.date};
+        this.pagination.pageNo= 1;
+        this.getAllNews();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publishedBy: data.publishedBy, categoryId: data.categoryId, newsType: data.newsType, date: data.date};
+        this.pagination.pageNo= 1;
+        this.getAllNews();        
     }
     
     deleteNews(newsId: number) {
@@ -93,7 +113,7 @@ export class NewsComponent implements OnInit {
         this.refreshCheckedStatus();
     }
 
-        onAllChecked(checked: boolean): void {
+    onAllChecked(checked: boolean): void {
         this.allNews.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
         this.refreshCheckedStatus();
     }
@@ -105,12 +125,11 @@ export class NewsComponent implements OnInit {
     }
 
     deleteSelected(){
-    //   alert("are you sure you want to delete"+ JSON.stringify(this.setOfCheckedId));
-    let id=[];
+    const id=[];
       console.log(this.setOfCheckedId.forEach(x=>{
         id.push(x)
       }));
       this.apiService.sendRequest(requests.deleteNews,'delete',{id:id}).subscribe()
-      
+      this.getAllNews();
     }
 }    

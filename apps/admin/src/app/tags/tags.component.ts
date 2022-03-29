@@ -45,8 +45,17 @@ export class TagsComponent implements OnInit {
             this.loading= false;
         },err => {
             this.loading = false;
+            throw this.handleError(err)
           })
     }
+
+    handleError(err: any) {
+        if (err) {
+          this.allTags = [];
+          this.tagsCount= 0;
+        }
+        return err
+      }
 
     clean(obj:any) {
         for (const propName in obj) {
@@ -63,6 +72,18 @@ export class TagsComponent implements OnInit {
             this.getAllTags();
             this.message.create('success', `Tag Deleted Successfully`)
         })
+    }
+
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers};
+        this.pagination.pageNo= 1;
+        this.getAllTags();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers};
+        this.pagination.pageNo= 1;
+        this.getAllTags();        
     }
 
     onPageIndexChange(pageNo: number) {
@@ -90,10 +111,25 @@ export class TagsComponent implements OnInit {
         this.refreshCheckedStatus();
     }
 
+    onAllChecked(checked: boolean): void {
+        this.allTags.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+        this.refreshCheckedStatus();
+    }
+
     refreshCheckedStatus(): void {
-        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        const listOfEnabledData = this.allTags.filter(({ disabled }) => !disabled);
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+    }
+
+    deleteSelected() {
+        const id=[];
+          console.log(this.setOfCheckedId.forEach(x=>{
+            id.push(x)
+          }));
+          this.apiService.sendRequest(requests.deleteTags,'delete',{ids:id}).subscribe((res:any) => {
+              this.getAllTags();
+          })
     }
     
 }    
