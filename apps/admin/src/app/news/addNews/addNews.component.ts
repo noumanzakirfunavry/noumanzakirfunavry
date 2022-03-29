@@ -6,6 +6,7 @@ import { ApiService } from '../../shared/services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NewsModal } from '../../common/models/newsModal';
 import { ActivatedRoute } from '@angular/router';
+import { CommentListData } from './mockComments';
 @Component({
     selector: 'app-addNews',
     templateUrl: './addNews.component.html'
@@ -31,30 +32,40 @@ export class AddNewsComponent implements OnInit {
     previewImage = '';
     previewVisible = false;
     value: string[] = ['0-0-0'];
+config={
+    // plugins: [ , ],
+    ckfinder: {
+        uploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+        filebrowserBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles',
+        filebrowserImageBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles?type=Images',
+        filebrowserUploadUrl:'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+        filebrowserImageUploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
 
-    commentListData = [
-        {
-            name: 'Lillian Stone',
-            img: 'assets/images/avatars/thumb-8.jpg',
-            date: '6 hours ago.',
-            likes: 43,
-            comment: 'The palatable sensation we lovingly refer to as The Cheeseburger has a distinguished and illustrious history. It was born from humble roots, only to rise to well-seasoned greatness.'
-        },
-        {
-            name: 'Victor Terry',
-            img: 'assets/images/avatars/thumb-9.jpg',
-            date: '8 hours ago.',
-            likes: 18,
-            comment: 'The palatable sensation we lovingly refer to as The Cheeseburger has a distinguished and illustrious history. It was born from humble roots, only to rise to well-seasoned greatness.'
-        },
-        {
-            name: 'Wilma Young',
-            img: 'assets/images/avatars/thumb-10.jpg',
-            date: '2 days ago.',
-            likes: 95,
-            comment: 'The palatable sensation we lovingly refer to as The Cheeseburger has a distinguished and illustrious history. It was born from humble roots, only to rise to well-seasoned greatness.'
-        }
-    ];
+        // options: {
+        //     resourceType: 'Images'
+        // }
+    },
+    // toolbar: [ 'ckfinder', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+    toolbar: [ 'heading', '|',
+  'fontfamily','fontsize',
+  'alignment',
+  'fontColor','fontBackgroundColor', '|',
+  'bold', 'italic', 'custombutton', 'strikethrough','underline','subscript','superscript','|',
+  'link','|',
+  'outdent','indent','|',
+  'bulletedList','numberedList','|',
+  'code','codeBlock','|',
+  'insertTable','|',
+  'ckfinder', 'imageUpload','blockQuote','|',
+  'undo','redo','|',
+  'youtube',
+  'mediaEmbed']
+    // ckfinder: {
+    //     // Open the file manager in the pop-up window.
+    //     openerMethod: 'popup'
+    // }
+}
+    commentListData = CommentListData
     newsId: number;
     uploadProgress: number;
     file: any;
