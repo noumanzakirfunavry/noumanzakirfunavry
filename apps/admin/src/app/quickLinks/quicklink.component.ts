@@ -4,14 +4,6 @@ import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
-export class Data extends Pagination {
-    title?: string;
-
-    constructor() {
-        super()
-        this.title= ''
-    }
-}
 
 @Component({
        selector: 'app-quickLink',
@@ -19,10 +11,9 @@ export class Data extends Pagination {
 })
 
 export class QuickLinkComponent implements OnInit{
-    pagination: Data= new Data();
+    pagination: Pagination= new Pagination();
     allQuickLinks: any;
     quickLinksCount: any;
-    status: boolean;
     indeterminate = false;
     checked = false;
     loading = true;
@@ -40,12 +31,20 @@ export class QuickLinkComponent implements OnInit{
             this.allQuickLinks= res.response.quickLinks;
             this.quickLinksCount= res.response.totalCount;
             console.log("ALL-QUICK-LINKS", this.allQuickLinks);
-            console.log("QUICK-LINKS-COUNT", this.quickLinksCount);
             this.loading = false;
         },err => {
             this.loading = false;
+            throw this.handleError(err)
           })
     }
+
+    handleError(err: any) {
+        if (err) {
+          this.allQuickLinks = [];
+          this.quickLinksCount= 0;
+        }
+        return err
+      }
 
     clean(obj:any) {
         for (const propName in obj) {
@@ -76,15 +75,25 @@ export class QuickLinkComponent implements OnInit{
         this.getAllQuickLinks();
     }
 
-    receiveStatus() {
-        this.pagination.status= this.status;
-        console.log("PAG-STATUS", this.pagination.status);
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search};
+        this.pagination.pageNo= 1;
+        this.getAllQuickLinks();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search};
         this.pagination.pageNo= 1;
         this.getAllQuickLinks();        
     }
 
     onItemChecked(id: number, checked: boolean): void {
         this.updateCheckedSet(id, checked);
+        this.refreshCheckedStatus();
+    }
+
+    onAllChecked(checked: boolean): void {
+        this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
         this.refreshCheckedStatus();
     }
 
