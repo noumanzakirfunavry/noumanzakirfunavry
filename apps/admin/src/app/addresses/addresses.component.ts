@@ -7,7 +7,7 @@ import { ApiService } from '../shared/services/api.service';
 
 export class Data extends Pagination {
     title?: string;
-    publishers?: any;
+    publishers?: Array<any>;
 
     constructor() {
         super()
