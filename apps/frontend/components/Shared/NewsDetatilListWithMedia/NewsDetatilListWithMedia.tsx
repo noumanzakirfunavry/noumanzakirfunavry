@@ -7,7 +7,7 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, details}) =>{
             <div className="NewsList">
                 <ul>
                     {
-                        details.map((detail, index)=>{
+                        details?.map((detail, index)=>{
                             return (
                                 <li key={index}>
                                     <div className="newsText">
