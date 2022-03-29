@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 
 @Component({
