@@ -6,6 +6,7 @@
     "admin-microservice": "apps/admin-microservice",
     "auth-module": "libs/auth-module",
     "dtos": "libs/dtos",
+    "elk": "libs/elk",
     "entity": "libs/entity",
     "enums": "libs/enums",
     "exception-handling": "libs/exception-handling",
