@@ -7,7 +7,7 @@ import { GenericResponseDto } from '@cnbc-monorepo/dtos';
 export class NewsTypeService {
     constructor(
         private helperService: Helper
-    ) {}
+    ) { }
 
     async getAllNews(entity) {
         return await sequelize.getRepository(entity).findAll({
