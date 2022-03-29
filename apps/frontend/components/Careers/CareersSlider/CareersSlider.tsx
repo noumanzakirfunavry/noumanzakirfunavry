@@ -109,7 +109,7 @@ const CareersSlider = () =>{
                     <Slider ref={ref} {...settings}>
 
                             {
-                                jobs.length && jobs.map((job:JobProps)=>{
+                                jobs?.length && jobs?.map((job:JobProps)=>{
                                     return (
                                         <div className="slider-item" key={job.id}>
                                             <div className="NewsBox">

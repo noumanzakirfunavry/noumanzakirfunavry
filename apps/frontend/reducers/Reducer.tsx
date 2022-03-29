@@ -7,7 +7,6 @@ import userReducer from './UserSlice';
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
-  
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
