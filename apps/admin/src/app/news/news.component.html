@@ -3,7 +3,7 @@
         <button nz-button [nzType]="'primary'" [routerLink]="['/news/add']">Add News</button>
     </div>
     <div class="col-md-10">
-        <news-filter></news-filter>
+        <news-filter (statusEmitter)="receiveStatus($event)" (filterEmitter)="receiveFilter($event)"></news-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
