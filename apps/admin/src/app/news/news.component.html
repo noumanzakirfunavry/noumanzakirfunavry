@@ -17,7 +17,6 @@
                             <th>Type</th>
                             <th>Category</th>
                             <th>Created</th>
-                            <th>Modified</th>
                             <th>Publisher</th>
                             <th>Last Modified</th>
                             <th>Views</th>
@@ -31,12 +30,11 @@
                                 (nzCheckedChange)="onItemChecked(news?.id, $event)"></td>
                             <td>{{news?.title}}</td>
                             <td>{{news?.newsType}}</td>
-                            <td *ngFor="let catNews of news?.categories">{{catNews?.title}}</td>
+                            <td ><span *ngFor="let catNews of news?.categories">{{catNews?.title}}</span></td>
                             <td>{{news?.createdAt | date:'dd-MM-YYYY'}}</td>
+                            <td>{{news?.user?.name}}</td>
                             <td>{{news?.updatedAt | date:'dd-MM-YYYY'}}</td>
-                            <td>{{news?.publishedBy}}</td>
-                            <td>{{news?.name}}</td>
-                            <td>{{news?.name}}</td>
+                            <td>{{news?.views}}</td>
                             <td>
                                 <nz-badge *ngIf="news?.isActive === true" nzStatus="success"></nz-badge>
                                 <nz-badge *ngIf="news?.isActive === false"  nzStatus="error"></nz-badge> 
