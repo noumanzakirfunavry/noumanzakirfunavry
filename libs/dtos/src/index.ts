@@ -129,6 +129,8 @@ export * from './response/categories/get.all.categories.response.dto';
 export * from './response/categories/get.by.id.categories.response.dto';
 export * from './response/categories/update.categories.response.dto';
 export * from './response/categories/update.order.in.categories.response.dto';
+//...............................countries..........................
+export * from './response/countries/get.countries.response.dto';
 //...............................departments..........................
 export * from './response/departments/get.all.departments.response.dto';
 //...............................Editors choice news.............................
@@ -183,6 +185,8 @@ export * from './response/tags/get.tag.by.id.response.dto';
 export * from './response/tags/update.tag.response.dto';
 //...............................Trending news.............................
 export * from './response/trending-news/get.all.trending.news.response.dto';
+
+
 
 
 
