@@ -6,13 +6,17 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 
 export class FilterComponent {
-    @Output() statusEmitter = new EventEmitter <boolean> (); 
-    status: boolean;
+    @Output() statusEmitter = new EventEmitter (); 
+    @Output() filterEmitter = new EventEmitter (); 
+    filterModel : {isActive: boolean, search: string} = {isActive: null, search: null}
 
+    search() {
+        this.statusEmitter.emit(this.filterModel);
+    }
 
-    onChangeStatus() {
-        this.statusEmitter.emit(this.status);
-        console.log("STATUS", this.status);
+    clear() {
+        this.filterModel= { isActive : null, search : null};
+        this.filterEmitter.emit(this.filterModel)
     }
    
 }    

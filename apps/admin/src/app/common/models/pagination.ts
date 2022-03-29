@@ -1,7 +1,8 @@
 export class Pagination {
     limit: number;
     pageNo: number;
-    status?: boolean;
+    isActive?: boolean;
+    search?: string;
 
     constructor() {
         this.limit= 10;
