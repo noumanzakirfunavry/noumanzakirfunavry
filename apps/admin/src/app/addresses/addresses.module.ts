@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AddressesRoutingModule } from "./addresses-routing.module";
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { QuillModule } from 'ngx-quill';
 import { FilterComponent } from './Filter/filter.component';
 import { antdModule } from '../AndModules/andModule';
@@ -24,7 +25,8 @@ import { AuthInterceptor } from '../shared/interceptor/authInterceptor';
         ...antdModule,
         DemoComponentsShareModule,
         QuillModule.forRoot(),
-        NzUploadModule
+        NzUploadModule,
+        NzPaginationModule
     ],
     exports: [],
     declarations: [
