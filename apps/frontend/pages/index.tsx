@@ -44,7 +44,7 @@ export function Index() {
         <QuickLinks />
 
         <div className='row'>
-          <div className='col-lg-9'>
+          <div className='col-lg-9 '>
             <NewsSection />
           </div>
           <div className='col-lg-3'>

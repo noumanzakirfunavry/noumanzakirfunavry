@@ -25,14 +25,14 @@ const Index = () =>{
                 data.data = res.data
                 data.loading = false
                 setData({...data})
-            }, 3000)
+            }, 2000)
         }).catch(err=>{
 
             setTimeout(()=>{
                 data.error = err
                 data.loading = false
                 setData({...data})
-            }, 3000)
+            }, 2000)
         })
     }
 
