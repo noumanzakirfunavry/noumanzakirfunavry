@@ -1,14 +1,16 @@
 import { GenderTypes } from '@cnbc-monorepo/enums';
+import { Transform } from 'class-transformer';
 import {
-  IsBoolean,
-  IsDateString,
-  IsEmail,
-  IsEnum,
-  IsNotEmpty,
-  IsPhoneNumber,
-  IsString,
-  MinLength,
+	IsBoolean,
+	IsDateString,
+	IsEmail,
+	IsEnum,
+	IsNotEmpty,
+	IsPhoneNumber,
+	IsString,
+	MinLength
 } from 'class-validator';
+import { getNames } from 'country-list';
 
 export class CreateSubscriberRequestDto {
   @IsString()
@@ -46,7 +48,15 @@ export class CreateSubscriberRequestDto {
   DOB: Date;
 
   @IsString()
-  @IsNotEmpty()
+	@Transform(input=>{
+		// check if the provided country name is valid
+		if(getNames().includes(input.value)){
+			return input.value;
+		} 
+		// if country name is invalid, return empty string so thay IsNotEmpty validator throws error
+		return '';
+	})
+	@IsNotEmpty({message: 'Country name must not be empty and must be a valid ISO-3166 country name'})
   country: string;
 
   @IsString()
