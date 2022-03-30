@@ -3,15 +3,22 @@
         <button nz-button [nzType]="'primary'" [routerLink]="['/category/add']">Add Category</button>
     </div>
     <div class="col-md-10">
-        <app-filter></app-filter>
+        <app-filter (statusEmitter)="receiveStatus($event)" (filterEmitter)="receiveFilter($event)"></app-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div cdkDropList (cdkDropListDropped)="drop($event)">
+                <div class="send-request" *ngIf="setOfCheckedId.size">
+                    <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="deleteSelected()">
+                      Delete Selected
+                    </button>
+                    <span>Selected {{ setOfCheckedId.size }} items</span>
+                  </div>
                 <nz-table [nzLoading]="loading" [nzData]="allCategories" class="no-border-last">
                     <thead>
                         <tr>
-                            <th>Reorder</th>
+                            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                            (nzCheckedChange)="onAllChecked($event)"></th>
                             <th>Title</th>
                             <th>Created</th>
                             <th>Modified</th>
@@ -23,10 +30,8 @@
                     <tbody>
                         <ng-container *ngFor="let cat of allCategories; let i=index">
                             <tr class="category-block" cdkDrag>
-                                <td [nzChecked]="setOfCheckedId.has(cat?.id)" (nzCheckedChange)="onItemChecked(cat?.id, $event)">
-                                        <i nz-icon nzType="drag" nzTheme="outline"></i>
-                                </td>
-                                <td >
+                                <td [nzChecked]="setOfCheckedId.has(cat?.id)" (nzCheckedChange)="onItemChecked(cat?.id, $event)"></td>
+                                <td>
                                     <i *ngIf="expandedId!==cat?.id" nz-icon nzType="caret-right" class="cursor-pointer" nzTheme="outline" (click)="toggle(cat?.id)"></i>
                                     <i *ngIf="expandedId===cat?.id" nz-icon nzType="caret-down" class="cursor-pointer" nzTheme="outline" (click)="toggle(cat?.id)"></i>
                                     {{cat?.title}}

@@ -18,22 +18,30 @@
 
                       <td class="col-4">
                         <nz-form-item>
-                          <nz-form-control >
+                          <!-- <nz-form-control > -->
+                          <nz-select nzShowSearch (ngModelChange)="getCategoryNews($event)" [(ngModel)]="selectedCat" nzPlaceHolder="Select Category">
+                            <nz-option  *ngFor="let cat of allCategories" [nzValue]="cat?.id" [nzLabel]="cat?.title"></nz-option>
+                            
+                          </nz-select>
+                        <!-- </nz-form-control> -->
+                          <!-- <nz-form-control >
                           <select (change)="getCategoryNews($event.target.value)">
+                            <option  disabled [defaultSelected]="true" value="">Select Category</option>
                             <option *ngFor="let cat of allCategories" [value]="cat?.id">{{cat?.title}}</option>
                           </select>
-                        </nz-form-control>
+                        </nz-form-control> -->
                         </nz-form-item>
                       </td>
                       <td>
+                        <!-- {{allCategoryNews | json}} -->
                         <nz-form-item>
                           <nz-form-control >
-                            <select (change)="onChangeNews($event.target.value)" [(ngModel)]="news.newsId">
+                            <!-- <select [(ngModel)]="news.newsId" (change)="onChangeNews($event.target.value)">
                               <option *ngFor="let catNews of allCategoryNews" [value]="catNews?.id">{{catNews?.title}}</option>
-                            </select>
-                          <!-- <nz-select nzShowSearch nzAllowClear [(ngModel)]="News.newsId" nzPlaceHolder="Select News">
+                            </select> -->
+                          <nz-select nzShowSearch (change)="onChangeNews($event.target.value)" [(ngModel)]="news.newsId" nzPlaceHolder="Select News">
                             <nz-option *ngFor="let catNews of allCategoryNews"  [nzValue]="catNews?.id" [nzLabel]="catNews?.title"></nz-option>
-                          </nz-select> -->
+                          </nz-select>
                         </nz-form-control>
                         </nz-form-item>
                       </td>

@@ -7,7 +7,7 @@ import Title from "../../Title";
 const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displayTopTwoNews, displayMoreButton}) => {
 
     const fields: JSX.Element[] = [];
-    useEffect(()=>{
+    // useEffect(()=>{
         for (let i = 1; i <= limit; i++) {
             fields.push(
                 <div className="row" key={i}>
@@ -61,7 +61,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({limit, displayTitle, displa
                 </div>
             );
         }
-     }, [])
+    //  }, [])
     return (
         <>
            {displayTitle && <Title styles={"yellowTitle mb-3"}><h3>أميركا في أزمة</h3></Title> }

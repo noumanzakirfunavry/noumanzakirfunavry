@@ -23,6 +23,7 @@ export class Admin extends Pagination {
 export class UsersComponent implements OnInit{
     pagination: Admin = new Admin()
     allAdmins: any;
+    adminsCount: any;
     loading = true;
     indeterminate = false;
     checked = false;
@@ -40,6 +41,7 @@ export class UsersComponent implements OnInit{
     getAllAdmins() {
         this.apiService.sendRequest(requests.getAllAdmins, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allAdmins= res.response.admins;
+            this.adminsCount= res.response.totalCount;
             console.log("ALL-ADMINS", this.allAdmins);
             this.loading= false;
         },err => {
@@ -63,6 +65,18 @@ export class UsersComponent implements OnInit{
               this.message.create('success', `Admin Deleted Successfully`);
           })
       }
+
+      onPageIndexChange(pageNo: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
+        this.getAllAdmins();
+    }
+
+    onPageSizeChange(limit: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, limit: limit})
+        this.getAllAdmins();
+    }
 
     updateCheckedSet(id: number, checked: boolean): void {
         if (checked) {
