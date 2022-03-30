@@ -23,7 +23,7 @@ export class QuickLinksService {
                 where: {
                     ...(query.search && {
                         title: {
-                            [Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.search)}`
+                            [Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.search)}%`
                         }
                     }),
                     ...(query.isActive && {
