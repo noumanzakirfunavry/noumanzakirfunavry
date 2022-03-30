@@ -1,11 +1,11 @@
-import { Component,EventEmitter,Input, OnInit, Output } from '@angular/core';
-import { Pagination } from 'src/app/common/models/pagination';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { AfterContentChecked, AfterContentInit, Component,Input, OnInit} from '@angular/core';
+import { Pagination } from '../../common/models/pagination';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 export class Data extends Pagination {
     parentCategoryId?:Array<any>;
-    publishers?:Array<any>;
+    publishers?:Array<any>; 
     title?: string;
     includeNews?: any; 
     newsLImit?: any;
@@ -29,17 +29,24 @@ export class Data extends Pagination {
     templateUrl: './newsTableRow.component.html'
 })
 
-export class NewsTableRowComponent implements OnInit{
+export class NewsTableRowComponent implements OnInit,AfterContentInit{
+    @Input() allCategories: any;
+    @Input() news: any={newId:null};
+
     pagination: Data = new Data()
-    allCategories: any;
-    allCategoryNews: any;
-    @Input() news: any;
+    allCategoryNews: any=[];
+    selectedCat:any
 
     constructor(private apiService: ApiService) {}
 
 
     ngOnInit(): void {
-        this.getAllCategories();
+        // this.getAllCategories();
+      
+    }
+    ngAfterContentInit(): void {
+        debugger
+        this.allCategoryNews.push(this.news.news)
     }
 
     getAllCategories() {
@@ -55,9 +62,13 @@ export class NewsTableRowComponent implements OnInit{
     }
 
     getCategoryNews(catId?: any) {
+        debugger
+        console.log(this.selectedCat)
+        
         this.pagination.categoryId= catId ? catId : null;
         this.apiService.sendRequest(requests.getAllNews, 'get', {pageNo:1, limit:30, categoryId:parseInt(catId)}).subscribe((res:any) => {
             this.allCategoryNews= res.response.news;
+            this.news.newsId=null
             console.log("CATEGORY-NEWS", this.allCategoryNews);
         })
     }

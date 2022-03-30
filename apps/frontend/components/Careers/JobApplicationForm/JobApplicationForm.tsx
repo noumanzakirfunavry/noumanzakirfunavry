@@ -1,5 +1,5 @@
 
-const JobOpportunities = ({title,description}) => {
+const JobApplicationForm = ({title,description}) => {
 
     return (
         <>
@@ -104,4 +104,4 @@ const JobOpportunities = ({title,description}) => {
     )
 }
 
-export default JobOpportunities
+export default JobApplicationForm

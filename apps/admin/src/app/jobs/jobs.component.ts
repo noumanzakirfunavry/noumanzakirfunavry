@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
 
-export interface Data {
-    id: number;
-    name: string;
-    age: number;
-    address: string;
-    disabled: boolean;
+export class Data extends Pagination {
+    title?: string;
+    branchId?: Array<any>;
+
+    constructor() {
+        super()
+        this.title= '',
+        this.branchId= []
+    }
 }
 
 @Component({
@@ -18,13 +22,14 @@ export interface Data {
 })
 
 export class JobsComponent implements OnInit {
-    pagination: {pageNo: number, limit: number, status?: string, title?: string, branchId?:Array<any>, publishers?:Array<any>} = {pageNo: 1, limit: 10}
+    pagination: Data = new Data();
     allJobs: any;
+    jobsCount: any;
     indeterminate = false;
     checked = false;
     loading = true;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData: Data[] = [];
+    listOfCurrentPageData = [];
 
 
     constructor(private apiService: ApiService, private message: NzMessageService ) {}
@@ -34,13 +39,23 @@ export class JobsComponent implements OnInit {
     }
 
     getAllJobs() {
-        this.apiService.sendRequest(requests.getAllJobs, 'get', this.pagination).subscribe((res:any) => {
+        this.apiService.sendRequest(requests.getAllJobs, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allJobs= res.response.jobs;
+            this.jobsCount= res.response.totalCount;
             console.log("ALL-JOBS", this.allJobs);
             this.loading= false;
         },err => {
             this.loading = false;
           })
+    }
+
+    clean(obj:any) {
+        for (const propName in obj) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            delete obj[propName];
+          }
+        }
+        return obj
     }
 
     deleteJobs(jobId: number) {
@@ -49,6 +64,18 @@ export class JobsComponent implements OnInit {
             this.getAllJobs();
             this.message.create('success', `Job Deleted Successfully`)
         })
+    }
+
+    onPageIndexChange(pageNo: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
+        this.getAllJobs();
+    }
+
+    onPageSizeChange(limit: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, limit: limit})
+        this.getAllJobs();
     }
 
     updateCheckedSet(id: number, checked: boolean): void {

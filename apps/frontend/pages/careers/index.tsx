@@ -1,6 +1,6 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import CareersSlider from "apps/frontend/components/Careers/CareersSlider/CareersSlider";
-import JobOpportunities from "apps/frontend/components/Careers/JobOpportunities/JobOpportunities";
+import JobOpportunities from "apps/frontend/components/Careers/JobApplicationForm/JobApplicationForm";
 // import HorizontalMediaScrollBar from "apps/frontend/components/Home/HorizontalMediaScrollBar.tsx/HorizontalMediaScrollBar";
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner";
 
