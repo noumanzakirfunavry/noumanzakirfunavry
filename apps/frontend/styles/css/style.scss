@@ -2163,9 +2163,8 @@ width: 110px;
         border-bottom: none;
       }
       .nav-link{
-        font-size: 15px;
-        font-weight: 600;
-        color: $primary-color;
+        font: normal normal bold 21px/32px Cairo;
+        color: $secondary-color;
         padding: 10px;
 
         &:hover{
