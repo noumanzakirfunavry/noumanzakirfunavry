@@ -16,9 +16,15 @@ import { join } from 'path';
         AppModule,
         ServeStaticModule.forRoot({
             rootPath: process.env.DATABASE_FILE_UPLOAD_PATH,
+						// exclude:['*/api/*']
           }),
     ],
 
 
 })
-export class AdminMicroserviceModule{}
+export class AdminMicroserviceModule{
+	constructor(){
+		console.log("🚀 ~ file: admin-microservice.module.ts ~ line 19 ~ process.env.DATABASE_FILE_UPLOAD_PATH", process.env.DATABASE_FILE_UPLOAD_PATH)
+
+	}
+}
