@@ -30,7 +30,6 @@ export class Data extends Pagination {
 
 export class FeaturedNewsComponent implements OnInit {
     pagination: Data = new Data()
-
     allFeaturedNews: any;
     loading = true;
     featuredNewsForm: FormGroup;
@@ -83,10 +82,11 @@ export class FeaturedNewsComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.featuredNewsForm = this.fb.group({
-        });
         this.getAllFeaturedNews();
         this.getAllCategories();
+        this.featuredNewsForm = this.fb.group({
+        });
+        
     }
 
     getAllCategories() {
