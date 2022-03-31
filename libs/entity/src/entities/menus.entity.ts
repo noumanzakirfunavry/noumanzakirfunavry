@@ -40,7 +40,7 @@ export class Menus extends Model{
     @BelongsTo(() => Menus)
     menu : Menus
 
-    @HasMany(() => Menus,'parentMenuId')
+    @HasMany(() => Menus,{as:'childMenus',foreignKey:'parentMenuId'})
     menus : Menus[]
 
     @Column({
