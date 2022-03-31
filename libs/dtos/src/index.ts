@@ -64,6 +64,8 @@ export * from './request/logger/add.log.request.dto';
 export * from './request/job-applicants/get.all.job.applicants.request.dto'
 //...............................Menus.............................
 export * from './request/menus/create.menu.request.dto'
+export * from './request/menus/delete.menu.request.dto'
+export * from './request/menus/get.menu.request.dto'
 //...............................Messages.............................
 export * from './request/message/create.message.request.dto';
 export * from './request/message/get.all.message.request.dto';
@@ -155,6 +157,7 @@ export * from './response/live-stream-links/get.all.live.stream.links.response.d
 export * from './response/live-stream-links/get.live.stream.link.by.id.response.dto';
 //...............................Menus.............................
 export * from './response/menus/create.menu.response.dto';
+export * from './response/menus/delete.menu.response.dto';
 //...............................Messages.............................
 export * from './response/message/get.all.messages.response.dto';
 export * from './response/message/get.message.by.id.response.dto';
