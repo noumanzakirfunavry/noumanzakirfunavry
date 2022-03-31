@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -26,7 +26,8 @@ export class AddTagComponent implements OnInit {
     constructor(private fb: FormBuilder, 
       private apiService: ApiService, 
       private activatedRoute: ActivatedRoute, 
-      private message: NzMessageService
+      private message: NzMessageService, 
+      private route: Router
       ) {}
   
     ngOnInit(): void {
@@ -51,6 +52,7 @@ export class AddTagComponent implements OnInit {
         this.apiService.sendRequest(this.tagId ? requests.updateTag + this.tagId : requests.addNewTag, this.tagId ? 'put' : 'post', this.tagsForm.value).subscribe((res:any) => {
           console.log("TAGS", res);
           this.tagsForm.reset();
+          this.route.navigateByUrl('tags/list');
           if(this.tagId) {
             this.message.create('success', `Tag Updated Successfully`)
           }
@@ -70,5 +72,9 @@ export class AddTagComponent implements OnInit {
           isActive: [this.tagById?.isActive || false]
         });
       })
+    }
+
+    cancel() {
+      this.route.navigateByUrl('tags/list');
     }
 }    
