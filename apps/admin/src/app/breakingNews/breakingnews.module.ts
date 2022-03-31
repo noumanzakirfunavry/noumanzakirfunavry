@@ -12,6 +12,7 @@ import { BreakingNewsComponent } from './breakingnews.component';
 import { AddBreakingNewsComponent } from './addBreakingNews/addBreakingNews.component';
 import { FilterComponent } from './Filter/filter.component';
 import { antdModule } from '../AndModules/andModule';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoComponentsShareModule } from '../demo-components-share/demo-components-share.module';
 
@@ -25,7 +26,8 @@ import { DemoComponentsShareModule } from '../demo-components-share/demo-compone
         FormsModule,
         ...antdModule,
         DemoComponentsShareModule,
-        NzPaginationModule
+        NzPaginationModule,
+        NzModalModule
     ],
     exports: [],
     declarations: [
