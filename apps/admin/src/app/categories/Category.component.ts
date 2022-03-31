@@ -1,6 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
@@ -38,7 +39,7 @@ export class CategoryComponent implements OnInit {
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData = [];    
 
-    constructor(private apiService: ApiService, private message: NzMessageService ) {
+    constructor(private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {
     }
 
     ngOnInit() : void {
@@ -127,23 +128,50 @@ export class CategoryComponent implements OnInit {
         this.updateCategoryOrder(this.allCategories.map(x=>x.id));
       }
 
-      dropSubCategories(event: CdkDragDrop<string[] | any>, index: number) {
+    dropSubCategories(event: CdkDragDrop<string[] | any>, index: number) {
         moveItemInArray(this.allCategories[index].sub, event.previousIndex, event.currentIndex);
         this.updateCategoryOrder(this.allCategories[index].sub.map(x=>x.id));
       }
 
-      toggle(catId: any) {
+    toggle(catId: any) {
           this.expandedId= this.expandedId===catId ? null : catId;
       }
 
-      deleteSelected() {
+    deleteSelected() {
         const id=[];
           console.log(this.setOfCheckedId.forEach(x=>{
             id.push(x)
           }));
           this.apiService.sendRequest(requests.deleteCategories,'delete',{ids:id}).subscribe((res:any) => {
-              this.getAllCategories();
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllCategories();
           })
+    }
+
+    showDeleteConfirm(id?: number): void {
+        this.modal.confirm({
+          nzTitle: 'Delete',
+          nzContent: '<b style="color: red;">Are you sure to delete this category?</b>',
+          nzOkText: 'Yes',
+        //   nzOkType: 'danger',
+          nzOnOk: () => {
+              if(id) {
+                  this.deleteCategories(id);
+              }
+              else {
+                  this.deleteSelected();
+              }
+            },
+          nzCancelText: 'No',
+          nzOnCancel: () => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllCategories();
+            }
+        });
     }
       
 }    

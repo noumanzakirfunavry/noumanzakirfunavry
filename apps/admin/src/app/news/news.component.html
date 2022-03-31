@@ -9,10 +9,10 @@
         <nz-card>
             <div>
                 <div class="send-request" *ngIf="setOfCheckedId.size">
-                    <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="deleteSelected()">
+                    <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="showDeleteConfirm()">
                       Delete Selected
                     </button>
-                    <span>Selected {{ setOfCheckedId.size }} items</span>
+                    <span class="ml-2">Selected {{ setOfCheckedId.size }} items</span>
                   </div>
                 <nz-table [nzLoading]="loading" [nzShowPagination]="false" [nzData]="allNews">
                     <thead>
@@ -48,7 +48,7 @@
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/news/edit/' + news?.id]"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteNews(news?.id)"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(news?.id)"></i>
                                 </div>
                             </td>
                         </tr>

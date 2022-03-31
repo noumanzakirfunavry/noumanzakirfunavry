@@ -9,16 +9,17 @@
         <nz-card>
             <div>
                 <div class="send-request" *ngIf="setOfCheckedId.size">
-                    <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="deleteSelected()">
+                    <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="showDeleteConfirm()">
                       Delete Selected
                     </button>
-                    <span>Selected {{ setOfCheckedId.size }} items</span>
+                    <span class="ml-2">Selected {{ setOfCheckedId.size }} items</span>
                   </div>
                 <nz-table [nzShowPagination]="false" [nzLoading]="loading" [nzData]="allTags" class="no-border-last">
                     <thead>
                         <tr>
                             <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
-                            (nzCheckedChange)="onAllChecked($event)">Title</th>
+                            (nzCheckedChange)="onAllChecked($event)"></th>
+                            <th>Title</th>
                             <th>Created</th>
                             <th>Modified</th>
                             <th>Publisher</th>
@@ -29,7 +30,8 @@
                     <tbody>
                         <tr *ngFor="let tag of allTags">
                             <td [nzChecked]="setOfCheckedId.has(tag?.id)" [nzDisabled]="tag.disabled"
-                            (nzCheckedChange)="onItemChecked(tag?.id, $event)">{{tag?.title}}</td>
+                            (nzCheckedChange)="onItemChecked(tag?.id, $event)"></td>
+                            <td>{{tag?.title}}</td>
                             <td>{{tag?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{tag?.updatedAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{tag?.publishedBy}}</td>
@@ -41,7 +43,7 @@
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/tags/update/' + tag?.id]"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteTags(tag?.id)"></i>
+                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(tag?.id)"></i>
                                 </div>
                             </td>
                         </tr>
