@@ -1,6 +1,6 @@
 import { Public } from "@cnbc-monorepo/auth-module";
 import { AddTagRequestDto, DeleteCategoryRequestDto, GetAllTagsRequestDto } from "@cnbc-monorepo/dtos";
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req } from "@nestjs/common";
 import { GEOGRAPHY } from "sequelize/types";
 import { TagsService } from "./tags.service";
 
@@ -28,8 +28,8 @@ export class TagsController{
     }
 
     @Post('add')
-    async addTag(@Body() body:AddTagRequestDto){
-        return await this.tagsService.addTag(body)
+    async addTag(@Req() req ,@Body() body:AddTagRequestDto){
+        return await this.tagsService.addTag(body,req.user.data.id)
     }
 
     @Put('update/:id')
