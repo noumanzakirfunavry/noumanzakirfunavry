@@ -277,7 +277,9 @@ export class NewsService {
                     newsType: query.newsType
                 }),
                 ...(query.date && {
-                    createdAt: query.date
+                    createdAt: {
+                        [Op.substring]: query.date 
+                    }
                 }),
                 ...(query.publishedBy && {
                     publishedBy: query.publishedBy
