@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 // import { Pagination } from 'src/app/common/models/pagination';
@@ -44,7 +44,8 @@ export class AddUserComponent implements OnInit{
   constructor(private fb: FormBuilder, 
     private apiService: ApiService, 
     private activatedRoute: ActivatedRoute, 
-    private message: NzMessageService
+    private message: NzMessageService,
+    private route: Router
     ) { }
 
   ngOnInit(): void {
@@ -85,6 +86,7 @@ export class AddUserComponent implements OnInit{
       this.apiService.sendRequest(requests.registerUser, 'post', obj).subscribe((res:any) => {
         console.log("ADMINS", res);
         this.inItForm();
+        this.route.navigateByUrl('admins/list');
         if(this.userId) {
           this.message.create('success', `Admin Updated Successfully`);
         }
@@ -142,18 +144,12 @@ export class AddUserComponent implements OnInit{
     return {};
   };
 
-  // passwordValidator = (control: FormControl): { [s: string]: boolean } => {
-  //   if (!control.value) {
-  //     return { required: true };
-  //   } else if (control.value < 6) {
-  //     return { minLength: true, error: true };
-  //   } else if (control.value > 30) {
-  //     return { maxLength: true, error: true };
-  //   }
-  //   return {};
-  // };
-
   log(value: string[]): void {
     console.log(value);
   }
+
+  cancel() {
+    this.route.navigateByUrl('admins/list');
+  }
+
 }    
