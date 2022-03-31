@@ -5,7 +5,7 @@ import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NewsModal } from '../../common/models/newsModal';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommentListData } from './mockComments';
 import { environment } from '../../../environments/environment';
 import { Location } from '@angular/common';
@@ -81,8 +81,8 @@ export class AddNewsComponent implements OnInit {
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
-        private location: Location,
-        private activatedRoute: ActivatedRoute) { }
+        private activatedRoute: ActivatedRoute,
+        private route: Router) { }
 
     ngOnInit(): void {
         this.initQuoteForm();
@@ -189,7 +189,7 @@ export class AddNewsComponent implements OnInit {
         this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModal.toServerModal(obj, this.newsModal.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
             console.log("News", res);
             this.newsForm.reset();
-            this.location.back();
+            this.route.navigateByUrl('news/list')
             // if(this.categoryId) {
             //     this.message.create('success', `Category Updated Successfully`)
             // }
@@ -205,7 +205,7 @@ export class AddNewsComponent implements OnInit {
         e.preventDefault();
     }
     cancel(): void {
-        this.location.back();
+        this.route.navigateByUrl('news/list');
     }
 
     fileSelection(fileObject) {

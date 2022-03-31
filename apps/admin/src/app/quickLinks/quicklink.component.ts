@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
@@ -20,7 +21,7 @@ export class QuickLinkComponent implements OnInit{
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData: any = []; 
 
-    constructor( private apiService: ApiService, private message: NzMessageService ) {}
+    constructor( private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {}
 
     ngOnInit() {
         this.getAllQuickLinks();
@@ -93,7 +94,7 @@ export class QuickLinkComponent implements OnInit{
     }
 
     onAllChecked(checked: boolean): void {
-        this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+        this.allQuickLinks.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
         this.refreshCheckedStatus();
     }
 
@@ -106,9 +107,47 @@ export class QuickLinkComponent implements OnInit{
     }
 
     refreshCheckedStatus(): void {
-        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        const listOfEnabledData = this.allQuickLinks.filter(({ disabled }) => !disabled);
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
+
+    deleteSelected() {
+        const id= [];
+          console.log(this.setOfCheckedId.forEach(x=>{
+            id.push(x)
+          }));
+          this.apiService.sendRequest(requests.deleteQuickLink,'delete',{ids:id}).subscribe((res:any) => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllQuickLinks();
+            this.message.create('success', `Quick Link Deleted Successfully`)
+            })
+        }
+
+    showDeleteConfirm(id?: number): void {
+        this.modal.confirm({
+          nzTitle: 'Delete',
+          nzContent: '<b style="color: red;">Are you sure to delete this quick link?</b>',
+          nzOkText: 'Yes',
+        //   nzOkType: 'danger',
+          nzOnOk: () => {
+              if(id) {
+                  this.deleteQuickLink(id);
+              }
+              else {
+                  this.deleteSelected();
+              }
+            },
+          nzCancelText: 'No',
+          nzOnCancel: () => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllQuickLinks();
+            }
+        });
+      }
 
 }    
