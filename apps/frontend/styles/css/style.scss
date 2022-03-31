@@ -2149,10 +2149,19 @@ width: 110px;
   left: 0;
   width: 100%;
   z-index: 999;
-  padding: 25px;
+  // padding: 0 25px 25px;
   height: calc(100vh - 74px);
+  overflow: auto;
   display: none;
+.toggle_header{
+  background-color: $secondary-color;
 
+    padding: 0 15px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
   .btn-cancel{
     font-size: 24px;
     color: $danger;
@@ -2180,6 +2189,77 @@ width: 110px;
       }
     }
   }
+  .header-search-nav ul {
+    justify-content: center;
+    li
+    {
+      border: 1px solid #DDDDDD;
+      a{
+        color: #1C1C1C !important;
+        font: normal normal bold 15px/32px Cairo;
+        padding: 10px !important;
+        min-width: 124px;
+        display: inline-block;
+        .youtube-icon{
+          margin-right: 5px;
+        }
+  }
+
+    }
+  }
+  .accordion-item{
+    .accordion-header{
+      .accordion-button{
+        font: normal normal bold 21px/32px Cairo;
+        color: $secondary-color;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1.25rem 0 0;
+        &::after{
+          margin-left: 0;
+          margin-right: auto;
+          color: $primary-color;
+          background-image: none;
+          content: "";
+          font-family:'Font Awesome 5 Free';
+          background-color: $light;
+          display: none;
+        }
+        &:focus{
+          border: none;
+          box-shadow: none;
+        }
+        a{
+          background-color: $light;
+          width: 70px;
+          height: 70px;
+          text-align: center;
+          line-height: 70px;
+        }
+        &:not(.collapsed){
+          background-color: #fff;
+          color: $primary-dark;
+          border-right: solid 6px $primary-dark;
+          a{
+            background-color: $primary-dark;
+            color: #fff;
+          }
+        }
+
+      }
+    }
+    &.without_collapse{
+      padding: 1rem 0 1.25rem;
+    }
+    .accordion-collapse{
+      &.show{
+        border-right: solid 6px $primary-dark;
+      }
+    }
+
+  }
+
 }
 .breakingNews
 {
@@ -3013,6 +3093,8 @@ h6.newsDetailtext
       right: 0;
       z-index: 1;
       transition: all .25s;
+      display: flex;
+      align-items: center;
 
       .logo-header{
         display: flex;
@@ -3058,3 +3140,18 @@ h6.newsDetailtext
   .NewsImage.show_mobile{
     display: none;
   }
+
+  ul.nav_sublinks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+    padding: 0;
+    li{
+      list-style: none;
+      margin-top: 10px;
+      a{
+        font: normal normal bold 14px/30px Cairo;
+        color: $primary-dark;
+
+      }
+    }
+}
