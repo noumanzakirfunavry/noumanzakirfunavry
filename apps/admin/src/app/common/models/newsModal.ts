@@ -1,3 +1,4 @@
+import { environment } from "../../../environments/environment";
 import { SeoModal } from "../../common/models/seo.modal";
 
 export class NewsModal {
@@ -20,6 +21,8 @@ export class NewsModal {
     thumbnailId : number
     imageId : number
     mainFile: any;
+    fileUrl:string;
+    thumbnailUrl:string;
 
     constructor() {
         this.title = ""
@@ -52,7 +55,8 @@ export class NewsModal {
         this.tagsIds=serverNews.tags.map(x=>x.id);
         this.quotesIds=serverNews.quotes.map(x=>x.id);
         this.seoDetails=serverNews.seoDetail
-        this.seoDetailId=serverNews.seoDetailId
+        this.seoDetailId=serverNews.seoDetailId;
+        this.fileUrl=environment.fileUrl+serverNews.image.path;
     }
 
     toServerModal(form: any, seoId?) {
@@ -67,10 +71,10 @@ export class NewsModal {
             newsType: form.newsType || 'NEWS',
             showOnHomepage: form.showOnHomepage || false,
             isActive: form.isActive || false,
-            // this.categoryIds=form.categoryIds;
-            categoryIds: [1],
-            // this.tagsIds=form.tagsIds;
-            tagsIds: [1],
+            categoryIds:form.categoryIds,
+            // categoryIds: [1],
+            tagsIds:form.tagsIds,
+            // tagsIds: [1],
             quotesId: form.quotesIds,
             imageId:this.imageId,
 

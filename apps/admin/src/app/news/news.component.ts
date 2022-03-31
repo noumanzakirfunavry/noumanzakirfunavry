@@ -6,8 +6,8 @@ import { ApiService } from '../shared/services/api.service';
 
 
 export class Data extends Pagination {
-    publishers?:Array<any>;
-    branchId?:Array<any>;
+    publishers?: Array<any>;
+    branchId?: Array<any>;
     title?: string;
 
     constructor() {
@@ -26,6 +26,7 @@ export class Data extends Pagination {
 export class NewsComponent implements OnInit {
     pagination: Data = new Data();
     allNews: any;
+    newsCount: any;
     indeterminate = false;
     checked = false;
     loading = true;
@@ -40,13 +41,43 @@ export class NewsComponent implements OnInit {
     }
 
     getAllNews() {
-        this.apiService.sendRequest(requests.getAllNews, 'get', this.pagination).subscribe((res:any) => {
+        this.apiService.sendRequest(requests.getAllNews, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allNews= res.response.news;
+            this.newsCount= res.response.totalCount;
             console.log("ALL-NEWS", this.allNews);
             this.loading= false;
         },err => {
             this.loading = false;
+            throw this.handleError(err);
           })
+    }
+
+    handleError(err: any) {
+        if (err) {
+          this.allNews = [];
+        }
+        return err
+      }
+
+    clean(obj:any) {
+        for (const propName in obj) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            delete obj[propName];
+          }
+        }
+        return obj
+    }
+
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publishedBy: data.publishedBy, categoryId: data.categoryId, newsType: data.newsType, date: data.date};
+        this.pagination.pageNo= 1;
+        this.getAllNews();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publishedBy: data.publishedBy, categoryId: data.categoryId, newsType: data.newsType, date: data.date};
+        this.pagination.pageNo= 1;
+        this.getAllNews();        
     }
     
     deleteNews(newsId: number) {
@@ -55,6 +86,18 @@ export class NewsComponent implements OnInit {
             this.getAllNews();
             this.message.create('success', `News Deleted Successfully`)
         })
+    }
+
+    onPageIndexChange(pageNo: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
+        this.getAllNews();
+    }
+
+    onPageSizeChange(limit: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, limit: limit})
+        this.getAllNews();
     }
 
     updateCheckedSet(id: number, checked: boolean): void {
@@ -70,14 +113,23 @@ export class NewsComponent implements OnInit {
         this.refreshCheckedStatus();
     }
 
-        onAllChecked(checked: boolean): void {
-        this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+    onAllChecked(checked: boolean): void {
+        this.allNews.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
         this.refreshCheckedStatus();
     }
 
     refreshCheckedStatus(): void {
-        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        const listOfEnabledData = this.allNews.filter(({ disabled }) => !disabled);
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+    }
+
+    deleteSelected(){
+    const id=[];
+      console.log(this.setOfCheckedId.forEach(x=>{
+        id.push(x)
+      }));
+      this.apiService.sendRequest(requests.deleteNews,'delete',{id:id}).subscribe()
+      this.getAllNews();
     }
 }    

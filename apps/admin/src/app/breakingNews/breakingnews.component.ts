@@ -25,9 +25,8 @@ export class Data extends Pagination {
 export class BreakingNewsComponent implements OnInit{
     pagination: Data = new Data()
     allBreakingNews: any;
+    breakingNewsCount: any;
     loading= true;
-
-
     indeterminate = false;
     checked = false;
     setOfCheckedId = new Set<number>();
@@ -42,6 +41,7 @@ export class BreakingNewsComponent implements OnInit{
     getAllBreakingNews() {
         this.apiService.sendRequest(requests.getAllBreakingNews, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allBreakingNews= res.response.breakingNews;
+            this.breakingNewsCount= res.response.totalCount;
             console.log("ALL-BREAKING-NEWS", this.allBreakingNews);
             this.loading= false;
         },err => {
@@ -65,6 +65,18 @@ export class BreakingNewsComponent implements OnInit{
               this.message.create('success', `Breaking News Deleted Successfully`);
           })
       }
+
+    onPageIndexChange(pageNo: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
+        this.getAllBreakingNews();
+    }
+
+    onPageSizeChange(limit: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, limit: limit})
+        this.getAllBreakingNews();
+    }
 
     updateCheckedSet(id: number, checked: boolean): void {
         if (checked) {

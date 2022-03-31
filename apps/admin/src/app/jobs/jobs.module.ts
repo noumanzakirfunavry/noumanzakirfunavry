@@ -8,6 +8,7 @@ import { JobsComponent } from './jobs.component';
 import { AddJobComponent } from './addJobs/add-job.component';
 import { JobFilterComponent } from './filterJobs/job-filter.component';
 import { antdModule } from '../AndModules/andModule';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
@@ -24,7 +25,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
         ReactiveFormsModule,
         FormsModule,
         CKEditorModule,
-        QuillModule.forRoot()
+        QuillModule.forRoot(),
+        NzPaginationModule
 
     ],
     exports: [],
