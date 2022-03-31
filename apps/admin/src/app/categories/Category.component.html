@@ -9,10 +9,10 @@
         <nz-card>
             <div cdkDropList (cdkDropListDropped)="drop($event)">
                 <div class="send-request" *ngIf="setOfCheckedId.size">
-                    <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="deleteSelected()">
+                    <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="showDeleteConfirm()">
                       Delete Selected
                     </button>
-                    <span>Selected {{ setOfCheckedId.size }} items</span>
+                    <span class="ml-2">Selected {{ setOfCheckedId.size }} items</span>
                   </div>
                 <nz-table [nzLoading]="loading" [nzData]="allCategories" class="no-border-last">
                     <thead>
@@ -47,7 +47,7 @@
                                 <td>
                                     <div class="d-flex justify-content-between">
                                         <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/update/' + cat?.id]"></i>
-                                        <i nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="deleteCategories(cat?.id)"></i>
+                                        <i nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="showDeleteConfirm(cat?.id)"></i>
                                     </div>
                                 </td>
                             </tr>
@@ -68,7 +68,7 @@
                                         <td>
                                             <div class="d-flex justify-content-between">
                                                 <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/update/' + subCat?.id]"></i>
-                                                <i nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="deleteCategories(subCat?.id)"></i>
+                                                <i class="cursor-pointer" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(subCat?.id)"></i>
                                             </div>
                                         </td>
                                     </tr>

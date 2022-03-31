@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
@@ -34,7 +35,7 @@ export class NewsComponent implements OnInit {
     listOfCurrentPageData: Array<any>;
 
 
-    constructor(private apiService: ApiService, private message: NzMessageService ) {}
+    constructor(private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {}
 
     ngOnInit(): void {
         this.getAllNews()
@@ -79,14 +80,6 @@ export class NewsComponent implements OnInit {
         this.pagination.pageNo= 1;
         this.getAllNews();        
     }
-    
-    deleteNews(newsId: number) {
-        this.apiService.sendRequest(requests.deleteNews, 'delete', {id:[newsId]}).subscribe((res:any) => {
-            console.log("DELETE-NEWS", res);
-            this.getAllNews();
-            this.message.create('success', `News Deleted Successfully`)
-        })
-    }
 
     onPageIndexChange(pageNo: number) {
         this.loading= true;
@@ -124,12 +117,50 @@ export class NewsComponent implements OnInit {
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
 
-    deleteSelected(){
-    const id=[];
+    deleteSelected() {
+    const id= [];
       console.log(this.setOfCheckedId.forEach(x=>{
         id.push(x)
       }));
-      this.apiService.sendRequest(requests.deleteNews,'delete',{id:id}).subscribe()
-      this.getAllNews();
+      this.apiService.sendRequest(requests.deleteNews,'delete',{id:id}).subscribe((res:any) => {
+        this.setOfCheckedId.clear();
+        this.checked= false;
+        this.indeterminate= false;
+        this.getAllNews();
+        this.message.create('success', `News Deleted Successfully`)
+        })
     }
+    
+    deleteNews(newsId: number): void {
+        this.apiService.sendRequest(requests.deleteNews, 'delete', {id:[newsId]}).subscribe((res:any) => {
+            console.log("DELETE-NEWS", res);
+            this.getAllNews();
+            this.message.create('success', `News Deleted Successfully`)
+        })
+    }
+
+    showDeleteConfirm(id?: number): void {
+        this.modal.confirm({
+          nzTitle: 'Delete',
+          nzContent: '<b style="color: red;">Are you sure to delete this news?</b>',
+          nzOkText: 'Yes',
+        //   nzOkType: 'danger',
+          nzOnOk: () => {
+              if(id) {
+                  this.deleteNews(id);
+              }
+              else {
+                  this.deleteSelected();
+              }
+            },
+          nzCancelText: 'No',
+          nzOnCancel: () => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllNews();
+            }
+        });
+      }
+
 }    

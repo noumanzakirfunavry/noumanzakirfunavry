@@ -60,10 +60,10 @@ export class AddUserComponent implements OnInit{
 
   inItForm() {
     this.adminForm = this.fb.group({
-      name: [null, [Validators.required]],
+      name: [null, [Validators.required, Validators.pattern('^[a-zA-Z \-\']+'), Validators.minLength(3), Validators.maxLength(250)]],
       rolesId: [null, [Validators.required]],
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
+      userName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+      password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
       confirmPassword: [null, [Validators.required, this.confirmationValidator]],
       email: [null, [Validators.email, Validators.required]],
       isActive: [false],
@@ -116,10 +116,10 @@ export class AddUserComponent implements OnInit{
       this.userById= res.response.admin;
       console.log("USER-BY-ID", this.userById);
       this.adminForm = this.fb.group({
-        name: [this.userById?.name || null, [Validators.required]],
+        name: [this.userById?.name || null, [Validators.required, Validators.pattern('^[a-zA-Z \-\']+'), Validators.minLength(3), Validators.maxLength(250)]],
         rolesId: [this.userById?.rolesId || null, [Validators.required]],
-        userName: [this.userById?.userName || null, [Validators.required]],
-        password: [this.userById?.password || null, [Validators.required]],
+        userName: [this.userById?.userName || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        password: [this.userById?.password || null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
         confirmPassword: [this.userById?.password || null, [Validators.required, this.confirmationValidator]],
         email: [this.userById?.email || null, [Validators.email, Validators.required]],
         isActive: [this.userById?.isActive || false],
@@ -141,6 +141,17 @@ export class AddUserComponent implements OnInit{
     }
     return {};
   };
+
+  // passwordValidator = (control: FormControl): { [s: string]: boolean } => {
+  //   if (!control.value) {
+  //     return { required: true };
+  //   } else if (control.value < 6) {
+  //     return { minLength: true, error: true };
+  //   } else if (control.value > 30) {
+  //     return { maxLength: true, error: true };
+  //   }
+  //   return {};
+  // };
 
   log(value: string[]): void {
     console.log(value);
