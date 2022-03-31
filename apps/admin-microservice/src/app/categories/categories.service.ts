@@ -22,8 +22,8 @@ export class CategoriesService {
         }
         return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
     }
-    async add(body) {
-        const result = await this.categoryRepo.create(body)
+    async add(body, userId: number) {
+        const result = await this.categoryRepo.create({ ...body, publishedBy: userId })
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,

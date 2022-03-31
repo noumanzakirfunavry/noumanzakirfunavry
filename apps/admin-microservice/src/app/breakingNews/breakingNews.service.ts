@@ -10,8 +10,8 @@ export class BreakingNewsService {
         private breakingNewsRepo: typeof BreakingNews
     ) { }
 
-    async create(body) {
-        const result = await this.breakingNewsRepo.create(body)
+    async create(body, userId: number) {
+        const result = await this.breakingNewsRepo.create({ ...body, addedBy: userId })
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.UNABLE_TO_CREATE_RECORD].message,
