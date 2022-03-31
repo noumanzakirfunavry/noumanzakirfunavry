@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { QuickRoutingModule } from "./quicklink-routing.module";
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 // import { DefaultDashboardComponent } from './default/default-dashboard.component';
 // import { EcommerceDashboardComponent } from './e-commerce/e-commerce-dashboard.component';
 // import { ProjectsDashboardComponent } from './projects/projects-dashboard.component';
@@ -25,7 +26,8 @@ import { DemoComponentsShareModule } from '../demo-components-share/demo-compone
         FormsModule,
         ...antdModule,
         DemoComponentsShareModule,
-        NzPaginationModule
+        NzPaginationModule,
+        NzModalModule
     ],
     exports: [],
     declarations: [

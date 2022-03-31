@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
@@ -30,8 +31,7 @@ export class TagsComponent implements OnInit {
     listOfCurrentPageData = [];
 
     
-
-    constructor(private apiService: ApiService, private message: NzMessageService ) {}
+    constructor(private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {}
 
     ngOnInit() {
         this.getAllTags();
@@ -67,7 +67,7 @@ export class TagsComponent implements OnInit {
     }
 
     deleteTags(tagId: any) {
-        this.apiService.sendRequest(requests.deleteTags, 'delete', {id:[tagId]}).subscribe((res:any) => {
+        this.apiService.sendRequest(requests.deleteTags, 'delete', {ids:[tagId]}).subscribe((res:any) => {
             console.log("DELETE-TAG", res);
             this.getAllTags();
             this.message.create('success', `Tag Deleted Successfully`)
@@ -128,8 +128,35 @@ export class TagsComponent implements OnInit {
             id.push(x)
           }));
           this.apiService.sendRequest(requests.deleteTags,'delete',{ids:id}).subscribe((res:any) => {
-              this.getAllTags();
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllTags();
           })
     }
+
+    showDeleteConfirm(id?: number): void {
+        this.modal.confirm({
+          nzTitle: 'Delete',
+          nzContent: '<b style="color: red;">Are you sure to delete this tag?</b>',
+          nzOkText: 'Yes',
+        //   nzOkType: 'danger',
+          nzOnOk: () => {
+              if(id) {
+                  this.deleteTags(id);
+              }
+              else {
+                  this.deleteSelected();
+              }
+            },
+          nzCancelText: 'No',
+          nzOnCancel: () => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllTags();
+            }
+        });
+      }
     
 }    
