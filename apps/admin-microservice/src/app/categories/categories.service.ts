@@ -45,6 +45,7 @@ export class CategoriesService {
     async getAllForClient(query: GetAllCategoriesForClientRequestDto) {
         const response = await this.getAllForClientQuery(query)
 
+        response.rows = response.rows.map(item => item.toJSON())
 
         let categories = response.rows.filter((item) => item.parentCategoryId == null)
 
@@ -120,6 +121,7 @@ export class CategoriesService {
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
             )
         }
+        result.rows = result.rows.map(item => item.toJSON())
 
         let categories = result.rows.filter((item) => item.parentCategoryId == null)
 
