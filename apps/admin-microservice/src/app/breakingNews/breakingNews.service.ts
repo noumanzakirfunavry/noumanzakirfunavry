@@ -56,7 +56,7 @@ export class BreakingNewsService {
             where['addedBy'] = query.publishers
         }
         if (query.status) {
-            where['isActive'] = query.status
+            where['isActive'] = JSON.parse(query.status.toString())
         }
         const result = await this.breakingNewsRepo.findAndCountAll({ where: where, limit: query.limit, offset: offset })
         if (!result.count) {
