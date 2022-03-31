@@ -10,7 +10,6 @@ import { MessageHasAttachments } from "./message.has.attachments.entity";
 import { Presenters } from "./presenters.entity";
 import { Programs } from "./programs.entity";
 import { News } from "./news.entity";
-import { ExclusiveVideos } from "./exclusive.videos.entity";
 @Table({
   paranoid : true,
   timestamps : true
@@ -39,6 +38,12 @@ export class Attachments extends Model{
 
   @Column
   path : string
+
+  @Column({
+    allowNull : true,
+    defaultValue : null
+  })
+  url : string | null
 
   @Column
   dailyMotionURL : string

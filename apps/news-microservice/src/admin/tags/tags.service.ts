@@ -19,7 +19,7 @@ export class TagsService {
             where['publishedBy'] = query.publishers
         }
         if (query.status) {
-            where['isActive'] = query.status
+            where['isActive'] = JSON.parse(query.status.toString())
         }
         if (query.title) {
             where['title'] = query.title
