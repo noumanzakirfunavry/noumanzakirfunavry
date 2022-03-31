@@ -344,7 +344,7 @@
     }
 
     .page-nav{
-        overflow-x: auto;
+        overflow-x: hidden;
         white-space: nowrap;
     }
     .page-nav .navbar .navbar-nav .nav-item a {
@@ -807,10 +807,14 @@
         height: 230px;
     }
     .scrollbarWrap{
-        .slick-list{
+        .slick-slider{
             margin-left: -19px;
             margin-right: -19px;
+            .slick-slide {
+                padding: 0 0 0 10px;
+            }
         }
+
     }
     .NewsLightTiles .VideoTiles .VideoNews{
         width: 100%;
@@ -1009,6 +1013,54 @@
         width: 100%;
         border-color: #002f6c;
     }
+    .market-stats .marketBox {
+        min-width: 140px;
+        height: 90px;
+    }
+    .NewsList ul li{
+        border-bottom: none;
+    }
+    .VideoTiles .VideoNews{
+        width: 246px;
+    }
+    .VideoTiles .VideoNews .NewsImage{
+        height: 120px;
+    }
+    .sidelist_sidebar__Nuc9n .sideSimpleListWrap .sidelist_themeTitle__1gobu h4 {
+
+        font: normal normal 900 28px/30px Cairo;
+        border-color: #002F6C;
+        border-top: 6px solid #002F6C !important
+    }
+    .sidelist_sidebar__Nuc9n{
+        background-color: #fff;
+        padding: 0;
+    }
+    .NewsImage.show_mobile {
+        display: block;
+        width: 246px;
+        height: 120px;
+        overflow: hidden;
+        margin-bottom: 12px;
+        img{
+            width: 100%;
+        }
+    }
+
+    .sidelist_sidesimpleList__CD3XZ li a{
+        font: normal normal bold 14px/22px Cairo !important;
+    }
+    .sidelist_sidesimpleList__CD3XZ{
+        display: flex;
+        overflow: auto;
+        li{
+            width: 246px;
+            margin-right: 20px;
+            &:first-child{
+                margin-right: 0;
+            }
+        }
+    }
   }
   @media screen and (max-width:575px){
     .sliderArrows{
@@ -1017,6 +1069,7 @@
     .VideoTilesContent{
         overflow-x: scroll;
         white-space: nowrap;
+        margin-left: -19px;
     }
 
     .NewsTilesBg .VideoTiles{
@@ -1037,6 +1090,7 @@
     .videoNewsContent{
         overflow-x: scroll;
         white-space: nowrap;
+        margin-left: -19px;
     }
     .breakingNews .newsbox .newslink{
         margin-bottom: 15px;
@@ -1328,7 +1382,13 @@
 .VideoTiles .NewsContent h4 {
     font: normal normal bold 14px/22px Cairo;
 }
+.NewsList ul li .newsImage {
 
+    width: 333px;
+    height: 165px;
+    margin: auto;
+
+}
 
   }
 

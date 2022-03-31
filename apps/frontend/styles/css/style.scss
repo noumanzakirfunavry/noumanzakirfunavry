@@ -1189,6 +1189,13 @@ h6{
     list-style: none;
     margin: 0;
     padding:0;
+
+  }
+  .marketChart .chartBox .chartTop ul{
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding:0;
     align-items: center;
   }
   .marketChart .chartBox .chartTop h4{
@@ -1199,7 +1206,7 @@ h6{
   }
   .marketChart .chartBox .chartTop .active a{
     color: $secondary-color;
-    border-bottom: 2px solid $secondary-color;
+    border-bottom: 3px solid $secondary-color;
     padding-bottom: 5px;
   }
   .marketChart .chartBox .chartTop li{
@@ -2914,21 +2921,21 @@ h6.newsDetailtext
 .caret_icon_up {
   border-left: solid 5px transparent;
   border-right: solid 5px transparent;
-  border-bottom: solid 12px #fff;
+  border-bottom: solid 10px #fff;
   height: 0;
   width: 0;
 }
 .caret_icon_down {
   border-left: solid 5px transparent;
   border-right: solid 5px transparent;
-  border-top: solid 12px #fff;
+  border-top: solid 10px #fff;
   height: 0;
   width: 0;
 }
 .caret_icon {
   border-left: solid 5px transparent;
   border-right: solid 5px transparent;
-  border-bottom: solid 12px #fff;
+  border-bottom: solid 10px #fff;
   height: 0;
   width: 0;
 }
@@ -3047,4 +3054,7 @@ h6.newsDetailtext
     .header-box{
       align-items: baseline;
     }
+  }
+  .NewsImage.show_mobile{
+    display: none;
   }
