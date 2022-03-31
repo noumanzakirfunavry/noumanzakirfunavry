@@ -32,6 +32,7 @@ export class Data extends Pagination {
 export class FeaturedNewsComponent implements OnInit {
     pagination: Data = new Data()
     allFeaturedNews: any;
+    allCategories: any;
     loading = true;
     featuredNewsForm: FormGroup;
 
@@ -77,7 +78,7 @@ export class FeaturedNewsComponent implements OnInit {
             newsId: null
         }
     ];
-    allCategories: any;
+    
 
     constructor(private apiService: ApiService, private fb: FormBuilder, private message: NzMessageService) { }
 
