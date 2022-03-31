@@ -716,6 +716,11 @@
     }
     .search-header .search-box .input-group-text {
         padding-left: 0;
+
+    }
+    .sticky_header .search-header .search-box .input-group-text{
+        top: -6px !important;
+        font-size: 18px;
     }
     .bnner_add img {
         width: 320px;
@@ -1063,6 +1068,9 @@
     }
     .sticky_header .search-header .search-box {
         top: -20px;
+    }
+    .sticky_header .cnbc-logo img{
+        width: 278px;
     }
   }
   @media screen and (max-width:575px){
