@@ -1,14 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { Pagination } from '../../common/models/pagination';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
+export class Data extends Pagination {
+    parentCategoryId?: Array<any>;
+    publishers?: Array<any>;
+    title?: string;
+    includeNews?: any;
+    newsLImit?: any;
+    categoryId?: number;
+
+
+    constructor() {
+        super();
+        this.parentCategoryId = [];
+        this.publishers = [];
+        this.title = "";
+        this.includeNews = "";
+        this.newsLImit = "";
+        this.categoryId = null;
+    }
+}
 
 @Component({
     templateUrl: './featuredNews.component.html'
 })
 
 export class FeaturedNewsComponent implements OnInit {
+    pagination: Data = new Data()
+
     allFeaturedNews: any;
     loading = true;
     featuredNewsForm: FormGroup;
@@ -55,6 +77,7 @@ export class FeaturedNewsComponent implements OnInit {
             newsId: null
         }
     ];
+    allCategories: any;
 
     constructor(private apiService: ApiService, private fb: FormBuilder) { }
 
@@ -63,11 +86,28 @@ export class FeaturedNewsComponent implements OnInit {
         this.featuredNewsForm = this.fb.group({
         });
         this.getAllFeaturedNews();
+        this.getAllCategories();
+    }
+
+    getAllCategories() {
+        this.apiService.sendRequest(requests.getAllCategories, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res: any) => {
+            this.allCategories = res.response.categories;
+            console.log("ALL-CATEGORIES", this.allCategories);
+        })
+    }
+    clean(obj: any) {
+        for (const propName in obj) {
+            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+                delete obj[propName];
+            }
+        }
+        return obj
     }
 
     getAllFeaturedNews() {
         this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res: any) => {
             this.allFeaturedNews = res.response.featuredNews;
+            this.fNews=[...this.allFeaturedNews]
             console.log("ALL-FEATURED-NEWS", this.allFeaturedNews);
             this.loading = false;
         }, err => {
@@ -88,10 +128,10 @@ export class FeaturedNewsComponent implements OnInit {
             this.featuredNewsForm.controls[i].updateValueAndValidity();
         }
         if (this.featuredNewsForm.valid) {
-            this.fNews.forEach(news=>{
-                news.newsId=parseInt(news.newsId);
+            this.fNews.forEach(news => {
+                news.newsId = parseInt(news.newsId);
             })
-            this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: [this.fNews] }).subscribe((res: any) => {
+            this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
                 console.log("UPDATE-FEATURED-NEWS", res);
             })
         }

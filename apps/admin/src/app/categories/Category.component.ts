@@ -6,17 +6,16 @@ import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
 export class Data extends Pagination {
-    parentCategoryId?:Array<any>;
+    // parentCategoryId?:Array<any>;
+  
     publishers?:Array<any>;
-    title?: string;
     includeNews?: any; 
     newsLImit?: any;
 
     constructor() {
         super();
-        this.parentCategoryId= [];
+        // this.parentCategoryId= [];
         this.publishers= [];
-        this.title= "";
         this.includeNews= "";
         this.newsLImit= "";
     }
@@ -37,7 +36,7 @@ export class CategoryComponent implements OnInit {
     loading= true;
     expandedId: any;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData:Array<any> = [];    
+    listOfCurrentPageData = [];    
 
     constructor(private apiService: ApiService, private message: NzMessageService ) {
     }
@@ -50,12 +49,19 @@ export class CategoryComponent implements OnInit {
         this.apiService.sendRequest(requests.getAllCategories, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allCategories= res.response.categories;
             console.log("ALL-CATEGORIES", this.allCategories);
-            // this.strucCategories = this.catToNodes(this.allCategories);
             this.loading= false;
         },err => {
             this.loading = false;
+            throw this.handleError(err)
           })
     }
+
+    handleError(err: any) {
+        if (err) {
+          this.allCategories = [];
+        }
+        return err
+      }
 
     clean(obj:any) {
         for (const propName in obj) {
@@ -66,18 +72,24 @@ export class CategoryComponent implements OnInit {
         return obj
       }
 
-    //   catToNodes() {
-    //       for(let i=0; i<=this.allCategories.length; i++) {
-    //           this.allCategories[i].expand = false;
-    //       }
-    // }
-
     deleteCategories(categoryId: number) {
         this.apiService.sendRequest(requests.deleteCategories, 'delete', {ids:[categoryId]}).subscribe((res:any) => {
             console.log("DEL-CATEGORY", res);
             this.getAllCategories();
             this.message.create('success', `Category Deleted Successfully`)
         })
+    }
+
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers};
+        this.pagination.pageNo= 1;
+        this.getAllCategories();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers};
+        this.pagination.pageNo= 1;
+        this.getAllCategories();        
     }
 
     updateCategoryOrder(ids?:Array<any>) {
@@ -99,8 +111,13 @@ export class CategoryComponent implements OnInit {
         this.refreshCheckedStatus();
     }
 
+    onAllChecked(checked: boolean): void {
+        this.allCategories.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+        this.refreshCheckedStatus();
+    }
+
     refreshCheckedStatus(): void {
-        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        const listOfEnabledData = this.allCategories.filter(({ disabled }) => !disabled);
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
@@ -118,5 +135,15 @@ export class CategoryComponent implements OnInit {
       toggle(catId: any) {
           this.expandedId= this.expandedId===catId ? null : catId;
       }
+
+      deleteSelected() {
+        const id=[];
+          console.log(this.setOfCheckedId.forEach(x=>{
+            id.push(x)
+          }));
+          this.apiService.sendRequest(requests.deleteCategories,'delete',{ids:id}).subscribe((res:any) => {
+              this.getAllCategories();
+          })
+    }
       
 }    

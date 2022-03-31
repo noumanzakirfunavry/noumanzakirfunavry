@@ -89,7 +89,7 @@ export class CategoriesService {
         if (query.pageNo) offset = query.limit * query.pageNo;
         let where = {}
         if (query.status) {
-            where['isActive'] = query.status
+            where['isActive'] = JSON.parse(query.status.toString())
         }
         if (query.parentCategoryId) {
             where['parentCategoryId'] = query.parentCategoryId
@@ -106,7 +106,7 @@ export class CategoriesService {
         if (query.includeNews) {//TODO
 
         }
-        let result = await this.categoryRepo.findAll(
+        let result = await this.categoryRepo.findAndCountAll(
 
             {
                 include: ['user'],
@@ -114,27 +114,30 @@ export class CategoriesService {
                 limit: query.limit, offset: offset
             }
         )
-        if (!result.length) {
+        if (!result.count) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
             )
         }
 
-        let categories = result.filter((item) => item.parentCategoryId == null)
+        let categories = result.rows.filter((item) => item.parentCategoryId == null)
 
         // Removing The Top Level Categories from the original result
         for (let index = 0; index < categories.length; index++) {
             const element = categories[index];
-            result = this.removeItemOnce(result, element);
+            result.rows = this.removeItemOnce(result.rows, element);
         }
         // Now Calling to fit all remaining categories
-        this.makingNested(result, categories, 0)
+        this.makingNested(result.rows, categories, 0)
 
-        return new GetAllCategoriesResponseDto(
+        return new GenericResponseDto(
             HttpStatus.OK,
             "FETCHED SUCCESSFULLY",
-            categories
+            {
+                categories: categories,
+                totalCount: result.count
+            }
         );
     }
 

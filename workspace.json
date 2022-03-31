@@ -21,6 +21,7 @@
     "notification-microservice": "apps/notification-microservice",
     "operational-microservice": "apps/operational-microservice",
     "providers": "libs/providers",
+    "socket": "libs/socket",
     "utility": "libs/utility"
   }
 }

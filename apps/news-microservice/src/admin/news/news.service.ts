@@ -1,5 +1,5 @@
 import { DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
-import { Categories, News, SeoDetails, Users } from '@cnbc-monorepo/entity';
+import { Attachments, BreakingNews, Categories, EditorsChoiceNews, FeaturedNews, News, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility'
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -27,7 +27,6 @@ export class NewsService {
         try {
             return await sequelize.transaction(async t => {
                 const transactionHost = { transaction: t };
-                console.log("la here");
                 const seo_added = await this.addSeo(body, transactionHost)
                 if (seo_added) {
                     const news_object = this.helperService.newsObjectCreator(body, seo_added.id, userId)
@@ -122,7 +121,7 @@ export class NewsService {
         let quotes_added;
         let quotes_object;
         for (let i = 0; i < quotesIds.length; i++) {
-            quotes_object = this.helperService.quotesObject(quotesIds[i].position, quotesIds[i].id, newsId)
+            quotes_object = this.helperService.quotesObject(i + 1, quotesIds[i], newsId)
             quotes_added = await this.newsHasQuotes.create(quotes_object, transactionHost)
             if (!quotes_added) {
                 return false
@@ -251,7 +250,19 @@ export class NewsService {
             },
             {
                 model: Users
-            }
+            },
+            {
+                model: Attachments,
+                as: 'image'
+            },
+            {
+                model: Attachments,
+                as: 'thumbnail'
+            },
+            {
+                model: Attachments,
+                as: 'video'
+            },
             ],
             where: {
                 ...(query.search && {
@@ -340,6 +351,78 @@ export class NewsService {
                             Exceptions[ExceptionType.UNABLE_TO_DELETE].status
                         )
                     }
+                    else {
+                        const delete_seo_details = await this.deleteSeoDetailsQuery(news_exists, transactionHost)
+                        if (!delete_seo_details) {
+                            throw new CustomException(
+                                Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
+                                Exceptions[ExceptionType.UNABLE_TO_DELETE].status
+                            )
+                        }
+                        else {
+                            const delete_news_categories = await this.deletePreviousCategories(body.id[i], transactionHost)
+                            if (!delete_news_categories) {
+                                throw new CustomException(
+                                    Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
+                                    Exceptions[ExceptionType.UNABLE_TO_DELETE].status
+                                )
+                            }
+                            else {
+                                const delete_news_tags = await this.deletePreviousNewsTags(body.id[i], transactionHost)
+                                if (!delete_news_tags) {
+                                    throw new CustomException(
+                                        Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
+                                        Exceptions[ExceptionType.UNABLE_TO_DELETE].status
+                                    )
+                                }
+                                else {
+                                    const delete_news_quotes = await this.deletePreviousQuotes(body.id[i], transactionHost)
+                                    if (!delete_news_quotes) {
+                                        throw new CustomException(
+                                            Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
+                                            Exceptions[ExceptionType.UNABLE_TO_DELETE].status
+                                        )
+                                    }
+                                    else {
+                                        const delete_feature = await this.genericNewsDeletionMethod(FeaturedNews, body, i)
+                                        if (!delete_feature) {
+                                            throw new CustomException(
+                                                Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
+                                                Exceptions[ExceptionType.UNABLE_TO_DELETE].status
+                                            )
+                                        }
+                                        else {
+                                            const delete_trending = this.genericNewsDeletionMethod(TrendingNews, body, i)
+                                            if (!delete_trending) {
+                                                throw new CustomException(
+                                                    Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
+                                                    Exceptions[ExceptionType.UNABLE_TO_DELETE].status
+                                                )
+                                            }
+                                            else {
+                                                const delete_editorschoicenews = this.genericNewsDeletionMethod(EditorsChoiceNews, body, i)
+                                                if (!delete_editorschoicenews) {
+                                                    throw new CustomException(
+                                                        Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
+                                                        Exceptions[ExceptionType.UNABLE_TO_DELETE].status
+                                                    )
+                                                }
+                                                else {
+                                                    const delete_breakingnews = this.genericNewsDeletionMethod(BreakingNews, body, i)
+                                                    if (!delete_breakingnews) {
+                                                        throw new CustomException(
+                                                            Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
+                                                            Exceptions[ExceptionType.UNABLE_TO_DELETE].status
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 else {
                     throw new CustomException(
@@ -354,11 +437,26 @@ export class NewsService {
             )
         })
     }
-    private async deleteNewsRecord(body: DeleteAlexaAudioRequestDto, i: number, transactionHost) {
-        return await this.newsRepository.update(
-            {
-                isActive: false
+    private async genericNewsDeletionMethod(entity, body: DeleteAlexaAudioRequestDto, i: number) {
+        const response = await sequelize.getRepository(entity).destroy({
+            where: {
+                newsId: body.id[i]
+            }
+        });
+        return response === 0 ? true : response
+    }
+
+    private async deleteSeoDetailsQuery(news_exists: any, transactionHost) {
+        return await this.seoRepository.destroy({
+            where: {
+                id: news_exists.seoDetailId
             },
+            transaction: transactionHost.transaction
+        });
+    }
+
+    private async deleteNewsRecord(body: DeleteAlexaAudioRequestDto, i: number, transactionHost) {
+        return await this.newsRepository.destroy(
             {
                 where: {
                     id: body.id[i]

@@ -101,3 +101,19 @@ export type JobProps = {
     updatedAt: Date | null,
     deletedAt: Date | null
 }
+
+export type CategoryProps = {
+    id: number,
+    title: string,
+    orders: number,
+    displayInHomePage: boolean,
+    displayInCategoryMenu: boolean,
+    isActive: boolean,
+    publishedBy: number | null,
+    parentCategoryId: number | null,
+    bannerId: number | null,
+    createdAt:Date,
+    updatedAt: Date | null,
+    deletedAt: Date | null,
+    user: any
+}

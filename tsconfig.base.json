@@ -34,6 +34,7 @@
       "@cnbc-monorepo/models": ["libs/models/src/index.ts"],
       "@cnbc-monorepo/providers": ["libs/providers/src/index.ts"],
       "@cnbc-monorepo/repositories": ["libs/repositories/src/index.ts"],
+      "@cnbc-monorepo/socket": ["libs/socket/src/index.ts"],
       "@cnbc-monorepo/utility": ["libs/utility/src/index.ts"]
     }
   },
