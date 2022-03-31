@@ -8,6 +8,7 @@ import { CategoryComponent} from './Category.component';
 import { AddCategoryComponent } from './addCategory/addCategoy.component';
 import { FilterComponent } from './categoryFilter/Filter.component';
 import { antdModule } from '../AndModules/andModule';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -20,7 +21,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         ReactiveFormsModule,
         FormsModule,
         ...antdModule,
-        DragDropModule
+        DragDropModule,
+        NzModalModule
     ],
     exports: [],
     declarations: [

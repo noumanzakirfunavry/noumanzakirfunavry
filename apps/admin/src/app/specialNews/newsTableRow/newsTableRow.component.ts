@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, Component,Input, OnInit} from '@angular/core';
+import { AfterContentInit, Component,Input, OnInit} from '@angular/core';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -29,10 +29,9 @@ export class Data extends Pagination {
     templateUrl: './newsTableRow.component.html'
 })
 
-export class NewsTableRowComponent implements OnInit,AfterContentInit{
+export class NewsTableRowComponent implements OnInit, AfterContentInit{
     @Input() allCategories: any;
     @Input() news: any={newId:null};
-
     pagination: Data = new Data()
     allCategoryNews: any=[];
     selectedCat:any
@@ -45,7 +44,6 @@ export class NewsTableRowComponent implements OnInit,AfterContentInit{
       
     }
     ngAfterContentInit(): void {
-        debugger
         this.allCategoryNews.push(this.news.news)
     }
 
@@ -62,9 +60,7 @@ export class NewsTableRowComponent implements OnInit,AfterContentInit{
     }
 
     getCategoryNews(catId?: any) {
-        debugger
         console.log(this.selectedCat)
-        
         this.pagination.categoryId= catId ? catId : null;
         this.apiService.sendRequest(requests.getAllNews, 'get', {pageNo:1, limit:30, categoryId:parseInt(catId)}).subscribe((res:any) => {
             this.allCategoryNews= res.response.news;

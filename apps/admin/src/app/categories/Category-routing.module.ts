@@ -10,7 +10,7 @@ const routes: Routes = [
         component: CategoryComponent,
         data: {
             title: 'All Categories',
-            headerDisplay: "none"
+            // headerDisplay: "none"
         },
 
     },
@@ -28,7 +28,7 @@ const routes: Routes = [
         component: AddCategoryComponent,
         data: {
             title: 'Add Category',
-            headerDisplay: "none"
+            // headerDisplay: "none"
         },
     },
     {
@@ -36,7 +36,7 @@ const routes: Routes = [
         component: AddCategoryComponent,
         data: {
             title: 'Update Category',
-            headerDisplay: "none"
+            // headerDisplay: "none"
         },
     }
 ];

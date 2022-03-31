@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { NzDemoFormDynamicRuleComponent } from './addTag/dynamic-rule';
 import { DemoComponentsShareModule } from '../demo-components-share/demo-components-share.module';
 import { antdModule } from '../AndModules/andModule';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 
 
@@ -31,7 +32,8 @@ import { antdModule } from '../AndModules/andModule';
         FormsModule,
         ...antdModule,
         DemoComponentsShareModule,
-        NzPaginationModule
+        NzPaginationModule,
+        NzModalModule
     ],
     exports: [],
     declarations: [
