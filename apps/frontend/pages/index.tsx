@@ -73,7 +73,7 @@ export function Index() {
             <HorizontalNumberedList />
         </div>
 
-      <div className='row'>
+      <div className='row flex-wrap-reverse'>
         <div className='col-lg-9'>
 
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
