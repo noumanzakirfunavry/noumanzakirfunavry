@@ -16,6 +16,22 @@
         max-width: 1291px;
     }
 }
+
+@media (min-width: 1024px){
+    .container-xl, .container-lg, .container-md, .container-sm, .container {
+        max-width: 960px;
+    }.mainsection_newsimage__zRzlt{
+        width: 100% !important;
+        min-width: 100%;
+    }
+}
+@media (min-width: 1340px){
+    .container-xl, .container-lg, .container-md, .container-sm, .container {
+        max-width: 1290px;
+
+    }
+}
+
 @media screen and (max-width:1280px){
     .logo-header {
         flex: 2;
@@ -328,7 +344,7 @@
     }
 
     .page-nav{
-        overflow-x: auto;
+        overflow-x: hidden;
         white-space: nowrap;
     }
     .page-nav .navbar .navbar-nav .nav-item a {
@@ -700,6 +716,11 @@
     }
     .search-header .search-box .input-group-text {
         padding-left: 0;
+
+    }
+    .sticky_header .search-header .search-box .input-group-text{
+        top: -6px !important;
+        font-size: 18px;
     }
     .bnner_add img {
         width: 320px;
@@ -791,10 +812,14 @@
         height: 230px;
     }
     .scrollbarWrap{
-        .slick-list{
+        .slick-slider{
             margin-left: -19px;
             margin-right: -19px;
+            .slick-slide {
+                padding: 0 0 0 10px;
+            }
         }
+
     }
     .NewsLightTiles .VideoTiles .VideoNews{
         width: 100%;
@@ -911,8 +936,13 @@
 
     }
     .NewsTiles .newBox.newBoxf .NewsInfo h3{
-        font: normal normal bold 14px/22px Cairo;
+        // font: normal normal bold 14px/22px Cairo;
+        font: normal normal bold 18px/28px Cairo;
 
+
+    }
+    .NewsTiles .newBox.newBoxfs .NewsInfo h4 {
+        font: normal normal bold 14px/23px Cairo !important;
     }
     .infographics_container {
         .NewsList ul li {
@@ -978,6 +1008,70 @@
 
         }
     }
+    .page-categories.d-flex{
+        display: block !important;
+    }
+    .page-categories ul {
+        display: flex;
+    }
+    .horizontalNumberList .primaryTitle h3 {
+        width: 100%;
+        border-color: #002f6c;
+    }
+    .market-stats .marketBox {
+        min-width: 140px;
+        height: 90px;
+    }
+    .NewsList ul li{
+        border-bottom: none;
+    }
+    .VideoTiles .VideoNews{
+        width: 246px;
+    }
+    .VideoTiles .VideoNews .NewsImage{
+        height: 120px;
+    }
+    .sidelist_sidebar__Nuc9n .sideSimpleListWrap .sidelist_themeTitle__1gobu h4 {
+
+        font: normal normal 900 28px/30px Cairo;
+        border-color: #002F6C;
+        border-top: 6px solid #002F6C !important
+    }
+    .sidelist_sidebar__Nuc9n{
+        background-color: #fff;
+        padding: 0;
+    }
+    .NewsImage.show_mobile {
+        display: block;
+        width: 246px;
+        height: 120px;
+        overflow: hidden;
+        margin-bottom: 12px;
+        img{
+            width: 100%;
+        }
+    }
+
+    .sidelist_sidesimpleList__CD3XZ li a{
+        font: normal normal bold 14px/22px Cairo !important;
+    }
+    .sidelist_sidesimpleList__CD3XZ{
+        display: flex;
+        overflow: auto;
+        li{
+            width: 246px;
+            margin-right: 20px;
+            &:first-child{
+                margin-right: 0;
+            }
+        }
+    }
+    .sticky_header .search-header .search-box {
+        top: -20px;
+    }
+    .sticky_header .cnbc-logo img{
+        width: 278px;
+    }
   }
   @media screen and (max-width:575px){
     .sliderArrows{
@@ -986,6 +1080,7 @@
     .VideoTilesContent{
         overflow-x: scroll;
         white-space: nowrap;
+        margin-left: -19px;
     }
 
     .NewsTilesBg .VideoTiles{
@@ -1006,6 +1101,7 @@
     .videoNewsContent{
         overflow-x: scroll;
         white-space: nowrap;
+        margin-left: -19px;
     }
     .breakingNews .newsbox .newslink{
         margin-bottom: 15px;
@@ -1297,6 +1393,45 @@
 .VideoTiles .NewsContent h4 {
     font: normal normal bold 14px/22px Cairo;
 }
+.NewsList ul li .newsImage {
 
+    width: 333px;
+    height: 165px;
+    margin: auto;
+
+}
 
   }
+
+  @media (max-width: 1200px){
+    .NewsList li .newsImage{
+        flex: inherit;
+    }
+    .NewsTiles .newBox.newBoxfs, .NewsTiles .newBox.newBoxfs .NewsImage, .NewsTiles .newBox .NewsImage {
+        width: 100%;
+    }
+  }
+  @media (min-width: 1020px)
+{
+    .col_67 {
+        -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+        -ms-flex-negative: 0;
+        flex-grow: 0;
+        flex-shrink: 0;
+        margin-right: 0;
+        max-width: calc(66.66667% - 10px);
+        min-width: calc(66.66667% - 10px);
+    }
+    .col_33 {
+        -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+        -ms-flex-negative: 0;
+        flex-grow: 0;
+        flex-shrink: 0;
+        margin-bottom: 40px;
+        margin-left: 30px;
+        max-width: calc(33.33333% - 20px);
+        min-width: calc(33.33333% - 20px);
+    }
+}

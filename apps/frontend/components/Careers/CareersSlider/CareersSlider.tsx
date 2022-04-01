@@ -5,7 +5,7 @@ import { JobProps } from "apps/frontend/types/Types";
 import { FC, useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import dateFormat from "dateformat";
-import { useRouter } from "next/router";
+import  {useRouter} from "next/router";
 import Link from "next/link";
 
 
@@ -24,6 +24,55 @@ const CareersSlider = () =>{
         ref.current.slickPrev()
     }
 
+        const [settings, setSettings] = useState({
+            dots: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 5,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            pauseOnHover: true,
+            className: "center",
+            centerMode: false,
+            centerPadding: "60px",
+            slidesToScroll: 1,
+            initialSlide: 0,
+            rtl: false,
+            arrows:false,
+            responsive: [
+              {
+                breakpoint: 1800,
+                settings: {
+                  slidesToShow: 4,
+                  slidesToScroll: 1,
+                  infinite: true,
+                }
+              },
+              {
+                breakpoint: 1400,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  infinite: true,
+                }
+              },
+              {
+                breakpoint: 992,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                  initialSlide: 2
+                }
+              },
+              {
+                breakpoint: 575,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1
+                }
+              }
+            ]
+          });
     useEffect(()=>{
         GetData(`${requests.jobs}/getAll?limit=100&pageNo=1`, {}, 'get', false).then(res=>{
             setJobs(res.data?.response?.jobs)
@@ -32,56 +81,6 @@ const CareersSlider = () =>{
           })
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-
-    const [settings, setSettings] = useState({
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 5,
-        autoplay: true,
-        autoplaySpeed: 5000,
-        pauseOnHover: true,
-        className: "center",
-        centerMode: false,
-        centerPadding: "60px",
-        slidesToScroll: 5,
-        initialSlide: 0,
-        rtl: false,
-        arrows:false,
-        responsive: [
-            {
-            breakpoint: 1800,
-            settings: {
-                slidesToShow: 4,
-                slidesToScroll: 4,
-                infinite: true,
-            }
-            },
-            {
-            breakpoint: 1400,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
-                infinite: true,
-            }
-            },
-            {
-            breakpoint: 992,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
-                initialSlide: 2
-            }
-            },
-            {
-            breakpoint: 575,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-            }
-            }
-        ]
-        });
 
     return (
         <>
