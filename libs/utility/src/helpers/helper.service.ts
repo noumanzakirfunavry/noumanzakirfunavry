@@ -157,7 +157,8 @@ export class Helper {
         return {
             ...body,
             uploadedBy : userId,
-            path : path
+            path : path,
+            url : process.env.BASE_URL + path
         }
     }
 }

@@ -19,7 +19,7 @@ export class TagsService {
             where['publishedBy'] = query.publishers
         }
         if (query.status) {
-            where['isActive'] = query.status
+            where['isActive'] = JSON.parse(query.status.toString())
         }
         if (query.title) {
             where['title'] = query.title
@@ -60,8 +60,8 @@ export class TagsService {
         return new DeleteTagByIdResponseDto(HttpStatus.OK, "DELETED SUCCESSFULLY")
     }
 
-    async addTag(body: any) {
-        const result = await this.tagsRepo.create(body)
+    async addTag(body: any, userId: number) {
+        const result = await this.tagsRepo.create({...body,publishedBy : userId})
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.UNABLE_TO_CREATE_RECORD].message,
