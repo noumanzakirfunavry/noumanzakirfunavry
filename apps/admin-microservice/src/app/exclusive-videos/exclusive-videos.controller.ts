@@ -1,10 +1,10 @@
 import { JwtAuthGuard, Rights, Roles } from '@cnbc-monorepo/auth-module';
-import { CreateExclusiveVideosRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllExclusiveVideos, GetAllExclusiveVideosResponseDto, GetExclusiveVideoByIdResponseDto } from '@cnbc-monorepo/dtos';
+import { CreateExclusiveVideosRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllExclusiveVideos, GetAllExclusiveVideosResponseDto, GetExclusiveVideoByIdResponseDto, UpdateExclusiveVideosRequestDto } from '@cnbc-monorepo/dtos';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ExclusiveVideosService } from './exclusive-videos.service';
 
-@Controller('exclusive-videos')
+@Controller('admin/api/admin/exclusive-videos')
 export class ExclusiveVideosController {
     constructor(
         private exclusiveVideosService : ExclusiveVideosService
@@ -21,9 +21,9 @@ export class ExclusiveVideosController {
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
     @Rights(RightsTypes.UPDATE)
-    @Put(":id")
-    async updateExclusiveVideo(@Param("id") id : number,@Body() body : CreateExclusiveVideosRequestDto) : Promise<GenericResponseDto>{
-        return await this.exclusiveVideosService.updateExclusiveVideo(body,id);
+    @Put()
+    async updateAndRemoveExclusiveVideo(@Body() body : UpdateExclusiveVideosRequestDto) : Promise<GenericResponseDto>{
+        return await this.exclusiveVideosService.updateAndRemoveExclusiveVideo(body);
     }
 
     @UseGuards(JwtAuthGuard)

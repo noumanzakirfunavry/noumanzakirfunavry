@@ -45,6 +45,7 @@ export * from './request/episodes/get.all.episodes.request.dto';
 //...............................Exclusive videos.............................
 export * from './request/exclusive-videos/create.exclusive.videos.request.dto';
 export * from './request/exclusive-videos/get.all.exclusive.videos.request.dto';
+export * from './request/exclusive-videos/update.exclusive.videos.request.dto';
 //...............................Featured news.............................
 export * from './request/featured-news/update.featured.news.request.dto';
 export * from './request/generic-get-by-id/get.by.id.request.dto';
