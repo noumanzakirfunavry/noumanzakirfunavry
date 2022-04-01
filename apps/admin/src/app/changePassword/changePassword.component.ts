@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
@@ -11,7 +12,7 @@ import { ApiService } from '../shared/services/api.service';
 export class ChangePasswordComponent implements OnInit{
     changePasswordForm: FormGroup;
 
-    constructor(private apiService: ApiService, private fb: FormBuilder) {}
+    constructor(private apiService: ApiService, private fb: FormBuilder, private message: NzMessageService) {}
 
     ngOnInit(): void {
         this.changePasswordForm = this.fb.group({
@@ -45,8 +46,9 @@ export class ChangePasswordComponent implements OnInit{
               const obj= this.changePasswordForm.value;
               delete obj['confirmPassword'];
               this.apiService.sendRequest(requests.updatePassword, 'put', obj).subscribe((res:any) => {
-                  console.log("CHSANGE-PASSWORD", res);
+                  console.log("CHANGE-PASSWORD", res);
                   this.changePasswordForm.reset();
+                  this.message.create('success', `Password Updated Successfully`)
               })
           }
       }
