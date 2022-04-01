@@ -2,7 +2,8 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { SideListProps } from "apps/frontend/types/Types"
 import styles from "./sidelist.module.css";
-import { FC } from "react"
+import { FC } from "react";
+import newsImage from "../../../../styles/images/biden.jpg";
 import Title from "apps/frontend/components/Title";
 
 const SideList:FC<SideListProps> = ({type, title}) =>{
@@ -65,27 +66,48 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
                       </Title>
 
                     <ul className={styles.sidesimpleList}>
-                        <li key={'12'} ><a href="/newsDetails">
+                        <li key={'12'} >
+                        <div className="NewsImage show_mobile">
+                            <img className="img-fluid" src={newsImage.src} />
+                        </div>
+                          <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
                           <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>
-                          <li key={'12'} ><a href="/newsDetails">
+                          <li key={'12'} >
+                          <div className="NewsImage show_mobile">
+                            <img className="img-fluid" src={newsImage.src} />
+                        </div>
+                            <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
                           <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>
-                          <li key={'12'} ><a href="/newsDetails">
+                          <li key={'12'} >
+                          <div className="NewsImage show_mobile">
+                            <img className="img-fluid" src={newsImage.src} />
+                        </div>
+                            <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
                           <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>
-                          <li key={'12'} ><a href="/newsDetails">
+                          <li key={'12'} >
+                          <div className="NewsImage show_mobile">
+                            <img className="img-fluid" src={newsImage.src} />
+                        </div>
+                            <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
                           <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>
-                          <li key={'12'} ><a href="/newsDetails">
+                          <li key={'12'} >
+
+                          <div className="NewsImage show_mobile">
+                            <img className="img-fluid" src={newsImage.src} />
+                        </div>
+                            <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
                           <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>

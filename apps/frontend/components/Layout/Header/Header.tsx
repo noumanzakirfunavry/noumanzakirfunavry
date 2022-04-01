@@ -5,6 +5,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import logo from '../../../styles/images/cnbc-arabia-logo.svg';
 import smallLogo from "../../../styles/images/cnbc-logo-white.svg";
+import market from "../../../styles/images/market.svg";
+import direct from "../../../styles/images/direct.svg";
+import togglebar from "../../../styles/images/togglebar.svg";
 import SearchDropDown from '../../Shared/SearchDropDown/SearchDropDown';
 import MobileHeader from './MobileHeader';
 
@@ -24,7 +27,7 @@ const Header = () =>{
       return () => {
         document.removeEventListener("scroll", handleScroll)
       }
-   
+
     })
 
     useEffect(()=>{
@@ -36,7 +39,7 @@ const Header = () =>{
     },[])
 
     const handleScroll = () => {
-        const scrollCheck = window.scrollY < 100 
+        const scrollCheck = window.scrollY < 100
         if (scrollCheck !== scroll) {
           setScroll(scrollCheck)
         }
@@ -329,18 +332,30 @@ const Header = () =>{
                 <div className='mobileHeader'>
                     <ul>
                         <li><a onClick={handleMenuList}>
-                                <span className='menuIcon'><i className='fa fa-bars'></i></span>
+                                <span className='menuIcon'>
+                                <img className='img-fluid' src={market.src} />
+                                    {/* <i className='fa fa-bars'></i> */}
+                                </span>
                                 قائمة
                             </a></li>
                         <li><a>
-                            <span className='menuIcon'><i className='fa fa-chart-line'></i></span>
+                            <span className='menuIcon'>
+                                {/* <i className='fa fa-chart-line'></i> */}
+                                <img className='img-fluid' src={direct.src} />
+
+                                </span>
                                 الأسواق
                             </a></li>
                         <li><a href="/liveTv">
-                            <span className='menuIcon'><i className='fab fa-youtube-square'></i></span>
+                            <span className='menuIcon'>
+                                {/* <i className='fab fa-youtube-square'></i> */}
+                                <img className='img-fluid' src={togglebar.src} />
+                                </span>
                             المباشر
                         </a></li>
-                        <li className='pt-2'><a title='CNBC Arabia'><img className='img-fluid' src={smallLogo.src} /></a></li>
+                        <li className='pt-2'><a title='CNBC Arabia'>
+                            <img className='img-fluid' src={smallLogo.src} />
+                            </a></li>
                     </ul>
                 </div>
                 {

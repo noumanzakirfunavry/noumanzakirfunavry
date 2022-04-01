@@ -16,6 +16,7 @@ import { UserFilterComponent } from './user-filter/user-filter.component';
 import { UsersComponent } from './users.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { antdModule } from '../AndModules/andModule';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 
 
@@ -31,7 +32,8 @@ import { antdModule } from '../AndModules/andModule';
         FormsModule,
         ...antdModule,
         DemoComponentsShareModule,
-        NzPaginationModule
+        NzPaginationModule,
+        NzModalModule
     ],
     exports: [],
     declarations: [
