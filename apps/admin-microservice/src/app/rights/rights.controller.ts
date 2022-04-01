@@ -17,7 +17,6 @@ export class RightsController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.UPDATE)
     @Put(":id")
     async updateUserRights(@Param("id") id: number, @Body() body: UpdateUserRightsRequestDto): Promise<GenericResponseDto> {
         return await this.rightsService.updateUserRights(body, id)

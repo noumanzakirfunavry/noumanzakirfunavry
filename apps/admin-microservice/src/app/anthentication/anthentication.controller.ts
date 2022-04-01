@@ -24,7 +24,6 @@ export class AnthenticationController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
-    @Rights(RightsTypes.CREATE)
     @Post("register")
     async registerAdmin(@Req() req, @Body() body: RegisterAdminRequestDto): Promise<GenericResponseDto> {
         return await this.authService.registerAdmin(req.user.roles[0], body)
@@ -32,7 +31,6 @@ export class AnthenticationController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
-    @Rights(RightsTypes.UPDATE)
     @Put("update/:id")
     async updateAdmin(@Param("id") id : number, @Body() body: RegisterAdminRequestDto): Promise<GenericResponseDto> {
         return await this.authService.updateAdmin(id, body)
