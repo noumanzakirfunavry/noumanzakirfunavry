@@ -16,6 +16,7 @@ import GetData from '../services/GetData';
 import { useEffect, useState } from 'react';
 import { requests } from '../services/Requests';
 import Skeleton from 'react-loading-skeleton';
+import Link from 'next/link';
 
 export function Index() {
   /*
@@ -95,7 +96,8 @@ export function Index() {
 
         </div>
         <div className='col-lg-3'>
-          
+        <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
+
         </div>
       </div>
       <div className='row'>
@@ -143,6 +145,7 @@ export function Index() {
               <div className='col-lg-9'>
                 <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
               </div>
+             <Link href="/">HOME</Link>
               <div className='col-lg-3'>
                     {
                       index === 0 && (
