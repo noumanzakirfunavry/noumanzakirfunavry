@@ -32,7 +32,7 @@ export class AddTagComponent implements OnInit {
   
     ngOnInit(): void {
       this.tagsForm = this.fb.group({
-        title: [null, [Validators.required]],
+        title: [null, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*$')]],
         isActive: [false]
       });
       this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
@@ -68,7 +68,7 @@ export class AddTagComponent implements OnInit {
         this.tagById= res.tags;
         console.log("TAG-BY-ID", this.tagById);
         this.tagsForm = this.fb.group({
-          title: [this.tagById?.title || null, [Validators.required]],
+          title: [this.tagById?.title || null, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*$')]],
           isActive: [this.tagById?.isActive || false]
         });
       })
