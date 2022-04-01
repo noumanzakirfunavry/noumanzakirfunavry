@@ -24,7 +24,6 @@ const CareersSlider = () =>{
         ref.current.slickPrev()
     }
 
-<<<<<<< HEAD
         const [settings, setSettings] = useState({
             dots: false,
             infinite: true,
@@ -74,66 +73,6 @@ const CareersSlider = () =>{
               }
             ]
           });
-=======
-    useEffect(()=>{
-        GetData(`${requests.jobs}/getAll?limit=100&pageNo=1`, {}, 'get', false).then(res=>{
-            setJobs(res.data?.response?.jobs)
-          }).catch(err=>{
-            console.warn(err)
-          })
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
-
-    const [settings, setSettings] = useState({
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 5,
-        autoplay: true,
-        autoplaySpeed: 5000,
-        pauseOnHover: true,
-        className: "center",
-        centerMode: false,
-        centerPadding: "60px",
-        slidesToScroll: 5,
-        initialSlide: 0,
-        rtl: false,
-        arrows:false,
-        responsive: [
-            {
-            breakpoint: 1800,
-            settings: {
-                slidesToShow: 4,
-                slidesToScroll: 4,
-                infinite: true,
-            }
-            },
-            {
-            breakpoint: 1400,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
-                infinite: true,
-            }
-            },
-            {
-            breakpoint: 992,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
-                initialSlide: 2
-            }
-            },
-            {
-            breakpoint: 575,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-            }
-            }
-        ]
-        });
->>>>>>> d7b7d7f621bbc362c6f6617e587ae814bc42fd33
 
     return (
         <>
