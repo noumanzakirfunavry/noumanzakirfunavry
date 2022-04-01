@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommentListData } from './mockComments';
 import { environment } from '../../../environments/environment';
 import { Location } from '@angular/common';
-import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
+// import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 
 @Component({
     selector: 'app-addNews',
@@ -37,7 +37,7 @@ export class AddNewsComponent implements OnInit {
     previewVisible = false;
     value: string[] = ['0-0-0'];
     config = {
-        plugins: [CKFinder , ],
+        // plugins: [CKFinder , ],
         language: 'ar',
         ckfinder: {
             openerMethod: 'popup',
@@ -56,21 +56,21 @@ export class AddNewsComponent implements OnInit {
                 resourceType: 'Images'
             }
         },
-        toolbar: [ 'ckfinder','uploadImage', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
-        // toolbar: ['heading', '|',
-        //     'fontfamily', 'fontsize',
-        //     'alignment',
-        //     'fontColor', 'fontBackgroundColor', '|',
-        //     'bold', 'italic', 'custombutton', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
-        //     'link', '|',
-        //     'outdent', 'indent', '|',
-        //     'bulletedList', 'numberedList', '|',
-        //     'code', 'codeBlock', '|',
-        //     'insertTable', '|',
-        //     'ckfinder', 'imageUpload', 'blockQuote', '|',
-        //     'undo', 'redo', '|',
-        //     'youtube',
-        //     'mediaEmbed']
+        // toolbar: [ 'ckfinder','uploadImage', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+        toolbar: ['heading', '|',
+            'fontfamily', 'fontsize',
+            'alignment',
+            'fontColor', 'fontBackgroundColor', '|',
+            'bold', 'italic', 'custombutton', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+            'link', '|',
+            'outdent', 'indent', '|',
+            'bulletedList', 'numberedList', '|',
+            'code', 'codeBlock', '|',
+            'insertTable', '|',
+            'ckfinder', 'imageUpload', 'blockQuote', '|',
+            'undo', 'redo', '|',
+            'youtube',
+            'mediaEmbed']
         // ckfinder: {
         //     // Open the file manager in the pop-up window.
         //     openerMethod: 'popup'
