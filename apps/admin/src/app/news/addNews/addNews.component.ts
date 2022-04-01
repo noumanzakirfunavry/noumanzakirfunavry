@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { requests } from '../../shared/config/config';
@@ -8,7 +8,6 @@ import { NewsModal } from '../../common/models/newsModal';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentListData } from './mockComments';
 import { environment } from '../../../environments/environment';
-import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-addNews',
@@ -16,6 +15,7 @@ import { Location } from '@angular/common';
 })
 
 export class AddNewsComponent implements OnInit {
+    @ViewChild('myInput') myInputVariable: ElementRef;
     currentDate = new Date()
     newsModal: NewsModal;
     newsForm: FormGroup;
@@ -103,6 +103,7 @@ export class AddNewsComponent implements OnInit {
             this.getAllQuotes()
         }, 2000);
     }
+
     private initQuoteForm() {
         this.quotesForm = this.fb.group({
             name: [null, [Validators.required]]
@@ -126,6 +127,7 @@ export class AddNewsComponent implements OnInit {
             this.populateNewsForm(res.response.news);
         })
     }
+
     populateNewsForm(news: any) {
         this.newsForm = this.fb.group({
             title: [news.title || null, [Validators.required]],
@@ -151,6 +153,7 @@ export class AddNewsComponent implements OnInit {
             file: [null],
         });
     }
+
     initNewsForm() {
         this.newsForm = this.fb.group({
             title: [null, [Validators.required]],
@@ -171,8 +174,8 @@ export class AddNewsComponent implements OnInit {
             keywords: [null, [Validators.required]],
             file: [null],
         });
-
     }
+
     onChange($event: string[]): void {
         console.log($event);
     }
@@ -199,11 +202,12 @@ export class AddNewsComponent implements OnInit {
         })
         // }
         console.log("form", this.newsForm.value);
-
     }
+
     getCaptcha(e: MouseEvent): void {
         e.preventDefault();
     }
+
     cancel(): void {
         this.route.navigateByUrl('news/list');
     }
@@ -250,7 +254,10 @@ export class AddNewsComponent implements OnInit {
         })
     }
 
-
+    reset() {
+        this.file= null;
+        this.myInputVariable.nativeElement.value = "";
+    }
 
     fileRead($event) {
         this.file = $event.target.files[0];
@@ -299,6 +306,7 @@ export class AddNewsComponent implements OnInit {
             console.log("ADD-TAG", this.allQuotes);
         })
     }
+
     addNewTag() {
         this.apiService.sendRequest(requests.addNewTag, 'post', { ...this.tagForm.value, isActive: true }).subscribe((res: any) => {
             this.allQuotes = res.quote;
@@ -309,9 +317,9 @@ export class AddNewsComponent implements OnInit {
     }
 
     catToNodes(catorgories) {
-        let nodes = [];
+        const nodes = [];
         this.allCategories.forEach(cat => {
-            let parent = {
+            const parent = {
                 title: cat.title,
                 value: cat.id,
                 key: cat.id,
