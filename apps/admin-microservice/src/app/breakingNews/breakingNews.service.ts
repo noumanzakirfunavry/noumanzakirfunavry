@@ -2,12 +2,14 @@ import { AddBreakingNewsRequestDto, AddBreakingNewsResponseDto, GenericResponseD
 import { BreakingNews } from "@cnbc-monorepo/entity";
 import { CustomException, Exceptions, ExceptionType } from "@cnbc-monorepo/exception-handling";
 import { HttpStatus, Inject, Injectable } from "@nestjs/common";
+import { ElasticsearchService } from "@nestjs/elasticsearch";
 
 @Injectable()
 export class BreakingNewsService {
     constructor(
         @Inject("BREAKING_NEWS_REPOSITORY")
-        private breakingNewsRepo: typeof BreakingNews
+        private breakingNewsRepo: typeof BreakingNews,
+        private elasticSearchService : ElasticsearchService
     ) { }
 
     async create(body, userId: number) {
