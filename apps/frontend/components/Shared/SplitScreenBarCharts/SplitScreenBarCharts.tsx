@@ -86,14 +86,18 @@ const SplitScreenBarCharts = () =>{
                    <h3>الأسواق</h3>
                </div>
                <div className="chartBox">
-                   <ul className="chartTop">
-                       <li><h4>محركات السوق</h4></li>
+                   <div className="chartTop">
+                   <h4>محركات السوق</h4>
+                   <ul className="d-flex">
+
                        <li><a>الرئيسية</a></li>
                        <li><a>الرئيسية</a></li>
                        <li className="active"><a>الرئيسية</a></li>
                        <li><a>الرئيسية</a></li>
                        <li><a>الرئيسية</a></li>
                    </ul>
+                   </div>
+
 
                     <div className="row">
                         <div className="col-md-6">

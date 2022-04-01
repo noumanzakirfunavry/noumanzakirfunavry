@@ -36,24 +36,26 @@ export class AddNewsComponent implements OnInit {
     previewVisible = false;
     value: string[] = ['0-0-0'];
     config = {
-        // plugins: [ , ],
+        // plugins: [CKFinder , ],
+        language: 'ar',
         ckfinder: {
+            openerMethod: 'popup',
             // uploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
             // filebrowserBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles',
             // filebrowserImageBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles?type=Images',
             // filebrowserUploadUrl:'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
             // filebrowserImageUploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-            uploadUrl: 'http://localhost/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-            filebrowserBrowseUrl: 'http://localhost/ckfinder/userfiles',
-            filebrowserImageBrowseUrl: 'http://localhost/ckfinder/userfiles?type=Images',
-            filebrowserUploadUrl: 'http://localhost/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-            filebrowserImageUploadUrl: 'http://localhost/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+            uploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+            filebrowserBrowseUrl: 'http://localhost:80/ckfinder/userfiles',
+            filebrowserImageBrowseUrl: 'http://localhost:80/ckfinder/userfiles?type=Images',
+            filebrowserUploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
 
-            // options: {
-            //     resourceType: 'Images'
-            // }
+            options: {
+                resourceType: 'Images'
+            }
         },
-        // toolbar: [ 'ckfinder', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+        // toolbar: [ 'ckfinder','uploadImage', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
         toolbar: ['heading', '|',
             'fontfamily', 'fontsize',
             'alignment',
@@ -230,7 +232,7 @@ export class AddNewsComponent implements OnInit {
         }
     }
 
-    uploadFile(mainFile?) {
+    uploadFile(mainFile=true) {
         this.apiService.uploadFileProgress(this.file, this.newsForm.value.description).subscribe((res: any) => {
             // saving files on upload so that no need to load from s3.
 
