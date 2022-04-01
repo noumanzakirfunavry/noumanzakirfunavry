@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -30,8 +31,8 @@ export class Data extends Pagination {
 
 export class FeaturedNewsComponent implements OnInit {
     pagination: Data = new Data()
-
     allFeaturedNews: any;
+    allCategories: any;
     loading = true;
     featuredNewsForm: FormGroup;
 
@@ -77,16 +78,17 @@ export class FeaturedNewsComponent implements OnInit {
             newsId: null
         }
     ];
-    allCategories: any;
+    
 
-    constructor(private apiService: ApiService, private fb: FormBuilder) { }
+    constructor(private apiService: ApiService, private fb: FormBuilder, private message: NzMessageService) { }
 
 
     ngOnInit(): void {
-        this.featuredNewsForm = this.fb.group({
-        });
         this.getAllFeaturedNews();
         this.getAllCategories();
+        this.featuredNewsForm = this.fb.group({
+        });
+        
     }
 
     getAllCategories() {
@@ -95,6 +97,7 @@ export class FeaturedNewsComponent implements OnInit {
             console.log("ALL-CATEGORIES", this.allCategories);
         })
     }
+
     clean(obj: any) {
         for (const propName in obj) {
             if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
@@ -133,6 +136,7 @@ export class FeaturedNewsComponent implements OnInit {
             })
             this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
                 console.log("UPDATE-FEATURED-NEWS", res);
+                this.message.create('success', `Featured News Updated Successfully`);
             })
         }
     }

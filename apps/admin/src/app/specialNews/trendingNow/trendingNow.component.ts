@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -62,17 +63,35 @@ export class TrendingNowComponent implements OnInit{
     ];
 
 
-    constructor (private apiService: ApiService, private fb: FormBuilder) {}
+    constructor (private apiService: ApiService, private fb: FormBuilder, private message: NzMessageService) {}
 
     ngOnInit(): void {
         this.trendingNowForm = this.fb.group({
         });
+        this.getAllCategories();
         this.getAllTrendingNews();
+    }
+
+    getAllCategories() {
+        this.apiService.sendRequest(requests.getAllCategories, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res: any) => {
+            this.allCategories = res.response.categories;
+            console.log("ALL-CATEGORIES", this.allCategories);
+        })
+    }
+
+    clean(obj: any) {
+        for (const propName in obj) {
+            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+                delete obj[propName];
+            }
+        }
+        return obj
     }
 
     getAllTrendingNews() {
         this.apiService.sendRequest(requests.getAllTrendingNews, 'get').subscribe((res:any) => {
-            this.allTrendingNow= res
+            this.allTrendingNow= res.response.trendingNews;
+            this.tNews= [...this.allTrendingNow]
             console.log("ALL-TRENDING-NEWS", this.allTrendingNow);
             this.loading = false;
         }, err => {
@@ -96,8 +115,9 @@ export class TrendingNowComponent implements OnInit{
             this.tNews.forEach(news=>{
                 news.newsId=parseInt(news.newsId);
             })
-            this.apiService.sendRequest(requests.updateTrendingNews, 'put', {news:[this.tNews]}).subscribe((res:any) => {
+            this.apiService.sendRequest(requests.updateTrendingNews, 'put', { news: this.tNews }).subscribe((res:any) => {
                 console.log("UPDATE-TRENDING-NOW", res);
+                this.message.create('success', `Trending Now News Updated Successfully`);
             })
         }
     }

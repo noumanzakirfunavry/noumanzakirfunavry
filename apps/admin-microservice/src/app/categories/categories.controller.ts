@@ -1,6 +1,6 @@
 import { Public } from "@cnbc-monorepo/auth-module";
 import { AddCategoriesRequestDto, DeleteCategoryRequestDto, GetAllCategoriesRequestDto, UpdateCategoriesRequestDto, UpdateOrderCategoriesRequestDto } from "@cnbc-monorepo/dtos";
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req } from "@nestjs/common";
 import { CategoriesService } from "./categories.service";
 
 @Controller('admin/api/admin/categories')
@@ -10,8 +10,8 @@ export class CategoriesController{
     ){}
 
     @Post('add')
-    async add(@Body() body:AddCategoriesRequestDto){
-        return await this.categoryService.add(body)
+    async add(@Req() req,@Body() body:AddCategoriesRequestDto){
+        return await this.categoryService.add(body,req.user.data.id)
     }
 
     @Get('getById/:id')

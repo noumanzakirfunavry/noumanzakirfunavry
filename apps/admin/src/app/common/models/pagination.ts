@@ -5,6 +5,7 @@ export class Pagination {
     search?: string;
     status?: boolean;
     title?: string;
+    name?: string;
     newsType?: string;
     publishers?: Array<any>;
     publishedBy?: number;

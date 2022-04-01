@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -25,7 +25,8 @@ export class AddBreakingNewsComponent implements OnInit {
     constructor(private fb: FormBuilder, 
       private apiService: ApiService, 
       private activatedRoute: ActivatedRoute, 
-      private message: NzMessageService
+      private message: NzMessageService, 
+      private route: Router
       ) {}
   
     ngOnInit(): void {
@@ -60,6 +61,7 @@ export class AddBreakingNewsComponent implements OnInit {
         this.apiService.sendRequest(this.breakingNewsId ? requests.updateBreakingNews + this.breakingNewsById : requests.addBreakingNews, this.breakingNewsId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("ADD-BREAKING-NEWS", res);
           this.inItForm();
+          this.route.navigateByUrl('breakingNews/list');
           if(this.breakingNewsId) {
             this.message.create('success', `Breaking News Updated Successfully`);
           }
@@ -89,7 +91,10 @@ export class AddBreakingNewsComponent implements OnInit {
       this.breakingNewsForm.value.isPushNotificationActive= !this.breakingNewsForm.value.isPushNotificationActive; 
       console.log("PUSH-NOTIF", this.breakingNewsForm.value.isPushNotificationActive);
       e.preventDefault();
-           
+    }
+
+    cancel() {
+      this.route.navigateByUrl('breakingNews/list');
     }
 
 }  
