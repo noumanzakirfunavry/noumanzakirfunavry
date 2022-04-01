@@ -59,7 +59,7 @@ export function Index() {
         <QuickLinks />
 
         <div className='row'>
-          <div className='col-lg-9'>
+          <div className='col-lg-9 '>
             <NewsSection />
           </div>
           <div className='col-lg-3'>
@@ -88,7 +88,7 @@ export function Index() {
             <HorizontalNumberedList />
         </div>
 
-      {/* <div className='row'>
+      <div className='row flex-wrap-reverse'>
         <div className='col-lg-9'>
 
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
@@ -132,7 +132,7 @@ export function Index() {
         <div className='col-lg-3'>
 
         </div>
-      </div> */}
+      </div> 
       {
         !categories?.length && <Skeleton/>
       }
