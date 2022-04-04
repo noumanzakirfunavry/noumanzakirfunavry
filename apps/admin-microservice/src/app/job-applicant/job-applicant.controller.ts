@@ -1,4 +1,4 @@
-import { JwtAuthGuard, Public, Rights, Roles } from '@cnbc-monorepo/auth-module';
+import { JwtAuthGuard, Rights, Roles } from '@cnbc-monorepo/auth-module';
 import { GenericResponseDto, GetAllJobApplicantsRequestDto } from '@cnbc-monorepo/dtos';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
