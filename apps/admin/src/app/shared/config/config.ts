@@ -16,6 +16,7 @@ export const requests = {
     getUserById: environment.baseUrlAdmin + '',
     deleteUsers: environment.baseUrlAdmin + '',
     registerUser: environment.baseUrlAdmin + 'authentication/register',
+    updateUser: environment.baseUrlAdmin + 'authentication/update/',
     getAllRights: environment.baseUrlAdmin + 'rights',
     deleteRight: 'http://localhost:3333/api/rights',
     updateUserRights: 'http://localhost:3333/api/rights/updateUser',

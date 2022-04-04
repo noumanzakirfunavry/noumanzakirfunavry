@@ -1,4 +1,3 @@
-import { LowerCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -39,6 +38,7 @@ export class AddUserComponent implements OnInit{
   allRights: any;
   userId: number;
   userById: any;
+  rightsValue: any;
 
   constructor(private fb: FormBuilder, 
     private apiService: ApiService, 
@@ -67,7 +67,7 @@ export class AddUserComponent implements OnInit{
       confirmPassword: [null, [Validators.required, this.confirmationValidator]],
       email: [null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
       isActive: [false],
-      rights: [null]
+      rights: [null, [Validators.requiredTrue]]
     });
   }
 
@@ -78,12 +78,11 @@ export class AddUserComponent implements OnInit{
     }
     if(this.adminForm.valid) {
       const obj= this.adminForm.value;
-      obj['isProUser']= false;
-      obj['rights']= [1];
+      obj['name'] = this.adminForm.value.name.trim();
       obj['userName']= this.adminForm.value.userName.toLowerCase();
-      // obj['rights']= [this.adminForm.value.rights];
+      obj['rights']= this.rightsValue;
       delete obj['confirmPassword'];
-      this.apiService.sendRequest(requests.registerUser, 'post', obj).subscribe((res:any) => {
+      this.apiService.sendRequest(this.userId ? requests.updateUser + this.userId : requests.registerUser, this.userId ? 'put' : 'post', obj).subscribe((res:any) => {
         console.log("ADMINS", res);
         this.inItForm();
         this.route.navigateByUrl('admins/list');
@@ -125,7 +124,7 @@ export class AddUserComponent implements OnInit{
         confirmPassword: [this.userById?.password || null, [Validators.required, this.confirmationValidator]],
         email: [this.userById?.email || null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
         isActive: [this.userById?.isActive || false],
-        rights: [this.userById?.rights || null]
+        rights: [this.userById?.rights || null, [Validators.requiredTrue]]
       });
     })
   }
@@ -145,7 +144,8 @@ export class AddUserComponent implements OnInit{
   };
 
   log(value: string[]): void {
-    console.log(value);
+    this.rightsValue= value;
+    console.log("RIGHTS-ID", value);
   }
 
   cancel() {
