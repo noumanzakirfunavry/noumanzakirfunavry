@@ -191,8 +191,9 @@
                         <form [formGroup]="quotesForm" nz-form [nzLayout]="'horizontal'">
                             <div class="d-flex w-100">
                                 <nz-form-item>
-                                    <input type="text" formControlName="name" placeholder="Enter Quote" dir="rtl"
-                                        nz-input>
+                                    <nz-form-control nzErrorTip="Please input valid Quote without spaces!">
+                                    <input type="text" formControlName="name" placeholder="Enter Quote" dir="rtl" nz-input>
+                                    </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
                                     <button  (click)="[getCaptcha($event),addNewQuote()]" class="mr-3" nz-button nzType="default">Create</button>

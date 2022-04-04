@@ -18,7 +18,8 @@
                     <thead>
                         <tr>
                             <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
-                            (nzCheckedChange)="onAllChecked($event)">ID </th>
+                            (nzCheckedChange)="onAllChecked($event)"></th>
+                            <th>ID</th>
                             <th>Title</th>
                             <th>News Link</th>
                             <th>Created</th>
@@ -31,12 +32,13 @@
                     <tbody>
                         <tr *ngFor="let breakingNews of allBreakingNews">
                             <td [nzChecked]="setOfCheckedId.has(breakingNews?.id)" [nzDisabled]="breakingNews.disabled"
-                                (nzCheckedChange)="onItemChecked(breakingNews?.id, $event)">{{breakingNews?.id}}</td>
+                                (nzCheckedChange)="onItemChecked(breakingNews?.id, $event)"></td>
+                            <td>{{breakingNews?.id}}</td>
                             <td>{{breakingNews?.title}}</td>
                             <td>{{breakingNews?.newsLink}}</td>
                             <td>{{breakingNews?.createdAt | date: 'dd-MM-YYYY'}}</td>
                             <td>{{breakingNews?.updatedAt | date: 'dd-MM-YYYY'}}</td>
-                            <td>{{breakingNews?.addedBy}}</td>
+                            <td>{{breakingNews?.user?.name}}</td>
                             <td>
                                 <nz-badge *ngIf="breakingNews?.isActive === true" nzStatus="success"></nz-badge>
                                 <nz-badge *ngIf="breakingNews?.isActive === false" nzStatus="error"></nz-badge>
@@ -45,7 +47,7 @@
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/breakingNews/update/' + breakingNews?.id]"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(breakingNews?.id)"></i>
+                                    <i style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(breakingNews?.id)"></i>
                                 </div>
                             </td>
                         </tr>
