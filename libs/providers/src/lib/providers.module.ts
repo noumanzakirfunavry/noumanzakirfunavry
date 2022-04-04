@@ -32,6 +32,7 @@ import { EpisodeHasQuotesProvider } from '../providers/episodes.has.quotes.provi
 import { AttachmentsProvider } from '../providers/attachments.provider';
 import { EmailSubscribersProvider } from '../providers/email.subscribers.provider';
 import { JobApplicantsProvider } from '../providers/job.applicants.provider';
+import { MenusProvider } from '../providers/menus.provider'
 
 @Module({
   providers: [
@@ -67,7 +68,8 @@ import { JobApplicantsProvider } from '../providers/job.applicants.provider';
     ...EpisodeHasQuotesProvider,
     ...AttachmentsProvider,
     ...EmailSubscribersProvider,
-    ...JobApplicantsProvider
+    ...JobApplicantsProvider,
+		...MenusProvider
   ],
   exports: [
     ...UsersProvider,
@@ -101,7 +103,8 @@ import { JobApplicantsProvider } from '../providers/job.applicants.provider';
     ...EpisodeHasQuotesProvider,
     ...AttachmentsProvider,
     ...EmailSubscribersProvider,
-    ...JobApplicantsProvider
+    ...JobApplicantsProvider,
+		...MenusProvider
   ],
 })
 export class ProvidersModule {}
