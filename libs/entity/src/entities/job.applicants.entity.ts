@@ -26,7 +26,7 @@ export class JobApplicants extends Model{
     applicantAge : number
 
     @Column
-    applicantEmail : number
+    applicantEmail : string
 
     @Column
     workExperience : number
