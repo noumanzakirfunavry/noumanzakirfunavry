@@ -13,7 +13,6 @@ export class AdminService {
         private helperService: Helper
     ) { }
     async getUserById(id: number): Promise<GetAdminByIdResponseDto> {
-        console.log("🚀 ~ file: admin.service.ts ~ line 16 ~ AdminService ~ getUserById ~ id", id)
         try {
             const user_exists = await this.userExists(id)
             if (user_exists) {
