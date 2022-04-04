@@ -99,7 +99,7 @@ export class CategoriesService {
             where['title'] = query.title
         }
         if (query.publishers) {
-            where['publishBy'] = query.publishers
+            where['publishedBy'] = query.publishers
         }
         if (query.includeNews) { //TODO
 
@@ -138,9 +138,17 @@ export class CategoriesService {
             "FETCHED SUCCESSFULLY",
             {
                 categories: categories,
-                totalCount: result.count
+                totalCount: await this.parentCountQuery()
             }
         );
+    }
+
+    async parentCountQuery() {
+        return await this.categoryRepo.count({
+            where: {
+                parentCategoryId: null
+            }
+        })
     }
 
     async update(id: number, body: UpdateCategoriesRequestDto) {
