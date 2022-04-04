@@ -38,7 +38,7 @@
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/quickLinks/update/' + link?.id]"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(link?.id)"></i>
+                                    <i style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(link?.id)"></i>
                                 </div>
                             </td>
                         </tr>

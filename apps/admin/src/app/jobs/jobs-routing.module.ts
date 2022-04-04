@@ -31,7 +31,7 @@ const routes: Routes = [
         },
     },
     {
-        path: 'add/:id',
+        path: 'update/:id',
         component: AddJobComponent,
         data: {
             title: 'Update Job',
