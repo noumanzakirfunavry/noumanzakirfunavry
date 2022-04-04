@@ -37,7 +37,7 @@ export class JobsService {
             where['title'] = query.title
         }
         const result = await this.jobRepo.findAndCountAll({
-            include: ['user'],
+            include: ['user','branch'],
             where: where, limit: query.limit, offset: offset
         })
         if (!result.count) {
