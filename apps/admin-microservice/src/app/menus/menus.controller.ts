@@ -8,7 +8,6 @@ import {
   UpdateMenuRequestDto,
   UpdateMenuResponseDto,
 } from '@cnbc-monorepo/dtos';
-import { Menus } from '@cnbc-monorepo/entity';
 import {
   Body,
   Controller,
@@ -52,12 +51,5 @@ export class MenusController {
     @Query() deleteMenuRequestDto: DeleteMenuRequestDto
   ): Promise<DeleteMenuResponseDto> {
     return this.menusService.deleteMenus(deleteMenuRequestDto.id);
-
-    // return body
   }
-
-  // @Delete('/:id')
-  // deleteMenu(@Param('id', ParseIntPipe) menuId: number, @Req() req){
-  // 	return this.menusService.deleteMenu(menuId, req.user.data.id)
-  // }
 }

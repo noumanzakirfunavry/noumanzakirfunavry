@@ -157,7 +157,8 @@ export * from './response/jobs/update.job.response.dto';
 export * from './response/live-stream-links/get.all.live.stream.links.response.dto';
 export * from './response/live-stream-links/get.live.stream.link.by.id.response.dto';
 //...............................Menus.............................
-export * from './response/menus/get.menu.response.dto';
+export * from './response/menus/get.menus.response.dto';
+export * from './response/menus/get.menu.by.id.response.dto';
 export * from './response/menus/create.menu.response.dto';
 export * from './response/menus/update.menu.response.dto';
 export * from './response/menus/delete.menu.response.dto';

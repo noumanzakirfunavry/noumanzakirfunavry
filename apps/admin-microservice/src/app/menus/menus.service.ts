@@ -2,16 +2,17 @@ import {
   CreateMenuRequestDto,
   CreateMenuResponseDto,
   DeleteMenuResponseDto,
+  GetMenuByIdResponseDto,
   GetMenuRequestDto,
-  GetMenuResponseDto,
+  GetMenusResponseDto,
   UpdateMenuRequestDto,
   UpdateMenuResponseDto,
 } from '@cnbc-monorepo/dtos';
 import { Menus } from '@cnbc-monorepo/entity';
-import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { FindOptions } from 'sequelize/types';
-import { Op } from 'sequelize';
 import { Helper } from '@cnbc-monorepo/utility';
+import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { Op } from 'sequelize';
+import { FindOptions } from 'sequelize/types';
 
 @Injectable()
 export class MenusService {
@@ -22,7 +23,7 @@ export class MenusService {
 
   async getMenus(
     getMenuRequestDto: GetMenuRequestDto
-  ): Promise<GetMenuResponseDto> {
+  ): Promise<GetMenusResponseDto> {
     const menus = await this.menusRepo.findAll<Menus>({
       where: {
         ...getMenuRequestDto,
@@ -38,7 +39,44 @@ export class MenusService {
       // raw: true,
     });
 
-    return new GetMenuResponseDto(HttpStatus.OK, 'Request Successful', menus);
+    return new GetMenusResponseDto(HttpStatus.OK, 'Request Successful', menus);
+  }
+
+  async getMenusForClient(): Promise<GetMenusResponseDto> {
+    const menus = await this.menusRepo.findAll<Menus>({
+      where: {
+        isActive: true,
+        parentMenuId: null,
+      },
+      include: [
+        {
+          model: Menus,
+          as: 'childMenus',
+          where: {
+            isActive: true,
+          },
+          required: false,
+        },
+      ],
+    });
+
+    return new GetMenusResponseDto(HttpStatus.OK, 'Request Successfull', menus);
+  }
+
+  async getMenuById(menuId: number) {
+    const menu = await this.menusRepo.findOne({ where: { id: menuId } });
+    if (!menu) {
+      return new GetMenuByIdResponseDto(
+        HttpStatus.NOT_FOUND,
+        'Menu was not found'
+      );
+    }
+
+    return new GetMenuByIdResponseDto(
+      HttpStatus.OK,
+      'Request successful',
+      menu
+    );
   }
 
   async createMenu(
@@ -126,7 +164,9 @@ export class MenusService {
     }
   }
 
-  async updateMenu(updateMenuRequestDto: UpdateMenuRequestDto): Promise<UpdateMenuResponseDto> {
+  async updateMenu(
+    updateMenuRequestDto: UpdateMenuRequestDto
+  ): Promise<UpdateMenuResponseDto> {
     let { id, orderNo, parentMenuId } = updateMenuRequestDto;
     let isOrderNoAvailable = true;
 
