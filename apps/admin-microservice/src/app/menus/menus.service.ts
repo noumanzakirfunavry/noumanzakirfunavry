@@ -3,6 +3,9 @@ import {
   CreateMenuResponseDto,
   DeleteMenuResponseDto,
   GetMenuRequestDto,
+  GetMenuResponseDto,
+  UpdateMenuRequestDto,
+  UpdateMenuResponseDto,
 } from '@cnbc-monorepo/dtos';
 import { Menus } from '@cnbc-monorepo/entity';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -17,8 +20,10 @@ export class MenusService {
     private helperService: Helper
   ) {}
 
-  getMenus(getMenuRequestDto: GetMenuRequestDto) {
-    return this.menusRepo.findAll<Menus>({
+  async getMenus(
+    getMenuRequestDto: GetMenuRequestDto
+  ): Promise<GetMenuResponseDto> {
+    const menus = await this.menusRepo.findAll<Menus>({
       where: {
         ...getMenuRequestDto,
         ...(getMenuRequestDto.title && {
@@ -29,9 +34,11 @@ export class MenusService {
           },
         }),
       },
-
       include: [{ model: Menus, as: 'childMenus' }],
+      // raw: true,
     });
+
+    return new GetMenuResponseDto(HttpStatus.OK, 'Request Successful', menus);
   }
 
   async createMenu(
@@ -119,20 +126,157 @@ export class MenusService {
     }
   }
 
-  async deleteMenus(id: number[]) {
+  async updateMenu(updateMenuRequestDto: UpdateMenuRequestDto): Promise<UpdateMenuResponseDto> {
+    let { id, orderNo, parentMenuId } = updateMenuRequestDto;
+    let isOrderNoAvailable = true;
+
+    const menu = await this.menusRepo.findOne({
+      where: { id },
+      include: [{ model: Menus, as: 'childMenus' }],
+    });
+
+    // check if menu was found or not
+    if (!menu) {
+      return new UpdateMenuResponseDto(
+        HttpStatus.NOT_FOUND,
+        'Menu was not found.'
+      );
+    }
+
+    // if update values are same as original then return error
+    if (parentMenuId === menu?.parentMenuId || orderNo === menu?.orderNo) {
+      return new UpdateMenuResponseDto(
+        HttpStatus.BAD_REQUEST,
+        'Provided orderNumber and/or parentMenuId is same as original. Kindly provide other values or leave empty if dont want to update'
+      );
+    }
+
+    // case: if parentMenuId is not provided (it means it will be main menu)
+    if (parentMenuId === undefined) {
+      if (orderNo) {
+        // if orderNo provided then check if available
+        isOrderNoAvailable = await this.isOrderNoAvailable({
+          where: { parentMenuId: null, orderNo },
+          plain: true,
+        });
+      }
+
+      if (isOrderNoAvailable) {
+        await this.menusRepo.update<Menus>(
+          {
+            ...updateMenuRequestDto,
+            orderNo,
+          },
+          { where: { id } }
+        );
+        return new UpdateMenuResponseDto(
+          HttpStatus.CREATED,
+          'Menu updated successfully'
+        );
+      } else {
+        return new UpdateMenuResponseDto(
+          HttpStatus.BAD_REQUEST,
+          'Order Number not available, Please choose another or leave empty for auto assignment'
+        );
+      }
+
+      // case: if orderNo not provided  but parentMenuId provided
+    } else if (orderNo === undefined) {
+      // find a suitable orderNo
+      orderNo = await this.findSuitableOrderNo({ where: { parentMenuId } });
+
+      await this.menusRepo.update<Menus>(
+        {
+          ...updateMenuRequestDto,
+          orderNo,
+          parentMenuId,
+        },
+        { where: { id } }
+      );
+      return new UpdateMenuResponseDto(
+        HttpStatus.CREATED,
+        'Menu created successfully'
+      );
+
+      // if both parentMenuId and orderNo provided
+    } else {
+      // check if orderNo available
+      const isOrderNoAvailable = await this.isOrderNoAvailable({
+        where: { parentMenuId, orderNo },
+        plain: true,
+      });
+
+      if (isOrderNoAvailable) {
+        await this.menusRepo.update<Menus>(
+          {
+            ...updateMenuRequestDto,
+            parentMenuId,
+            orderNo,
+          },
+          { where: { id } }
+        );
+        return new UpdateMenuResponseDto(
+          HttpStatus.CREATED,
+          'Menu updated successfully'
+        );
+      } else {
+        return new UpdateMenuResponseDto(
+          HttpStatus.BAD_REQUEST,
+          'Order Number not available, Please choose another or leave empty if you dont want to update.'
+        );
+      }
+    }
+  }
+
+  async deleteMenus(id: number[]): Promise<DeleteMenuResponseDto> {
+    const originalId = id;
+
+    // find the menus
+    const menus = await this.menusRepo.findAll({
+      where: { id },
+      include: [{ model: Menus, as: 'childMenus' }],
+    });
+
+    // check if any of the menus have childMenus, if yes, then dont allow delete
+    menus.forEach((menu) => {
+      if (menu.childMenus.length > 0) {
+        id = id.filter((item) => {
+          if (item != menu.id) {
+            return item;
+          }
+        });
+      }
+    });
+
+    // if menus having children have been found, return unsuccessful reponse with their ids
+    if (id.length !== originalId.length) {
+      id = id
+        .filter((x) => !originalId.includes(x))
+        .concat(originalId.filter((x) => !id.includes(x)));
+      return new DeleteMenuResponseDto(
+        HttpStatus.BAD_REQUEST,
+        `Menu(s) with ID: ${id.join(
+          ', '
+        )} contain child menus and cannot be deleted.`
+      );
+    }
+
     const deletedNumber = await this.menusRepo.destroy<Menus>({
       where: { id },
     });
 
-    if (!deletedNumber) {
+    // if not all menus were deleted then they are not found
+    if (deletedNumber !== id.length) {
       return new DeleteMenuResponseDto(
-        HttpStatus.NOT_FOUND,
-        'Menu(s) not found'
+        HttpStatus.OK,
+        `${deletedNumber} menus were deleted. ${
+          id.length - deletedNumber
+        } menu(s) were not found.`
       );
     }
     return new DeleteMenuResponseDto(
       HttpStatus.OK,
-      'Menu(s) deleted successfully'
+      `${deletedNumber} menu(s) deleted successfully.`
     );
   }
 

@@ -41,7 +41,7 @@ export class Menus extends Model{
     menu : Menus
 
     @HasMany(() => Menus,{as:'childMenus',foreignKey:'parentMenuId'})
-    menus : Menus[]
+    childMenus : Menus[]
 
     @Column({
         type : DataType.ENUM,
