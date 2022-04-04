@@ -4,7 +4,7 @@ import {
   DeleteMenuRequestDto,
   DeleteMenuResponseDto,
   GetMenuRequestDto,
-  GetMenuResponseDto,
+  GetMenusResponseDto,
   UpdateMenuRequestDto,
   UpdateMenuResponseDto,
 } from '@cnbc-monorepo/dtos';
@@ -27,7 +27,7 @@ export class MenusController {
   @Get('/getAll')
   getMenus(
     @Query() getMenuRequestDto: GetMenuRequestDto
-  ): Promise<GetMenuResponseDto> {
+  ): Promise<GetMenusResponseDto> {
     return this.menusService.getMenus(getMenuRequestDto);
   }
 
