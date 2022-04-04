@@ -1,6 +1,6 @@
 import { Menus } from '@cnbc-monorepo/entity';
 
-export class GetMenuResponseDto {
+export class GetMenusResponseDto {
   statusCode: number;
   message: string;
   response?: Menus[];
