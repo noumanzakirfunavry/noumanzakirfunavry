@@ -25,7 +25,7 @@ export class JobsService {
         if (query.pageNo) offset = query.limit * query.pageNo;
         let where = {}
         if (query.status) {
-            where['isActive'] = query.status
+            where['isActive'] = JSON.parse(query.status.toString())
         }
         if (query.branchId) {
             where['branchId'] = query.branchId
