@@ -16,7 +16,8 @@
         </nz-form-item >
         <nz-form-item>
           <nz-form-control [nzSpan]="14" >
-            <button nz-button class="tags-form-button mr-3" [nzType]="'primary'">Save</button>
+            <button *ngIf="!tagId" nz-button class="tags-form-button mr-3" [nzType]="'primary'">Save</button>
+            <button *ngIf="tagId" nz-button class="tags-form-button mr-3" [nzType]="'primary'">Update</button>
             <button nz-button nzType="default" (click)="cancel()">Cancel</button>
           </nz-form-control>
         </nz-form-item>

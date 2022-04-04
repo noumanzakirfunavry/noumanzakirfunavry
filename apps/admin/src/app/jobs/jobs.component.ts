@@ -1,20 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
-
-export class Data extends Pagination {
-    title?: string;
-    branchId?: Array<any>;
-
-    constructor() {
-        super()
-        this.title= '',
-        this.branchId= []
-    }
-}
 
 @Component({
        selector: 'app-jobs',
@@ -22,17 +12,16 @@ export class Data extends Pagination {
 })
 
 export class JobsComponent implements OnInit {
-    pagination: Data = new Data();
+    pagination: Pagination = new Pagination();
     allJobs: any;
     jobsCount: any;
     indeterminate = false;
     checked = false;
     loading = true;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData = [];
 
 
-    constructor(private apiService: ApiService, private message: NzMessageService ) {}
+    constructor(private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {}
 
     ngOnInit(): void {
         this.getAllJobs()
@@ -78,6 +67,18 @@ export class JobsComponent implements OnInit {
         this.getAllJobs();
     }
 
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers, branchId: data.branchId};
+        this.pagination.pageNo= 1;
+        this.getAllJobs();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers, branchId: data.branchId};
+        this.pagination.pageNo= 1;
+        this.getAllJobs();        
+    }
+
     updateCheckedSet(id: number, checked: boolean): void {
         if (checked) {
             this.setOfCheckedId.add(id);
@@ -91,9 +92,52 @@ export class JobsComponent implements OnInit {
         this.refreshCheckedStatus();
     }
 
+    onAllChecked(checked: boolean): void {
+        this.allJobs.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+        this.refreshCheckedStatus();
+    }
+
     refreshCheckedStatus(): void {
-        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        const listOfEnabledData = this.allJobs.filter(({ disabled }) => !disabled);
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
+
+    deleteSelected() {
+        const id=[];
+          console.log(this.setOfCheckedId.forEach(x=>{
+            id.push(x)
+          }));
+          this.apiService.sendRequest(requests.deleteJobs,'delete',{ids:id}).subscribe((res:any) => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllJobs();
+            this.message.create('success', `Job Deleted Successfully`)
+          })
+    }
+
+    showDeleteConfirm(id?: number): void {
+        this.modal.confirm({
+          nzTitle: 'Delete',
+          nzContent: '<b style="color: red;">Are you sure to delete this job?</b>',
+          nzOkText: 'Yes',
+        //   nzOkType: 'danger',
+          nzOnOk: () => {
+              if(id) {
+                  this.deleteJobs(id);
+              }
+              else {
+                  this.deleteSelected();
+              }
+            },
+          nzCancelText: 'No',
+          nzOnCancel: () => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllJobs();
+            }
+        });
+      }
 }    
