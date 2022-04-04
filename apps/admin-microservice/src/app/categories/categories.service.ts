@@ -99,7 +99,7 @@ export class CategoriesService {
             where['title'] = query.title
         }
         if (query.publishers) {
-            where['publishBy'] = query.publishers
+            where['publishedBy'] = query.publishers
         }
         if (query.includeNews) { //TODO
 
