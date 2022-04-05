@@ -31,7 +31,6 @@ export class SocialMediaLinksController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
-    @Rights(RightsTypes.CREATE)
     @Post()
     async createSocialMediaLink(@Req() req, @Body() body: CreateSocialMediaLinkRequestDto): Promise<GenericResponseDto> {
         return await this.socialMediaLinksService.createSocialMediaLink(body, req.user.data.id)
@@ -39,7 +38,6 @@ export class SocialMediaLinksController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
-    @Rights(RightsTypes.UPDATE)
     @Put(":id")
     async updateSocialMediaLink(@Param("id") postId: number,@Body() body: CreateSocialMediaLinkRequestDto): Promise<GenericResponseDto> {
         return await this.socialMediaLinksService.updateSocialMediaLink(body,postId)
