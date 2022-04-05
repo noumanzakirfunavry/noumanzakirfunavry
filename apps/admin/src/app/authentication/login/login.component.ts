@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit {
         if(this.loginForm.valid) {
             const obj= this.loginForm.value;
             obj['deviceId']= '995fb498-9621-11ec-b909-0242ac120002';
-            obj['deviceType']= 'DESKTOP'
+            obj['deviceType']= 'DESKTOP';
+            obj['userName']= this.loginForm.value.userName.toLowerCase();
             this.apiService.sendRequest(requests.login, 'post', obj).subscribe((res:any) => {
                 localStorage.setItem("admin", JSON.stringify(res.response))
                 console.log("LOGIN", res);

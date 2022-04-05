@@ -27,7 +27,7 @@ const Footer = () =>{
                     </div>
                     <div className={styles.clearfix}></div>
                 </div>
-                <div className='row'>
+                <div className='row w_90'>
 
                     <div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0'>
                         <ul className={styles.footerLink}>

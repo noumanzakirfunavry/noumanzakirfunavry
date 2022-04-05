@@ -25,7 +25,7 @@ export class JobsService {
         if (query.pageNo) offset = query.limit * query.pageNo;
         let where = {}
         if (query.status) {
-            where['isActive'] = query.status
+            where['isActive'] = JSON.parse(query.status.toString())
         }
         if (query.branchId) {
             where['branchId'] = query.branchId
@@ -37,7 +37,7 @@ export class JobsService {
             where['title'] = query.title
         }
         const result = await this.jobRepo.findAndCountAll({
-            include: ['user'],
+            include: ['user','branch'],
             where: where, limit: query.limit, offset: offset
         })
         if (!result.count) {

@@ -6,8 +6,8 @@ const ProgramDetails = () => {
         <>
             <div className="NewsTilesBg mb-5 programDetailNews">
         <div className="container">
-        <div className="row">
-                    <div className="col-lg-9">
+        <div className="PageBuilder-pageRow">
+                    <div className="PageBuilder-col-9">
                         <div className="VideoNews">
                             <div className="NewsImage"><img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" /></div>
                             <div className="PlayTime">
@@ -22,7 +22,7 @@ const ProgramDetails = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-3">
+                    <div className="PageBuilder-sidebar">
 
                         <div className="SimpleDarkNews d-none d-md-block">
                             <h5 className="mb-4">عن البرنامج</h5>

@@ -1,4 +1,4 @@
-import { CreateExclusiveVideosRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllExclusiveVideos, GetAllExclusiveVideosResponseDto, GetExclusiveVideoByIdResponseDto } from '@cnbc-monorepo/dtos';
+import { CreateExclusiveVideosRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllExclusiveVideos, GetAllExclusiveVideosResponseDto, GetExclusiveVideoByIdResponseDto, UpdateExclusiveVideosRequestDto } from '@cnbc-monorepo/dtos';
 import { ExclusiveVideos } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
@@ -76,6 +76,49 @@ export class ExclusiveVideosService {
             console.log("🚀 ~ file: exclusive-videos.service.ts ~ line 70 ~ ExclusiveVideosService ~ getAllExclusiveVideos ~ err", err)
             throw err
         }
+    }
+    async updateAndRemoveExclusiveVideo(body: UpdateExclusiveVideosRequestDto): Promise<GenericResponseDto> {
+        try {
+            return await sequelize.transaction(async t => {
+                const transactionHost = { transaction: t };
+                const remove_previous = await this.deleteAllExclusiveVideos(transactionHost)
+                if (remove_previous) {
+                    let record_created;
+                    for (let i = 0; i < body.exclusiveVideos.length; i++) {
+                        record_created = await this.createExclusiveVideo(body.exclusiveVideos[i])
+                        if (!record_created) {
+                            throw new CustomException(
+                                Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
+                                Exceptions[ExceptionType.UNABLE_TO_UPDATE].status
+                            )
+                        }
+                    }
+                    return await new GenericResponseDto(
+                        HttpStatus.OK,
+                        "Updated sucessfully"
+                    )
+                }
+                else {
+                    throw new CustomException(
+                        Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
+                        Exceptions[ExceptionType.UNABLE_TO_UPDATE].status
+                    )
+                }
+            })
+        }
+        catch (err) {
+            console.log("🚀 ~ file: exclusive-videos.service.ts ~ line 85 ~ ExclusiveVideosService ~ updateAndRemoveExclusiveVideo ~ err", err)
+            throw err
+        }
+    }
+
+    private async deleteAllExclusiveVideos(transactionHost) {
+        const response = await this.exclusiveVideoRepository.destroy({
+            where: {},
+            truncate: true,
+            transaction: transactionHost.transaction
+        });
+        return response === 0 ? true : response
     }
 
     async getExclusiveVideoById(id: number): Promise<GetExclusiveVideoByIdResponseDto> {

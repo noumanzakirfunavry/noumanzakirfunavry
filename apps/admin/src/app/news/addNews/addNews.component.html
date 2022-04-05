@@ -44,13 +44,14 @@
                             <nz-form-label>Upload Media</nz-form-label>
                              <nz-form-control>
                                 <nz-form-label>Video Or Image Upload</nz-form-label>
-                                 <input (change)="fileRead($event)" formControlName="file" type="file" accept="jpg jpeg png gif" />
+                                 <input #myInput (change)="fileRead($event)" formControlName="file" type="file" accept="jpg jpeg png gif" />
                                  <span>Maximum file size 2MB</span>
                              </nz-form-control>
                              <span *ngIf="uploadProgress" class="ml-4 mb-2">File Uploading Progress :{{uploadProgress}}%</span>
                             <img *ngIf="newsModal?.fileUrl" width="40%"  height="40%" [src]="newsModal?.fileUrl">
                         </nz-form-item>
-                        <button *ngIf="file" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
+                        <button class="mr-2" *ngIf="file" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
+                        <button *ngIf="file" (click)="[getCaptcha($event),reset()]">Reset</button>
                     </div>
                     <!-- <div class="col-sm-12 col-md-6">
                         <nz-form-item>                          
@@ -190,8 +191,9 @@
                         <form [formGroup]="quotesForm" nz-form [nzLayout]="'horizontal'">
                             <div class="d-flex w-100">
                                 <nz-form-item>
-                                    <input type="text" formControlName="name" placeholder="Enter Quote" dir="rtl"
-                                        nz-input>
+                                    <nz-form-control nzErrorTip="Please input valid Quote without spaces!">
+                                    <input type="text" formControlName="name" placeholder="Enter Quote" dir="rtl" nz-input>
+                                    </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
                                     <button  (click)="[getCaptcha($event),addNewQuote()]" class="mr-3" nz-button nzType="default">Create</button>
