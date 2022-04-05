@@ -11,21 +11,18 @@ export class AdminController {
     ){}
 
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get("getAll")
     async getAllAdmin(@Query() query : GetAllAdminsRequestDto) : Promise<GetAllAdminsResponseDto>{
         return await this.adminService.getAllAdmin(query)
     }
     
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get(":id")
     async getUserById(@Param("id") id : number) : Promise<GetAdminByIdResponseDto>{
         return await this.adminService.getUserById(id)
     }
 
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Delete()
     async deleteAdmins(@Query() query : DeletePresentersRequestDto) : Promise<GenericResponseDto>{
         return await this.adminService.deleteAdmins(query)

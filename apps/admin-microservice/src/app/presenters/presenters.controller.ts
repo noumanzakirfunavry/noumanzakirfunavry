@@ -12,28 +12,24 @@ export class PresentersController {
     ) { }
 
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get("getAll")
     async getAllPresenters(@Query() query: GetAllPresentersRequestDto): Promise<GetAllPresentersResponseDto> {
         return await this.presentersService.getAllPresenters(query)
     }
 
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.CREATE)
     @Post()
     async addPresenter(@Req() req, @Body() body: CreatePresentersRequestDto): Promise<GenericResponseDto> {
         return await this.presentersService.addPresenter(body, req)
     }
 
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.UPDATE)
     @Put(":id")
     async updatePresenter(@Param("id") id: number, @Body() body: CreatePresentersRequestDto): Promise<GenericResponseDto> {
         return await this.presentersService.updatePresenter(body, id)
     }
 
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get(":id")
     async getPresenterById(@Param("id") id: number): Promise<GetPresentersByIdResponseDto> {
         return await this.presentersService.getPresenterById(id)
