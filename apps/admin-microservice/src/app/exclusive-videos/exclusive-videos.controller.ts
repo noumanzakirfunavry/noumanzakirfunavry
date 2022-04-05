@@ -20,10 +20,11 @@ export class ExclusiveVideosController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.UPDATE)
-    @Put("update")
-    async updateAndRemoveExclusiveVideo(@Body() body : UpdateExclusiveVideosRequestDto) : Promise<GenericResponseDto>{
-        return await this.exclusiveVideosService.updateAndRemoveExclusiveVideo(body);
+
+    @Put(":id")
+    async updateExclusiveVideo(@Param("id") id : number,@Body() body : CreateExclusiveVideosRequestDto) : Promise<GenericResponseDto>{
+        return await this.exclusiveVideosService.updateExclusiveVideo(body,id);
+     rightsSeederFile:apps/admin-microservice/src/app/exclusive-videos/exclusive-videos.controller.ts
     }
 
     @UseGuards(JwtAuthGuard)
