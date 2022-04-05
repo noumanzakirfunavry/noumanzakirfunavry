@@ -18,7 +18,7 @@ export class Menus extends Model{
     title : string
     
     @Column
-    orders : number
+    orderNo : number
 
     @Column
     url : string
@@ -34,13 +34,14 @@ export class Menus extends Model{
     isActive : boolean
 
     @ForeignKey(() => Menus)
-    @Column
+    @Column({allowNull: true})
     parentMenuId : number
+
     @BelongsTo(() => Menus)
     menu : Menus
 
-    @HasMany(() => Menus,'parentMenuId')
-    menus : Menus[]
+    @HasMany(() => Menus,{as:'childMenus',foreignKey:'parentMenuId'})
+    childMenus : Menus[]
 
     @Column({
         type : DataType.ENUM,
@@ -57,7 +58,4 @@ export class Menus extends Model{
     publishedBy : number
     @BelongsTo(() => Users)
     user : Users
-
-
-
 }

@@ -14,7 +14,7 @@
                     </button>
                     <span class="ml-2">Selected {{ setOfCheckedId.size }} items</span>
                   </div>
-                <nz-table [nzLoading]="loading" [nzData]="allCategories" class="no-border-last">
+                <nz-table [nzLoading]="loading" [nzData]="allCategories" [nzShowPagination]="false" class="no-border-last">
                     <thead>
                         <tr>
                             <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
@@ -38,7 +38,7 @@
                                 </td>
                                 <td>{{cat?.createdAt | date:'dd-MM-YYYY'}}</td>
                                 <td>{{cat?.updatedAt | date:'dd-MM-YYYY'}}</td>
-                                <td>{{cat?.publishedBy}}</td>
+                                <td>{{cat?.user?.name}}</td>
                                 <td>
                                     <nz-badge *ngIf="cat?.isActive === true" nzStatus="success"></nz-badge>
                                     <nz-badge *ngIf="cat?.isActive === false" nzStatus="error"></nz-badge>
@@ -59,7 +59,7 @@
                                         <td>{{subCat?.title}}</td>
                                         <td>{{subCat?.createdAt | date:'dd-MM-YYYY'}}</td>
                                         <td>{{subCat?.updatedAt | date:'dd-MM-YYYY'}}</td>
-                                        <td>{{subCat?.publishedBy}}</td>
+                                        <td>{{subCat?.user?.name}}</td>
                                         <td>
                                             <nz-badge *ngIf="subCat?.isActive === true" nzStatus="success"></nz-badge>
                                             <nz-badge *ngIf="subCat?.isActive === false" nzStatus="error"></nz-badge>

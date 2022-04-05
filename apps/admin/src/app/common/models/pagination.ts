@@ -8,9 +8,12 @@ export class Pagination {
     name?: string;
     newsType?: string;
     publishers?: Array<any>;
+    branchId?: Array<any>;
     publishedBy?: number;
     categoryId?: number;
     date?: any;
+    includeNews?: any; 
+    newsLImit?: any;
 
     constructor() {
         this.limit= 10;

@@ -45,6 +45,7 @@ export * from './request/episodes/get.all.episodes.request.dto';
 //...............................Exclusive videos.............................
 export * from './request/exclusive-videos/create.exclusive.videos.request.dto';
 export * from './request/exclusive-videos/get.all.exclusive.videos.request.dto';
+export * from './request/exclusive-videos/update.exclusive.videos.request.dto';
 //...............................Featured news.............................
 export * from './request/featured-news/update.featured.news.request.dto';
 export * from './request/generic-get-by-id/get.by.id.request.dto';
@@ -62,6 +63,12 @@ export * from './request/live-stream-links/get.all.live.stream.links.request.dto
 export * from './request/logger/add.log.request.dto';
 //...............................Job applicants.............................
 export * from './request/job-applicants/get.all.job.applicants.request.dto'
+export * from './request/job-applicants/create.job.applicant.request.dto'
+//...............................Menus.............................
+export * from './request/menus/create.menu.request.dto'
+export * from './request/menus/delete.menu.request.dto'
+export * from './request/menus/update.menu.request.dto'
+export * from './request/menus/get.menu.request.dto'
 //...............................Messages.............................
 export * from './request/message/create.message.request.dto';
 export * from './request/message/get.all.message.request.dto';
@@ -148,9 +155,18 @@ export * from './response/jobs/add.jobs.response.dto';
 export * from './response/jobs/get.all.jobs.response.dto';
 export * from './response/jobs/get.job.by.Id.response.dto';
 export * from './response/jobs/update.job.response.dto';
+//.................................job applications..................................
+export * from './response/job-applicants/create.job.applicant.response.dto';
+export * from './response/job-applicants/delete.job.applicant.response.dto';
 //...............................Live Stream Links.............................
 export * from './response/live-stream-links/get.all.live.stream.links.response.dto';
 export * from './response/live-stream-links/get.live.stream.link.by.id.response.dto';
+//...............................Menus.............................
+export * from './response/menus/get.menus.response.dto';
+export * from './response/menus/get.menu.by.id.response.dto';
+export * from './response/menus/create.menu.response.dto';
+export * from './response/menus/update.menu.response.dto';
+export * from './response/menus/delete.menu.response.dto';
 //...............................Messages.............................
 export * from './response/message/get.all.messages.response.dto';
 export * from './response/message/get.message.by.id.response.dto';

@@ -3,14 +3,22 @@
         <button nz-button [nzType]="'primary'" [routerLink]="['/jobs/add']">Add Job</button>
     </div>
     <div class="col-md-10">
-        <job-filter></job-filter>
+        <job-filter (statusEmitter)="receiveStatus($event)" (filterEmitter)="receiveFilter($event)"></job-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
+                <div class="send-request" *ngIf="setOfCheckedId.size">
+                    <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="showDeleteConfirm()">
+                      Delete Selected
+                    </button>
+                    <span class="ml-2">Selected {{ setOfCheckedId.size }} items</span>
+                  </div>
                 <nz-table [nzShowPagination]="false" [nzLoading]="loading" [nzData]="allJobs" class="no-border-last">
                     <thead>
                         <tr>
+                            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                            (nzCheckedChange)="onAllChecked($event)"></th>
                             <th>ID</th>
                             <th>Title</th>
                             <th>Branch</th>
@@ -24,7 +32,8 @@
                     <tbody>
                         <tr *ngFor="let job of allJobs">
                             <td [nzChecked]="setOfCheckedId.has(job?.id)" [nzDisabled]="job.disabled"
-                                (nzCheckedChange)="onItemChecked(job?.id, $event)">{{job?.id}}</td>
+                            (nzCheckedChange)="onItemChecked(job?.id, $event)"></td>
+                            <td>{{job?.id}}</td>
                             <td>{{job?.title}}</td>
                             <td>{{job?.branchId}}</td>
                             <td>{{job?.createdAt | date: 'dd-MM-YYYY'}}</td>
@@ -37,8 +46,8 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/jobs/add/' + job?.id]"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteJobs(job?.id)"></i>
+                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/jobs/update/' + job?.id]"></i>
+                                    <i style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(job?.id)"></i>
                                 </div>
                             </td>
                         </tr>
