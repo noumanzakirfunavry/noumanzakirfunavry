@@ -1,5 +1,5 @@
 import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto } from '@cnbc-monorepo/dtos';
-import { Users } from '@cnbc-monorepo/entity';
+import { Roles, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -61,6 +61,11 @@ export class AdminService {
     private async getAllAdminsQuery(query: GetAllAdminsRequestDto) {
         return await this.usersRepository.findAndCountAll(
             {
+                include : [
+                    {
+                        model : Roles
+                    }
+                ],
                 where: {
                     ...(query.search && {
                         name: {

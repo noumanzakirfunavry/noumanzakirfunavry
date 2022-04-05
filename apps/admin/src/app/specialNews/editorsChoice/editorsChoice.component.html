@@ -1,140 +1,36 @@
-
 <section>
-    <br>
-    <br>
-    <div class="col-12">
-      <form nz-form [nzLayout]="'vertical'">
-        <div class="row">
-          <div class="col-12">
-          <nz-table class="no-border-last">
-            <thead>
-                <tr>
-                    <th class="text-left" colspan="4">Reorder</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>#</td>
-                    <td>1</td>
-                    <td class="col-4">
-                      <nz-form-item>
-                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
-          
-                          <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
-                          <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
-                        </nz-select>
-                      </nz-form-item>
-                    </td>
-                    <td>
-                      <nz-form-item>
-                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-          
-                          <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
-                          <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
-                        </nz-select>
-                      </nz-form-item>
-                    </td>
-                </tr>
-                <tr>
-                  <td>#</td>
-                  <td>2</td>
-                  <td class="col-4">
-                    <nz-form-item>
-                      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
-        
-                        <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
-                        <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
-                      </nz-select>
-                    </nz-form-item>
-                  </td>
-                  <td>
-                    <nz-form-item>
-                      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-        
-                        <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
-                        <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
-                      </nz-select>
-                    </nz-form-item>
-                  </td>
-              </tr>
+  <br>
+  <br>
+  <div class="col-12">
+    <!-- <form [formGroup]="editorsChoiceForm" nz-form [nzLayout]="'vertical'" (ngSubmit)="updateEditorsChoiceNews()"> -->
+      <div class="row">
+        <div class="col-12">
+        <nz-table [nzData]="allEditorsChoice" [nzShowPagination]="false" class="no-border-last">
+          <thead>
               <tr>
-                <td>#</td>
-                <td>3</td>
-                <td class="col-4">
-                  <nz-form-item>
-                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
-      
-                      <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
-                      <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
-                    </nz-select>
-                  </nz-form-item>
-                </td>
-                <td>
-                  <nz-form-item>
-                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-      
-                      <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
-                      <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
-                    </nz-select>
-                  </nz-form-item>
-                </td>
-            </tr>
-            <tr>
-              <td>#</td>
-              <td>4</td>
-              <td class="col-4">
-                <nz-form-item>
-                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
-    
-                    <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
-                    <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
-                  </nz-select>
-                </nz-form-item>
-              </td>
-              <td>
-                <nz-form-item>
-                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-    
-                    <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
-                    <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
-                  </nz-select>
-                </nz-form-item>
-              </td>
-          </tr>
-          <tr>
-            <td>#</td>
-            <td>5</td>
-            <td class="col-4">
-              <nz-form-item>
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Category">
-  
-                  <nz-option nzValue="Category 1" [nzLabel]="'Category 1'"></nz-option>
-                  <nz-option nzValue="Category 2" [nzLabel]="'Category 2'"></nz-option>
-                </nz-select>
-              </nz-form-item>
-            </td>
-            <td>
-              <nz-form-item>
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select News">
-  
-                  <nz-option nzValue="News 1" [nzLabel]="'News 1'"></nz-option>
-                  <nz-option nzValue="News 2" [nzLabel]="'News 2'"></nz-option>
-                </nz-select>
-              </nz-form-item>
-            </td>
-        </tr>
-            </tbody>
-        </nz-table>
-          </div>
-          <div class="col-md-12 mt-3">
-            <nz-form-item>
-              <nz-form-control>
-                <button class="mr-3" nz-button nzType="primary">Save</button>
-                <button nz-button nzType="default">Cancel</button>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+                  <th class="text-left" colspan="4"></th>
+              </tr>
+          </thead>
+          <tbody *ngIf="allCategories && allCategories.length > 0">
+              <tr *ngFor="let news of editorsChoice">
+                  <td>#</td>
+                  <td>{{news?.position}}</td>
+                  <ng-container>
+                    <news-table-row [allCategories]="allCategories" [news]="news"></news-table-row>
+                  </ng-container>
+              </tr>
+          </tbody>
+      </nz-table>
         </div>
-      </form>
-    </div>
-  </section>
+        <div class="col-md-12 mt-3">
+          <nz-form-item>
+            <nz-form-control>
+              <button class="mr-3" nz-button nzType="primary" (click)="updateEditorsChoiceNews()">Save</button>
+              <!-- <button nz-button nzType="default">Cancel</button> -->
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    <!-- </form> -->
+  </div>
+</section>

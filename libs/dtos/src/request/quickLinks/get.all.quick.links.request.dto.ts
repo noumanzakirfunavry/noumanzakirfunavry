@@ -1,9 +1,13 @@
-import { IsOptional, IsString } from "class-validator";
+import { IsBooleanString, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { PaginatedRequestDto } from "../pagination.request.dto";
 
 export class GetAllQuickLinksRequestDto extends PaginatedRequestDto{
 
     @IsOptional()
-    @IsString()
-    name:string
+    search:string
+
+    @IsNotEmpty()
+    @IsBooleanString()
+    @IsOptional()
+    isActive : boolean
 }
