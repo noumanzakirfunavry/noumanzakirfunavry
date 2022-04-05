@@ -45,7 +45,7 @@ export function Index() {
         console.warn(err)
     })
   }, [limit])
-  
+
 
   return (
     <>
@@ -59,11 +59,11 @@ export function Index() {
 
         <QuickLinks />
 
-        <div className='row'>
-          <div className='col-lg-9 '>
+        <div className='PageBuilder-pageRow'>
+          <div className=' PageBuilder-col-9'>
             <NewsSection />
           </div>
-          <div className='col-lg-3'>
+          <div className='PageBuilder-sidebar'>
             <SideBar sideBarSequence={[{ componentType: 'dotList', position: 1, title:'آخر الأخبار' }, { componentType: 'SmallBanner', position: 2 }]} />
           </div>
         </div>
@@ -89,64 +89,62 @@ export function Index() {
             <HorizontalNumberedList />
         </div>
 
-      <div className='row flex-wrap-reverse'>
-        <div className='col-lg-9'>
+      <div className='PageBuilder-pageRow flex-wrap-reverse'>
+        <div className='PageBuilder-col-9'>
 
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
 
         </div>
-        <div className='col-lg-3'>
+        <div className='PageBuilder-sidebar'>
         <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
 
-        </div>
       </div>
-      <div className='row'>
-        <div className='col-lg-9'>
+      <div className='PageBuilder-pageRow'>
+        <div className='PageBuilder-col-9'>
 
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
 
         </div>
-        <div className='col-lg-3'>
+        <div className='PageBuilder-sidebar'>
         </div>
       </div>
-      <div className='row'>
-        <div className='col-lg-9'>
+      <div className='PageBuilder-pageRow'>
+        <div className='PageBuilder-col-9'>
 
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
 
         </div>
-        <div className='col-lg-3 large_add'>
+        <div className='PageBuilder-sidebar large_add'>
           <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
         </div>
       </div>
-      <div className='row'>
-        <div className='col-lg-9'>
+      <div className='PageBuilder-pageRow'>
+        <div className='PageBuilder-col-9'>
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
         </div>
-        <div className='col-lg-3'>
+        <div className='PageBuilder-sidebar'>
 
         </div>
       </div>
-      <div className='row'>
-        <div className='col-lg-9'>
+      <div className='PageBuilder-pageRow'>
+        <div className='PageBuilder-col-9'>
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
         </div>
-        <div className='col-lg-3'>
+        <div className='PageBuilder-sidebar'>
 
         </div>
-      </div> 
+      </div>
       {
         !categories?.length && <Skeleton/>
       }
       {
         categories?.length && categories?.map((category:CategoryProps, index:number)=>{
           return (
-            <div className='row' key={category.id}>
-              <div className='col-lg-9'>
+            <div className='PageBuilder-pageRow' key={category.id}>
+              <div className='PageBuilder-col-9'>
                 <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
               </div>
-             <Link href="/">HOME</Link>
-              <div className='col-lg-3'>
+              <div className='PageBuilder-sidebar'>
                     {
                       index === 0 && (
                         <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
@@ -170,7 +168,7 @@ export function Index() {
 
       </div>
 
-
+</div>
     </>
   );
 }

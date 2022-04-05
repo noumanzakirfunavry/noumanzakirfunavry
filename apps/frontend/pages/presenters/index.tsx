@@ -64,11 +64,11 @@ const Index = () =>{
                     <Skeleton/>
                 )}
                 {!data.loading && (
-                    <div className='row'>
-                        <div className='col-lg-9'>
+                    <div className='PageBuilder-pageRow'>
+                        <div className='PageBuilder-col-9'>
                             <Presenters/>
                         </div>
-                        <div className='col-lg-3'>
+                        <div className='PageBuilder-sidebar mt-0'>
                 <div className="pt_0">
                 <SideBar sideBarSequence={[ {componentType:'LargeBanner', position:1}]}/></div>
                 </div>
