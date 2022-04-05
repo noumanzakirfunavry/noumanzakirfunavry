@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommentListData } from './mockComments';
 import { environment } from '../../../environments/environment';
 // import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
-import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
+// import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
 @Component({
     selector: 'app-addNews',
