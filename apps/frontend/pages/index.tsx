@@ -16,6 +16,7 @@ import GetData from '../services/GetData';
 import { useEffect, useState } from 'react';
 import { requests } from '../services/Requests';
 import Skeleton from 'react-loading-skeleton';
+import Link from 'next/link';
 
 export function Index() {
   /*
@@ -95,8 +96,8 @@ export function Index() {
 
         </div>
         <div className='PageBuilder-sidebar'>
+        <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
 
-        </div>
       </div>
       <div className='PageBuilder-pageRow'>
         <div className='PageBuilder-col-9'>
@@ -167,7 +168,7 @@ export function Index() {
 
       </div>
 
-
+</div>
     </>
   );
 }

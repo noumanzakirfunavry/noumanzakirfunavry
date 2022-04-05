@@ -34,7 +34,7 @@
                             <td>{{tag?.title}}</td>
                             <td>{{tag?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{tag?.updatedAt | date:'dd-MM-YYYY'}}</td>
-                            <td>{{tag?.publishedBy}}</td>
+                            <td>{{tag?.user?.name}}</td>
                             <td>
                                 <nz-badge *ngIf="tag?.isActive === true" nzStatus="success"></nz-badge>
                                 <nz-badge *ngIf="tag?.isActive === false" nzStatus="error"></nz-badge>
@@ -43,7 +43,7 @@
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/tags/update/' + tag?.id]"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(tag?.id)"></i>
+                                    <i style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(tag?.id)"></i>
                                 </div>
                             </td>
                         </tr>
