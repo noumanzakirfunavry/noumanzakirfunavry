@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
     selector: 'app-addCategory',
@@ -30,7 +30,8 @@ export class AddCategoryComponent implements OnInit {
     constructor(private fb: FormBuilder, 
         private apiService: ApiService, 
         private message: NzMessageService, 
-        private activatedRoute: ActivatedRoute) {}
+        private activatedRoute: ActivatedRoute, 
+        private route: Router) {}
 
     ngOnInit(): void {
         this.getAllCategories();
@@ -60,6 +61,7 @@ export class AddCategoryComponent implements OnInit {
             this.apiService.sendRequest(this.categoryId ? requests.updateCategory + this.categoryId : requests.addCategory, this.categoryId ? 'put' : 'post', obj).subscribe((res:any) => {
                 console.log("CATEGORIES", res);
                 this.categoryForm.reset();
+                this.route.navigateByUrl('category/list');
                 if(this.categoryId) {
                     this.message.create('success', `Category Updated Successfully`)
                 }
@@ -90,4 +92,8 @@ export class AddCategoryComponent implements OnInit {
             console.log("ALL-CATEGORIES", this.allCategories);
         })
     }
+
+    cancel() {
+        this.route.navigateByUrl('category/list');
+      }
 }    

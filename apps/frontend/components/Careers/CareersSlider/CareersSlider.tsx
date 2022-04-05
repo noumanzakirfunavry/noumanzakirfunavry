@@ -5,7 +5,7 @@ import { JobProps } from "apps/frontend/types/Types";
 import { FC, useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import dateFormat from "dateformat";
-import { useRouter } from "next/router";
+import  {useRouter} from "next/router";
 import Link from "next/link";
 
 
@@ -73,6 +73,14 @@ const CareersSlider = () =>{
               }
             ]
           });
+    useEffect(()=>{
+        GetData(`${requests.jobs}/getAll?limit=100&pageNo=1`, {}, 'get', false).then(res=>{
+            setJobs(res.data?.response?.jobs)
+          }).catch(err=>{
+            console.warn(err)
+          })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     return (
         <>
@@ -100,7 +108,7 @@ const CareersSlider = () =>{
                     <Slider ref={ref} {...settings}>
 
                             {
-                                jobs.length && jobs.map((job:JobProps)=>{
+                                jobs?.length && jobs?.map((job:JobProps)=>{
                                     return (
                                         <div className="slider-item" key={job.id}>
                                             <div className="NewsBox">

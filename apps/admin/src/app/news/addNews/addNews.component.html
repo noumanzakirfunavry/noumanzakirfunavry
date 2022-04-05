@@ -2,7 +2,7 @@
     <br>
     <br>
     <div class="col-12">
-        <form nz-form [formGroup]="newsForm"  [nzLayout]="'vertical'" (ngSubmit)="saveNews()">
+        <form nz-form [formGroup]="newsForm" [nzLayout]="'vertical'" (ngSubmit)="saveNews()">
             <div class="row">
                 <div class="col-8">
                     <div class="row">
@@ -10,7 +10,7 @@
                             <nz-form-item>
                                 <nz-form-label>Date</nz-form-label>
                                 <nz-form-control>
-                                    <nz-date-picker  class="w-100" nzShowTime nzDisabled="true"></nz-date-picker>
+                                    <nz-date-picker class="w-100" nzShowTime nzDisabled="true"></nz-date-picker>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
@@ -18,8 +18,9 @@
                             <nz-form-item>
                                 <nz-form-label>Title</nz-form-label>
                                 <nz-form-control nzErrorTip="Please input Title!">
-                                <input type="text" formControlName="title" placeholder="Enter Title" dir="rtl" nz-input>
-                            </nz-form-control>
+                                    <input type="text" formControlName="title" placeholder="Enter Title" dir="rtl"
+                                        nz-input>
+                                </nz-form-control>
                             </nz-form-item>
                         </div>
                     </div>
@@ -27,19 +28,43 @@
                         <nz-form-item>
                             <nz-form-label>Description</nz-form-label>
                             <nz-form-control>
-                                <ckeditor formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
+                                <ckeditor [config]="config" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>">
+                                </ckeditor>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
-                    <div class="col-md-12">
-                         <nz-form-item>
-                             <nz-form-label>Upload File</nz-form-label>
+                    <div class="col-sm-12 col-md-6">
+                        <nz-form-item>
+                            <!-- <dynamic-file-selector></dynamic-file-selector> -->
+                            <!-- <shared-file-uploader [title]="'Select Image/Video'" [btnLable]="'Upload'" [fileTypes]="'image/png, image/jpeg, image/jpg,video/mp4'"></shared-file-uploader> -->
+                            <!-- <app-file-uploader [fileLimit]="1" [fileTypes]="'image/png, image/jpeg, image/jpg,video/mp4'"
+                                (onFileSelection)="fileSelection($event)"></app-file-uploader> -->
+
+                            <!-- <shared-file-uploader></shared-file-uploader> -->
+                            <nz-form-label>Upload Media</nz-form-label>
                              <nz-form-control>
+                                <nz-form-label>Video Or Image Upload</nz-form-label>
                                  <input (change)="fileRead($event)" formControlName="file" type="file" accept="jpg jpeg png gif" />
+                                 <span>Maximum file size 2MB</span>
                              </nz-form-control>
-                         </nz-form-item>
-                         <button (click)="uploadFile()">Upload</button>
-                     </div>
+                             <span *ngIf="uploadProgress" class="ml-4 mb-2">File Uploading Progress :{{uploadProgress}}%</span>
+                            <img *ngIf="newsModal?.fileUrl" width="40%"  height="40%" [src]="newsModal?.fileUrl">
+                        </nz-form-item>
+                        <button *ngIf="file" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
+                    </div>
+                    <!-- <div class="col-sm-12 col-md-6">
+                        <nz-form-item>                          
+                            <nz-form-label>Thumbnail Image</nz-form-label>
+                             <nz-form-control>
+                                <nz-form-label>Thumbnail Image Upload</nz-form-label>
+                                 <input (change)="fileRead($event)" formControlName="file" type="file" accept="jpg jpeg png gif" />
+                                 <span>Maximum file size 2MB</span>
+                             </nz-form-control>
+                             <span *ngIf="uploadProgress" class="ml-4 mb-2">File Uploading Progress :{{uploadProgress}}%</span>
+                            <img *ngIf="newsModal?.fileUrl" width="40%"  height="40%" [src]="newsModal?.fileUrl">
+                        </nz-form-item>
+                        <button *ngIf="file" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
+                    </div> -->
                     <!-- <div class="col-md-12">
                     
                     <nz-card>
@@ -121,9 +146,9 @@
                         <nz-form-item>
                             <nz-form-label>Catogory</nz-form-label>
                             <nz-form-control>
-                                <nz-tree-select *ngIf="strucCategories" formControlName="categoryIds" style="width: 250px" [nzNodes]="strucCategories"
-                                    (ngModelChange)="onChange($event)" nzShowSearch nzCheckable
-                                    nzPlaceHolder="Please select">
+                                <nz-tree-select *ngIf="strucCategories" formControlName="categoryIds"
+                                    style="width: 250px" [nzNodes]="strucCategories" (ngModelChange)="onChange($event)"
+                                    nzShowSearch nzCheckable nzPlaceHolder="Please select">
                                 </nz-tree-select>
                             </nz-form-control>
                         </nz-form-item>
@@ -133,79 +158,87 @@
                         <nz-form-item>
                             <nz-form-label>Tags</nz-form-label>
                             <nz-form-control>
-                                <nz-select [nzSize]="size" formControlName="tagsIds"  nzMode="multiple" nzPlaceHolder="Please select">
+                                <nz-select (keyup)="getTags($event.target.value)" [nzSize]="size" formControlName="tagsIds" nzMode="multiple"
+                                    nzPlaceHolder="Please select">
                                     <nz-option *ngFor="let option of allTags" [nzLabel]="option.title"
                                         [nzValue]="option.id"></nz-option>
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
-                        <div class="d-flex w-100" [formGroup]="tagForm" (ngSubmit)="addNewTag()">
+                        <div class="d-flex w-100" [formGroup]="tagForm" (ngSubmit)="[]">
                             <nz-form-item>
                                 <input type="text" formControlName="title" placeholder="Enter Tag" dir="rtl" nz-input>
                             </nz-form-item>
                             <nz-form-item>
-                                <button class="mr-3" nz-button nzType="default">Create</button>
+                                <button class="mr-3" (click)="[getCaptcha($event),addNewTag()]" nz-button nzType="default">Create</button>
                             </nz-form-item>
                         </div>
                     </div>
                     <!-- quotes -->
                     <div>
-                        
+
                         <nz-form-item>
                             <nz-form-label>Related Quotes</nz-form-label>
                             <nz-form-control>
-                                <nz-select (keyup)="getAllQuotes($event.target.value)" formControlName="quotesIds" [nzSize]="size" nzMode="multiple" nzPlaceHolder="Please select">
+                                <nz-select (keyup)="getAllQuotes($event.target.value)" formControlName="quotesIds"
+                                    [nzSize]="size" nzMode="multiple" nzPlaceHolder="Please select">
                                     <nz-option *ngFor="let option of allQuotes" [nzLabel]="option.name"
                                         [nzValue]="option.id"></nz-option>
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
-                        <form [formGroup]="quotesForm" nz-form [nzLayout]="'horizontal'" (ngSubmit)="addNewQuote()">
-                        <div class="d-flex w-100">
-                            <nz-form-item>
-                                <input  type="text" formControlName="name" placeholder="Enter Quote" dir="rtl" nz-input>
-                            </nz-form-item>
-                            <nz-form-item>
-                                <button class="mr-3" nz-button nzType="default">Create</button>
-                            </nz-form-item>
-                        </div>
-                    </form>
+                        <form [formGroup]="quotesForm" nz-form [nzLayout]="'horizontal'">
+                            <div class="d-flex w-100">
+                                <nz-form-item>
+                                    <input type="text" formControlName="name" placeholder="Enter Quote" dir="rtl"
+                                        nz-input>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <button  (click)="[getCaptcha($event),addNewQuote()]" class="mr-3" nz-button nzType="default">Create</button>
+                                </nz-form-item>
+                            </div>
+                        </form>
                     </div>
                     <div class="mb-4">
-                      
+
                         <h4 class="mb-2">SEO Settings</h4>
                         <nz-form-item>
                             <nz-form-label>Slug Line</nz-form-label>
                             <nz-form-control>
-                                <input type="text" formControlName="slugLine" placeholder="Enter Slug Line" dir="rtl" nz-input>
+                                <input type="text" formControlName="slugLine" placeholder="Enter Slug Line" dir="rtl"
+                                    nz-input>
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item>
                             <nz-form-label>Title</nz-form-label>
                             <nz-form-control>
-                                <input type="text" formControlName="seoTitle" placeholder="Enter Title" dir="rtl" nz-input>
+                                <input type="text" formControlName="seoTitle" placeholder="Enter Title" dir="rtl"
+                                    nz-input>
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item>
                             <nz-form-label>Description</nz-form-label>
                             <nz-form-control>
-                                <textarea rows="4" formControlName="description" type="text" placeholder="Enter Description" dir="rtl" nz-input></textarea>
+                                <textarea rows="4" formControlName="description" type="text"
+                                    placeholder="Enter Description" dir="rtl" nz-input></textarea>
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item>
                             <nz-form-label>Keyords</nz-form-label>
                             <nz-form-control nzExtra="Enter keywords seperated by a comma (,) .">
-                                <input formControlName="keywords" type="text" placeholder="Enter Keywords" dir="rtl" nz-input>
+                                <input formControlName="keywords" type="text" placeholder="Enter Keywords" dir="rtl"
+                                    nz-input>
                             </nz-form-control>
                         </nz-form-item>
-                      
+
                     </div>
                 </div>
             </div>
             <nz-form-item>
                 <nz-form-control [nzSpan]="14">
-                    <button class="mr-3" nz-button nzType="primary">Save</button>
-                    <button nz-button nzType="default">Cancel</button>
+                    <button *ngIf="!newsId" class="mr-3" nz-button nzType="primary">Save</button>
+                    <button *ngIf="newsId" class="mr-3" nz-button nzType="primary">Update</button>
+                    <button (click)="[getCaptcha($event),cancel()]" nz-button nzType="default">Cancel</button>
                 </nz-form-control>
             </nz-form-item>
         </form>

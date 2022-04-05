@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Pagination } from 'src/app/common/models/pagination';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { Pagination } from '../../common/models/pagination';
+// import { Pagination } from 'src/app/common/models/pagination';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 
 export class Data extends Pagination {
@@ -43,7 +44,8 @@ export class AddUserComponent implements OnInit{
   constructor(private fb: FormBuilder, 
     private apiService: ApiService, 
     private activatedRoute: ActivatedRoute, 
-    private message: NzMessageService
+    private message: NzMessageService,
+    private route: Router
     ) { }
 
   ngOnInit(): void {
@@ -59,10 +61,10 @@ export class AddUserComponent implements OnInit{
 
   inItForm() {
     this.adminForm = this.fb.group({
-      name: [null, [Validators.required]],
+      name: [null, [Validators.required, Validators.pattern('^[a-zA-Z \-\']+'), Validators.minLength(3), Validators.maxLength(250)]],
       rolesId: [null, [Validators.required]],
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
+      userName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+      password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
       confirmPassword: [null, [Validators.required, this.confirmationValidator]],
       email: [null, [Validators.email, Validators.required]],
       isActive: [false],
@@ -84,6 +86,7 @@ export class AddUserComponent implements OnInit{
       this.apiService.sendRequest(requests.registerUser, 'post', obj).subscribe((res:any) => {
         console.log("ADMINS", res);
         this.inItForm();
+        this.route.navigateByUrl('admins/list');
         if(this.userId) {
           this.message.create('success', `Admin Updated Successfully`);
         }
@@ -115,10 +118,10 @@ export class AddUserComponent implements OnInit{
       this.userById= res.response.admin;
       console.log("USER-BY-ID", this.userById);
       this.adminForm = this.fb.group({
-        name: [this.userById?.name || null, [Validators.required]],
+        name: [this.userById?.name || null, [Validators.required, Validators.pattern('^[a-zA-Z \-\']+'), Validators.minLength(3), Validators.maxLength(250)]],
         rolesId: [this.userById?.rolesId || null, [Validators.required]],
-        userName: [this.userById?.userName || null, [Validators.required]],
-        password: [this.userById?.password || null, [Validators.required]],
+        userName: [this.userById?.userName || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        password: [this.userById?.password || null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
         confirmPassword: [this.userById?.password || null, [Validators.required, this.confirmationValidator]],
         email: [this.userById?.email || null, [Validators.email, Validators.required]],
         isActive: [this.userById?.isActive || false],
@@ -144,4 +147,9 @@ export class AddUserComponent implements OnInit{
   log(value: string[]): void {
     console.log(value);
   }
+
+  cancel() {
+    this.route.navigateByUrl('admins/list');
+  }
+
 }    

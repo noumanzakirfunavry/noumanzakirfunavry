@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core'
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NewsModal } from 'src/app/common/models/newsModal';
-import { ActivatedRoute } from '@angular/router';
+import { NewsModal } from '../../common/models/newsModal';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommentListData } from './mockComments';
+import { environment } from '../../../environments/environment';
+import { Location } from '@angular/common';
+// import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
+
 @Component({
     selector: 'app-addNews',
     templateUrl: './addNews.component.html'
@@ -26,50 +31,65 @@ export class AddNewsComponent implements OnInit {
     allCategories: any = [];
     strucCategories: any;
 
-    pagination: { limit: number, pageNo: number, name?: string } = { limit: 10, pageNo: 1 }
+    pagination: { limit: number, pageNo: number, name?: string, title?: string } = { limit: 10, pageNo: 1 }
     public Editor = ClassicEditor;
     previewImage = '';
     previewVisible = false;
     value: string[] = ['0-0-0'];
+    config = {
+        // plugins: [CKFinder , ],
+        language: 'ar',
+        ckfinder: {
+            openerMethod: 'popup',
+            // uploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+            // filebrowserBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles',
+            // filebrowserImageBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles?type=Images',
+            // filebrowserUploadUrl:'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+            // filebrowserImageUploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+            uploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+            filebrowserBrowseUrl: 'http://localhost:80/ckfinder/userfiles',
+            filebrowserImageBrowseUrl: 'http://localhost:80/ckfinder/userfiles?type=Images',
+            filebrowserUploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
 
-    commentListData = [
-        {
-            name: 'Lillian Stone',
-            img: 'assets/images/avatars/thumb-8.jpg',
-            date: '6 hours ago.',
-            likes: 43,
-            comment: 'The palatable sensation we lovingly refer to as The Cheeseburger has a distinguished and illustrious history. It was born from humble roots, only to rise to well-seasoned greatness.'
+            options: {
+                resourceType: 'Images'
+            }
         },
-        {
-            name: 'Victor Terry',
-            img: 'assets/images/avatars/thumb-9.jpg',
-            date: '8 hours ago.',
-            likes: 18,
-            comment: 'The palatable sensation we lovingly refer to as The Cheeseburger has a distinguished and illustrious history. It was born from humble roots, only to rise to well-seasoned greatness.'
-        },
-        {
-            name: 'Wilma Young',
-            img: 'assets/images/avatars/thumb-10.jpg',
-            date: '2 days ago.',
-            likes: 95,
-            comment: 'The palatable sensation we lovingly refer to as The Cheeseburger has a distinguished and illustrious history. It was born from humble roots, only to rise to well-seasoned greatness.'
-        }
-    ];
+        // toolbar: [ 'ckfinder','uploadImage', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+        toolbar: ['heading', '|',
+            'fontfamily', 'fontsize',
+            'alignment',
+            'fontColor', 'fontBackgroundColor', '|',
+            'bold', 'italic', 'custombutton', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+            'link', '|',
+            'outdent', 'indent', '|',
+            'bulletedList', 'numberedList', '|',
+            'code', 'codeBlock', '|',
+            'insertTable', '|',
+            'ckfinder', 'imageUpload', 'blockQuote', '|',
+            'undo', 'redo', '|',
+            'youtube',
+            'mediaEmbed']
+        // ckfinder: {
+        //     // Open the file manager in the pop-up window.
+        //     openerMethod: 'popup'
+        // }
+    }
+    commentListData = CommentListData
     newsId: number;
     uploadProgress: number;
     file: any;
+    fileType: string;
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
-        private activatedRoute: ActivatedRoute) { }
+        private activatedRoute: ActivatedRoute,
+        private route: Router) { }
 
     ngOnInit(): void {
-        this.quotesForm = this.fb.group({
-            name: [null, [Validators.required]]
-        });
-        this.tagForm = this.fb.group({
-            title: [null, [Validators.required]]
-        });
+        this.initQuoteForm();
+        this.initTagForm();
 
         this.newsModal = new NewsModal()
         this.activatedRoute.params.subscribe(params => {
@@ -86,19 +106,30 @@ export class AddNewsComponent implements OnInit {
             this.getAllQuotes()
         }, 2000);
     }
+    private initQuoteForm() {
+        this.quotesForm = this.fb.group({
+            name: [null, [Validators.required]]
+        });
+    }
+
+    private initTagForm() {
+        this.tagForm = this.fb.group({
+            title: [null, [Validators.required]]
+        });
+    }
+
     getNews(newsId: number) {
-        this.apiService.sendRequest(requests.getNewsById + this.newsId, 'get').subscribe((res:any) => {
+        this.apiService.sendRequest(requests.getNewsById + this.newsId, 'get').subscribe((res: any) => {
             console.log("news data", res.response.news);
             // this.newsModal=new NewsModal();
             this.newsModal.populateFromServerModal(res.response.news);
-            this.newsModal.seoDetailId=res.response.news.seoDetailId;
-            console.log("view modal",this.newsModal);
-            
-            this.populateNewsForm(res.response.news);
+            this.newsModal.seoDetailId = res.response.news.seoDetailId;
+            console.log("view modal", this.newsModal);
 
+            this.populateNewsForm(res.response.news);
         })
     }
-    populateNewsForm(news:any){
+    populateNewsForm(news: any) {
         this.newsForm = this.fb.group({
             title: [news.title || null, [Validators.required]],
             content: [news?.content || null, [Validators.required]],
@@ -109,9 +140,9 @@ export class AddNewsComponent implements OnInit {
             newsType: [news?.newsType || 'NEWS',],
             showOnHomepage: [news.showOnHomepage || true, [Validators.required]],
             isActive: [news.isActive || true,],
-            categoryIds: [news?.categories.map(x=>x.id) || null, [Validators.required]],
-            tagsIds: [news?.tags.map(x=>x.id) || null, [Validators.required]],
-            quotesIds: [news?.quotes.map(x=>x.id) || null, [Validators.required]],
+            categoryIds: [news?.categories.map(x => x.id) || null, [Validators.required]],
+            tagsIds: [news?.tags.map(x => x.id) || null, [Validators.required]],
+            quotesIds: [news?.quotes.map(x => x.id) || null, [Validators.required]],
             seoTitle: [news?.seoDetail?.title || null, [Validators.required]],
             slugLine: [news?.seoDetail?.slugLine || null, [Validators.required]],
             description: [news?.seoDetail?.description || null, [Validators.required]],
@@ -158,9 +189,10 @@ export class AddNewsComponent implements OnInit {
         const obj = this.newsForm.value;
         ;
         // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
-        this.apiService.sendRequest(this.newsId ? requests.updateNews+this.newsId :requests.addNews, this.newsId ? 'put':'post', {...this.newsModal.toServerModal(obj,this.newsModal.seoDetailId),...this.newsId ? {id:this.newsId}:null}).subscribe((res: any) => {
+        this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModal.toServerModal(obj, this.newsModal.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
             console.log("News", res);
             this.newsForm.reset();
+            this.route.navigateByUrl('news/list')
             // if(this.categoryId) {
             //     this.message.create('success', `Category Updated Successfully`)
             // }
@@ -172,8 +204,32 @@ export class AddNewsComponent implements OnInit {
         console.log("form", this.newsForm.value);
 
     }
+    getCaptcha(e: MouseEvent): void {
+        e.preventDefault();
+    }
+    cancel(): void {
+        this.route.navigateByUrl('news/list');
+    }
 
-    uploadFile() {
+    fileSelection(fileObject) {
+
+        // this.isRecodedFile=fileObject.recorded ? fileObject.recorded:false;
+        if (fileObject.file) {
+            this.fileType = 'file';
+            this.newsModal.mainFile = fileObject.file;
+            this.file = fileObject.file;
+        } else if (fileObject.link) {
+            this.fileType = 'link';
+            this.file = fileObject.link;
+        } else if (fileObject.fileId) {
+            this.fileType = 'fileId';
+            this.file = fileObject.fileId;
+        } else {
+            this.file = null
+        }
+    }
+
+    uploadFile(mainFile=true) {
         this.apiService.uploadFileProgress(this.file, this.newsForm.value.description).subscribe((res: any) => {
             // saving files on upload so that no need to load from s3.
 
@@ -181,12 +237,19 @@ export class AddNewsComponent implements OnInit {
                 this.uploadProgress = Math.round(100 * (res.loaded / res.total));
                 console.log("file progress", this.uploadProgress);
             }
-            else if(res?.body){
+            else if (res?.body) {
                 console.log("Data Uploaded");
                 console.log(res.body);
-                this.newsModal.imageId=res.body.response.id
-                console.log("news modal with image id",this.newsModal);
-              }
+                if(mainFile){
+                    this.newsModal.imageId = res.body.response.id;
+                    this.newsModal.fileUrl = environment.fileUrl + res.body.response.path
+                }else{
+                    this.newsModal.thumbnailId = res.body.response.id;
+                    this.newsModal.thumbnailUrl = environment.fileUrl + res.body.response.path
+
+                }
+                console.log("news modal with image id", this.newsModal);
+            }
         })
     }
 
@@ -212,10 +275,12 @@ export class AddNewsComponent implements OnInit {
             this.allQuotes = res.quotes;
         })
     }
-    getTags() {
+
+    getTags(value?) {
+        this.pagination.title = value ? value : '';
         this.apiService.sendRequest(requests.getAllTags, 'get', this.pagination).subscribe((res: any) => {
-            console.log("ALL-tags", res);
-            this.allTags = res.tags;
+            console.log("ALL-tags", res.response.tags);
+            this.allTags = res.response.tags;
         })
     }
 
@@ -232,12 +297,16 @@ export class AddNewsComponent implements OnInit {
     addNewQuote(value?) {
         this.apiService.sendRequest(requests.addNewQuote, 'post', this.quotesForm.value).subscribe((res: any) => {
             this.allQuotes = res.quote;
+            this.initQuoteForm();
+            this.getAllQuotes();
             console.log("ADD-TAG", this.allQuotes);
         })
     }
     addNewTag() {
-        this.apiService.sendRequest(requests.addNewTag, 'post', this.tagForm.value).subscribe((res: any) => {
+        this.apiService.sendRequest(requests.addNewTag, 'post', { ...this.tagForm.value, isActive: true }).subscribe((res: any) => {
             this.allQuotes = res.quote;
+            this.initTagForm();
+            this.getTags();
             console.log("ADD-TAG", this.allQuotes);
         })
     }

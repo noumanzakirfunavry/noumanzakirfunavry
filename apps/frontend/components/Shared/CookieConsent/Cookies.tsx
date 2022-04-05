@@ -1,6 +1,6 @@
 import CookieConsent, { Cookies } from "react-cookie-consent";
 
-const Cookies = () =>{
+const CookiesComponent = () =>{
 
   return (
     <CookieConsent
@@ -40,4 +40,4 @@ const Cookies = () =>{
   )
 }
 
-export default Cookies
+export default CookiesComponent

@@ -1,126 +1,181 @@
-import { AddCategoriesResponseDto, GenericResponseDto, GetAllCategoriesRequestDto, GetAllCategoriesResponseDto, GetByIdCategoryResponseDto, UpdateCategoriesRequestDto, UpdateCategoriesResponseDto, UpdateOrderCategoriesRequestDto } from "@cnbc-monorepo/dtos";
+import { AddCategoriesResponseDto, GenericResponseDto, GetAllCategoriesForClientRequestDto, GetAllCategoriesRequestDto, GetAllCategoriesResponseDto, GetByIdCategoryResponseDto, UpdateCategoriesRequestDto, UpdateCategoriesResponseDto, UpdateOrderCategoriesRequestDto } from "@cnbc-monorepo/dtos";
 import { Categories } from "@cnbc-monorepo/entity";
 import { CustomException, Exceptions, ExceptionType } from "@cnbc-monorepo/exception-handling";
-import { sequelize } from "@cnbc-monorepo/utility";
+import { Helper, sequelize } from "@cnbc-monorepo/utility";
 import { HttpStatus, Inject, Injectable } from "@nestjs/common";
+import { parse } from "path";
 @Injectable()
-export class CategoriesService{
+export class CategoriesService {
     constructor(
         @Inject('CATEGORIES_REPOSITORY')
-        private categoryRepo:typeof Categories
-    ){}
+        private categoryRepo: typeof Categories,
+        private helperService: Helper
+    ) { }
 
-    async getById(id:number){
-        const result=await this.categoryRepo.findOne({where:{id:id}})
-        if (!result){
+    async getById(id: number) {
+        const result = await this.categoryRepo.findOne({ where: { id: id } })
+        if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
             )
         }
-        return new GetByIdCategoryResponseDto(HttpStatus.OK,"FETCHED SUCCESSFULLY",result)
+        return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
     }
-    async add(body){
-        const result=await this.categoryRepo.create(body)
-        if (!result){
+    async add(body, userId: number) {
+        const result = await this.categoryRepo.create({ ...body, publishedBy: userId })
+        if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
             )
         }
-        return new AddCategoriesResponseDto(HttpStatus.OK,"FETCHED SUCCESSFULLY",result)
+        return new AddCategoriesResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
     }
-    async delete(ids:number[]){
-        const result=await this.categoryRepo.destroy({where:{id:ids}})
-        if(!result){
+    async delete(ids: number[]) {
+        const result = await this.categoryRepo.destroy({ where: { id: ids } })
+        if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
                 Exceptions[ExceptionType.UNABLE_TO_DELETE].status
             )
         }
-        return new GenericResponseDto(HttpStatus.OK,"DELETED SUCCESSFULLY")
+        return new GenericResponseDto(HttpStatus.OK, "DELETED SUCCESSFULLY")
     }
-    async getAll(query:GetAllCategoriesRequestDto){
-        let offset = 0
-        query.pageNo = query.pageNo - 1;
-        if (query.pageNo) offset =query.limit * query.pageNo;
-        let where={}
-        if(query.status){
-            where['isActive']=query.status
-        }
-        if(query.parentCategoryId){
-            where['parentCategoryId']=query.parentCategoryId
-        }
-        if(query.title){
-            where['title']=query.title
-        }
-        if(query.publishers){
-            where['publishBy']=query.publishers
-        }
-        if(query.includeNews){ //TODO
+    async getAllForClient(query: GetAllCategoriesForClientRequestDto) {
+        const response = await this.getAllForClientQuery(query)
 
-        }
-        if(query.includeNews){//TODO
+        response.rows = response.rows.map(item => item.toJSON())
 
-        }
-        let result=await this.categoryRepo.findAll({where:where,limit:query.limit,offset:offset,raw:true})        
-        if(!result.length){
-            throw new CustomException(
-                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-            )
-        }
-        
-        let categories=result.filter((item)=> item.parentCategoryId == null)
+        let categories = response.rows.filter((item) => item.parentCategoryId == null)
 
         // Removing The Top Level Categories from the original result
         for (let index = 0; index < categories.length; index++) {
             const element = categories[index];
-            result = this.removeItemOnce(result,element);
+            response.rows = this.removeItemOnce(response.rows, element);
         }
         // Now Calling to fit all remaining categories
-        this.makingNested(result,categories,0)
-        
-        return new GetAllCategoriesResponseDto(
+        this.makingNested(response.rows, categories, 0)
+
+        return new GenericResponseDto(
             HttpStatus.OK,
             "FETCHED SUCCESSFULLY",
-            categories
+            {
+                categories: categories,
+                totalCount: response.count
+            }
         );
+
+    }
+    private async getAllForClientQuery(query: GetAllCategoriesForClientRequestDto) {
+        return await this.categoryRepo.findAndCountAll({
+            include: ['user'],
+            where: {
+                isActive: true,
+                ...(query.displayInHomePage && {
+                    displayInHomePage: JSON.parse(query.displayInHomePage.toString())
+                }),
+                ...(query.displayInCategoryMenu && {
+                    displayInCategoryMenu: JSON.parse(query.displayInCategoryMenu.toString())
+                })
+            },
+            limit: parseInt(query.limit.toString()),
+            offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
+        });
     }
 
-    async update(id:number,body:UpdateCategoriesRequestDto){
-        const category=await this.categoryRepo.findOne({where:{id:id}})
-        if(!category){
-            throw new CustomException(
-                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-              )  
+    async getAll(query: GetAllCategoriesRequestDto) {
+        let offset = 0
+        query.pageNo = query.pageNo - 1;
+        if (query.pageNo) offset = query.limit * query.pageNo;
+        let where = {}
+        if (query.status) {
+            where['isActive'] = JSON.parse(query.status.toString())
         }
-        const result=await category.update(body)
-        return new UpdateCategoriesResponseDto(HttpStatus.OK,"UPDATED SUCCESSFULLY", result)  
-    }
+        if (query.parentCategoryId) {
+            where['parentCategoryId'] = query.parentCategoryId
+        }
+        if (query.title) {
+            where['title'] = query.title
+        }
+        if (query.publishers) {
+            where['publishBy'] = query.publishers
+        }
+        if (query.includeNews) { //TODO
 
+        }
+        if (query.includeNews) {//TODO
 
-    async updateOrder(query:UpdateOrderCategoriesRequestDto){
-        const result=await this.categoryRepo.findAll()
-        if(!result){
+        }
+        let result = await this.categoryRepo.findAndCountAll(
+
+            {
+                include: ['user'],
+                where: where,
+                limit: query.limit, offset: offset
+            }
+        )
+        if (!result.count) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
             )
         }
-        try{
+        result.rows = result.rows.map(item => item.toJSON())
+
+        let categories = result.rows.filter((item) => item.parentCategoryId == null)
+
+        // Removing The Top Level Categories from the original result
+        for (let index = 0; index < categories.length; index++) {
+            const element = categories[index];
+            result.rows = this.removeItemOnce(result.rows, element);
+        }
+        // Now Calling to fit all remaining categories
+        this.makingNested(result.rows, categories, 0)
+
+        return new GenericResponseDto(
+            HttpStatus.OK,
+            "FETCHED SUCCESSFULLY",
+            {
+                categories: categories,
+                totalCount: result.count
+            }
+        );
+    }
+
+    async update(id: number, body: UpdateCategoriesRequestDto) {
+        const category = await this.categoryRepo.findOne({ where: { id: id } })
+        if (!category) {
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+        const result = await category.update(body)
+        return new UpdateCategoriesResponseDto(HttpStatus.OK, "UPDATED SUCCESSFULLY", result)
+    }
+
+
+    async updateOrder(query: UpdateOrderCategoriesRequestDto) {
+        const result = await this.categoryRepo.findAll()
+        if (!result) {
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+        try {
             return await sequelize.transaction(async t => {
                 const transactionHost = { transaction: t };
-                for (let i = 0; i  < query.ids.length; ++i) {
+                for (let i = 0; i < query.ids.length; ++i) {
                     const item = query.ids[i];
-                    const updateRes=await this.updateCategoryPosition(i+1,item,transactionHost)
-                    if (!updateRes[0]){
+                    const updateRes = await this.updateCategoryPosition(i + 1, item, transactionHost)
+                    if (!updateRes[0]) {
                         throw new CustomException(
                             Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
                             Exceptions[ExceptionType.UNABLE_TO_UPDATE].status
                         )
-                    }   
+                    }
                 }
                 return new GenericResponseDto(
                     HttpStatus.OK,
@@ -128,18 +183,18 @@ export class CategoriesService{
                 )
             })
         }
-        catch(err){
+        catch (err) {
             throw err
-        }      
+        }
     }
-    async updateCategoryPosition(pos:number,id:number,transactionHost){
-        return await this.categoryRepo.update({orders:pos},{
-            where:{
-                id:id
+    async updateCategoryPosition(pos: number, id: number, transactionHost) {
+        return await this.categoryRepo.update({ orders: pos }, {
+            where: {
+                id: id
             },
             transaction: transactionHost.transaction
         })
-        
+
     }
 
     makingNested(categoryArray, endResult, i, pid?) {
@@ -187,7 +242,7 @@ export class CategoriesService{
     removeItemOnce(arr, value) {
         var index = arr.findIndex((element) => element.id == value.id);
         if (index > -1) {
-          arr.splice(index, 1);
+            arr.splice(index, 1);
         }
         return arr;
     }

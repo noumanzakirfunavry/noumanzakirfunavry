@@ -1,9 +1,8 @@
 import { Component, EventEmitter, ElementRef, OnInit, Output, ViewChild, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MediaUtilService } from '../service/mediaUtil';
 // import { GenericCallsService } from 'src/app/appService/generic-calls.service';
 // import { MediaUtilService } from 'src/app/common/mediaUtil';
-import { ApiService } from 'src/app/shared/services/api.service';
-import { MediaUtilService } from 'src/app/shared/services/mediaUtil';
 
 @Component({
   selector: 'dynamic-file-selector',
@@ -23,7 +22,7 @@ export class FileSelectorComponent implements OnInit {
   error: string;
   previousFile: any;
   constructor(
-    public dynamicApi: ApiService,
+    // public dynamicApi: GenericCallsService,
     public mediaAssetUtil: MediaUtilService) { }
 
   ngOnInit(): void {
@@ -35,6 +34,7 @@ export class FileSelectorComponent implements OnInit {
       //   console.log(" file from url", file);
       //   this.formField.value[this.field.colName]=file
       // })
+      console.log('field',this.field);
     }
   }
   urlToFile(url: string) {
@@ -90,9 +90,15 @@ export class FileSelectorComponent implements OnInit {
     }
   }
   removePicture() {
+    // debugger
     this.imageSelector.nativeElement.value = null;
     this.mediaObj = { name: '', src: null, type: null };
-    this.field.value = this.previousFile.value ? this.previousFile.value : null
+    if(this.field.properties.fileData)
+    {
+      this.field.properties.fileData=null;
+    }
+    this.field.value=null;
+    // this.field.value = this.previousFile.value ? this.previousFile.value : null
     this.onFileSelection.emit(this.field);
 
   }
