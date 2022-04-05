@@ -13,7 +13,6 @@ export class LiveStreamLinksController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get("getAll")
     async getAllLiveStreamLinks(@Query() query: GetAllLiveStreamLinksRequestDto): Promise<GetAllLiveStreamLinksResponseDto> {
         return await this.liveStreamLinksService.getAllLiveStreamLinks(query)
@@ -21,7 +20,6 @@ export class LiveStreamLinksController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.CREATE)
     @Post()
     async addLiveStreamLinks(@Req() req, @Body() body: CreateLiveStreamLinksRequestDto): Promise<GenericResponseDto> {
         return await this.liveStreamLinksService.addLiveStreamLinks(body, req.user.data.id)
@@ -29,7 +27,6 @@ export class LiveStreamLinksController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.UPDATE)
     @Put(":id")
     async updateLiveStreamLinks(@Param("id") id: number, @Body() body: CreateLiveStreamLinksRequestDto): Promise<GenericResponseDto> {
         return await this.liveStreamLinksService.updateLiveStreamLinks(body, id)
@@ -38,7 +35,6 @@ export class LiveStreamLinksController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get(":id")
     async getLiveStreamLinkById(@Param("id") id: number): Promise<GetLiveStreamLinkByIdResponseDto> {
         return await this.liveStreamLinksService.getLiveStreamLinkById(id)
@@ -46,7 +42,6 @@ export class LiveStreamLinksController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.UPDATE)
     @Delete()
     async deleteLiveStreamLinkById(@Query() query: DeleteAlexaAudioRequestDto): Promise<GenericResponseDto> {
         return await this.liveStreamLinksService.deleteLiveStreamLinkById(query)
