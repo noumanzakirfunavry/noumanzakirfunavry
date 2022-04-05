@@ -3,6 +3,7 @@ import { GenericResponseDto, RegisterAdminRequestDto, RequestResetPasswordReques
 import { AnthenticationService } from './anthentication.service';
 import { JwtAuthGuard, Public, Rights, Roles } from '@cnbc-monorepo/auth-module';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
 @Controller('admin/api/admin/authentication')
 export class AnthenticationController {
@@ -10,6 +11,8 @@ export class AnthenticationController {
         private authService: AnthenticationService
     ) { }
 
+    @UseGuards(ThrottlerGuard)
+    @Throttle(10,60)
     @Public()
     @Post('login')
     async loginUser(@Body() body: UserLoginDto): Promise<GenericResponseDto> {
@@ -24,7 +27,6 @@ export class AnthenticationController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
-    @Rights(RightsTypes.CREATE)
     @Post("register")
     async registerAdmin(@Req() req, @Body() body: RegisterAdminRequestDto): Promise<GenericResponseDto> {
         return await this.authService.registerAdmin(req.user.roles[0], body)
@@ -32,7 +34,6 @@ export class AnthenticationController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
-    @Rights(RightsTypes.UPDATE)
     @Put("update/:id")
     async updateAdmin(@Param("id") id : number, @Body() body: RegisterAdminRequestDto): Promise<GenericResponseDto> {
         return await this.authService.updateAdmin(id, body)

@@ -1,4 +1,4 @@
-import { JwtAuthGuard, Public, Rights, Roles } from '@cnbc-monorepo/auth-module';
+import { JwtAuthGuard, Rights, Roles } from '@cnbc-monorepo/auth-module';
 import { GenericResponseDto, GetAllJobApplicantsRequestDto } from '@cnbc-monorepo/dtos';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
@@ -12,7 +12,6 @@ export class JobApplicantController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get("getAll")
     async getAllJobApplicants(@Query() query : GetAllJobApplicantsRequestDto) : Promise<GenericResponseDto>{
         return await this.jobService.getAllJobApplicants(query)
@@ -21,7 +20,6 @@ export class JobApplicantController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get(":id")
     async getJobApplicantById(@Param("id") id : number) : Promise<GenericResponseDto>{
         return await this.jobService.getJobApplicantById(id)
