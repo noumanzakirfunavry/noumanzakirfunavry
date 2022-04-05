@@ -11,12 +11,11 @@ import { MediaUtilService } from '../service/mediaUtil';
 })
 export class FileSelectorComponent implements OnInit {
   @ViewChild("imageSelector") imageSelector: ElementRef;
-
   @Input() field: any;
   @Input() formField: FormGroup;
   @Input() validate: any;
-  @Input() title: string = 'Profile Picture';
-  @Input() fileTypes: string = 'image/png, image/jpg, image/jpeg';
+  @Input() title = 'Image Upload';
+  @Input() fileTypes = 'image/png, image/jpg, image/jpeg';
   @Output() onFileSelection: EventEmitter<any> = new EventEmitter<any>();
   mediaObj = { name: '', type: '', src: null };
   error: string;
@@ -26,7 +25,7 @@ export class FileSelectorComponent implements OnInit {
     public mediaAssetUtil: MediaUtilService) { }
 
   ngOnInit(): void {
-    if (this.field && this.field.properties.fileData) {
+    if (this.field && this.field?.properties?.fileData) {
       this.previousFile = Object.assign({},this.field);
       // Trying to bind file on edit case
       // this.dynamicApi.getSignedUrl(this.field.properties?.fileData?.path).subscribe(async (res: any) => {
@@ -38,7 +37,7 @@ export class FileSelectorComponent implements OnInit {
     }
   }
   urlToFile(url: string) {
-    var filename = url.substring(url.lastIndexOf('/') + 1);
+    const filename = url.substring(url.lastIndexOf('/') + 1);
     let fileExtension = filename.substr((filename.lastIndexOf('.') + 1));
     if (fileExtension == 'mp4') {
       fileExtension = 'video/mp4';
@@ -58,7 +57,7 @@ export class FileSelectorComponent implements OnInit {
   }
 
   fileSelector() {
-    let fileChooser: HTMLInputElement = document.getElementById(
+    const fileChooser: HTMLInputElement = document.getElementById(
       this.field.colName
     ) as HTMLInputElement;
     fileChooser.click();
@@ -67,7 +66,6 @@ export class FileSelectorComponent implements OnInit {
   fileRead(event) {
 
     if (event.target.files[0] && this.fileTypes.match(event.target.files[0].type.toLowerCase())) {
-
       this.mediaObj.name = event.target.files[0].name;
       this.mediaObj.type = event.target.files[0].type;
       const imageFileBase64 = { imagename: '', src: '' };
@@ -77,6 +75,7 @@ export class FileSelectorComponent implements OnInit {
           this.mediaObj.src = file;
           this.field.value = event.target.files[0];
           this.onFileSelection.emit(this.field);
+          
         })
       } else {
         this.field.value = event.target.files[0];
@@ -89,11 +88,12 @@ export class FileSelectorComponent implements OnInit {
       }, 3000);
     }
   }
+
   removePicture() {
     // debugger
     this.imageSelector.nativeElement.value = null;
     this.mediaObj = { name: '', src: null, type: null };
-    if(this.field.properties.fileData)
+    if(this.field?.properties?.fileData)
     {
       this.field.properties.fileData=null;
     }
