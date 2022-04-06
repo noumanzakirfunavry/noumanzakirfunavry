@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString, Min } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsBooleanString, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString, Min } from "class-validator";
 
 export class GetAllPresentersRequestDto{
     @IsNotEmpty()
@@ -10,11 +10,15 @@ export class GetAllPresentersRequestDto{
     pageNo : number
 
     @IsOptional()
-    search : string
+    title : string
 
+    @IsNotEmpty()
+    @IsBooleanString()
     @IsOptional()
     isActive : boolean
 
+    @IsArray()
+    @ArrayNotEmpty()
     @IsOptional()
-    publisher : boolean
+    publishers : number[]
 }
