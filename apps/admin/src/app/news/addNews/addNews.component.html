@@ -28,7 +28,7 @@
                         <nz-form-item>
                             <nz-form-label>Description</nz-form-label>
                             <nz-form-control>
-                                <ckeditor [config]="config" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>">
+                                <ckeditor  [config]="config" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>">
                                 </ckeditor>
                             </nz-form-control>
                         </nz-form-item>
@@ -166,14 +166,16 @@
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
-                        <div class="d-flex w-100" [formGroup]="tagForm" (ngSubmit)="[]">
-                            <nz-form-item>
-                                <input type="text" formControlName="title" placeholder="Enter Tag" dir="rtl" nz-input>
-                            </nz-form-item>
-                            <nz-form-item>
-                                <button class="mr-3" (click)="[getCaptcha($event),addNewTag()]" nz-button nzType="default">Create</button>
-                            </nz-form-item>
-                        </div>
+                        <form [formGroup]="tagForm" nz-form [nzLayout]="'horizontal'">
+                            <div class="d-flex w-100">
+                                <nz-form-item>
+                                    <input type="text" formControlName="title" placeholder="Enter Tag" dir="rtl" nz-input>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <button class="mr-3" (click)="[getCaptcha($event),addNewTag()]" nz-button nzType="default">Create</button>
+                                </nz-form-item>
+                            </div>
+                        </form>
                     </div>
                     <!-- quotes -->
                     <div>
@@ -202,7 +204,6 @@
                         </form>
                     </div>
                     <div class="mb-4">
-
                         <h4 class="mb-2">SEO Settings</h4>
                         <nz-form-item>
                             <nz-form-label>Slug Line</nz-form-label>

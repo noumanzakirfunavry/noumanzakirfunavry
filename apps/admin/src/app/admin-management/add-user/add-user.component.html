@@ -89,7 +89,7 @@
                 <label *ngFor="let right of allRights" nz-checkbox [nzValue]="right?.id" formControlName="rights">{{right?.title}}</label>
               </div>
           </nz-checkbox-wrapper>
-          <div *ngIf="!rightsValue || rightsValue.length===0" style="color: Crimson;">
+          <div *ngIf="(!rightsValue || rightsValue.length===0) && submitted===true" style="color: Crimson;">
             Please select atleast one option!
           </div>
         </div>

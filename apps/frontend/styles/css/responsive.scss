@@ -737,10 +737,17 @@
     // }
     .videoNewsContent, .horizontalNumberList, .NewsLightTiles .TitleBar,
      .NewsTiles, .yellowTitle, .footer_footerTop__ojwnt, .w_90,
-      .footer_footerBottom__yUmY5, .btn-outline-primary {
+      .footer_footerBottom__yUmY5, .btn-outline-primary, .breakingNews, .sidelist_sidebar__Nuc9n,
+      .single_video_main {
         width: 90%;
         margin-left: auto;
         margin-right: auto;
+    }
+    .NewsTiles .newBox.newBoxfs .NewsImage, .NewsTiles .newBox.newBoxf .NewsImage{
+        height: 213px;
+    }
+    .sidebarvideo_sidebar__Xyuy_ {
+        display: none;
     }
   }
   @media screen and (max-width:768px) and (min-width:576px){
