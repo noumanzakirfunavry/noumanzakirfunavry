@@ -4,6 +4,7 @@ import { QuotesModule } from "./quotes/quotes.module";
 import { TagsModule } from "./tags/tags.module";
 import { NewsTypesModule } from './news-types/news-types.module';
 import { NewsModule } from './news/news.module';
+import { MarketsModule } from './markets/markets.module';
 
 @Module({
     imports:[
@@ -11,7 +12,8 @@ import { NewsModule } from './news/news.module';
         QuickLinksModule,
         QuotesModule,
         NewsTypesModule,
-        NewsModule
+        NewsModule,
+        MarketsModule
     ],
 })
 export class  ClientModule{}
