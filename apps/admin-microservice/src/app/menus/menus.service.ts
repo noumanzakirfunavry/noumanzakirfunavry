@@ -8,9 +8,11 @@ import {
   UpdateMenuRequestDto,
   UpdateMenuResponseDto,
 } from '@cnbc-monorepo/dtos';
+import { ElkService } from '@cnbc-monorepo/elk';
 import { Menus } from '@cnbc-monorepo/entity';
 import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import e from 'express';
 import { Op } from 'sequelize';
 import { FindOptions } from 'sequelize/types';
 
@@ -318,6 +320,55 @@ export class MenusService {
       HttpStatus.OK,
       `${deletedNumber} menu(s) deleted successfully.`
     );
+  }
+
+  async elkSearch(searchObj) {
+    let result: any = (
+      await ElkService.search({
+        index: searchObj.index,
+        size: 100,
+        query: { match: searchObj.match },
+      })
+    ).map((item) => item._source as Menus);
+    console.time('Filling Parent Menu');
+    // result = await Promise.all(
+    //   result.map(async (menu) => {
+    //     if (menu.parentMenuId) {
+    //       const pMenu = await this.menusRepo.findOne({
+    //         where: { id: menu.parentMenuId },
+    //         raw: true,
+    //       });
+    //       menu.parent = pMenu;
+    //     }
+    //     return menu;
+    //   })
+    // );
+
+    // //////////////////////////////////////
+    const ids: any[] = [
+      ...new Set(
+        result
+          .filter((item) => item.parentMenuId != null)
+          .map((element) => element.parentMenuId)
+      ),
+    ];
+
+    const menus = await this.menusRepo.findAll({
+      where: { id: ids },
+      raw: true,
+    });
+    const parentMenuObject = {};
+    menus.forEach((menu) => {
+      parentMenuObject[menu.id] = menu;
+    });
+
+    result
+      .filter((menu) => menu.parentMenuId != null)
+      .forEach((menu) => {
+        menu.parent = parentMenuObject[menu.parentMenuId];
+      });
+
+    return result;
   }
 
   // find suitable order number for insertion
