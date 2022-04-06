@@ -1,6 +1,6 @@
 <!-- <button class="btn btn-primary"  (click)="fileSelector()" >Profile Picture</button> -->
 <ng-container>
-<div class="" [formGroup]="formField">
+<div [formGroup]="formField">
   <!-- <label class="col-form-label" for="{{field.colName}}">{{field.label}}</label> -->
   <!-- <button *ngIf="field.properties?.fileData?.path" title="{{field.label}}" class="ml-3 float-right btn btn-success waves-effect btn-circle waves-light"
     type="button" (click)="fileSelector()">
@@ -14,17 +14,19 @@
   
   <!-- <input style="display: none;"  name="{{field.colName}}" [formControlName]="field.colName"  #imageSelector placeholder="{{field.label}}" type="file" (change)="fileRead($event)"
     accept="{{fileTypes}}" class="form-control" [id]="field.colName"> -->
+    <nz-form-item>
     <nz-form-label nzRequired>Upload Media</nz-form-label>
     <nz-form-control nzErrorTip="Please Choose Image!">
        <nz-form-label>{{title}}</nz-form-label>
         <input #imageSelector (change)="fileRead($event)" [formControlName]="field.colName" type="file" accept="{{fileTypes}}"  />
-        <span>Maximum file size 2MB</span>
+        <!-- <span>Maximum file size 2MB</span> -->
     </nz-form-control>
+  </nz-form-item>
 </div>
 </ng-container>
 <!-- <br> -->
 
-<div class="mt-2" *ngIf="(mediaObj && mediaObj.name || field.properties?.fileData?.path)">
+<div class="mt-2" *ngIf="(mediaObj && mediaObj.name)">
   
   <!-- <img style="height: 40px;" src="{{mediaObj.src}}">{{mediaObj && mediaObj.name ? mediaObj.name:''}} -->
   <!-- <button title="Delete" class="ml-3 btn btn-success waves-effect btn-circle waves-light" type="button"
@@ -33,11 +35,11 @@
   <i style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i>
   <!-- <i class="ti ti-trash text-danger" role="button" title="Remove" (click)="removePicture()"></i> -->
 </div>
-<div *ngIf="mediaObj || field.properties?.fileData?.path">
-  {{this.mediaObj.name || field.properties?.fileData?.path}}
+<div *ngIf="mediaObj">
+  {{this.mediaObj.name}}
 </div>
 <!-- {{field | json}} -->
-<div *ngIf="!mediaObj.name && field.properties?.fileData?.path"><i class="fa fa-download" (click)="downloadResume(field?.properties?.fileData?.path)"></i></div>
+<!-- <div *ngIf="!mediaObj.name"><i class="fa fa-download" (click)="downloadResume(field?.properties?.fileData?.path)"></i></div> -->
 
 <div *ngIf="error">
     <span class="text-danger">{{error}}</span>
