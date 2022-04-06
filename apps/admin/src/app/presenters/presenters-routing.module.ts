@@ -29,7 +29,14 @@ const routes: Routes = [
             title: 'Add Presenters',
             // headerDisplay: "none"
         },
-
+    },
+    {
+        path: 'update/:id',
+        component: AddPresentersComponent,
+        data: {
+            title: 'Update Presenters',
+            // headerDisplay: "none"
+        },
     },
     // {
     //     path: 'edit',
