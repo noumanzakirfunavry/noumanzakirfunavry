@@ -11,7 +11,7 @@ import { ApiService } from '../../shared/services/api.service';
 export class FilterComponent {
     @Output() statusEmitter = new EventEmitter (); 
     @Output() filterEmitter = new EventEmitter (); 
-    filterModel : {status: boolean, title: string, publishers: Array<any>} = {status: null, title: null, publishers: []}
+    filterModel : {isActive: boolean, title: string, publishers: Array<any>} = {isActive: null, title: null, publishers: []}
     pagination : Pagination = new Pagination();
     allAdmins: any;
     loading= true;
@@ -46,7 +46,7 @@ export class FilterComponent {
     }
 
     clear() {
-        this.filterModel= { status : null, title : null, publishers: []};
+        this.filterModel= { isActive : null, title : null, publishers: []};
         this.filterEmitter.emit(this.filterModel);
     }
    
