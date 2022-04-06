@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { ApiService } from '../../shared/services/api.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { requests } from '../../shared/config/config';
 import { environment } from '../../../environments/environment';
@@ -34,8 +34,6 @@ export class AddPresentersComponent implements OnInit{
 
   
     constructor(private fb: FormBuilder, 
-      private http: HttpClient, 
-      private msg: NzMessageService, 
       private apiService: ApiService, 
       private route: Router, 
       private activatedRoute: ActivatedRoute, 
@@ -86,21 +84,25 @@ export class AddPresentersComponent implements OnInit{
           const obj= this.presenterForm.value;
           obj['age']= parseInt(this.presenterForm.value.age);
           obj['attachmentsId']= this.imageId;
-          this.apiService.sendRequest(this.presenterId ? requests.updatePresenter + this.presenterId : requests.addPresenter, this.presenterId ? 'put' : 'post', obj).subscribe((res:any) => {
-            console.log("ADD-PRESENTERS", res);
-            this.presenterForm.reset();
-            this.route.navigateByUrl('presenters/list');
-            if(this.presenterId) {
-              this.message.create('success', `Presenter Updated Successfully`)
-            }
-            else {
-              this.message.create('success', `Presenter Added Successfully`)
-            }
-          })
+          this.saveNews(obj);
       }    
     }
   })
     }
+
+  private saveNews(obj: any) {
+    this.apiService.sendRequest(this.presenterId ? requests.updatePresenter + this.presenterId : requests.addPresenter, this.presenterId ? 'put' : 'post', obj).subscribe((res: any) => {
+      console.log("ADD-PRESENTERS", res);
+      this.presenterForm.reset();
+      this.route.navigateByUrl('presenters/list');
+      if (this.presenterId) {
+        this.message.create('success', `Presenter Updated Successfully`);
+      }
+      else {
+        this.message.create('success', `Presenter Added Successfully`);
+      }
+    });
+  }
 
     getPresenterById() {
       this.apiService.sendRequest(requests.getPresenterById + this.presenterId, 'get').subscribe((res:any) => {
