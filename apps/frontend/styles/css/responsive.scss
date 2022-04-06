@@ -545,7 +545,7 @@
         margin-right: 0;
     }
     .NewsLightTiles .VideoTiles .VideoNews .NewsImage {
-        height: 120px;
+        height: 118px;
         width: 100%;
     }
     .NewsTiles .newBox .NewsImage {
@@ -735,6 +735,13 @@
     // .newsSlider.scrollbarWrap .slick-slider .slick-slide.slick-active {
     //     width:442px !important;
     // }
+    .videoNewsContent, .horizontalNumberList, .NewsLightTiles .TitleBar,
+     .NewsTiles, .yellowTitle, .footer_footerTop__ojwnt, .w_90,
+      .footer_footerBottom__yUmY5, .btn-outline-primary {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
   }
   @media screen and (max-width:768px) and (min-width:576px){
     .searchResultList .NewsList li {
