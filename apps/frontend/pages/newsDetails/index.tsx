@@ -24,7 +24,7 @@ const Index = () =>{
                 </Title></div>
                 <div className="col-xl-1"></div>
                    </div>
-
+        <div className="newsDetial_w">
                 <div className="SocialHeaderMobile">
                     <div className="row ">
 
@@ -57,23 +57,25 @@ const Index = () =>{
                     </div>
                 </div>
 
-                <div className="row justify-content-center">
-                    <div className='col-xl-7 col-lg-9'>
+                <div className="PageBuilder-pageRow justify-content-center">
+                    <div className='PageBuilder-col-9'>
                         <NewsInfoBox/>
                     </div>
-                    <div className='col-xl-3 col-lg-3'>
+                    <div className='PageBuilder-sidebar'>
                     </div>
                 </div>
-                <div className="row justify-content-center news_artical_detail">
-                    <div className='col-xl-7 col-lg-9'>
+                <div className="PageBuilder-pageRow justify-content-center news_artical_detail">
+                    <div className='PageBuilder-col-9'>
                         <ArticleDetails/>
                     </div>
-                    <div className='col-xl-3 col-lg-3'>
+                    <div className='PageBuilder-sidebar'>
                         <SideBar sideBarSequence={[{componentType:'Latest', position:1},  {componentType:'numbered', position:1, title:'الأكثر قراءة'}, {componentType:'SmallBanner', position:2}]}/>
                     </div>
                 </div>
+
+                </div>
                 <div className="row mb-4">
-                    <div className="col-lg-8"><PageCatgories/></div>
+                    <div className="col-12 col-xl-8"><PageCatgories/></div>
                 </div>
                 <div className="mb-3">
                 <Title styles={"yellowTitle"}>
