@@ -107,16 +107,18 @@ export class AddNewsComponent implements OnInit {
             //     openerMethod: 'popup'
             // }
         }
+        this.initNewsForm();
         this.initQuoteForm();
         this.initTagForm();
 
         this.newsModal = new NewsModal()
         this.activatedRoute.params.subscribe(params => {
             this.newsId = parseInt(params.id);
-            if (!this.newsId) {
-                this.initNewsForm();
-            } else {
-                this.getNews(this.newsId)
+            // if (!this.newsId) {
+            //     this.initNewsForm();
+            // } 
+            if(this.newsId) {
+                this.getNews()
             }
         })
         setTimeout(() => {
@@ -138,7 +140,7 @@ export class AddNewsComponent implements OnInit {
         });
     }
 
-    getNews(newsId: number) {
+    getNews() {
         this.apiService.sendRequest(requests.getNewsById + this.newsId, 'get').subscribe((res: any) => {
             console.log("news data", res.response.news);
             // this.newsModal=new NewsModal();
