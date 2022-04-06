@@ -8,12 +8,6 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div cdkDropList (cdkDropListDropped)="drop($event)">
-                <div class="send-request" *ngIf="setOfCheckedId.size">
-                    <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="showDeleteConfirm()">
-                      Delete Selected
-                    </button>
-                    <span class="ml-2">Selected {{ setOfCheckedId.size }} items</span>
-                  </div>
                 <nz-table [nzLoading]="loading" [nzData]="allCategories" [nzShowPagination]="false" class="no-border-last">
                     <thead>
                         <tr>
@@ -76,6 +70,12 @@
                         </ng-container>
                     </tbody>
                 </nz-table>
+                <div class="send-request" *ngIf="setOfCheckedId.size">
+                    <button class="mt-4" nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="showDeleteConfirm()">
+                      Delete Selected
+                    </button>
+                    <span class="ml-2">Selected {{ setOfCheckedId.size }} items</span>
+                  </div>
             </div>
         </nz-card>
     </div>
