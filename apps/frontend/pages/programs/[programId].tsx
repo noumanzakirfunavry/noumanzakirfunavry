@@ -18,12 +18,12 @@ const Index = () =>{
 <div className="container">
 
 
-                <div className='row'>
-                    <div className='col-lg-9'>
+                <div className='PageBuilder-pageRow'>
+                    <div className='PageBuilder-col-9'>
                         <Title styles="yellowTitle mb-4"><h3>الحلقات اكسبو في أسبوع</h3></Title>
                         <CategoryNewsSection limit={8} displayMoreButton={true} displayTopTwoNews={false} displayTitle={false} />
                     </div>
-                    <div className='col-lg-3 pt_0'>
+                    <div className='PageBuilder-sidebar pt_0'>
                         <SideBar sideBarSequence={[ { componentType: 'LargeBanner', position: 1 }]} />
                     </div>
                 </div>
