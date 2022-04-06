@@ -9,9 +9,12 @@ import { PresentersComponent } from './presenters.component';
 import { AddPresentersComponent } from './presenters/addPresenters.component';
 import { FilterComponent } from './Filter/filter.component';
 import { antdModule } from '../AndModules/andModule';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoComponentsShareModule } from '../demo-components-share/demo-components-share.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
 
 
 @NgModule({
@@ -25,7 +28,10 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
         DemoComponentsShareModule,
         QuillModule.forRoot(),
         NzUploadModule,
-        CKEditorModule
+        CKEditorModule,
+        NzPaginationModule,
+        NzModalModule,
+        FileUploaderModule
     ],
     exports: [],
     declarations: [

@@ -39,6 +39,7 @@ export class AddUserComponent implements OnInit{
   userId: number;
   userById: any;
   rightsValue: any;
+  submitted= false;
 
   constructor(private fb: FormBuilder, 
     private apiService: ApiService, 
@@ -78,6 +79,7 @@ export class AddUserComponent implements OnInit{
       this.adminForm.controls[i].markAsDirty();
       this.adminForm.controls[i].updateValueAndValidity();
     }
+    this.submitted= true;
     if(this.adminForm.valid) {
       const obj= this.adminForm.value;
       obj['name'] = this.adminForm.value.name.trim();
