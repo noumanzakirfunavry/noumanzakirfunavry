@@ -33,6 +33,7 @@ import { AttachmentsProvider } from '../providers/attachments.provider';
 import { EmailSubscribersProvider } from '../providers/email.subscribers.provider';
 import { JobApplicantsProvider } from '../providers/job.applicants.provider';
 import { MenusProvider } from '../providers/menus.provider'
+import { MarketsProvider } from '../providers/markets.provider';
 
 @Module({
   providers: [
@@ -69,7 +70,9 @@ import { MenusProvider } from '../providers/menus.provider'
     ...AttachmentsProvider,
     ...EmailSubscribersProvider,
     ...JobApplicantsProvider,
-		...MenusProvider
+		...MenusProvider,
+		...MarketsProvider
+
   ],
   exports: [
     ...UsersProvider,
@@ -104,7 +107,8 @@ import { MenusProvider } from '../providers/menus.provider'
     ...AttachmentsProvider,
     ...EmailSubscribersProvider,
     ...JobApplicantsProvider,
-		...MenusProvider
+		...MenusProvider,
+		...MarketsProvider
   ],
 })
 export class ProvidersModule {}
