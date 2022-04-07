@@ -364,7 +364,7 @@
     .page-nav{
         overflow-x: hidden;
         white-space: nowrap;
-        margin: 0px 33px;
+       
     }
     .page-nav .navbar .navbar-nav .nav-item a {
         font-size: 13px;
@@ -406,8 +406,6 @@
 
     .market-stats{
         margin-left: -12px;
-        margin-right: 33px;
-        min-width: 96%;
     }
     .marketBox table th {
         font-size: 13px;
@@ -434,9 +432,9 @@
         margin-left: auto;
         margin-right: auto;
     }
-    .NewsList ul, .marketChart, .stockMarketNews, .NewsTilesBg .TitleBar, .VideoTilesContent{
-        width: 90%;
-    }
+    // .NewsList ul, .marketChart, .stockMarketNews, .NewsTilesBg .TitleBar, .VideoTilesContent{
+    //     width: 90%;
+    // }
     .NewsLightTiles {
         padding: 20px 0;
     }
@@ -694,7 +692,7 @@
         margin-left: 0;
     }
     .container-xl, .container-lg, .container-md, .container-sm, .container {
-        max-width: 100%;
+        max-width: 90%;
     }
     .market-stats .marketBox {
         min-width: 153px;
@@ -709,10 +707,10 @@
     .page-categories {
         margin: 15px 33px 15px -12px;
     }
-    .PageBuilder-sidebar, .marketChart {
-        min-width: 90% !important;
-        margin: auto;
-    }
+    // .PageBuilder-sidebar, .marketChart {
+    //     min-width: 90% !important;
+    //     margin: auto;
+    // }
     .newsDetial_w{
         width: 100%;
     }
@@ -726,29 +724,27 @@
     .newsSlider .slick-slider .NewsBox{
         height: 250px;
     }
-    .newsSlider{
-        width: 90%;
-    }
+    // .newsSlider{
+    //     width: 90%;
+    // }
     // .newsSlider.scrollbarWrap .slick-slider .slick-slide.slick-active.slick-current {
     //     width: 250px !important;
     // }
     // .newsSlider.scrollbarWrap .slick-slider .slick-slide.slick-active {
     //     width:442px !important;
     // }
-    .videoNewsContent, .horizontalNumberList, .NewsLightTiles .TitleBar,
-     .NewsTiles, .yellowTitle, .footer_footerTop__ojwnt, .w_90,
-      .footer_footerBottom__yUmY5, .btn-outline-primary, .breakingNews, .sidelist_sidebar__Nuc9n,
-      .single_video_main {
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-    }
+    // .videoNewsContent, .horizontalNumberList, .NewsLightTiles .TitleBar,
+    //   .footer_footerTop__ojwnt, .w_90,
+    //   .footer_footerBottom__yUmY5, .btn-outline-primary, .breakingNews,
+    //   .single_video_main, .PageBuilder-col-9 {
+    //     width: 90%;
+    //     margin-left: auto;
+    //     margin-right: auto;
+    // }
     .NewsTiles .newBox.newBoxfs .NewsImage, .NewsTiles .newBox.newBoxf .NewsImage{
         height: 213px;
     }
-    .sidebarvideo_sidebar__Xyuy_ {
-        display: none;
-    }
+    
   }
   @media screen and (max-width:768px) and (min-width:576px){
     .searchResultList .NewsList li {
