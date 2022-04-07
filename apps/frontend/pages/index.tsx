@@ -18,6 +18,8 @@ import { requests } from '../services/Requests';
 import Skeleton from 'react-loading-skeleton';
 import Link from 'next/link';
 import MostReadSlider from '../components/Home/MostReadSlider';
+import NewsDetatilListWithMedia from '../components/Shared/NewsDetatilListWithMedia/NewsDetatilListWithMedia';
+import AdBanner from '../components/Shared/AdBanner/AdBanner';
 
 export function Index() {
   /*
@@ -47,6 +49,11 @@ export function Index() {
     })
   }, [limit])
 
+  const details = [
+    {description:'سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي ', proIcon:true, video:false, tag1:'أمريكا', tag2:'منذ 5 دقائق'},
+    {description:'بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي', proIcon:false, video:false, tag1:'أمريكا', tag2:'منذ 5 دقائق'},
+    {description:'بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي', proIcon:false, video:false, tag1:'أمريكا', tag2:'منذ 5 دقائق'},
+]
 
   return (
     <>
@@ -65,8 +72,19 @@ export function Index() {
             <NewsSection />
           </div>
           <div className='PageBuilder-sidebar'>
-            <SideBar sideBarSequence={[{ componentType: 'dotList', position: 1, title:'آخر الأخبار' }, { componentType: 'SmallBanner', position: 2 }]} />
+            <SideBar sideBarSequence={[{ componentType: 'dotList', position: 1, title:'آخر الأخبار' }]} />
           </div>
+        </div>
+        <div className='PageBuilder-pageRow'>
+          <div className=' PageBuilder-col-9'>
+          <NewsDetatilListWithMedia dispalyMoreButton={false} details={details}/> {/*Secondary News Section */}
+          </div>
+          <div className='PageBuilder-sidebar'>
+            <SideBar sideBarSequence={[{ componentType: 'SmallBanner', position: 2 }]} />
+          </div>
+        </div>
+        <div className="bannerAddMedia">
+        <AdBanner />
         </div>
         <div>
           <SplitScreenBarCharts />
@@ -84,11 +102,21 @@ export function Index() {
       <div>
         <TilesWithLightColorBackground />
       </div>
-
+      <div className="bannerAddMedia">
+        <AdBanner />
+        </div>
       <div className="container">
         <div className='mb-5'>
             <HorizontalNumberedList />
         </div>
+        <div className='PageBuilder-sidebar hide_div_web'>
+                    
+                     
+                        <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
+                    
+                    
+                   
+              </div>
 
       <div className='PageBuilder-pageRow flex-wrap-reverse'>
         <div className='PageBuilder-col-9'>
