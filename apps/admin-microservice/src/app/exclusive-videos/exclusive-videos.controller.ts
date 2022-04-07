@@ -19,10 +19,9 @@ export class ExclusiveVideosController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-
-    @Put(":id")
-    async updateExclusiveVideo(@Param("id") id : number,@Body() body : CreateExclusiveVideosRequestDto) : Promise<GenericResponseDto>{
-        return await this.exclusiveVideosService.updateExclusiveVideo(body,id);
+    @Put("update")
+    async updateAndRemoveExclusiveVideo(@Body() body : UpdateExclusiveVideosRequestDto) : Promise<GenericResponseDto>{
+        return await this.exclusiveVideosService.updateAndRemoveExclusiveVideo(body);
     }
 
     @UseGuards(JwtAuthGuard)
