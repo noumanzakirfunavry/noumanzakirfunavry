@@ -255,7 +255,15 @@
         height: 70px;
         padding: 5px;
     }
-
+    .market-stats{
+        margin-left: -32px;
+    }
+    .mainsection_mainNews__oiuM_ h1 a , .mainsection_mainNews__oiuM_ h1{
+        font: normal normal bold 20px/28px Cairo !important;
+    }
+    .mainsection_newsdetails__ugKGf a {
+        font: normal normal bold 13px/20px Cairo;
+    }
 
   }
 
@@ -326,12 +334,8 @@
       body{
           padding-bottom: 50px;
       }
-    .horizontalNumberList .hNumberList ol {
-        flex-wrap: wrap;
-    }
-    .marketChart .chartBox .chartTop{
-        flex-wrap: wrap;
-    }
+    
+   
     .marketChart .chartBox .chartTop li{
         margin-bottom: 20px;
     }
@@ -490,6 +494,7 @@
         border-top: 0 !important;
         h4{
             border-top: none !important;
+            font-size: 24px !important;
         }
     }
     .dotListwrap{
@@ -505,17 +510,27 @@
         display: none;
     }
     .marketChart .chartBox .chartTop h4{
-        font-size: 20px;
+        font-size: 22px;
+        padding-left: 10px;
+    }
+    .marketChart .chartBox {
+        padding: 20px 14px 10px;
     }
     .marketChart .chartBox .chartTop li{
-        padding: 5px 0 5px 10px;
+        padding:5px 5px 5px 0px;
         a{
             padding: 5px 10px;
         }
     }
     .marketChart .chartBox h3 {
-        margin: 0px 0 15px;
+        margin: 0px 0 10px;
         font-size: 16px;
+    }
+    .NewsTilesBg .TitleBar{
+        margin-bottom: 25px;
+    }
+    .VideoNews .NewsContent h4{
+        font-size: 22px;
     }
     .marketChart .chartBox table{
         font-size: 13px;
@@ -541,6 +556,7 @@
     }
     .VideoTiles .NewsContent h4{
         margin-right: 0;
+        font-size: 14px;
     }
     .NewsLightTiles .VideoTiles .VideoNews .NewsImage {
         height: 118px;
@@ -753,7 +769,7 @@
         flex-wrap: wrap;
     }
     .mainsection_mainNews__oiuM_ h1 a {
-        font-size: 32px !important;
+        font-size: 22px !important;
      
     }
     .mainsection_mainNews__oiuM_ h3 a {
@@ -761,6 +777,102 @@
         padding: 10px 0;
         display: inline-block;
     }
+    .hide_div_mobile{
+        display: none;
+    }
+    .mainsection_newsdetails__ugKGf a{
+        font-size: 14px !important;
+    }
+    .mainsection_newsbox___k_R6 {
+        margin-bottom: 30px !important;
+    }
+    .sidelist_sideDotList__hUN6M li{
+        margin-bottom: 10px;
+    }
+    .sidelist_sideDotList__hUN6M li a{
+        padding-bottom: 10px !important;
+        font-size: 14px !important;
+    }
+    .sidelist_sideDotList__hUN6M li span{
+        margin-bottom: 0 !important;
+        margin-top: 0 !important;
+    }
+    button.btn.btn-outline-primary{
+        min-width: 165px;
+    }
+    .PageBuilder-sidebar{
+        margin-bottom: 20px;
+    }
+    .NewsList li .newsImage{
+        width: 118px;
+        height: 90px;
+    }
+    .NewsList li a{
+        font-size: 14px;
+    }
+    .marketChart{
+        margin-top: 0;
+    }
+    .bannerAddMedia{
+        width: 728px;
+        margin-right: -27px;
+    }
+    .newsSlider.scrollbarWrap .scrollbarHeader {
+        border-top: solid 6px #002F6C;
+        padding-top: 15px;
+    }
+    .horizontalNumberList .primaryTitle h3{
+        border-color: #002F6C;
+        display: block;
+    }
+    .NewsImage.show_mobile {
+        display: block;
+        width: 246px;
+        height: 120px;
+        overflow: hidden;
+        margin-bottom: 12px;
+        img{
+            width: 100%;
+        }
+    }
+    .NewsTilesBg h2, .scrollbarHeader .TitleBar h2, .NewsLightTiles .TitleBar h2{
+        font-size: 32px;
+    }
+    .newsSlider.mostredSlider {
+        margin-bottom: 24px;
+        .slick-slider{
+            margin-left: 0;
+        }
+            
+        
+        .slider-item li {
+            list-style: none;
+            .NewsImage.show_mobile{
+                width: 100%;
+                height: 118px;
+                
+            }
+            a{
+                font-size: 14px;
+                color: #1c1c1c;
+                font-weight: bold;
+                
+            }
+            p.tag{
+                font-size: 12px;
+                margin-top: 10px;
+                font-weight: bold;
+                a{
+                    color: #005594;
+                    margin-left: 10px;
+                }
+                b{
+                    color: #777777;
+                }
+            }
+        }
+    }
+    
     
   }
   @media screen and (max-width:768px) and (min-width:576px){
@@ -1182,16 +1294,7 @@
         background-color: #fff;
         padding: 0;
     }
-    .NewsImage.show_mobile {
-        display: block;
-        width: 246px;
-        height: 120px;
-        overflow: hidden;
-        margin-bottom: 12px;
-        img{
-            width: 100%;
-        }
-    }
+    
 
     .sidelist_sidesimpleList__CD3XZ li a{
         font: normal normal bold 14px/22px Cairo !important;
@@ -1244,7 +1347,11 @@
     .page-categories {
         margin: 15px 15px 15px -11px;
     }
-  }
+    .horizontalNumberList .hNumberList ol {
+        flex-wrap: wrap;
+    }
+  
+}
   @media screen and (max-width:575px){
     .sliderArrows{
         display: none;
@@ -1610,6 +1717,11 @@ max-width: 100%;
 }
 
 // home responsive
+@media (min-width: 769px){
+    .hide_div_web{
+        display: none;
+    }
+}
 @media (min-width: 760px) and (min-width: 760px)
 {
     .PageBuilder-col-9 {

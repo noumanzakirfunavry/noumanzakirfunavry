@@ -79,13 +79,14 @@ export function Index() {
           <div className=' PageBuilder-col-9'>
           <NewsDetatilListWithMedia dispalyMoreButton={false} details={details}/> {/*Secondary News Section */}
           </div>
-          <div className='PageBuilder-sidebar'>
+          <div className='PageBuilder-sidebar mt-0'>
             <SideBar sideBarSequence={[{ componentType: 'SmallBanner', position: 2 }]} />
-          </div>
-        </div>
-        <div className="bannerAddMedia">
+            <div className="bannerAddMedia">
         <AdBanner />
         </div>
+          </div>
+        </div>
+        
         <div>
           <SplitScreenBarCharts />
         </div>
@@ -102,9 +103,11 @@ export function Index() {
       <div>
         <TilesWithLightColorBackground />
       </div>
+      <div className="container">
       <div className="bannerAddMedia">
         <AdBanner />
         </div>
+      </div>
       <div className="container">
         <div className='mb-5'>
             <HorizontalNumberedList />
@@ -125,7 +128,7 @@ export function Index() {
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
 
         </div>
-        <div className='PageBuilder-sidebar'>
+        <div className='PageBuilder-sidebar hide_div_mobile'>
           {/* show on tab and mobile */}
           {/* show on web only */}
         <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'} ]} />

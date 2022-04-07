@@ -415,6 +415,9 @@ h6{
         }
 
     }
+    ::-webkit-scrollbar{
+      height: 0;
+    }
 
 }
 
@@ -3173,4 +3176,17 @@ h6.newsDetailtext
 .newsDetial_w {
   width: 1000px;
   margin: auto;
+}
+.mainsection_newsdetails__ugKGf {
+p.tag{
+  a{
+    margin-left: 15px;
+    font-size: 12px !important;
+    color: $secondary-color !important;
+  }
+  b{
+    font-size: 12px;
+    color: $grey;
+  }
+}
 }
