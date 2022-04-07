@@ -1135,6 +1135,9 @@ h6{
     flex-wrap: nowrap;
     justify-content: space-between;
     margin-bottom: 10px;
+    &::-webkit-scrollbar{
+      height: 0;
+    }
 }
 .market-stats .marketBox{
     margin-bottom: 5px;
@@ -2625,9 +2628,11 @@ select::-ms-expand {
     }
 
   }
+ 
 }
 
 }
+
 // newsslider2text
 .newsSlider2Text {
   .NewsBox {

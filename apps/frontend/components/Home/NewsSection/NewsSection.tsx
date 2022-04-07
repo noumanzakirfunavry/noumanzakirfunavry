@@ -14,7 +14,7 @@ const NewsSection:FC = () =>{
     return (
         <>
             <MainSection/>   {/*Main News Section */}
-            <NewsDetatilListWithMedia dispalyMoreButton={false} details={details}/> {/*Secondary News Section */}
+            
 
         </>
     )
