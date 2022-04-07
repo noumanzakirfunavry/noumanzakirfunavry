@@ -100,7 +100,7 @@ export class JobApplicantService {
     });
   }
 
-	// todo: send email to applicant upon creation
+  // todo: send email to applicant upon creation
   async createJobApplicant(
     createJobApplicantRequestDto: CreateJobApplicantRequestDto
   ): Promise<CreateJobApplicantResponseDto> {
@@ -116,15 +116,17 @@ export class JobApplicantService {
     );
   }
 
-  async deleteJobApplicant(jobApplicantId: number): Promise<DeleteJobApplicantResponseDto> {
+  async deleteJobApplicant(
+    jobApplicantId: number
+  ): Promise<DeleteJobApplicantResponseDto> {
     const deleteResponse = await this.jobApplicantsRepository.destroy({
       where: { id: jobApplicantId },
     });
 
     if (!deleteResponse) {
-      return new DeleteJobApplicantResponseDto(
-        HttpStatus.NOT_FOUND,
-        'Job applicant was not found'
+      throw new CustomException(
+        Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+        Exceptions[ExceptionType.RECORD_NOT_FOUND].status
       );
     }
 
