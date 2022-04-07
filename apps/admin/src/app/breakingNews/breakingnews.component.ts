@@ -7,24 +7,13 @@ import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
 
-export class Data extends Pagination {
-    publishers: Array<any>;
-    title: string;
-
-    constructor () {
-        super();
-        this.publishers= [];
-        this.title= "";
-    }
-}
-
 @Component({
        selector: 'app-breakingNews',
     templateUrl: './breakingnews.component.html',
 })
 
 export class BreakingNewsComponent implements OnInit{
-    pagination: Data = new Data()
+    pagination: Pagination = new Pagination()
     allBreakingNews: any;
     breakingNewsCount: any;
     loading= true;
@@ -137,6 +126,7 @@ export class BreakingNewsComponent implements OnInit{
             this.checked= false;
             this.indeterminate= false;
             this.getAllBreakingNews();
+            this.message.create('success', `Breaking News Deleted Successfully`);
           })
     }
 

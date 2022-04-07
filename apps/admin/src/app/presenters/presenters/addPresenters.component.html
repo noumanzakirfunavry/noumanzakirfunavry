@@ -2,23 +2,62 @@
   <br>
   <br>
   <div class="col-12">
-    <form nz-form [nzLayout]="'vertical'">
+    <form [formGroup]="presenterForm" nz-form [nzLayout]="'vertical'" (ngSubmit)="presenters()">
       <div class="row">
         <div class="col-8">
           <div class="row">
             <div class="col-md-6">
               <nz-form-item>
-                <nz-form-label>Title </nz-form-label>
-                <nz-form-control>
-                  <input type="text" nz-input placeholder="Enter Title">
+                <nz-form-label nzRequired>Title </nz-form-label>
+                <nz-form-control nzErrorTip="Please input Title!">
+                  <input type="text" formControlName="name" nz-input placeholder="Enter Title">
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-6">
               <nz-form-item>
-                <nz-form-label>Job Position</nz-form-label>
-                <nz-form-control>
-                  <input type="text" nz-input placeholder="Enter Job Position">
+                <nz-form-label nzRequired>Job Position</nz-form-label>
+                <nz-form-control nzErrorTip="Please input Job Position!">
+                  <input type="text" formControlName="jobPosition" nz-input placeholder="Enter Job Position">
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <nz-form-item>
+                <nz-form-label nzRequired>Age </nz-form-label>
+                <nz-form-control nzErrorTip="Please input Age only numbers allowed!">
+                  <input type="text" formControlName="age" nz-input placeholder="Enter Age">
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div class="col-md-6">
+              <nz-form-item>
+                <nz-form-label nzRequired>Gender</nz-form-label>
+                <nz-form-control nzErrorTip="Please select Gender!">
+                <nz-select nzShowSearch nzAllowClear formControlName="gender" nzPlaceHolder="Select Gender">
+                  <nz-option nzValue="MALE" [nzLabel]="'Male'"></nz-option>
+                  <nz-option nzValue="FEMALE" [nzLabel]="'Female'"></nz-option>
+                </nz-select>
+              </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <nz-form-item>
+                <nz-form-label nzRequired>DOB </nz-form-label>
+                <nz-form-control nzErrorTip="Please select DOB!">
+                  <nz-date-picker formControlName="dob" style="width: 100%;"></nz-date-picker>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div class="col-md-6">
+              <nz-form-item>
+                <nz-form-label nzRequired>Joining Date </nz-form-label>
+                <nz-form-control nzErrorTip="Please select Joining Date!">
+                  <nz-date-picker formControlName="joinedNetworkOn" style="width: 100%;"></nz-date-picker>
                 </nz-form-control>
               </nz-form-item>
             </div>
@@ -28,65 +67,73 @@
               <nz-form-item>
                 <nz-form-label>Description</nz-form-label>
                 <nz-form-control>
-                  <ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
+                  <ckeditor formControlName="description" [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
              </nz-form-control>
             </nz-form-item>
             </div>
-            <!-- <div class="col-md-6">
-
-            </div> -->
           </div>
           <div class="row">
             <div class="col-md-6">
               <nz-form-item>
                 <h4>Profile Image</h4>
-                <nz-form-label>Image Upload</nz-form-label>
-                <!-- <nz-form-control>
-                  <input type="file" nz-input placeholder="Enter Password">
-                </nz-form-control> -->
-                <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
-                  <button nz-button>
-                    <i nz-icon nzType="upload"></i>
-                    Select File
-                  </button>
-                </nz-upload>
-                <!-- <button
-                  nz-button
-                  [nzType]="'primary'"
-                  [nzLoading]="uploading"
-                  (click)="handleUpload()"
-                  [disabled]="fileList.length === 0"
-                  style="margin-top: 16px">
-                  {{ uploading ? 'Uploading' : 'Start Upload' }}
-                </button> -->
+                  <dynamic-file-selector (onFileSelection)="fileImage($event)" [formField]="presenterForm" [field]="{colName: 'attachmentsId', value: ''}"></dynamic-file-selector>
+              </nz-form-item>
+            </div>
+            <div class="col-md-6">
+              <h4>General Settings</h4>
+              <nz-form-item>
+                <nz-form-control>
+                  <nz-switch class="mr-3" formControlName="isActive"> </nz-switch> Active
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            </div>
+            <h4>Social Media</h4>
+            <div class="row">
+              <div class="col-md-6">
+              <nz-form-item>
+                <nz-form-label nzRequired>Twitter Profile</nz-form-label>
+                <nz-form-control nzErrorTip="Please input Twitter Link!">
+                <input type="text" formControlName="twitterLink" nz-input placeholder="Enter Twitter Link">
+              </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-6">
               <nz-form-item>
-                <h4>Social Media</h4>
-                <nz-form-label>Twitter Profile</nz-form-label>
-                <input type="password" nz-input placeholder="Enter Link">
+                <nz-form-label nzRequired>Facebook Profile</nz-form-label>
+                <nz-form-control nzErrorTip="Please input Facebook Link!">
+                <input type="text" formControlName="facebookLink" nz-input placeholder="Enter Facebook Link">
+              </nz-form-control>
               </nz-form-item>
             </div>
           </div>
-        </div>
-        <div class="col-4">
-          <h4>General Settings</h4>
-          <nz-form-item>
-            <nz-form-control>
-              <nz-switch class="mr-3"> </nz-switch> Active
+          <div class="row">
+            <div class="col-md-6">
+            <nz-form-item>
+              <nz-form-label nzRequired>Instagram Profile</nz-form-label>
+              <nz-form-control nzErrorTip="Please input Instagram Link!">
+              <input type="text" formControlName="instagramLink" nz-input placeholder="Enter Instagram Link">
             </nz-form-control>
-          </nz-form-item>
+            </nz-form-item>
+          </div>
+          <div class="col-md-6">
+            <nz-form-item>
+              <nz-form-label nzRequired>Linkedin Profile</nz-form-label>
+              <nz-form-control nzErrorTip="Please input Linkedin Link!">
+              <input type="text" formControlName="linkedInLink" nz-input placeholder="Enter Linkedin Link">
+            </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
         </div>
       </div>
       <nz-form-item>
-        <nz-form-control [nzSpan]="14">
-          <button class="mr-3" nz-button nzType="primary">Save</button>
-          <button nz-button nzType="default">Cancel</button>
+        <nz-form-control>
+          <button *ngIf="!presenterId" class="mr-3" nz-button nzType="primary">Save</button>
+          <button *ngIf="presenterId" class="mr-3" nz-button nzType="primary">Update</button>
+          <button nz-button nzType="default" (click)="cancel()">Cancel</button>
         </nz-form-control>
       </nz-form-item>
     </form>
-
   </div>
-
 </section>

@@ -1,11 +1,11 @@
 .mainNews{
     background: url(../../../../styles/images/biden.jpg) no-repeat;
     color: #fff;
-    /* width: 630px; */
+    width: 630px;
     height: 510px;
     align-items: flex-end;
     display: flex;
-    margin-bottom: 15px;
+    margin-bottom: 32px;
     background-size: cover;
   }
   .newscontent{
