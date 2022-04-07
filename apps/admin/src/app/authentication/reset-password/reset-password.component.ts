@@ -6,10 +6,10 @@ import { ApiService } from '../../shared/services/api.service';
 
 
 @Component({
-    templateUrl: './login.component.html'
+    templateUrl: './reset-password.component.html'
 })
 
-export class LoginComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit {
     loginForm: FormGroup;
 
     constructor(private fb: FormBuilder, private apiService: ApiService, private route: Router) {
@@ -17,8 +17,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         this.loginForm = this.fb.group({
-            userName: [ null, [ Validators.required ] ],
-            password: [ null, [ Validators.required ] ]
+            email: [ null, [ Validators.required ] ]
         });
     }
 
@@ -29,13 +28,13 @@ export class LoginComponent implements OnInit {
         }
         if(this.loginForm.valid) {
             const obj= this.loginForm.value;
-            obj['deviceId']= '995fb498-9621-11ec-b909-0242ac120002';
-            obj['deviceType']= 'DESKTOP';
-            obj['userName']= this.loginForm.value.userName.toLowerCase();
-            this.apiService.sendRequest(requests.login, 'post', obj).subscribe((res:any) => {
-                localStorage.setItem("admin", JSON.stringify(res.response))
-                console.log("LOGIN", res);
-                this.route.navigateByUrl('dashboard');
+            // obj['deviceId']= '995fb498-9621-11ec-b909-0242ac120002';
+            // obj['deviceType']= 'DESKTOP';
+            obj['email']= this.loginForm.value.email.toLowerCase();
+            this.apiService.sendRequest(requests.resetPassword, 'post', obj).subscribe((res:any) => {
+                // localStorage.setItem("admin", JSON.stringify(res.response))
+                console.log("Email for reset password", res);
+                this.route.navigateByUrl('login');
             })
         }
     }
