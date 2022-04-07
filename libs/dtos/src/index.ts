@@ -62,13 +62,16 @@ export * from './request/live-stream-links/get.all.live.stream.links.request.dto
 //...............................Change log.............................
 export * from './request/logger/add.log.request.dto';
 //...............................Job applicants.............................
-export * from './request/job-applicants/get.all.job.applicants.request.dto'
-export * from './request/job-applicants/create.job.applicant.request.dto'
+export * from './request/job-applicants/get.all.job.applicants.request.dto';
+export * from './request/job-applicants/create.job.applicant.request.dto';
+//...............................Markets.............................
+export * from './request/markets/create.market.request.dto';
+export * from './request/markets/update.market.request.dto';
 //...............................Menus.............................
-export * from './request/menus/create.menu.request.dto'
-export * from './request/menus/delete.menu.request.dto'
-export * from './request/menus/update.menu.request.dto'
-export * from './request/menus/get.menu.request.dto'
+export * from './request/menus/create.menu.request.dto';
+export * from './request/menus/delete.menu.request.dto';
+export * from './request/menus/update.menu.request.dto';
+export * from './request/menus/get.menu.request.dto';
 //...............................Messages.............................
 export * from './request/message/create.message.request.dto';
 export * from './request/message/get.all.message.request.dto';
@@ -161,6 +164,11 @@ export * from './response/job-applicants/delete.job.applicant.response.dto';
 //...............................Live Stream Links.............................
 export * from './response/live-stream-links/get.all.live.stream.links.response.dto';
 export * from './response/live-stream-links/get.live.stream.link.by.id.response.dto';
+//...............................Markets.............................
+export * from './response/markets/create.market.response.dto';
+export * from './response/markets/get.all.markets.response.dto';
+export * from './response/markets/get.market.by.id.response.dto';
+export * from './response/markets/update.market.response.dto';
 //...............................Menus.............................
 export * from './response/menus/get.menus.response.dto';
 export * from './response/menus/get.menu.by.id.response.dto';
@@ -201,15 +209,3 @@ export * from './response/tags/get.tag.by.id.response.dto';
 export * from './response/tags/update.tag.response.dto';
 //...............................Trending news.............................
 export * from './response/trending-news/get.all.trending.news.response.dto';
-
-
-
-
-
-
-
-
-
-
-
-

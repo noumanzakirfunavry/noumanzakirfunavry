@@ -32,7 +32,7 @@ export class AddNewsComponent implements OnInit {
     allCategories: any = [];
     strucCategories: any;
 
-    pagination: { limit: number, pageNo: number, name?: string, title?: string } = { limit: 10, pageNo: 1 }
+    pagination: { limit: number, pageNo: number, name?: string, title?: string } = { limit: 15, pageNo: 1 }
     public Editor = ClassicEditor;
     previewImage = '';
     previewVisible = false;
@@ -43,6 +43,8 @@ export class AddNewsComponent implements OnInit {
     uploadProgress: number;
     file: any;
     fileType: string;
+    submitted= false;
+    selectedCat: any;
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
@@ -154,10 +156,10 @@ export class AddNewsComponent implements OnInit {
 
     populateNewsForm(news: any) {
         this.newsForm = this.fb.group({
-            title: [news.title || null, [Validators.required]],
+            title: [news.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             content: [news?.content || null, [Validators.required]],
             isPro: [news.isPro || false],
-            visible: [news.visible, [Validators.required]],
+            visible: [news.visible || true, [Validators.required]],
             contentType: [news.contentType || 'TEXT', [Validators.required]],
             authorName: [news?.authorName || 'CNBC News',],
             newsType: [news?.newsType || 'NEWS',],
@@ -170,25 +172,21 @@ export class AddNewsComponent implements OnInit {
             slugLine: [news?.seoDetail?.slugLine || null, [Validators.required]],
             description: [news?.seoDetail?.description || null, [Validators.required]],
             keywords: [news?.seoDetail?.keywords || null, [Validators.required]],
-            // seoTitle: [ null, [Validators.required]],
-            // slugLine: [ null, [Validators.required]],
-            // description: [ null, [Validators.required]],
-            // keywords: [ null, [Validators.required]],
             file: [null],
         });
     }
 
     initNewsForm() {
         this.newsForm = this.fb.group({
-            title: [null, [Validators.required]],
+            title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             content: [null, [Validators.required]],
-            isPro: [false,],
-            visible: [null, [Validators.required]],
+            isPro: [false],
+            visible: [true, [Validators.required]],
             contentType: ['TEXT', [Validators.required]],
             authorName: [null,],
             newsType: ['NEWS',],
             showOnHomepage: [true, [Validators.required]],
-            isActive: [true,],
+            isActive: [true],
             categoryIds: [null, [Validators.required]],
             tagsIds: [null, [Validators.required]],
             quotesIds: [null, [Validators.required]],
@@ -201,7 +199,8 @@ export class AddNewsComponent implements OnInit {
     }
 
     onChange($event: string[]): void {
-        console.log($event);
+        this.selectedCat= $event;
+        console.log("SEL-CAT", this.selectedCat);
     }
 
     saveNews() {
@@ -209,7 +208,8 @@ export class AddNewsComponent implements OnInit {
             this.newsForm.controls[i].markAsDirty();
             this.newsForm.controls[i].updateValueAndValidity();
         }
-        // if (this.newsForm.valid) {
+        this.submitted= true;
+        if (this.newsForm.valid) {
         const obj = this.newsForm.value;
         ;
         // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
@@ -224,7 +224,7 @@ export class AddNewsComponent implements OnInit {
             //     // this.message.create('success', `Category Added Successfully`)
             // }
         })
-        // }
+        }
         console.log("form", this.newsForm.value);
     }
 
@@ -315,19 +315,18 @@ export class AddNewsComponent implements OnInit {
 
     getTags(value?) {
         this.pagination.title = value ? value : '';
-        this.apiService.sendRequest(requests.getAllTags, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res: any) => {
-            console.log("ALL-tags", res.response.tags);
+            this.apiService.sendRequest(requests.getAllTags, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res: any) => {
             this.allTags = res.response.tags;
+            console.log("ALL-TAGS", this.allTags);
         })
     }
 
     getAllCategories() {
         this.apiService.sendRequest(requests.getAllCategories, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res: any) => {
-            console.log("ALL-cat", res);
+            console.log("ALL-CAT", res);
             this.allCategories = res.response.categories;
             this.strucCategories = this.catToNodes(this.allCategories);
             console.log("structured nodes categories=>", this.strucCategories);
-
         })
     }
 
