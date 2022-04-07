@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { requests } from '../services/Requests';
 import Skeleton from 'react-loading-skeleton';
 import Link from 'next/link';
+import MostReadSlider from '../components/Home/MostReadSlider';
 import NewsDetatilListWithMedia from '../components/Shared/NewsDetatilListWithMedia/NewsDetatilListWithMedia';
 import AdBanner from '../components/Shared/AdBanner/AdBanner';
 
@@ -123,9 +124,13 @@ export function Index() {
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
 
         </div>
-        <div className='PageBuilder-sidebar  hide_div_mobile'>
-        <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
+        <div className='PageBuilder-sidebar'>
+          {/* show on tab and mobile */}
+          <MostReadSlider/>
+          {/* show on web only */}
+        <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'} ]} />
 
+      </div>
       </div>
       <div className='PageBuilder-pageRow'>
         <div className='PageBuilder-col-9'>
@@ -162,39 +167,14 @@ export function Index() {
 
         </div>
       </div>
-      {
-        !categories?.length && <Skeleton/>
-      }
-      {
-        categories?.length && categories?.map((category:CategoryProps, index:number)=>{
-          return (
-            <div className='PageBuilder-pageRow' key={category.id}>
-              <div className='PageBuilder-col-9'>
-                <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
-              </div>
-              <div className='PageBuilder-sidebar'>
-                    {
-                      index === 0 && (
-                        <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
-                      )
-                    }
-                    {
-                      index === 2 && (
-                        <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
-                      )
-                    }
-              </div>
-            </div>
-          )
-        })
-      }
 
+{/* categoreis code is save on usman's side i will revert it after integrating it */}
 
-      <div className="text-center mt-3 mb-4 more_btn" onClick={()=>setLimit(limit + 5)}>
+      {/* <div className="text-center mt-3 mb-4 more_btn" onClick={()=>setLimit(limit + 5)}>
           <button className="btn btn-outline-primary">المزيد</button>
-      </div>
+      </div> */}
 
-      </div>
+      {/* </div> */}
 
 </div>
     </>
