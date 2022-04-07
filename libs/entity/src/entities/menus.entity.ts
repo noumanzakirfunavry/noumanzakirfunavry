@@ -1,20 +1,11 @@
 import { MenuPositionTypes } from '@cnbc-monorepo/enums';
-import { ElkService } from '@cnbc-monorepo/elk';
 import {
-  Table,
-  Model,
-  PrimaryKey,
-  AutoIncrement,
-  Unique,
-  Column,
-  DataType,
-  ForeignKey,
-  BelongsTo,
-  HasMany,
-  AfterCreate,
+	AutoIncrement, BelongsTo, Column,
+	DataType,
+	ForeignKey, HasMany, Model,
+	PrimaryKey, Table, Unique
 } from 'sequelize-typescript';
 import { Users } from './users.entity';
-import { Inject } from '@nestjs/common';
 // import { MenusService } from '../../../../apps/admin-microservice/src/app/menus/menus.service';
 
 @Table({
@@ -74,23 +65,4 @@ export class Menus extends Model {
   publishedBy: number;
   @BelongsTo(() => Users)
   user: Users;
-
-  @AfterCreate
-  static async elkIndex(instance: Menus) {
-    await instance.reload({ include: ['user'] });
-    console.log(instance.user);
-
-    // /////////////////////////////////////
-
-    // const menu = await this.MenuRepo.findAll({
-    //   where: { id: instance.id },
-    //   include: [{ model: Menus, as: 'childMenus' }],
-    // });
-    // console.log(menu);
-
-    // //////////////////////////
-
-    // console.log(instance.toJSON())
-    ElkService.index({index: 'menu', document: instance.toJSON()})
-  }
 }
