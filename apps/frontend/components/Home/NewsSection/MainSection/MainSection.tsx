@@ -44,8 +44,10 @@ const MainSection:FC = () =>{
                                     <div className={styles.newsimage}>
                                         <img className="img-fluid" src={newsimage.src} />
                                     </div>
+                                    {/* <div className="{styles.newsdetails},'newsText'"> */}
                                     <div className={styles.newsdetails}>
                                         <a >بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة ال </a>
+                                        <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                                     </div>
                                 </div>
                             </div>
