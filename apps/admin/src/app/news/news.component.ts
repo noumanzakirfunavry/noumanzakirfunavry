@@ -32,7 +32,6 @@ export class NewsComponent implements OnInit {
     checked = false;
     loading = true;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData: Array<any>;
 
 
     constructor(private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {}
