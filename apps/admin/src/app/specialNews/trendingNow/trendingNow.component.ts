@@ -108,7 +108,7 @@ export class TrendingNowComponent implements OnInit{
             })
             this.apiService.sendRequest(requests.updateTrendingNews, 'put', { news: this.tNews }).subscribe((res:any) => {
                 console.log("UPDATE-TRENDING-NOW", res);
-                location.reload();
+                this.getAllTrendingNews();
                 this.message.create('success', `Trending Now News Updated Successfully`);
             })
     }
