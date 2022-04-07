@@ -17,7 +17,7 @@ export class ResetPasswordComponent implements OnInit {
 
     ngOnInit(): void {
         this.loginForm = this.fb.group({
-            email: [ null, [ Validators.required ] ]
+            email: [ null, [ Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$') ] ]
         });
     }
 
