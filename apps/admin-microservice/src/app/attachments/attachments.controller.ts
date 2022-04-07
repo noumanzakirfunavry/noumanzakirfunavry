@@ -28,7 +28,6 @@ export class AttachmentsController {
   constructor(private attachmentsService: AttachmentsService) {}
 
   @Roles(RoleTypes.Admin)
-  @Rights(RightsTypes.CREATE)
   @UseInterceptors(FileFieldsInterceptor([{ name: 'file' }]))
   @Post()
   async createAttachment(
@@ -44,7 +43,6 @@ export class AttachmentsController {
   }
 
   @Roles(RoleTypes.Admin)
-  @Rights(RightsTypes.UPDATE)
   @Put(':id')
   async updateAttachment(
     @Param('id') id: number,
@@ -54,14 +52,13 @@ export class AttachmentsController {
   }
 
   @Roles(RoleTypes.Admin)
-  @Rights(RightsTypes.GET)
   @Get('getAll')
   async getAllAttachments(
     @Query() query: GetAllEpisodesRequestDto
   ): Promise<GenericResponseDto> {
     return await this.attachmentsService.getAllAttachments(query);
   }
-  @Rights(RightsTypes.UPDATE)
+
   @Delete()
   async deleteAttachments(
     @Query() query: DeleteAlexaAudioRequestDto
@@ -70,7 +67,6 @@ export class AttachmentsController {
   }
 
   @Roles(RoleTypes.Admin)
-  @Rights(RightsTypes.GET)
   @Get(':id')
   async getAttachmentById(
     @Param('id') id: number

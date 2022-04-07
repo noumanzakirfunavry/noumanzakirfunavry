@@ -12,7 +12,6 @@ export class ExclusiveVideosController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.CREATE)
     @Post()
     async createExclusiveVideo(@Body() body : CreateExclusiveVideosRequestDto) : Promise<GenericResponseDto>{
         return await this.exclusiveVideosService.createExclusiveVideo(body);
@@ -27,7 +26,6 @@ export class ExclusiveVideosController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get("getAll")
     async getAllExclusiveVideos(@Query() query : GetAllExclusiveVideos) : Promise<GetAllExclusiveVideosResponseDto>{
         return await this.exclusiveVideosService.getAllExclusiveVideos(query);
@@ -35,7 +33,6 @@ export class ExclusiveVideosController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get(":id")
     async getExclusiveVideoById(@Param("id") id : number) : Promise<GetExclusiveVideoByIdResponseDto>{
         return await this.exclusiveVideosService.getExclusiveVideoById(id);
@@ -44,7 +41,6 @@ export class ExclusiveVideosController {
     
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.UPDATE)
     @Delete()
     async deleteExclusiveVideoById(@Query() query : DeleteAlexaAudioRequestDto) : Promise<GenericResponseDto>{
         return await this.exclusiveVideosService.deleteExclusiveVideoById(query);

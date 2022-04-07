@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { requests } from '../../shared/config/config';
@@ -8,7 +8,8 @@ import { NewsModal } from '../../common/models/newsModal';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentListData } from './mockComments';
 import { environment } from '../../../environments/environment';
-import { Location } from '@angular/common';
+// import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
+// import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
 @Component({
     selector: 'app-addNews',
@@ -16,6 +17,7 @@ import { Location } from '@angular/common';
 })
 
 export class AddNewsComponent implements OnInit {
+    @ViewChild('myInput') myInputVariable: ElementRef;
     currentDate = new Date()
     newsModal: NewsModal;
     newsForm: FormGroup;
@@ -35,44 +37,7 @@ export class AddNewsComponent implements OnInit {
     previewImage = '';
     previewVisible = false;
     value: string[] = ['0-0-0'];
-    config = {
-        // plugins: [ , ],
-        ckfinder: {
-            // uploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-            // filebrowserBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles',
-            // filebrowserImageBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles?type=Images',
-            // filebrowserUploadUrl:'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-            // filebrowserImageUploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-            uploadUrl: 'http://localhost/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-            filebrowserBrowseUrl: 'http://localhost/ckfinder/userfiles',
-            filebrowserImageBrowseUrl: 'http://localhost/ckfinder/userfiles?type=Images',
-            filebrowserUploadUrl: 'http://localhost/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-            filebrowserImageUploadUrl: 'http://localhost/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-
-            // options: {
-            //     resourceType: 'Images'
-            // }
-        },
-        // toolbar: [ 'ckfinder', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
-        toolbar: ['heading', '|',
-            'fontfamily', 'fontsize',
-            'alignment',
-            'fontColor', 'fontBackgroundColor', '|',
-            'bold', 'italic', 'custombutton', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
-            'link', '|',
-            'outdent', 'indent', '|',
-            'bulletedList', 'numberedList', '|',
-            'code', 'codeBlock', '|',
-            'insertTable', '|',
-            'ckfinder', 'imageUpload', 'blockQuote', '|',
-            'undo', 'redo', '|',
-            'youtube',
-            'mediaEmbed']
-        // ckfinder: {
-        //     // Open the file manager in the pop-up window.
-        //     openerMethod: 'popup'
-        // }
-    }
+    config:any;
     commentListData = CommentListData
     newsId: number;
     uploadProgress: number;
@@ -85,16 +50,75 @@ export class AddNewsComponent implements OnInit {
         private route: Router) { }
 
     ngOnInit(): void {
+        const admin = JSON.parse(localStorage.getItem('admin') || '{}');
+        this.config={
+            // plugins: [CKFinder , ],
+            // plugins: [SimpleUploadAdapter , ],
+            language: 'ar',
+            // simpleUpload: {
+            //     // The URL that the images are uploaded to.
+            //     uploadUrl: requests.addNewAttachment,
+    
+            //     // Enable the XMLHttpRequest.withCredentials property.
+            //     withCredentials: true,
+    
+            //     // Headers sent along with the XMLHttpRequest to the upload server.
+            //     headers: {
+            //         'X-CSRF-TOKEN': 'CSRF-Token',
+            //         Authorization: 'Bearer '+admin.access_token
+            //     }
+            // },
+            ckfinder: {
+                // uploadUrl: 'https://ckfinder.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
+
+                // openerMethod: 'popup',
+                uploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+                filebrowserBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles',
+                filebrowserImageBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles?type=Images',
+                filebrowserUploadUrl:'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                // uploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+                // filebrowserBrowseUrl: 'http://localhost:80/ckfinder/userfiles',
+                // filebrowserImageBrowseUrl: 'http://localhost:80/ckfinder/userfiles?type=Images',
+                // filebrowserUploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                // filebrowserImageUploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+    
+                options: {
+                    resourceType: 'Images'
+                }
+            },
+            // toolbar: [ 'ckfinder','uploadImage', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+            toolbar: ['heading', '|',
+                'fontfamily', 'fontsize',
+                'alignment',
+                'fontColor', 'fontBackgroundColor', '|',
+                'bold', 'italic', 'custombutton', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+                'link', '|',
+                'outdent', 'indent', '|',
+                'bulletedList', 'numberedList', '|',
+                'code', 'codeBlock', '|',
+                'insertTable', '|',
+                'ckfinder', 'imageUpload', 'blockQuote', '|',
+                'undo', 'redo', '|',
+                'youtube',
+                'mediaEmbed']
+            // ckfinder: {
+            //     // Open the file manager in the pop-up window.
+            //     openerMethod: 'popup'
+            // }
+        }
+        this.initNewsForm();
         this.initQuoteForm();
         this.initTagForm();
 
         this.newsModal = new NewsModal()
         this.activatedRoute.params.subscribe(params => {
             this.newsId = parseInt(params.id);
-            if (!this.newsId) {
-                this.initNewsForm();
-            } else {
-                this.getNews(this.newsId)
+            // if (!this.newsId) {
+            //     this.initNewsForm();
+            // } 
+            if(this.newsId) {
+                this.getNews()
             }
         })
         setTimeout(() => {
@@ -103,9 +127,10 @@ export class AddNewsComponent implements OnInit {
             this.getAllQuotes()
         }, 2000);
     }
+
     private initQuoteForm() {
         this.quotesForm = this.fb.group({
-            name: [null, [Validators.required]]
+            name: [null, [Validators.required, Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]]
         });
     }
 
@@ -115,7 +140,7 @@ export class AddNewsComponent implements OnInit {
         });
     }
 
-    getNews(newsId: number) {
+    getNews() {
         this.apiService.sendRequest(requests.getNewsById + this.newsId, 'get').subscribe((res: any) => {
             console.log("news data", res.response.news);
             // this.newsModal=new NewsModal();
@@ -126,6 +151,7 @@ export class AddNewsComponent implements OnInit {
             this.populateNewsForm(res.response.news);
         })
     }
+
     populateNewsForm(news: any) {
         this.newsForm = this.fb.group({
             title: [news.title || null, [Validators.required]],
@@ -151,6 +177,7 @@ export class AddNewsComponent implements OnInit {
             file: [null],
         });
     }
+
     initNewsForm() {
         this.newsForm = this.fb.group({
             title: [null, [Validators.required]],
@@ -171,8 +198,8 @@ export class AddNewsComponent implements OnInit {
             keywords: [null, [Validators.required]],
             file: [null],
         });
-
     }
+
     onChange($event: string[]): void {
         console.log($event);
     }
@@ -199,11 +226,12 @@ export class AddNewsComponent implements OnInit {
         })
         // }
         console.log("form", this.newsForm.value);
-
     }
+
     getCaptcha(e: MouseEvent): void {
         e.preventDefault();
     }
+
     cancel(): void {
         this.route.navigateByUrl('news/list');
     }
@@ -226,7 +254,7 @@ export class AddNewsComponent implements OnInit {
         }
     }
 
-    uploadFile(mainFile?) {
+    uploadFile(mainFile=true) {
         this.apiService.uploadFileProgress(this.file, this.newsForm.value.description).subscribe((res: any) => {
             // saving files on upload so that no need to load from s3.
 
@@ -250,7 +278,10 @@ export class AddNewsComponent implements OnInit {
         })
     }
 
-
+    reset() {
+        this.file= null;
+        this.myInputVariable.nativeElement.value = "";
+    }
 
     fileRead($event) {
         this.file = $event.target.files[0];
@@ -267,22 +298,31 @@ export class AddNewsComponent implements OnInit {
 
     getAllQuotes(value?) {
         this.pagination.name = value ? value : '';
-        this.apiService.sendRequest(requests.getAllQuotes, 'get', this.pagination).subscribe((res: any) => {
+        this.apiService.sendRequest(requests.getAllQuotes, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res: any) => {
             console.log("ALL-QUOTES", res.quotes);
             this.allQuotes = res.quotes;
         })
     }
 
+    clean(obj:any) {
+        for (const propName in obj) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            delete obj[propName];
+          }
+        }
+        return obj
+    }
+
     getTags(value?) {
         this.pagination.title = value ? value : '';
-        this.apiService.sendRequest(requests.getAllTags, 'get', this.pagination).subscribe((res: any) => {
+        this.apiService.sendRequest(requests.getAllTags, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res: any) => {
             console.log("ALL-tags", res.response.tags);
             this.allTags = res.response.tags;
         })
     }
 
     getAllCategories() {
-        this.apiService.sendRequest(requests.getAllCategories, 'get', this.pagination).subscribe((res: any) => {
+        this.apiService.sendRequest(requests.getAllCategories, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res: any) => {
             console.log("ALL-cat", res);
             this.allCategories = res.response.categories;
             this.strucCategories = this.catToNodes(this.allCategories);
@@ -292,13 +332,20 @@ export class AddNewsComponent implements OnInit {
     }
 
     addNewQuote(value?) {
-        this.apiService.sendRequest(requests.addNewQuote, 'post', this.quotesForm.value).subscribe((res: any) => {
-            this.allQuotes = res.quote;
-            this.initQuoteForm();
-            this.getAllQuotes();
-            console.log("ADD-TAG", this.allQuotes);
-        })
+        for (const i in this.quotesForm.controls) {
+            this.quotesForm.controls[i].markAsDirty();
+            this.quotesForm.controls[i].updateValueAndValidity();
+        }
+        if(this.quotesForm.valid) {
+            this.apiService.sendRequest(requests.addNewQuote, 'post', this.quotesForm.value).subscribe((res: any) => {
+                this.allQuotes = res.quote;
+                this.initQuoteForm();
+                this.getAllQuotes();
+                console.log("ADD-TAG", this.allQuotes);
+            })
+        }
     }
+
     addNewTag() {
         this.apiService.sendRequest(requests.addNewTag, 'post', { ...this.tagForm.value, isActive: true }).subscribe((res: any) => {
             this.allQuotes = res.quote;
@@ -309,9 +356,9 @@ export class AddNewsComponent implements OnInit {
     }
 
     catToNodes(catorgories) {
-        let nodes = [];
+        const nodes = [];
         this.allCategories.forEach(cat => {
-            let parent = {
+            const parent = {
                 title: cat.title,
                 value: cat.id,
                 key: cat.id,

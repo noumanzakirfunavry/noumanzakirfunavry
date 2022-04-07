@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Pagination } from 'src/app/common/models/pagination';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
 
@@ -12,7 +13,7 @@ import { ApiService } from 'src/app/shared/services/api.service';
 })
 
 export class AddJobComponent implements OnInit {
-    pagination: { limit: number, pageNo: number, status?: string, title?: string, publishers?:Array<any> } = {limit: 10, pageNo: 1}
+    pagination: Pagination = new Pagination();
     jobForm: FormGroup;
     jobId: any;
     jobById: any;
@@ -22,7 +23,8 @@ export class AddJobComponent implements OnInit {
     constructor(private fb: FormBuilder, 
         private apiService: ApiService, 
         private message: NzMessageService, 
-        private activatedRoute: ActivatedRoute) {}
+        private activatedRoute: ActivatedRoute,
+        private route: Router) {}
 
 
     ngOnInit(): void {
@@ -54,6 +56,7 @@ export class AddJobComponent implements OnInit {
             this.apiService.sendRequest(this.jobId ? requests.updateJob + this.jobId : requests.createNewJob, this.jobId ? 'put' : 'post', obj).subscribe((res:any) => {
                 console.log("JOBS", res);
                 this.jobForm.reset();
+                this.route.navigateByUrl('jobs/list');
                 if(this.jobId) {
                     this.message.create('success', `Job Updated Successfully`)
                 }
@@ -65,10 +68,19 @@ export class AddJobComponent implements OnInit {
     }
 
     getAllBranches() {
-        this.apiService.sendRequest(requests.getAllBranches, 'get', this.pagination).subscribe((res:any) => {
+        this.apiService.sendRequest(requests.getAllBranches, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allBranches= res.response.branches;
             console.log("ALL-BRANCHES", this.allBranches);
         })
+    }
+
+    clean(obj:any) {
+        for (const propName in obj) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            delete obj[propName];
+          }
+        }
+        return obj
     }
 
     getJobById() {
@@ -83,5 +95,9 @@ export class AddJobComponent implements OnInit {
               });
         })
     }
+
+    cancel() {
+        this.route.navigateByUrl('jobs/list');
+      }
    
 }    

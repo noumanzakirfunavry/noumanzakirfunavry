@@ -70,7 +70,7 @@ export class TagsComponent implements OnInit {
         this.apiService.sendRequest(requests.deleteTags, 'delete', {ids:[tagId]}).subscribe((res:any) => {
             console.log("DELETE-TAG", res);
             this.getAllTags();
-            this.message.create('success', `Tag Deleted Successfully`)
+            this.message.create('success', `Tag Deleted Successfully`);
         })
     }
 
@@ -132,6 +132,7 @@ export class TagsComponent implements OnInit {
             this.checked= false;
             this.indeterminate= false;
             this.getAllTags();
+            this.message.create('success', `Tag Deleted Successfully`);
           })
     }
 

@@ -30,9 +30,9 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Username</nz-form-label>
-                <nz-form-control nzErrorTip="Please input valid Username between 3 to 250 characters!">
+                <nz-form-control nzErrorTip="Please input valid Username without spaces between 3 to 250 characters!">
                   <nz-form-control>
-                    <input type="text" formControlName="userName" nz-input placeholder="Enter Username" />
+                    <input type="text" formControlName="userName" nz-input placeholder="Enter Username"/>
                   </nz-form-control>
                 </nz-form-control>
               </nz-form-item>
@@ -80,23 +80,24 @@
               <nz-switch formControlName="isActive"> </nz-switch> Active
             </nz-form-control>
           </nz-form-item>
-
-
         </div>
+
         <div class="col-6">
-          <h5>Admin Rights</h5>
+          <nz-form-label nzRequired><h5>Admin Rights</h5></nz-form-label>
           <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log($event)">
-            <div nz-row>
               <div nz-col nzSpan="12">
                 <label *ngFor="let right of allRights" nz-checkbox [nzValue]="right?.id" formControlName="rights">{{right?.title}}</label>
               </div>
-            </div>
           </nz-checkbox-wrapper>
+          <div *ngIf="(!rightsValue || rightsValue.length===0) && submitted===true" style="color: Crimson;">
+            Please select atleast one option!
+          </div>
         </div>
       </div>
       <nz-form-item>
         <nz-form-control [nzSpan]="14">
-          <button class="mr-3" nz-button nzType="primary">Save</button>
+          <button *ngIf="!userId" class="mr-3" nz-button nzType="primary">Save</button>
+          <button *ngIf="userId" class="mr-3" nz-button nzType="primary">Update</button>
           <button nz-button nzType="default" (click)="cancel()">Cancel</button>
         </nz-form-control>
       </nz-form-item>
