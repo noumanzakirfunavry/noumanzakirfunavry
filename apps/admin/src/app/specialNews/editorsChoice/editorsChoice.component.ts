@@ -61,7 +61,9 @@ export class EditorsChoiceComponent implements OnInit{
 
     ngOnInit(): void {
         this.getAllCategories();
-        this.getAllEditorsChoiceNews();
+        if(this.editorsChoice) {
+            this.getAllEditorsChoiceNews();
+        }
     }
 
     getAllCategories() {
@@ -104,7 +106,7 @@ export class EditorsChoiceComponent implements OnInit{
             })
             this.apiService.sendRequest(requests.updateEditorsChoiceNews, 'put', { news: this.editorsChoice }).subscribe((res:any) => {
                 console.log("UPDATE-EDITORS-CHOICE", res);
-                location.reload();
+                this.getAllEditorsChoiceNews();
                 this.message.create('success', `Editor's Choice News Updated Successfully`);
             })
     }

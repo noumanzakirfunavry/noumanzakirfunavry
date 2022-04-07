@@ -2,7 +2,7 @@
       <div class="float-right">
         <div class="d-flex">
             <nz-form-item class="mr-2">
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Branch" nzSpan="8" nzMode="multiple" [(ngModel)]="filterModel.branchId">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Branch" nzSpan="8" [(ngModel)]="filterModel.branchId">
                   <nz-option *ngFor="let branch of allBranches" [nzValue]="branch?.id" [nzLabel]="branch?.title"></nz-option>
                 </nz-select>
               </nz-form-item>
