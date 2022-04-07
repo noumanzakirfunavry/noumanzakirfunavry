@@ -83,9 +83,7 @@ export class FeaturedNewsComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllCategories();
-        if(this.fNews) {
-            this.getAllFeaturedNews();
-        }
+        this.getAllFeaturedNews();
     }
 
     getAllCategories() {
