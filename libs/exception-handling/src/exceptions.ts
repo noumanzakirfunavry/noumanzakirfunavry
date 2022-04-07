@@ -35,6 +35,7 @@ export enum ExceptionType {
   UNABLE_TO_ADD_LOG = 'UNABLE_TO_ADD_LOG',
   ORDER_NUMBER_NOT_AVAILABLE = 'ORDER_NUMBER_NOT_AVAILABLE',
   ORDER_NUMBER_IS_SAME_AS_BEFORE = 'ORDER_NUMBER_IS_SAME_AS_BEFORE',
+  ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL = 'ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL',
 }
 
 interface ExceptionOptions {
@@ -180,5 +181,10 @@ export const Exceptions: Record<ExceptionType, ExceptionOptions> = {
     status: HttpStatus.BAD_REQUEST,
     message: `The provided order number is same as original.
 			 Please choose another for update or don't send in request if you dont want to update.`,
+  },
+  [ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL]: {
+    status: HttpStatus.BAD_REQUEST,
+    message: `Provided orderNumber and/or parentMenuId is same as original. 
+		Kindly provide other values or leave empty if dont want to update`,
   },
 };
