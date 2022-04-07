@@ -1,4 +1,4 @@
-import { Table,Model, PrimaryKey, AutoIncrement, Unique, Column, DataType } from "sequelize-typescript";
+import { AutoIncrement, Column, DataType, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
 
 
 @Table({
@@ -20,6 +20,15 @@ description : string
 
 @Column
 symbol : string
+
+@Column
+tickerId: number
+
+@Column
+currencyId: number
+
+@Column
+orderNo: number
 
 @Column({
     type : DataType.BOOLEAN
