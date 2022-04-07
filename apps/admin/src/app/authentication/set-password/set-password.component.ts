@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -20,10 +20,10 @@ export class SetPasswordComponent implements OnInit {
 
     ngOnInit(): void {
         this.loginForm = this.fb.group({
-            password: [ null, [ Validators.required, Validators.maxLength(30) ] ]
+            password: [ null, [ Validators.required, Validators.minLength(6), Validators.maxLength(30) ] ],
+            confirmPassword: [ null, [ Validators.required, this.confirmationValidator ] ]
         });
         this.activatedRoute.params.subscribe(params => {
-            debugger
             this.token = params.token;
         })
     }
@@ -38,13 +38,27 @@ export class SetPasswordComponent implements OnInit {
             // obj['deviceId']= '995fb498-9621-11ec-b909-0242ac120002';
             // obj['deviceType']= 'DESKTOP';
             obj['password']= this.loginForm.value.password.toLowerCase();
-            debugger
-            this.apiService.sendRequest(requests.setPassword+this.token, 'post', obj).subscribe((res:any) => {
+            delete obj['confirmPassword'];
+            this.apiService.sendRequest(requests.setPassword + this.token, 'post', obj).subscribe((res:any) => {
                 // localStorage.setItem("admin", JSON.stringify(res.response))
                 console.log("Email for reset password", res);
                 this.route.navigateByUrl('login');
             })
         }
     }
+
+    updateConfirmValidator(): void {
+        /** wait for refresh value */
+        Promise.resolve().then(() => this.loginForm.controls.confirmPassword.updateValueAndValidity());
+      }
+    
+      confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+        if (!control.value) {
+          return { required: true };
+        } else if (control.value !== this.loginForm.controls.password.value) {
+          return { confirm: true, error: true };
+        }
+        return {};
+      };
 
 }    
