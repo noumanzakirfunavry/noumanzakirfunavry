@@ -71,7 +71,7 @@ export class AddNewsComponent implements OnInit {
             ckfinder: {
                 // uploadUrl: 'https://ckfinder.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
 
-                // openerMethod: 'popup',
+                openerMethod: 'popup',
                 uploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
                 filebrowserBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles',
                 filebrowserImageBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles?type=Images',
