@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
     selector: 'app-addTag',
@@ -32,7 +32,9 @@ export class AddTagComponent implements OnInit {
   
     ngOnInit(): void {
       this.tagsForm = this.fb.group({
-        title: [null, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*$')]],
+        // title: [null, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*$')]],
+        // title: [null, [Validators.required, Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
+        title: [null, [Validators.required]],
         isActive: [false]
       });
       this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
@@ -68,7 +70,9 @@ export class AddTagComponent implements OnInit {
         this.tagById= res.tags;
         console.log("TAG-BY-ID", this.tagById);
         this.tagsForm = this.fb.group({
-          title: [this.tagById?.title || null, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*$')]],
+          // title: [this.tagById?.title || null, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*$')]],
+          // title: [this.tagById?.title || null, [Validators.required, Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
+          title: [this.tagById?.title || null, [Validators.required]],
           isActive: [this.tagById?.isActive || false]
         });
       })

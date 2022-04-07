@@ -1,15 +1,20 @@
 import {
-  CreateMenuRequestDto,
-  CreateMenuResponseDto,
-  DeleteMenuResponseDto,
-  GetMenuByIdResponseDto,
-  GetMenuRequestDto,
-  GetMenusResponseDto,
-  UpdateMenuRequestDto,
-  UpdateMenuResponseDto,
+	CreateMenuRequestDto,
+	CreateMenuResponseDto,
+	DeleteMenuResponseDto,
+	GetMenuByIdResponseDto,
+	GetMenuRequestDto,
+	GetMenusResponseDto,
+	UpdateMenuRequestDto,
+	UpdateMenuResponseDto
 } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
 import { Menus } from '@cnbc-monorepo/entity';
+import {
+	CustomException,
+	Exceptions,
+	ExceptionType
+} from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import e from 'express';
@@ -68,9 +73,9 @@ export class MenusService {
   async getMenuById(menuId: number) {
     const menu = await this.menusRepo.findOne({ where: { id: menuId } });
     if (!menu) {
-      return new GetMenuByIdResponseDto(
-        HttpStatus.NOT_FOUND,
-        'Menu was not found'
+      throw new CustomException(
+        Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+        Exceptions[ExceptionType.RECORD_NOT_FOUND].status
       );
     }
 
@@ -115,9 +120,9 @@ export class MenusService {
           menu
         );
       } else {
-        return new CreateMenuResponseDto(
-          HttpStatus.BAD_REQUEST,
-          'Order Number not available, Please choose another or leave empty for auto assignment'
+        throw new CustomException(
+          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
+          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
         );
       }
 
@@ -158,9 +163,9 @@ export class MenusService {
           menu
         );
       } else {
-        return new CreateMenuResponseDto(
-          HttpStatus.BAD_REQUEST,
-          'Order Number not available, Please choose another or leave empty for auto assignment'
+        throw new CustomException(
+          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
+          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
         );
       }
     }
@@ -179,17 +184,21 @@ export class MenusService {
 
     // check if menu was found or not
     if (!menu) {
-      return new UpdateMenuResponseDto(
-        HttpStatus.NOT_FOUND,
-        'Menu was not found.'
+      throw new CustomException(
+        Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+        Exceptions[ExceptionType.RECORD_NOT_FOUND].status
       );
     }
 
     // if update values are same as original then return error
     if (parentMenuId === menu?.parentMenuId || orderNo === menu?.orderNo) {
-      return new UpdateMenuResponseDto(
-        HttpStatus.BAD_REQUEST,
-        'Provided orderNumber and/or parentMenuId is same as original. Kindly provide other values or leave empty if dont want to update'
+      throw new CustomException(
+        Exceptions[
+          ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL
+        ].message,
+        Exceptions[
+          ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL
+        ].status
       );
     }
 
@@ -216,9 +225,9 @@ export class MenusService {
           'Menu updated successfully'
         );
       } else {
-        return new UpdateMenuResponseDto(
-          HttpStatus.BAD_REQUEST,
-          'Order Number not available, Please choose another or leave empty for auto assignment'
+        throw new CustomException(
+          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
+          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
         );
       }
 
@@ -262,9 +271,9 @@ export class MenusService {
           'Menu updated successfully'
         );
       } else {
-        return new UpdateMenuResponseDto(
-          HttpStatus.BAD_REQUEST,
-          'Order Number not available, Please choose another or leave empty if you dont want to update.'
+        throw new CustomException(
+          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
+          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
         );
       }
     }
@@ -295,8 +304,7 @@ export class MenusService {
       id = id
         .filter((x) => !originalId.includes(x))
         .concat(originalId.filter((x) => !id.includes(x)));
-      return new DeleteMenuResponseDto(
-        HttpStatus.BAD_REQUEST,
+      throw new BadRequestException(
         `Menu(s) with ID: ${id.join(
           ', '
         )} contain child menus and cannot be deleted.`

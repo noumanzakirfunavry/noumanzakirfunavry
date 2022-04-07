@@ -15,11 +15,11 @@ const Index = () =>{
                     <h2>برامج CNBC عربية</h2>
                 </Title>
                 <div className="container">
-                <div className='row'>
-                    <div className='col-lg-9'>
+                <div className='PageBuilder-pageRow'>
+                    <div className='PageBuilder-col-9'>
                     <AllProgrmasTilesList />
                     </div>
-                    <div className='col-lg-3 pt_0'>
+                    <div className='PageBuilder-sidebar pt_0 mt-0'>
                         <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 1 }]} />
                     </div>
                 </div>
