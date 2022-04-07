@@ -69,7 +69,9 @@ export class ExclusiveVideosComponent implements OnInit{
 
     ngOnInit(): void {
         this.getAllCategories();
-        // this.getAllExclusiveVideos();
+        if(this.exclusiveVideos) {
+            this.getAllExclusiveVideos();
+        }
     }
 
     getAllCategories() {
@@ -88,16 +90,16 @@ export class ExclusiveVideosComponent implements OnInit{
         return obj
     }
 
-    // getAllExclusiveVideos() {
-    //     this.apiService.sendRequest(requests.getAllExclusiveVideos, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res:any) => {
-    //         this.allExclusiveVideos= res.response.exclusiveVideos;
-    //         this.exclusiveVideos= [...this.allExclusiveVideos]
-    //         console.log("ALL-EXCLUSIVE-VIDEOS", this.allExclusiveVideos);
-    //         this.loading = false;
-    //     }, err => {
-    //         this.loading = false;
-    //     })
-    // }
+    getAllExclusiveVideos() {
+        this.apiService.sendRequest(requests.getAllExclusiveVideos, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res:any) => {
+            this.allExclusiveVideos= res.response.exclusiveVideos;
+            this.exclusiveVideos= [...this.allExclusiveVideos]
+            console.log("ALL-EXCLUSIVE-VIDEOS", this.allExclusiveVideos);
+            this.loading = false;
+        }, err => {
+            this.loading = false;
+        })
+    }
 
     changedNews(updatedNews) {
         const news = this.exclusiveVideos.findIndex(x => x.position == updatedNews.position);
@@ -112,7 +114,7 @@ export class ExclusiveVideosComponent implements OnInit{
         })
         this.apiService.sendRequest(requests.updateExclusiveVideos, 'put', { exclusiveVideos: this.exclusiveVideos }).subscribe((res:any) => {
             console.log("UPDATE-EXCLUSIVE-VIDEOS", res);
-            location.reload();
+            this.getAllExclusiveVideos();
             this.message.create('success', `Exclusive Videos Updated Successfully`);
         })
     }

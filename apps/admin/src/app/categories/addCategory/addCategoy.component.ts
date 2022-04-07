@@ -36,7 +36,7 @@ export class AddCategoryComponent implements OnInit {
     ngOnInit(): void {
         this.getAllCategories();
         this.categoryForm = this.fb.group({
-            title: [null, [Validators.required]],
+            title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             parentCategoryId: [null],
             isActive: [false],
             displayInCategoryMenu: [false],
@@ -77,7 +77,7 @@ export class AddCategoryComponent implements OnInit {
             this.categoryById= res.response.category;
             console.log("CATEGORY-BY-ID", this.categoryById);
             this.categoryForm = this.fb.group({
-                title: [this.categoryById?.title || null, [Validators.required]],
+                title: [this.categoryById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
                 parentCategoryId: [this.categoryById?.parentCategoryId || null],
                 isActive: [this.categoryById?.isActive || false],
                 displayInCategoryMenu: [this.categoryById?.displayInCategoryMenu || false],
