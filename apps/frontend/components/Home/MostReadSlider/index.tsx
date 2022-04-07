@@ -5,6 +5,7 @@ import Title from "../../Title";
 import newsImage from "./../../../styles/images/biden.jpg";
 
 
+
 const MostReadSlider: FC = () => {
 
     const ref: any = useRef()
@@ -21,7 +22,7 @@ const MostReadSlider: FC = () => {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 2.5,
+        slidesToShow: 3,
         autoplay: false,
         autoplaySpeed: 5000,
         pauseOnHover: true,
@@ -38,7 +39,7 @@ const MostReadSlider: FC = () => {
             {
                 breakpoint: 1800,
                 settings: {
-                    slidesToShow: 2.5,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                     infinite: true,
                 }
@@ -46,7 +47,7 @@ const MostReadSlider: FC = () => {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                     infinite: true,
 
@@ -55,7 +56,7 @@ const MostReadSlider: FC = () => {
             {
                 breakpoint: 992,
                 settings: {
-                    slidesToShow: 1.5,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                     initialSlide: 2
                 }
@@ -63,7 +64,7 @@ const MostReadSlider: FC = () => {
             {
                 breakpoint: 575,
                 settings: {
-                    slidesToShow: 1.5,
+                    slidesToShow: 1,
                     slidesToScroll: 1
                 }
             }
@@ -71,8 +72,8 @@ const MostReadSlider: FC = () => {
     });
     return (
         <>
-            <div className="container">
-                <div className="newsSlider scrollbarWrap">
+     
+                <div className="newsSlider scrollbarWrap mostredSlider">
 
                     <div className="TileBar scrollbarHeader">
                         <div className="float-start">
@@ -106,7 +107,7 @@ const MostReadSlider: FC = () => {
                           <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
-                          <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                          <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>
                         </div>
                         <div className="slider-item">
@@ -117,7 +118,7 @@ const MostReadSlider: FC = () => {
                           <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
-                          <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                          <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>
                         </div>
                         <div className="slider-item">
@@ -128,7 +129,7 @@ const MostReadSlider: FC = () => {
                                 <a href="/newsDetails">
                                     النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                                 </a>
-                                <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                                <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                             </li>
                         </div>
                         <div className="slider-item">
@@ -139,7 +140,7 @@ const MostReadSlider: FC = () => {
                           <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
-                          <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                          <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>
                         </div>
                         <div className="slider-item">
@@ -150,7 +151,7 @@ const MostReadSlider: FC = () => {
                           <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
-                          <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                          <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>
                         </div>
                         <div className="slider-item">
@@ -161,7 +162,7 @@ const MostReadSlider: FC = () => {
                           <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
-                          <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                          <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>
                         </div>
                         <div className="slider-item">
@@ -172,7 +173,7 @@ const MostReadSlider: FC = () => {
                           <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
-                          <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                          <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>
                         </div>
                         <div className="slider-item">
@@ -183,13 +184,13 @@ const MostReadSlider: FC = () => {
                           <a href="/newsDetails">
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
-                          <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                          <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>
                         </div>
                     </Slider>
 
                 </div>
-            </div>
+            
         </>
     )
 }
