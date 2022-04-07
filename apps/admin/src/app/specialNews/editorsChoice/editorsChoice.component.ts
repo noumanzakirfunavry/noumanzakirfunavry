@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -28,9 +27,8 @@ export class Data extends Pagination {
     templateUrl: './editorsChoice.component.html'
 })
 
-export class EditorsChoiceComponent{
+export class EditorsChoiceComponent implements OnInit{
     pagination: Data= new Data();
-    editorsChoiceForm: FormGroup;
     loading= true;
     allCategories: any;
     allEditorsChoice: any;
@@ -59,11 +57,9 @@ export class EditorsChoiceComponent{
     ];
 
 
-    constructor (private apiService: ApiService, private fb: FormBuilder, private message: NzMessageService) {}
+    constructor (private apiService: ApiService,  private message: NzMessageService) {}
 
     ngOnInit(): void {
-        this.editorsChoiceForm = this.fb.group({
-        });
         this.getAllCategories();
         this.getAllEditorsChoiceNews();
     }
@@ -103,19 +99,14 @@ export class EditorsChoiceComponent{
     }
 
     updateEditorsChoiceNews() {
-        for (const i in this.editorsChoiceForm.controls) {
-            this.editorsChoiceForm.controls[i].markAsDirty();
-            this.editorsChoiceForm.controls[i].updateValueAndValidity();
-        }
-        if(this.editorsChoiceForm.valid) {
             this.editorsChoice.forEach(news=>{
                 news.newsId=parseInt(news.newsId);
             })
             this.apiService.sendRequest(requests.updateEditorsChoiceNews, 'put', { news: this.editorsChoice }).subscribe((res:any) => {
                 console.log("UPDATE-EDITORS-CHOICE", res);
+                location.reload();
                 this.message.create('success', `Editor's Choice News Updated Successfully`);
             })
-        }
     }
 
 }    

@@ -12,14 +12,12 @@ export class AlexaAudioController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get("getAll")
     async getAllAlexaAudio(@Query() query: GetAllAlexaAudioRequestDto): Promise<GetAllAlexaAudioByIdResponseDto> {
         return await this.alexaService.getAllAlexaAudio(query)
     }
 
     @UseGuards(JwtAuthGuard)
-    @Rights(RightsTypes.CREATE)
     @Roles(RoleTypes.Admin)
     @Post()
     async addAlexaAudio(@Body() body: CreateAlexaAudioRequestDto): Promise<GenericResponseDto> {
@@ -27,7 +25,6 @@ export class AlexaAudioController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Rights(RightsTypes.UPDATE)
     @Roles(RoleTypes.Admin)
     @Put(":id")
     async updateAlexaAudio(@Req() req, @Param("id") id: number, @Body() body: CreateAlexaAudioRequestDto): Promise<GenericResponseDto> {
@@ -35,7 +32,6 @@ export class AlexaAudioController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Rights(RightsTypes.GET)
     @Roles(RoleTypes.Admin)
     @Get(":id")
     async getAlexaAudioById(@Param("id") id: number): Promise<GetAlexaAudioByIdResponseDto> {

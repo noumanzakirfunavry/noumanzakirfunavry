@@ -12,7 +12,6 @@ export class AlertsController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.CREATE)
     @Post()
     async createAlert(@Body() body : CreateAlertRequestDto) : Promise<GenericResponseDto>{
         return await this.alertsService.createAlert(body);
@@ -20,7 +19,6 @@ export class AlertsController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.UPDATE)
     @Put(":id")
     async updateAlert(@Param("id") id : number,@Body() body : CreateAlertRequestDto) : Promise<GenericResponseDto>{
         return await this.alertsService.updateAlert(body,id);
@@ -28,7 +26,6 @@ export class AlertsController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get("getAll")
     async getAllAlerts(@Query() query : GetAlertsRequestDto) : Promise<GetAllAlertsResponseDto>{
         return await this.alertsService.getAllAlerts(query);
@@ -36,7 +33,6 @@ export class AlertsController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Get(":id")
     async getAlertById(@Param("id") id : number) : Promise<GetAlertByIdResponseDto>{
         return await this.alertsService.getAlertById(id);
@@ -45,7 +41,6 @@ export class AlertsController {
     
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.GET)
     @Delete()
     async deleteAlertById(@Query() query : DeleteAlexaAudioRequestDto) : Promise<GenericResponseDto>{
         return await this.alertsService.deleteAlertById(query);
