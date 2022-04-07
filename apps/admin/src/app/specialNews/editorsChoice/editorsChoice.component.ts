@@ -61,9 +61,7 @@ export class EditorsChoiceComponent implements OnInit{
 
     ngOnInit(): void {
         this.getAllCategories();
-        if(this.editorsChoice) {
-            this.getAllEditorsChoiceNews();
-        }
+        this.getAllEditorsChoiceNews();
     }
 
     getAllCategories() {

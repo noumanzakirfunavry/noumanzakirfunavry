@@ -25,7 +25,7 @@ export class AddCategoryComponent implements OnInit {
     categoryForm: FormGroup;
     categoryId: number
     categoryById: any;
-   
+       
 
     constructor(private fb: FormBuilder, 
         private apiService: ApiService, 
