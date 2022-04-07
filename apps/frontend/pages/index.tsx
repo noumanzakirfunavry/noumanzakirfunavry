@@ -112,9 +112,10 @@ export function Index() {
         <div className='PageBuilder-sidebar hide_div_web'>
                     
                      
-                        <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
+                        {/* <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'} ]} /> */}
                     
-                    
+                        <MostReadSlider/>
+  
                    
               </div>
 
@@ -126,7 +127,6 @@ export function Index() {
         </div>
         <div className='PageBuilder-sidebar'>
           {/* show on tab and mobile */}
-          <MostReadSlider/>
           {/* show on web only */}
         <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'} ]} />
 
