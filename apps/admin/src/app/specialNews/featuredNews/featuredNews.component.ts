@@ -82,8 +82,10 @@ export class FeaturedNewsComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.getAllFeaturedNews();
         this.getAllCategories();
+        if(this.fNews) {
+            this.getAllFeaturedNews();
+        }
     }
 
     getAllCategories() {
@@ -126,7 +128,7 @@ export class FeaturedNewsComponent implements OnInit {
             })
             this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
                 console.log("UPDATE-FEATURED-NEWS", res);
-                location.reload();
+                this.getAllFeaturedNews();
                 this.message.create('success', `Featured News Updated Successfully`);
             })
         }
