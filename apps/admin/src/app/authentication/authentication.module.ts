@@ -12,6 +12,8 @@ import { LoginComponent } from './login/login.component';
 import { Error1Component } from './error-1/error-1.component';
 import { Error2Component } from './error-2/error-2.component';
 import { RouterModule } from '@angular/router';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SetPasswordComponent } from './set-password/set-password.component';
 
 const antdModule= [
     NzFormModule,
@@ -32,6 +34,8 @@ const antdModule= [
     ],
     declarations: [
         LoginComponent,
+        ResetPasswordComponent,
+        SetPasswordComponent,
         Error1Component,
         Error2Component
     ]
