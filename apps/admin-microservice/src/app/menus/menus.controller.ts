@@ -1,28 +1,31 @@
 import {
-  CreateMenuRequestDto,
-  CreateMenuResponseDto,
-  DeleteMenuRequestDto,
-  DeleteMenuResponseDto,
-  GetMenuRequestDto,
-  GetMenusResponseDto,
-  UpdateMenuRequestDto,
-  UpdateMenuResponseDto,
+	CreateMenuRequestDto,
+	CreateMenuResponseDto,
+	DeleteMenuRequestDto,
+	DeleteMenuResponseDto,
+	GetMenuRequestDto,
+	GetMenusResponseDto,
+	UpdateMenuRequestDto,
+	UpdateMenuResponseDto
 } from '@cnbc-monorepo/dtos';
 import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Patch,
-  Post,
-  Query,
-  Req,
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Patch,
+	Post,
+	Query,
+	Req
 } from '@nestjs/common';
 import { MenusService } from './menus.service';
 
 @Controller('admin/api/admin/menus')
 export class MenusController {
-  constructor(private readonly menusService: MenusService) {}
+  constructor(
+		private readonly menusService: MenusService,
+		// private readonly elkService: ElkService
+		) {}
 
   @Get('/getAll')
   getMenus(
@@ -52,4 +55,10 @@ export class MenusController {
   ): Promise<DeleteMenuResponseDto> {
     return this.menusService.deleteMenus(deleteMenuRequestDto.id);
   }
+
+
+	@Post('/elktest')
+	elkTest(@Body() body){
+		return this.menusService.elkSearch(body)
+	}
 }

@@ -7,7 +7,7 @@ import { HttpStatus, Inject, Injectable } from "@nestjs/common";
 export class BreakingNewsService {
     constructor(
         @Inject("BREAKING_NEWS_REPOSITORY")
-        private breakingNewsRepo: typeof BreakingNews
+        private breakingNewsRepo: typeof BreakingNews,
     ) { }
 
     async create(body, userId: number) {
