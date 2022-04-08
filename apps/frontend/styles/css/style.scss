@@ -2203,10 +2203,12 @@ width: 110px;
     }
   }
   .header-search-nav ul {
-    justify-content: center;
+    justify-content: space-between;
     li
     {
       border: 1px solid #DDDDDD;
+      min-width: 33.3%;
+      text-align: center;
       a{
         color: #1C1C1C !important;
         font: normal normal bold 15px/32px Cairo;
