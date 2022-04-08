@@ -32,6 +32,9 @@ import { EpisodeHasQuotesProvider } from '../providers/episodes.has.quotes.provi
 import { AttachmentsProvider } from '../providers/attachments.provider';
 import { EmailSubscribersProvider } from '../providers/email.subscribers.provider';
 import { JobApplicantsProvider } from '../providers/job.applicants.provider';
+import { FeaturedNewsProvider } from '../providers/featured.news.provider';
+import { EditorsChoiceNewsProvider } from '../providers/editors.choice.news.provider';
+import { TrendingNewsProvider } from '../providers/trending.news.provider';
 
 @Module({
   providers: [
@@ -67,7 +70,11 @@ import { JobApplicantsProvider } from '../providers/job.applicants.provider';
     ...EpisodeHasQuotesProvider,
     ...AttachmentsProvider,
     ...EmailSubscribersProvider,
-    ...JobApplicantsProvider
+    ...JobApplicantsProvider,
+    ...FeaturedNewsProvider,
+    ...EditorsChoiceNewsProvider,
+    ...TrendingNewsProvider,
+    ...ExclusiveVideosProvider
   ],
   exports: [
     ...UsersProvider,
@@ -101,7 +108,11 @@ import { JobApplicantsProvider } from '../providers/job.applicants.provider';
     ...EpisodeHasQuotesProvider,
     ...AttachmentsProvider,
     ...EmailSubscribersProvider,
-    ...JobApplicantsProvider
+    ...JobApplicantsProvider,
+    ...FeaturedNewsProvider,
+    ...EditorsChoiceNewsProvider,
+    ...TrendingNewsProvider,
+    ...ExclusiveVideosProvider
   ],
 })
 export class ProvidersModule {}

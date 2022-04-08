@@ -1,32 +1,37 @@
 import { AddTagResponseDto, DeleteTagByIdResponseDto, GenericResponseDto, GetAllTagsRequestDto, GetAllTagsResponseDto, GetTagsByIdResponseDto, UpdateTagRequestDto, UpdateTagResponseDto } from "@cnbc-monorepo/dtos";
 import { Tags } from "@cnbc-monorepo/entity";
 import { CustomException, Exceptions, ExceptionType } from "@cnbc-monorepo/exception-handling";
+import { Helper } from "@cnbc-monorepo/utility";
 import { HttpStatus, Inject, Injectable } from "@nestjs/common";
+import { Op } from 'sequelize';
 
 @Injectable()
 export class TagsService {
     constructor(
         @Inject('TAGS_REPOSITORY')
         private tagsRepo: typeof Tags,
+        private helperService: Helper
     ) { }
 
     async getTags(query: GetAllTagsRequestDto) {
-        let offset = 0
-        query.pageNo = query.pageNo - 1;
-        if (query.pageNo) offset = query.limit * query.pageNo;
-        let where = {}
-        if (query.publishers) {
-            where['publishedBy'] = query.publishers
-        }
-        if (query.status) {
-            where['isActive'] = JSON.parse(query.status.toString())
-        }
-        if (query.title) {
-            where['title'] = query.title
-        }
         const result = await this.tagsRepo.findAndCountAll({
             include: ['user'],
-            where: where, offset: offset, limit: query.limit
+            where:{ 
+                ...(query.title && {
+                title: {
+                    [Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.title)}%`
+                }
+                }),
+                ...(query.status&& {
+                    isActive: JSON.parse(query.status.toString())
+                }),
+                ...(query.publishers &&
+                {
+                    publishedBy: query.publishers
+                })
+            },
+            limit: parseInt(query.limit.toString()),
+            offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
         })
         if (!result.count) {
             throw new CustomException(

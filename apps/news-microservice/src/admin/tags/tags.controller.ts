@@ -11,7 +11,9 @@ export class TagsController{
         private tagsService:TagsService
     ){}
 
-    
+
+
+    @Public()
     @Get('getAll')
     async getTags(@Query() query:GetAllTagsRequestDto){
         return await this.tagsService.getTags(query)
@@ -27,6 +29,7 @@ export class TagsController{
         return await this.tagsService.deleteTag(query.ids)
     }
 
+    @Public()
     @Post('add')
     async addTag(@Body() body:AddTagRequestDto){
         return await this.tagsService.addTag(body)

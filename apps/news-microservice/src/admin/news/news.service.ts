@@ -1,5 +1,5 @@
 import { DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
-import { Attachments, BreakingNews, Categories, EditorsChoiceNews, FeaturedNews, News, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
+import { Attachments, BreakingNews, Categories, EditorsChoiceNews, ExclusiveVideos, FeaturedNews, News, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility'
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -21,7 +21,17 @@ export class NewsService {
         @Inject('NEWS_HAS_CATEGORIES_REPOSITORY')
         private newsHasCategories: typeof NewsHasCategories,
         @Inject('SEO_DETAILS_REPOSITORY')
-        private seoRepository: typeof SeoDetails
+        private seoRepository: typeof SeoDetails,
+        @Inject('BREAKING_NEWS_REPOSITORY')
+        private breakingNewsRepo:typeof BreakingNews,
+        @Inject('FEATURED_NEWS_REPOSITORY')
+        private featuredNews:typeof FeaturedNews,
+        @Inject('EDITORS_CHOICE_NEWS_REPOSITORY')
+        private editorChoiceRepo:typeof EditorsChoiceNews,
+        @Inject('TRENDING_NEWS_REPOSITORY')
+        private trendingRepo:typeof TrendingNews,
+        @Inject('EXCLUSIVE_VIDEOS_REPOSITORY')
+        private exclusiveRepo:typeof ExclusiveVideos
     ) { }
     async addNews(body: any, userId: number): Promise<GenericResponseDto> {
         try {
@@ -490,5 +500,39 @@ export class NewsService {
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
             )
         }
+    }
+    async getNewsStatusById(id:number){
+        let resObj={}
+        const isNews=await this.newsRepository.findOne({where:{id}})
+        if (!isNews){
+            throw new  CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+        resObj["newsId"]=isNews.id
+        
+        const isBreakingNews=await this.breakingNewsRepo.findOne({where:{newsId:isNews.id}})
+        if (isBreakingNews){resObj['isBreakingNews']=true}
+        else{resObj['isBreakingNews']=false}
+        
+        const isFeaturedNews=await this.featuredNews.findOne({where:{newsId:isNews.id}})
+        if (isFeaturedNews){resObj['isFeaturedNews']=true}
+        else{resObj['isFeatureNews']=false}
+
+        const isEditorChoice=await this.editorChoiceRepo.findOne({where:{newsId:isNews.id}})
+        if(isEditorChoice){resObj['isEditorChoice']=true}
+        else{resObj['isEditorChoice']=false}
+
+        const isTrendingNews=await this.trendingRepo.findOne({where:{newsId:isNews.id}})
+        if(isTrendingNews){resObj['isTrending']=true}
+        else{resObj['isTrending']=false}
+
+        const isExclusiveNews=await this.exclusiveRepo.findOne({where:{newsId:isNews.id}})
+        if(isExclusiveNews){resObj['isExclusive']=true}
+        else{resObj['isExclusive']=false}
+        
+        return new GenericResponseDto(HttpStatus,"News Status",resObj)
+
     }
 }
