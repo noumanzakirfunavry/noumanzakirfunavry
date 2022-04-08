@@ -29,9 +29,8 @@
                                     </nz-input-group>
                                 </nz-form-control>
                             </nz-form-item>
-                            <nz-form-item class="relative">
+                            <!-- <nz-form-item class="relative">
                                 <nz-form-label nzRequired nzFor="captcha">Captcha</nz-form-label>
-                                <!-- <a class="float-right font-size-13 text-muted" style="position:absolute; right: 0" [routerLink]="['/authentication/reset-password-1']">Forget Password?</a> -->
                                 <nz-form-control nzErrorTip="Please select captcha !">
                                     <ngx-recaptcha2 #captchaElem [siteKey]="'6LdtrlcfAAAAAOIXbf9fwBPIlZrnwISa2zGKtsWc'"
                                         (reset)="handleReset()" (expire)="handleExpire()" (load)="handleLoad()"
@@ -39,7 +38,7 @@
                                         formControlName="recaptcha">
                                     </ngx-recaptcha2>
                                 </nz-form-control>
-                            </nz-form-item>
+                            </nz-form-item> -->
                             <nz-form-item>
                                 <nz-form-control>
                                     <div class="d-flex align-items-center justify-content-between">
