@@ -122,7 +122,7 @@ export function Index() {
                    
               </div>
 
-      <div className='PageBuilder-pageRow flex-wrap-reverse'>
+      <div className='PageBuilder-pageRow flex-wrap-reverse m_sm_10'>
         <div className='PageBuilder-col-9'>
 
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
@@ -135,7 +135,7 @@ export function Index() {
 
       </div>
       </div>
-      <div className='PageBuilder-pageRow'>
+      <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
 
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
@@ -144,7 +144,7 @@ export function Index() {
         <div className='PageBuilder-sidebar'>
         </div>
       </div>
-      <div className='PageBuilder-pageRow'>
+      <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
 
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
@@ -154,7 +154,7 @@ export function Index() {
           <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
         </div>
       </div>
-      <div className='PageBuilder-pageRow'>
+      <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
         </div>
@@ -162,7 +162,7 @@ export function Index() {
 
         </div>
       </div>
-      <div className='PageBuilder-pageRow'>
+      <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
         </div>

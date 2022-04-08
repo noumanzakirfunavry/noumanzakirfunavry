@@ -962,7 +962,7 @@
 
     }
     .search-header .search-box {
-        top: -37px;
+        top: 0px;
 
     }
     .search-header .search-box .input-group-text {
@@ -1037,12 +1037,10 @@
     }
     .marketChart .chartBox .chartTop {
         margin-bottom: 15px;
+        display: block;
         li{
             margin-bottom: 5px;
-            &:first-child{
-                display: block;
-                width: 100%;
-            }
+           
             a {
                 padding: 0px 0px;
                 font-size: 13px;
@@ -1272,12 +1270,9 @@
     .market-stats .marketBox {
         min-width: 140px;
         height: 90px;
+        padding: 10px 5px;
     }
-    .NewsList ul li{
-        border-bottom: none;
-        flex-wrap: wrap;
-    flex-direction: column-reverse;
-    }
+    
     // .VideoTiles .VideoNews{
     //     width: 246px;
     // }
@@ -1320,7 +1315,7 @@
         width: 100% !important;
     }
     .market-stats {
-        margin-left: -11px;
+        margin-left: -47px;
         margin-right: 11px;
     min-width: 100%;
     }
@@ -1337,7 +1332,7 @@
 
     }
     .NewsList li .newsText{
-        width: 333px;
+        width: 100%;
         margin: auto;
     }
     .mainsection_newsimage__zRzlt {
@@ -1350,9 +1345,76 @@
     .horizontalNumberList .hNumberList ol {
         flex-wrap: wrap;
     }
-  
+    .mainsection_newsimage__zRzlt{
+        width: 100% !important;
+    }
+    
+    .bannerAddMedia {
+        width: 100%;
+        margin-right: 0;
+    }
+    .col-lg-8.p_sm_0{
+        min-width: 100%;
+        margin-right: 0;
+    }
+    header{
+        padding: 5px 0;
+    }
+    .container-xl, .container-lg, .container-md, .container-sm, .container {
+        max-width: 100%;
+    }
+    .newsSlider.scrollbarWrap .slick-slider {
+        margin-left: -11px;
+    }
+    .page-nav .navbar .navbar-nav .nav-item a {
+        font-size: 15px;
+    }
 }
   @media screen and (max-width:575px){
+    .page-nav .navbar .navbar-nav{
+        margin-right: 10px;
+    }
+    .page-categories .CategoryTitle, .mainsection_mainNews__oiuM_ h3 a{
+        font-size: 13px;
+    }
+    .mainsection_mainNews__oiuM_ h3 a{
+        padding: 5px 0;
+    }
+    .mainsection_mainNews__oiuM_{
+        margin-bottom: 20px !important;
+    }
+    // .mainsection_newsbox___k_R6{
+    //     max-width: 333px;
+    //     margin: auto;
+    //     margin-left: auto !important;
+    // }
+    .mainsection_newsdetails__ugKGf a{
+        font-size: 16px !important;
+    }
+    .sidelist_sideDotList__hUN6M li a{
+        font-size: 13px !important;
+    }
+    .sidelist_sidebar__Nuc9n .sidelist_themeTitle__1gobu h4 {
+        font: normal normal 900 21px/30px Cairo !important;
+    }
+    .mainsection_newsimage__zRzlt {
+        
+        height: 165px !important;
+    }
+    .search-header .search-box {
+        top: -37px;
+    }
+    .NewsList ul li{
+        border-bottom: none;
+        flex-wrap: wrap;
+    flex-direction: column-reverse;
+    }
+    .market-stats {
+        margin-left: -11px;
+        margin-right: 11px;
+        min-width: 100%;
+    }
+   
     .sliderArrows{
         display: none;
     }
@@ -1674,14 +1736,53 @@
 }
 .NewsList ul li .newsImage {
 max-width: 100%;
-    width: 333px;
+    width: 100%;
     height: 165px;
     margin: auto;
     padding-right: 0;
 
 }
+.bnner_add img {
+    width: 300px;
+    height: 250px;
+}
+.mostredSlider .slick-list {
+    margin-left: -13px;
+    margin-right: 10px;
+}
+.PageBuilder-pageRow.p_sm_10{
+    padding: 10px;
+}
 
   }
+  @media (max-width: 375px){
+    .mainsection_newsbox___k_R6 {
+        max-width: 333px;
+        margin: auto;
+        margin-left: auto !important;
+    }
+    .NewsList ul li .newsImage, .NewsList li .newsText{
+        width: 333px;
+    }
+    .mainsection_newsimage__zRzlt {
+        max-width: 333px !important;
+    }
+    .NewsList ul li{
+        margin-right: 10px;
+    }
+    .stockMarketNews {
+        margin: 15px 0 20px;
+    }
+     .marketChart, .stockMarketNews, .NewsLightTiles .TitleBar,
+     .horizontalNumberList{
+    width: 94%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.scrollbarWrap {
+    margin-bottom: 35px;
+}
+}
 
   @media (max-width: 1200px){
     .NewsList li .newsImage{
@@ -1714,9 +1815,11 @@ max-width: 100%;
         max-width: calc(33.33333% - 20px);
         min-width: calc(33.33333% - 20px);
     }
+    
 }
 
 // home responsive
+
 @media (min-width: 769px){
     .hide_div_web{
         display: none;
