@@ -47,7 +47,7 @@ const MainSection:FC = () =>{
                                     {/* <div className="{styles.newsdetails},'newsText'"> */}
                                     <div className={styles.newsdetails}>
                                         <a >بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة ال </a>
-                                        <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                                        <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                                     </div>
                                 </div>
                             </div>
@@ -58,6 +58,7 @@ const MainSection:FC = () =>{
                                     </div>
                                     <div className={styles.newsdetails}>
                                         <a >بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </a>
+                                        <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                                     </div>
                                 </div>
                             </div>
