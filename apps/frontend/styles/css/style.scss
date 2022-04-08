@@ -11,6 +11,7 @@ a{
   color: $primary-color;
   &:hover{
     // color: $warning;
+    color: $grey !important;
   }
 }
 a:not([href]):not([class]) {
@@ -572,7 +573,8 @@ h6{
     font-weight: bold;
   }
   .NewsList li a:hover{
-    text-decoration: underline;
+    // text-decoration: underline;
+    // color: #777777 !important;
   }
   .NewsList li p a{
     font-size: inherit;
