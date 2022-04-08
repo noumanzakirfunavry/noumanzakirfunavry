@@ -14,6 +14,7 @@ import { Error2Component } from './error-2/error-2.component';
 import { RouterModule } from '@angular/router';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SetPasswordComponent } from './set-password/set-password.component';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 const antdModule= [
     NzFormModule,
@@ -30,7 +31,8 @@ const antdModule= [
         ReactiveFormsModule,
         AuthenticationRoutingModule,
         RouterModule,
-        ...antdModule
+        ...antdModule,
+        NgxCaptchaModule
     ],
     declarations: [
         LoginComponent,
