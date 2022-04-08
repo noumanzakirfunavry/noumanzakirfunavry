@@ -1,10 +1,9 @@
+import { FC } from "react";
 import CookieConsent, { Cookies } from "react-cookie-consent";
 
-const CookiesComponent = () =>{
+const CookiesComponent: FC<any> = ({limit}) =>{
 
   return (
-
-    <>
     <CookieConsent
       location="bottom"
       buttonText="موافق"
@@ -39,7 +38,6 @@ const CookiesComponent = () =>{
         <span style={{ fontSize: "10px" }}>This bit of text is smaller :O</span>
       
         </CookieConsent>
-        </>
   )
 }
 
