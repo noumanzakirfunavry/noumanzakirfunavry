@@ -61,8 +61,15 @@ export class NewsService {
 														quotes = quotes.map(quote=> quote.name);
 
 														let {tagsIds, quotesIds, ...newsDetails} = body
-														// // save to elk
-												    ElkService.save({ index: 'news', id: news_added.id.toString(), document: {...newsDetails, tags, quotes}});
+														
+														// add flags to save in elk
+												    newsDetails.isFeatured = !this.isObjectEmpty(body.featuredNews || {})
+												    newsDetails.isTrending = body.trendingNews?.length > 0 ? true: false
+												    newsDetails.isEditorsChoice = body.isEditorsChoice?.length > 0 ? true: false
+												    newsDetails.breakingNews = body.breakingNews?.length > 0 ? true: false
+														
+														// save to elk
+														ElkService.save({ index: 'news', id: news_added.id.toString(), document: {...newsDetails, tags, quotes}});
 
                             return new GenericResponseDto(
                                 HttpStatus.OK,
@@ -522,4 +529,11 @@ export class NewsService {
             )
         }
     }
+		isObjectEmpty(object) {
+			return (
+				Object.prototype.toString.call(object) === '[object Object]' &&
+				JSON.stringify(object) === '{}'
+			);
+		}
+		
 }
