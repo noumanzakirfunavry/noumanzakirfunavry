@@ -73,7 +73,7 @@ export class AddNewsComponent implements OnInit {
             ckfinder: {
                 // uploadUrl: 'https://ckfinder.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
 
-                // openerMethod: 'popup',
+                openerMethod: 'popup',
                 uploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
                 filebrowserBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles',
                 filebrowserImageBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles?type=Images',
@@ -157,7 +157,7 @@ export class AddNewsComponent implements OnInit {
     populateNewsForm(news: any) {
         this.newsForm = this.fb.group({
             title: [news.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-            content: [news?.content || null, [Validators.required]],
+            content: [news?.content || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             isPro: [news.isPro || false],
             visible: [news.visible || true, [Validators.required]],
             contentType: [news.contentType || 'TEXT', [Validators.required]],
@@ -179,7 +179,7 @@ export class AddNewsComponent implements OnInit {
     initNewsForm() {
         this.newsForm = this.fb.group({
             title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-            content: [null, [Validators.required]],
+            content: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             isPro: [false],
             visible: [true, [Validators.required]],
             contentType: ['TEXT', [Validators.required]],

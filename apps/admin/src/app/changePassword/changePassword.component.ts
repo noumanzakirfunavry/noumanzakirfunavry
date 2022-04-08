@@ -17,16 +17,25 @@ export class ChangePasswordComponent implements OnInit{
     ngOnInit(): void {
         this.changePasswordForm = this.fb.group({
           oldPassword: [null, [Validators.required]],
-          password: [null, [Validators.required]],
+          password: [null, [Validators.required, this.newPasswordValidator]],
           confirmPassword: [null, [Validators.required, this.confirmationValidator]]
         });
       }
 
 
-    updateConfirmValidator(): void {
+      updateConfirmValidator(): void {
         /** wait for refresh value */
         Promise.resolve().then(() => this.changePasswordForm.controls.confirmPassword.updateValueAndValidity());
       }
+
+      newPasswordValidator = (control: FormControl): { [s: string]: boolean } => {
+        if (!control.value) {
+          return { required: true };
+        } else if (control.value === this.changePasswordForm.controls.oldPassword.value) {
+          return { confirm: true, error: true };
+        }
+        return {};
+      };
 
       confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
         if (!control.value) {

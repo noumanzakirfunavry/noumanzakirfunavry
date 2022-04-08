@@ -10,7 +10,7 @@ body{
 a{
   color: $primary-color;
   &:hover{
-    // color: $warning;
+    color: $warning;
   }
 }
 a:not([href]):not([class]) {
@@ -378,7 +378,7 @@ h6{
 }
     .CategoryTitle{
       font-size: 15px;
-      font-weight: bold;
+      font-weight: 900;
       margin-left: 23px;
       min-width: 90px;
     }
@@ -414,6 +414,9 @@ h6{
             }
         }
 
+    }
+    ::-webkit-scrollbar{
+      height: 0;
     }
 
 }
@@ -569,7 +572,8 @@ h6{
     font-weight: bold;
   }
   .NewsList li a:hover{
-    text-decoration: underline;
+    // text-decoration: underline;
+    color: #777777 !important;
   }
   .NewsList li p a{
     font-size: inherit;
@@ -758,8 +762,9 @@ h6{
   .VideoNews .NewsContent h4:hover, .newsSlider .slick-slider .NewsBox .newscontent h3 a:hover,
   .NewsTiles .newBox .NewsInfo h3:hover, .NewsTiles .newBox .NewsInfo h4:hover
   {
-    text-decoration: underline;
+    // text-decoration: underline;
     cursor: pointer;
+    color: #777777 !important;
   }
 
 
@@ -814,7 +819,8 @@ h6{
       margin-right: 10px;
   }
   .VideoTiles .NewsContent h4:hover{
-      text-decoration: underline;
+      // text-decoration: underline;
+      color: #777777 !important;
       cursor: pointer;
   }
 
@@ -1135,6 +1141,9 @@ h6{
     flex-wrap: nowrap;
     justify-content: space-between;
     margin-bottom: 10px;
+    &::-webkit-scrollbar{
+      height: 0;
+    }
 }
 .market-stats .marketBox{
     margin-bottom: 5px;
@@ -1279,7 +1288,8 @@ h6{
       color: $grey-dark;
       font: normal normal bold 14px/22px Cairo;
       &:hover{
-        text-decoration: underline;
+        // text-decoration: underline;
+        color: #777777;
    cursor: pointer;
       }
 
@@ -2197,10 +2207,12 @@ width: 110px;
     }
   }
   .header-search-nav ul {
-    justify-content: center;
+    justify-content: space-between;
     li
     {
       border: 1px solid #DDDDDD;
+      min-width: 33.3%;
+      text-align: center;
       a{
         color: #1C1C1C !important;
         font: normal normal bold 15px/32px Cairo;
@@ -2625,9 +2637,11 @@ select::-ms-expand {
     }
 
   }
+ 
 }
 
 }
+
 // newsslider2text
 .newsSlider2Text {
   .NewsBox {
@@ -3168,4 +3182,17 @@ h6.newsDetailtext
 .newsDetial_w {
   width: 1000px;
   margin: auto;
+}
+.mainsection_newsdetails__ugKGf {
+p.tag{
+  a{
+    margin-left: 15px;
+    font-size: 12px !important;
+    color: $secondary-color !important;
+  }
+  b{
+    font-size: 12px;
+    color: $grey;
+  }
+}
 }

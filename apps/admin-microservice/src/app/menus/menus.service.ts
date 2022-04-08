@@ -16,8 +16,12 @@ import {
 	ExceptionType
 } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
-import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import e from 'express';
+import {
+	BadRequestException,
+	HttpStatus,
+	Inject,
+	Injectable
+} from '@nestjs/common';
 import { Op } from 'sequelize';
 import { FindOptions } from 'sequelize/types';
 

@@ -69,9 +69,7 @@ export class ExclusiveVideosComponent implements OnInit{
 
     ngOnInit(): void {
         this.getAllCategories();
-        if(this.exclusiveVideos) {
-            this.getAllExclusiveVideos();
-        }
+        this.getAllExclusiveVideos();
     }
 
     getAllCategories() {
