@@ -22,7 +22,8 @@
     line-height: normal;
   }
   .mainNews h1 a:hover,.mainNews h3 a:hover, .newsdetails a:hover{
-   text-decoration: underline !important;
+   /* text-decoration: underline !important */
+   color: #777777 !important;
   }
   .mainNews h3{
     margin: 0;
