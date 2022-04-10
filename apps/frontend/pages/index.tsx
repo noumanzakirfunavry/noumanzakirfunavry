@@ -125,7 +125,7 @@ export function Index() {
       <div className='PageBuilder-pageRow flex-wrap-reverse m_sm_10'>
         <div className='PageBuilder-col-9'>
 
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
 
         </div>
         <div className='PageBuilder-sidebar hide_div_mobile'>
@@ -138,7 +138,7 @@ export function Index() {
       <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
 
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
 
         </div>
         <div className='PageBuilder-sidebar'>
@@ -147,7 +147,7 @@ export function Index() {
       <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
 
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
 
         </div>
         <div className='PageBuilder-sidebar large_add'>
@@ -156,7 +156,7 @@ export function Index() {
       </div>
       <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
         </div>
         <div className='PageBuilder-sidebar'>
 
@@ -164,7 +164,7 @@ export function Index() {
       </div>
       <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true} cat={undefined}/>
         </div>
         <div className='PageBuilder-sidebar'>
 
