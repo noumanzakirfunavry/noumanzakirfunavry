@@ -76,7 +76,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
     //  }, [])
     return (
         <>
-            {displayTitle && <Title styles={"yellowTitle mb-3"}><h3>{cat?.title}</h3></Title>}
+            {displayTitle && <Title styles={"yellowTitle mb-3"}><h3>{cat?.title || 'أميركا في أزمة'}</h3></Title>}
             <div className="NewsTiles">
                 {displayTopTwoNews && (
                     <div className="row">

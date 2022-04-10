@@ -18,6 +18,7 @@ const MainSection: FC = () => {
     const getDataFromApi = () => {
         GetData(`${requests.featuredNews}`, {}, "get", false).then((res) => {
             setFeaturedNews(res);
+            console.log("featured news",featuredNews);
             setMainNews(res.filter(x=>x._source.featuredNews.section=='MAIN'));
             setSecNews(res.filter(x=>x._source?.featuredNews?.section!='MAIN'));
             console.log("main news",mainFeatured);
