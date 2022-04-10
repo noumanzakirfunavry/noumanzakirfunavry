@@ -27,7 +27,8 @@ export type CategoryNewsProps = {
     limit: number,
     displayTitle: boolean,
     displayTopTwoNews:boolean,
-    displayMoreButton:boolean
+    displayMoreButton:boolean,
+    cat:any
 }
 
 export type ModalProps = {
