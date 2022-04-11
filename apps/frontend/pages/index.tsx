@@ -15,7 +15,7 @@ import { setUser } from '../reducers/UserSlice';
 import GetData from '../services/GetData';
 import { useEffect, useState } from 'react';
 import { requests } from '../services/Requests';
-import Skeleton from 'react-loading-skeleton';
+import SkeletonLoader from '../components/Shared/SkeletonLoader/SkeletoLoader';
 
 export function Index() {
   /*
@@ -134,10 +134,10 @@ export function Index() {
         </div>
       </div> */}
       {
-        !categories?.length && <Skeleton/>
+        categories?.length === 0 && <SkeletonLoader/>
       }
       {
-        categories?.length && categories?.map((category:CategoryProps, index:number)=>{
+        categories?.length > 0 && categories?.map((category:CategoryProps, index:number)=>{
           return (
             <div className='row' key={category.id}>
               <div className='col-lg-9'>
