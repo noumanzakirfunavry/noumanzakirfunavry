@@ -13,7 +13,8 @@ import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-addNews',
-    templateUrl: './addNews.component.html'
+    templateUrl: './addNews.component.html',
+    styleUrls: ['./addNews.component.scss']
 })
 
 export class AddNewsComponent implements OnInit {
