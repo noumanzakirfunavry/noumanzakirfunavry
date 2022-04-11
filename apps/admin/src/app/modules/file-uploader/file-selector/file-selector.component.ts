@@ -80,7 +80,7 @@ export class FileSelectorComponent implements OnInit {
         this.onFileSelection.emit(this.field);
       }
     } else {
-      this.error = 'Please select one file with these extensions ' + this.fileTypes;
+      this.error = 'Select one file with these extensions ' + this.fileTypes;
       setTimeout(() => {
         this.error = null
       }, 3000);

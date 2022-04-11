@@ -63,10 +63,10 @@ export class NewsService {
 														let {tagsIds, quotesIds, ...newsDetails} = body
 														
 														// add flags to save in elk
-												    newsDetails.isFeatured = !this.isObjectEmpty(body.featuredNews || {})
-												    newsDetails.isTrending = body.trendingNews?.length > 0 ? true: false
-												    newsDetails.isEditorsChoice = body.isEditorsChoice?.length > 0 ? true: false
-												    newsDetails.breakingNews = body.breakingNews?.length > 0 ? true: false
+												    // newsDetails.isFeatured = !this.isObjectEmpty(body.featuredNews || {})
+												    // newsDetails.isTrending = body.trendingNews?.length > 0 ? true: false
+												    // newsDetails.isEditorsChoice = body.isEditorsChoice?.length > 0 ? true: false
+												    // newsDetails.breakingNews = body.breakingNews?.length > 0 ? true: false
 														
 														// save to elk
 														ElkService.save({ index: 'news', id: news_added.id.toString(), document: {...newsDetails, tags, quotes}});

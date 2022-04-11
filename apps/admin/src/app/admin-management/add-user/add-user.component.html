@@ -9,7 +9,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Admin Name </nz-form-label>
-                <nz-form-control nzErrorTip="Please input valid Name between 3 to 250 characters!">
+                <nz-form-control nzErrorTip="Enter valid Name between 3 to 250 characters!">
                   <input type="text" nz-input formControlName="name" placeholder="Admin Name">
                 </nz-form-control>
               </nz-form-item>
@@ -17,7 +17,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Admin Role</nz-form-label>
-                <nz-form-control nzErrorTip="Please select Admin Role!">
+                <nz-form-control nzErrorTip="Select Admin Role!">
                 <nz-select nzShowSearch nzAllowClear formControlName="rolesId" nzPlaceHolder="Select Role">
                   <nz-option [nzValue]="3" [nzLabel]="'Super Admin'"></nz-option>
                   <nz-option [nzValue]="1" [nzLabel]="'Admin'"></nz-option>
@@ -30,7 +30,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Username</nz-form-label>
-                <nz-form-control nzErrorTip="Please input valid Username without spaces between 3 to 250 characters!">
+                <nz-form-control nzErrorTip="Enter valid Username without spaces between 3 to 250 characters!">
                   <nz-form-control>
                     <input type="text" formControlName="userName" nz-input placeholder="Enter Username"/>
                   </nz-form-control>
@@ -45,7 +45,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Password</nz-form-label>
-                <nz-form-control nzErrorTip="Please input Password between 6 to 30 characters!">
+                <nz-form-control nzErrorTip="Enter Password between 6 to 30 characters!">
                   <input type="password" formControlName="password" nz-input placeholder="Enter Password">
                 </nz-form-control>
               </nz-form-item>
@@ -57,10 +57,10 @@
                 <input type="password" formControlName="confirmPassword" nz-input placeholder="Confirm Password">
                 <ng-template #errorTpl let-control>
                   <ng-container *ngIf="control.hasError('required')">
-                    Please Confirm Password!
+                    Confirm Password!
                   </ng-container>
                   <ng-container *ngIf="control.hasError('confirm')">
-                    Passwords that you enter is Inconsistent!
+                    Password does not match!
                   </ng-container>
                 </ng-template>
               </nz-form-control>
@@ -70,7 +70,7 @@
 
           <nz-form-item>
             <nz-form-label nzRequired nzFor="text">Email</nz-form-label>
-            <nz-form-control nzErrorTip="Please input valid Email!">
+            <nz-form-control nzErrorTip="Enter valid Email!">
               <input nz-input formControlName="email" placeholder="Enter Email" />
             </nz-form-control>
           </nz-form-item>
@@ -90,7 +90,7 @@
               </div>
           </nz-checkbox-wrapper>
           <div *ngIf="(!rightsValue || rightsValue.length===0) && submitted===true" style="color: Crimson;">
-            Please select atleast one option!
+            Select atleast one option!
           </div>
         </div>
       </div>

@@ -8,12 +8,14 @@ import { NewsModal } from '../../common/models/newsModal';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentListData } from './mockComments';
 import { environment } from '../../../environments/environment';
+import { NzMessageService } from 'ng-zorro-antd/message';
 // import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 // import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
 @Component({
     selector: 'app-addNews',
-    templateUrl: './addNews.component.html'
+    templateUrl: './addNews.component.html',
+    styleUrls: ['./addNews.component.scss']
 })
 
 export class AddNewsComponent implements OnInit {
@@ -49,7 +51,8 @@ export class AddNewsComponent implements OnInit {
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
         private activatedRoute: ActivatedRoute,
-        private route: Router) { }
+        private route: Router, 
+        private message: NzMessageService) { }
 
     ngOnInit(): void {
         const admin = JSON.parse(localStorage.getItem('admin') || '{}');
@@ -149,7 +152,6 @@ export class AddNewsComponent implements OnInit {
             this.newsModal.populateFromServerModal(res.response.news);
             this.newsModal.seoDetailId = res.response.news.seoDetailId;
             console.log("view modal", this.newsModal);
-
             this.populateNewsForm(res.response.news);
         })
     }
@@ -157,7 +159,7 @@ export class AddNewsComponent implements OnInit {
     populateNewsForm(news: any) {
         this.newsForm = this.fb.group({
             title: [news.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-            content: [news?.content || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+            content: [news?.content || null, [Validators.required, Validators.maxLength(250)]],
             isPro: [news.isPro || false],
             visible: [news.visible || true, [Validators.required]],
             contentType: [news.contentType || 'TEXT', [Validators.required]],
@@ -179,7 +181,7 @@ export class AddNewsComponent implements OnInit {
     initNewsForm() {
         this.newsForm = this.fb.group({
             title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-            content: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+            content: [null, [Validators.required, Validators.maxLength(250)]],
             isPro: [false],
             visible: [true, [Validators.required]],
             contentType: ['TEXT', [Validators.required]],
@@ -215,14 +217,14 @@ export class AddNewsComponent implements OnInit {
         // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
         this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModal.toServerModal(obj, this.newsModal.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
             console.log("News", res);
-            this.newsForm.reset();
+            this.initNewsForm();
             this.route.navigateByUrl('news/list')
-            // if(this.categoryId) {
-            //     this.message.create('success', `Category Updated Successfully`)
-            // }
-            // else {
-            //     // this.message.create('success', `Category Added Successfully`)
-            // }
+            if(this.newsId) {
+                this.message.create('success', `News Updated Successfully`)
+            }
+            else {
+                this.message.create('success', `News Added Successfully`)
+            }
         })
         }
         console.log("form", this.newsForm.value);
@@ -280,6 +282,11 @@ export class AddNewsComponent implements OnInit {
 
     reset() {
         this.file= null;
+        this.newsModal.imageId= null;
+        this.newsModal.fileUrl= null;
+        this.newsModal.thumbnailId= null;
+        this.newsModal.thumbnailUrl= null;
+        this.uploadProgress= null;
         this.myInputVariable.nativeElement.value = "";
     }
 

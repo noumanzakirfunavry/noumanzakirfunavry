@@ -7,7 +7,7 @@
                 </nz-select>
               </nz-form-item>
             <nz-form-item class="mr-2">
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Publisher" nzSpan="8" nzMode="multiple" [(ngModel)]="filterModel.publishers">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Publisher" nzSpan="8" [(ngModel)]="filterModel.publishers">
                   <nz-option *ngFor="let admin of allAdmins" [nzValue]="admin?.id" [nzLabel]="admin?.name"></nz-option>
                 </nz-select>
               </nz-form-item>

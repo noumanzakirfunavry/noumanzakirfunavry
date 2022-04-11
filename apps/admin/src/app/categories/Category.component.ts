@@ -17,8 +17,8 @@ export class CategoryComponent implements OnInit {
     pagination: {
         pageNo: number, 
         limit: number, 
-        parentCategoryId?: Array<number>, 
-        publishers?: Array<number>, 
+        parentCategoryId?: Array<any>, 
+        publishers?: Array<any>, 
         status?: boolean, 
         includeNews?: boolean, 
         newsLimit?: number, 

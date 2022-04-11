@@ -1,11 +1,12 @@
-import { IsBoolean, IsBooleanString, IsOptional } from "class-validator";
+import { IsBooleanString, IsOptional } from "class-validator";
+import { PaginatedRequestDto } from "../pagination.request.dto";
 
-export class GetNewsByFlagsRequestDto {
+export class GetNewsByFlagsRequestDto extends PaginatedRequestDto {
 	@IsOptional()
 	@IsBooleanString()
 	isFeatured: boolean;
 
-	
+
 
 	@IsOptional()
 	@IsBooleanString()
