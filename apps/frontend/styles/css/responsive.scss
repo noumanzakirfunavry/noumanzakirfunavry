@@ -584,8 +584,11 @@
             height: 200px;
         }
     }
-    .newsSlider2Text .NewsBox {
-        width: 206px;
+    // .newsSlider2Text .NewsBox {
+    //     width: 206px;
+    // }
+    .newsSliderText.newsSlider2Text.video_newsSlider_wrap {
+        width: 100%;
     }
     .pageSimpleTitle.mb-5 {
         width: 90%;
@@ -872,7 +875,16 @@
             }
         }
     }
-    
+    .single_video_main .pageSimpleTitle h1{
+        font-size: 36px;
+    }
+    .fadeNewsDetail {
+        height: inherit;
+        overflow: inherit;
+        &::after{
+            background-image: none;
+        }
+    }
     
   }
   @media screen and (max-width:768px) and (min-width:576px){
