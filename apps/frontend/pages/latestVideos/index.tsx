@@ -16,13 +16,15 @@ const Index = () =>{
                 <h2>أحدث مقاطع الفيديو</h2>
             </Title>
             <div className="container">
-            <div className='row'>
-                <div className='col-lg-9'>
+            <div className='PageBuilder-pageRow'>
+                <div className='PageBuilder-col-9'>
                     <MainNews/>
                     {/* <CategoryNewsSection limit={8} displayTitle={false}  displayTopTwoNews={false} displayMoreButton={true}/> */}
+                    <div className="latestVideoTileswrap">
                     <VideoNewsTiles/>
+                    </div>
                 </div>
-                <div className='col-lg-3'>
+                <div className='PageBuilder-sidebar'>
                     <div className="latestVideoPage-sidebar">
                     <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 1 } /*, { componentType: 'SmallBanner', position: 2 }*/]} /></div>
                 </div>
