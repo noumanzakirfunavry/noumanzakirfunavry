@@ -33,7 +33,7 @@ export class AddQuickLinksComponent implements OnInit {
   ngOnInit(): void {
     this.quickLinkForm = this.fb.group({
       title: [ null, [ Validators.required ] ],
-      url: [ null, [ Validators.required ] ],
+      url: [ null, [ Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?') ] ],
       visible: [false]
   });
   this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
@@ -72,7 +72,7 @@ export class AddQuickLinksComponent implements OnInit {
       console.log("QUICK-LINK-BY-ID", this.quickLinkById);
       this.quickLinkForm = this.fb.group({
         title: [ this.quickLinkById?.title || null, [ Validators.required ] ],
-        url: [ this.quickLinkById?.url || null, [ Validators.required ] ],
+        url: [ this.quickLinkById?.url || null, [ Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?') ] ],
         visible: [this.quickLinkById?.visible || false]
     });
     })
