@@ -10,7 +10,7 @@ import { ApiService } from '../../shared/services/api.service';
 })
 
 export class SetPasswordComponent implements OnInit {
-    loginForm: FormGroup;
+    setPasswordForm: FormGroup;
     token: number;
 
     constructor(private fb: FormBuilder,
@@ -19,7 +19,7 @@ export class SetPasswordComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loginForm = this.fb.group({
+        this.setPasswordForm = this.fb.group({
             password: [ null, [ Validators.required, Validators.minLength(6), Validators.maxLength(30) ] ],
             confirmPassword: [ null, [ Validators.required, this.confirmationValidator ] ]
         });
@@ -29,33 +29,30 @@ export class SetPasswordComponent implements OnInit {
     }
 
     submitForm(): void {
-        for (const i in this.loginForm.controls) {
-            this.loginForm.controls[ i ].markAsDirty();
-            this.loginForm.controls[ i ].updateValueAndValidity();
+        for (const i in this.setPasswordForm.controls) {
+            this.setPasswordForm.controls[ i ].markAsDirty();
+            this.setPasswordForm.controls[ i ].updateValueAndValidity();
         }
-        if(this.loginForm.valid) {
-            const obj= this.loginForm.value;
-            // obj['deviceId']= '995fb498-9621-11ec-b909-0242ac120002';
-            // obj['deviceType']= 'DESKTOP';
-            obj['password']= this.loginForm.value.password.toLowerCase();
+        if(this.setPasswordForm.valid) {
+            const obj= this.setPasswordForm.value;
+            obj['password']= this.setPasswordForm.value.password.toLowerCase();
             delete obj['confirmPassword'];
             this.apiService.sendRequest(requests.setPassword + this.token, 'post', obj).subscribe((res:any) => {
-                // localStorage.setItem("admin", JSON.stringify(res.response))
-                console.log("Email for reset password", res);
-                this.route.navigateByUrl('login');
+                console.log("Password for reset password", res);
+                this.route.navigateByUrl('/full/authentication/login');
             })
         }
     }
 
     updateConfirmValidator(): void {
         /** wait for refresh value */
-        Promise.resolve().then(() => this.loginForm.controls.confirmPassword.updateValueAndValidity());
+        Promise.resolve().then(() => this.setPasswordForm.controls.confirmPassword.updateValueAndValidity());
       }
     
       confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
         if (!control.value) {
           return { required: true };
-        } else if (control.value !== this.loginForm.controls.password.value) {
+        } else if (control.value !== this.setPasswordForm.controls.password.value) {
           return { confirm: true, error: true };
         }
         return {};
