@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
 
@@ -12,7 +13,10 @@ import { ApiService } from '../../shared/services/api.service';
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
 
-    constructor(private fb: FormBuilder, private apiService: ApiService, private route: Router) {
+    constructor(private fb: FormBuilder, 
+        private apiService: ApiService, 
+        private route: Router, 
+        private message: NzMessageService) {
     }
 
     ngOnInit(): void {
@@ -38,6 +42,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem("admin", JSON.stringify(res.response))
                 console.log("LOGIN", res);
                 this.route.navigateByUrl('dashboard');
+                this.message.create('success', `Logged-In Successfully`)
             })
         }
     }

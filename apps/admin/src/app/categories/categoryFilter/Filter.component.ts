@@ -13,7 +13,7 @@ import { ApiService } from '../../shared/services/api.service';
 export class FilterComponent implements OnInit{
     @Output() statusEmitter = new EventEmitter (); 
     @Output() filterEmitter = new EventEmitter (); 
-    filterModel : {status: boolean, title: string, publishers: Array<any>} = {status: null, title: null, publishers: []}
+    filterModel : {status: boolean, title: string, publishers: Array<any>} = {status: null, title: null, publishers: null}
     pagination : Pagination = new Pagination();
     allAdmins: any;
     loading= true;
@@ -44,11 +44,14 @@ export class FilterComponent implements OnInit{
       }
 
     search() {
+        if(this.filterModel.publishers) {
+            this.filterModel.publishers= [this.filterModel.publishers]
+        }
         this.statusEmitter.emit(this.filterModel);
     }
 
     clear() {
-        this.filterModel= { status : null, title : null, publishers: []};
+        this.filterModel= { status : null, title : null, publishers: null};
         this.filterEmitter.emit(this.filterModel);
     }
    

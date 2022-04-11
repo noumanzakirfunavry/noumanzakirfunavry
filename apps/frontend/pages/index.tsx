@@ -125,7 +125,7 @@ export function Index() {
       <div className='PageBuilder-pageRow flex-wrap-reverse m_sm_10'>
         <div className='PageBuilder-col-9'>
 
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
 
         </div>
         <div className='PageBuilder-sidebar hide_div_mobile'>
@@ -138,7 +138,7 @@ export function Index() {
       <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
 
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
 
         </div>
         <div className='PageBuilder-sidebar'>
@@ -147,7 +147,7 @@ export function Index() {
       <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
 
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
 
         </div>
         <div className='PageBuilder-sidebar large_add'>
@@ -156,7 +156,7 @@ export function Index() {
       </div>
       <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
         </div>
         <div className='PageBuilder-sidebar'>
 
@@ -164,18 +164,44 @@ export function Index() {
       </div>
       <div className='PageBuilder-pageRow p_sm_10'>
         <div className='PageBuilder-col-9'>
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true} cat={undefined}/>
         </div>
         <div className='PageBuilder-sidebar'>
 
         </div>
       </div>
 
+      {
+    !categories?.length && <Skeleton/>
+  }
+  {
+    categories?.length && categories?.map((category:CategoryProps, index:number)=>{
+      return (
+        <div className='PageBuilder-pageRow' key={category.id}>
+          <div className='PageBuilder-col-9'>
+            <CategoryNewsSection cat={category} limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          </div>
+          <div className='PageBuilder-sidebar'>
+                {
+                  index === 0 && (
+                    <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
+                  )
+                }
+                {
+                  index === 2 && (
+                    <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
+                  )
+                }
+          </div>
+        </div>
+      )
+    })
+  }
 {/* categoreis code is save on usman's side i will revert it after integrating it */}
 
-      {/* <div className="text-center mt-3 mb-4 more_btn" onClick={()=>setLimit(limit + 5)}>
+      <div className="text-center mt-3 mb-4 more_btn" onClick={()=>setLimit(limit + 5)}>
           <button className="btn btn-outline-primary">المزيد</button>
-      </div> */}
+      </div>
 
       {/* </div> */}
 
