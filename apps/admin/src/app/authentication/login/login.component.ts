@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -17,27 +17,38 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         this.loginForm = this.fb.group({
-            userName: [ null, [ Validators.required ] ],
-            password: [ null, [ Validators.required ] ]
+            userName: [null, [Validators.required]],
+            password: [null, [Validators.required]],
+            // recaptcha: ['', Validators.required]
+
         });
     }
 
     submitForm(): void {
         for (const i in this.loginForm.controls) {
-            this.loginForm.controls[ i ].markAsDirty();
-            this.loginForm.controls[ i ].updateValueAndValidity();
+            this.loginForm.controls[i].markAsDirty();
+            this.loginForm.controls[i].updateValueAndValidity();
         }
-        if(this.loginForm.valid) {
-            const obj= this.loginForm.value;
-            obj['deviceId']= '995fb498-9621-11ec-b909-0242ac120002';
-            obj['deviceType']= 'DESKTOP';
-            obj['userName']= this.loginForm.value.userName.toLowerCase();
-            this.apiService.sendRequest(requests.login, 'post', obj).subscribe((res:any) => {
+        if (this.loginForm.valid) {
+            const obj = this.loginForm.value;
+            obj['deviceId'] = '995fb498-9621-11ec-b909-0242ac120002';
+            obj['deviceType'] = 'DESKTOP';
+            obj['userName'] = this.loginForm.value.userName.toLowerCase();
+            this.apiService.sendRequest(requests.login, 'post', obj).subscribe((res: any) => {
                 localStorage.setItem("admin", JSON.stringify(res.response))
                 console.log("LOGIN", res);
                 this.route.navigateByUrl('dashboard');
             })
         }
+    }
+
+    handleReset() {
+
+    }
+    handleExpire() { }
+    handleLoad() { }
+    handleSuccess($event) {
+
     }
 
 }    
