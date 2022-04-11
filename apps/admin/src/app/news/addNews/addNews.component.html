@@ -17,7 +17,7 @@
                         <div class="col-md-12">
                             <nz-form-item>
                                 <nz-form-label nzRequired>Title</nz-form-label>
-                                <nz-form-control nzErrorTip="Please input valid Title between 3 to 250 characters!">
+                                <nz-form-control nzErrorTip="Enter valid Title between 3 to 250 characters!">
                                     <input type="text" formControlName="title" placeholder="Enter Title" dir="rtl"
                                         nz-input>
                                 </nz-form-control>
@@ -27,7 +27,7 @@
                     <div class="col-md-12">
                         <nz-form-item>
                             <nz-form-label nzRequired>Description</nz-form-label>
-                            <nz-form-control nzErrorTip="Please input Description maximum 250 characters allowed!">
+                            <nz-form-control nzErrorTip="Enter Description maximum 250 characters allowed!">
                                 <ckeditor [config]="config" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
                             </nz-form-control>
                         </nz-form-item>
@@ -153,14 +153,14 @@
                             </nz-form-control>
                         </nz-form-item>
                         <div *ngIf="(!selectedCat || selectedCat.length===0) && submitted===true" style="color: Crimson;">
-                            Please select Catogory!
+                            Select Catogory!
                         </div>
                     </div>
                     <!-- tags -->
                     <div>
                         <nz-form-item>
                             <nz-form-label nzRequired>Tags</nz-form-label>
-                            <nz-form-control nzErrorTip="Please select Tag!">
+                            <nz-form-control nzErrorTip="Select Tag!">
                                 <nz-select (keyup)="getTags($event.target.value)" [nzSize]="size" formControlName="tagsIds" nzMode="multiple"
                                     nzPlaceHolder="Please select">
                                     <nz-option *ngFor="let option of allTags" [nzLabel]="option.title"
@@ -184,7 +184,7 @@
 
                         <nz-form-item>
                             <nz-form-label nzRequired>Related Quotes</nz-form-label>
-                            <nz-form-control nzErrorTip="Please select Quote!">
+                            <nz-form-control nzErrorTip="Select Quote!">
                                 <nz-select (keyup)="getAllQuotes($event.target.value)" formControlName="quotesIds"
                                     [nzSize]="size" nzMode="multiple" nzPlaceHolder="Please select">
                                     <nz-option *ngFor="let option of allQuotes" [nzLabel]="option.name"
@@ -209,28 +209,28 @@
                         <h4 class="mb-2">SEO Settings</h4>
                         <nz-form-item>
                             <nz-form-label nzRequired>Slug Line</nz-form-label>
-                            <nz-form-control nzErrorTip="Please input Slug Line!">
+                            <nz-form-control nzErrorTip="Enter Slug Line!">
                                 <input type="text" formControlName="slugLine" placeholder="Enter Slug Line" dir="rtl"
                                     nz-input>
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item>
                             <nz-form-label nzRequired>Title</nz-form-label>
-                            <nz-form-control nzErrorTip="Please input Title!">
+                            <nz-form-control nzErrorTip="Enter Title!">
                                 <input type="text" formControlName="seoTitle" placeholder="Enter Title" dir="rtl"
                                     nz-input>
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item>
                             <nz-form-label nzRequired>Description</nz-form-label>
-                            <nz-form-control nzErrorTip="Please input Description!">
+                            <nz-form-control nzErrorTip="Enter Description!">
                                 <textarea rows="4" formControlName="description" type="text"
                                     placeholder="Enter Description" dir="rtl" nz-input></textarea>
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item>
                             <nz-form-label nzRequired>Keywords</nz-form-label>
-                            <nz-form-control nzErrorTip="Please input Keywords!" nzExtra="Enter keywords seperated by a comma (,) .">
+                            <nz-form-control nzErrorTip="Enter Keywords!" nzExtra="Enter keywords seperated by a comma (,) .">
                                 <input formControlName="keywords" type="text" placeholder="Enter Keywords" dir="rtl"
                                     nz-input>
                             </nz-form-control>
