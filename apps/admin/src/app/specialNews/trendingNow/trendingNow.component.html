@@ -2,20 +2,21 @@
   <br>
   <br>
   <div class="col-12">
-    <form [formGroup]="trendingNowForm" nz-form [nzLayout]="'vertical'" (ngSubmit)="updateTrendingNow()">
       <div class="row">
         <div class="col-12">
-        <nz-table [nzData]="allTrendingNow" class="no-border-last">
+        <nz-table [nzData]="allTrendingNow" [nzShowPagination]="false" class="no-border-last">
           <thead>
               <tr>
-                  <th class="text-left" colspan="4">Reorder</th>
+                  <th class="text-left" colspan="4"></th>
               </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="allCategories && allCategories.length > 0">
               <tr *ngFor="let news of tNews">
                   <td>#</td>
                   <td>{{news?.position}}</td>
-                  <news-table-row [news]="news"></news-table-row>
+                  <ng-container>
+                    <news-table-row [allCategories]="allCategories" [news]="news"></news-table-row>
+                  </ng-container>
               </tr>
           </tbody>
       </nz-table>
@@ -23,12 +24,11 @@
         <div class="col-md-12 mt-3">
           <nz-form-item>
             <nz-form-control>
-              <button class="mr-3" nz-button nzType="primary">Save</button>
+              <button class="mr-3" nz-button nzType="primary" (click)="updateTrendingNow()">Save</button>
               <!-- <button nz-button nzType="default">Cancel</button> -->
             </nz-form-control>
           </nz-form-item>
         </div>
       </div>
-    </form>
   </div>
 </section>

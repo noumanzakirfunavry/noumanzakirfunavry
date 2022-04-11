@@ -7,6 +7,7 @@ import { NewsModule } from './news/news.module';
 import { NewsTypeModule } from './news-type/news-type.module';
 import { AuthModuleModule } from "@cnbc-monorepo/auth-module";
 import { UtilityModule } from "@cnbc-monorepo/utility";
+import { MarketsModule } from './markets/markets.module';
 
 
 @Module({
@@ -17,6 +18,7 @@ import { UtilityModule } from "@cnbc-monorepo/utility";
         NewsModule,
         NewsTypeModule,
         AuthModuleModule,
+        MarketsModule,
 
     ],
 })

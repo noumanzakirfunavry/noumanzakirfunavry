@@ -22,13 +22,13 @@ const NewsSection:FC = () =>{
     },[])
 
     const getDataFromApi = () =>{
-        GetData(`${requests.featuredNews}/getAll`,{},"get", false).then((res)=>{
-            featuredNews.mainNews = res.data?.response?.featuredNews?.filter((news:any)=>{
-                return news.section === 'MAIN'
+        GetData(`${requests.featuredNews}&limit=10&pageNo=1`,{},"get", false).then((res)=>{
+            featuredNews.mainNews = res.data?.filter((news:any)=>{
+                return news._source.featuredNews 
             })
 
-            featuredNews.secondaryNews = res.data?.response?.featuredNews?.filter((news:any)=>{
-                return news.section === 'SECONDARY'
+            featuredNews.secondaryNews = res.data?.filter((news:any)=>{
+                return !news._source.featuredNews 
             })
             setFeaturedNews({...featuredNews})
         }).catch(err=>{
@@ -38,9 +38,9 @@ const NewsSection:FC = () =>{
 
     return (
         <> 
+            {console.log(featuredNews)}
             <MainSection newsList={featuredNews.mainNews}/>   {/*Main News Section */}
             <NewsDetatilListWithMedia dispalyMoreButton={false} newsList={featuredNews.mainNews}/> {/*Secondary News Section */}
-
         </>
     )
 }
