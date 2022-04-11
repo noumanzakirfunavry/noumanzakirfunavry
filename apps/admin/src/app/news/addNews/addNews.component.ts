@@ -8,6 +8,7 @@ import { NewsModal } from '../../common/models/newsModal';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentListData } from './mockComments';
 import { environment } from '../../../environments/environment';
+import { NzMessageService } from 'ng-zorro-antd/message';
 // import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 // import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
@@ -50,7 +51,8 @@ export class AddNewsComponent implements OnInit {
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
         private activatedRoute: ActivatedRoute,
-        private route: Router) { }
+        private route: Router, 
+        private message: NzMessageService) { }
 
     ngOnInit(): void {
         const admin = JSON.parse(localStorage.getItem('admin') || '{}');
@@ -217,12 +219,12 @@ export class AddNewsComponent implements OnInit {
             console.log("News", res);
             this.initNewsForm();
             this.route.navigateByUrl('news/list')
-            // if(this.categoryId) {
-            //     this.message.create('success', `Category Updated Successfully`)
-            // }
-            // else {
-            //     // this.message.create('success', `Category Added Successfully`)
-            // }
+            if(this.newsId) {
+                this.message.create('success', `News Updated Successfully`)
+            }
+            else {
+                this.message.create('success', `News Added Successfully`)
+            }
         })
         }
         console.log("form", this.newsForm.value);
