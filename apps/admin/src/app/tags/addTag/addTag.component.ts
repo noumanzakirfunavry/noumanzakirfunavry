@@ -53,8 +53,7 @@ export class AddTagComponent implements OnInit {
       if(this.tagsForm.valid) {
         const obj= this.tagsForm.value;
         obj['title']= this.tagsForm.value.title.trim();
-        // obj['title']= this.tagsForm.value.title.replace(/^\s+/g, '');
-        this.apiService.sendRequest(this.tagId ? requests.updateTag + this.tagId : requests.addNewTag, this.tagId ? 'put' : 'post', this.tagsForm.value).subscribe((res:any) => {
+        this.apiService.sendRequest(this.tagId ? requests.updateTag + this.tagId : requests.addNewTag, this.tagId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("TAGS", res);
           this.tagsForm.reset();
           this.route.navigateByUrl('tags/list');
