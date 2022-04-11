@@ -264,7 +264,9 @@
     .mainsection_newsdetails__ugKGf a {
         font: normal normal bold 13px/20px Cairo;
     }
-
+    .VideoNews.mb-4.latestmainNews {
+        margin-bottom: 42px !important;
+    }
   }
 
   @media screen and (max-width:992px){
@@ -885,7 +887,39 @@
             background-image: none;
         }
     }
-    
+    .category_news_tab {
+        margin-bottom: 34px;
+    }
+    .pageTitle{
+        margin-bottom: 30px !important;
+    }
+    .news_artical_detail{
+        .related_stock.in_details {
+            margin-top: 0 !important;
+            span{
+                font-weight: 900;
+        
+
+            }
+            ul{
+                margin-top: 15px;
+                li{
+                    &:first-child{
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+    .news_artical_detail .VideoNews .NewsContent h4{
+        font-size: 22px;
+    }
+    .newsAarticaldetailwrap{
+        .page-categories ul{
+            display: inline-block;
+            overflow: inherit;
+        }
+    }
   }
   @media screen and (max-width:768px) and (min-width:576px){
     .searchResultList .NewsList li {
@@ -1378,8 +1412,44 @@
     .page-nav .navbar .navbar-nav .nav-item a {
         font-size: 15px;
     }
+    .VideoNews.mb-4.latestmainNews {
+        margin-bottom: 28px !important;
+        margin: 0 10px;
+    }
+    .latestVideoTileswrap{
+        margin: 0 10px;
+    }
+    .newsAarticaldetailwrap{
+        .bnner_add{
+            width: 320px;
+            height: 50px;
+            overflow: hidden;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    
 }
   @media screen and (max-width:575px){
+    .latestVideoTileswrap .NewsTiles .newBox {
+        flex-direction: unset;
+        .NewsImage{
+            width: 159px;
+            height: 110px;
+            flex: inherit;
+
+        }
+        .NewsInfo{
+            padding-left: 0;
+            padding-right: 15px;
+            h4{
+                font: normal normal bold 12px/19px Cairo;
+
+            }
+        }
+    }
     .page-nav .navbar .navbar-nav{
         margin-right: 10px;
     }
@@ -1522,7 +1592,8 @@
         padding: 15px;
     }
     .VideoNews .NewsContent h4 {
-        font-size: 14px;
+        font: normal normal bold 14px/22px Cairo;
+
     }
     .VideoNews .NewsContent p {
         font-size: 11px;
