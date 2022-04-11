@@ -5,13 +5,13 @@
       <form nz-form [formGroup]="quickLinkForm" [nzLayout]="'vertical'" class="quickLink-form" (ngSubmit)="quickLink()">
           <nz-form-item>
             <nz-form-label nzRequired [nzSpan]="6" nzFor="text">Title</nz-form-label>
-            <nz-form-control [nzSpan]="14" nzErrorTip="Please input your Title!">
+            <nz-form-control [nzSpan]="14" nzErrorTip="Enter Title!">
               <input nz-input formControlName="title" placeholder="Enter Title" dir="rtl"/>
             </nz-form-control>
           </nz-form-item >
           <nz-form-item>
             <nz-form-label nzRequired [nzSpan]="6" nzFor="text">Link</nz-form-label>
-            <nz-form-control [nzSpan]="14" nzErrorTip="Please input valid Link!">
+            <nz-form-control [nzSpan]="14" nzErrorTip="Enter valid Link!">
               <input nz-input formControlName="url" placeholder="Enter Link"/>
             </nz-form-control>
           </nz-form-item >
