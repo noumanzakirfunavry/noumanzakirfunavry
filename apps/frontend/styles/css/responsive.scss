@@ -1324,8 +1324,8 @@
     }
     .PageBuilder-sidebar {
         min-width: 90% !important;
-        margin-left: 12px;
-        margin-right: 12px;
+        margin-left: 10px;
+        margin-right: 10px;
 
     }
     .NewsList li .newsText{
@@ -1753,6 +1753,10 @@ max-width: 100%;
 
   }
   @media (max-width: 375px){
+      
+    .stockMarketNews .NewsList ul li {
+        margin-right: 0;
+    }
     .mainsection_newsbox___k_R6 {
         max-width: 333px;
         margin: auto;
@@ -1893,11 +1897,15 @@ max-width: 100%;
         -ms-flex-negative: 0;
         flex-grow: 0;
         flex-shrink: 0;
-        margin-bottom: 40px;
+        margin-bottom: 0px;
 
         max-width: calc(33.33333% - 20px);
         min-width: calc(33.33333% - 20px);
     }
+    .bannerAddMedia {
+        display: none;
+    }
+    
 }
 
 @media (min-width: 1020px) and (min-width: 760px)
@@ -1987,6 +1995,12 @@ max-width: 100%;
             height: 354px !important;
             width: 100%;
         }
+    }
+    .sidelist_sideDotList__hUN6M{
+        height: 396px !important;
+    }
+    .mainsection_newsdetails__ugKGf a{
+        font-size: 13px !important;
     }
 }
 
