@@ -1,5 +1,5 @@
 import { Public } from '@cnbc-monorepo/auth-module';
-import { GetNewsByFlagsRequestDto, SearchNewsRequestDto } from '@cnbc-monorepo/dtos';
+import { GetNewsByFlagsRequestDto, PaginatedRequestDto, SearchNewsRequestDto } from '@cnbc-monorepo/dtos';
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { NewsService } from './news.service';
 
@@ -13,11 +13,10 @@ export class NewsClientController {
 		return this.newService.getNewsById(newsId);
 	}
 
-	// ! does category comes query params? string or array of strings?
 	@Public()
 	@Get('/get/category/:categoryId')
-	getElkNewsByCategory(@Param('categoryId', ParseIntPipe) categoryId: number) {
-		return this.newService.elkGetNewsByCategory(categoryId)
+	getElkNewsByCategory(@Param('categoryId', ParseIntPipe) categoryId: number, @Body() paginationDTO: PaginatedRequestDto) {
+		return this.newService.elkGetNewsByCategory(categoryId, paginationDTO)
 	}
 
 	@Public()
