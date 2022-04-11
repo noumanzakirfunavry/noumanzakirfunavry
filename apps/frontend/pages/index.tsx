@@ -122,7 +122,10 @@ export function Index() {
                    
               </div>
 
-      
+      {/* <div className='PageBuilder-pageRow flex-wrap-reverse p_sm_10'>
+        <div className='PageBuilder-col-9'>
+
+          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/> */}
 
       {
     !categories?.length && <Skeleton/>

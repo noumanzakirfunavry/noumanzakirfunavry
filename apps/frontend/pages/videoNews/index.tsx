@@ -16,8 +16,20 @@ const Index = () =>{
                     <VideoNews/>
                 </div>
                 <div className='PageBuilder-sidebar'>
+                    <div className="hide_div_mobile">
                     <SideBarWithVideo title={'أحدث مقاطع الفيديو'}/>
+                    </div>
+                    <div className="bannerAddMedia">
+        <AdBanner />
+        </div>
+                    <div className="mb-3 hide_div_web">
+                <Title styles={"yellowTitle"}>
+                    <h3>أحدث مقاطع الفيديو</h3>
+                </Title>
+                <HorizontalFooter2NewsSlider />
+            </div>
                 </div>
+                
             </div>
             </div>
            <div className="container">
