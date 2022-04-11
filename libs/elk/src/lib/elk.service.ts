@@ -1,5 +1,6 @@
 import { Client } from '@elastic/elasticsearch';
 import {
+	BulkRequest,
 	DeleteByQueryRequest,
 	IndexRequest,
 	SearchRequest,
@@ -40,7 +41,7 @@ export class ElkService {
 				'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ deleteByQuery ~ error',
 				err.meta.body)
 
-				throw new InternalServerErrorException
+			throw new InternalServerErrorException
 		}
 	}
 
@@ -66,7 +67,20 @@ export class ElkService {
 			})
 			.catch((err) => {
 				console.log(
-					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ deleteByQuery ~ error',
+					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ update ~ error',
+					err.meta.body
+				);
+			});
+	}
+
+	static async bulk(params: BulkRequest) {
+		this.client.bulk(params)
+			.then(() => {
+				this.client.indices.refresh({ index: params.index });
+			})
+			.catch((err) => {
+				console.log(
+					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ bulk ~ error',
 					err.meta.body
 				);
 			});
