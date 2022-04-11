@@ -25,7 +25,7 @@ export class AddCategoryComponent implements OnInit {
     categoryForm: FormGroup;
     categoryId: number
     categoryById: any;
-       
+    
 
     constructor(private fb: FormBuilder, 
         private apiService: ApiService, 
@@ -93,7 +93,11 @@ export class AddCategoryComponent implements OnInit {
         })
     }
 
+    getOtherCategories() {
+        return this.allCategories && this.allCategories.filter((x:any) => x.id != this.categoryId)
+    }    
+
     cancel() {
         this.route.navigateByUrl('category/list');
-      }
+    }
 }    
