@@ -1,6 +1,7 @@
 import {
 	GetNewsByFlagsRequestDto,
 	GetNewsByIdResponseDto,
+	PaginatedRequestDto,
 	SearchNewsRequestDto,
 } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
@@ -37,12 +38,14 @@ export class NewsService {
 		}
 	}
 
-	elkGetNewsByCategory(categoryId: number) {
+	elkGetNewsByCategory(categoryId: number, paginationDTO: PaginatedRequestDto) {
 		return ElkService.search({
 			index: 'news',
+			from: paginationDTO.pageNo,
+			size: paginationDTO.limit,
 			query: {
 				match: {
-					categories: categoryId,
+					categoryIds: categoryId,
 				},
 			},
 		});
@@ -90,6 +93,8 @@ export class NewsService {
 
 		return ElkService.search({
 			index: 'news',
+			from: getNewsByFlagsRequestDto.pageNo,
+			size: getNewsByFlagsRequestDto.limit,
 			query: {
 				bool: {
 					must: filtersArray
