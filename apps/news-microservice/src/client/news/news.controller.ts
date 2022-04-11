@@ -15,7 +15,7 @@ export class NewsClientController {
 
 	@Public()
 	@Get('/get/category/:categoryId')
-	getElkNewsByCategory(@Param('categoryId', ParseIntPipe) categoryId: number, @Body() paginationDTO: PaginatedRequestDto) {
+	getElkNewsByCategory(@Param('categoryId', ParseIntPipe) categoryId: number, @Query() paginationDTO: PaginatedRequestDto) {
 		return this.newService.elkGetNewsByCategory(categoryId, paginationDTO)
 	}
 
