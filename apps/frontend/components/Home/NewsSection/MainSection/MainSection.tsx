@@ -6,11 +6,11 @@ import React from "react";
 
 const MainSection = ({newsList}) =>{
 
-    const first3MainNews = newsList.filter((news)=>{
+    const first3MainNews = newsList?.filter((news)=>{
         return news.position <= 3
     })
 
-    const last2MainNews =  newsList.filter((news)=>{
+    const last2MainNews =  newsList?.filter((news)=>{
         return news.position > 3 && news.position <= 5
     })
 
@@ -79,8 +79,8 @@ const MainSection = ({newsList}) =>{
                             </div> */}
                         </div>
 
-                    </div>
-                  </div>
+                </div>
+            </div>
         </>
     )
 }

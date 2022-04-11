@@ -26,15 +26,24 @@ export class Data extends Pagination {
 
 @Component({
     selector: 'news-table-row',
-    templateUrl: './newsTableRow.component.html'
+    templateUrl: './newsTableRow.component.html',
+    styles: [
+        `
+          /* nz-select {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          } */
+        `
+      ]
 })
 
 export class NewsTableRowComponent implements OnInit, AfterContentInit{
     @Input() allCategories: any;
-    @Input() news: any={newId:null};
+    @Input() news: any = {newId:null};
     pagination: Data = new Data()
-    allCategoryNews: any=[];
-    selectedCat:any
+    allCategoryNews: any = [];
+    selectedCat: any
 
     constructor(private apiService: ApiService) {}
 
@@ -60,11 +69,11 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit{
     }
 
     getCategoryNews(catId?: any) {
-        console.log(this.selectedCat)
+        console.log("SEL-CAT", this.selectedCat)
         this.pagination.categoryId= catId ? catId : null;
         this.apiService.sendRequest(requests.getAllNews, 'get', {pageNo:1, limit:30, categoryId:parseInt(catId)}).subscribe((res:any) => {
             this.allCategoryNews= res.response.news;
-            this.news.newsId=null
+            this.news.newsId = null
             console.log("CATEGORY-NEWS", this.allCategoryNews);
         })
     }

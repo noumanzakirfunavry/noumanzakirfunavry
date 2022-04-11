@@ -15,7 +15,11 @@ import { setUser } from '../reducers/UserSlice';
 import GetData from '../services/GetData';
 import { useEffect, useState } from 'react';
 import { requests } from '../services/Requests';
-import SkeletonLoader from '../components/Shared/SkeletonLoader/SkeletoLoader';
+import Skeleton from 'react-loading-skeleton';
+import Link from 'next/link';
+import MostReadSlider from '../components/Home/MostReadSlider';
+import NewsDetatilListWithMedia from '../components/Shared/NewsDetatilListWithMedia/NewsDetatilListWithMedia';
+import AdBanner from '../components/Shared/AdBanner/AdBanner';
 
 export function Index() {
   /*
@@ -44,7 +48,12 @@ export function Index() {
         console.warn(err)
     })
   }, [limit])
-  
+
+  const details = [
+    {description:'سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي ', proIcon:true, video:false, tag1:'أمريكا', tag2:'منذ 5 دقائق'},
+    {description:'بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي', proIcon:false, video:false, tag1:'أمريكا', tag2:'منذ 5 دقائق'},
+    {description:'بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي', proIcon:false, video:false, tag1:'أمريكا', tag2:'منذ 5 دقائق'},
+]
 
   return (
     <>
@@ -58,14 +67,26 @@ export function Index() {
 
         <QuickLinks />
 
-        <div className='row'>
-          <div className='col-lg-9'>
+        <div className='PageBuilder-pageRow'>
+          <div className=' PageBuilder-col-9'>
             <NewsSection />
           </div>
-          <div className='col-lg-3'>
-            <SideBar sideBarSequence={[{ componentType: 'dotList', position: 1, title:'آخر الأخبار' }, { componentType: 'SmallBanner', position: 2 }]} />
+          <div className='PageBuilder-sidebar'>
+            <SideBar sideBarSequence={[{ componentType: 'dotList', position: 1, title:'آخر الأخبار' }]} />
           </div>
         </div>
+        <div className='PageBuilder-pageRow'>
+          <div className=' PageBuilder-col-9'>
+          <NewsDetatilListWithMedia dispalyMoreButton={false} newsList={categories}/> {/*Secondary News Section */}
+          </div>
+          <div className='PageBuilder-sidebar mt-0'>
+            <SideBar sideBarSequence={[{ componentType: 'SmallBanner', position: 2 }]} />
+            <div className="bannerAddMedia">
+        <AdBanner />
+        </div>
+          </div>
+        </div>
+        
         <div>
           <SplitScreenBarCharts />
         </div>
@@ -82,92 +103,109 @@ export function Index() {
       <div>
         <TilesWithLightColorBackground />
       </div>
-
+      <div className="container">
+      <div className="bannerAddMedia">
+        <AdBanner />
+        </div>
+      </div>
       <div className="container">
         <div className='mb-5'>
             <HorizontalNumberedList />
         </div>
+        <div className='PageBuilder-sidebar hide_div_web'>
+                    
+                     
+                        {/* <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'} ]} /> */}
+                    
+                        <MostReadSlider/>
+  
+                   
+              </div>
 
-      {/* <div className='row'>
-        <div className='col-lg-9'>
+      <div className='PageBuilder-pageRow flex-wrap-reverse m_sm_10'>
+        <div className='PageBuilder-col-9'>
 
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
 
         </div>
-        <div className='col-lg-3'>
-          
+        <div className='PageBuilder-sidebar hide_div_mobile'>
+          {/* show on tab and mobile */}
+          {/* show on web only */}
+        <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'} ]} />
+
+      </div>
+      </div>
+      <div className='PageBuilder-pageRow p_sm_10'>
+        <div className='PageBuilder-col-9'>
+
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
+
+        </div>
+        <div className='PageBuilder-sidebar'>
         </div>
       </div>
-      <div className='row'>
-        <div className='col-lg-9'>
+      <div className='PageBuilder-pageRow p_sm_10'>
+        <div className='PageBuilder-col-9'>
 
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
-
-        </div>
-        <div className='col-lg-3'>
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col-lg-9'>
-
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
 
         </div>
-        <div className='col-lg-3 large_add'>
+        <div className='PageBuilder-sidebar large_add'>
           <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
         </div>
       </div>
-      <div className='row'>
-        <div className='col-lg-9'>
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+      <div className='PageBuilder-pageRow p_sm_10'>
+        <div className='PageBuilder-col-9'>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false} cat={undefined}/>
         </div>
-        <div className='col-lg-3'>
+        <div className='PageBuilder-sidebar'>
 
         </div>
       </div>
-      <div className='row'>
-        <div className='col-lg-9'>
-          <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
+      <div className='PageBuilder-pageRow p_sm_10'>
+        <div className='PageBuilder-col-9'>
+          <CategoryNewsSection limit={1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true} cat={undefined}/>
         </div>
-        <div className='col-lg-3'>
+        <div className='PageBuilder-sidebar'>
 
         </div>
-      </div> */}
-      {
-        categories?.length === 0 && <SkeletonLoader/>
-      }
-      {
-        categories?.length > 0 && categories?.map((category:CategoryProps, index:number)=>{
-          return (
-            <div className='row' key={category.id}>
-              <div className='col-lg-9'>
-                <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
-              </div>
-              <div className='col-lg-3'>
-                    {
-                      index === 0 && (
-                        <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
-                      )
-                    }
-                    {
-                      index === 2 && (
-                        <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
-                      )
-                    }
-              </div>
-            </div>
-          )
-        })
-      }
+      </div>
 
+      {
+    !categories?.length && <Skeleton/>
+  }
+  {
+    categories?.length && categories?.map((category:CategoryProps, index:number)=>{
+      return (
+        <div className='PageBuilder-pageRow' key={category.id}>
+          <div className='PageBuilder-col-9'>
+            <CategoryNewsSection cat={category} limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
+          </div>
+          <div className='PageBuilder-sidebar'>
+                {
+                  index === 0 && (
+                    <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
+                  )
+                }
+                {
+                  index === 2 && (
+                    <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
+                  )
+                }
+          </div>
+        </div>
+      )
+    })
+  }
+{/* categoreis code is save on usman's side i will revert it after integrating it */}
 
       <div className="text-center mt-3 mb-4 more_btn" onClick={()=>setLimit(limit + 5)}>
           <button className="btn btn-outline-primary">المزيد</button>
       </div>
 
-      </div>
+      {/* </div> */}
 
-
+</div>
     </>
   );
 }

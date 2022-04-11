@@ -6,22 +6,6 @@ import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
-export class Data extends Pagination {
-    // parentCategoryId?:Array<any>;
-  
-    publishers?:Array<any>;
-    includeNews?: any; 
-    newsLImit?: any;
-
-    constructor() {
-        super();
-        // this.parentCategoryId= [];
-        this.publishers= [];
-        this.includeNews= "";
-        this.newsLImit= "";
-    }
-}
-
 
 @Component({
        selector: 'app-category',
@@ -30,14 +14,21 @@ export class Data extends Pagination {
 })
 
 export class CategoryComponent implements OnInit {
-    pagination: Data= new Data();
+    pagination: {
+        pageNo: number, 
+        limit: number, 
+        parentCategoryId?: Array<any>, 
+        publishers?: Array<any>, 
+        status?: boolean, 
+        includeNews?: boolean, 
+        newsLimit?: number, 
+        title?: string } = {pageNo: 1, limit: 1000};
     allCategories: any;
     indeterminate = false;
     checked = false;
     loading= true;
     expandedId: any;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData = [];    
 
     constructor(private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {
     }
@@ -77,7 +68,7 @@ export class CategoryComponent implements OnInit {
         this.apiService.sendRequest(requests.deleteCategories, 'delete', {ids:[categoryId]}).subscribe((res:any) => {
             console.log("DEL-CATEGORY", res);
             this.getAllCategories();
-            this.message.create('success', `Category Deleted Successfully`)
+            this.message.create('success', `Category Deleted Successfully`);
         })
     }
 
@@ -147,6 +138,7 @@ export class CategoryComponent implements OnInit {
             this.checked= false;
             this.indeterminate= false;
             this.getAllCategories();
+            this.message.create('success', `Category Deleted Successfully`);
           })
     }
 

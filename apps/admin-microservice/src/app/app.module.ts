@@ -24,7 +24,9 @@ import { SocialMediaLinksModule } from './social-media-links/social-media-links.
 import { SubscribersModule } from './subscribers/subscribers.module';
 import { JobApplicantModule } from './job-applicant/job-applicant.module';
 import { SystemConfigurationModule } from './system-configuration/system-configuration.module';
+import { MenusModule } from './menus/menus.module';
 
+import {ElkModule} from '@cnbc-monorepo/elk'
 @Module({
   imports: [
     EntityModule,
@@ -51,7 +53,9 @@ import { SystemConfigurationModule } from './system-configuration/system-configu
     AttachmentsModule,
     SubscribersModule,
     CountriesModule,
-    JobApplicantModule
+    JobApplicantModule,
+    MenusModule,
+    ElkModule
   ]
 })
 export class AppModule { }
