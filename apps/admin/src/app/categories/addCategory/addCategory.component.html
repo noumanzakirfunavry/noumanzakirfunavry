@@ -19,7 +19,7 @@
               <nz-form-label [nzSpan]="6" >Parent Category</nz-form-label>
               <nz-form-control [nzSpan]="14">
               <nz-select formControlName="parentCategoryId" nzShowSearch nzAllowClear nzPlaceHolder="Choose Parent Category">
-                <nz-option *ngFor="let cat of allCategories" [nzValue]="cat?.id" [nzLabel]="cat?.title"></nz-option>
+                <nz-option *ngFor="let cat of getOtherCategories()" [nzValue]="cat?.id" [nzLabel]="cat?.title"></nz-option>
               </nz-select>
             </nz-form-control>
             </nz-form-item>
