@@ -13,7 +13,7 @@ export class CategoriesService {
     ) { }
 
     async getById(id: number) {
-        const result = await this.categoryRepo.findOne({ where: { id: id }, include: [{ model: Categories, as: 'sub' }], })
+        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: [{ model: Categories, as: 'sub' }], })
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
