@@ -48,17 +48,11 @@ const Header = () =>{
         window.scrollTo(0,0);
 
         // get categories list to show in sub menu
-        GetData(`${requests.categories}/getAll?limit=${params.limit}&pageNo=${params.pageNo}`, {}, 'get', false).then(res=>{
+        GetData(`${requests.categories}/getAll?limit=${params.limit}&pageNo=${params.pageNo}&displayInCategoryMenu=true`, {}, 'get', false).then(res=>{
 
-            let newsCategories = res.data?.response?.categories && res.data?.response?.categories.length ? res.data.response.categories : []
-
-            newsCategories = newsCategories.filter((item: CategoryProps) => {
-                return item.displayInCategoryMenu
-            });
-
+            const newsCategories = res.data?.response?.categories && res.data?.response?.categories.length ? res.data.response.categories : []
             setNewsCategoriesList(newsCategories);
 
-            console.log(newsCategories);
         }).catch(err=>{
             console.warn(err)
         })
@@ -222,7 +216,7 @@ const Header = () =>{
                                                     <Link href="/videoNews"><a className="nav-link">الفيديو</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
-                                                <li className="nav-item dropdown" key={'3'}>
+                                                <li className="nav-item dropdown" key={'98788'}>
                                                     <a className="nav-link dropdown-toggle" href="#" id="morePrograms" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
@@ -323,7 +317,7 @@ const Header = () =>{
                                                     <Link href="/marketGraph"><a className="nav-link">الأسواق</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
-                                                <li className="nav-item dropdown" key={'3'}>
+                                                <li className="nav-item dropdown" key={'654564ytf7656'}>
                                                     <a className="nav-link dropdown-toggle" href="#" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
