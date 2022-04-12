@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 
 import styles from "./mainsection.module.css";
@@ -6,19 +7,19 @@ import React from "react";
 
 const MainSection = ({newsList}) =>{
 
-    const first3MainNews = newsList?.filter((news)=>{
-        return news.position <= 3
-    })
+    // const first3MainNews = newsList?.filter((news:any)=>{
+    //     return news?._source?.featuredNews?.position <= 3
+    // })
 
-    const last2MainNews =  newsList?.filter((news)=>{
-        return news.position > 3 && news.position <= 5
-    })
+    // const last2MainNews =  newsList?.filter((news:any)=>{
+    //     return news?._source?.featuredNews?.position > 3 && news?._source?.featuredNews?.position <= 5
+    // })
 
     return (
         <>
             <div className="row">
 
-                    <div className="col-xl-8">
+                    <div className="col-lg-8 p_sm_0">
                         <div className={styles.mainNews} >
                             <div className={styles.newscontent}>
                                 {/* <h1><a >النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب</a></h1>
@@ -27,34 +28,37 @@ const MainSection = ({newsList}) =>{
                                 <hr></hr>
                                 <h3><a >مدير منظمة الصحة يحث الدول على اتخاذ إجراءات “متعقلة” في مواجهة أوميكرون</a></h3> */}
                                 {
-                                    first3MainNews?.map((news)=>{
-                                        return (
-                                            <React.Fragment key={news.id}>
-                                                <h1><a >{news?.news?.title}</a></h1>
-                                                <hr></hr>
-                                            </React.Fragment>
-                                        )
+                                   newsList?.length && newsList?.map((news:any, index:number)=>{
+                                        if(index < 3) 
+                                            return (
+                                                <React.Fragment key={news._id}>
+                                                    <h1><a >{news?._source?.title}</a></h1>
+                                                    <hr></hr>
+                                                </React.Fragment>
+                                            )
                                     })
                                 }
                             </div>
                         </div>
                     </div>
-                    <div className="col-xl-4 d-none d-xl-block">
+                    <div className="col-lg-4 ">
                         <div className="row">
                             {
-                                last2MainNews?.map((news)=>{
-                                    return (
-                                        <div className="col-sm-6 col-lg-12" key={news.id}>
-                                            <div className={styles.newsbox}>
-                                                <div className={styles.newsimage}>
-                                                    <img className="img-fluid" src={newsimage.src} />
-                                                </div>
-                                                <div className={styles.newsdetails}>
-                                                    <a >{news?.news?.title}</a>
+                                newsList?.length && newsList?.map((news:any, index:number)=>{
+                                    if(index>=3){
+                                        return (
+                                            <div className="col-sm-6 col-lg-12 list_w" key={news._id}>
+                                                <div className={styles.newsbox}>
+                                                    <div className={styles.newsimage}>
+                                                        <img className="img-fluid" src={newsimage.src} />
+                                                    </div>
+                                                    <div className={styles.newsdetails}>
+                                                        <a >{news?._source?.title}</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    )
+                                        )
+                                    }
                                 })
                             }
                             {/* <div className="col-sm-6 col-lg-12">
