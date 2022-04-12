@@ -8,7 +8,9 @@ import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
-import { CategoryMainProps } from "apps/frontend/types/Types"
+import { CategoryMainProps } from "apps/frontend/types/Types";
+import GetData from '../../services/GetData';
+import { requests } from '../../services/Requests';
 
 const NewsCategoryPage = () => {
   const router = useRouter();
@@ -27,7 +29,17 @@ const NewsCategoryPage = () => {
   
 
   useEffect(() => {
-    setCategory({ id: router.query.categoryId, title: 'Static Title for now', subCategory: [{title: 'sub Category Static Title', subCategoryId: 0}] });
+    
+
+      GetData(`${requests.categories}/getById/${router.query.categoryId}`, {}, 'get', false).then(res => {
+        console.log(res);
+        //console.log('test');
+        //setCategory({ id: router.query.categoryId, title: 'Static Title for now', subCategory: [{title: 'sub Category Static Title', subCategoryId: 0}] });
+
+      }).catch(err=>{
+          console.warn(err)
+      })
+
   }, [router.query.categoryId]);
 
   return (
