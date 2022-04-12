@@ -13,7 +13,7 @@ export class CategoriesService {
     ) { }
 
     async getById(id: number) {
-        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: ['user' ,{ model: Categories, as: 'sub', include: ['user'] }], })
+        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: ['user', { model: Categories, as: 'sub', include: ['user'] }], })
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -23,16 +23,16 @@ export class CategoriesService {
         return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
     }
 
-		async getByIdClient(id: number) {
-			const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: [{ model: Categories, as: 'sub' }], })
-			if (!result) {
-					throw new CustomException(
-							Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-							Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-					)
-			}
-			return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
-	}
+    async getByIdClient(id: number) {
+        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: [{ model: Categories, as: 'sub' }], })
+        if (!result) {
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+        return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
+    }
 
     async add(body, userId: number) {
         const result = await this.categoryRepo.create({ ...body, publishedBy: userId })
@@ -130,15 +130,15 @@ export class CategoriesService {
         // ** For example, populating main menus with sub menus, with each sub menu having more sub menus etc */ 
         // result.rows = result.rows.map(item => item.toJSON())
 
-        // let categories = result.rows.filter((item) => item.parentCategoryId == null)
+        const categories = result.rows.filter((item) => item.parentCategoryId == null)
 
-        // // Removing The Top Level Categories from the original result
-        // for (let index = 0; index < categories.length; index++) {
-        //     const element = categories[index];
-        //     result.rows = this.removeItemOnce(result.rows, element);
-        // }
-        // // Now Calling to fit all remaining categories
-        // this.makingNested(result.rows, categories, 0)
+        // Removing The Top Level Categories from the original result
+        for (let index = 0; index < categories.length; index++) {
+            const element = categories[index];
+            result.rows = this.removeItemOnce(result.rows, element);
+        }
+        // Now Calling to fit all remaining categories
+        this.makingNested(result.rows, categories, 0)
 
         return new GenericResponseDto(
             HttpStatus.OK,
