@@ -44,7 +44,7 @@ const HorizontalFooter2NewsSlider:FC =  ()=>{
           });
     return (
         <>
-        <div className="newsSliderText newsSlider2Text">
+        <div className="newsSliderText newsSlider2Text video_newsSlider_wrap">
             <Slider {...settings}>
                     <div className="slider-item">
                         <div className="NewsBox ">
