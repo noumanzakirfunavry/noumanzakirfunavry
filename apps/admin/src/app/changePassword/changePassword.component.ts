@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../shared/config/config';
@@ -12,7 +13,10 @@ import { ApiService } from '../shared/services/api.service';
 export class ChangePasswordComponent implements OnInit{
     changePasswordForm: FormGroup;
 
-    constructor(private apiService: ApiService, private fb: FormBuilder, private message: NzMessageService) {}
+    constructor(private apiService: ApiService, 
+      private fb: FormBuilder, 
+      private message: NzMessageService, 
+      private location: Location) {}
 
     ngOnInit(): void {
         this.changePasswordForm = this.fb.group({
@@ -60,6 +64,10 @@ export class ChangePasswordComponent implements OnInit{
                   this.message.create('success', `Password Updated Successfully`)
               })
           }
+      }
+
+      cancel(): void {
+        this.location.back()
       }
 
 }    
