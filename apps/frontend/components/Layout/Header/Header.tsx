@@ -48,17 +48,11 @@ const Header = () =>{
         window.scrollTo(0,0);
 
         // get categories list to show in sub menu
-        GetData(`${requests.categories}/getAll?limit=${params.limit}&pageNo=${params.pageNo}`, {}, 'get', false).then(res=>{
+        GetData(`${requests.categories}/getAll?limit=${params.limit}&pageNo=${params.pageNo}&displayInCategoryMenu=true`, {}, 'get', false).then(res=>{
 
-            let newsCategories = res.data?.response?.categories && res.data?.response?.categories.length ? res.data.response.categories : []
-
-            newsCategories = newsCategories.filter((item: CategoryProps) => {
-                return item.displayInCategoryMenu
-            });
-
+            const newsCategories = res.data?.response?.categories && res.data?.response?.categories.length ? res.data.response.categories : []
             setNewsCategoriesList(newsCategories);
 
-            console.log(newsCategories);
         }).catch(err=>{
             console.warn(err)
         })

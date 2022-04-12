@@ -11,13 +11,13 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
     useEffect(() => {
         // GetData(`${requests.newsByCategories}?limit=${limit}&pageNo=1`, {}, 'get', false).then(res=>{
             if(cat){
-                GetData(`${requests.newsByCategories}${cat.id}`+'?limit=5&pageNo=1', {}, 'get', false).then(res => {
+                GetData(`${requests.newsByCategories}${cat.id}?limit=${limit}`+'&pageNo=1', {}, 'get', false).then(res => {
                     setCategoryNews(res.data)
                 }).catch(err => {
                     console.warn(err)
                 })
             }
-    }, [limit])
+    }, [limit, cat])
     const fields: JSX.Element[] = [];
     // useEffect(()=>{
     for (let i = 2; i < news.length; i++) {
