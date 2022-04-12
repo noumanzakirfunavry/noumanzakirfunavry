@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Pagination } from 'src/app/common/models/pagination';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { Pagination } from '../../common/models/pagination';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
     selector: 'add-job',
@@ -32,7 +32,7 @@ export class AddJobComponent implements OnInit {
         this.jobForm = this.fb.group({
             title: [null, [Validators.required]],
             branchId: [null, [Validators.required]],
-            description: [null, [Validators.required]],
+            description: [null, [Validators.required, Validators.maxLength(1500)]],
             isActive: [false]
           });
           this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
@@ -90,7 +90,7 @@ export class AddJobComponent implements OnInit {
             this.jobForm = this.fb.group({
                 title: [this.jobById?.title || null, [Validators.required]],
                 branchId: [this.jobById?.branchId || null, [Validators.required]],
-                description: [this.jobById?.description || null, [Validators.required]],
+                description: [this.jobById?.description || null, [Validators.required, Validators.maxLength(1500)]],
                 isActive: [this.jobById?.isActive || false]
               });
         })
