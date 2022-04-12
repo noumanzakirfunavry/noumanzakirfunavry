@@ -13,6 +13,10 @@ const NewsCategoryPage = () => {
     const router = useRouter();
     const [category, setCategory] = useState({id: router.query.categoryId, title: 'Static Title for now'});
 
+    useEffect(() => {
+      setCategory({id: router.query.categoryId, title: 'Static Title for now'});
+    }, [router.query.categoryId])
+
     return (
       <>
         <div className="container">
