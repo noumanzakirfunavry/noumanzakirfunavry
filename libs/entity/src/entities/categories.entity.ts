@@ -50,7 +50,7 @@ export class Categories extends Model {
     @BelongsTo(() => Categories)
     category: Categories
 
-    @HasMany(() => Categories)
+    @HasMany(() => Categories, { as: 'sub'})
     children: Categories[]
 
     @BelongsToMany(() => News,() => NewsHasCategories)
