@@ -118,3 +118,16 @@ export type CategoryProps = {
     deletedAt: Date | null,
     user: any
 }
+
+
+export type subCategoryProps = {
+    subCategoryId: number | null,
+    title: string | null
+}
+
+export type CategoryMainProps = {
+    id: number | string | string [],
+    title: string,
+    subCategory: subCategoryProps[]
+}
+
