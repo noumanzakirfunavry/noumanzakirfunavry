@@ -17,6 +17,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 // import { FileSelectorComponent } from './file-selector/file-selector.component';
 // import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
@@ -42,6 +43,7 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         NzModalModule,
         NzTreeSelectModule,
         CKEditorModule,
+        NzToolTipModule,
         // FileUploaderModule
         // DtosModule
     ],
