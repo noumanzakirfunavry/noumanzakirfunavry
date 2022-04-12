@@ -77,7 +77,7 @@ export function Index() {
         </div>
         <div className='PageBuilder-pageRow'>
           <div className=' PageBuilder-col-9'>
-          <NewsDetatilListWithMedia dispalyMoreButton={false} details={details}/> {/*Secondary News Section */}
+          <NewsDetatilListWithMedia dispalyMoreButton={false} newsList={categories}/> {/*Secondary News Section */}
           </div>
           <div className='PageBuilder-sidebar mt-0'>
             <SideBar sideBarSequence={[{ componentType: 'SmallBanner', position: 2 }]} />
