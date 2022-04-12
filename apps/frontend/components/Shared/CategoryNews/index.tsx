@@ -8,16 +8,19 @@ import Title from "../../Title";
 
 const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, displayTopTwoNews, displayMoreButton }) => {
     const [news, setCategoryNews] = useState<any[]>([])
+    const limitVal: number = limit && limit > 0 ? limit : 5; // TODO: currently setting static val too for safe side, can be removed later
+
     useEffect(() => {
+
         // GetData(`${requests.newsByCategories}?limit=${limit}&pageNo=1`, {}, 'get', false).then(res=>{
             if(cat){
-                GetData(`${requests.newsByCategories}${cat.id}?limit=${limit}`+'&pageNo=1', {}, 'get', false).then(res => {
+                GetData(`${requests.newsByCategories}${cat.id}?limit=${limitVal}`+'&pageNo=1', {}, 'get', false).then(res => {
                     setCategoryNews(res.data)
                 }).catch(err => {
                     console.warn(err)
                 })
             }
-    }, [limit, cat])
+    }, [limitVal, cat])
     const fields: JSX.Element[] = [];
     // useEffect(()=>{
     for (let i = 2; i < news.length; i++) {
