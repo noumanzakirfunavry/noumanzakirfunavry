@@ -97,24 +97,29 @@ export class CategoriesService {
     }
 
     async getAll(query: GetAllCategoriesRequestDto) {
-				let { limit, pageNo, ...where } = query
+        let { limit, pageNo, ...where } = query
+        console.log("🚀 ~ file: categories.service.ts ~ line 89 ~ CategoriesService ~ getAll ~ where", where)
         let offset = 0
         pageNo = pageNo - 1;
         if (pageNo) offset = limit * pageNo;
-        
+
         let result = await this.categoryRepo.findAndCountAll(
 
             {
-                include: ['user', { model: Categories, as: 'sub', include: ['user',], where: {
-									displayInHomePage: query.displayInHomePage || false, 
-									displayInCategoryMenu: query.displayInCategoryMenu || true,
-									isActive: true
-								}}],
-                where: {...where, isActive: true},
-                limit, 
-								offset
+                include: ['user', {
+                    model: Categories, as: 'sub', where: {
+
+                        isActive: true
+                    }
+                }],
+                where: { ...where, isActive: true },
+                limit,
+                offset
             }
+
         )
+        console.log("🚀 ~ file: categories.service.ts ~ line 109 ~ CategoriesService ~ getAll ~ result", result)
+        console.log("🚀 ~ file: categories.service.ts ~ line 108 ~ CategoriesService ~ getAll ~ { ...where, isActive: true }", { ...where, isActive: true })
         if (!result.count) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
