@@ -51,7 +51,9 @@ export class AddTagComponent implements OnInit {
         this.tagsForm.controls[i].updateValueAndValidity();
       }
       if(this.tagsForm.valid) {
-        this.apiService.sendRequest(this.tagId ? requests.updateTag + this.tagId : requests.addNewTag, this.tagId ? 'put' : 'post', this.tagsForm.value).subscribe((res:any) => {
+        const obj= this.tagsForm.value;
+        obj['title']= this.tagsForm.value.title.trim();
+        this.apiService.sendRequest(this.tagId ? requests.updateTag + this.tagId : requests.addNewTag, this.tagId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("TAGS", res);
           this.tagsForm.reset();
           this.route.navigateByUrl('tags/list');

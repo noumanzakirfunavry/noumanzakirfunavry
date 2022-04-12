@@ -1,8 +1,9 @@
+import { ElkModule } from '@cnbc-monorepo/elk';
+import { ProvidersModule } from '@cnbc-monorepo/providers';
 import { Module } from '@nestjs/common';
-import { Connection } from './connection';
 import { ConfigModule } from '@nestjs/config';
-import 'dotenv/config'
-
+import 'dotenv/config';
+import { Connection } from './connection';
 @Module({
   controllers: [],
   providers: [...Connection],
@@ -14,6 +15,8 @@ import 'dotenv/config'
       isGlobal: true,
       envFilePath : '.env'
     }),
+		// ProvidersModule,
+		ElkModule
   ]
 })
 export class EntityModule {

@@ -21,6 +21,7 @@
     "paths": {
       "@cnbc-monorepo/auth-module": ["libs/auth-module/src/index.ts"],
       "@cnbc-monorepo/dtos": ["libs/dtos/src/index.ts"],
+      "@cnbc-monorepo/elk": ["libs/elk/src/index.ts"],
       "@cnbc-monorepo/entity": ["libs/entity/src/index.ts"],
       "@cnbc-monorepo/enums": ["libs/enums/src/index.ts"],
       "@cnbc-monorepo/exception-handling": [
@@ -34,7 +35,8 @@
       "@cnbc-monorepo/providers": ["libs/providers/src/index.ts"],
       "@cnbc-monorepo/repositories": ["libs/repositories/src/index.ts"],
       "@cnbc-monorepo/socket": ["libs/socket/src/index.ts"],
-      "@cnbc-monorepo/utility": ["libs/utility/src/index.ts"]
+      "@cnbc-monorepo/utility": ["libs/utility/src/index.ts"],
+      "@cnbc-monorepo/elk": ["libs/elk/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

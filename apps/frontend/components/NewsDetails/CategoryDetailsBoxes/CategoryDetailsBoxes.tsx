@@ -3,7 +3,7 @@ const NewsRealtedStock = () => {
     return (
         <>
             <div className="Simplecategories related_stock in_details  my-4">
-        <div className="d-md-flex">
+        <div className="d-lg-flex">
         <span className="pt-2 ms-3">الأسهم ذات الصلة</span>
                 <ul>
 
