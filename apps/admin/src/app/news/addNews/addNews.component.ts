@@ -212,8 +212,10 @@ export class AddNewsComponent implements OnInit {
         }
         this.submitted= true;
         if (this.newsForm.valid) {
-        const obj = this.newsForm.value;
-        ;
+            const obj = this.newsForm.value;
+        if(this.file) {
+            obj['newsType']= 'ARTICLE';
+        }
         // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
         this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModal.toServerModal(obj, this.newsModal.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
             console.log("News", res);
