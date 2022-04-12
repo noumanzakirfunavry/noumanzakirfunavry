@@ -7,7 +7,7 @@ import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { NewsHasCategories } from '@cnbc-monorepo/entity';
 import { NewsHasQuotes } from '@cnbc-monorepo/entity';
 import { NewsHasTags } from '@cnbc-monorepo/entity';
-import { Op } from 'sequelize';
+import { Op, Transaction } from 'sequelize';
 
 
 @Injectable()
@@ -55,21 +55,21 @@ export class NewsService {
                                 }
                             }
 
-														let {tags, quotes} = await (await this.newsRepository.findOne({where: {id: news_added.id }, include:['tags', 'quotes'], transaction: t})).toJSON()
-														
-														tags = tags.map(tag=> tag.title);
-														quotes = quotes.map(quote=> quote.name);
+                            let { tags, quotes } = await (await this.newsRepository.findOne({ where: { id: news_added.id }, include: ['tags', 'quotes'], transaction: transactionHost.transaction })).toJSON()
 
-														let {tagsIds, quotesIds, ...newsDetails} = body
-														
-														// add flags to save in elk
-												    // newsDetails.isFeatured = !this.isObjectEmpty(body.featuredNews || {})
-												    // newsDetails.isTrending = body.trendingNews?.length > 0 ? true: false
-												    // newsDetails.isEditorsChoice = body.isEditorsChoice?.length > 0 ? true: false
-												    // newsDetails.breakingNews = body.breakingNews?.length > 0 ? true: false
-														
-														// save to elk
-														ElkService.save({ index: 'news', id: news_added.id.toString(), document: {...newsDetails, tags, quotes}});
+                            tags = tags.map(tag => tag.title);
+                            quotes = quotes.map(quote => quote.name);
+
+                            let { tagsIds, quotesIds, ...newsDetails } = body
+
+                            // add flags to save in elk
+                            // newsDetails.isFeatured = !this.isObjectEmpty(body.featuredNews || {})
+                            // newsDetails.isTrending = body.trendingNews?.length > 0 ? true: false
+                            // newsDetails.isEditorsChoice = body.isEditorsChoice?.length > 0 ? true: false
+                            // newsDetails.breakingNews = body.breakingNews?.length > 0 ? true: false
+
+                            // save to elk
+                            ElkService.save({ index: 'news', id: news_added.id.toString(), document: { ...newsDetails, tags, quotes } });
 
                             return new GenericResponseDto(
                                 HttpStatus.OK,
@@ -198,14 +198,14 @@ export class NewsService {
                                         )
                                     }
                                 }
-																let {tags, quotes} = await (await this.newsRepository.findOne({where: {id: newsId }, include:['tags', 'quotes'], transaction: t})).toJSON()
-														
-																tags = tags.map(tag=> tag.title);
-																quotes = quotes.map(quote=> quote.name);
+                                let { tags, quotes } = await (await this.newsRepository.findOne({ where: { id: newsId }, include: ['tags', 'quotes'], transaction: t })).toJSON()
 
-																let {tagsIds, quotesIds, ...newsDetails} = body
+                                tags = tags.map(tag => tag.title);
+                                quotes = quotes.map(quote => quote.name);
 
-																ElkService.update({id: newsId.toString(), index: 'news', doc: {...newsDetails, tags, quotes}})
+                                let { tagsIds, quotesIds, ...newsDetails } = body
+
+                                ElkService.update({ id: newsId.toString(), index: 'news', doc: { ...newsDetails, tags, quotes } })
                                 return new GenericResponseDto(
                                     HttpStatus.OK,
                                     "News updated successfully"
@@ -305,7 +305,7 @@ export class NewsService {
                 }),
                 ...(query.date && {
                     createdAt: {
-                        [Op.substring]: query.date 
+                        [Op.substring]: query.date
                     }
                 }),
                 ...(query.publishedBy && {
@@ -452,14 +452,14 @@ export class NewsService {
                             }
                         }
                     }
-										ElkService.update({
-											index:'news', 
-											id: body.id[i],
-											doc: {
-												deletedAt: new Date().toISOString()
-											}
-											
-									})
+                    ElkService.update({
+                        index: 'news',
+                        id: body.id[i],
+                        doc: {
+                            deletedAt: new Date().toISOString()
+                        }
+
+                    })
                 }
                 else {
                     throw new CustomException(
@@ -499,7 +499,7 @@ export class NewsService {
                     id: body.id[i]
                 },
                 transaction: transactionHost.transaction,
-								individualHooks: true
+                individualHooks: true
             });
     }
 
@@ -529,11 +529,11 @@ export class NewsService {
             )
         }
     }
-		isObjectEmpty(object) {
-			return (
-				Object.prototype.toString.call(object) === '[object Object]' &&
-				JSON.stringify(object) === '{}'
-			);
-		}
-		
+    isObjectEmpty(object) {
+        return (
+            Object.prototype.toString.call(object) === '[object Object]' &&
+            JSON.stringify(object) === '{}'
+        );
+    }
+
 }
