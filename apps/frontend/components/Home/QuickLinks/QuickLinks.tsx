@@ -4,7 +4,7 @@ import {requests} from "apps/frontend/services/Requests"
 import { QuickLink } from "apps/frontend/types/Types"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import Skeleton from "react-loading-skeleton"
+import SkeletonLoader from "../../Shared/SkeletonLoader/SkeletoLoader"
 
 const QuickLinks = () =>{
 
@@ -29,10 +29,10 @@ const QuickLinks = () =>{
     return (
         <>
             {
-                !quickLinks?.length && <Skeleton/>
+                !quickLinks?.length && <SkeletonLoader/>
             }
             {
-                quickLinks?.length && (
+                quickLinks?.length > 0 && (
                 <div className="page-categories d-flex">
                     <h6 className="CategoryTitle  ">روابط سريعة</h6>
                     <ul>
