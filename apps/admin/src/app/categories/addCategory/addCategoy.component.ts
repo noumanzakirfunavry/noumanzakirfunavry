@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -25,17 +25,18 @@ export class AddCategoryComponent implements OnInit {
     categoryForm: FormGroup;
     categoryId: number
     categoryById: any;
-   
+    
 
     constructor(private fb: FormBuilder, 
         private apiService: ApiService, 
         private message: NzMessageService, 
-        private activatedRoute: ActivatedRoute) {}
+        private activatedRoute: ActivatedRoute, 
+        private route: Router) {}
 
     ngOnInit(): void {
         this.getAllCategories();
         this.categoryForm = this.fb.group({
-            title: [null, [Validators.required]],
+            title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             parentCategoryId: [null],
             isActive: [false],
             displayInCategoryMenu: [false],
@@ -60,6 +61,7 @@ export class AddCategoryComponent implements OnInit {
             this.apiService.sendRequest(this.categoryId ? requests.updateCategory + this.categoryId : requests.addCategory, this.categoryId ? 'put' : 'post', obj).subscribe((res:any) => {
                 console.log("CATEGORIES", res);
                 this.categoryForm.reset();
+                this.route.navigateByUrl('category/list');
                 if(this.categoryId) {
                     this.message.create('success', `Category Updated Successfully`)
                 }
@@ -75,7 +77,7 @@ export class AddCategoryComponent implements OnInit {
             this.categoryById= res.response.category;
             console.log("CATEGORY-BY-ID", this.categoryById);
             this.categoryForm = this.fb.group({
-                title: [this.categoryById?.title || null, [Validators.required]],
+                title: [this.categoryById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
                 parentCategoryId: [this.categoryById?.parentCategoryId || null],
                 isActive: [this.categoryById?.isActive || false],
                 displayInCategoryMenu: [this.categoryById?.displayInCategoryMenu || false],
@@ -89,5 +91,13 @@ export class AddCategoryComponent implements OnInit {
             this.allCategories= res.response.categories;
             console.log("ALL-CATEGORIES", this.allCategories);
         })
+    }
+
+    getOtherCategories() {
+        return this.allCategories && this.allCategories.filter((x:any) => x.id != this.categoryId)
+    }    
+
+    cancel() {
+        this.route.navigateByUrl('category/list');
     }
 }    

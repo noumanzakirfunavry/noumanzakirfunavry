@@ -13,7 +13,7 @@ export class CategoriesService {
     ) { }
 
     async getById(id: number) {
-        const result = await this.categoryRepo.findOne({ where: { id: id } })
+        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: ['user' ,{ model: Categories, as: 'sub', include: ['user'] }], })
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -22,8 +22,20 @@ export class CategoriesService {
         }
         return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
     }
-    async add(body) {
-        const result = await this.categoryRepo.create(body)
+
+		async getByIdClient(id: number) {
+			const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: [{ model: Categories, as: 'sub' }], })
+			if (!result) {
+					throw new CustomException(
+							Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+							Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+					)
+			}
+			return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
+	}
+
+    async add(body, userId: number) {
+        const result = await this.categoryRepo.create({ ...body, publishedBy: userId })
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -45,6 +57,7 @@ export class CategoriesService {
     async getAllForClient(query: GetAllCategoriesForClientRequestDto) {
         const response = await this.getAllForClientQuery(query)
 
+        response.rows = response.rows.map(item => item.toJSON())
 
         let categories = response.rows.filter((item) => item.parentCategoryId == null)
 
@@ -84,34 +97,22 @@ export class CategoriesService {
     }
 
     async getAll(query: GetAllCategoriesRequestDto) {
+				let { limit, pageNo, ...where } = query
         let offset = 0
-        query.pageNo = query.pageNo - 1;
-        if (query.pageNo) offset = query.limit * query.pageNo;
-        let where = {}
-        if (query.status) {
-            where['isActive'] = JSON.parse(query.status.toString())
-        }
-        if (query.parentCategoryId) {
-            where['parentCategoryId'] = query.parentCategoryId
-        }
-        if (query.title) {
-            where['title'] = query.title
-        }
-        if (query.publishers) {
-            where['publishBy'] = query.publishers
-        }
-        if (query.includeNews) { //TODO
-
-        }
-        if (query.includeNews) {//TODO
-
-        }
+        pageNo = pageNo - 1;
+        if (pageNo) offset = limit * pageNo;
+        
         let result = await this.categoryRepo.findAndCountAll(
 
             {
-                include: ['user'],
-                where: where,
-                limit: query.limit, offset: offset
+                include: ['user', { model: Categories, as: 'sub', where: {
+									displayInHomePage: query.displayInHomePage || false, 
+									displayInCategoryMenu: query.displayInCategoryMenu || true,
+									isActive: true
+								}}],
+                where: {...where, isActive: true},
+                limit, 
+								offset
             }
         )
         if (!result.count) {
@@ -120,25 +121,36 @@ export class CategoriesService {
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
             )
         }
+				// ** Recursion has been implemented for future so that nested submenus can be fetched if there is requirement,
+				// ** For example, populating main menus with sub menus, with each sub menu having more sub menus etc */ 
+        // result.rows = result.rows.map(item => item.toJSON())
 
-        let categories = result.rows.filter((item) => item.parentCategoryId == null)
+        // let categories = result.rows.filter((item) => item.parentCategoryId == null)
 
-        // Removing The Top Level Categories from the original result
-        for (let index = 0; index < categories.length; index++) {
-            const element = categories[index];
-            result.rows = this.removeItemOnce(result.rows, element);
-        }
-        // Now Calling to fit all remaining categories
-        this.makingNested(result.rows, categories, 0)
+        // // Removing The Top Level Categories from the original result
+        // for (let index = 0; index < categories.length; index++) {
+        //     const element = categories[index];
+        //     result.rows = this.removeItemOnce(result.rows, element);
+        // }
+        // // Now Calling to fit all remaining categories
+        // this.makingNested(result.rows, categories, 0)
 
         return new GenericResponseDto(
             HttpStatus.OK,
             "FETCHED SUCCESSFULLY",
             {
-                categories: categories,
-                totalCount: result.count
+                categories: result.rows,
+                totalCount: await this.parentCountQuery()
             }
         );
+    }
+
+    async parentCountQuery() {
+        return await this.categoryRepo.count({
+            where: {
+                parentCategoryId: null
+            }
+        })
     }
 
     async update(id: number, body: UpdateCategoriesRequestDto) {

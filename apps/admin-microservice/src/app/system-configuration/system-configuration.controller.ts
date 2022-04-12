@@ -12,7 +12,6 @@ export class SystemConfigurationController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.UPDATE)
     @Put()
     async updateSystemConfiguration(@Body() body : UpdateSiteConfiguration) : Promise<GenericResponseDto>{
         return await this.systemConfigurationService.updateSystemConfiguration(body)
@@ -20,7 +19,6 @@ export class SystemConfigurationController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
-    @Rights(RightsTypes.UPDATE)
     @Put("google-analytics")
     async updateGoogleAnalytics(@Body() body : UpdateGoogleAnalyticsRequestDto) : Promise<GenericResponseDto>{
         return await this.systemConfigurationService.updateSystemConfiguration(body)

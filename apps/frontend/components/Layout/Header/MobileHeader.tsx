@@ -1,28 +1,218 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { MobileHeaderProps } from 'apps/frontend/types/Types';
+import logo from '../../../styles/images/cnbc-arabia-logo.svg';
+import close from '../../../styles/images/crose.svg';
+import search from '../../../styles/images/search.svg';
+import Link from 'next/link';
 import { FC } from 'react';
+
 
 const MobileHeader: FC<MobileHeaderProps> = ({ handleMenuList }) => {
   return (
     <>
 
       <div className="MobileToggleNav">
-        <button className="btn btn-link btn-cancel" onClick={handleMenuList}>
-          <i className="fa fa-times"></i>
-        </button>
+        <div className="toggle_header">
+        <Link href="/">
+          <img role={'button'} title="CNBC Arabia" alt="logo" src={logo.src}/>
+        </Link>
 
+        <button className="btn btn-link btn-cancel" onClick={handleMenuList}>
+          {/* <i className="fa fa-times"></i> */}
+          <img role={'button'} title="closeIcon" alt="close" src={close.src}/>
+        </button>
+        </div>
+        <div className="input-group flex-nowrap ltr search_page_search p-3 mb-2">
+                            <span className="input-group-text bg-white text-primary">
+                                {/* <i className="fa fa-search"></i> */}
+                                <img className="img-fluid" src={search.src} />
+                                </span>
+                            <input type="text" className="form-control text-end border-start-0" placeholder="Amazon"/>
+                        </div>
+        <div className="header-search-nav">
+                                    <ul >
+                                    <li key={'dsad'}><Link href="/breakingNews"><a>عاجل</a></Link></li>
+
+                                        <li key={'adss'} className='sticky_none'><a data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a></li>
+                                        <li key={'wser'}><Link href="/liveTv"><a > المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></Link></li>
+
+                                    </ul>
+                                </div>
+                                <div className="accordion accordion-flush" id="accordionFlushExample">
+  <div className="accordion-item">
+    <h2 className="accordion-header" id="flush-headingOne">
+      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+      الرئيسية
+      <a href="#"><i className='fa fa-angle-down'></i></a>
+      </button>
+    </h2>
+    <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+      <div className="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+    </div>
+  </div>
+  <div className="accordion-item">
+    <h2 className="accordion-header" id="flush-headingTwo">
+      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+      أخبار الشركات
+      <a href="#"><i className='fa fa-angle-down'></i></a>
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" className="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+      <div className="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+    </div>
+  </div>
+  <div className="accordion-item">
+    <h2 className="accordion-header" id="flush-headingThree">
+      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+      كورونا
+      <a href="#"><i className='fa fa-angle-down'></i></a>
+      </button>
+    </h2>
+    <div id="flush-collapseThree" className="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+      <div className="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+    </div>
+  </div>
+  <div className="accordion-item">
+    <h2 className="accordion-header" id="flush-headingFour">
+      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+      تكنولوجيا
+      <a href="#"><i className='fa fa-angle-down'></i></a>
+      </button>
+    </h2>
+    <div id="flush-collapseFour" className="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+      <div className="accordion-body">
+        <ul className='nav_sublinks'>
+          <li>
+            <a href="javascript:void(0)">أخبار الشركات</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">تسجيل الدخول</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">كورونا</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">أخبار الشركات</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">الأسواق</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">الرئيسية</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div className="accordion-item">
+    <h2 className="accordion-header" id="flush-headingFive">
+      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+      الأسواق
+      <a href="#"><i className='fa fa-angle-down'></i></a>
+      </button>
+    </h2>
+    <div id="flush-collapseFive" className="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+      <div className="accordion-body">
+        <ul className='nav_sublinks'>
+          <li>
+            <a href="javascript:void(0)">أخبار الشركات</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">تسجيل الدخول</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">أخبار الشركات</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">تسجيل الدخول</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div className="accordion-item">
+    <h2 className="accordion-header" id="flush-headingSix">
+      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+      أخبار الشركات
+      <a href="#"><i className='fa fa-angle-down'></i></a>
+      </button>
+    </h2>
+    <div id="flush-collapseSix" className="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+      <div className="accordion-body">
+        <ul className='nav_sublinks'>
+          <li>
+            <a href="javascript:void(0)">أخبار الشركات</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">تسجيل الدخول</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">أخبار الشركات</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">تسجيل الدخول</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div className="accordion-item">
+    <h2 className="accordion-header" id="flush-headingSiven">
+      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSiven" aria-expanded="false" aria-controls="flush-collapseSiven">
+      فيديو CNBC عربية      <a href="#"><i className='fa fa-angle-down'></i></a>
+      </button>
+    </h2>
+    <div id="flush-collapseSiven" className="accordion-collapse collapse" aria-labelledby="flush-headingSiven" data-bs-parent="#accordionFlushExample">
+      <div className="accordion-body">
+        <ul className='nav_sublinks'>
+          <li>
+            <a href="javascript:void(0)">أخبار الشركات</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">تسجيل الدخول</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">أخبار الشركات</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">تسجيل الدخول</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div className="accordion-item without_collapse">
+    <h2 className="accordion-header">
+      <button className="accordion-button collapsed" type="button" >
+      أميركا في أزمة
+
+      </button>
+    </h2>
+
+  </div>
+  <div className="accordion-item without_collapse">
+    <h2 className="accordion-header">
+      <button className="accordion-button collapsed" type="button" >
+      اكسبو في أسبوع
+
+      </button>
+    </h2>
+
+  </div>
+</div>
         <ul className="navbar-nav">
           <li className="nav-item">
-            <a
+            {/* <a
               className="nav-link active"
               aria-current="page"
               href="/breakingNews"
             >
               أخبار عاجلة
-            </a>
+            </a> */}
+
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <a className="nav-link" href="/infographics">
               إنفوغرافيك
             </a>
@@ -230,7 +420,7 @@ const MobileHeader: FC<MobileHeaderProps> = ({ handleMenuList }) => {
             >
               تسجيل الدخول
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </>

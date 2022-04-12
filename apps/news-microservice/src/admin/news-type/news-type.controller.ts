@@ -12,7 +12,6 @@ export class NewsTypeController {
     ){}
 
     @UseGuards(JwtAuthGuard)
-    @Rights(RightsTypes.GET)
     @Roles(RoleTypes.Admin)
     @Get("featured/getAll")
     async getFeaturedNews() : Promise<GetAllFeaturedNewsResponseDto>{
@@ -25,7 +24,6 @@ export class NewsTypeController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Rights(RightsTypes.GET)
     @Roles(RoleTypes.Admin)
     @Get("trending/getAll")
     async getTrendingNews() : Promise<GetAllTrendingNewsResponseDto>{
@@ -38,7 +36,6 @@ export class NewsTypeController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Rights(RightsTypes.GET)
     @Roles(RoleTypes.Admin)
     @Get("editors-choice-news/getAll")
     async getEditorsChoiceNews() : Promise<GetAllEditorsChoiceNewsResponseDto>{
@@ -51,7 +48,6 @@ export class NewsTypeController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Rights(RightsTypes.UPDATE)
     @Roles(RoleTypes.Admin)
     @Put("featured/update")
     async updateFeaturedNews(@Req() req,@Body() body : UpdateFeaturedNewsRequestDto) : Promise<GenericResponseDto>{
@@ -59,7 +55,6 @@ export class NewsTypeController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Rights(RightsTypes.UPDATE)
     @Roles(RoleTypes.Admin)
     @Put("trending/update")
     async updateTrendingNews(@Req() req,@Body() body : UpdateTrendingNewsRequestDto) : Promise<GenericResponseDto>{
@@ -67,7 +62,6 @@ export class NewsTypeController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Rights(RightsTypes.UPDATE)
     @Roles(RoleTypes.Admin)
     @Put("editors-choice-news/update")
     async updateEditorChoiceNews(@Req() req,@Body() body : UpdateEditorChoiceNewsRequestDto) : Promise<GenericResponseDto>{

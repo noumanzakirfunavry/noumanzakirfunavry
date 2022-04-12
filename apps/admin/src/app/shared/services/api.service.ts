@@ -68,7 +68,6 @@ export class ApiService {
 
   uploadFileProgress(file, description?,) {
     let formData: FormData = Object.assign(new FormData());
-    debugger
     formData.append("file", file);
     formData.append("title", file.name);
     formData.append("description", description || 'test description');

@@ -11,13 +11,25 @@ const Index = () =>{
         <>
             <div className="container">
                 <AdBanner/>
-                <div className='row mb-3'>
-                <div className='col-xl-9 col-lg-8'>
+                <div className='PageBuilder-pageRow mb-3'>
+                <div className='PageBuilder-col-9'>
                     <VideoNews/>
                 </div>
-                <div className='col-xl-3 col-lg-4'>
+                <div className='PageBuilder-sidebar'>
+                    <div className="hide_div_mobile">
                     <SideBarWithVideo title={'أحدث مقاطع الفيديو'}/>
+                    </div>
+                    <div className="bannerAddMedia">
+        <AdBanner />
+        </div>
+                    <div className="mb-3 hide_div_web">
+                <Title styles={"yellowTitle"}>
+                    <h3>أحدث مقاطع الفيديو</h3>
+                </Title>
+                <HorizontalFooter2NewsSlider />
+            </div>
                 </div>
+                
             </div>
             </div>
            <div className="container">

@@ -3,7 +3,7 @@ import { HttpStatus } from '@nestjs/common';
 export enum ExceptionType {
   ROLE_NOT_FOUND = 'ROLE_NOT_FOUND',
   DUPLICATE_EMAIL = 'DUPLICATE_EMAIL',
-  NO_ACTIVE_BREAK_FOUND='NO_ACTIVE_BREAK_FOUND',
+  NO_ACTIVE_BREAK_FOUND = 'NO_ACTIVE_BREAK_FOUND',
   INCORRECT_EMAIL_PASSWORD = 'INCORRECT_EMAIL_PASSWORD',
   PASSWORD_NOT_MATCHED = 'PASSWORD_NOT_MATCHED',
   USER_ALREADY_LOGGED_IN = 'USER_ALREADY_LOGGED_IN',
@@ -26,14 +26,17 @@ export enum ExceptionType {
   CONFIGURATION_NOT_FOUND = 'CONFIGURATION_NOT_FOUND',
   DOCUMENT_NOT_FOUND = 'DOCUMENT_NOT_FOUND',
   CONFIGURATION_ALREADY_EXISTS = 'CONFIGURATION_ALREADY_EXISTS',
-  STATUS_ALREADY_ASSIGNED='STATUS_ALREADY_ASSIGNED',
+  STATUS_ALREADY_ASSIGNED = 'STATUS_ALREADY_ASSIGNED',
   MANAGER_IS_NOT_AN_EMPLOYEE = 'MANAGER_IS_NOT_AN_EMPLOYEE',
-  NO_FILE_FOUND='NO_FILE_FOUND',
+  NO_FILE_FOUND = 'NO_FILE_FOUND',
   SOMETHING_WENT_WRONG = 'SOMETHING_WENT_WRONG',
   SOCIAL_MEDIA_LINK_NOT_FOUND = 'SOCIAL_MEDIA_LINK_NOT_FOUND',
   ADMIN_CANNOT_ADD_SUPER_ADMIN = 'ADMIN_CANNOT_ADD_SUPER_ADMIN',
   UNABLE_TO_ADD_LOG = 'UNABLE_TO_ADD_LOG',
-  LOGIN_ATTEMPT_LIMIT_REACHED='LOGIN_ATTEMPT_LIMIT_REACHED'
+  LOGIN_ATTEMPT_LIMIT_REACHED='LOGIN_ATTEMPT_LIMIT_REACHED',
+  ORDER_NUMBER_NOT_AVAILABLE = 'ORDER_NUMBER_NOT_AVAILABLE',
+  ORDER_NUMBER_IS_SAME_AS_BEFORE = 'ORDER_NUMBER_IS_SAME_AS_BEFORE',
+  ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL = 'ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL',
 }
 
 interface ExceptionOptions {
@@ -173,5 +176,20 @@ export const Exceptions: Record<ExceptionType, ExceptionOptions> = {
   [ExceptionType.TIME_EXPIRED]: {
     status: HttpStatus.BAD_REQUEST,
     message: 'Time expired',
+  },
+  [ExceptionType.ORDER_NUMBER_NOT_AVAILABLE]: {
+    status: HttpStatus.BAD_REQUEST,
+    message: `Order number is not available.
+			 Please choose another or don't send in the request for auto-assignment.`,
+  },
+  [ExceptionType.ORDER_NUMBER_IS_SAME_AS_BEFORE]: {
+    status: HttpStatus.BAD_REQUEST,
+    message: `The provided order number is same as original.
+			 Please choose another for update or don't send in request if you dont want to update.`,
+  },
+  [ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL]: {
+    status: HttpStatus.BAD_REQUEST,
+    message: `Provided orderNumber and/or parentMenuId is same as original. 
+		Kindly provide other values or leave empty if dont want to update`,
   },
 };

@@ -6,7 +6,7 @@ import { JwtService } from "@nestjs/jwt";
 export class MailService {
   constructor(private mailerService: MailerService, private jwtService: JwtService,) { }
   async mailTester(email) {
-    const url = "http://localhost:3333/api/authentication/password/reset/" + await this.tokenGeneration(email)
+    const url = "http://157.90.67.186:4400/full/authentication/set-password/" + await this.tokenGeneration(email)
     console.log("🚀 ~ file: mail.service.ts ~ line 10 ~ MailService ~ mailTester ~ url", url)
     return await this.mailerService.sendMail({
       to: email,
@@ -22,6 +22,7 @@ export class MailService {
         url: url,
       },
     });
+    
   }
   async tokenGeneration(email) {
     const payload = {

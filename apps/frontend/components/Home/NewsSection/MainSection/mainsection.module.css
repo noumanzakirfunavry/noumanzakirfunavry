@@ -1,11 +1,11 @@
 .mainNews{
     background: url(../../../../styles/images/biden.jpg) no-repeat;
     color: #fff;
-    /* width: 630px; */
+    width: 630px;
     height: 510px;
     align-items: flex-end;
     display: flex;
-    margin-bottom: 15px;
+    margin-bottom: 32px;
     background-size: cover;
   }
   .newscontent{
@@ -22,7 +22,8 @@
     line-height: normal;
   }
   .mainNews h1 a:hover,.mainNews h3 a:hover, .newsdetails a:hover{
-   text-decoration: underline !important;
+   /* text-decoration: underline !important */
+   color: #777777 !important;
   }
   .mainNews h3{
     margin: 0;
@@ -38,7 +39,7 @@
     margin: 10px 0 5px;
   }
   .newsbox{
-    margin-bottom: 40px;
+    margin-bottom: 15px;
   }
 
   .newsimage{

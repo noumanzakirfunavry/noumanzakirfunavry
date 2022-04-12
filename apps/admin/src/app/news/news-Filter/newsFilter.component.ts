@@ -76,7 +76,7 @@ export class FilterNewsComponent  implements OnInit {
 
   search() {
     if(this.filterModel.date) {
-      this.filterModel.date= new Date(this.filterModel.date).toISOString()
+      this.filterModel.date= new Date(this.filterModel.date).toISOString().split('T')[0]
     }
       this.statusEmitter.emit(this.filterModel);
   }

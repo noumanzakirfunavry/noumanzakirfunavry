@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -31,8 +31,8 @@ export class Data extends Pagination {
 export class FeaturedNewsComponent implements OnInit {
     pagination: Data = new Data()
     allFeaturedNews: any;
+    allCategories: any;
     loading = true;
-    featuredNewsForm: FormGroup;
 
     fNews: any[] = [
         {
@@ -76,17 +76,14 @@ export class FeaturedNewsComponent implements OnInit {
             newsId: null
         }
     ];
-    allCategories: any;
+    
 
-    constructor(private apiService: ApiService, private fb: FormBuilder) { }
+    constructor(private apiService: ApiService, private message: NzMessageService) { }
 
 
     ngOnInit(): void {
-        this.getAllFeaturedNews();
         this.getAllCategories();
-        this.featuredNewsForm = this.fb.group({
-        });
-        
+        this.getAllFeaturedNews();
     }
 
     getAllCategories() {
@@ -95,6 +92,7 @@ export class FeaturedNewsComponent implements OnInit {
             console.log("ALL-CATEGORIES", this.allCategories);
         })
     }
+
     clean(obj: any) {
         for (const propName in obj) {
             if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
@@ -123,18 +121,14 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     updateFeaturedNews() {
-        for (const i in this.featuredNewsForm.controls) {
-            this.featuredNewsForm.controls[i].markAsDirty();
-            this.featuredNewsForm.controls[i].updateValueAndValidity();
-        }
-        if (this.featuredNewsForm.valid) {
             this.fNews.forEach(news => {
                 news.newsId = parseInt(news.newsId);
             })
             this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
                 console.log("UPDATE-FEATURED-NEWS", res);
+                this.getAllFeaturedNews();
+                this.message.create('success', `Featured News Updated Successfully`);
             })
         }
-    }
 
 }    

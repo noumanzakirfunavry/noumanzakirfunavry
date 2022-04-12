@@ -9,7 +9,7 @@
           <div class="col-md-12">
             <nz-form-item>
               <nz-form-label nzRequired [nzSpan]="6" nzFor="text">Title</nz-form-label>
-              <nz-form-control [nzSpan]="14" nzErrorTip="Please input Title!">
+              <nz-form-control [nzSpan]="14" nzErrorTip="Enter valid Title between 3 to 250 characters!">
                 <input nz-input formControlName="title" placeholder="Enter Title" dir="rtl" />
               </nz-form-control>
             </nz-form-item>
@@ -19,7 +19,7 @@
               <nz-form-label [nzSpan]="6" >Parent Category</nz-form-label>
               <nz-form-control [nzSpan]="14">
               <nz-select formControlName="parentCategoryId" nzShowSearch nzAllowClear nzPlaceHolder="Choose Parent Category">
-                <nz-option *ngFor="let cat of allCategories" [nzValue]="cat?.id" [nzLabel]="cat?.title"></nz-option>
+                <nz-option *ngFor="let cat of getOtherCategories()" [nzValue]="cat?.id" [nzLabel]="cat?.title"></nz-option>
               </nz-select>
             </nz-form-control>
             </nz-form-item>
@@ -50,7 +50,7 @@
                 <nz-form-control [nzSpan]="14">
                   <button *ngIf="!categoryId" class="mr-3" nz-button nzType="primary">Save</button>
                   <button *ngIf="categoryId" class="mr-3" nz-button nzType="primary">Update</button>
-                  <!-- <button nz-button nzType="default">Cancel</button> -->
+                  <button nz-button nzType="default" (click)="cancel()">Cancel</button>
                 </nz-form-control>
               </nz-form-item>
             </div>

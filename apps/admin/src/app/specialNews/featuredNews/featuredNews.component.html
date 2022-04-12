@@ -3,7 +3,6 @@
     <br>
     <br>
     <div class="col-12">
-      <!-- <form [formGroup]="featuredNewsForm" nz-form [nzLayout]="'vertical'" (ngSubmit)="updateFeaturedNews()"> -->
         <div class="row">
           <div class="col-12">
           <nz-table [nzData]="allFeaturedNews" [nzShowPagination]="false" class="no-border-last">
@@ -12,7 +11,7 @@
                     <th class="text-left" colspan="4"></th>
                 </tr>
             </thead>
-            <tbody *ngIf="allCategories && allCategories.length>0">
+            <tbody *ngIf="allCategories && allCategories.length > 0">
                 <tr *ngFor="let news of fNews">
                     <td>#</td>
                     <td>{{news?.position}}</td>
@@ -32,6 +31,5 @@
             </nz-form-item>
           </div>
         </div>
-      <!-- </form> -->
     </div>
   </section>

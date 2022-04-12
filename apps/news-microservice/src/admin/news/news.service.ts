@@ -1,4 +1,5 @@
 import { DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
+import { ElkService } from '@cnbc-monorepo/elk';
 import { Attachments, BreakingNews, Categories, EditorsChoiceNews, ExclusiveVideos, FeaturedNews, News, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility'
@@ -6,7 +7,8 @@ import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { NewsHasCategories } from '@cnbc-monorepo/entity';
 import { NewsHasQuotes } from '@cnbc-monorepo/entity';
 import { NewsHasTags } from '@cnbc-monorepo/entity';
-import { Op } from 'sequelize';
+import { Op, Transaction } from 'sequelize';
+
 
 @Injectable()
 export class NewsService {
@@ -62,6 +64,23 @@ export class NewsService {
                                     )
                                 }
                             }
+
+                            let { tags, quotes } = await (await this.newsRepository.findOne({ where: { id: news_added.id }, include: ['tags', 'quotes'], transaction: transactionHost.transaction })).toJSON()
+
+                            tags = tags.map(tag => tag.title);
+                            quotes = quotes.map(quote => quote.name);
+
+                            let { tagsIds, quotesIds, ...newsDetails } = body
+
+                            // add flags to save in elk
+                            // newsDetails.isFeatured = !this.isObjectEmpty(body.featuredNews || {})
+                            // newsDetails.isTrending = body.trendingNews?.length > 0 ? true: false
+                            // newsDetails.isEditorsChoice = body.isEditorsChoice?.length > 0 ? true: false
+                            // newsDetails.breakingNews = body.breakingNews?.length > 0 ? true: false
+
+                            // save to elk
+                            ElkService.save({ index: 'news', id: news_added.id.toString(), document: { ...newsDetails, tags, quotes } });
+
                             return new GenericResponseDto(
                                 HttpStatus.OK,
                                 "News added successfully"
@@ -189,6 +208,14 @@ export class NewsService {
                                         )
                                     }
                                 }
+                                let { tags, quotes } = await (await this.newsRepository.findOne({ where: { id: newsId }, include: ['tags', 'quotes'], transaction: t })).toJSON()
+
+                                tags = tags.map(tag => tag.title);
+                                quotes = quotes.map(quote => quote.name);
+
+                                let { tagsIds, quotesIds, ...newsDetails } = body
+
+                                ElkService.update({ id: newsId.toString(), index: 'news', doc: { ...newsDetails, tags, quotes } })
                                 return new GenericResponseDto(
                                     HttpStatus.OK,
                                     "News updated successfully"
@@ -287,7 +314,9 @@ export class NewsService {
                     newsType: query.newsType
                 }),
                 ...(query.date && {
-                    createdAt: query.date
+                    createdAt: {
+                        [Op.substring]: query.date
+                    }
                 }),
                 ...(query.publishedBy && {
                     publishedBy: query.publishedBy
@@ -433,6 +462,14 @@ export class NewsService {
                             }
                         }
                     }
+                    ElkService.update({
+                        index: 'news',
+                        id: body.id[i],
+                        doc: {
+                            deletedAt: new Date().toISOString()
+                        }
+
+                    })
                 }
                 else {
                     throw new CustomException(
@@ -471,7 +508,8 @@ export class NewsService {
                 where: {
                     id: body.id[i]
                 },
-                transaction: transactionHost.transaction
+                transaction: transactionHost.transaction,
+                individualHooks: true
             });
     }
 
@@ -535,4 +573,11 @@ export class NewsService {
         return new GenericResponseDto(HttpStatus,"News Status",resObj)
 
     }
+    isObjectEmpty(object) {
+        return (
+            Object.prototype.toString.call(object) === '[object Object]' &&
+            JSON.stringify(object) === '{}'
+        );
+    }
+
 }

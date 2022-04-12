@@ -3,7 +3,6 @@ import { Attachments } from "./attachments.entity";
 import { News } from "./news.entity";
 
 @Table({
-    paranoid : true,
     timestamps : true
 })
 export class ExclusiveVideos extends Model{

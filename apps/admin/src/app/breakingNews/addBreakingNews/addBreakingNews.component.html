@@ -5,13 +5,13 @@
       <form nz-form [formGroup]="breakingNewsForm" [nzLayout]="'vertical'" (ngSubmit)="breakingNews()">
           <nz-form-item>
             <nz-form-label [nzSpan]="6" nzFor="text" nzRequired >Breaking News Title Description</nz-form-label>
-            <nz-form-control [nzSpan]="14" nzErrorTip="Please input Breaking News Title">
+            <nz-form-control [nzSpan]="14" nzErrorTip="Enter Title!">
               <input nz-input formControlName="title" placeholder="Enter Title" dir="rtl"  />
             </nz-form-control>
           </nz-form-item >
           <nz-form-item>
             <nz-form-label [nzSpan]="6" nzFor="text" nzRequired >Related News Link</nz-form-label>
-            <nz-form-control [nzSpan]="14" nzErrorTip="Please input Related News Link">
+            <nz-form-control [nzSpan]="14" nzErrorTip="Enter valid News Link!">
               <input nz-input formControlName="newsLink" placeholder="Enter Link"  />
             </nz-form-control>
           </nz-form-item >
@@ -34,7 +34,7 @@
                 </nz-form-control>
             </nz-form-item>
         </div>
-        <nz-form-item>
+        <!-- <nz-form-item>
           <nz-form-label [nzSpan]="6" nzFor="text">Set Visibility Time: </nz-form-label>
           <nz-form-control [nzSpan]="4">
           <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Visibility Time">
@@ -44,11 +44,12 @@
             <nz-option nzValue="20 min" [nzLabel]="'20 min'"></nz-option>
           </nz-select>
         </nz-form-control>
-        </nz-form-item>
+        </nz-form-item> -->
           <nz-form-item>
             <nz-form-control [nzSpan]="14" >
-              <button class="mr-3" nz-button nzType="primary">Save</button>
-              <!-- <button nz-button nzType="default">Cancel</button> -->
+              <button *ngIf="!breakingNewsId" class="mr-3" nz-button nzType="primary">Save</button>
+              <button *ngIf="breakingNewsId" class="mr-3" nz-button nzType="primary">Update</button>
+              <button nz-button nzType="default" (click)="cancel()">Cancel</button>
             </nz-form-control>
           </nz-form-item>
         </form>

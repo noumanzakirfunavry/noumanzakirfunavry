@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
-// import { Pagination } from 'src/app/common/models/pagination';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
 
@@ -31,7 +30,6 @@ export class Data extends Pagination {
       }
         `
   ]
-  // styleUrls:['./addTag.scss']
 })
 
 export class AddUserComponent implements OnInit{
@@ -40,11 +38,14 @@ export class AddUserComponent implements OnInit{
   allRights: any;
   userId: number;
   userById: any;
+  rightsValue: any;
+  submitted= false;
 
   constructor(private fb: FormBuilder, 
     private apiService: ApiService, 
     private activatedRoute: ActivatedRoute, 
-    private message: NzMessageService
+    private message: NzMessageService,
+    private route: Router
     ) { }
 
   ngOnInit(): void {
@@ -60,14 +61,16 @@ export class AddUserComponent implements OnInit{
 
   inItForm() {
     this.adminForm = this.fb.group({
-      name: [null, [Validators.required, Validators.pattern('^[a-zA-Z \-\']+'), Validators.minLength(3), Validators.maxLength(250)]],
+      // name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('[A-Za-z ]*$')]],
+      name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
       rolesId: [null, [Validators.required]],
-      userName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+      // userName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^[A-Za-z][A-Za-z0-9_][A-Za-z0-9!@#$%^&*_]{0,250}$')]],
+      userName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
       password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
       confirmPassword: [null, [Validators.required, this.confirmationValidator]],
-      email: [null, [Validators.email, Validators.required]],
+      email: [null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
       isActive: [false],
-      rights: [null]
+      rights: [null, [Validators.requiredTrue]]
     });
   }
 
@@ -76,15 +79,17 @@ export class AddUserComponent implements OnInit{
       this.adminForm.controls[i].markAsDirty();
       this.adminForm.controls[i].updateValueAndValidity();
     }
+    this.submitted= true;
     if(this.adminForm.valid) {
       const obj= this.adminForm.value;
-      obj['isProUser']= false;
-      obj['rights']= [1];
-      // obj['rights']= [this.adminForm.value.rights];
+      obj['name'] = this.adminForm.value.name.trim();
+      obj['userName']= this.adminForm.value.userName.toLowerCase();
+      obj['rights']= this.rightsValue;
       delete obj['confirmPassword'];
-      this.apiService.sendRequest(requests.registerUser, 'post', obj).subscribe((res:any) => {
+      this.apiService.sendRequest(this.userId ? requests.updateUser + this.userId : requests.registerUser, this.userId ? 'put' : 'post', obj).subscribe((res:any) => {
         console.log("ADMINS", res);
         this.inItForm();
+        this.route.navigateByUrl('admins/list');
         if(this.userId) {
           this.message.create('success', `Admin Updated Successfully`);
         }
@@ -116,14 +121,14 @@ export class AddUserComponent implements OnInit{
       this.userById= res.response.admin;
       console.log("USER-BY-ID", this.userById);
       this.adminForm = this.fb.group({
-        name: [this.userById?.name || null, [Validators.required, Validators.pattern('^[a-zA-Z \-\']+'), Validators.minLength(3), Validators.maxLength(250)]],
+        name: [this.userById?.name || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
         rolesId: [this.userById?.rolesId || null, [Validators.required]],
-        userName: [this.userById?.userName || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        userName: [this.userById?.userName || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
         password: [this.userById?.password || null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
         confirmPassword: [this.userById?.password || null, [Validators.required, this.confirmationValidator]],
-        email: [this.userById?.email || null, [Validators.email, Validators.required]],
+        email: [this.userById?.email || null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
         isActive: [this.userById?.isActive || false],
-        rights: [this.userById?.rights || null]
+        rights: [this.userById?.rights || null, [Validators.requiredTrue]]
       });
     })
   }
@@ -142,18 +147,13 @@ export class AddUserComponent implements OnInit{
     return {};
   };
 
-  // passwordValidator = (control: FormControl): { [s: string]: boolean } => {
-  //   if (!control.value) {
-  //     return { required: true };
-  //   } else if (control.value < 6) {
-  //     return { minLength: true, error: true };
-  //   } else if (control.value > 30) {
-  //     return { maxLength: true, error: true };
-  //   }
-  //   return {};
-  // };
-
   log(value: string[]): void {
-    console.log(value);
+    this.rightsValue= value;
+    console.log("RIGHTS-ID", value);
   }
+
+  cancel() {
+    this.route.navigateByUrl('admins/list');
+  }
+
 }    
