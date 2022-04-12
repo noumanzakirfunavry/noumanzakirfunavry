@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 import newsimg from "../../../styles/images/biden.jpg";
 import dateFormat from "dateformat"
@@ -10,16 +11,16 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
             <div className="NewsList">
                 <ul>
                     {
-                        newsList?.map((news, index)=>{
+                       newsList?.length && newsList?.map((news:any, index:number)=>{
                             return (
                                 <li key={index}>
                                     <div className="newsText">
-                                        <a href="#">{news.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?.news?.title}</a>
-                                        <p><a href="#">{news?.news?.authorName}</a> <b> {dateFormat(news?.news?.createdAt, "dd-mm-yyyy")} </b></p>
+                                        <a href="#">{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a>
+                                        <p><a href="#">{news?._source?.authorName}</a> <b> {dateFormat(news?._source?.createdAt, "dd-mm-yyyy")} </b></p>
                                     </div>
                                     <div className="newsImage">
-                                        {news?.news?.imageId && (<img alt="img" className="img-fluid" src={newsimg.src} />)}
-                                        {news?.news?.videoId && (<iframe width="190" src="https://www.youtube.com/embed/SbsgyRhYbdw?controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>)}
+                                        {news?._source?.imageId && (<img alt="img" className="img-fluid" src={newsimg.src} />)}
+                                        {news?._source?.videoId && (<iframe width="190" src="https://www.youtube.com/embed/SbsgyRhYbdw?controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>)}
                                     </div>
                                 </li>
                             )
