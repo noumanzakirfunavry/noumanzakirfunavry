@@ -11,6 +11,13 @@ import togglebar from "../../../styles/images/togglebar.svg";
 import SearchDropDown from '../../Shared/SearchDropDown/SearchDropDown';
 import MobileHeader from './MobileHeader';
 
+import { CategoryProps } from '../../../types/Types';
+
+import GetData from '../../../services/GetData';
+import { requests } from '../../../services/Requests';
+
+
+
 const Header = () =>{
 
     const [showMenuList, setShowMenuList] = useState<boolean>(false)
@@ -18,8 +25,14 @@ const Header = () =>{
     const [data, setData] = useState<any>({})
     const router = useRouter()
     const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}])
+    const [newsCategoriesList, setNewsCategoriesList] = useState<CategoryProps[]>([])
 
-    const [scroll, setScroll] = useState(true)
+    const [scroll, setScroll] = useState(true);
+
+    const [params, setParams] = useState<any>({
+        limit:20,
+        pageNo:1
+      });
 
     useEffect(() => {
       document.addEventListener("scroll", handleScroll)
@@ -32,7 +45,18 @@ const Header = () =>{
 
     useEffect(()=>{
         document.addEventListener("mousedown", handleClickOutside);
-        window.scrollTo(0,0)
+        window.scrollTo(0,0);
+
+        // get categories list to show in sub menu
+        GetData(`${requests.categories}/getAll?limit=${params.limit}&pageNo=${params.pageNo}&displayInCategoryMenu=true`, {}, 'get', false).then(res=>{
+
+            const newsCategories = res.data?.response?.categories && res.data?.response?.categories.length ? res.data.response.categories : []
+            setNewsCategoriesList(newsCategories);
+
+        }).catch(err=>{
+            console.warn(err)
+        })
+
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         }
@@ -68,8 +92,7 @@ const Header = () =>{
        index !== 4 && router.push(`/${url}`)
        index === 4 && handleClickOutside()
     }
-
-
+    
     const getData = async (value:string): Promise<any> => {
         //!value ? {}:
         //fetch data and return
@@ -154,6 +177,8 @@ const Header = () =>{
         return data
     }
 
+
+
     return (
         <>
             <header  className={scroll ? 'default':'sticky_header'}>
@@ -191,7 +216,7 @@ const Header = () =>{
                                                     <Link href="/videoNews"><a className="nav-link">الفيديو</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
-                                                <li className="nav-item dropdown" key={'3'}>
+                                                <li className="nav-item dropdown" key={'98788'}>
                                                     <a className="nav-link dropdown-toggle" href="#" id="morePrograms" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
@@ -274,13 +299,25 @@ const Header = () =>{
                                                 </li>
                                                 <li className="nav-item" key={'34'}>
                                                     <Link href="/categoryNewsTiles"><a className="nav-link">التصنيفات</a></Link>
-                                                    <div className="nav-menu-navUnderline"></div>
+                                                    <div className="nav-menu-navUnderline">
+                                                    <ul className="dropdown-menu" aria-labelledby="morePrograms">
+                                                    { // show categories in sub menu
+                                                        newsCategoriesList.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
+                                                            return(
+                                                                <li className="nav-item" key={item.id}> 
+                                                                    <Link href={`/categoryNewsTiles/${item.id}`}><a className="nav-link active" aria-current="page">{item.title}</a></Link>
+                                                                </li>
+                                                            )
+                                                        })
+                                                    }
+                                                    </ul>
+                                                    </div>
                                                 </li>
                                                 <li className="nav-item" key={'35'}>
                                                     <Link href="/marketGraph"><a className="nav-link">الأسواق</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
-                                                <li className="nav-item dropdown" key={'3'}>
+                                                <li className="nav-item dropdown" key={'654564ytf7656'}>
                                                     <a className="nav-link dropdown-toggle" href="#" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
