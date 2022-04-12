@@ -13,7 +13,7 @@ export class CategoriesService {
     ) { }
 
     async getById(id: number) {
-        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: [{ model: Categories, as: 'sub' }], })
+        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: ['user' ,{ model: Categories, as: 'sub', include: ['user'] }], })
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -22,6 +22,18 @@ export class CategoriesService {
         }
         return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
     }
+
+		async getByIdClient(id: number) {
+			const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: [{ model: Categories, as: 'sub' }], })
+			if (!result) {
+					throw new CustomException(
+							Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+							Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+					)
+			}
+			return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
+	}
+
     async add(body, userId: number) {
         const result = await this.categoryRepo.create({ ...body, publishedBy: userId })
         if (!result) {
