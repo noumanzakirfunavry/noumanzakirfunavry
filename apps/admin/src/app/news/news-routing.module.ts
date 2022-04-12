@@ -22,10 +22,10 @@ const routes: Routes = [
 
     },
     {
-        path: 'edit/:id',
+        path: 'update/:id',
         component: AddNewsComponent,
         data: {
-            title: 'Edit News',
+            title: 'Update News',
             // headerDisplay: "none"
         },
 
