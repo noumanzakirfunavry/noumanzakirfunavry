@@ -105,7 +105,7 @@ export class CategoriesService {
         let result = await this.categoryRepo.findAndCountAll(
 
             {
-                include: ['user', { model: Categories, as: 'sub', where: {
+                include: ['user', { model: Categories, as: 'sub', include: ['user',], where: {
 									displayInHomePage: query.displayInHomePage || false, 
 									displayInCategoryMenu: query.displayInCategoryMenu || true,
 									isActive: true
