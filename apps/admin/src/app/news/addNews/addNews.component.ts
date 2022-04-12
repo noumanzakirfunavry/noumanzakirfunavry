@@ -159,7 +159,7 @@ export class AddNewsComponent implements OnInit {
     populateNewsForm(news: any) {
         this.newsForm = this.fb.group({
             title: [news.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-            content: [news?.content || null, [Validators.required, Validators.maxLength(250)]],
+            content: [news?.content || null, [Validators.required, Validators.maxLength(1500)]],
             isPro: [news.isPro || false],
             visible: [news.visible || true, [Validators.required]],
             contentType: [news.contentType || 'TEXT', [Validators.required]],
@@ -170,9 +170,9 @@ export class AddNewsComponent implements OnInit {
             categoryIds: [news?.categories.map(x => x.id) || null, [Validators.required]],
             tagsIds: [news?.tags.map(x => x.id) || null, [Validators.required]],
             quotesIds: [news?.quotes.map(x => x.id) || null, [Validators.required]],
-            seoTitle: [news?.seoDetail?.title || null, [Validators.required]],
-            slugLine: [news?.seoDetail?.slugLine || null, [Validators.required]],
-            description: [news?.seoDetail?.description || null, [Validators.required]],
+            seoTitle: [news?.seoDetail?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+            slugLine: [news?.seoDetail?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
+            description: [news?.seoDetail?.description || null, [Validators.required, Validators.maxLength(250)]],
             keywords: [news?.seoDetail?.keywords || null, [Validators.required]],
             file: [null],
         });
@@ -181,7 +181,7 @@ export class AddNewsComponent implements OnInit {
     initNewsForm() {
         this.newsForm = this.fb.group({
             title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-            content: [null, [Validators.required, Validators.maxLength(250)]],
+            content: [null, [Validators.required, Validators.maxLength(1500)]],
             isPro: [false],
             visible: [true, [Validators.required]],
             contentType: ['TEXT', [Validators.required]],
@@ -192,9 +192,9 @@ export class AddNewsComponent implements OnInit {
             categoryIds: [null, [Validators.required]],
             tagsIds: [null, [Validators.required]],
             quotesIds: [null, [Validators.required]],
-            seoTitle: [null, [Validators.required]],
-            slugLine: [null, [Validators.required]],
-            description: [null, [Validators.required]],
+            seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+            slugLine: [null, [Validators.required, Validators.maxLength(250)]],
+            description: [null, [Validators.required, Validators.maxLength(250)]],
             keywords: [null, [Validators.required]],
             file: [null],
         });
@@ -355,12 +355,18 @@ export class AddNewsComponent implements OnInit {
     }
 
     addNewTag() {
-        this.apiService.sendRequest(requests.addNewTag, 'post', { ...this.tagForm.value, isActive: true }).subscribe((res: any) => {
-            this.allQuotes = res.quote;
-            this.initTagForm();
-            this.getTags();
-            console.log("ADD-TAG", this.allQuotes);
-        })
+        for (const i in this.tagForm.controls) {
+            this.tagForm.controls[i].markAsDirty();
+            this.tagForm.controls[i].updateValueAndValidity();
+        }
+        if(this.tagForm.valid) {
+            this.apiService.sendRequest(requests.addNewTag, 'post', { ...this.tagForm.value, isActive: true }).subscribe((res: any) => {
+                this.allQuotes = res.quote;
+                this.initTagForm();
+                this.getTags();
+                console.log("ADD-TAG", this.allQuotes);
+            })
+        }
     }
 
     catToNodes(catorgories) {
