@@ -107,9 +107,10 @@ export class CategoriesService {
 
             {
                 include: ['user', {
-                    model: Categories, as: 'sub', where: {
-
-                        isActive: true
+                    model: Categories, as: 'sub', required: false, where: {
+                        displayInHomePage: query.displayInHomePage || false,
+                        displayInCategoryMenu: query.displayInCategoryMenu || true,
+                        isActive: true,
                     }
                 }],
                 where: { ...where, isActive: true },
@@ -118,8 +119,8 @@ export class CategoriesService {
             }
 
         )
-        console.log("🚀 ~ file: categories.service.ts ~ line 109 ~ CategoriesService ~ getAll ~ result", result)
-        console.log("🚀 ~ file: categories.service.ts ~ line 108 ~ CategoriesService ~ getAll ~ { ...where, isActive: true }", { ...where, isActive: true })
+        // console.log("🚀 ~ file: categories.service.ts ~ line 109 ~ CategoriesService ~ getAll ~ result", result.rows)
+        // console.log("🚀 ~ file: categories.service.ts ~ line 108 ~ CategoriesService ~ getAll ~ { ...where, isActive: true }", { ...where, isActive: true })
         if (!result.count) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -131,6 +132,7 @@ export class CategoriesService {
         // result.rows = result.rows.map(item => item.toJSON())
 
         const categories = result.rows.filter((item) => item.parentCategoryId == null)
+        console.log("🚀 ~ file: categories.service.ts ~ line 134 ~ CategoriesService ~ getAll ~ categories", categories.length)
 
         // Removing The Top Level Categories from the original result
         for (let index = 0; index < categories.length; index++) {
