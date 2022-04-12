@@ -27,7 +27,7 @@
                     <div class="col-md-12">
                         <nz-form-item>
                             <nz-form-label nzRequired>Description</nz-form-label>
-                            <nz-form-control nzErrorTip="Enter Description maximum 250 characters allowed!">
+                            <nz-form-control nzErrorTip="Enter Description maximum 1500 characters allowed!">
                                 <ckeditor [config]="config" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
                             </nz-form-control>
                         </nz-form-item>
@@ -152,7 +152,7 @@
                                 </nz-tree-select>
                             </nz-form-control>
                         </nz-form-item>
-                        <div *ngIf="(!selectedCat || selectedCat.length===0) && submitted===true" style="color: Crimson;">
+                        <div *ngIf="strucCategories && ((!selectedCat || selectedCat.length===0) && submitted===true)" style="color: Crimson;">
                             Select Catogory!
                         </div>
                     </div>
@@ -171,7 +171,9 @@
                         <form [formGroup]="tagForm" nz-form [nzLayout]="'horizontal'">
                             <div class="d-flex w-100">
                                 <nz-form-item>
+                                    <nz-form-control nzErrorTip="Enter Tag!">
                                     <input type="text" formControlName="title" placeholder="Enter Tag" dir="rtl" nz-input>
+                                </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
                                     <button class="mr-3" (click)="[getCaptcha($event),addNewTag()]" nz-button nzType="default">Create</button>
@@ -195,7 +197,7 @@
                         <form [formGroup]="quotesForm" nz-form [nzLayout]="'horizontal'">
                             <div class="d-flex w-100">
                                 <nz-form-item>
-                                    <nz-form-control nzErrorTip="Please input valid Quote without spaces!">
+                                    <nz-form-control nzErrorTip="Enter valid Quote without spaces!">
                                     <input type="text" formControlName="name" placeholder="Enter Quote" dir="rtl" nz-input>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -209,21 +211,21 @@
                         <h4 class="mb-2">SEO Settings</h4>
                         <nz-form-item>
                             <nz-form-label nzRequired>Slug Line</nz-form-label>
-                            <nz-form-control nzErrorTip="Enter Slug Line!">
+                            <nz-form-control nzErrorTip="Enter Slug Line maximum 250 characters allowed!">
                                 <input type="text" formControlName="slugLine" placeholder="Enter Slug Line" dir="rtl"
                                     nz-input>
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item>
                             <nz-form-label nzRequired>Title</nz-form-label>
-                            <nz-form-control nzErrorTip="Enter Title!">
+                            <nz-form-control nzErrorTip="Enter Title between 3 to 250 characters!">
                                 <input type="text" formControlName="seoTitle" placeholder="Enter Title" dir="rtl"
                                     nz-input>
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item>
                             <nz-form-label nzRequired>Description</nz-form-label>
-                            <nz-form-control nzErrorTip="Enter Description!">
+                            <nz-form-control nzErrorTip="Enter Description maximum 250 characters allowed!">
                                 <textarea rows="4" formControlName="description" type="text"
                                     placeholder="Enter Description" dir="rtl" nz-input></textarea>
                             </nz-form-control>
