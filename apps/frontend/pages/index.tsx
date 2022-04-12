@@ -28,65 +28,74 @@ export function Index() {
    * Note: The corresponding styles are in the ./index.css file.
    */
 
-  const user:User = {
-    email:'noman@gmail.com',
-    username:"Noman",
-    password:"12345"
-  }
+  const user: User = {
+    email: 'noman@gmail.com',
+    username: 'Noman',
+    password: '12345',
+  };
 
-  const [categories, setCategories] = useState<CategoryProps[]>([])
-  const [limit, setLimit] = useState<number>(5)
+  const [categories, setCategories] = useState<CategoryProps[]>([]);
+  const [limit, setLimit] = useState<number>(5);
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-  dispatch(setUser(user))
+  dispatch(setUser(user));
 
-  useEffect(()=>{
-    GetData(`${requests.categories}/getAll?limit=${limit}&pageNo=1&displayInHomePage=true`, {}, 'get', false).then(res=>{
-      setCategories(res.data?.response?.categories)
-    }).catch(err=>{
-        console.warn(err)
-    })
-  }, [limit])
+  useEffect(() => {
+    GetData(
+      `${requests.categories}/getAll?limit=${limit}&pageNo=1&displayInHomePage=true`,
+      {},
+      'get',
+      false
+    )
+      .then((res) => {
+        setCategories(res.data?.response?.categories);
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }, [limit]);
 
   const details = [
-    {description:'سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي ', proIcon:true, video:false, tag1:'أمريكا', tag2:'منذ 5 دقائق'},
-    {description:'بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي', proIcon:false, video:false, tag1:'أمريكا', tag2:'منذ 5 دقائق'},
-    {description:'بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي', proIcon:false, video:false, tag1:'أمريكا', tag2:'منذ 5 دقائق'},
-]
+    {
+      description:
+        'سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي ',
+      proIcon: true,
+      video: false,
+      tag1: 'أمريكا',
+      tag2: 'منذ 5 دقائق',
+    },
+    {
+      description:
+        'بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي',
+      proIcon: false,
+      video: false,
+      tag1: 'أمريكا',
+      tag2: 'منذ 5 دقائق',
+    },
+    {
+      description:
+        'بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي',
+      proIcon: false,
+      video: false,
+      tag1: 'أمريكا',
+      tag2: 'منذ 5 دقائق',
+    },
+  ];
 
   return (
     <>
-     <div className="d">
-     <MarketIndices />
-      {/* <div className="container">
+      <div className="d">
+        <MarketIndices />
+        {/* <div className="container">
       <AdBanner />
       </div> */}
-     </div>
+      </div>
       <div className="container">
-
         <QuickLinks />
 
-        <div className='PageBuilder-pageRow'>
-          <div className=' PageBuilder-col-9'>
-            <NewsSection />
-          </div>
-          <div className='PageBuilder-sidebar'>
-            <SideBar sideBarSequence={[{ componentType: 'dotList', position: 1, title:'آخر الأخبار' }]} />
-          </div>
-        </div>
-        <div className='PageBuilder-pageRow'>
-          <div className=' PageBuilder-col-9'>
-          <NewsDetatilListWithMedia dispalyMoreButton={false} newsList={categories}/> {/*Secondary News Section */}
-          </div>
-          <div className='PageBuilder-sidebar mt-0'>
-            <SideBar sideBarSequence={[{ componentType: 'SmallBanner', position: 2 }]} />
-            <div className="bannerAddMedia">
-        <AdBanner />
-        </div>
-          </div>
-        </div>
-        
+        <NewsSection/>
+
         <div>
           <SplitScreenBarCharts />
         </div>
@@ -104,64 +113,73 @@ export function Index() {
         <TilesWithLightColorBackground />
       </div>
       <div className="container">
-      <div className="bannerAddMedia">
-        <AdBanner />
+        <div className="bannerAddMedia">
+          <AdBanner />
         </div>
       </div>
       <div className="container">
-        <div className='mb-5'>
-            <HorizontalNumberedList />
+        <div className="mb-5">
+          <HorizontalNumberedList />
         </div>
-        <div className='PageBuilder-sidebar hide_div_web'>
-                    
-                     
-                        {/* <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'} ]} /> */}
-                    
-                        <MostReadSlider/>
-  
-                   
-              </div>
+        <div className="PageBuilder-sidebar hide_div_web">
+          {/* <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'} ]} /> */}
 
-      {/* <div className='PageBuilder-pageRow flex-wrap-reverse p_sm_10'>
+          <MostReadSlider />
+        </div>
+
+        {/* <div className='PageBuilder-pageRow flex-wrap-reverse p_sm_10'>
         <div className='PageBuilder-col-9'>
 
           <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/> */}
 
-      {
-    !categories?.length && <Skeleton/>
-  }
-  {
-    categories?.length && categories?.map((category:CategoryProps, index:number)=>{
-      return (
-        <div className='PageBuilder-pageRow' key={category.id}>
-          <div className='PageBuilder-col-9'>
-            <CategoryNewsSection cat={category} limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
-          </div>
-          <div className='PageBuilder-sidebar'>
-                {
-                  index === 0 && (
-                    <SideBar sideBarSequence={[{ componentType: 'simple', position: 1 , title:'الأكثر قراءة'}, /*{ componentType: 'dotList', position: 2 }*/ ]} />
-                  )
-                }
-                {
-                  index === 2 && (
-                    <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 2 }]} />
-                  )
-                }
-          </div>
-        </div>
-      )
-    })
-  }
-{/* categoreis code is save on usman's side i will revert it after integrating it */}
+        {!categories?.length && <Skeleton />}
+        {categories?.length &&
+          categories?.map((category: CategoryProps, index: number) => {
+            return (
+              <div className="PageBuilder-pageRow" key={category.id}>
+                <div className="PageBuilder-col-9">
+                  <CategoryNewsSection
+                    cat={category}
+                    limit={1}
+                    displayTitle={true}
+                    displayTopTwoNews={true}
+                    displayMoreButton={false}
+                  />
+                </div>
+                <div className="PageBuilder-sidebar">
+                  {index === 0 && (
+                    <SideBar
+                      sideBarSequence={[
+                        {
+                          componentType: 'simple',
+                          position: 1,
+                          title: 'الأكثر قراءة',
+                        } /*{ componentType: 'dotList', position: 2 }*/,
+                      ]}
+                    />
+                  )}
+                  {index === 2 && (
+                    <SideBar
+                      sideBarSequence={[
+                        { componentType: 'LargeBanner', position: 2 },
+                      ]}
+                    />
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        {/* categoreis code is save on usman's side i will revert it after integrating it */}
 
-      <div className="text-center mt-3 mb-4 more_btn" onClick={()=>setLimit(limit + 5)}>
+        <div
+          className="text-center mt-3 mb-4 more_btn"
+          onClick={() => setLimit(limit + 5)}
+        >
           <button className="btn btn-outline-primary">المزيد</button>
+        </div>
+
+        {/* </div> */}
       </div>
-
-      {/* </div> */}
-
-</div>
     </>
   );
 }

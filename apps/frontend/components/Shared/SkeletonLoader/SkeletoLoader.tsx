@@ -9,6 +9,10 @@ const SkeletonLoader = () => {
        setTimeout(()=>{
         setDisplayLoader(false)
        }, 5000)
+
+       return () => {
+        setDisplayLoader(false); 
+      };
     }, [])
     return (
         <>
