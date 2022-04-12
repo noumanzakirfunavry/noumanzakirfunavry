@@ -2,6 +2,7 @@
 import GetData from "apps/frontend/services/GetData";
 import { requests } from "apps/frontend/services/Requests";
 import { CategoryNewsProps } from "apps/frontend/types/Types";
+import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import newsImage from "../../../styles/images/biden.jpg";
 import Title from "../../Title";
@@ -29,7 +30,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                             <img className="img-fluid" src={newsImage.src} />
                         </div>
                         <div className="NewsInfo">
-                            <h4>{news[i]?._source?.title}</h4>
+                        <Link href={`newsDetails/`+news[i]._id}><a><h4>{news && news[0]?._source?.title}</h4> </a></Link>
                             <p>
                                 <a>الإمارات</a>
                                 منذ 5 دقائق</p>
@@ -54,8 +55,8 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                     <img className="img-fluid" src={newsImage.src} />
                                 </div>
                                 <div className="NewsInfo">
-                                    <h3>{news && news[0]?._source?.title} </h3>
-                                    {/* <p><a className="ms-3">الإمارات</a> منذ 5 دقائق</p> */}
+                                   <Link href={`newsDetails/`+news[0]._id}><a><h3>{news && news[0]?._source?.title}</h3> </a></Link>
+                                   {/* <p><a className="ms-3">الإمارات</a> منذ 5 دقائق</p> */}
                                 <p> {news[0]?._source?.quotes.map(quote=>{return ( <a className=" ms-3">{quote}</a>)} )}</p>
 
                                 </div>
@@ -76,7 +77,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                 </div>
                             </div> */}
                                 <div className="NewsInfo">
-                                    <h4>{news && news[1]?._source?.title}</h4>
+                                <Link href={`newsDetails/`+news[1]._id}><a><h4>{news && news[1]?._source?.title}</h4> </a></Link>
                                     <p> {news[1]?._source?.quotes.map(quote=>{return ( <a className=" ms-3">{quote}</a>)} )}</p>
                                 </div>
                             </div>
