@@ -1,7 +1,8 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
-import CategoryNewsSection from "apps/frontend/components/Shared/CategoryNews"
+// import CategoryNewsSection from "apps/frontend/components/Shared/CategoryNews"
+import DummyCategoryNewsSection from "apps/frontend/components/Shared/DummyCategoryNews"
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import Title from "apps/frontend/components/Title"
 import { TileList } from "apps/frontend/types/Types"
@@ -21,7 +22,7 @@ const Index = () =>{
         <div className="container">
         <div className='PageBuilder-pageRow'>
           <div className='PageBuilder-col-9'>
-            <CategoryNewsSection limit = {8} displayTitle={false} displayTopTwoNews={true} displayMoreButton={true}/>
+            <DummyCategoryNewsSection limit = {8} displayTitle={false} displayTopTwoNews={true} displayMoreButton={true}/>
 
           </div>
 
