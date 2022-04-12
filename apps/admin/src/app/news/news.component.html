@@ -28,7 +28,7 @@
                         <tr *ngFor="let news of allNews">
                             <td [nzChecked]="setOfCheckedId.has(news?.id)" [nzDisabled]="news.disabled"
                                 (nzCheckedChange)="onItemChecked(news?.id, $event)"></td>
-                            <td nzEllipsis>{{news?.title}}</td>
+                            <td nzEllipsis nz-tooltip [nzTooltipTitle]="news?.title">{{news?.title}}</td>
                             <td>{{news?.newsType}}</td>
                             <td nzEllipsis><span *ngFor="let catNews of news?.categories">{{catNews?.title}}, </span></td>
                             <td>{{news?.createdAt | date:'dd-MM-YYYY'}}</td>
@@ -41,7 +41,7 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i class="mr-2" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/news/edit/' + news?.id]"></i>
+                                    <i class="mr-2" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/news/update/' + news?.id]"></i>
                                     <i class="mr-2" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(news?.id)"></i>
                                     <i class="mr-2" style="cursor: pointer;" nz-icon nzType="eye" nzTheme="outline"></i>
                                     <i style="cursor: pointer;" nz-icon nzType="share-alt" nzTheme="outline"></i>
