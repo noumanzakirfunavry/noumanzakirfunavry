@@ -1,12 +1,10 @@
-import { IsBooleanString, IsOptional } from "class-validator";
-import { PaginatedRequestDto } from "../pagination.request.dto";
+import { Type } from "class-transformer";
+import { IsBooleanString, IsNumber, IsOptional, Min } from "class-validator";
 
-export class GetNewsByFlagsRequestDto extends PaginatedRequestDto {
+export class GetNewsByFlagsRequestDto {
 	@IsOptional()
 	@IsBooleanString()
 	isFeatured: boolean;
-
-
 
 	@IsOptional()
 	@IsBooleanString()
@@ -19,4 +17,14 @@ export class GetNewsByFlagsRequestDto extends PaginatedRequestDto {
 	@IsOptional()
 	@IsBooleanString()
 	isBreaking: boolean;
+
+	@IsNumber()
+	@Min(1)
+	@Type(() => Number)
+	limit: number;
+
+	@IsNumber()
+	@Min(1)
+	@Type(() => Number)
+	pageNo: number;
 }
