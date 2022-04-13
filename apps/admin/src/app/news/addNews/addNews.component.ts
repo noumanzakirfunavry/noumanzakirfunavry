@@ -271,7 +271,7 @@ export class AddNewsComponent implements OnInit {
                 console.log(res.body);
                 if(mainFile){
                     this.newsModal.imageId = res.body.response.id;
-                    this.newsModal.fileUrl = environment.fileUrl + res.body.response.path
+                    this.newsModal.fileUrl = res.body.response.url
                 }else{
                     this.newsModal.thumbnailId = res.body.response.id;
                     this.newsModal.thumbnailUrl = environment.fileUrl + res.body.response.path
