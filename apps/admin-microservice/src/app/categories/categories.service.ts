@@ -128,25 +128,27 @@ export class CategoriesService {
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
             )
         }
+
+
 				// ** Recursion has been implemented to populate nested submenus,
 				// ** For example, populating main menus with sub menus, with each sub menu having more sub menus etc */ 
         result.rows = result.rows.map(item => item.toJSON())
 
-        let categories = result.rows.filter((item) => item.parentCategoryId == null)
+        // let categories = result.rows.filter((item) => item.parentCategoryId == null)
 
         // Removing The Top Level Categories from the original result
-        for (let index = 0; index < categories.length; index++) {
-            const element = categories[index];
-            result.rows = this.removeItemOnce(result.rows, element);
-        }
+        // for (let index = 0; index < categories.length; index++) {
+        //     const element = categories[index];
+        //     result.rows = this.removeItemOnce(result.rows, element);
+        // }
         // Now Calling to fit all remaining categories
-        this.makingNested(result.rows, categories, 0)
+        // this.makingNested(result.rows, categories, 0)
 
         return new GenericResponseDto(
             HttpStatus.OK,
             "FETCHED SUCCESSFULLY",
             {
-                categories: categories,
+                categories: result.rows,
                 totalCount: await this.parentCountQuery()
             }
         );
