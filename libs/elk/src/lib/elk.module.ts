@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { ElkService } from './elk.service';
-import { ElasticsearchModule } from '@nestjs/elasticsearch';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { SocketModule } from '@cnbc-monorepo/socket';
 @Module({
-  providers: [ElkService],
-  exports: [ElkService],
-  imports: [
-    ConfigModule,
-  
-  ],
+	providers: [ElkService],
+	exports: [ElkService],
+	imports: [
+		ConfigModule,
+
+	],
 })
-export class ElkModule {}
+export class ElkModule { }

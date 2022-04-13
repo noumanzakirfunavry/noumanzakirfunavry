@@ -4,15 +4,17 @@ import {
 	DeleteByQueryRequest,
 	IndexRequest,
 	SearchRequest,
-	UpdateRequest,
+	UpdateRequest
 } from '@elastic/elasticsearch/lib/api/types';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class ElkService {
+	
+
 	private static client: Client = new Client({
-		node: 'http://157.90.67.186:9200',
-		auth: { username: 'developer', password: 'Dev@321' },
+		node: "http://157.90.67.186:9200",
+		auth: { username: "developer", password: "Dev@321" },
 	});
 	static get elkInstance() {
 		return this.client;
