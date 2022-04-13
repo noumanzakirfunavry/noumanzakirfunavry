@@ -131,22 +131,26 @@ export class CategoriesService {
         // ** For example, populating main menus with sub menus, with each sub menu having more sub menus etc */ 
         // result.rows = result.rows.map(item => item.toJSON())
 
-        const categories = result.rows.filter((item) => item.parentCategoryId == null)
-        console.log("🚀 ~ file: categories.service.ts ~ line 134 ~ CategoriesService ~ getAll ~ categories", categories.length)
+        let categories = result.rows.filter((item) => item.parentCategoryId == null)
+        // console.log("🚀 ~ file: categories.service.ts ~ line 135 ~ CategoriesService ~ getAll ~ categories", categories)
+        // console.log("🚀 ~ file: categories.service.ts ~ line 134 ~ CategoriesService ~ getAll ~ categories", categories.length)
 
-        // Removing The Top Level Categories from the original result
+        // // Removing The Top Level Categories from the original result
         for (let index = 0; index < categories.length; index++) {
             const element = categories[index];
             result.rows = this.removeItemOnce(result.rows, element);
         }
+       
+        console.log("🚀 ~ file: categories.service.ts ~ line 134 ~ CategoriesService ~ getAll ~ categories", result.rows.length)
+
         // Now Calling to fit all remaining categories
-        this.makingNested(result.rows, categories, 0)
+        // this.makingNested(result.rows, categories, 0)
 
         return new GenericResponseDto(
             HttpStatus.OK,
             "FETCHED SUCCESSFULLY",
             {
-                categories: result.rows,
+                categories: categories,
                 totalCount: await this.parentCountQuery()
             }
         );
