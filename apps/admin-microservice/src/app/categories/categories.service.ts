@@ -128,24 +128,19 @@ export class CategoriesService {
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].status
             )
         }
-        // ** Recursion has been implemented for future so that nested submenus can be fetched if there is requirement,
-        // ** For example, populating main menus with sub menus, with each sub menu having more sub menus etc */ 
-        // result.rows = result.rows.map(item => item.toJSON())
+				// ** Recursion has been implemented to populate nested submenus,
+				// ** For example, populating main menus with sub menus, with each sub menu having more sub menus etc */ 
+        result.rows = result.rows.map(item => item.toJSON())
 
         let categories = result.rows.filter((item) => item.parentCategoryId == null)
-        // console.log("🚀 ~ file: categories.service.ts ~ line 135 ~ CategoriesService ~ getAll ~ categories", categories)
-        // console.log("🚀 ~ file: categories.service.ts ~ line 134 ~ CategoriesService ~ getAll ~ categories", categories.length)
 
-        // // Removing The Top Level Categories from the original result
+        // Removing The Top Level Categories from the original result
         for (let index = 0; index < categories.length; index++) {
             const element = categories[index];
             result.rows = this.removeItemOnce(result.rows, element);
         }
-
-        console.log("🚀 ~ file: categories.service.ts ~ line 134 ~ CategoriesService ~ getAll ~ categories", result.rows.length)
-
         // Now Calling to fit all remaining categories
-        // this.makingNested(result.rows, categories, 0)
+        this.makingNested(result.rows, categories, 0)
 
         return new GenericResponseDto(
             HttpStatus.OK,
