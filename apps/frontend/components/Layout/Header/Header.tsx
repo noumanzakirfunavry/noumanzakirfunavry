@@ -318,7 +318,7 @@ const Header = () =>{
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 <li className="nav-item dropdown" key={'654564ytf7656'}>
-                                                    <a className="nav-link dropdown-toggle" href="#" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
+                                                    <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="moreOtions">
