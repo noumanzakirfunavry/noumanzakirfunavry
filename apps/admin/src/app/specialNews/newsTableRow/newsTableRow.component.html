@@ -38,7 +38,6 @@
                             <!-- <select [(ngModel)]="news.newsId" (change)="onChangeNews($event.target.value)">
                               <option *ngFor="let catNews of allCategoryNews" [value]="catNews?.id">{{catNews?.title}}</option>
                             </select> -->
-                            {{news | json}}
                           <nz-select nzShowSearch (change)="onChangeNews($event.target.value)" [(ngModel)]="news.newsId" nzPlaceHolder="Select News">
                             <nz-option *ngFor="let catNews of allCategoryNews" [nzValue]="catNews?.id" [nzLabel]="catNews?.title"></nz-option>
                           </nz-select>
