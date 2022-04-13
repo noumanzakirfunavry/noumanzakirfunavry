@@ -264,6 +264,7 @@ export class NewsService {
 
 	private async getAllNewsQuery(query: GetAllNewsRequestDto) {
 		return await this.newsRepository.findAndCountAll({
+            distinct:true,
 			include: [{
 				model: Categories,
 				where: {
