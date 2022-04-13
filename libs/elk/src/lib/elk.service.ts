@@ -13,8 +13,8 @@ export class ElkService {
 	
 
 	private static client: Client = new Client({
-		node: process.env.ELK_NODE,
-		auth: { username: process.env.USERNAME, password: process.env.PASSWORD },
+		node: "http://157.90.67.186:9200",
+		auth: { username: "developer", password: "Dev@321" },
 	});
 	static get elkInstance() {
 		return this.client;
