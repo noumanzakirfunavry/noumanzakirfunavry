@@ -31,7 +31,7 @@
                             <td>{{branch?.fax}}</td>
                             <td>{{branch?.addressLine1}}</td>
                             <td>{{branch?.addressLine2}}</td>
-                            <td>{{branch?.publishedBy}}</td>
+                            <td>{{branch?.user?.name}}</td>
                             <td>
                                 <nz-badge *ngIf="branch?.isActive === true" nzStatus="success"></nz-badge>
                                 <nz-badge *ngIf="branch?.isActive === false" nzStatus="error"></nz-badge>
