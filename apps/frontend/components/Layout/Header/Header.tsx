@@ -297,10 +297,11 @@ const Header = () =>{
                                                         </li> */}
                                                     </ul>
                                                 </li>
-                                                <li className="nav-item" key={'34'}>
-                                                    <Link href="/categoryNewsTiles"><a className="nav-link">التصنيفات</a></Link>
-                                                    <div className="nav-menu-navUnderline">
-                                                    <ul className="dropdown-menu" aria-labelledby="morePrograms">
+                                                <li className="nav-item dropdown" key={'654564ytf7655'}>
+                                                    <a className="nav-link dropdown-toggle" href="#" id="moreCategories" role="button" data-bs-toggle="dropdown" aria-expanded="false" >التصنيفات
+                                                    </a>
+                                                    <div className="nav-menu-navUnderline"></div>
+                                                    <ul className="dropdown-menu" aria-labelledby="moreCategories">
                                                     { // show categories in sub menu
                                                         newsCategoriesList.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
                                                             return(
@@ -311,7 +312,6 @@ const Header = () =>{
                                                         })
                                                     }
                                                     </ul>
-                                                    </div>
                                                 </li>
                                                 <li className="nav-item" key={'35'}>
                                                     <Link href="/marketGraph"><a className="nav-link">الأسواق</a></Link>
