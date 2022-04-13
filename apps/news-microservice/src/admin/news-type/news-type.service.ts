@@ -17,6 +17,7 @@ export class NewsTypeService {
 		)
 	}
 	async updateNews(entity, body, userId) {
+    console.log("🚀 ~ file: news-type.service.ts ~ line 20 ~ NewsTypeService ~ updateNews ~ body", body)
 
 		return await sequelize.transaction(async t => {
 			const transactionHost = { transaction: t };
@@ -46,13 +47,16 @@ export class NewsTypeService {
 				itemsAfterDelete.forEach(item => {
 					itemDictionary[item.newsId] = 2;
 				});
+                console.log("🚀 ~ file: news-type.service.ts ~ line 50 ~ NewsTypeService ~ updateNews ~ itemsAfterDelete", itemsAfterDelete)
 				let itemsToFlag = [];
+				let positionDetails = [];
 				let itemsToDeflag = [];
 
 				let elkUpdateArray = [];
 
 				for (const item in itemDictionary) {
 					if (itemDictionary[item] === 2) {
+						console.log(itemDictionary[item])
 						itemsToFlag.push(item)
 					} else {
 						itemsToDeflag.push(item)
@@ -69,7 +73,11 @@ export class NewsTypeService {
 					} else if (entity.prototype.constructor.name === "FeaturedNews") {
 						flag = 'isFeatured'
 					}
-
+                    console.log("🚀 ~ file: news-type.service.ts ~ line 77 ~ NewsTypeService ~ updateNews ~ body.news", body.news)
+                    console.log("🚀 ~ file: news-type.service.ts ~ line 78 ~ NewsTypeService ~ updateNews ~ item", item)
+					const newsDetail = body.news.filter(news=>news.newsId==item);
+                    console.log("🚀 ~ file: news-type.service.ts ~ line 79 ~ NewsTypeService ~ updateNews ~ newsDetail", newsDetail)
+					console.log("ADSA", {position:newsDetail[0].position,section:newsDetail[0].section})
 					elkUpdateArray.push({
 						update: {
 							_index: 'news',
@@ -78,10 +86,12 @@ export class NewsTypeService {
 					},
 						{
 							doc: {
-								[flag]: true
+								[flag]: true,
+								featuredNews: {position:newsDetail[0].position,section:newsDetail[0].section}
 							}
 						})
 				})
+                console.log("🚀 ~ file: news-type.service.ts ~ line 86 ~ NewsTypeService ~ updateNews ~ itemsToFlag", itemsToFlag)
 
 				itemsToDeflag.forEach(item => {
 					if (entity.prototype.constructor.name === "TrendingNews") {
