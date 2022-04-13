@@ -2,43 +2,47 @@
 import GetData from "apps/frontend/services/GetData";
 import { requests } from "apps/frontend/services/Requests";
 import { CategoryNewsProps } from "apps/frontend/types/Types";
+import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import newsImage from "../../../styles/images/biden.jpg";
 import Title from "../../Title";
 
 const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, displayTopTwoNews, displayMoreButton }) => {
     const [news, setCategoryNews] = useState<any[]>([])
+    const limitVal: number = limit && limit > 0 ? limit : 5; // TODO: currently setting static val too for safe side, can be removed later
+
     useEffect(() => {
+
         // GetData(`${requests.newsByCategories}?limit=${limit}&pageNo=1`, {}, 'get', false).then(res=>{
             if(cat){
-                GetData(`${requests.newsByCategories}${cat.id}`+'?limit=5&pageNo=1', {}, 'get', false).then(res => {
+                GetData(`${requests.newsByCategories}${cat.id}?limit=${limitVal}`+'&pageNo=1', {}, 'get', false).then(res => {
                     setCategoryNews(res.data)
                 }).catch(err => {
                     console.warn(err)
                 })
             }
-    }, [limit])
+    }, [limitVal, cat])
     const fields: JSX.Element[] = [];
     // useEffect(()=>{
-    for (let i = 2; i < news.length; i++) {
+       
+    for (let i = 2; i < news?.length; i++) {
         fields.push(
-            <div className="row" key={i}>
-                <div className="col-md-4 col-sm-6">
+                <div key={i} className="col-md-4 col-sm-6">
                     <div className="newBox ">
                         <div className="NewsImage img_sm_none">
                             <img className="img-fluid" src={newsImage.src} />
                         </div>
                         <div className="NewsInfo">
-                            <h4>{news[i]?._source?.title}</h4>
-                            <p>
-                                <a>الإمارات</a>
-                                منذ 5 دقائق</p>
+                        <Link href={`/newsDetails/`+news[i]._id}><a><h4>{news && news[i]?._source?.title}</h4> </a></Link>
+                            {/* <p><a>الإمارات</a> منذ 5 دقائق</p> */}
+                            <p> {news[i]?._source?.tags.map(quote=>{return ( <a className=" ms-3">{quote}</a>)} )}</p>
+
                         </div>
                     </div>
                 </div>
               
-            </div>
-        );
+            
+        )
     }
     //  }, [])
     return (
@@ -54,9 +58,9 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                     <img className="img-fluid" src={newsImage.src} />
                                 </div>
                                 <div className="NewsInfo">
-                                    <h3>{news && news[0]?._source?.title} </h3>
-                                    {/* <p><a className="ms-3">الإمارات</a> منذ 5 دقائق</p> */}
-                                <p> {news[0]?._source?.quotes.map(quote=>{return ( <a className=" ms-3">{quote}</a>)} )}</p>
+                                   <Link href={`/newsDetails/`+news[0]._id}><a><h3>{news && news[0]?._source?.title}</h3> </a></Link>
+                                   {/* <p><a className="ms-3">الإمارات</a> منذ 5 دقائق</p> */}
+                                <p> {news[0]?._source?.tags?.map(quote=>{return ( <a className=" ms-3">{quote}</a>)} )}</p>
 
                                 </div>
                             </div>
@@ -76,8 +80,8 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                 </div>
                             </div> */}
                                 <div className="NewsInfo">
-                                    <h4>{news && news[1]?._source?.title}</h4>
-                                    <p> {news[1]?._source?.quotes.map(quote=>{return ( <a className=" ms-3">{quote}</a>)} )}</p>
+                                <Link href={`/newsDetails/`+news[1]._id}><a><h4>{news && news[1]?._source?.title}</h4> </a></Link>
+                                    <p> {news[1]?._source?.tags?.map(quote=>{return ( <a className=" ms-3">{quote}</a>)} )}</p>
                                 </div>
                             </div>
                         </div>:<span></span>}
@@ -86,7 +90,9 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                 {/* 2 Top News End*/}
 
                 {/* Remaining news */}
+                <div className="row" >
                 {news.length >2 ? fields:<span></span>}
+                </div>
 
                 {/* <div className="row">
                   { fields}
