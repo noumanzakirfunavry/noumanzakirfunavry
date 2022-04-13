@@ -109,7 +109,7 @@
                                 <textarea type="text" style="min-height:150px;" placeholder="Write a comment..."
                                     nz-input></textarea>
                                 <button class="mr-3" style="position: absolute; right: 0px;bottom:10px" nz-button
-                                    nzType="primary">Add Comment</button>
+                                    nzType="primary" (click)="enableDisable($event)">Add Comment</button>
                             </nz-form-item>
                             <!-- <ng-template #pagination>
                 <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
@@ -132,16 +132,16 @@
                             </nz-form-control>
                         </nz-form-item>
                     </div>
-                    <div>
+                    <!-- <div>
                         <h4 class="mb-2">Sharing Settings</h4>
                         <nz-form-item>
                             <nz-form-control>
-                                <button class="mr-3" nz-button nzType="default">Push Notification</button>
-                                <button class="mr-3" nz-button nzType="default">Twitter</button>
-                                <button class="mr-3" nz-button nzType="default">Facebook</button>
+                                <button class="mr-3" nz-button nzType="default" (click)="enableDisable($event)">Push Notification</button>
+                                <button class="mr-3" nz-button nzType="default" (click)="enableDisable($event)">Twitter</button>
+                                <button class="mr-3" nz-button nzType="default" (click)="enableDisable($event)">Facebook</button>
                             </nz-form-control>
                         </nz-form-item>
-                    </div>
+                    </div> -->
                     <div>
                         <nz-form-item>
                             <nz-form-label nzRequired>Catogory</nz-form-label>
