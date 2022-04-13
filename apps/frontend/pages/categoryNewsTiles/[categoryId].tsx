@@ -31,11 +31,8 @@ const NewsCategoryPage = () => {
 
 
   useEffect(() => {
-
-
     GetData(`${requests.categories}/getById/${router.query.categoryId}`, {}, 'get', false).then(res => {
-      console.log(res);
-      //console.log('test');
+      //console.log(res);
       setCategory(res.data.response.category);
 
     }).catch(err => {
@@ -55,9 +52,9 @@ const NewsCategoryPage = () => {
 
       <div className="container">
         <ul className="category_news_tab">
-          {category && category?.sub?.map(cat => {
+          {category && category?.sub?.map((cat: any) => {
             return (
-              <li>
+              <li key={cat.id}>
                 <a href="javascript:void(0)">{cat.title}</a>
               </li>
             )
@@ -86,8 +83,9 @@ const NewsCategoryPage = () => {
                 displayTopTwoNews={true}
                 displayMoreButton={false}
               />
-              {category && category?.sub?.map(cat=>{
+              {category && category?.sub?.map((cat: any) => {
                 return ( <CategoryNewsSection
+                  key={cat.id}
                   cat={cat}
                   limit={5}
                   displayTitle={true}
