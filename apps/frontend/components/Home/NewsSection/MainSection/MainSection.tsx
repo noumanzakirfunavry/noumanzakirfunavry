@@ -56,7 +56,7 @@ const MainSection = ({ newsList }) => {
                                                     {news?._source?.image ? <img className="img-fluid" src={news?._source?.image.url} /> : <img className="img-fluid" src={newsimage.src} />}
                                                 </div>
                                                 <div className={styles.newsdetails}>
-                                                    <Link href={`/newsDetails/` + news._id}> <a >{news?._source?.title}</a></Link>
+                                                    <Link href={`/newsDetails/` + news._id}><a >{news?._source?.title}</a></Link>
                                                 </div>
                                             </div>
                                         </div>
