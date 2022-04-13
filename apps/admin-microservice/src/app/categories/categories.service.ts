@@ -13,7 +13,7 @@ export class CategoriesService {
     ) { }
 
     async getById(id: number) {
-        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: ['user' ,{ model: Categories, as: 'sub', include: ['user'] }], })
+        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: ['user', { model: Categories, as: 'sub', include: ['user'] }], })
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -23,16 +23,16 @@ export class CategoriesService {
         return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
     }
 
-		async getByIdClient(id: number) {
-			const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: [{ model: Categories, as: 'sub' }], })
-			if (!result) {
-					throw new CustomException(
-							Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-							Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-					)
-			}
-			return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
-	}
+    async getByIdClient(id: number) {
+        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: [{ model: Categories, as: 'sub' }], })
+        if (!result) {
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+        return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
+    }
 
     async add(body, userId: number) {
         const result = await this.categoryRepo.create({ ...body, publishedBy: userId })
@@ -107,9 +107,10 @@ export class CategoriesService {
 
             {
                 include: ['user', {
-                    model: Categories, as: 'sub', where: {
-
-                        isActive: true
+                    model: Categories, as: 'sub', required: false, where: {
+                        displayInHomePage: query.displayInHomePage || false,
+                        displayInCategoryMenu: query.displayInCategoryMenu || true,
+                        isActive: true,
                     }
                 }],
                 where: { ...where, isActive: true },
@@ -118,8 +119,8 @@ export class CategoriesService {
             }
 
         )
-        console.log("🚀 ~ file: categories.service.ts ~ line 109 ~ CategoriesService ~ getAll ~ result", result)
-        console.log("🚀 ~ file: categories.service.ts ~ line 108 ~ CategoriesService ~ getAll ~ { ...where, isActive: true }", { ...where, isActive: true })
+        // console.log("🚀 ~ file: categories.service.ts ~ line 109 ~ CategoriesService ~ getAll ~ result", result.rows)
+        // console.log("🚀 ~ file: categories.service.ts ~ line 108 ~ CategoriesService ~ getAll ~ { ...where, isActive: true }", { ...where, isActive: true })
         if (!result.count) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -130,21 +131,26 @@ export class CategoriesService {
         // ** For example, populating main menus with sub menus, with each sub menu having more sub menus etc */ 
         // result.rows = result.rows.map(item => item.toJSON())
 
-        // let categories = result.rows.filter((item) => item.parentCategoryId == null)
+        let categories = result.rows.filter((item) => item.parentCategoryId == null)
+        // console.log("🚀 ~ file: categories.service.ts ~ line 135 ~ CategoriesService ~ getAll ~ categories", categories)
+        // console.log("🚀 ~ file: categories.service.ts ~ line 134 ~ CategoriesService ~ getAll ~ categories", categories.length)
 
         // // Removing The Top Level Categories from the original result
-        // for (let index = 0; index < categories.length; index++) {
-        //     const element = categories[index];
-        //     result.rows = this.removeItemOnce(result.rows, element);
-        // }
-        // // Now Calling to fit all remaining categories
+        for (let index = 0; index < categories.length; index++) {
+            const element = categories[index];
+            result.rows = this.removeItemOnce(result.rows, element);
+        }
+       
+        console.log("🚀 ~ file: categories.service.ts ~ line 134 ~ CategoriesService ~ getAll ~ categories", result.rows.length)
+
+        // Now Calling to fit all remaining categories
         // this.makingNested(result.rows, categories, 0)
 
         return new GenericResponseDto(
             HttpStatus.OK,
             "FETCHED SUCCESSFULLY",
             {
-                categories: result.rows,
+                categories: categories,
                 totalCount: await this.parentCountQuery()
             }
         );

@@ -20,8 +20,10 @@ export class NewsTypeService {
 
 		return await sequelize.transaction(async t => {
 			const transactionHost = { transaction: t };
-			let itemsBeforeDelete: any = await sequelize.getRepository(entity).findAll({ attributes: ['id', 'newsId'], raw: true, nest: true })
+			let itemsBeforeDelete: any = await sequelize.getRepository(entity).findAll({ attributes: ['id', 'newsId'], raw: true, nest: true,transaction:transactionHost.transaction })
+            console.log("🚀 ~ file: news-type.service.ts ~ line 24 ~ NewsTypeService ~ updateNews ~ itemsBeforeDelete", itemsBeforeDelete)
 			const delete_previous = await this.deletePreviousNews(entity, transactionHost)
+            console.log("🚀 ~ file: news-type.service.ts ~ line 26 ~ NewsTypeService ~ updateNews ~ delete_previous", delete_previous)
 			if (delete_previous) {
 				body = this.helperService.addUser(body, userId)
 				let addNews;
@@ -34,7 +36,7 @@ export class NewsTypeService {
 						)
 					}
 				}
-				const itemsAfterDelete: any = await sequelize.getRepository(entity).findAll({ attributes: ['id', 'newsId'], raw: true, nest: true })
+				const itemsAfterDelete: any = await sequelize.getRepository(entity).findAll({ attributes: ['id', 'newsId'], raw: true, nest: true ,transaction:transactionHost.transaction })
 
 				// First Loop To Create Dictionary
 				let itemDictionary = {};
