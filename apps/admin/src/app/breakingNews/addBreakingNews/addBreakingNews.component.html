@@ -21,19 +21,19 @@
               <nz-switch class="mr-3" formControlName="isActive"> </nz-switch>  Active
             </nz-form-control>
           </nz-form-item >
-          <div>
+          <!-- <div>
             <h4 class="mb-2">Sharing Settings</h4>
             <nz-form-item>
                 <nz-form-control [nzSpan]="14">
                     <button class="mr-3" nz-button 
                     nzType= "" [ngClass]="breakingNewsForm.value.isPushNotificationActive === true ? 'primary' : 'default'" (click)="enableDisable($event)">Push Notification</button>
                     <button class="mr-3" nz-button 
-                    nzType="" [ngClass]="breakingNewsForm.value.IsTwitterActive === true ? 'primary' : 'default'" >Twitter</button>
+                    nzType="" [ngClass]="breakingNewsForm.value.IsTwitterActive === true ? 'primary' : 'default'" (click)="enableDisable($event)">Twitter</button>
                     <button class="mr-3" nz-button 
-                    nzType=""  [ngClass]="breakingNewsForm.value.isFacebookActive === true ? 'primary' : 'default'">Facebook</button>
+                    nzType=""  [ngClass]="breakingNewsForm.value.isFacebookActive === true ? 'primary' : 'default'" (click)="enableDisable($event)">Facebook</button>
                 </nz-form-control>
             </nz-form-item>
-        </div>
+        </div> -->
         <!-- <nz-form-item>
           <nz-form-label [nzSpan]="6" nzFor="text">Set Visibility Time: </nz-form-label>
           <nz-form-control [nzSpan]="4">
