@@ -12,7 +12,7 @@ export class ClientCategoriesController {
     ){}
 
 		@Get('getById/:id')
-    async getById(@Param('id') id: number){
+    async getByIdClient(@Param('id') id: number){
         return await this.categoryService.getByIdClient(id)
     }
 

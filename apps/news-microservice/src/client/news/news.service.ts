@@ -60,7 +60,7 @@ export class NewsService {
 				include: [{
 					model: BreakingNews, where: {
 						createdAt: {
-							[Op.gte]: new Date(Date.now()-30*60*1000)
+							[Op.gte]: new Date(Date.now() - 30 * 60 * 1000)
 						}
 					}
 				}]
@@ -93,11 +93,12 @@ export class NewsService {
 
 		return ElkService.search({
 			index: 'news',
-			from: getNewsByFlagsRequestDto.pageNo,
+			from: getNewsByFlagsRequestDto.pageNo - 1,
 			size: getNewsByFlagsRequestDto.limit,
 			query: {
 				bool: {
-					must: filtersArray
+					must: filtersArray,
+					must_not: [{ exists: { field: "deletedAt" } }]
 				}
 			}
 		})
