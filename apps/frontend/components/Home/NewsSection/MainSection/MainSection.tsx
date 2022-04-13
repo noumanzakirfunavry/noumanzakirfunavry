@@ -4,8 +4,9 @@
 import styles from "./mainsection.module.css";
 import newsimage from "../../../../styles/images/biden.jpg";
 import React from "react";
+import Link from "next/link";
 
-const MainSection = ({newsList}) =>{
+const MainSection = ({ newsList }) => {
 
     // const first3MainNews = newsList?.filter((news:any)=>{
     //     return news?._source?.featuredNews?.position <= 3
@@ -18,50 +19,52 @@ const MainSection = ({newsList}) =>{
     return (
         <>
             <div className="row">
-
-                    <div className="col-lg-8 p_sm_0">
-                        <div className={styles.mainNews} >
-                            <div className={styles.newscontent}>
-                                {/* <h1><a >النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب</a></h1>
+                <div className="col-lg-8 p_sm_0">
+                    <div className={styles.mainNews} >
+                        <div className={styles.newscontent} >
+                            {/* <h1><a >النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب</a></h1>
                                 <hr></hr>
                                 <h3><a >بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</a></h3>
                                 <hr></hr>
                                 <h3><a >مدير منظمة الصحة يحث الدول على اتخاذ إجراءات “متعقلة” في مواجهة أوميكرون</a></h3> */}
-                                {
-                                   newsList?.length && newsList?.map((news:any, index:number)=>{
-                                        if(index < 3) 
-                                            return (
-                                                <React.Fragment key={news._id}>
-                                                    <h1><a >{news?._source?.title}</a></h1>
-                                                    <hr></hr>
-                                                </React.Fragment>
-                                            )
-                                    })
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 ">
-                        <div className="row">
                             {
-                                newsList?.length && newsList?.map((news:any, index:number)=>{
-                                    if(index>=3){
+                                newsList?.length && newsList?.map((news: any, index: number) => {
+                                    if (index < 3)
                                         return (
-                                            <div className="col-sm-6 col-lg-12 list_w" key={news._id}>
-                                                <div className={styles.newsbox}>
-                                                    <div className={styles.newsimage}>
-                                                        <img className="img-fluid" src={newsimage.src} />
-                                                    </div>
-                                                    <div className={styles.newsdetails}>
-                                                        <a >{news?._source?.title}</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <React.Fragment key={news._id}>
+                                                <h1>
+                                                    <Link href={`/newsDetails/` + news._id}><a >{news?._source?.title}</a></Link>
+                                                </h1>
+                                                <hr></hr>
+                                            </React.Fragment>
                                         )
-                                    }
                                 })
                             }
-                            {/* <div className="col-sm-6 col-lg-12">
+                        </div>
+                    </div>
+                </div>
+                <div className="col-lg-4 ">
+                    <div className="row">
+                        {
+                            newsList?.length && newsList?.map((news: any, index: number) => {
+                                if (index >= 3) {
+                                    return (
+                                        <div className="col-sm-6 col-lg-12 list_w" key={news._id}>
+                                            <div className={styles.newsbox}>
+                                                <div className={styles.newsimage}>
+                                                    {/* <img className="img-fluid" src={newsimage.src} /> */}
+                                                    {news?._source?.image ? <img className="img-fluid" src={news?._source?.image.url} /> : <img className="img-fluid" src={newsimage.src} />}
+                                                </div>
+                                                <div className={styles.newsdetails}>
+                                                    <Link href={`/newsDetails/` + news._id}> <a >{news?._source?.title}</a></Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            })
+                        }
+                        {/* <div className="col-sm-6 col-lg-12">
                                 <div className={styles.newsbox}>
                                     <div className={styles.newsimage}>
                                         <img className="img-fluid" src={newsimage.src} />
@@ -81,7 +84,7 @@ const MainSection = ({newsList}) =>{
                                     </div>
                                 </div>
                             </div> */}
-                        </div>
+                    </div>
 
                 </div>
             </div>
