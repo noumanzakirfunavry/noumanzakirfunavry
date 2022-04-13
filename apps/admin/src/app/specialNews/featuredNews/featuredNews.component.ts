@@ -83,7 +83,9 @@ export class FeaturedNewsComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllCategories();
-        this.getAllFeaturedNews();
+        if(this.allCategories) {
+            this.getAllFeaturedNews();
+        }
     }
 
     getAllCategories() {
@@ -121,7 +123,7 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     updateFeaturedNews() {
-            this.fNews.forEach(news => {
+        this.fNews.forEach(news => {
                 news.newsId = parseInt(news.newsId);
             })
             this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
