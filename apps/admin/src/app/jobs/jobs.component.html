@@ -29,7 +29,7 @@
                             (nzCheckedChange)="onItemChecked(job?.id, $event)"></td>
                             <td>{{job?.id}}</td>
                             <td>{{job?.title}}</td>
-                            <td>{{job?.branchId}}</td>
+                            <td>{{job?.branch?.title}}</td>
                             <td>{{job?.createdAt | date: 'dd-MM-YYYY'}}</td>
                             <td>{{job?.updatedAt | date: 'dd-MM-YYYY'}}</td>
                             <td>{{job?.user?.name}}</td>

@@ -88,8 +88,8 @@ export class AddBreakingNewsComponent implements OnInit {
     }
 
     enableDisable(e?: MouseEvent) {
-      this.breakingNewsForm.value.isPushNotificationActive= !this.breakingNewsForm.value.isPushNotificationActive; 
-      console.log("PUSH-NOTIF", this.breakingNewsForm.value.isPushNotificationActive);
+      // this.breakingNewsForm.value.isPushNotificationActive= !this.breakingNewsForm.value.isPushNotificationActive; 
+      // console.log("PUSH-NOTIF", this.breakingNewsForm.value.isPushNotificationActive);
       e.preventDefault();
     }
 
