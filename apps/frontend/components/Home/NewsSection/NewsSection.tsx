@@ -59,7 +59,7 @@ const NewsSection:FC = () =>{
             <div className="PageBuilder-pageRow">
                 <div className=" PageBuilder-col-9">
 
-                    {featuredNews.mainNews?.length &&
+                    {featuredNews.secondaryNews?.length &&
                         <NewsDetatilListWithMedia
                             dispalyMoreButton={false}
                             newsList={featuredNews.secondaryNews}
