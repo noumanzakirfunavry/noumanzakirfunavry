@@ -13,7 +13,7 @@ export class CategoriesService {
     ) { }
 
     async getById(id: number) {
-        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: ['user' ,{ model: Categories, as: 'sub', include: ['user'] }], })
+        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: ['user', { model: Categories, as: 'sub', include: ['user'] }], })
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -23,16 +23,16 @@ export class CategoriesService {
         return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
     }
 
-		async getByIdClient(id: number) {
-			const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: [{ model: Categories, as: 'sub' }], })
-			if (!result) {
-					throw new CustomException(
-							Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-							Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-					)
-			}
-			return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
-	}
+    async getByIdClient(id: number) {
+        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: [{ model: Categories, as: 'sub' }], })
+        if (!result) {
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+        return new GetByIdCategoryResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
+    }
 
     async add(body, userId: number) {
         const result = await this.categoryRepo.create({ ...body, publishedBy: userId })
@@ -99,6 +99,8 @@ export class CategoriesService {
     async getAll(query: GetAllCategoriesRequestDto) {
         let { limit, pageNo, ...where } = query
         console.log("🚀 ~ file: categories.service.ts ~ line 89 ~ CategoriesService ~ getAll ~ where", where)
+        console.log("🚀 ~ file: categories.service.ts ~ line 112 ~ CategoriesService ~ getAll ~ query.displayInHomePage", query.displayInHomePage)
+
         let offset = 0
         pageNo = pageNo - 1;
         if (pageNo) offset = limit * pageNo;
@@ -107,9 +109,9 @@ export class CategoriesService {
 
             {
                 include: ['user', {
-                    model: Categories, as: 'sub', where: {
-
-                        isActive: true
+                    model: Categories, as: 'sub', required: false, where: {
+                        ...where,
+                        isActive: true,
                     }
                 }],
                 where: { ...where, isActive: true },
@@ -118,8 +120,8 @@ export class CategoriesService {
             }
 
         )
-        console.log("🚀 ~ file: categories.service.ts ~ line 109 ~ CategoriesService ~ getAll ~ result", result)
-        console.log("🚀 ~ file: categories.service.ts ~ line 108 ~ CategoriesService ~ getAll ~ { ...where, isActive: true }", { ...where, isActive: true })
+        // console.log("🚀 ~ file: categories.service.ts ~ line 109 ~ CategoriesService ~ getAll ~ result", result.rows)
+        // console.log("🚀 ~ file: categories.service.ts ~ line 108 ~ CategoriesService ~ getAll ~ { ...where, isActive: true }", { ...where, isActive: true })
         if (!result.count) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,

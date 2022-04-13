@@ -15,4 +15,5 @@ export const requests={
     categories: adminAPIClient+'categories',
     newsByCategories:newsAPIClient+'news/get/category/',
     featuredNews:newsAPIClient+'news/get/flags?isFeatured=true',
+    NewsById:newsAPIClient+'news/getById/',
 }
