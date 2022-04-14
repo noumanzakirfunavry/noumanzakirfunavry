@@ -16,11 +16,11 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                             return (
                                 <li key={index}>
                                     <div className="newsText">
-                                        <Link href={`/newsDetails/`+news?._id}><a href="#">{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a></Link>
+                                        <a href="#">{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a>
                                         <p><a href="#">{news?._source?.authorName}</a> <b> {dateFormat(news?._source?.createdAt, "dd-mm-yyyy")} </b></p>
                                     </div>
                                     <div className="newsImage">
-                                    {news?._source?.image ? <img className="img-fluid" src={news?._source.image.url} />:<img className="img-fluid" src={newsimg.src} />}
+                                        {!news?._source?.imageId && (<img alt="img" className="img-fluid" src={newsimg.src} />)}
                                         {news?._source?.videoId && (<iframe width="190" src="https://www.youtube.com/embed/SbsgyRhYbdw?controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>)}
                                     </div>
                                 </li>

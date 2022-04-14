@@ -1,78 +1,80 @@
 import { ContentTypes, NewsTypes } from "@cnbc-monorepo/enums";
 import { Type } from "class-transformer";
-import { ArrayNotEmpty, IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl, ValidateNested } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl, MaxLength, ValidateNested } from "class-validator";
 import { CreateSeoRequestDto } from "../seo/create.seo.request.dto";
 
-export class CreateNewsRequestDto{
+export class CreateNewsRequestDto {
 
     @IsNotEmpty()
     @IsString()
-    title : string
+    @MaxLength(255)
+    title: string
 
     @IsNotEmpty()
     @IsString()
-    content : string
+    @MaxLength(1500)
+    content: string
 
     @IsNotEmpty()
     @IsBoolean()
-    isPro : boolean
+    isPro: boolean
 
     @IsNotEmpty()
     @IsBoolean()
-    visible : boolean
+    visible: boolean
 
     @IsNotEmpty()
     @IsEnum(ContentTypes)
-    contentType : string
+    contentType: string
 
     @IsOptional()
-    videoId : number
+    videoId: number
 
     @IsOptional()
-    thumbnailId : number
+    thumbnailId: number
 
     @IsOptional()
-    imageId : number
+    imageId: number
 
     @IsNotEmpty()
     @IsString()
-    authorName : string
+    authorName: string
 
     @IsOptional()
-    facebookLink : string
+    facebookLink: string
 
     @IsOptional()
-    twitterLink : string
+    twitterLink: string
 
     @IsNotEmpty()
     @IsEnum(NewsTypes)
-    newsType : string
+    newsType: string
 
     @IsNotEmpty()
     @IsBoolean()
-    showOnHomepage : boolean
+    showOnHomepage: boolean
 
     @IsNotEmpty()
     @IsBoolean()
-    isActive : boolean
+    isActive: boolean
 
     @IsNotEmpty()
-    @ValidateNested({each : true})
+    @ValidateNested({ each: true })
     @Type(() => CreateSeoRequestDto)
-    seoDetails : CreateSeoRequestDto
+    seoDetails: CreateSeoRequestDto
 
     @IsArray()
     @ArrayNotEmpty()
     @IsOptional()
-    tagsIds : number[]
+    tagsIds: number[]
 
     @IsArray()
     @ArrayNotEmpty()
     @IsOptional()
-    quotesIds : []
+    quotesIds: []
 
     @IsArray()
     @ArrayNotEmpty()
-    categoryIds : number[]
+    categoryIds: number[]
 
 }
