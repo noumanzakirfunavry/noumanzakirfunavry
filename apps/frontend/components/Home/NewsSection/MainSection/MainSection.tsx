@@ -32,9 +32,13 @@ const MainSection = ({ newsList }) => {
                                     if (index < 3)
                                         return (
                                             <React.Fragment key={news._id}>
-                                                <h1>
+                                               { index==0 ? <h1>
                                                     <Link href={`/newsDetails/` + news._id}><a >{news?._source?.title}</a></Link>
-                                                </h1>
+                                                </h1>:
+                                                <h3>
+                                                    <Link href={`/newsDetails/` + news._id}><a >{news?._source?.title}</a></Link>
+                                                </h3>}
+
                                                 <hr></hr>
                                             </React.Fragment>
                                         )

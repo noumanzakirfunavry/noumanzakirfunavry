@@ -30,17 +30,16 @@ const NewsSection:FC = () =>{
                 return news._source.featuredNews?.section=='MAIN'
             })
 
-            featuredNews.mainNews = featuredNews.mainNews?.sort((first, second) => {
-                return (first._source.featuredNews?.position > second._source.featuredNews?.position ? 1 : -1)
-            })
+            // featuredNews.mainNews = featuredNews.mainNews?.sort((first, second) => {
+            //     return (first._source.featuredNews?.position > second._source.featuredNews?.position ? 1 : -1)
+            // })
 
             featuredNews.secondaryNews = res.data?.filter((news:any)=>{
                 return news._source.featuredNews?.section!='MAIN'
             })
+            featuredNews.mainNews=featuredNews.mainNews.sort((a,b) => a._source.featuredNews?.position - b._source.featuredNews?.position);
+            featuredNews.secondaryNews=featuredNews.secondaryNews.sort((a,b) => a._source.featuredNews?.position - b._source.featuredNews?.position);
 
-            featuredNews.secondaryNews = featuredNews.secondaryNews?.sort((first, second) => {
-                return (first._source.featuredNews?.position > second._source.featuredNews?.position ? 1 : -1)
-            })
             setFeaturedNews({...featuredNews})
         }).catch(err=>{
             console.log(err)
