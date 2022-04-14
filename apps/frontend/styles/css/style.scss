@@ -640,7 +640,7 @@ h6{
     margin: 0 0 5px 0;
     font-weight: bold;
     &.text-danger{
-      font-size: 12px;
+      font-size: 15px;
     }
   }
 
@@ -713,10 +713,13 @@ h6{
       transition: width .5s;
   }
   .VideoNews .PlayTime .btn{
-    // padding: 15px 20px 15px 15px;
-    text-align: center;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
   }
 
   .VideoNews .PlayTime:hover .btn{
@@ -731,9 +734,11 @@ h6{
     padding: 0px 15px 0 5px;
     font-size: 20px;
     font-weight: 900;
+    transition: width 0.5s;
   }
   .VideoNews .PlayTime:hover .btn-text span{
     display: block;
+    transition: width 0.5s;
 }
   .VideoNews .PlayTime .btn i{
       color: $white;
@@ -803,6 +808,8 @@ h6{
   .VideoTiles .VideoNews .PlayTime .btn{
     font-size: 12px;
     padding: 5px ;
+    width: 35px;
+    height: 35px;
 }
 .NewsTilesBg .VideoTiles .VideoNews .PlayTime .btn-text span {
     padding: 0px 5px 0px;
@@ -1387,18 +1394,47 @@ h6{
 }
 .slick-slider .slick-prev{
   left: 0px;
-  background: url(../images/arrow-left.svg) no-repeat !important;
+  // background: url(../images/arrow-left.svg) no-repeat !important;
+  &::after{
+    content: "\27F5";
+    display: inline-block;
+    font-size: 45px;
+    color: #DDDDDD;
+  }
 }
 .slick-slider .slick-next{
   left: 70px;
-  background: url(../images/arrow-right.svg) no-repeat !important;
+  // background: url(../images/arrow-right.svg) no-repeat !important;
+  &::after{
+    content: "\27F6";
+    display: inline-block;
+    font-size: 45px;
+    color: #DDDDDD;
+  }
 }
-.slick-slider .slick-prev:hover{
-  background: url(../images/arrow-left-hover.svg) no-repeat !important;
+.slick-slider .slick-prev, .slick-slider .slick-next{
+  &:hover{
+   &::after{
+    color: #002F6C;
+   }
+  }
 }
-.slick-slider .slick-next:hover{
-  background: url(../images/arrow-right-hover.svg) no-repeat !important;
+.livetvSlider {
+  .slick-slider .slick-prev, .slick-slider .slick-next{
+    &:hover{
+     &::after{
+      color: #FCB700;
+     }
+    }
+  }
 }
+
+// .slick-slider .slick-prev:hover{
+//   background: url(../images/arrow-left-hover.svg) no-repeat !important;
+// }
+// .slick-slider .slick-next:hover{
+//   background: url(../images/arrow-right-hover.svg) no-repeat !important;
+// }
 .slick-slider .slick-prev:before,
 .slick-slider .slick-next:before{
   content: none;
@@ -1646,6 +1682,8 @@ h6{
 .VideoTextBox .VideoNews .PlayTime .btn{
 font-size: 12px;
 padding: 5px 10px;
+width: 35px;
+height: 35px;
 }
 .VideoTextBox .VideoNews .PlayTime .btn-text span {
 padding: 5px 5px 0px;
@@ -2669,6 +2707,7 @@ select::-ms-expand {
       // width: 300px;
       width: 100%;
       height: 170px;
+      overflow: hidden;
       .PlayTime{
         h5{
           font: normal normal 900 12px/30px Cairo;
@@ -3141,7 +3180,7 @@ h6.newsDetailtext
       top: 0;
       left: 0;
       right: 0;
-      z-index: 19;
+      z-index: 199;
       transition: all .25s;
       display: flex;
       align-items: center;
