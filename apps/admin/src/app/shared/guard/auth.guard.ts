@@ -7,6 +7,6 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const admin = JSON.parse(localStorage.getItem('admin') || '{}');
-        return admin.access_token ? true:false;
+        return admin.token.access_token ? true:false;
     }
 }

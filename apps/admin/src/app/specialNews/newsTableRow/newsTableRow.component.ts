@@ -69,14 +69,34 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit{
     }
 
     getCategoryNews(catId?: any) {
-        console.log("SEL-CAT", this.selectedCat)
+        // console.log("SEL-CAT", this.selectedCat)
         this.pagination.categoryId= catId ? catId : null;
         this.apiService.sendRequest(requests.getAllNews, 'get', {pageNo:1, limit:30, categoryId:parseInt(catId)}).subscribe((res:any) => {
             this.allCategoryNews= res.response.news;
             this.news.newsId = null
             console.log("CATEGORY-NEWS", this.allCategoryNews);
+        //     const dataToShow: any = [];
+        //     this.allCategories.forEach((element: any) => {
+        //     const findId: any = this.allCategoryNews.find((x: any) => x.id == element.id);
+        //     console.log("FIND-ID", findId);
+        //     if (findId == -1) {
+        //         dataToShow.push(element);
+        //     }
+        // });
+        //     return dataToShow;
         })
     }
+
+    // getOtherCategoryNews() {
+    //     const dataToShow: any = [];
+    //     this.allCategories.forEach((element: any) => {
+    //     const findIndex: any = this.allCategoryNews.findIndex((x: any) => x.id == element.id);
+    //     if (findIndex == -1) {
+    //         dataToShow.push(element);
+    //     }
+    // });
+    //     return dataToShow;
+    // }
 
     clean(obj:any) {
         for (const propName in obj) {

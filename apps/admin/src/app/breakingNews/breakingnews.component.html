@@ -29,7 +29,7 @@
                                 (nzCheckedChange)="onItemChecked(breakingNews?.id, $event)"></td>
                             <td>{{breakingNews?.id}}</td>
                             <td nzEllipsis nz-tooltip [nzTooltipTitle]="breakingNews?.title">{{breakingNews?.title}}</td>
-                            <td>{{breakingNews?.newsLink}}</td>
+                            <td nzEllipsis nz-tooltip [nzTooltipTitle]="breakingNews?.newsLink">{{breakingNews?.newsLink}}</td>
                             <td>{{breakingNews?.createdAt | date: 'dd-MM-YYYY'}}</td>
                             <td>{{breakingNews?.updatedAt | date: 'dd-MM-YYYY'}}</td>
                             <td>{{breakingNews?.user?.name}}</td>
@@ -40,8 +40,8 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/breakingNews/update/' + breakingNews?.id]"></i>
-                                    <i style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(breakingNews?.id)"></i>
+                                    <i nz-tooltip nzTooltipTitle="Edit" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/breakingNews/update/' + breakingNews?.id]"></i>
+                                    <i nz-tooltip nzTooltipTitle="Delete" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(breakingNews?.id)"></i>
                                 </div>
                             </td>
                         </tr>
