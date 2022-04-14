@@ -24,7 +24,7 @@ export class TagsService {
         if (query.title) {
             where['title'] = query.title
         }
-        const result = await this.tagsRepo.findAndCountAll({ where: where, offset: offset, limit: query.limit })
+        const result = await this.tagsRepo.findAndCountAll({ where: {...where, isActive: true }, offset: offset, limit: query.limit })
         if (!result.count) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,

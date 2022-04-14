@@ -32,6 +32,9 @@ export class QuickLinksService {
     const result = await this.quickLinksRepo.findAll({
       offset: offset,
       limit: query.limit,
+			where: {
+				visible: true
+			}
     });
     if (!result.length) {
       throw new CustomException(
@@ -49,7 +52,7 @@ export class QuickLinksService {
   }
 
   async getById(id: number) {
-    const result = await this.quickLinksRepo.findOne({ where: { id } });
+    const result = await this.quickLinksRepo.findOne({ where: { id, visible: true } });
     if (!result) {
       throw new CustomException(
         Exceptions[ExceptionType.RECORD_NOT_FOUND].message,

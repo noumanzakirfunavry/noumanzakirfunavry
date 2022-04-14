@@ -81,8 +81,15 @@ export class AdminService {
             }
         );
     }
-    async deleteAdmins(query: DeletePresentersRequestDto): Promise<GenericResponseDto> {
-        try {
+    async deleteAdmins(query: DeletePresentersRequestDto, currentUserId: number): Promise<GenericResponseDto> {
+      if(query.id.some(id=> parseInt(id)===currentUserId)){
+				throw new CustomException(
+					Exceptions[ExceptionType.USER_CANT_DELETE_THEMSELF].message,
+					Exceptions[ExceptionType.USER_CANT_DELETE_THEMSELF].status
+			)
+			}
+			
+			try {
             let user_exists;
             let delete_user;
             for (let i = 0; i < query.id.length; i++) {

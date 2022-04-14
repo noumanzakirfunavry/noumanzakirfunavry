@@ -26,7 +26,9 @@ export class AnthenticationService {
             const response = await this.usersRepository.findOne({
                 include: [Roles, Rights],
                 where: {
-                    userName: body.userName
+                    userName: body.userName,
+										isActive: true,
+										isVerified: true
                 }
             })
             if (response) {
@@ -38,7 +40,14 @@ export class AnthenticationService {
                         return new GenericResponseDto(
                             HttpStatus.OK,
                             "Logged-in Successfully!",
-                            token
+                            {
+															user: {
+																id: response.id,
+																name: response.name,
+																email: response.email,
+															},
+															token
+														}
                         )
                     }
                 }

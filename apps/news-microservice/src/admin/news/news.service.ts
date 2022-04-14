@@ -260,6 +260,7 @@ export class NewsService {
 
 	private async getAllNewsQuery(query: GetAllNewsRequestDto) {
 		return await this.newsRepository.findAndCountAll({
+			distinct: true,
 			include: [{
 				model: Categories,
 				where: {
@@ -307,7 +308,8 @@ export class NewsService {
 				})
 			},
 			limit: parseInt(query.limit.toString()),
-			offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
+			offset: this.helperService.offsetCalculator(query.pageNo, query.limit),
+			order: [['updatedAt', 'DESC']]
 		});
 	}
 
