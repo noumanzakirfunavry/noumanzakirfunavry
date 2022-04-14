@@ -1,9 +1,10 @@
-import { ExceptionHandlingModule } from '@cnbc-monorepo/exception-handling';
-import { ProvidersModule } from '@cnbc-monorepo/providers';
-import { UtilityModule } from '@cnbc-monorepo/utility';
 import { Module } from '@nestjs/common';
-import { NewsController } from './news.controller';
 import { NewsService } from './news.service';
+import { NewsController } from './news.controller';
+import { ProvidersModule } from '@cnbc-monorepo/providers';
+import {AuthModuleModule} from '@cnbc-monorepo/auth-module'
+import { ExceptionHandlingModule } from '@cnbc-monorepo/exception-handling';
+import { UtilityModule } from '@cnbc-monorepo/utility';
 @Module({
   providers: [NewsService],
   controllers: [NewsController],
