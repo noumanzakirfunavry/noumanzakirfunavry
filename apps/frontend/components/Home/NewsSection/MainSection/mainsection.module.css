@@ -7,6 +7,7 @@
     display: flex;
     margin-bottom: 32px;
     background-size: cover;
+    cursor: pointer;
   }
   .newscontent{
     background-image: linear-gradient(to top, #071D39 60%, #071d3900);
@@ -24,6 +25,10 @@
   .mainNews h1 a:hover,.mainNews h3 a:hover, .newsdetails a:hover{
    /* text-decoration: underline !important */
    color: #777777 !important;
+  }
+  .mainNews:hover h1 a{
+   /* text-decoration: underline !important */
+   color: #fcb700 !important;
   }
   .mainNews h3{
     margin: 0;
