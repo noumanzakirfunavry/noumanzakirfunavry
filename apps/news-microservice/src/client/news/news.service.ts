@@ -47,9 +47,8 @@ export class NewsService {
 					must: [{
 						match: {
 							categoryIds: categoryId,
-							isActive: true,
-						},
-					},],
+						}
+					}, { match: { isActive: true } }],
 					must_not: [{ exists: { field: "deletedAt" } }]
 				}
 
@@ -104,7 +103,7 @@ export class NewsService {
 			sort: 'updatedAt',
 			query: {
 				bool: {
-					must: [...filtersArray, { match: { isActive: true }}],
+					must: [...filtersArray, { match: { isActive: true } }],
 					must_not: [{ exists: { field: "deletedAt" } }]
 				}
 			}
