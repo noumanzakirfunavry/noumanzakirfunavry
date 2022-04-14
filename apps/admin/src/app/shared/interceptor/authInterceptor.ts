@@ -47,7 +47,7 @@ export class AuthInterceptor implements HttpInterceptor {
     } else {
       const admin = JSON.parse(localStorage.getItem('admin') || '{}');
       const headers = request.headers
-        .set("Authorization", 'Bearer ' + admin.token.access_token)
+        .set("Authorization", 'Bearer ' + admin.token?.access_token)
       const authReq = request.clone({ headers: headers });
       return next.handle(authReq).pipe(tap((evt: any) => {
         if (evt.body && (evt.body.message || evt.status==200)) {
