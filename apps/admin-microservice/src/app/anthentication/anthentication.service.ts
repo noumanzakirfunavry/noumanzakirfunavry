@@ -28,10 +28,15 @@ export class AnthenticationService {
                 where: {
                     userName: body.userName,
 										isActive: true,
-										isVerified: true
                 }
             })
             if (response) {
+							if(!response.isVerified){
+								throw new CustomException(
+									Exceptions[ExceptionType.USER_IS_NOT_VERIFIED].message,
+									Exceptions[ExceptionType.USER_IS_NOT_VERIFIED].status
+								)
+							}
                 const compare_passwords = await this.helperService.comparePasswords(body.password, response.password)
                 if (compare_passwords) {
                     const session_creation = await this.sessionCreation(body, response)
