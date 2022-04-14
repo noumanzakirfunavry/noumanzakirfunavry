@@ -21,6 +21,8 @@ export enum ExceptionType {
   UNABLE_TO_DELETE = 'UNABLE_TO_DELETE',
   LOGOUT_UNSUCCESFULL = 'LOGOUT_UNSUCCESSFULL',
   USER_CANT_DELETE_THEMSELF = 'USER_CANT_DELETE_THEMSELF',
+  USER_IS_NOT_VERIFIED = 'USER_IS_NOT_VERIFIED',
+  USER_IS_INACTIVE = 'USER_IS_INACTIVE',
   EMPLOYEE_NOT_FOUND = 'EMPLOYEE_NOT_FOUND',
   MANAGER_AND_EMPLOYEE_IS_SAME = 'MANAGER_AND_EMPLOYEE_IS_SAME',
   APPRAISAL_NOT_FOUND = 'APPRAISAL_NOT_FOUND',
@@ -136,6 +138,14 @@ export const Exceptions: Record<ExceptionType, ExceptionOptions> = {
   [ExceptionType.USER_ALREADY_LOGGED_IN]: {
     status: HttpStatus.BAD_REQUEST,
     message: 'User is already logged in',
+  },
+  [ExceptionType.USER_IS_NOT_VERIFIED]: {
+    status: HttpStatus.UNAUTHORIZED,
+    message: 'User is not verified',
+  },
+	[ExceptionType.USER_IS_INACTIVE]: {
+    status: HttpStatus.UNAUTHORIZED,
+    message: 'User is inactive',
   },
   [ExceptionType.EMAIL_NOT_FOUND]: {
     status: HttpStatus.BAD_REQUEST,
