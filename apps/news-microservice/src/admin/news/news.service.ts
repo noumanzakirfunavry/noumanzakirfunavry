@@ -1,6 +1,6 @@
 import { DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
-import { BreakingNews, EditorsChoiceNews, ExclusiveVideos, FeaturedNews, News, NewsHasCategories, NewsHasQuotes, NewsHasTags, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
+import { Attachments, BreakingNews, Categories, EditorsChoiceNews, ExclusiveVideos, FeaturedNews, News, NewsHasCategories, NewsHasQuotes, NewsHasTags, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -275,31 +275,31 @@ export class NewsService {
         console.log("🚀 ~ file: news.service.ts ~ line 278 ~ NewsService ~ getAllNewsQuery ~ query", query)
         
         return await this.newsRepository.findAndCountAll({
-            // include: [{
-            //     model: Categories,
-            //     where: {
-            //         ...(query.categoryId && {
-            //             id: query.categoryId
-            //         })
-            //     }
+            include: [{
+                model: Categories,
+                where: {
+                    ...(query.categoryId && {
+                        id: query.categoryId
+                    })
+                }
 
-            // },
-            // {
-            //     model: Users
-            // },
-            // {
-            //     model: Attachments,
-            //     as: 'image'
-            // },
-            // {
-            //     model: Attachments,
-            //     as: 'thumbnail'
-            // },
-            // {
-            //     model: Attachments,
-            //     as: 'video'
-            // },
-            // ],
+            },
+            {
+                model: Users
+            },
+            {
+                model: Attachments,
+                as: 'image'
+            },
+            {
+                model: Attachments,
+                as: 'thumbnail'
+            },
+            {
+                model: Attachments,
+                as: 'video'
+            },
+            ],
             where: {
                 ...(query.search && {
                     title: {
@@ -316,6 +316,7 @@ export class NewsService {
                     publishedBy: query.publishedBy
                 }),
                 createdAt:where(literal('cast(`News`.`createdAt` as date)'),'=',query.date)
+
             },
             limit: parseInt(query.limit.toString()),
             offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
