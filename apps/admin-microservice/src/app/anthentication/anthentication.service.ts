@@ -26,7 +26,9 @@ export class AnthenticationService {
             const response = await this.usersRepository.findOne({
                 include: [Roles, Rights],
                 where: {
-                    userName: body.userName
+                    userName: body.userName,
+										isActive: true,
+										isVerified: true
                 }
             })
             if (response) {

@@ -20,6 +20,7 @@ export enum ExceptionType {
   USER_BLOCKED = 'USER_BLOCKED',
   UNABLE_TO_DELETE = 'UNABLE_TO_DELETE',
   LOGOUT_UNSUCCESFULL = 'LOGOUT_UNSUCCESSFULL',
+  USER_CANT_DELETE_THEMSELF = 'USER_CANT_DELETE_THEMSELF',
   EMPLOYEE_NOT_FOUND = 'EMPLOYEE_NOT_FOUND',
   MANAGER_AND_EMPLOYEE_IS_SAME = 'MANAGER_AND_EMPLOYEE_IS_SAME',
   APPRAISAL_NOT_FOUND = 'APPRAISAL_NOT_FOUND',
@@ -151,6 +152,10 @@ export const Exceptions: Record<ExceptionType, ExceptionOptions> = {
   [ExceptionType.USER_NOT_FOUND]: {
     status: HttpStatus.NOT_FOUND,
     message: 'User not found.',
+  },
+	[ExceptionType.USER_CANT_DELETE_THEMSELF]: {
+    status: HttpStatus.BAD_REQUEST,
+    message: 'User cannot delete themself.',
   },
   [ExceptionType.UNABLE_TO_UPDATE]: {
     status: HttpStatus.BAD_REQUEST,
