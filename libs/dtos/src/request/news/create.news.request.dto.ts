@@ -1,16 +1,18 @@
 import { ContentTypes, NewsTypes } from "@cnbc-monorepo/enums";
 import { Type } from "class-transformer";
-import { ArrayNotEmpty, IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl, ValidateNested } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl, MaxLength, ValidateNested } from "class-validator";
 import { CreateSeoRequestDto } from "../seo/create.seo.request.dto";
 
 export class CreateNewsRequestDto{
 
     @IsNotEmpty()
     @IsString()
+		@MaxLength(255)
     title : string
 
     @IsNotEmpty()
     @IsString()
+		@MaxLength(1500)
     content : string
 
     @IsNotEmpty()
