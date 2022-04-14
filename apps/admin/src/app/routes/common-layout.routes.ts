@@ -9,7 +9,7 @@ import { AuthGuard } from '../shared/guard/auth.guard';
 
 export const CommonLayout_ROUTES: Routes = [
     {
-        path: 'dashboard',canActivate:[AuthGuard],
+        path: 'dashboard',
         loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule),
     },
     // {
