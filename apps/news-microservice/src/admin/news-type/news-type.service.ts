@@ -21,9 +21,7 @@ export class NewsTypeService {
 		return await sequelize.transaction(async t => {
 			const transactionHost = { transaction: t };
 			let itemsBeforeDelete: any = await sequelize.getRepository(entity).findAll({ attributes: ['id', 'newsId'], raw: true, nest: true, transaction: transactionHost.transaction })
-			console.log("🚀 ~ file: news-type.service.ts ~ line 24 ~ NewsTypeService ~ updateNews ~ itemsBeforeDelete", itemsBeforeDelete)
 			const delete_previous = await this.deletePreviousNews(entity, transactionHost)
-			console.log("🚀 ~ file: news-type.service.ts ~ line 26 ~ NewsTypeService ~ updateNews ~ delete_previous", delete_previous)
 			if (delete_previous) {
 				body = this.helperService.addUser(body, userId)
 				let addNews;
@@ -71,11 +69,19 @@ export class NewsTypeService {
 					} else if (entity.prototype.constructor.name === "FeaturedNews") {
 						flag = 'isFeatured'
 					}
-					console.log("🚀 ~ file: news-type.service.ts ~ line 77 ~ NewsTypeService ~ updateNews ~ body.news", body.news)
-					console.log("🚀 ~ file: news-type.service.ts ~ line 78 ~ NewsTypeService ~ updateNews ~ item", item)
-					const newsDetail = body.news.filter(news => news.newsId == item);
-					console.log("🚀 ~ file: news-type.service.ts ~ line 79 ~ NewsTypeService ~ updateNews ~ newsDetail", newsDetail)
-					console.log("ADSA", { position: newsDetail[0].position, section: newsDetail[0].section })
+					
+					const docToUpload = {
+						[flag]: true,
+					}
+
+					if(flag === 'isFeatured'){
+						const newsDetail = body.news.filter(news => news.newsId == item);
+
+						if(newsDetail.length !== 0){
+							docToUpload['featuredNews'] = { position: newsDetail[0].position, section: newsDetail[0].section }
+						}
+					}
+				
 					elkUpdateArray.push({
 						update: {
 							_index: 'news',
@@ -83,10 +89,7 @@ export class NewsTypeService {
 						}
 					},
 						{
-							doc: {
-								[flag]: true,
-								featuredNews: { position: newsDetail[0].position, section: newsDetail[0].section }
-							}
+							doc: docToUpload
 						})
 				})
 				console.log("🚀 ~ file: news-type.service.ts ~ line 86 ~ NewsTypeService ~ updateNews ~ itemsToFlag", itemsToFlag)
