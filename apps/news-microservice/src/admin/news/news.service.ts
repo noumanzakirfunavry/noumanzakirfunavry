@@ -61,13 +61,11 @@ export class NewsService {
 							quotes = quotes.map(quote => quote.name);
 							categories = categories.map(category => category.id);
 
-							let { tagsIds, quotesIds, ...newsDetails } = body
-
 							// save to elk
 							ElkService.save({ index: 'news', id: news_added.id.toString(), document: { ...news, tags, quotes, categories } });
 
 							return new GenericResponseDto(
-								HttpStatus.OK,
+								HttpStatus.CREATED,
 								"News added successfully"
 							)
 						}
@@ -201,9 +199,7 @@ export class NewsService {
 								quotes = quotes.map(quote => quote.name);
 								categories = categories.map(category => category.id);
 
-								let { tagsIds, quotesIds, ...newsDetails } = body
-
-								ElkService.update({ id: newsId.toString(), index: 'news', doc: { ...newsDetails, tags, quotes, categories } })
+								ElkService.update({ id: newsId.toString(), index: 'news', doc: { ...news, tags, quotes, categories } })
 								return new GenericResponseDto(
 									HttpStatus.OK,
 									"News updated successfully"
@@ -264,7 +260,6 @@ export class NewsService {
 
 	private async getAllNewsQuery(query: GetAllNewsRequestDto) {
 		return await this.newsRepository.findAndCountAll({
-            distinct:true,
 			include: [{
 				model: Categories,
 				where: {
