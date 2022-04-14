@@ -19,7 +19,7 @@ export class QuickLinksService {
         if (query.pageNo) offset = query.limit * query.pageNo;
         const result = await this.quickLinksRepo.findAndCountAll(
             {
-                include : ['user'],
+                // include : ['user'],
                 where: {
                     ...(query.search && {
                         title: {

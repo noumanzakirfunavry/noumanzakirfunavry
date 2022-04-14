@@ -24,8 +24,6 @@ export const Connection = [
 
 
       await sequelize.sync({
-        // force:true
-         
       });
       return sequelize;
     },

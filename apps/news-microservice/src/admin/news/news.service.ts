@@ -1,13 +1,10 @@
 import { DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
-import { Attachments, BreakingNews, Categories, EditorsChoiceNews, ExclusiveVideos, FeaturedNews, News, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
+import { BreakingNews, EditorsChoiceNews, ExclusiveVideos, FeaturedNews, News, NewsHasCategories, NewsHasQuotes, NewsHasTags, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
-import { Helper, sequelize } from '@cnbc-monorepo/utility'
+import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { NewsHasCategories } from '@cnbc-monorepo/entity';
-import { NewsHasQuotes } from '@cnbc-monorepo/entity';
-import { NewsHasTags } from '@cnbc-monorepo/entity';
-import { Op, Transaction } from 'sequelize';
+import { literal, Op, where } from 'sequelize';
 
 
 @Injectable()
@@ -275,32 +272,34 @@ export class NewsService {
     }
 
     private async getAllNewsQuery(query: GetAllNewsRequestDto) {
+        console.log("🚀 ~ file: news.service.ts ~ line 278 ~ NewsService ~ getAllNewsQuery ~ query", query)
+        
         return await this.newsRepository.findAndCountAll({
-            include: [{
-                model: Categories,
-                where: {
-                    ...(query.categoryId && {
-                        id: query.categoryId
-                    })
-                }
+            // include: [{
+            //     model: Categories,
+            //     where: {
+            //         ...(query.categoryId && {
+            //             id: query.categoryId
+            //         })
+            //     }
 
-            },
-            {
-                model: Users
-            },
-            {
-                model: Attachments,
-                as: 'image'
-            },
-            {
-                model: Attachments,
-                as: 'thumbnail'
-            },
-            {
-                model: Attachments,
-                as: 'video'
-            },
-            ],
+            // },
+            // {
+            //     model: Users
+            // },
+            // {
+            //     model: Attachments,
+            //     as: 'image'
+            // },
+            // {
+            //     model: Attachments,
+            //     as: 'thumbnail'
+            // },
+            // {
+            //     model: Attachments,
+            //     as: 'video'
+            // },
+            // ],
             where: {
                 ...(query.search && {
                     title: {
@@ -313,14 +312,10 @@ export class NewsService {
                 ...(query.newsType && {
                     newsType: query.newsType
                 }),
-                ...(query.date && {
-                    createdAt: {
-                        [Op.substring]: query.date
-                    }
-                }),
                 ...(query.publishedBy && {
                     publishedBy: query.publishedBy
-                })
+                }),
+                createdAt:where(literal('cast(`News`.`createdAt` as date)'),'=',query.date)
             },
             limit: parseInt(query.limit.toString()),
             offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
