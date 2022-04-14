@@ -43,9 +43,16 @@ export class NewsService {
 			from: paginationDTO.pageNo - 1,
 			size: paginationDTO.limit,
 			query: {
-				match: {
-					categoryIds: categoryId,
-				},
+				bool: {
+					must: [{
+						match: {
+							categoryIds: categoryId,
+							isActive: true,
+						},
+					},],
+					must_not: [{ exists: { field: "deletedAt" } }]
+				}
+
 			},
 		});
 	}
@@ -97,7 +104,7 @@ export class NewsService {
 			sort: 'updatedAt',
 			query: {
 				bool: {
-					must: filtersArray,
+					must: [...filtersArray, { match: { isActive: true }}],
 					must_not: [{ exists: { field: "deletedAt" } }]
 				}
 			}
@@ -193,6 +200,7 @@ export class NewsService {
 			],
 			where: {
 				id: id,
+				isActive: true
 			},
 		});
 	}
