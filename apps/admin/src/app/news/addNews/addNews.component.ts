@@ -70,7 +70,7 @@ export class AddNewsComponent implements OnInit {
             //     // Headers sent along with the XMLHttpRequest to the upload server.
             //     headers: {
             //         'X-CSRF-TOKEN': 'CSRF-Token',
-            //         Authorization: 'Bearer '+admin.access_token
+            //         Authorization: 'Bearer '+admin.token.access_token
             //     }
             // },
             ckfinder: {
@@ -396,5 +396,6 @@ export class AddNewsComponent implements OnInit {
 
     enableDisable(e?: MouseEvent) {
         e.preventDefault();
-      }
+    }
+
 }    

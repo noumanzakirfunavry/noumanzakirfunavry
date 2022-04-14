@@ -41,10 +41,10 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i class="mr-2" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/news/update/' + news?.id]"></i>
-                                    <i class="mr-2" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(news?.id)"></i>
-                                    <i class="mr-2" style="cursor: pointer;" nz-icon nzType="eye" nzTheme="outline"></i>
-                                    <i style="cursor: pointer;" nz-icon nzType="share-alt" nzTheme="outline"></i>
+                                    <i nz-tooltip nzTooltipTitle="Edit" class="mr-2" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/news/update/' + news?.id]"></i>
+                                    <i nz-tooltip nzTooltipTitle="Delete" class="mr-2" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(news?.id)"></i>
+                                    <i nz-tooltip nzTooltipTitle="View" class="mr-2" style="cursor: pointer;" nz-icon nzType="eye" nzTheme="outline"></i>
+                                    <i nz-tooltip nzTooltipTitle="Share" style="cursor: pointer;" nz-icon nzType="share-alt" nzTheme="outline"></i>
                                 </div>
                             </td>
                         </tr>

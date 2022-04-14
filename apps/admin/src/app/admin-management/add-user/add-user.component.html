@@ -83,15 +83,17 @@
         </div>
 
         <div class="col-6">
-          <nz-form-label nzRequired><h5>Admin Rights</h5></nz-form-label>
+          <nz-form-label><h5>Admin Rights</h5></nz-form-label>
           <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log($event)">
+            <div nz-row>
               <div nz-col nzSpan="12">
                 <label *ngFor="let right of allRights" nz-checkbox [nzValue]="right?.id" formControlName="rights">{{right?.title}}</label>
               </div>
+            </div>
           </nz-checkbox-wrapper>
-          <div *ngIf="(!rightsValue || rightsValue.length===0) && submitted===true" style="color: Crimson;">
+          <!-- <div *ngIf="(!rightsValue || rightsValue.length===0) && submitted===true" style="color: Crimson;">
             Select atleast one option!
-          </div>
+          </div> -->
         </div>
       </div>
       <nz-form-item>

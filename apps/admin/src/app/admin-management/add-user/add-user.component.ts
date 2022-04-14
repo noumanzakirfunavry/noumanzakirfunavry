@@ -70,7 +70,7 @@ export class AddUserComponent implements OnInit{
       confirmPassword: [null, [Validators.required, this.confirmationValidator]],
       email: [null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
       isActive: [false],
-      rights: [null, [Validators.requiredTrue]]
+      rights: [null]
     });
   }
 
@@ -124,11 +124,11 @@ export class AddUserComponent implements OnInit{
         name: [this.userById?.name || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
         rolesId: [this.userById?.rolesId || null, [Validators.required]],
         userName: [this.userById?.userName || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
-        password: [this.userById?.password || null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
-        confirmPassword: [this.userById?.password || null, [Validators.required, this.confirmationValidator]],
+        password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
+        confirmPassword: [null, [Validators.required, this.confirmationValidator]],
         email: [this.userById?.email || null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
         isActive: [this.userById?.isActive || false],
-        rights: [this.userById?.rights || null, [Validators.requiredTrue]]
+        rights: [this.userById?.rights || null]
       });
     })
   }
