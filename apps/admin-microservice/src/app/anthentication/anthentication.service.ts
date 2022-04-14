@@ -40,7 +40,14 @@ export class AnthenticationService {
                         return new GenericResponseDto(
                             HttpStatus.OK,
                             "Logged-in Successfully!",
-                            token
+                            {
+															user: {
+																id: response.id,
+																name: response.name,
+																email: response.email,
+																token
+															}
+														}
                         )
                     }
                 }
