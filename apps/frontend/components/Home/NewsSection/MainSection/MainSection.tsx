@@ -15,12 +15,12 @@ const MainSection = ({ newsList }) => {
     // const last2MainNews =  newsList?.filter((news:any)=>{
     //     return news?._source?.featuredNews?.position > 3 && news?._source?.featuredNews?.position <= 5
     // })
-
+    
     return (
         <>
             <div className="row">
                 <div className="col-lg-8 p_sm_0">
-                    <div className={styles.mainNews} >
+                    <div className={styles.mainNews} style={{background: `url(${newsList[0]?._source?.image?.url}) no-repeat`}} >
                         <div className={styles.newscontent} >
                             {/* <h1><a >النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب</a></h1>
                                 <hr></hr>
