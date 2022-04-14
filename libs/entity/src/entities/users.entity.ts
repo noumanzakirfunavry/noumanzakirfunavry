@@ -56,6 +56,12 @@ export class Users extends Model{
         type : DataType.BOOLEAN
     })
     isActive : boolean
+    
+		@Column({
+        type : DataType.BOOLEAN,
+				defaultValue: false
+    })
+    isVerified : boolean
 
     @HasMany(() => Banner)
     banners : Banner[]

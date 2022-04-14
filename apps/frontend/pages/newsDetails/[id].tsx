@@ -86,7 +86,7 @@ const Index = () =>{
 
                 <div className="PageBuilder-pageRow justify-content-center">
                     <div className='PageBuilder-col-9'>
-                        <NewsInfoBox/>
+                        <NewsInfoBox news={news}/>
                     </div>
                     <div className='PageBuilder-sidebar'>
                     </div>

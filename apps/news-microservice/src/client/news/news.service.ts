@@ -2,16 +2,15 @@ import {
 	GetNewsByFlagsRequestDto,
 	GetNewsByIdResponseDto,
 	PaginatedRequestDto,
-	SearchNewsRequestDto,
+	SearchNewsRequestDto
 } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
 import { BreakingNews, News, Users } from '@cnbc-monorepo/entity';
 import {
 	CustomException,
 	Exceptions,
-	ExceptionType,
+	ExceptionType
 } from '@cnbc-monorepo/exception-handling';
-import { QueryDslQueryContainer } from '@elastic/elasticsearch/lib/api/types';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Op } from 'sequelize';
 
@@ -41,17 +40,23 @@ export class NewsService {
 	elkGetNewsByCategory(categoryId: number, paginationDTO: PaginatedRequestDto) {
 		return ElkService.search({
 			index: 'news',
-			from: paginationDTO.pageNo,
+			from: paginationDTO.pageNo - 1,
 			size: paginationDTO.limit,
 			query: {
-				match: {
-					categoryIds: categoryId,
-				},
+				bool: {
+					must: [{
+						match: {
+							categoryIds: categoryId,
+						}
+					}, { match: { isActive: true } }],
+					must_not: [{ exists: { field: "deletedAt" } }]
+				}
+
 			},
 		});
 	}
 
-	elkGetNewsByFlags(getNewsByFlagsRequestDto: GetNewsByFlagsRequestDto) {
+	async elkGetNewsByFlags(getNewsByFlagsRequestDto: GetNewsByFlagsRequestDto) {
 		const { isBreaking, isFeatured, isTrending, isEditorsChoice } = getNewsByFlagsRequestDto
 
 		// breaking news will be fetched through DB, others will be fetched ELK
@@ -95,9 +100,10 @@ export class NewsService {
 			index: 'news',
 			from: getNewsByFlagsRequestDto.pageNo - 1,
 			size: getNewsByFlagsRequestDto.limit,
+			sort: 'updatedAt',
 			query: {
 				bool: {
-					must: filtersArray,
+					must: [...filtersArray, { match: { isActive: true } }],
 					must_not: [{ exists: { field: "deletedAt" } }]
 				}
 			}
@@ -193,6 +199,7 @@ export class NewsService {
 			],
 			where: {
 				id: id,
+				isActive: true
 			},
 		});
 	}

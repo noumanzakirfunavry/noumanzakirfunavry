@@ -3,6 +3,7 @@
 import newsimg from "../../../styles/images/biden.jpg";
 import dateFormat from "dateformat"
 import Image from "next/image";
+import Link from "next/link";
 
 const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
 

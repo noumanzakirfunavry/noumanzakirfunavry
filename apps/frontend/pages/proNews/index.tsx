@@ -1,7 +1,8 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import NewsDetails from "apps/frontend/components/NewsDetails"
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
-import NewsInfoBox from "apps/frontend/components/Shared/NewsInfoBox/NewsInfoBox";
+// TODO: DummyNewsInfoBox will be updated with actual NewsInfoBox later on
+import DummyNewsInfoBox from "apps/frontend/components/Shared/NewsInfoBox/DummyNewsInfoBox";
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import smalllogo from "../../styles/images/cnbc-logo.svg";
 import Title from "apps/frontend/components/Title";
@@ -57,7 +58,7 @@ const Index = () =>{
 
                 <div className="row justify-content-center">
                     <div className='col-xl-7 col-lg-9'>
-                        <NewsInfoBox/>
+                        <DummyNewsInfoBox/>
                     </div>
                     <div className='col-xl-3 col-lg-3'>
                     </div>

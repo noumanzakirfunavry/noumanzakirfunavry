@@ -55,19 +55,17 @@ export class NewsService {
 								}
 							}
 
-							let { tags, quotes, categories, deletedAt, ...news } = await (await this.newsRepository.findOne({ where: { id: news_added.id }, include: ['tags', 'quotes', { model: Categories, attributes: ['id'] }], transaction: transactionHost.transaction })).toJSON()
+							let { tags, quotes, categories, deletedAt, ...news } = await (await this.newsRepository.findOne({ where: { id: news_added.id }, include: ['tags', 'quotes', { model: Attachments, as: 'image' }, { model: Attachments, as: 'video' }, { model: Attachments, as: 'thumbnail' }, { model: Categories, attributes: ['id'] }], transaction: transactionHost.transaction })).toJSON()
 
 							tags = tags.map(tag => tag.title);
 							quotes = quotes.map(quote => quote.name);
 							categories = categories.map(category => category.id);
 
-							let { tagsIds, quotesIds, ...newsDetails } = body
-
 							// save to elk
-							ElkService.save({ index: 'news', id: news_added.id.toString(), document: { ...news, tags, quotes, categories} });
+							ElkService.save({ index: 'news', id: news_added.id.toString(), document: { ...news, tags, quotes, categories } });
 
 							return new GenericResponseDto(
-								HttpStatus.OK,
+								HttpStatus.CREATED,
 								"News added successfully"
 							)
 						}
@@ -193,17 +191,15 @@ export class NewsService {
 										)
 									}
 								}
-								
 
-								let { tags, quotes, categories, ...news } = await (await this.newsRepository.findOne({ where: { id: newsId }, include: ['tags', 'quotes', { model: Categories, attributes: ['id'] }], transaction: transactionHost.transaction })).toJSON()
+
+								let { tags, quotes, categories, ...news } = await (await this.newsRepository.findOne({ where: { id: newsId }, include: ['tags', 'quotes', { model: Attachments, as: 'image' }, { model: Attachments, as: 'video' }, { model: Attachments, as: 'thumbnail' }, { model: Categories, attributes: ['id'] }], transaction: transactionHost.transaction })).toJSON()
 
 								tags = tags.map(tag => tag.title);
 								quotes = quotes.map(quote => quote.name);
 								categories = categories.map(category => category.id);
-	
-								let { tagsIds, quotesIds, ...newsDetails } = body
 
-								ElkService.update({ id: newsId.toString(), index: 'news', doc: { ...newsDetails, tags, quotes, categories } })
+								ElkService.update({ id: newsId.toString(), index: 'news', doc: { ...news, tags, quotes, categories } })
 								return new GenericResponseDto(
 									HttpStatus.OK,
 									"News updated successfully"
@@ -264,6 +260,7 @@ export class NewsService {
 
 	private async getAllNewsQuery(query: GetAllNewsRequestDto) {
 		return await this.newsRepository.findAndCountAll({
+			distinct: true,
 			include: [{
 				model: Categories,
 				where: {
@@ -311,7 +308,8 @@ export class NewsService {
 				})
 			},
 			limit: parseInt(query.limit.toString()),
-			offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
+			offset: this.helperService.offsetCalculator(query.pageNo, query.limit),
+			order: [['updatedAt', 'DESC']]
 		});
 	}
 
