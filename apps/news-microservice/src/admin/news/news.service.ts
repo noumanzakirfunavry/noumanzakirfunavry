@@ -307,7 +307,8 @@ export class NewsService {
 				})
 			},
 			limit: parseInt(query.limit.toString()),
-			offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
+			offset: this.helperService.offsetCalculator(query.pageNo, query.limit),
+			order: [['updatedAt', 'DESC']]
 		});
 	}
 
