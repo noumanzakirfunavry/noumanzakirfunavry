@@ -9,8 +9,8 @@ export class GetAllCategoriesRequestDto extends PaginatedRequestDto{
     parentCategoryId:number[]
 
     @IsOptional()
-    @IsArray()
-    publishers:number[]
+		@IsNumber()
+    publishedBy: number
 
     @IsOptional()
     @IsBoolean()

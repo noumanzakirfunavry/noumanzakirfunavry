@@ -52,8 +52,8 @@ export class BreakingNewsService {
         if (query.title) {
             where['title'] = query.title
         }
-        if (query.publishers) {
-            where['addedBy'] = query.publishers
+        if (query.publisher) {
+            where['addedBy'] = query.publisher
         }
         if (query.status) {
             where['isActive'] = JSON.parse(query.status.toString())
@@ -96,8 +96,8 @@ export class BreakingNewsService {
         if (query.title) {
             where['title'] = query.title
         }
-        if (query.publishers) {
-            where['addedBy'] = query.publishers
+        if (query.publisher) {
+            where['addedBy'] = query.publisher
         }
         const result = await this.breakingNewsRepo.findAll({
             include : ['user'],
