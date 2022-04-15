@@ -13,7 +13,7 @@ export class CategoriesService {
     ) { }
 
     async getById(id: number) {
-        const result = await this.categoryRepo.findOne({ where: { id: id, isActive: true }, include: ['user', { model: Categories, as: 'sub', include: ['user'] }], })
+        const result = await this.categoryRepo.findOne({ where: { id: id }, include: ['user', { model: Categories, as: 'sub', include: ['user'] }], })
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -98,8 +98,6 @@ export class CategoriesService {
 
     async getAll(query: GetAllCategoriesRequestDto) {
         let { limit, pageNo, ...where } = query
-        console.log("🚀 ~ file: categories.service.ts ~ line 89 ~ CategoriesService ~ getAll ~ where", where)
-        console.log("🚀 ~ file: categories.service.ts ~ line 112 ~ CategoriesService ~ getAll ~ query.displayInHomePage", query.displayInHomePage)
 
         let offset = 0
         pageNo = pageNo - 1;
@@ -111,10 +109,9 @@ export class CategoriesService {
                 include: ['user', {
                     model: Categories, as: 'sub', required: false, where: {
                         ...where,
-                        isActive: true,
                     }
                 }],
-                where: { ...where, isActive: true },
+                where: { ...where },
                 limit,
                 offset
             }
