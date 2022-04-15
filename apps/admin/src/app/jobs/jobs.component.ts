@@ -68,13 +68,13 @@ export class JobsComponent implements OnInit {
     }
 
     receiveStatus(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers, branchId: data.branchId};
+        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher, branchId: data.branchId};
         this.pagination.pageNo= 1;
         this.getAllJobs();        
     }
 
     receiveFilter(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers, branchId: data.branchId};
+        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher, branchId: data.branchId};
         this.pagination.pageNo= 1;
         this.getAllJobs();        
     }

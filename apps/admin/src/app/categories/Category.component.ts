@@ -18,7 +18,7 @@ export class CategoryComponent implements OnInit {
         pageNo: number, 
         limit: number, 
         parentCategoryId?: Array<any>, 
-        publishers?: Array<any>, 
+        publishedBy?: number, 
         status?: boolean, 
         includeNews?: boolean, 
         newsLimit?: number, 
@@ -73,13 +73,13 @@ export class CategoryComponent implements OnInit {
     }
 
     receiveStatus(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers};
+        this.pagination={...this.pagination, status: data.status, title: data.title, publishedBy: data.publishedBy};
         this.pagination.pageNo= 1;
         this.getAllCategories();        
     }
 
     receiveFilter(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers};
+        this.pagination={...this.pagination, status: data.status, title: data.title, publishedBy: data.publishedBy};
         this.pagination.pageNo= 1;
         this.getAllCategories();        
     }
