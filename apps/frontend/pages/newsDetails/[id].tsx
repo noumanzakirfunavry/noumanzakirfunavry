@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import GetData from "apps/frontend/services/GetData";
 import { requests } from "apps/frontend/services/Requests";
 import HtmlData from "../../components/Shared/HtmlData/HtmlData"
+// import { GetMetaData } from "apps/frontend/services/StaticData";
 
 const Index = () =>{
     const router = useRouter();
@@ -131,5 +132,17 @@ const Index = () =>{
         </>
     )
 }
+
+// export async function getStaticProps(seoData) {
+
+
+//     const data = GetMetaData(seoData)
+
+//     return {
+//       props: {
+//         data
+//       },
+//     }
+//   }
 
 export default Index
