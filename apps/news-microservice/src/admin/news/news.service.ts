@@ -1,59 +1,66 @@
 import { DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
-import { Attachments, BreakingNews, Categories, EditorsChoiceNews, FeaturedNews, News, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
+import { Attachments, BreakingNews, Categories, EditorsChoiceNews, ExclusiveVideos, FeaturedNews, News, NewsHasCategories, NewsHasQuotes, NewsHasTags, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
-import { Helper, sequelize } from '@cnbc-monorepo/utility'
+import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { NewsHasCategories } from '@cnbc-monorepo/entity';
-import { NewsHasQuotes } from '@cnbc-monorepo/entity';
-import { NewsHasTags } from '@cnbc-monorepo/entity';
-import { Op, Transaction } from 'sequelize';
+import { literal, Op, where } from 'sequelize';
 
 
 @Injectable()
 export class NewsService {
-	constructor(
-		private helperService: Helper,
-		@Inject('NEWS_REPOSITORY')
-		private newsRepository: typeof News,
-		@Inject('NEWS_HAS_TAGS_REPOSITORY')
-		private newsHasTags: typeof NewsHasTags,
-		@Inject('NEWS_HAS_QUOTES_REPOSITORY')
-		private newsHasQuotes: typeof NewsHasQuotes,
-		@Inject('NEWS_HAS_CATEGORIES_REPOSITORY')
-		private newsHasCategories: typeof NewsHasCategories,
-		@Inject('SEO_DETAILS_REPOSITORY')
-		private seoRepository: typeof SeoDetails
-	) { }
-	async addNews(body: any, userId: number): Promise<GenericResponseDto> {
-		try {
-			return await sequelize.transaction(async t => {
-				const transactionHost = { transaction: t };
-				const seo_added = await this.addSeo(body, transactionHost)
-				if (seo_added) {
-					const news_object = this.helperService.newsObjectCreator(body, seo_added.id, userId)
-					const news_added = await this.createNews(news_object, transactionHost)
-					if (news_added) {
-						const add_news_categories = await this.addCategoriesToNews(body.categoryIds, news_added.id, transactionHost)
-						if (add_news_categories) {
-							if (body.tagsIds && body.tagsIds.length !== 0) {
-								const news_tags = await this.addNewsTags(body.tagsIds, news_added.id, transactionHost)
-								if (!news_tags) {
-									throw new CustomException(
-										Exceptions[ExceptionType.UNABLE_TO_CREATE_RECORD].message,
-										Exceptions[ExceptionType.UNABLE_TO_CREATE_RECORD].status
-									)
-								}
-							}
-							if (body.quotesIds && body.quotesIds.length !== 0) {
-								const news_quotes = await this.addNewsQuotes(body.quotesIds, news_added.id, transactionHost)
-								if (!news_quotes) {
-									throw new CustomException(
-										Exceptions[ExceptionType.UNABLE_TO_CREATE_RECORD].message,
-										Exceptions[ExceptionType.UNABLE_TO_CREATE_RECORD].status
-									)
-								}
-							}
+    constructor(
+        private helperService: Helper,
+        @Inject('NEWS_REPOSITORY')
+        private newsRepository: typeof News,
+        @Inject('NEWS_HAS_TAGS_REPOSITORY')
+        private newsHasTags: typeof NewsHasTags,
+        @Inject('NEWS_HAS_QUOTES_REPOSITORY')
+        private newsHasQuotes: typeof NewsHasQuotes,
+        @Inject('NEWS_HAS_CATEGORIES_REPOSITORY')
+        private newsHasCategories: typeof NewsHasCategories,
+        @Inject('SEO_DETAILS_REPOSITORY')
+        private seoRepository: typeof SeoDetails,
+        @Inject('BREAKING_NEWS_REPOSITORY')
+        private breakingNewsRepo:typeof BreakingNews,
+        @Inject('FEATURED_NEWS_REPOSITORY')
+        private featuredNews:typeof FeaturedNews,
+        @Inject('EDITORS_CHOICE_NEWS_REPOSITORY')
+        private editorChoiceRepo:typeof EditorsChoiceNews,
+        @Inject('TRENDING_NEWS_REPOSITORY')
+        private trendingRepo:typeof TrendingNews,
+        @Inject('EXCLUSIVE_VIDEOS_REPOSITORY')
+        private exclusiveRepo:typeof ExclusiveVideos
+    ) { }
+    async addNews(body: any, userId: number): Promise<GenericResponseDto> {
+        try {
+            return await sequelize.transaction(async t => {
+                const transactionHost = { transaction: t };
+                const seo_added = await this.addSeo(body, transactionHost)
+                if (seo_added) {
+                    const news_object = this.helperService.newsObjectCreator(body, seo_added.id, userId)
+                    const news_added = await this.createNews(news_object, transactionHost)
+                    if (news_added) {
+                        const add_news_categories = await this.addCategoriesToNews(body.categoryIds, news_added.id, transactionHost)
+                        if (add_news_categories) {
+                            if (body.tagsIds && body.tagsIds.length !== 0) {
+                                const news_tags = await this.addNewsTags(body.tagsIds, news_added.id, transactionHost)
+                                if (!news_tags) {
+                                    throw new CustomException(
+                                        Exceptions[ExceptionType.UNABLE_TO_CREATE_RECORD].message,
+                                        Exceptions[ExceptionType.UNABLE_TO_CREATE_RECORD].status
+                                    )
+                                }
+                            }
+                            if (body.quotesIds && body.quotesIds.length !== 0) {
+                                const news_quotes = await this.addNewsQuotes(body.quotesIds, news_added.id, transactionHost)
+                                if (!news_quotes) {
+                                    throw new CustomException(
+                                        Exceptions[ExceptionType.UNABLE_TO_CREATE_RECORD].message,
+                                        Exceptions[ExceptionType.UNABLE_TO_CREATE_RECORD].status
+                                    )
+                                }
+                            }
 
 							let { tags, quotes, categories, deletedAt, ...news } = await (await this.newsRepository.findOne({ where: { id: news_added.id }, include: ['tags', 'quotes', { model: Attachments, as: 'image' }, { model: Attachments, as: 'video' }, { model: Attachments, as: 'thumbnail' }, { model: Categories, attributes: ['id'] }], transaction: transactionHost.transaction })).toJSON()
 
@@ -258,71 +265,67 @@ export class NewsService {
 		}
 	}
 
-	private async getAllNewsQuery(query: GetAllNewsRequestDto) {
-		return await this.newsRepository.findAndCountAll({
-			distinct: true,
-			include: [{
-				model: Categories,
-				where: {
-					...(query.categoryId && {
-						id: query.categoryId
-					})
-				}
+    private async getAllNewsQuery(query: GetAllNewsRequestDto) {
+        console.log("🚀 ~ file: news.service.ts ~ line 278 ~ NewsService ~ getAllNewsQuery ~ query", query)
+        
+        return await this.newsRepository.findAndCountAll({
+            include: [{
+                model: Categories,
+                where: {
+                    ...(query.categoryId && {
+                        id: query.categoryId
+                    })
+                }
 
-			},
-			{
-				model: Users
-			},
-			{
-				model: Attachments,
-				as: 'image'
-			},
-			{
-				model: Attachments,
-				as: 'thumbnail'
-			},
-			{
-				model: Attachments,
-				as: 'video'
-			},
-			],
-			where: {
-				...(query.search && {
-					title: {
-						[Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.search)}%`
-					}
-				}),
-				...(query.isActive && {
-					isActive: JSON.parse(query.isActive.toString())
-				}),
-				...(query.newsType && {
-					newsType: query.newsType
-				}),
-				...(query.date && {
-					createdAt: {
-						[Op.substring]: query.date
-					}
-				}),
-				...(query.publishedBy && {
-					publishedBy: query.publishedBy
-				})
-			},
-			limit: parseInt(query.limit.toString()),
-			offset: this.helperService.offsetCalculator(query.pageNo, query.limit),
-			order: [['updatedAt', 'DESC']]
-		});
-	}
+            },
+            {
+                model: Users
+            },
+            {
+                model: Attachments,
+                as: 'image'
+            },
+            {
+                model: Attachments,
+                as: 'thumbnail'
+            },
+            {
+                model: Attachments,
+                as: 'video'
+            },
+            ],
+            where: {
+                ...(query.search && {
+                    title: {
+                        [Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.search)}%`
+                    }
+                }),
+                ...(query.isActive && {
+                    isActive: JSON.parse(query.isActive.toString())
+                }),
+                ...(query.newsType && {
+                    newsType: query.newsType
+                }),
+                ...(query.publishedBy && {
+                    publishedBy: query.publishedBy
+                }),
+                createdAt:where(literal('cast(`News`.`createdAt` as date)'),'=',query.date)
 
-	private async deletePreviousQuotes(newsId: number, transactionHost: any) {
-		const response = await this.newsHasQuotes.destroy({
-			where: {
-				newsId: newsId
-			},
-			transaction: transactionHost.transaction
-		});
-		return response === 0 ? true : response
-	}
+            },
+            limit: parseInt(query.limit.toString()),
+            offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
+        });
+    }
 
+    private async deletePreviousQuotes(newsId: number, transactionHost: any) {
+    const response = await this.newsHasQuotes.destroy({
+        where: {
+            newsId: newsId
+        },
+        transaction: transactionHost.transaction
+    });
+    return response === 0 ? true : response
+    }
 	private async deletePreviousNewsTags(newsId: number, transactionHost: any) {
 		const response = await this.newsHasTags.destroy({
 			where: {
@@ -487,48 +490,83 @@ export class NewsService {
 		});
 	}
 
-	private async deleteNewsRecord(body: DeleteAlexaAudioRequestDto, i: number, transactionHost) {
-		return await this.newsRepository.destroy(
-			{
-				where: {
-					id: body.id[i]
-				},
-				transaction: transactionHost.transaction,
-				individualHooks: true
-			});
-	}
 
-	async newsExists(id: number) {
-		return await this.newsRepository.findOne({
-			include: ['tags', 'categories', 'quotes', 'seoDetail', 'image', 'thumbnail', 'video', {
-				model: Users
-			}],
-			where: {
-				id: id
-			}
-		});
-	}
-	async getNewsById(id: number): Promise<GetNewsByIdResponseDto> {
-		const news_exists = await this.newsExists(id)
-		if (news_exists) {
-			return new GetNewsByIdResponseDto(
-				HttpStatus.OK,
-				"News fetched successfully",
-				news_exists
-			)
-		}
-		else {
-			throw new CustomException(
-				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-			)
-		}
-	}
-	isObjectEmpty(object) {
-		return (
-			Object.prototype.toString.call(object) === '[object Object]' &&
-			JSON.stringify(object) === '{}'
-		);
-	}
+    private async deleteNewsRecord(body: DeleteAlexaAudioRequestDto, i: number, transactionHost) {
+        return await this.newsRepository.destroy(
+            {
+                where: {
+                    id: body.id[i]
+                },
+                transaction: transactionHost.transaction,
+                individualHooks: true
+            });
+    }
+
+    async newsExists(id: number) {
+        return await this.newsRepository.findOne({
+            include: ['tags', 'categories', 'quotes', 'seoDetail', 'image', 'thumbnail', 'video', {
+                model: Users
+            }],
+            where: {
+                id: id
+            }
+        });
+    }
+    async getNewsById(id: number): Promise<GetNewsByIdResponseDto> {
+        const news_exists = await this.newsExists(id)
+        if (news_exists) {
+            return new GetNewsByIdResponseDto(
+                HttpStatus.OK,
+                "News fetched successfully",
+                news_exists
+            )
+        }
+        else {
+            throw new CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+    }
+    async getNewsStatusById(id:number){
+        let resObj={}
+        const isNews=await this.newsRepository.findOne({where:{id}})
+        if (!isNews){
+            throw new  CustomException(
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+                Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+            )
+        }
+        resObj["newsId"]=isNews.id
+        
+        const isBreakingNews=await this.breakingNewsRepo.findOne({where:{newsId:isNews.id}})
+        if (isBreakingNews){resObj['isBreakingNews']=true}
+        else{resObj['isBreakingNews']=false}
+        
+        const isFeaturedNews=await this.featuredNews.findOne({where:{newsId:isNews.id}})
+        if (isFeaturedNews){resObj['isFeaturedNews']=true}
+        else{resObj['isFeatureNews']=false}
+
+        const isEditorChoice=await this.editorChoiceRepo.findOne({where:{newsId:isNews.id}})
+        if(isEditorChoice){resObj['isEditorChoice']=true}
+        else{resObj['isEditorChoice']=false}
+
+        const isTrendingNews=await this.trendingRepo.findOne({where:{newsId:isNews.id}})
+        if(isTrendingNews){resObj['isTrending']=true}
+        else{resObj['isTrending']=false}
+
+        const isExclusiveNews=await this.exclusiveRepo.findOne({where:{newsId:isNews.id}})
+        if(isExclusiveNews){resObj['isExclusive']=true}
+        else{resObj['isExclusive']=false}
+        
+        return new GenericResponseDto(HttpStatus,"News Status",resObj)
+
+    }
+    isObjectEmpty(object) {
+        return (
+            Object.prototype.toString.call(object) === '[object Object]' &&
+            JSON.stringify(object) === '{}'
+        );
+    }
 
 }
