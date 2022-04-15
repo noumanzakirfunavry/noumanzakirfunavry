@@ -6,11 +6,11 @@ import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
 export class Data extends Pagination {
-    publishers?: Array<any>;
+    publisher?: number;
 
     constructor() {
         super();
-        this.publishers= [];
+        this.publisher= null;
     }
 }
 
@@ -75,13 +75,13 @@ export class TagsComponent implements OnInit {
     }
 
     receiveStatus(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers};
+        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher};
         this.pagination.pageNo= 1;
         this.getAllTags();        
     }
 
     receiveFilter(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers};
+        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher};
         this.pagination.pageNo= 1;
         this.getAllTags();        
     }

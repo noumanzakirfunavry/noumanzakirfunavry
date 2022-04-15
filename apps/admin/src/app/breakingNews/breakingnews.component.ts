@@ -69,13 +69,13 @@ export class BreakingNewsComponent implements OnInit{
       }
 
     receiveStatus(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers};
+        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher};
         this.pagination.pageNo= 1;
         this.getAllBreakingNews();        
     }
 
     receiveFilter(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers};
+        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher};
         this.pagination.pageNo= 1;
         this.getAllBreakingNews();        
     }
