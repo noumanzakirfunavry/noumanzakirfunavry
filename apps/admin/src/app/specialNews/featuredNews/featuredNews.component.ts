@@ -77,7 +77,7 @@ export class FeaturedNewsComponent implements OnInit {
             newsId: null
         }
     ];
-    
+
 
     constructor(private apiService: ApiService, private message: NzMessageService) { }
 
@@ -103,33 +103,60 @@ export class FeaturedNewsComponent implements OnInit {
         return obj
     }
 
-    // getAllFeaturedNews() {
-    //     this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res: any) => {
-    //         this.allFeaturedNews = res.response.featuredNews;
-    //         this.fNews=[...this.allFeaturedNews]
-    //         console.log("ALL-FEATURED-NEWS", this.allFeaturedNews);
-    //         this.loading = false;
-    //     }, err => {
-    //         this.loading = false;
-    //     })
-    // }
+    getAllFeaturedNews() {
+        this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res: any) => {
+            this.allFeaturedNews = res.response.featuredNews;
+
+            this.fNews = this.allFeaturedNews ? [...this.allFeaturedNews] : this.fNews;
+            // this.fNews.forEach(news => {
+            //     news.newsId = this.allFeaturedNews.find(x=>x.position==news.position)?.newsId
+            // })
+            console.log("ALL-FEATURED-NEWS", this.allFeaturedNews);
+            this.loading = false;
+        }, err => {
+            this.loading = false;
+        })
+    }
 
     changedNews(updatedNews) {
         const news = this.fNews.findIndex(x => x.position == updatedNews.position);
-        if (news > -1) {
+        if (news > -1 && !this.findDuplicates()) {
             this.fNews[news] = updatedNews;
+        } else if (this.fNews.filter(x => !x.newsId)) {
+            this.message.create('error', 'Please add all featured news for Featured section')
+        } else {
+            // this.fNews[news] = null;
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.fNews[news] = tempNews;
+                this.fNews[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
+    }
+    findDuplicates() {
+        const valueArr = this.fNews.map(function (item) { return item.newsId });
+        const isDuplicate = valueArr.some(function (item, idx) {
+            return valueArr.indexOf(item) != idx
+        });
+        console.log(isDuplicate);
+        return isDuplicate
     }
 
     updateFeaturedNews() {
         this.fNews.forEach(news => {
-                news.newsId = parseInt(news.newsId);
+            news.newsId = parseInt(news.newsId);
+        })
+        if (this.fNews.filter(x => !x.newsId)) {
+            this.message.create('error', 'Please add all featured news for Featured section')
+        }else{
+            this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
+                console.log("UPDATE-FEATURED-NEWS", res);
+                this.getAllFeaturedNews();
+                this.message.create('success', `Featured News Updated Successfully`);
             })
-                this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
-                    console.log("UPDATE-FEATURED-NEWS", res);
-                    // this.getAllFeaturedNews();
-                    this.message.create('success', `Featured News Updated Successfully`);
-                })
+        }
+        
     }
 
 }    

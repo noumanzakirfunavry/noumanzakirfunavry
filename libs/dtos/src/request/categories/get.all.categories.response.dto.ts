@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsNumberString, IsOptional, IsString } from "class-validator";
 import { PaginatedRequestDto } from "../pagination.request.dto";
 
 export class GetAllCategoriesRequestDto extends PaginatedRequestDto{
@@ -9,8 +9,8 @@ export class GetAllCategoriesRequestDto extends PaginatedRequestDto{
     parentCategoryId:number[]
 
     @IsOptional()
-    @IsArray()
-    publishers:number[]
+		@IsNumberString()
+    publishedBy: number
 
     @IsOptional()
     @IsBoolean()

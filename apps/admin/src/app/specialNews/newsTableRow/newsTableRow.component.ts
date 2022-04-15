@@ -41,6 +41,7 @@ export class Data extends Pagination {
 export class NewsTableRowComponent implements OnInit, AfterContentInit{
     @Input() allCategories: any;
     @Input() news: any = {newId:null};
+    @Output() onNewsSelection:EventEmitter<any>=new EventEmitter();
     pagination: Data = new Data()
     allCategoryNews: any = [];
     selectedCat: any
@@ -64,7 +65,8 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit{
     }
     
     onChangeNews(id){
-        this.news=id;
+        this.news.newsId=id;
+        this.onNewsSelection.emit(this.news);
         console.log("CAT-NEWS-ID", this.news);
     }
 
@@ -75,8 +77,8 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit{
             this.allCategoryNews= res.response.news;
             // const uniqueIds = this.allCategoryNews.map(x => x.id).filter((v, i, s) => s.indexOf(v) === i)
             this.news.newsId = null
-            console.log("NEWS", this.news);
-            
+            this.onNewsSelection.emit(this.news);
+
             console.log("CATEGORY-NEWS", this.allCategoryNews);
             // console.log("CATEGORY-NEWS-UNIQUE-IDS", uniqueIds);
             return this.allCategoryNews && this.allCategoryNews.filter((x: any) => x.id != this.news.newsId)

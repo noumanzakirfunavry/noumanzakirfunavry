@@ -1,7 +1,7 @@
 <section>
   <br>
   <br>
-  <div class="col-12">
+  <div class="col-12" *ngIf="!loader">
     <form nz-form [formGroup]="adminForm" (ngSubmit)="admin()" [nzLayout]="'vertical'">
       <div class="row">
         <div class="col-6">
@@ -87,7 +87,7 @@
           <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log($event)">
             <div nz-row>
               <div nz-col nzSpan="12">
-                <label *ngFor="let right of allRights" nz-checkbox [nzValue]="right?.id" formControlName="rights">{{right?.title}}</label>
+                <label *ngFor="let right of allRights" [ngModel]="right.checked" nz-checkbox [nzValue]="right?.id" formControlName="rights">{{right?.title}}</label>
               </div>
             </div>
           </nz-checkbox-wrapper>
