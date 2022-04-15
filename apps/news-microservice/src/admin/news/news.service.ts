@@ -309,7 +309,9 @@ export class NewsService {
                 ...(query.publishedBy && {
                     publishedBy: query.publishedBy
                 }),
-                createdAt:where(literal('cast(`News`.`createdAt` as date)'),'=',query.date)
+                ...(query.date && {
+									createdAt: where(sequelize.fn('date', sequelize.col('News.createdAt')), '=', query.date)
+								})
 
             },
             limit: parseInt(query.limit.toString()),
