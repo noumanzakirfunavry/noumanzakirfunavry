@@ -17,7 +17,15 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                 <li key={index}>
                                     <div className="newsText">
                                         <Link href={`/newsDetails/` + news?._id}><a>{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a></Link>
-                                        <p><a href="#">{news?._source?.authorName}</a> <b> {dateFormat(news?._source?.createdAt, "dd-mm-yyyy")} ID: {news?._id}</b></p>
+                                        <p>
+                                            { // to show tags
+                                              news?._source?.tags?.map((tag: string, tagIndex: number) => {
+                                                  return(
+                                                    <a key={tagIndex} href="#">{tag}</a>
+                                                  )
+                                              })  
+                                            }
+                                        </p>
                                     </div>
                                     <div className="newsImage">
                                         {news?._source?.image ? <img alt="img" className="img-fluid" src={news._source?.image?.url} />:<img alt="img" className="img-fluid" src={newsimg.src} />}
