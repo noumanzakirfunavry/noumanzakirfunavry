@@ -50,6 +50,7 @@ export class AnthenticationService {
                     const session_creation = await this.sessionCreation(body, response)
                     const token = await this.tokenGeneration(response, session_creation)
                     if (session_creation) {
+                        response.update({loginFailAttempts:0})
                         return new GenericResponseDto(
                             HttpStatus.OK,
                             "Logged-in Successfully!",
@@ -63,13 +64,22 @@ export class AnthenticationService {
 														}
                         )
                     }
+                    
                 }
                 else {
+                    response.update({loginFailAttempts:response.loginFailAttempts+1})
+                    if (response.loginFailAttempts>=5){
+                        throw new CustomException(
+                            Exceptions[ExceptionType.LOGIN_ATTEMPT_LIMIT_REACHED].message,
+                             Exceptions[ExceptionType.LOGIN_ATTEMPT_LIMIT_REACHED].status
+                        )
+                    }
                     throw new CustomException(
                         Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].message,
                         Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].status
                     )
                 }
+
             }
             else {
                 throw new CustomException(

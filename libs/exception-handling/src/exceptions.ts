@@ -36,6 +36,7 @@ export enum ExceptionType {
   SOCIAL_MEDIA_LINK_NOT_FOUND = 'SOCIAL_MEDIA_LINK_NOT_FOUND',
   ADMIN_CANNOT_ADD_SUPER_ADMIN = 'ADMIN_CANNOT_ADD_SUPER_ADMIN',
   UNABLE_TO_ADD_LOG = 'UNABLE_TO_ADD_LOG',
+  LOGIN_ATTEMPT_LIMIT_REACHED='LOGIN_ATTEMPT_LIMIT_REACHED',
   ORDER_NUMBER_NOT_AVAILABLE = 'ORDER_NUMBER_NOT_AVAILABLE',
   ORDER_NUMBER_IS_SAME_AS_BEFORE = 'ORDER_NUMBER_IS_SAME_AS_BEFORE',
   ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL = 'ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL',
@@ -58,6 +59,10 @@ export const Exceptions: Record<ExceptionType, ExceptionOptions> = {
   [ExceptionType.SOCIAL_MEDIA_LINK_NOT_FOUND]: {
     status: HttpStatus.NOT_FOUND,
     message: 'No such social media link found.',
+  },
+  [ExceptionType.LOGIN_ATTEMPT_LIMIT_REACHED]: {
+    status: HttpStatus.FORBIDDEN,
+    message: 'login attempts limit reached',
   },
   [ExceptionType.SOMETHING_WENT_WRONG]: {
     status: HttpStatus.INTERNAL_SERVER_ERROR,
