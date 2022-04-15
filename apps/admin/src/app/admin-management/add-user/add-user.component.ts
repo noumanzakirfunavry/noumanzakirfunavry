@@ -128,7 +128,7 @@ export class AddUserComponent implements OnInit{
         confirmPassword: [null, [Validators.required, this.confirmationValidator]],
         email: [this.userById?.email || null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
         isActive: [this.userById?.isActive || false],
-        rights: [this.userById?.rights || null]
+        rights: [this.userById?.rights?.map(x=>x.id) || null]
       });
     })
   }
