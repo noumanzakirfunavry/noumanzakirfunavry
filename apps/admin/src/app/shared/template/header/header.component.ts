@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit{
     quickViewVisible = false;
     isFolded : boolean;
     isExpand : boolean;
+    adminInfo: any;
 
     notificationList = [
         {
@@ -50,6 +51,8 @@ export class HeaderComponent implements OnInit{
         private message: NzMessageService) {}
 
     ngOnInit(): void {
+        const admin = JSON.parse(localStorage.getItem('admin') || '{}');
+        this.adminInfo= admin.user;
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
     }

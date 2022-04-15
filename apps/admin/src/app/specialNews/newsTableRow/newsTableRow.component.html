@@ -40,7 +40,7 @@
                           <nz-select nzShowSearch (change)="onChangeNews($event.target.value)" [(ngModel)]="news.newsId" nzPlaceHolder="Select News">
                             <nz-option *ngFor="let catNews of allCategoryNews" [nzValue]="catNews?.id" [nzLabel]="catNews?.title"></nz-option>
                           </nz-select>
-                          <div *ngIf="(!allCategoryNews || allCategoryNews.length===0)" style="color: Crimson;">
+                          <div *ngIf="news.newsId===null" style="color: Crimson;">
                             Select News!
                           </div>
                         </nz-form-item>

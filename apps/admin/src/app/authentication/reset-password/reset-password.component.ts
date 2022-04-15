@@ -35,8 +35,9 @@ export class ResetPasswordComponent implements OnInit {
             obj['email']= this.resetPasswordForm.value.email.toLowerCase();
             this.apiService.sendRequest(requests.resetPassword, 'post', obj).subscribe((res:any) => {
                 console.log("Email for reset password", res);
+                this.resetPasswordForm.reset();
                 this.message.create('success', `Email sent Successfully`)
-                // this.route.navigateByUrl('login');
+                // this.route.navigateByUrl('full/authentication/login');
             })
         }
     }
