@@ -5,8 +5,9 @@ const NewsInfoBox = ({ news }) =>{
 
     const[dateCreatedArabicFormat, setDateCreatedArabicFormat] = useState<string>('');
     const[dateUpdatedArabicFormat, setDateUpdatedArabicFormat] = useState<string>('');
-
-    
+   
+    //console.log(news?.createdAt);
+    //console.log(news?.updatedAt);
     useEffect(() => {
         const createdAt = news?.createdAt.split(".");
         const updatedAt = news?.updatedAt.split(".");
@@ -19,7 +20,7 @@ const NewsInfoBox = ({ news }) =>{
     return(
         <>
              <div className="NewsInfobox">
-                <div className="infoItem">نشر الجمعة {dateCreatedArabicFormat}</div>
+                <div className="infoItem">نشر{dateCreatedArabicFormat}</div>
                 <div className="infoItem">تم تحريره {dateUpdatedArabicFormat}</div>
                 <div className="newsSocial mt_sm_20">
                     <ul>
