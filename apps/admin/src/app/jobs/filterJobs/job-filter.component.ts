@@ -15,7 +15,7 @@ export class JobFilterComponent implements OnInit {
     allBranches: any;
     allAdmins: any;
     loading= true;
-    filterModel : {status: boolean, title: string, publishers: Array<any>, branchId: Array<any>} = {status: null, title: null, publishers: null, branchId: []}
+    filterModel : {status: boolean, title: string, publisher: number, branchId: Array<any>} = {status: null, title: null, publisher: null, branchId: []}
 
     constructor(private apiService: ApiService) {}
 
@@ -51,14 +51,14 @@ export class JobFilterComponent implements OnInit {
     }
 
     search() {
-        if(this.filterModel.publishers) {
-            this.filterModel.publishers= [this.filterModel.publishers]
-        }
+        // if(this.filterModel.publishers) {
+        //     this.filterModel.publishers= [this.filterModel.publishers]
+        // }
         this.statusEmitter.emit(this.filterModel);
     }
 
     clear() {
-        this.filterModel= { status : null, title : null, publishers: null, branchId: []};
+        this.filterModel= { status : null, title : null, publisher: null, branchId: []};
         this.filterEmitter.emit(this.filterModel);
     }
    

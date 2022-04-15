@@ -33,6 +33,7 @@ export class FeaturedNewsComponent implements OnInit {
     allFeaturedNews: any;
     allCategories: any;
     loading = true;
+    fNewsId: any;
 
     fNews: any[] = [
         {
@@ -83,7 +84,7 @@ export class FeaturedNewsComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllCategories();
-        this.getAllFeaturedNews();
+        // this.getAllFeaturedNews();
     }
 
     getAllCategories() {
@@ -125,7 +126,7 @@ export class FeaturedNewsComponent implements OnInit {
             this.message.create('error', 'Please add all featured news for Featured section')
         } else {
             // this.fNews[news] = null;
-            let tempNews = updatedNews;
+            const tempNews = updatedNews;
             setTimeout(() => {
                 this.fNews[news] = tempNews;
                 this.fNews[news]['newsId'] = null;
@@ -134,8 +135,8 @@ export class FeaturedNewsComponent implements OnInit {
         }
     }
     findDuplicates() {
-        var valueArr = this.fNews.map(function (item) { return item.newsId });
-        var isDuplicate = valueArr.some(function (item, idx) {
+        const valueArr = this.fNews.map(function (item) { return item.newsId });
+        const isDuplicate = valueArr.some(function (item, idx) {
             return valueArr.indexOf(item) != idx
         });
         console.log(isDuplicate);

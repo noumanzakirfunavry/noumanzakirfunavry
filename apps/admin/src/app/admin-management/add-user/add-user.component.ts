@@ -72,7 +72,7 @@ export class AddUserComponent implements OnInit{
       confirmPassword: [null, [Validators.required, this.confirmationValidator]],
       email: [null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
       isActive: [false],
-      rights: [null]
+      rights: [null, [Validators.required]]
     });
   }
 
@@ -81,7 +81,7 @@ export class AddUserComponent implements OnInit{
       this.adminForm.controls[i].markAsDirty();
       this.adminForm.controls[i].updateValueAndValidity();
     }
-    this.submitted= true;
+    this.submitted=true;
     if(this.adminForm.valid) {
       const obj= this.adminForm.value;
       obj['name'] = this.adminForm.value.name.trim();
@@ -148,7 +148,7 @@ export class AddUserComponent implements OnInit{
         confirmPassword: [null, [Validators.required, this.confirmationValidator]],
         email: [this.userById?.email || null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
         isActive: [this.userById?.isActive || false],
-        rights: [this.userById?.rights?.map(x=>x.id) || null]
+        rights: [this.userById?.rights?.map(x=>x.id) || null, [Validators.required]]
       });
       setTimeout(() => {
         
