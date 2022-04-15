@@ -20,10 +20,8 @@ export class NewsTypeService {
 
 		return await sequelize.transaction(async t => {
 			const transactionHost = { transaction: t };
-			let itemsBeforeDelete: any = await sequelize.getRepository(entity).findAll({ attributes: ['id', 'newsId'], raw: true, nest: true,transaction:transactionHost.transaction })
-            console.log("🚀 ~ file: news-type.service.ts ~ line 24 ~ NewsTypeService ~ updateNews ~ itemsBeforeDelete", itemsBeforeDelete)
+			let itemsBeforeDelete: any = await sequelize.getRepository(entity).findAll({ attributes: ['id', 'newsId'], raw: true, nest: true, transaction: transactionHost.transaction })
 			const delete_previous = await this.deletePreviousNews(entity, transactionHost)
-            console.log("🚀 ~ file: news-type.service.ts ~ line 26 ~ NewsTypeService ~ updateNews ~ delete_previous", delete_previous)
 			if (delete_previous) {
 				body = this.helperService.addUser(body, userId)
 				let addNews;
@@ -36,7 +34,7 @@ export class NewsTypeService {
 						)
 					}
 				}
-				const itemsAfterDelete: any = await sequelize.getRepository(entity).findAll({ attributes: ['id', 'newsId'], raw: true, nest: true ,transaction:transactionHost.transaction })
+				const itemsAfterDelete: any = await sequelize.getRepository(entity).findAll({ attributes: ['id', 'newsId'], raw: true, nest: true, transaction: transactionHost.transaction })
 
 				// First Loop To Create Dictionary
 				let itemDictionary = {};
@@ -46,7 +44,9 @@ export class NewsTypeService {
 				itemsAfterDelete.forEach(item => {
 					itemDictionary[item.newsId] = 2;
 				});
+				console.log("🚀 ~ file: news-type.service.ts ~ line 50 ~ NewsTypeService ~ updateNews ~ itemsAfterDelete", itemsAfterDelete)
 				let itemsToFlag = [];
+				let positionDetails = [];
 				let itemsToDeflag = [];
 
 				let elkUpdateArray = [];
@@ -69,7 +69,19 @@ export class NewsTypeService {
 					} else if (entity.prototype.constructor.name === "FeaturedNews") {
 						flag = 'isFeatured'
 					}
+					
+					const docToUpload = {
+						[flag]: true,
+					}
 
+					if(flag === 'isFeatured'){
+						const newsDetail = body.news.filter(news => news.newsId == item);
+
+						if(newsDetail.length !== 0){
+							docToUpload['featuredNews'] = { position: newsDetail[0].position, section: newsDetail[0].section }
+						}
+					}
+				
 					elkUpdateArray.push({
 						update: {
 							_index: 'news',
@@ -77,11 +89,10 @@ export class NewsTypeService {
 						}
 					},
 						{
-							doc: {
-								[flag]: true
-							}
+							doc: docToUpload
 						})
 				})
+				console.log("🚀 ~ file: news-type.service.ts ~ line 86 ~ NewsTypeService ~ updateNews ~ itemsToFlag", itemsToFlag)
 
 				itemsToDeflag.forEach(item => {
 					if (entity.prototype.constructor.name === "TrendingNews") {
@@ -105,7 +116,7 @@ export class NewsTypeService {
 						})
 				})
 
-				ElkService.bulk({operations: elkUpdateArray})
+				ElkService.bulk({ operations: elkUpdateArray })
 
 
 				return new GenericResponseDto(

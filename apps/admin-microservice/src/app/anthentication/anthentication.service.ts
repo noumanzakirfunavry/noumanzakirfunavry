@@ -26,12 +26,27 @@ export class AnthenticationService {
             const response = await this.usersRepository.findOne({
                 include: [Roles, Rights],
                 where: {
-                    userName: body.userName
+                    userName: body.userName,
                 }
             })
             if (response) {
                 const compare_passwords = await this.helperService.comparePasswords(body.password, response.password)
                 if (compare_passwords) {
+
+									if(!response.isVerified){
+										throw new CustomException(
+											Exceptions[ExceptionType.USER_IS_NOT_VERIFIED].message,
+											Exceptions[ExceptionType.USER_IS_NOT_VERIFIED].status
+										)
+									}
+
+									if(!response.isActive){
+										throw new CustomException(
+											Exceptions[ExceptionType.USER_IS_INACTIVE].message,
+											Exceptions[ExceptionType.USER_IS_INACTIVE].status
+										)
+									}
+									
                     const session_creation = await this.sessionCreation(body, response)
                     const token = await this.tokenGeneration(response, session_creation)
                     if (session_creation) {
@@ -39,7 +54,14 @@ export class AnthenticationService {
                         return new GenericResponseDto(
                             HttpStatus.OK,
                             "Logged-in Successfully!",
-                            token
+                            {
+															user: {
+																id: response.id,
+																name: response.name,
+																email: response.email,
+															},
+															token
+														}
                         )
                     }
                     
@@ -277,10 +299,11 @@ export class AnthenticationService {
         }
         return true
     }
+		// remove isVerified:true
     async addUser(body, transactionHost) {
         const userObj = body
         userObj.password = await this.helperService.encryptPassword(userObj.password)
-        return await this.usersRepository.create(userObj, transactionHost)
+        return await this.usersRepository.create({...userObj, isVerified: true}, transactionHost)
     }
     async requestResetPassword(body: RequestResetPasswordRequestDto): Promise<GenericResponseDto> {
         try {

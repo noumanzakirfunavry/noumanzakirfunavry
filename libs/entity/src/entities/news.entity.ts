@@ -50,7 +50,6 @@ export class News extends Model {
   @Column
   title: string;
 
-  @Column
 	@Column({
 		type: DataType.TEXT
 	})

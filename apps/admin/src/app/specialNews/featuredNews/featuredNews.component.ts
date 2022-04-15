@@ -83,7 +83,7 @@ export class FeaturedNewsComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllCategories();
-        // this.getAllFeaturedNews();
+        this.getAllFeaturedNews();
     }
 
     getAllCategories() {
@@ -102,16 +102,16 @@ export class FeaturedNewsComponent implements OnInit {
         return obj
     }
 
-    // getAllFeaturedNews() {
-    //     this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res: any) => {
-    //         this.allFeaturedNews = res.response.featuredNews;
-    //         this.fNews=[...this.allFeaturedNews]
-    //         console.log("ALL-FEATURED-NEWS", this.allFeaturedNews);
-    //         this.loading = false;
-    //     }, err => {
-    //         this.loading = false;
-    //     })
-    // }
+    getAllFeaturedNews() {
+        this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res: any) => {
+            this.allFeaturedNews = res.response.featuredNews;
+            this.fNews=[...this.allFeaturedNews]
+            console.log("ALL-FEATURED-NEWS", this.allFeaturedNews);
+            this.loading = false;
+        }, err => {
+            this.loading = false;
+        })
+    }
 
     changedNews(updatedNews) {
         const news = this.fNews.findIndex(x => x.position == updatedNews.position);
@@ -121,14 +121,14 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     updateFeaturedNews() {
-            this.fNews.forEach(news => {
+        this.fNews.forEach(news => {
                 news.newsId = parseInt(news.newsId);
             })
-            this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
-                console.log("UPDATE-FEATURED-NEWS", res);
-                // this.getAllFeaturedNews();
-                this.message.create('success', `Featured News Updated Successfully`);
-            })
-        }
+                this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
+                    console.log("UPDATE-FEATURED-NEWS", res);
+                    this.getAllFeaturedNews();
+                    this.message.create('success', `Featured News Updated Successfully`);
+                })
+            }
 
 }    

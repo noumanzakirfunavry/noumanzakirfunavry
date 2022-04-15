@@ -25,9 +25,9 @@ export class TagsService {
                 ...(query.status&& {
                     isActive: JSON.parse(query.status.toString())
                 }),
-                ...(query.publishers &&
+                ...(query.publisher &&
                 {
-                    publishedBy: query.publishers
+                    publishedBy: query.publisher
                 })
             },
             limit: parseInt(query.limit.toString()),

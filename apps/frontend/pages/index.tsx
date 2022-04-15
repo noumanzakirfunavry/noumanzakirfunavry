@@ -140,7 +140,7 @@ export function Index() {
                 <div className="PageBuilder-col-9">
                   <CategoryNewsSection
                     cat={category}
-                    limit={1}
+                    limit={5}
                     displayTitle={true}
                     displayTopTwoNews={true}
                     displayMoreButton={false}

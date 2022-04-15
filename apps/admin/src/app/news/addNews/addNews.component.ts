@@ -70,7 +70,7 @@ export class AddNewsComponent implements OnInit {
             //     // Headers sent along with the XMLHttpRequest to the upload server.
             //     headers: {
             //         'X-CSRF-TOKEN': 'CSRF-Token',
-            //         Authorization: 'Bearer '+admin.access_token
+            //         Authorization: 'Bearer '+admin.token.access_token
             //     }
             // },
             ckfinder: {
@@ -158,12 +158,13 @@ export class AddNewsComponent implements OnInit {
 
     populateNewsForm(news: any) {
         this.newsForm = this.fb.group({
+            date: [new Date(news.updatedAt), []],
             title: [news.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             content: [news?.content || null, [Validators.required, Validators.maxLength(1500)]],
             isPro: [news.isPro || false],
             visible: [news.visible || true, [Validators.required]],
             contentType: [news.contentType || 'TEXT', [Validators.required]],
-            authorName: [news?.authorName || 'CNBC News',],
+            // authorName: [news?.authorName || 'CNBC News', [Validators.required, Validators.maxLength(250)]],
             newsType: [news?.newsType || 'NEWS',],
             showOnHomepage: [news.showOnHomepage || true, [Validators.required]],
             isActive: [news.isActive || true,],
@@ -180,12 +181,13 @@ export class AddNewsComponent implements OnInit {
 
     initNewsForm() {
         this.newsForm = this.fb.group({
+            date: [new Date(), []],
             title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             content: [null, [Validators.required, Validators.maxLength(1500)]],
             isPro: [false],
             visible: [true, [Validators.required]],
             contentType: ['TEXT', [Validators.required]],
-            authorName: [null,],
+            // authorName: ['CNBC News', [Validators.required, Validators.maxLength(250)]],
             newsType: ['NEWS',],
             showOnHomepage: [true, [Validators.required]],
             isActive: [true],
@@ -271,7 +273,7 @@ export class AddNewsComponent implements OnInit {
                 console.log(res.body);
                 if(mainFile){
                     this.newsModal.imageId = res.body.response.id;
-                    this.newsModal.fileUrl = environment.fileUrl + res.body.response.path
+                    this.newsModal.fileUrl = res.body.response.url
                 }else{
                     this.newsModal.thumbnailId = res.body.response.id;
                     this.newsModal.thumbnailUrl = environment.fileUrl + res.body.response.path
@@ -393,4 +395,9 @@ export class AddNewsComponent implements OnInit {
         })
         return nodes;
     }
+
+    enableDisable(e?: MouseEvent) {
+        e.preventDefault();
+    }
+
 }    

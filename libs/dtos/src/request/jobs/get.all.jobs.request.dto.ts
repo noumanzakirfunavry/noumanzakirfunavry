@@ -1,4 +1,4 @@
-import { IsBooleanString ,IsNotEmpty,IsOptional, IsString } from "class-validator";
+import { IsBooleanString ,IsNotEmpty,IsNumber,IsOptional, IsString } from "class-validator";
 import { PaginatedRequestDto } from "../pagination.request.dto";
 
 
@@ -13,7 +13,8 @@ export class GetALLJobsRequestDto extends PaginatedRequestDto{
     branchId:number[]
 
     @IsOptional()
-    publishers:number[]
+		@IsNumber()
+    publisher: number
 
     @IsOptional()
     @IsString()

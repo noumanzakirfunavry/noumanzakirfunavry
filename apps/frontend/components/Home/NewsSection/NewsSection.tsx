@@ -25,14 +25,21 @@ const NewsSection:FC = () =>{
     },[])
 
     const getDataFromApi = () =>{
-        GetData(`${requests.featuredNews}&limit=10&pageNo=1`,{},"get", false).then((res)=>{
+        GetData(`${requests.featuredNews}&limit=8&pageNo=1`,{},"get", false).then((res)=>{
             featuredNews.mainNews = res.data?.filter((news:any)=>{
-                return news._source.featuredNews 
+                return news._source.featuredNews?.section=='MAIN'
             })
 
+            // featuredNews.mainNews = featuredNews.mainNews?.sort((first, second) => {
+            //     return (first._source.featuredNews?.position > second._source.featuredNews?.position ? 1 : -1)
+            // })
+
             featuredNews.secondaryNews = res.data?.filter((news:any)=>{
-                return !news._source.featuredNews 
+                return news._source.featuredNews?.section!='MAIN'
             })
+            featuredNews.mainNews=featuredNews.mainNews.sort((a,b) => a._source.featuredNews?.position - b._source.featuredNews?.position);
+            featuredNews.secondaryNews=featuredNews.secondaryNews.sort((a,b) => a._source.featuredNews?.position - b._source.featuredNews?.position);
+
             setFeaturedNews({...featuredNews})
         }).catch(err=>{
             console.log(err)
@@ -59,7 +66,7 @@ const NewsSection:FC = () =>{
             <div className="PageBuilder-pageRow">
                 <div className=" PageBuilder-col-9">
 
-                    {featuredNews.mainNews?.length &&
+                    {featuredNews.secondaryNews?.length &&
                         <NewsDetatilListWithMedia
                             dispalyMoreButton={false}
                             newsList={featuredNews.secondaryNews}

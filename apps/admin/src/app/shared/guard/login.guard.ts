@@ -7,10 +7,10 @@ export class LoginGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const admin = JSON.parse(localStorage.getItem('admin') || '{}');
-        if(admin.access_token){
+        if(admin.token?.access_token){
             this.router.navigate(['dashboard']);
             return false
         }
-        return !admin.access_token;
+        return !admin.token?.access_token;
     }
 }

@@ -20,6 +20,7 @@ export class UsersComponent implements OnInit{
     checked = false;
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData = [];
+    user: any;
 
     
 
@@ -27,11 +28,16 @@ export class UsersComponent implements OnInit{
 
     ngOnInit(): void {
         this.getAllAdmins();
+        this.user = JSON.parse(localStorage.getItem('admin') || '{}');
     }
 
     getAllAdmins() {
         this.apiService.sendRequest(requests.getAllAdmins, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allAdmins= res.response.admins;
+            let userIndex=this.allAdmins.findIndex(x=>x.id==this.user.user.id);
+            if(userIndex>-1){
+                this.allAdmins[userIndex]['disabled']=true
+            }
             this.adminsCount= res.response.totalCount;
             console.log("ALL-ADMINS", this.allAdmins);
             this.loading= false;

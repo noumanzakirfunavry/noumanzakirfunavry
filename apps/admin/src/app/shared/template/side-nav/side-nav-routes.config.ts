@@ -130,14 +130,6 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
-        path: 'admins/list',
-        title: 'Admins',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'dashboard',
-        submenu: []
-    },
-    {
         path: 'breakingNews',
         title: 'Breaking News',
         iconType: 'nzIcon',
@@ -277,6 +269,14 @@ export const ROUTES: SideNavInterface[] = [
     {
         path: 'amazonAlexa',
         title: 'Amazon Alexa',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dashboard',
+        submenu: []
+    },
+    {
+        path: 'admins/list',
+        title: 'Admins',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'dashboard',

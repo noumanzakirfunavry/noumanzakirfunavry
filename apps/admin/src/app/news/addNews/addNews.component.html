@@ -10,7 +10,7 @@
                             <nz-form-item>
                                 <nz-form-label>Date</nz-form-label>
                                 <nz-form-control>
-                                    <nz-date-picker class="w-100" nzShowTime nzDisabled="true"></nz-date-picker>
+                                    <nz-date-picker formControlName="date" class="w-100" nzShowTime nzDisabled="true"></nz-date-picker>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
@@ -23,6 +23,15 @@
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
+                        <!-- <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label nzRequired>Author Name</nz-form-label>
+                                <nz-form-control nzErrorTip="Enter valid Author Name between 3 to 250 characters!">
+                                    <input type="text" formControlName="authorName" placeholder="Enter Author Name" dir="rtl"
+                                        nz-input>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div> -->
                     </div>
                     <div class="col-md-12">
                         <nz-form-item>
@@ -49,6 +58,7 @@
                              <span *ngIf="uploadProgress" class="ml-4 mt-1">File Uploading Progress :{{uploadProgress}}%</span>
                             <img *ngIf="newsModal?.fileUrl" class="mt-2" width="40%"  height="40%" [src]="newsModal?.fileUrl">
                         </nz-form-item>
+                        <div *ngIf="file && !uploadProgress" style="color: Crimson;">Click upload button to upload Image!</div>
                         <button class="mr-2" *ngIf="file" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
                         <button *ngIf="file" (click)="[getCaptcha($event),reset()]">Reset</button>
                     </div>
@@ -109,7 +119,7 @@
                                 <textarea type="text" style="min-height:150px;" placeholder="Write a comment..."
                                     nz-input></textarea>
                                 <button class="mr-3" style="position: absolute; right: 0px;bottom:10px" nz-button
-                                    nzType="primary">Add Comment</button>
+                                    nzType="primary" (click)="enableDisable($event)">Add Comment</button>
                             </nz-form-item>
                             <!-- <ng-template #pagination>
                 <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
@@ -132,23 +142,23 @@
                             </nz-form-control>
                         </nz-form-item>
                     </div>
-                    <div>
+                    <!-- <div>
                         <h4 class="mb-2">Sharing Settings</h4>
                         <nz-form-item>
                             <nz-form-control>
-                                <button class="mr-3" nz-button nzType="default">Push Notification</button>
-                                <button class="mr-3" nz-button nzType="default">Twitter</button>
-                                <button class="mr-3" nz-button nzType="default">Facebook</button>
+                                <button class="mr-3" nz-button nzType="default" (click)="enableDisable($event)">Push Notification</button>
+                                <button class="mr-3" nz-button nzType="default" (click)="enableDisable($event)">Twitter</button>
+                                <button class="mr-3" nz-button nzType="default" (click)="enableDisable($event)">Facebook</button>
                             </nz-form-control>
                         </nz-form-item>
-                    </div>
+                    </div> -->
                     <div>
                         <nz-form-item>
                             <nz-form-label nzRequired>Catogory</nz-form-label>
-                            <nz-form-control>
+                            <nz-form-control nzErrorTip="Select Catogory!">
                                 <nz-tree-select *ngIf="strucCategories" formControlName="categoryIds"
-                                    style="width: 250px" [nzNodes]="strucCategories" (ngModelChange)="onChange($event)"
-                                    nzShowSearch nzCheckable nzPlaceHolder="Please select">
+                                    [nzNodes]="strucCategories" (ngModelChange)="onChange($event)"
+                                    nzShowSearch nzCheckable nzPlaceHolder="Select Catogory">
                                 </nz-tree-select>
                             </nz-form-control>
                         </nz-form-item>
@@ -162,14 +172,14 @@
                             <nz-form-label nzRequired>Tags</nz-form-label>
                             <nz-form-control nzErrorTip="Select Tag!">
                                 <nz-select (keyup)="getTags($event.target.value)" [nzSize]="size" formControlName="tagsIds" nzMode="multiple"
-                                    nzPlaceHolder="Please select">
+                                    nzPlaceHolder="Select Tag">
                                     <nz-option *ngFor="let option of allTags" [nzLabel]="option.title"
                                         [nzValue]="option.id"></nz-option>
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
                         <form [formGroup]="tagForm" nz-form [nzLayout]="'horizontal'">
-                            <div class="d-flex w-100">
+                            <div class="d-flex">
                                 <nz-form-item>
                                     <nz-form-control nzErrorTip="Enter Tag!">
                                     <input type="text" formControlName="title" placeholder="Enter Tag" dir="rtl" nz-input>
@@ -188,14 +198,14 @@
                             <nz-form-label nzRequired>Related Quotes</nz-form-label>
                             <nz-form-control nzErrorTip="Select Quote!">
                                 <nz-select (keyup)="getAllQuotes($event.target.value)" formControlName="quotesIds"
-                                    [nzSize]="size" nzMode="multiple" nzPlaceHolder="Please select">
+                                    [nzSize]="size" nzMode="multiple" nzPlaceHolder="Select Quote">
                                     <nz-option *ngFor="let option of allQuotes" [nzLabel]="option.name"
                                         [nzValue]="option.id"></nz-option>
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
                         <form [formGroup]="quotesForm" nz-form [nzLayout]="'horizontal'">
-                            <div class="d-flex w-100">
+                            <div class="d-flex">
                                 <nz-form-item>
                                     <nz-form-control nzErrorTip="Enter valid Quote without spaces!">
                                     <input type="text" formControlName="name" placeholder="Enter Quote" dir="rtl" nz-input>
