@@ -18,6 +18,6 @@ export class GetAllPresentersRequestDto{
     isActive : boolean
 
     @IsOptional()
-    @IsNumber()
+    @IsNumberString()
 		publisher : number
 }
