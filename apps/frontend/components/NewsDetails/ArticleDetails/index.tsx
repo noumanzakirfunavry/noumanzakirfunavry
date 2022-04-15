@@ -17,7 +17,7 @@ const ArticleDetails: FC<any> = ({ news }) => {
             <div className="mb-3 newsDetailimg">
                 <img className="img-fluid" src={news?.image?.url ? news?.image?.url:logoImage.src} />
             </div>
-            <h6 className="newsDetailtext">بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h6>
+            <h6 className="newsDetailtext">{news?.image?.description}</h6>
             <hr></hr>
             {news ? <HtmlData data={news?.content} /> :<div>
             <div className="row">

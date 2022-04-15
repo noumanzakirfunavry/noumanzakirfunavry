@@ -15,12 +15,12 @@ const MainSection = ({ newsList }) => {
     // const last2MainNews =  newsList?.filter((news:any)=>{
     //     return news?._source?.featuredNews?.position > 3 && news?._source?.featuredNews?.position <= 5
     // })
-
+    
     return (
         <>
             <div className="row">
                 <div className="col-lg-8 p_sm_0">
-                    <div className={styles.mainNews} >
+                    <div className={styles.mainNews} style={{background: `url(${newsList[0]?._source?.image?.url}) no-repeat`}} >
                         <div className={styles.newscontent} >
                             {/* <h1><a >النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب</a></h1>
                                 <hr></hr>
@@ -32,9 +32,13 @@ const MainSection = ({ newsList }) => {
                                     if (index < 3)
                                         return (
                                             <React.Fragment key={news._id}>
-                                                <h1>
+                                               { index==0 ? <h1>
                                                     <Link href={`/newsDetails/` + news._id}><a >{news?._source?.title}</a></Link>
-                                                </h1>
+                                                </h1>:
+                                                <h3>
+                                                    <Link href={`/newsDetails/` + news._id}><a >{news?._source?.title}</a></Link>
+                                                </h3>}
+
                                                 <hr></hr>
                                             </React.Fragment>
                                         )

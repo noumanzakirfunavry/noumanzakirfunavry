@@ -70,7 +70,7 @@ export class AddNewsComponent implements OnInit {
             //     // Headers sent along with the XMLHttpRequest to the upload server.
             //     headers: {
             //         'X-CSRF-TOKEN': 'CSRF-Token',
-            //         Authorization: 'Bearer '+admin.access_token
+            //         Authorization: 'Bearer '+admin.token.access_token
             //     }
             // },
             ckfinder: {
@@ -163,7 +163,7 @@ export class AddNewsComponent implements OnInit {
             isPro: [news.isPro || false],
             visible: [news.visible || true, [Validators.required]],
             contentType: [news.contentType || 'TEXT', [Validators.required]],
-            authorName: [news?.authorName || 'CNBC News', [Validators.required, Validators.maxLength(250)]],
+            // authorName: [news?.authorName || 'CNBC News', [Validators.required, Validators.maxLength(250)]],
             newsType: [news?.newsType || 'NEWS',],
             showOnHomepage: [news.showOnHomepage || true, [Validators.required]],
             isActive: [news.isActive || true,],
@@ -185,7 +185,7 @@ export class AddNewsComponent implements OnInit {
             isPro: [false],
             visible: [true, [Validators.required]],
             contentType: ['TEXT', [Validators.required]],
-            authorName: ['CNBC News', [Validators.required, Validators.maxLength(250)]],
+            // authorName: ['CNBC News', [Validators.required, Validators.maxLength(250)]],
             newsType: ['NEWS',],
             showOnHomepage: [true, [Validators.required]],
             isActive: [true],
@@ -396,5 +396,6 @@ export class AddNewsComponent implements OnInit {
 
     enableDisable(e?: MouseEvent) {
         e.preventDefault();
-      }
+    }
+
 }    

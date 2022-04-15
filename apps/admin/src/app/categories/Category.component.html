@@ -40,8 +40,8 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-between">
-                                        <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/update/' + cat?.id]"></i>
-                                        <i nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="showDeleteConfirm(cat?.id)"></i>
+                                        <i nz-tooltip nzTooltipTitle="Edit" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/update/' + cat?.id]"></i>
+                                        <i nz-tooltip nzTooltipTitle="Delete" nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="showDeleteConfirm(cat?.id)"></i>
                                     </div>
                                 </td>
                             </tr>
