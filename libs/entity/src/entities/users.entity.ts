@@ -52,6 +52,9 @@ export class Users extends Model{
     @Column
     email : string
 
+    @Column
+    loginFailAttempts : number
+
     @Column({
         type : DataType.BOOLEAN,
 				defaultValue: true
