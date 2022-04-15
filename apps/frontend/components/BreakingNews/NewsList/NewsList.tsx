@@ -49,7 +49,7 @@ const NewsList = () => {
                     <div className="newsbox" key={news.id}>
                       <div className="newslink">
                           <p className="text-danger">{news.title}</p>
-                          <a href="/newsDetails">{news.title}</a>
+                          <a>{news.title}</a>
                       </div>
                       {
                         news.newsLink && (
