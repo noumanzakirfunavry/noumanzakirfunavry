@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
-
+    
     return (
         <>
             <div className="NewsList">
@@ -16,7 +16,7 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                             return (
                                 <li key={index}>
                                     <div className="newsText">
-                                        <Link href={`/newsDetails/` + news?._id}><a>{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a></Link>
+                                        <Link href={`/newsDetails/` + news?._id}><a style={{wordWrap:'break-word'}}>{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a></Link>
                                         <p>
                                             { // to show tags
                                               news?._source?.tags?.map((tag: string, tagIndex: number) => {
