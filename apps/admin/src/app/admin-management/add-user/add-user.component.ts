@@ -52,11 +52,12 @@ export class AddUserComponent implements OnInit{
     this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
       this.userId = + params.get('id');
       if (this.userId) {
-        this.getUserById();
+        this.getAllRights();
+      }else{
+        this.getAllRights();
       }
     });
-    this.inItForm();
-    this.getAllRights();
+    
   }
 
   inItForm() {
@@ -103,6 +104,14 @@ export class AddUserComponent implements OnInit{
   getAllRights() {
     this.apiService.sendRequest(requests.getAllRights, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
       this.allRights= res.response.rights;
+      if(this.userId){
+        
+        this.getUserById();
+      }else{
+
+        this.inItForm();
+      }
+
       console.log("ALL-RIGHTS", this.allRights);
     })
   }

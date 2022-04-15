@@ -1,4 +1,4 @@
-import { AfterContentInit, Component,Input, OnInit} from '@angular/core';
+import { AfterContentInit, Component,EventEmitter,Input, OnInit, Output} from '@angular/core';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -41,6 +41,7 @@ export class Data extends Pagination {
 export class NewsTableRowComponent implements OnInit, AfterContentInit{
     @Input() allCategories: any;
     @Input() news: any = {newId:null};
+    @Output() onNewsSelection:EventEmitter<any>=new EventEmitter();
     pagination: Data = new Data()
     allCategoryNews: any = [];
     selectedCat: any
@@ -64,7 +65,8 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit{
     }
     
     onChangeNews(id){
-        this.news=id;
+        this.news.newsId=id;
+        this.onNewsSelection.emit(this.news);
         console.log("CAT-NEWS-ID", this.news);
     }
 
@@ -74,6 +76,8 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit{
         this.apiService.sendRequest(requests.getAllNews, 'get', {pageNo:1, limit:30, categoryId:parseInt(catId)}).subscribe((res:any) => {
             this.allCategoryNews= res.response.news;
             this.news.newsId = null
+            this.onNewsSelection.emit(this.news);
+
             console.log("CATEGORY-NEWS", this.allCategoryNews);
         //     const dataToShow: any = [];
         //     this.allCategories.forEach((element: any) => {
