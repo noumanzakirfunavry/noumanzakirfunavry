@@ -84,7 +84,7 @@ export class FeaturedNewsComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllCategories();
-        // this.getAllFeaturedNews();
+        this.getAllFeaturedNews();
     }
 
     getAllCategories() {
@@ -107,7 +107,7 @@ export class FeaturedNewsComponent implements OnInit {
         this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res: any) => {
             this.allFeaturedNews = res.response.featuredNews;
 
-            this.fNews = this.allFeaturedNews ? [...this.allFeaturedNews] : this.fNews;
+            this.fNews = this.allFeaturedNews && this.allFeaturedNews.length > 0 ? this.allFeaturedNews : this.fNews;
             // this.fNews.forEach(news => {
             //     news.newsId = this.allFeaturedNews.find(x=>x.position==news.position)?.newsId
             // })
@@ -149,14 +149,14 @@ export class FeaturedNewsComponent implements OnInit {
         })
         if (this.fNews.filter(x => !x.newsId)) {
             this.message.create('error', 'Please add all featured news for Featured section')
-        }else{
+        } else {
             this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
                 console.log("UPDATE-FEATURED-NEWS", res);
                 this.getAllFeaturedNews();
                 this.message.create('success', `Featured News Updated Successfully`);
             })
         }
-        
+
     }
 
 }    
