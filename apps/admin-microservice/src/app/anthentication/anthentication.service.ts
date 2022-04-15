@@ -176,7 +176,7 @@ export class AnthenticationService {
                 }
                 else {
                     // Create User
-                    const user_info = await this.addUser({...body, isVerified: true}, transactionHost)
+                    const user_info = await this.addUser(body, transactionHost)
                     if (user_info) {
                         const rights_added = await this.addUserRights(body.rights, user_info, transactionHost)
                         if (rights_added) {
@@ -289,10 +289,11 @@ export class AnthenticationService {
         }
         return true
     }
+		// remove isVerified:true
     async addUser(body, transactionHost) {
         const userObj = body
         userObj.password = await this.helperService.encryptPassword(userObj.password)
-        return await this.usersRepository.create(userObj, transactionHost)
+        return await this.usersRepository.create({...userObj, isVerified: true}, transactionHost)
     }
     async requestResetPassword(body: RequestResetPasswordRequestDto): Promise<GenericResponseDto> {
         try {
