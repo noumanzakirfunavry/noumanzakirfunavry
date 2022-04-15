@@ -28,7 +28,7 @@ const TilesWithColoredBackground: FC = () => {
                             <div className="PlayTime">
                                 <h5>05:21</h5>
                                 <div className="btn-text">
-                                    <span>شاهد الآن</span>
+                                    <span className='PlayButton-flyout'>شاهد الآن</span>
                                     <button className="btn btn-warning VideoPlay">
                                         <i className="fa play_big"></i>
                                         {/* <img className="img-fluid" src={playicon.src} /> */}
