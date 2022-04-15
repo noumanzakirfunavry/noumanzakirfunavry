@@ -46,7 +46,7 @@ export class NewsService {
 				bool: {
 					must: [{
 						match: {
-							categoryIds: categoryId,
+							categories: categoryId,
 						}
 					}, { match: { isActive: true } }],
 					must_not: [{ exists: { field: "deletedAt" } }]

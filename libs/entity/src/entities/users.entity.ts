@@ -53,7 +53,8 @@ export class Users extends Model{
     email : string
 
     @Column({
-        type : DataType.BOOLEAN
+        type : DataType.BOOLEAN,
+				defaultValue: true
     })
     isActive : boolean
     

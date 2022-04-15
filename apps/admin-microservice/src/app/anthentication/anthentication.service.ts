@@ -30,20 +30,23 @@ export class AnthenticationService {
                 }
             })
             if (response) {
-							if(!response.isVerified){
-								throw new CustomException(
-									Exceptions[ExceptionType.USER_IS_NOT_VERIFIED].message,
-									Exceptions[ExceptionType.USER_IS_NOT_VERIFIED].status
-								)
-							}
-							if(!response.isActive){
-								throw new CustomException(
-									Exceptions[ExceptionType.USER_IS_INACTIVE].message,
-									Exceptions[ExceptionType.USER_IS_INACTIVE].status
-								)
-							}
                 const compare_passwords = await this.helperService.comparePasswords(body.password, response.password)
                 if (compare_passwords) {
+
+									if(!response.isVerified){
+										throw new CustomException(
+											Exceptions[ExceptionType.USER_IS_NOT_VERIFIED].message,
+											Exceptions[ExceptionType.USER_IS_NOT_VERIFIED].status
+										)
+									}
+
+									if(!response.isActive){
+										throw new CustomException(
+											Exceptions[ExceptionType.USER_IS_INACTIVE].message,
+											Exceptions[ExceptionType.USER_IS_INACTIVE].status
+										)
+									}
+									
                     const session_creation = await this.sessionCreation(body, response)
                     const token = await this.tokenGeneration(response, session_creation)
                     if (session_creation) {
@@ -173,7 +176,7 @@ export class AnthenticationService {
                 }
                 else {
                     // Create User
-                    const user_info = await this.addUser(body, transactionHost)
+                    const user_info = await this.addUser({...body, isVerified: true}, transactionHost)
                     if (user_info) {
                         const rights_added = await this.addUserRights(body.rights, user_info, transactionHost)
                         if (rights_added) {
