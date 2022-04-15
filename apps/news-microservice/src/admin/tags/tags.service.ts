@@ -15,8 +15,8 @@ export class TagsService {
         query.pageNo = query.pageNo - 1;
         if (query.pageNo) offset = query.limit * query.pageNo;
         let where = {}
-        if (query.publishers) {
-            where['publishedBy'] = query.publishers
+        if (query.publisher) {
+            where['publishedBy'] = query.publisher
         }
         if (query.status) {
             where['isActive'] = JSON.parse(query.status.toString())

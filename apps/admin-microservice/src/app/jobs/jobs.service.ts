@@ -30,8 +30,8 @@ export class JobsService {
         if (query.branchId) {
             where['branchId'] = query.branchId
         }
-        if (query.publishers) {
-            where['publishedBy'] = query.publishers
+        if (query.publisher) {
+            where['publishedBy'] = query.publisher
         }
         if (query.title) {
             where['title'] = query.title
