@@ -11,7 +11,7 @@ const Index = () =>{
                 <div className="PageTitleYellow pageTitle mb-5"><h2>تعديل ملفك الشخصي</h2></div>
                 <div className="container">
                 <div className="row">
-                <div className="col-md-4 profilIinputWrap offset1 mx-auto">
+                <div className="col-xl-4 col-md-6 profilIinputWrap offset-xl-1 mx-auto">
                         <h3 className="mb-4 fs20_b_mobile fw-bold">إعادة تعيين كلمة المرور</h3>
                         <div className="mb-3 iconFiled">
                             <label className="form-label fs12_b_gray">كلمة سر قديمة</label>
@@ -34,7 +34,7 @@ const Index = () =>{
                         </div>
 
                     </div>
-                    <div className="col-md-4 offset-1 mx-auto me-0">
+                    <div className="col-xl-4 col-md-6 offset-xl-1 mx-auto me-0">
                         <h3 className="mb-4 fs20_b_mobile fw-bold">تحديث تفاصيل الحساب</h3>
                         <div className="mb-3">
                             <label className="form-label fs12_b_gray">الاسم</label>

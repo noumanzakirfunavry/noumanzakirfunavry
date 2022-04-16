@@ -2,37 +2,30 @@
       <div class="float-right">
         <div class="d-flex">
             <nz-form-item class="mr-2">
-                <!-- <nz-form-label>Admin Role</nz-form-label> -->
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Publisher" nzSpan="8">
-    
-                  <nz-option nzValue="Sample User 1" [nzLabel]="'Sample User 1'"></nz-option>
-                  <nz-option nzValue="Sample User 2" [nzLabel]="'Sample User 2'"></nz-option>
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Publisher" nzSpan="8" [(ngModel)]="filterModel.publisher">
+                  <nz-option *ngFor="let admin of allAdmins" [nzValue]="admin?.id" [nzLabel]="admin?.name"></nz-option>
                 </nz-select>
               </nz-form-item>
             <nz-form-item class="mr-2">
-              <!-- <nz-form-label>Admin Role</nz-form-label> -->
-              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Status" nzSpan="8">
-  
-                <nz-option nzValue="Active" [nzLabel]="'Active'"></nz-option>
-                <nz-option nzValue="InActive" [nzLabel]="'InActive'"></nz-option>
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Status" nzSpan="8" [(ngModel)]="filterModel.isActive">
+                <nz-option [nzValue]="true" [nzLabel]="'Active'"></nz-option>
+                <nz-option [nzValue]="false" [nzLabel]="'InActive'"></nz-option>
               </nz-select>
             </nz-form-item>
-            <nz-form-item>
-                <nz-input-group [nzPrefix]="prefiXTemplate">
-                    <input nz-input placeholder="Search Title" nzSize="small">
-                </nz-input-group>
-                <ng-template #prefiXTemplate>
-                    <i nz-icon nzType="search" theme="outline"></i>
-                </ng-template>
+            <nz-form-item class="mr-2">
+                    <input [(ngModel)]="filterModel.title" nz-input placeholder="Search Title" nzSize="small">
             </nz-form-item>
-             
-          </div>
-            <!-- <nz-form-item>
+            <nz-form-item class="mr-2">
               <nz-form-control>
-                <input type="text" nz-input placeholder="Admin Name">
+                <button nz-button (click)="search()" [nzType]="'primary'">Search</button>
               </nz-form-control>
-            </nz-form-item> -->
-        
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <button nz-button (click)="clear()" [nzType]="'default'">Clear</button>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
         </div>
           
   

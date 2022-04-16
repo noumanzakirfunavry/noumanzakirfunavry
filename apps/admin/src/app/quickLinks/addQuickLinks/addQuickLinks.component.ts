@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from 'src/app/shared/config/config';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -26,13 +26,14 @@ export class AddQuickLinksComponent implements OnInit {
   constructor(private fb: FormBuilder, 
     private apiService: ApiService, 
     private activatedRoute: ActivatedRoute, 
-    private message: NzMessageService
+    private message: NzMessageService, 
+    private route: Router
     ) {}
   
   ngOnInit(): void {
     this.quickLinkForm = this.fb.group({
       title: [ null, [ Validators.required ] ],
-      url: [ null, [ Validators.required ] ],
+      url: [ null, [ Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?') ] ],
       visible: [false]
   });
   this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
@@ -54,6 +55,7 @@ export class AddQuickLinksComponent implements OnInit {
       this.apiService.sendRequest(this.quickLinkId ? requests.updateQuickLink + this.quickLinkId : requests.addNewQuickLink, this.quickLinkId ? 'put' : 'post', obj).subscribe((res:any) => {
         console.log("QUICK-LINK", res);
         this.quickLinkForm.reset();
+        this.route.navigateByUrl('quickLinks/list');
         if(this.quickLinkId) {
           this.message.create('success', `Quick Link Updated Successfully`)
         }
@@ -70,10 +72,14 @@ export class AddQuickLinksComponent implements OnInit {
       console.log("QUICK-LINK-BY-ID", this.quickLinkById);
       this.quickLinkForm = this.fb.group({
         title: [ this.quickLinkById?.title || null, [ Validators.required ] ],
-        url: [ this.quickLinkById?.url || null, [ Validators.required ] ],
+        url: [ this.quickLinkById?.url || null, [ Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?') ] ],
         visible: [this.quickLinkById?.visible || false]
     });
     })
+  }
+
+  cancel() {
+    this.route.navigateByUrl('quickLinks/list');
   }
 
 }    

@@ -33,16 +33,16 @@ const Index = () =>{
           </li>
 
         </ul>
-        <div className='row'>
-          <div className='col-lg-9'>
+        <div className='PageBuilder-pageRow'>
+          <div className='PageBuilder-col-9'>
             <CategoryNewsSection limit = {3} displayTitle={false} displayTopTwoNews={true} displayMoreButton={false}/>
             <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
             <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={false}/>
-            <CategoryNewsSection limit = {1} displayTitle={true} displayTopTwoNews={true} displayMoreButton={true}/>
+            <CategoryNewsSection limit = {3} displayTitle={true} displayTopTwoNews={false} displayMoreButton={true}/>
           </div>
 
 
-          <div className='col-lg-3'>
+          <div className='PageBuilder-sidebar'>
             <SideBar sideBarSequence={[{componentType:'numbered', position:1, title:'الأكثر تداولا'}, {componentType:'SmallBanner', position:2}, {componentType:'simple', position:2, title:'الأكثر قراءة'}, {componentType:'LargeBanner', position:2}]}/>
           </div>
         </div>

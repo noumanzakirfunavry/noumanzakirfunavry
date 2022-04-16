@@ -1,26 +1,10 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
-
-export class Data extends Pagination {
-    parentCategoryId?:Array<any>;
-    publishers?:Array<any>;
-    title?: string;
-    includeNews?: any; 
-    newsLImit?: any;
-
-    constructor() {
-        super();
-        this.parentCategoryId= [];
-        this.publishers= [];
-        this.title= "";
-        this.includeNews= "";
-        this.newsLImit= "";
-    }
-}
 
 
 @Component({
@@ -30,15 +14,23 @@ export class Data extends Pagination {
 })
 
 export class CategoryComponent implements OnInit {
-    pagination: Data= new Data();
+    pagination: {
+        pageNo: number, 
+        limit: number, 
+        parentCategoryId?: Array<any>, 
+        publishedBy?: number, 
+        isActive?: boolean, 
+        includeNews?: boolean, 
+        newsLimit?: number, 
+        title?: string } = {pageNo: 1, limit: 1000};
     allCategories: any;
     indeterminate = false;
     checked = false;
     loading= true;
+    expandedId: any;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData:Array<any> = [];    
 
-    constructor(private apiService: ApiService, private message: NzMessageService ) {
+    constructor(private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {
     }
 
     ngOnInit() : void {
@@ -52,8 +44,16 @@ export class CategoryComponent implements OnInit {
             this.loading= false;
         },err => {
             this.loading = false;
+            throw this.handleError(err)
           })
     }
+
+    handleError(err: any) {
+        if (err) {
+          this.allCategories = [];
+        }
+        return err
+      }
 
     clean(obj:any) {
         for (const propName in obj) {
@@ -68,7 +68,25 @@ export class CategoryComponent implements OnInit {
         this.apiService.sendRequest(requests.deleteCategories, 'delete', {ids:[categoryId]}).subscribe((res:any) => {
             console.log("DEL-CATEGORY", res);
             this.getAllCategories();
-            this.message.create('success', `Category Deleted Successfully`)
+            this.message.create('success', `Category Deleted Successfully`);
+        })
+    }
+
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, title: data.title, publishedBy: data.publishedBy};
+        this.pagination.pageNo= 1;
+        this.getAllCategories();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, title: data.title, publishedBy: data.publishedBy};
+        this.pagination.pageNo= 1;
+        this.getAllCategories();        
+    }
+
+    updateCategoryOrder(ids?:Array<any>) {
+        this.apiService.sendRequest(requests.updateCategoryOrder, 'put', {ids:ids}).subscribe((res:any) => {
+            console.log("CATEGORY-ORDER", res);
         })
     }
 
@@ -85,14 +103,67 @@ export class CategoryComponent implements OnInit {
         this.refreshCheckedStatus();
     }
 
+    onAllChecked(checked: boolean): void {
+        this.allCategories.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+        this.refreshCheckedStatus();
+    }
+
     refreshCheckedStatus(): void {
-        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        const listOfEnabledData = this.allCategories.filter(({ disabled }) => !disabled);
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
         moveItemInArray(this.allCategories, event.previousIndex, event.currentIndex);
+        this.updateCategoryOrder(this.allCategories.map(x=>x.id));
       }
+
+    dropSubCategories(event: CdkDragDrop<string[] | any>, index: number) {
+        moveItemInArray(this.allCategories[index].sub, event.previousIndex, event.currentIndex);
+        this.updateCategoryOrder(this.allCategories[index].sub.map(x=>x.id));
+      }
+
+    toggle(catId: any) {
+          this.expandedId= this.expandedId===catId ? null : catId;
+      }
+
+    deleteSelected() {
+        const id=[];
+          console.log(this.setOfCheckedId.forEach(x=>{
+            id.push(x)
+          }));
+          this.apiService.sendRequest(requests.deleteCategories,'delete',{ids:id}).subscribe((res:any) => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllCategories();
+            this.message.create('success', `Category Deleted Successfully`);
+          })
+    }
+
+    showDeleteConfirm(id?: number): void {
+        this.modal.confirm({
+          nzTitle: 'Delete',
+          nzContent: '<b style="color: red;">Are you sure to delete this category?</b>',
+          nzOkText: 'Yes',
+        //   nzOkType: 'danger',
+          nzOnOk: () => {
+              if(id) {
+                  this.deleteCategories(id);
+              }
+              else {
+                  this.deleteSelected();
+              }
+            },
+          nzCancelText: 'No',
+          nzOnCancel: () => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllCategories();
+            }
+        });
+    }
       
 }    

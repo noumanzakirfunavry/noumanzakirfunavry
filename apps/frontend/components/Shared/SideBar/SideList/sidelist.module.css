@@ -71,7 +71,8 @@
 }
 .sideDotList li a:hover{
     /* color: #002F6C; */
-    text-decoration: underline;
+    /* text-decoration: underline; */
+    color: #777777;
 }
 
 .sideDotList li a span{
@@ -132,8 +133,8 @@
     padding-top:15px;
 }
 .sidenumberList li a:hover{
-    /* color: #002F6C; */
-    text-decoration: underline;
+    color: #777777;
+   
 }
 .sidenumberList li a span{
     color: #777777;
@@ -187,8 +188,8 @@
     padding-top:0;
 }
 .sidesimpleList li a:hover{
-    /* color: #002F6C; */
-    text-decoration: underline;
+    color: #777777;
+    /* text-decoration: underline; */
 }
 .sidesimpleList li a span{
     color: #777777;

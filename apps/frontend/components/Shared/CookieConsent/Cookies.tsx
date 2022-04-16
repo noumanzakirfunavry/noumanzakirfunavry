@@ -1,6 +1,7 @@
+import { FC } from "react";
 import CookieConsent, { Cookies } from "react-cookie-consent";
 
-const Cookies = () =>{
+const CookiesComponent: FC<any> = ({limit}) =>{
 
   return (
     <CookieConsent
@@ -40,4 +41,4 @@ const Cookies = () =>{
   )
 }
 
-export default Cookies
+export default CookiesComponent

@@ -18,6 +18,7 @@ const TilesWithColoredBackground: FC = () => {
                     </Title>
                     <div className="clearfix"></div>
                 </div>
+                <div className="VideoTilesContent">
                 <div className="row">
                     <div className="col-lg-7 d-none d-sm-block">
                         <div className="VideoNews mb-4 mb-lg-0">
@@ -27,7 +28,7 @@ const TilesWithColoredBackground: FC = () => {
                             <div className="PlayTime">
                                 <h5>05:21</h5>
                                 <div className="btn-text">
-                                    <span>شاهد الآن</span>
+                                    <span className='PlayButton-flyout'>شاهد الآن</span>
                                     <button className="btn btn-warning VideoPlay">
                                         <i className="fa play_big"></i>
                                         {/* <img className="img-fluid" src={playicon.src} /> */}
@@ -115,6 +116,7 @@ const TilesWithColoredBackground: FC = () => {
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
                 </div>
             </div>

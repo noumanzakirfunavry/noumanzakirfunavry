@@ -1,19 +1,9 @@
-
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
-
-export class Admin extends Pagination {
-    name?: string;
-    
-
-    constructor() {
-        super();
-        this.name= '';
-    }
-}
 
 
 @Component({
@@ -22,25 +12,33 @@ export class Admin extends Pagination {
 })
 
 export class UsersComponent implements OnInit{
-    pagination: Admin = new Admin()
+    pagination: Pagination = new Pagination()
     allAdmins: any;
+    adminsCount: any;
     loading = true;
     indeterminate = false;
     checked = false;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData:Array<any> = [];
+    listOfCurrentPageData = [];
+    user: any;
 
     
 
-    constructor( private apiService: ApiService, private message: NzMessageService ) {}
+    constructor( private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {}
 
     ngOnInit(): void {
         this.getAllAdmins();
+        this.user = JSON.parse(localStorage.getItem('admin') || '{}');
     }
 
     getAllAdmins() {
         this.apiService.sendRequest(requests.getAllAdmins, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allAdmins= res.response.admins;
+            const userIndex= this.allAdmins.findIndex(x=>x.id==this.user.user.id);
+            if(userIndex>-1){
+                this.allAdmins[userIndex]['disabled']=true
+            }
+            this.adminsCount= res.response.totalCount;
             console.log("ALL-ADMINS", this.allAdmins);
             this.loading= false;
         },err => {
@@ -55,15 +53,42 @@ export class UsersComponent implements OnInit{
           }
         }
         return obj
-      }
+    }
 
-      deleteAdmins(userId: number) {
+    deleteAdmins(userId: number) {
           this.apiService.sendRequest(requests.deleteUsers, 'delete', {id:[userId]}).subscribe((res:any) => {
               console.log("DELETE-ADMIN", res);
+              this.setOfCheckedId.clear();
+              this.checked= false;
+              this.indeterminate= false;
               this.getAllAdmins();
               this.message.create('success', `Admin Deleted Successfully`);
           })
-      }
+    }
+
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search};
+        this.pagination.pageNo= 1;
+        this.getAllAdmins();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search};
+        this.pagination.pageNo= 1;
+        this.getAllAdmins();        
+    }
+
+    onPageIndexChange(pageNo: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
+        this.getAllAdmins();
+    }
+
+    onPageSizeChange(limit: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, limit: limit})
+        this.getAllAdmins();
+    }
 
     updateCheckedSet(id: number, checked: boolean): void {
         if (checked) {
@@ -78,10 +103,53 @@ export class UsersComponent implements OnInit{
         this.refreshCheckedStatus();
     }
 
+    onAllChecked(checked: boolean): void {
+        this.allAdmins.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+        this.refreshCheckedStatus();
+    }
+
     refreshCheckedStatus(): void {
-        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        const listOfEnabledData = this.allAdmins.filter(({ disabled }) => !disabled);
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+    }
+
+    deleteSelected() {
+        const id= [];
+          console.log(this.setOfCheckedId.forEach(x=>{
+            id.push(x)
+          }));
+          this.apiService.sendRequest(requests.deleteUsers,'delete',{id:id}).subscribe((res:any) => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllAdmins();
+            this.message.create('success', `Admin Deleted Successfully`)
+            })
+    }
+
+    showDeleteConfirm(userId?: number): void {
+        this.modal.confirm({
+          nzTitle: 'Delete',
+          nzContent: '<b style="color: red;">Are you sure to delete this admin?</b>',
+          nzOkText: 'Yes',
+        //   nzOkType: 'danger',
+          nzOnOk: () => {
+              if(userId) {
+                  this.deleteAdmins(userId);
+              }
+              else {
+                  this.deleteSelected();
+              }
+            },
+          nzCancelText: 'No',
+          nzOnCancel: () => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllAdmins();
+            }
+        });
     }
 
 }    

@@ -1,63 +1,68 @@
-import { MenuPositionTypes } from "@cnbc-monorepo/enums";
-import { Table,Model, PrimaryKey, AutoIncrement, Unique, Column, DataType, ForeignKey, BelongsTo, HasMany } from "sequelize-typescript";
-import { Users } from "./users.entity";
-
+import { MenuPositionTypes } from '@cnbc-monorepo/enums';
+import {
+	AutoIncrement, BelongsTo, Column,
+	DataType,
+	ForeignKey, HasMany, Model,
+	PrimaryKey, Table, Unique
+} from 'sequelize-typescript';
+import { Users } from './users.entity';
+// import { MenusService } from '../../../../apps/admin-microservice/src/app/menus/menus.service';
 
 @Table({
-    paranoid : true,
-    timestamps : true
+  paranoid: true,
+  timestamps: true,
 })
-export class Menus extends Model{
-    @PrimaryKey
-    @AutoIncrement
-    @Unique
-    @Column
-    id : number
+export class Menus extends Model {
+  // @Inject('MENUS_REPOSITORY') private static MenuRepo: typeof Menus;
+  // private static readonly menusService = new MenusService(),
 
-    @Column
-    title : string
-    
-    @Column
-    orders : number
+  @PrimaryKey
+  @AutoIncrement
+  @Unique
+  @Column
+  id: number;
 
-    @Column
-    url : string
+  @Column
+  title: string;
 
-    @Column({
-        type : DataType.BOOLEAN
-    })
-    visible : boolean
+  @Column
+  orderNo: number;
 
-    @Column({
-        type : DataType.BOOLEAN
-    })
-    isActive : boolean
+  @Column
+  url: string;
 
-    @ForeignKey(() => Menus)
-    @Column
-    parentMenuId : number
-    @BelongsTo(() => Menus)
-    menu : Menus
+  @Column({
+    type: DataType.BOOLEAN,
+  })
+  visible: boolean;
 
-    @HasMany(() => Menus,'parentMenuId')
-    menus : Menus[]
+  @Column({
+    type: DataType.BOOLEAN,
+  })
+  isActive: boolean;
 
-    @Column({
-        type : DataType.ENUM,
-    values : Object.values(MenuPositionTypes)
+  @ForeignKey(() => Menus)
+  @Column({ allowNull: true })
+  parentMenuId: number;
 
-    })
-    position : MenuPositionTypes
+  @BelongsTo(() => Menus)
+  menu: Menus;
 
-    @Column
-    menuPosition : number
+  @HasMany(() => Menus, { as: 'childMenus', foreignKey: 'parentMenuId' })
+  childMenus: Menus[];
 
-    @ForeignKey(() => Users)
-    @Column
-    publishedBy : number
-    @BelongsTo(() => Users)
-    user : Users
+  @Column({
+    type: DataType.ENUM,
+    values: Object.values(MenuPositionTypes),
+  })
+  position: MenuPositionTypes;
 
+  @Column
+  menuPosition: number;
 
-
+  @ForeignKey(() => Users)
+  @Column
+  publishedBy: number;
+  @BelongsTo(() => Users)
+  user: Users;
 }

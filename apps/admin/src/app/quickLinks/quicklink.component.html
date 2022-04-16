@@ -3,15 +3,16 @@
         <button nz-button [nzType]="'primary'" [routerLink]="['/quickLinks/add']">Add Quick Link</button>
     </div>
     <div class="col-md-9">
-        <quick-filter (statusEmitter)="receiveStatus()"></quick-filter>
+        <quick-filter (statusEmitter)="receiveStatus($event)" (filterEmitter)="receiveFilter($event)"></quick-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
-                <nz-table [nzShowPagination]="true" [nzLoading]="loading" nzShowSizeChanger [nzData]="allQuickLinks" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" class="no-border-last">
+                <nz-table [nzShowPagination]="false" [nzLoading]="loading" [nzData]="allQuickLinks" class="no-border-last">
                     <thead>
                         <tr>
-                            <th>Reorder</th>
+                            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                            (nzCheckedChange)="onAllChecked($event)"></th>
                             <th>Title</th>
                             <th>Link</th>
                             <th>Status</th>
@@ -20,9 +21,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let link of allQuickLinks">
-                            <td [nzChecked]="setOfCheckedId.has(link?.id)" (nzCheckedChange)="onItemChecked(link?.id, $event)">
-                                <i nz-icon nzType="drag" nzTheme="outline"></i>
-                            </td>
+                            <td [nzChecked]="setOfCheckedId.has(link?.id)" (nzCheckedChange)="onItemChecked(link?.id, $event)"></td>
                             <td>{{link?.title}}</td>
                             <td>{{link?.url}}</td>
                             <td>
@@ -32,13 +31,23 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/quickLinks/add/' + link?.id]"></i>
-                                    <i nz-icon nzType="delete" nzTheme="outline" (click)="deleteQuickLink(link?.id)"></i>
+                                    <i nz-tooltip nzTooltipTitle="Edit" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/quickLinks/update/' + link?.id]"></i>
+                                    <i nz-tooltip nzTooltipTitle="Delete" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(link?.id)"></i>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </nz-table>
+                <div class="send-request" *ngIf="setOfCheckedId.size">
+                    <button class="mt-4" nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="showDeleteConfirm()">
+                      Delete Selected
+                    </button>
+                    <span class="ml-2">Selected {{ setOfCheckedId.size }} items</span>
+                  </div>
+                <div class="text-right mt-2">
+                    <nz-pagination [nzPageIndex]="pagination.pageNo" [nzTotal]="quickLinksCount" [nzPageSize]="pagination.limit" [nzShowSizeChanger]="true"
+                    [nzResponsive]="true" (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"></nz-pagination>
+                </div>
             </div>
         </nz-card>
     </div>

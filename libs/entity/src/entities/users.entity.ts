@@ -52,10 +52,20 @@ export class Users extends Model{
     @Column
     email : string
 
+    @Column
+    loginFailAttempts : number
+
     @Column({
-        type : DataType.BOOLEAN
+        type : DataType.BOOLEAN,
+				defaultValue: true
     })
     isActive : boolean
+    
+		@Column({
+        type : DataType.BOOLEAN,
+				defaultValue: false
+    })
+    isVerified : boolean
 
     @HasMany(() => Banner)
     banners : Banner[]

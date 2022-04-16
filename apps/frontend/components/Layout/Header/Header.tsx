@@ -5,8 +5,18 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import logo from '../../../styles/images/cnbc-arabia-logo.svg';
 import smallLogo from "../../../styles/images/cnbc-logo-white.svg";
+import market from "../../../styles/images/market.svg";
+import direct from "../../../styles/images/direct.svg";
+import togglebar from "../../../styles/images/togglebar.svg";
 import SearchDropDown from '../../Shared/SearchDropDown/SearchDropDown';
 import MobileHeader from './MobileHeader';
+
+import { CategoryProps } from '../../../types/Types';
+
+import GetData from '../../../services/GetData';
+import { requests } from '../../../services/Requests';
+
+
 
 const Header = () =>{
 
@@ -15,14 +25,49 @@ const Header = () =>{
     const [data, setData] = useState<any>({})
     const router = useRouter()
     const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}])
+    const [newsCategoriesList, setNewsCategoriesList] = useState<CategoryProps[]>([])
 
+    const [scroll, setScroll] = useState(true);
+
+    const [params, setParams] = useState<any>({
+        limit:20,
+        pageNo:1
+      });
+
+    useEffect(() => {
+      document.addEventListener("scroll", handleScroll)
+
+      return () => {
+        document.removeEventListener("scroll", handleScroll)
+      }
+
+    })
 
     useEffect(()=>{
         document.addEventListener("mousedown", handleClickOutside);
+        window.scrollTo(0,0);
+
+        // get categories list to show in sub menu
+        GetData(`${requests.categories}/getAll?limit=${params.limit}&pageNo=${params.pageNo}&displayInCategoryMenu=true`, {}, 'get', false).then(res=>{
+
+            const newsCategories = res.data?.response?.categories && res.data?.response?.categories.length ? res.data.response.categories : []
+            setNewsCategoriesList(newsCategories);
+
+        }).catch(err=>{
+            console.warn(err)
+        })
+
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         }
     },[])
+
+    const handleScroll = () => {
+        const scrollCheck = window.scrollY < 50
+        if (scrollCheck !== scroll) {
+          setScroll(scrollCheck)
+        }
+    }
 
     const handleMenuList = () => {
         setShowMenuList(!showMenuList)
@@ -47,8 +92,7 @@ const Header = () =>{
        index !== 4 && router.push(`/${url}`)
        index === 4 && handleClickOutside()
     }
-
-
+    
     const getData = async (value:string): Promise<any> => {
         //!value ? {}:
         //fetch data and return
@@ -128,192 +172,22 @@ const Header = () =>{
                 "SecurityTypeID": "1",
                 "InitialMargin": "0.0"
              },
-            // "352610": {
-            //     "MarketID": "144",
-            //     "PriceDecimal": 3,
-            //     "ContractSize": 1,
-            //     "LastPrice": 2.5899999999999999,
-            //     "MinPrice": 0,
-            //     "MaxPrice": 0,
-            //     "LastBid": 0,
-            //     "LastAsk": 0,
-            //     "TickerID": 352610,
-            //     "Symbol": "01712",
-            //     "ISIN": "AU000000DRA1",
-            //     "BloombergCode": "",
-            //     "Desc": "Dragon Mining Limited - Ordinary Shares",
-            //     "DescAR": "Dragon Mining Limited - Ordinary Shares",
-            //     "MarketSymbol": "HONGKONG",
-            //     "MarketMIC": "XHKG",
-            //     "MarketDesc": "Hong Kong Stock Exchange",
-            //     "FeedSource": "HTTP",
-            //     "IDCSymbol": "01712",
-            //     "IDCMarketSymbol": "",
-            //     "SymbolAlias": "01712",
-            //     "SecurityTypeID": "1",
-            //     "InitialMargin": "0.0"
-            // },
-            // "352630": {
-            //     "MarketID": "144",
-            //     "PriceDecimal": 3,
-            //     "ContractSize": 1,
-            //     "LastPrice": 0.28999999999999998,
-            //     "MinPrice": 0,
-            //     "MaxPrice": 0,
-            //     "LastBid": 0,
-            //     "LastAsk": 0,
-            //     "TickerID": 352630,
-            //     "Symbol": "01752",
-            //     "ISIN": "AU0000007296",
-            //     "BloombergCode": "",
-            //     "Desc": "Top Education Group Ltd - Ordinary Shares",
-            //     "DescAR": "Top Education Group Ltd - Ordinary Shares",
-            //     "MarketSymbol": "HONGKONG",
-            //     "MarketMIC": "XHKG",
-            //     "MarketDesc": "Hong Kong Stock Exchange",
-            //     "FeedSource": "HTTP",
-            //     "IDCSymbol": "01752",
-            //     "IDCMarketSymbol": "",
-            //     "SymbolAlias": "01752",
-            //     "SecurityTypeID": "1",
-            //     "InitialMargin": "0.0"
-            // },
-            // "172715": {
-            //     "MarketID": "144",
-            //     "PriceDecimal": 3,
-            //     "ContractSize": 1,
-            //     "LastPrice": 11.800000000000001,
-            //     "MinPrice": 0,
-            //     "MaxPrice": 0,
-            //     "LastBid": 0,
-            //     "LastAsk": 0,
-            //     "TickerID": 172715,
-            //     "Symbol": "03668",
-            //     "ISIN": "AU000000YAL0",
-            //     "BloombergCode": "",
-            //     "Desc": "Chinalco Mining Corporation International",
-            //     "DescAR": "Chinalco Mining Corporation International",
-            //     "MarketSymbol": "HONGKONG",
-            //     "MarketMIC": "XHKG",
-            //     "MarketDesc": "Hong Kong Stock Exchange",
-            //     "FeedSource": "HTTP",
-            //     "IDCSymbol": "03668",
-            //     "IDCMarketSymbol": "",
-            //     "SymbolAlias": "03668",
-            //     "SecurityTypeID": "1",
-            //     "InitialMargin": "0.0"
-            // },
-            // "325492": {
-            //     "MarketID": "108",
-            //     "PriceDecimal": 3,
-            //     "ContractSize": 1,
-            //     "LastPrice": 2.71,
-            //     "MinPrice": 0,
-            //     "MaxPrice": 0,
-            //     "LastBid": 0,
-            //     "LastAsk": 0,
-            //     "TickerID": 325492,
-            //     "Symbol": "0A2N",
-            //     "ISIN": "AU000000LYC6",
-            //     "BloombergCode": "",
-            //     "Desc": "Lynas Corporation Ltd. - Ordinary Shares",
-            //     "DescAR": "Lynas Corporation Ltd. - Ordinary Shares",
-            //     "MarketSymbol": "LSE",
-            //     "MarketMIC": "XLON",
-            //     "MarketDesc": "London Stock Exchange",
-            //     "FeedSource": "HTTP",
-            //     "IDCSymbol": "0A2N",
-            //     "IDCMarketSymbol": "LON",
-            //     "SymbolAlias": "0A2N",
-            //     "SecurityTypeID": "1",
-            //     "InitialMargin": "0.0"
-            // },
-            // "327545": {
-            //     "MarketID": "116",
-            //     "PriceDecimal": 3,
-            //     "ContractSize": 1,
-            //     "LastPrice": 0,
-            //     "MinPrice": 0,
-            //     "MaxPrice": 0,
-            //     "LastBid": 0,
-            //     "LastAsk": 0,
-            //     "TickerID": 327545,
-            //     "Symbol": "0A2N",
-            //     "ISIN": "AU000000LYC6",
-            //     "BloombergCode": "",
-            //     "Desc": "Lynas Corporation Ltd. - Ordinary Shares",
-            //     "DescAR": "Lynas Corporation Ltd. - Ordinary Shares",
-            //     "MarketSymbol": "EGGDR",
-            //     "MarketMIC": "",
-            //     "MarketDesc": "Egyptian GDRs",
-            //     "FeedSource": "HTTP",
-            //     "IDCSymbol": "0A2N",
-            //     "IDCMarketSymbol": "",
-            //     "SymbolAlias": "0A2N",
-            //     "SecurityTypeID": "1",
-            //     "InitialMargin": "0.0"
-            // },
-            // "153976": {
-            //     "MarketID": "108",
-            //     "PriceDecimal": 3,
-            //     "ContractSize": 1,
-            //     "LastPrice": 0.84999999999999998,
-            //     "MinPrice": 0,
-            //     "MaxPrice": 0,
-            //     "LastBid": 0,
-            //     "LastAsk": 0,
-            //     "TickerID": 153976,
-            //     "Symbol": "0C6Y",
-            //     "ISIN": "AT0000625108",
-            //     "BloombergCode": "",
-            //     "Desc": "Oberbank AG",
-            //     "DescAR": "Oberbank AG",
-            //     "MarketSymbol": "LSE",
-            //     "MarketMIC": "XLON",
-            //     "MarketDesc": "London Stock Exchange",
-            //     "FeedSource": "HTTP",
-            //     "IDCSymbol": "0C6Y",
-            //     "IDCMarketSymbol": "LON",
-            //     "SymbolAlias": "0C6Y",
-            //     "SecurityTypeID": "1",
-            //     "InitialMargin": "0.0"
-            // },
-            // "233862": {
-            //     "MarketID": "108",
-            //     "PriceDecimal": 3,
-            //     "ContractSize": 1,
-            //     "LastPrice": 0,
-            //     "MinPrice": 0,
-            //     "MaxPrice": 0,
-            //     "LastBid": 0,
-            //     "LastAsk": 0,
-            //     "TickerID": 233862,
-            //     "Symbol": "0CT7",
-            //     "ISIN": "AT0000779061",
-            //     "BloombergCode": "",
-            //     "Desc": "Schlumberger AG",
-            //     "DescAR": "Schlumberger AG",
-            //     "MarketSymbol": "LSE",
-            //     "MarketMIC": "XLON",
-            //     "MarketDesc": "London Stock Exchange",
-            //     "FeedSource": "HTTP",
-            //     "IDCSymbol": "0CT7",
-            //     "IDCMarketSymbol": "LON",
-            //     "SymbolAlias": "0CT7",
-            //     "SecurityTypeID": "1",
-            //     "InitialMargin": "0.0"
-            // }
+
         }
         return data
     }
 
+
+
     return (
         <>
-            <header>
+            <header  className={scroll ? 'default':'sticky_header'}>
                 <div className="container">
-                        <div className="header-box">
+
+                        <div className={'header-box'}>
                             <div className="logo-header">
                                 <div className="cnbc-logo">
+
                                     <Link href="/">
                                         <img role={'button'} title="CNBC Arabia" alt="logo" src={logo.src}/>
                                     </Link>
@@ -335,44 +209,47 @@ const Header = () =>{
                                                     })
                                                 } */}
                                                 <li className="nav-item" key={'1'}>
-                                                    <a className="nav-link active" aria-current="page" href="/">الرئيسية</a>
+                                                    <Link href="/"><a className="nav-link active" aria-current="page">الرئيسية</a></Link>
+                                                    <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 <li className="nav-item" key={'2'}>
-                                                    <a className="nav-link" href="/videoNews">الفيديو</a>
+                                                    <Link href="/videoNews"><a className="nav-link">الفيديو</a></Link>
+                                                    <div className="nav-menu-navUnderline"></div>
                                                 </li>
-                                                <li className="nav-item dropdown" key={'3'}>
+                                                <li className="nav-item dropdown" key={'98788'}>
                                                     <a className="nav-link dropdown-toggle" href="#" id="morePrograms" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
                                                     </a>
+                                                    <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="morePrograms">
                                                         <li key={'8'}>
-                                                            <a className="dropdown-item" href="/programs/100/">اكسبو في أسبوع</a>
+                                                            <Link href="/programs/100/"><a className="dropdown-item">اكسبو في أسبوع</a></Link>
                                                         </li>
                                                         <li key={'9'}>
-                                                            <a className="dropdown-item" href="/programs/95/">حديث المملكة مع راشد الفوزان</a>
+                                                            <Link href="/programs/95/"><a className="dropdown-item">حديث المملكة مع راشد الفوزان</a></Link>
                                                         </li>
                                                         <li key={'10'}>
-                                                            <a className="dropdown-item" href="/programs/96/">تحت الضوء</a>
+                                                            <Link href="/programs/96/"><a className="dropdown-item">تحت الضوء</a></Link>
                                                         </li>
                                                         <li key={'11'}>
-                                                            <a className="dropdown-item" href="/programs/78/">وثائقيات</a>
+                                                            <Link href="/programs/78/"><a className="dropdown-item">وثائقيات</a></Link>
                                                         </li>
                                                         <li key={'12'}>
-                                                            <a className="dropdown-item" href="/programs/90/">Tech Talks</a>
+                                                            <Link href="/programs/90/"><a className="dropdown-item">Tech Talks</a></Link>
                                                         </li>
                                                         <li key={'13'}>
-                                                            <a className="dropdown-item" href="/programs/89/">CEO Talks</a>
+                                                            <Link href="/programs/89/"><a className="dropdown-item">CEO Talks</a></Link>
                                                         </li>
                                                         <li key={'14'}>
-                                                            <a className="dropdown-item" href="/programs/61/">مسار السوق</a>
+                                                            <Link href="/programs/61/"><a className="dropdown-item">مسار السوق</a></Link>
                                                         </li>
                                                         <li key={'15'}>
-                                                            <a className="dropdown-item" href="/programs/33/">كلام أسواق</a>
+                                                            <Link href="/programs/33/"><a className="dropdown-item">كلام أسواق</a></Link>
                                                         </li>
                                                         <li key={'16'}>
-                                                            <a className="dropdown-item" href="/programs/87/">بين قوسين</a>
+                                                            <Link href="/programs/87/"><a className="dropdown-item">بين قوسين</a></Link>
                                                         </li>
                                                         <li key={'17'}>
-                                                            <a className="dropdown-item" href="/programs/10/">حوار الأسبوع</a>
+                                                            <Link href="/programs/10/"><a className="dropdown-item">حوار الأسبوع</a></Link>
                                                         </li>
 
 {/*
@@ -420,27 +297,43 @@ const Header = () =>{
                                                         </li> */}
                                                     </ul>
                                                 </li>
-                                                <li className="nav-item" key={'34'}>
-                                                    <a className="nav-link" href="/categoryNewsTiles">التصنيفات</a>
+                                                <li className="nav-item dropdown" key={'654564ytf7655'}>
+                                                    <a className="nav-link dropdown-toggle" href="#" id="moreCategories" role="button" data-bs-toggle="dropdown" aria-expanded="false" >التصنيفات
+                                                    </a>
+                                                    <div className="nav-menu-navUnderline"></div>
+                                                    <ul className="dropdown-menu" aria-labelledby="moreCategories">
+                                                    { // show categories in sub menu
+                                                        newsCategoriesList.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
+                                                            return(
+                                                                <li className="nav-item" key={item.id}> 
+                                                                    <Link href={`/categoryNewsTiles/${item.id}`}><a className="nav-link active" aria-current="page">{item.title}</a></Link>
+                                                                </li>
+                                                            )
+                                                        })
+                                                    }
+                                                    </ul>
                                                 </li>
                                                 <li className="nav-item" key={'35'}>
-                                                    <a className="nav-link" href="/marketGraph">الأسواق</a>
+                                                    <Link href="/marketGraph"><a className="nav-link">الأسواق</a></Link>
+                                                    <div className="nav-menu-navUnderline"></div>
                                                 </li>
-                                                <li className="nav-item dropdown" key={'3'}>
-                                                    <a className="nav-link dropdown-toggle" href="#" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
+                                                <li className="nav-item dropdown" key={'654564ytf7656'}>
+                                                    <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
+                                                    <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="moreOtions">
                                                         {
                                                             moreMenuItems.length && moreMenuItems.map((menuItem)=>{
                                                                 return (
                                                                         <li className="nav-item" key={menuItem.title}>
-                                                                            <a className="nav-link" href={menuItem.url} >{menuItem.title}</a>
+                                                                            <Link href={menuItem.url}><a className="nav-link" >{menuItem.title}</a></Link>
                                                                         </li>
                                                                     )
                                                             })
                                                         }
                                                     </ul>
                                                 </li>
+
                                             </ul>
                                         </div>
                                     </nav>
@@ -459,9 +352,9 @@ const Header = () =>{
                                 </div> */}
                                 <div className="header-search-nav">
                                     <ul>
-                                        <li key={'wser'}><a href="/liveTv">المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></li>
-                                        <li><a key={'dsad'} href="/breakingNews">عاجل</a></li>
-                                        <li><a key={'adss'} data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a></li>
+                                        <li key={'wser'}><Link href="/liveTv"><a >المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></Link></li>
+                                        <li key={'dsad'}><Link href="/breakingNews"><a>عاجل</a></Link></li>
+                                        <li key={'adss'} className='sticky_none'><a data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a></li>
                                     </ul>
                                 </div>
                                 {
@@ -476,18 +369,30 @@ const Header = () =>{
                 <div className='mobileHeader'>
                     <ul>
                         <li><a onClick={handleMenuList}>
-                                <span className='menuIcon'><i className='fa fa-bars'></i></span>
+                                <span className='menuIcon'>
+                                <img className='img-fluid' src={market.src} />
+                                    {/* <i className='fa fa-bars'></i> */}
+                                </span>
                                 قائمة
                             </a></li>
                         <li><a>
-                            <span className='menuIcon'><i className='fa fa-chart-line'></i></span>
+                            <span className='menuIcon'>
+                                {/* <i className='fa fa-chart-line'></i> */}
+                                <img className='img-fluid' src={direct.src} />
+
+                                </span>
                                 الأسواق
                             </a></li>
                         <li><a href="/liveTv">
-                            <span className='menuIcon'><i className='fab fa-youtube-square'></i></span>
+                            <span className='menuIcon'>
+                                {/* <i className='fab fa-youtube-square'></i> */}
+                                <img className='img-fluid' src={togglebar.src} />
+                                </span>
                             المباشر
                         </a></li>
-                        <li className='pt-2'><a title='CNBC Arabia'><img className='img-fluid' src={smallLogo.src} /></a></li>
+                        <li className='pt-2'><a title='CNBC Arabia'>
+                            <img className='img-fluid' src={smallLogo.src} />
+                            </a></li>
                     </ul>
                 </div>
                 {

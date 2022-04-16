@@ -2,16 +2,17 @@
     <div class="col-md-2">
         <button nz-button [nzType]="'primary'" [routerLink]="['/category/add']">Add Category</button>
     </div>
-    <div class="wrapper col-md-10">
-        <app-filter></app-filter>
+    <div class="col-md-10">
+        <app-filter (statusEmitter)="receiveStatus($event)" (filterEmitter)="receiveFilter($event)"></app-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div cdkDropList (cdkDropListDropped)="drop($event)">
-                <nz-table [nzShowPagination]="true" [nzLoading]="loading" nzShowSizeChanger [nzData]="allCategories" class="no-border-last">
+                <nz-table [nzLoading]="loading" [nzData]="allCategories" [nzShowPagination]="false" class="no-border-last">
                     <thead>
                         <tr>
-                            <th>Reorder</th>
+                            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                            (nzCheckedChange)="onAllChecked($event)"></th>
                             <th>Title</th>
                             <th>Created</th>
                             <th>Modified</th>
@@ -21,28 +22,60 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="category-block" *ngFor="let cat of allCategories" cdkDrag>
-                            <td [nzChecked]="setOfCheckedId.has(cat?.id)" (nzCheckedChange)="onItemChecked(cat?.id, $event)">
-                                    <i nz-icon nzType="drag" nzTheme="outline"></i>
-                            </td>
-                            <td>{{cat?.title}}</td>
-                            <td>{{cat?.createdAt | date:'dd-MM-YYYY'}}</td>
-                            <td>{{cat?.updatedAt | date:'dd-MM-YYYY'}}</td>
-                            <td>{{cat?.publishedBy}}</td>
-                            <td>
-                                <nz-badge *ngIf="cat?.isActive === true" nzStatus="success"></nz-badge>
-                                <nz-badge *ngIf="cat?.isActive === false" nzStatus="error"></nz-badge>
-                                <!-- <span class="text-capitalize"></span> -->
-                            </td>
-                            <td>
-                                <div class="d-flex justify-content-between">
-                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/add/' + cat?.id]"></i>
-                                    <i nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="deleteCategories(cat?.id)"></i>
-                                </div>
-                            </td>
-                        </tr>
+                        <ng-container *ngFor="let cat of allCategories; let i=index">
+                            <tr class="category-block" cdkDrag>
+                                <td [nzChecked]="setOfCheckedId.has(cat?.id)" (nzCheckedChange)="onItemChecked(cat?.id, $event)"></td>
+                                <td>
+                                    <i *ngIf="expandedId!==cat?.id" nz-icon nzType="caret-right" class="cursor-pointer" nzTheme="outline" (click)="toggle(cat?.id)"></i>
+                                    <i *ngIf="expandedId===cat?.id" nz-icon nzType="caret-down" class="cursor-pointer" nzTheme="outline" (click)="toggle(cat?.id)"></i>
+                                    {{cat?.title}}
+                                </td>
+                                <td>{{cat?.createdAt | date:'dd-MM-YYYY'}}</td>
+                                <td>{{cat?.updatedAt | date:'dd-MM-YYYY'}}</td>
+                                <td>{{cat?.user?.name}}</td>
+                                <td>
+                                    <nz-badge *ngIf="cat?.isActive === true" nzStatus="success"></nz-badge>
+                                    <nz-badge *ngIf="cat?.isActive === false" nzStatus="error"></nz-badge>
+                                    <!-- <span class="text-capitalize"></span> -->
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-between">
+                                        <i nz-tooltip nzTooltipTitle="Edit" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/update/' + cat?.id]"></i>
+                                        <i nz-tooltip nzTooltipTitle="Delete" nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="showDeleteConfirm(cat?.id)"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                                <div *ngIf="expandedId===cat?.id" cdkDropList (cdkDropListDropped)="dropSubCategories($event, i)">
+                                    <tr class="category-block" *ngFor="let subCat of cat?.sub" cdkDrag>
+                                        <td [nzChecked]="setOfCheckedId.has(subCat?.id)" (nzCheckedChange)="onItemChecked(subCat?.id, $event)">
+                                                <i nz-icon nzType="drag" nzTheme="outline"></i>
+                                        </td>
+                                        <td>{{subCat?.title}}</td>
+                                        <td>{{subCat?.createdAt | date:'dd-MM-YYYY'}}</td>
+                                        <td>{{subCat?.updatedAt | date:'dd-MM-YYYY'}}</td>
+                                        <td>{{subCat?.user?.name}}</td>
+                                        <td>
+                                            <nz-badge *ngIf="subCat?.isActive === true" nzStatus="success"></nz-badge>
+                                            <nz-badge *ngIf="subCat?.isActive === false" nzStatus="error"></nz-badge>
+                                            <!-- <span class="text-capitalize"></span> -->
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-between">
+                                                <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/update/' + subCat?.id]"></i>
+                                                <i class="cursor-pointer" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(subCat?.id)"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                        </div>
+                        </ng-container>
                     </tbody>
                 </nz-table>
+                <div class="send-request" *ngIf="setOfCheckedId.size">
+                    <button class="mt-4" nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="showDeleteConfirm()">
+                      Delete Selected
+                    </button>
+                    <span class="ml-2">Selected {{ setOfCheckedId.size }} items</span>
+                  </div>
             </div>
         </nz-card>
     </div>

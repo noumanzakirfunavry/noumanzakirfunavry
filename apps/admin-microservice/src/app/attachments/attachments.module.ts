@@ -17,15 +17,15 @@ import { diskStorage } from 'multer';
   imports: [
     UtilityModule,
     ProvidersModule,
-    MulterModule.registerAsync({
-      useFactory: () => ({
-        storage: diskStorage({
-          destination: process.env.DATABASE_FILE_UPLOAD_PATH,
-          filename: editFileName,
+      MulterModule.registerAsync({
+        useFactory: () => ({
+          storage: diskStorage({
+            destination: process.env.DATABASE_FILE_UPLOAD_PATH,
+            filename: editFileName,
+          }),
+          fileFilter: imageFileFilter,
         }),
-        fileFilter: imageFileFilter,
       }),
-    }),
   ],
 })
 export class AttachmentsModule {}

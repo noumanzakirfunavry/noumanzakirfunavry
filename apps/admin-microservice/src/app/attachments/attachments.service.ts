@@ -4,8 +4,6 @@ import { Attachments } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import * as fs from 'fs';
-import { Blob } from 'buffer'
 
 @Injectable()
 export class AttachmentsService {
@@ -17,7 +15,7 @@ export class AttachmentsService {
 
     async createAttachment(file, body: CreateAttachmentRequestDto, userId): Promise<GenericResponseDto> {
         try {
-            const attachment_obj = this.helperService.attachmentObj(body, userId, file[0].path)
+            const attachment_obj = this.helperService.attachmentObj(body, userId, file[0].filename)
             const response = await this.attachmentCreationQuery(attachment_obj)
             if (response) {
                 return new GenericResponseDto(
@@ -34,6 +32,7 @@ export class AttachmentsService {
             }
         }
         catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 37 ~ AttachmentsService ~ createAttachment ~ err", err)
             throw err
         }
     }
@@ -51,6 +50,7 @@ export class AttachmentsService {
             )
         }
         catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 54 ~ AttachmentsService ~ getAllAttachments ~ err", err)
             throw err
         }
     }
@@ -90,6 +90,7 @@ export class AttachmentsService {
             }
         }
         catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 93 ~ AttachmentsService ~ updateAttachment ~ err", err)
             throw err
         }
     }
@@ -125,6 +126,7 @@ export class AttachmentsService {
             })
         }
         catch (err) {
+            console.log("🚀 ~ file: attachments.service.ts ~ line 129 ~ AttachmentsService ~ deleteAttachments ~ err", err)
             throw err
         }
     }

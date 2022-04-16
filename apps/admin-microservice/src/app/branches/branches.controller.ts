@@ -1,6 +1,7 @@
-import { Public } from "@cnbc-monorepo/auth-module";
+import { JwtAuthGuard, Public, Rights, Roles } from "@cnbc-monorepo/auth-module";
 import { AddBranchRequestDto, DeleteBranchRequestDto, GetALLBranchesRequestDto, UpdateBranchRequestDto } from "@cnbc-monorepo/dtos";
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
+import { RightsTypes, RoleTypes } from "@cnbc-monorepo/enums";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from "@nestjs/common";
 import { BranchesService } from "./branches.service";
 
 @Controller("admin/api/admin/branches")
@@ -12,16 +13,19 @@ export class BranchesController {
     async getById(@Param('id') id: number) {
         return await this.breanchService.getById(id)
     }
-    @Public()
+
+    @UseGuards(JwtAuthGuard)
+    @Roles(RoleTypes.Admin)
     @Get("getAll")
     async getAll(@Query() query: GetALLBranchesRequestDto) {
         return await this.breanchService.getAll(query)
     }
 
-    @Public()
+    @UseGuards(JwtAuthGuard)
+    @Roles(RoleTypes.Admin)
     @Post('add')
-    async addBranch(@Body() body: AddBranchRequestDto) {
-        return await this.breanchService.addBranch(body)
+    async addBranch(@Req() req,@Body() body: AddBranchRequestDto) {
+        return await this.breanchService.addBranch(body,req.user.data.id)
     }
 
     @Public()

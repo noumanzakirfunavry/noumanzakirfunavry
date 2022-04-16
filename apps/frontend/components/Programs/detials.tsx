@@ -6,14 +6,14 @@ const ProgramDetails = () => {
         <>
             <div className="NewsTilesBg mb-5 programDetailNews">
         <div className="container">
-        <div className="row">
-                    <div className="col-md-9">
+        <div className="PageBuilder-pageRow">
+                    <div className="PageBuilder-col-9">
                         <div className="VideoNews">
                             <div className="NewsImage"><img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" /></div>
                             <div className="PlayTime">
                                 <h5>05:21</h5>
                                 <div className="btn-text">
-                                    <span>شاهد الآن</span><button className="btn btn-warning VideoPlay"><i className="fa fa-play"></i></button>
+                                    <span>شاهد الآن</span><button className="btn btn-warning VideoPlay"><i className="fa play_big"></i></button>
                                 </div>
                             </div>
                             <div className="NewsContent">
@@ -22,7 +22,7 @@ const ProgramDetails = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-3">
+                    <div className="PageBuilder-sidebar">
 
                         <div className="SimpleDarkNews d-none d-md-block">
                             <h5 className="mb-4">عن البرنامج</h5>

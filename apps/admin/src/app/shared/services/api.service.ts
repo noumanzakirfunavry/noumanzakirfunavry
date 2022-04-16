@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
+import { environment } from 'src/environments/environment';
+import { requests } from '../config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -60,5 +62,22 @@ export class ApiService {
       });
     }
     return params;
+  }
+
+  // file uploader
+
+  uploadFileProgress(file, description?,) {
+    let formData: FormData = Object.assign(new FormData());
+    formData.append("file", file);
+    formData.append("title", file.name);
+    formData.append("description", description || 'test description');
+    formData.append("attachmentType", 'IMAGE');
+    // if (recorded) {
+    //   formData.append("recorded", recorded);
+    // }
+    return this.httpClient.post(requests.addNewAttachment, formData, {
+      reportProgress: true,
+      observe: 'events'
+    })
   }
 }

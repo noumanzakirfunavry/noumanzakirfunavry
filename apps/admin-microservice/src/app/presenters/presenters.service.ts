@@ -104,10 +104,14 @@ export class PresentersService {
     async getAllPresenters(query: GetAllPresentersRequestDto): Promise<GetAllPresentersResponseDto> {
         try {
             const response = await this.presentersRepository.findAndCountAll({
+                include: ['user'],
                 where: {
-                    name: {
-                        [Op.like]: `%${query.search ? query.search : ""}%`
-                    },
+                    ...(query.title &&
+                    {
+                        name: {
+                            [Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.title)}%`
+                        }
+                    }),
                     ...(query.isActive && {
                         isActive: JSON.parse(query.isActive.toString())
                     }),

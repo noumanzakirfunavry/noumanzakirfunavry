@@ -34,14 +34,16 @@ const Index = () =>{
                 <h2>إنفوغرافيك</h2>
             </div>
             <div className="container">
-            <div className='row'>
-                <div className='col-lg-9'>
+            <div className="infographics_container">
+            <div className='PageBuilder-pageRow'>
+                <div className='PageBuilder-col-9'>
                 <News2TopTiles/>
                 <NewsDetatilListWithMedia dispalyMoreButton={true} details={details}/>
                 </div>
-                <div className='col-lg-3'>
+                <div className='PageBuilder-sidebar'>
                     <SideBar sideBarSequence={[{componentType:'numbered', position:1, title:'الأكثر تداولا'}, {componentType:'SmallBanner', position:2}, {componentType:'simple', position:2, title:'الأكثر قراءة'}, {componentType:'LargeBanner', position:2}]}/>
                 </div>
+            </div>
             </div>
         </div>
         </>

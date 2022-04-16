@@ -1,67 +1,151 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
-import { Helper, sequelize } from '@cnbc-monorepo/utility'
-import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { GenericResponseDto } from '@cnbc-monorepo/dtos';
+import { ElkService } from '@cnbc-monorepo/elk';
+import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
+import { Helper, sequelize } from '@cnbc-monorepo/utility';
+import { HttpStatus, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class NewsTypeService {
-    constructor(
-        private helperService: Helper
-    ) {}
+	constructor(
+		private helperService: Helper
+	) { }
 
-    async getAllNews(entity) {
-        return await sequelize.getRepository(entity).findAll({
-            include: ['news']
-        }
-        )
-    }
-    async updateNews(entity, body, userId) {
-        try {
-            return await sequelize.transaction(async t => {
-                const transactionHost = { transaction: t };
-                const delete_previous = await this.deletePreviousNews(entity, transactionHost)
-                if (delete_previous) {
-                    body = this.helperService.addUser(body, userId)
-                    let addNews;
-                    for (let i = 0; i < body.news.length; i++) {
-                        addNews = await this.addNews(addNews, entity, body, i, transactionHost);
-                        if (!addNews) {
-                            throw new CustomException(
-                                Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
-                                Exceptions[ExceptionType.UNABLE_TO_UPDATE].status
-                            )
-                        }
-                    }
-                    return new GenericResponseDto(
-                        HttpStatus.OK,
-                        "News updated successfully"
-                    )
-                }
-                else {
-                    throw new CustomException(
-                        Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
-                        Exceptions[ExceptionType.UNABLE_TO_UPDATE].status
-                    )
-                }
-            })
-        }
-        catch (err) {
-            console.log("🚀 ~ file: news-type.service.ts ~ line 20 ~ NewsTypeService ~ updateNews ~ err", err)
-            throw err
-        }
-    }
+	async getAllNews(entity) {
+		return await sequelize.getRepository(entity).findAll({
+			include: ['news']
+		}
+		)
+	}
+	async updateNews(entity, body, userId) {
 
-    private async addNews(addNews: any, entity: any, body: any, i: number, transactionHost) {
-        addNews = await sequelize.getRepository(entity).create(body.news[i], transactionHost);
-        return addNews;
-    }
+		return await sequelize.transaction(async t => {
+			const transactionHost = { transaction: t };
+			let itemsBeforeDelete: any = await sequelize.getRepository(entity).findAll({ attributes: ['id', 'newsId'], raw: true, nest: true, transaction: transactionHost.transaction })
+			const delete_previous = await this.deletePreviousNews(entity, transactionHost)
+			if (delete_previous) {
+				body = this.helperService.addUser(body, userId)
+				let addNews;
+				for (let i = 0; i < body.news.length; i++) {
+					addNews = await this.addNews(addNews, entity, body, i, transactionHost);
+					if (!addNews) {
+						throw new CustomException(
+							Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
+							Exceptions[ExceptionType.UNABLE_TO_UPDATE].status
+						)
+					}
+				}
+				const itemsAfterDelete: any = await sequelize.getRepository(entity).findAll({ attributes: ['id', 'newsId'], raw: true, nest: true, transaction: transactionHost.transaction })
 
-    private async deletePreviousNews(entity: any, transactionHost) {
-        const response = await sequelize.getRepository(entity).destroy({
-            where: {},
-            truncate: true,
-            transaction: transactionHost.transaction
-        });
-        return response === 0 ? true : response
-    }
+				// First Loop To Create Dictionary
+				let itemDictionary = {};
+				itemsBeforeDelete.forEach(item => {
+					itemDictionary[item.newsId] = 1;
+				})
+				itemsAfterDelete.forEach(item => {
+					itemDictionary[item.newsId] = 2;
+				});
+				console.log("🚀 ~ file: news-type.service.ts ~ line 50 ~ NewsTypeService ~ updateNews ~ itemsAfterDelete", itemsAfterDelete)
+				let itemsToFlag = [];
+				let positionDetails = [];
+				let itemsToDeflag = [];
+
+				let elkUpdateArray = [];
+
+				for (const item in itemDictionary) {
+					if (itemDictionary[item] === 2) {
+						itemsToFlag.push(item)
+					} else {
+						itemsToDeflag.push(item)
+					}
+				}
+
+				let flag;
+
+				itemsToFlag.forEach(item => {
+					if (entity.prototype.constructor.name === "TrendingNews") {
+						flag = 'isTrending'
+					} else if (entity.prototype.constructor.name === "EditorsChoiceNews") {
+						flag = 'isEditorsChoice'
+					} else if (entity.prototype.constructor.name === "FeaturedNews") {
+						flag = 'isFeatured'
+					}
+					
+					const docToUpload = {
+						[flag]: true,
+					}
+
+					if(flag === 'isFeatured'){
+						const newsDetail = body.news.filter(news => news.newsId == item);
+
+						if(newsDetail.length !== 0){
+							docToUpload['featuredNews'] = { position: newsDetail[0].position, section: newsDetail[0].section }
+						}
+					}
+				
+					elkUpdateArray.push({
+						update: {
+							_index: 'news',
+							_id: item,
+						}
+					},
+						{
+							doc: docToUpload
+						})
+				})
+				console.log("🚀 ~ file: news-type.service.ts ~ line 86 ~ NewsTypeService ~ updateNews ~ itemsToFlag", itemsToFlag)
+
+				itemsToDeflag.forEach(item => {
+					if (entity.prototype.constructor.name === "TrendingNews") {
+						flag = 'isTrending'
+					} else if (entity.prototype.constructor.name === "EditorsChoiceNews") {
+						flag = 'isEditorsChoice'
+					} else if (entity.prototype.constructor.name === "FeaturedNews") {
+						flag = 'isFeatured'
+					}
+
+					elkUpdateArray.push({
+						update: {
+							_index: 'news',
+							_id: item,
+						}
+					},
+						{
+							doc: {
+								[flag]: false
+							}
+						})
+				})
+
+				ElkService.bulk({ operations: elkUpdateArray })
+
+
+				return new GenericResponseDto(
+					HttpStatus.OK,
+					"News updated successfully"
+				)
+			}
+			else {
+				throw new CustomException(
+					Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
+					Exceptions[ExceptionType.UNABLE_TO_UPDATE].status
+				)
+			}
+		})
+
+
+	}
+
+	private async addNews(addNews: any, entity: any, body: any, i: number, transactionHost) {
+		addNews = await sequelize.getRepository(entity).create(body.news[i], transactionHost);
+		return addNews;
+	}
+
+	private async deletePreviousNews(entity: any, transactionHost) {
+		const response = await sequelize.getRepository(entity).destroy({
+			where: {},
+			truncate: true,
+			transaction: transactionHost.transaction
+		});
+		return response === 0 ? true : response
+	}
 }

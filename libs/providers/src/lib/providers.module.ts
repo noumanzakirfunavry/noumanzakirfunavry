@@ -31,6 +31,12 @@ import { EpisodeHasTagsProvider } from '../providers/episodes.has.tags.provider'
 import { EpisodeHasQuotesProvider } from '../providers/episodes.has.quotes.provider';
 import { AttachmentsProvider } from '../providers/attachments.provider';
 import { EmailSubscribersProvider } from '../providers/email.subscribers.provider';
+import { JobApplicantsProvider } from '../providers/job.applicants.provider';
+import { FeaturedNewsProvider } from '../providers/featured.news.provider';
+import { EditorsChoiceNewsProvider } from '../providers/editors.choice.news.provider';
+import { TrendingNewsProvider } from '../providers/trending.news.provider';
+import { MenusProvider } from '../providers/menus.provider';
+import { MarketsProvider } from '../providers/markets.provider';
 
 @Module({
   providers: [
@@ -66,6 +72,14 @@ import { EmailSubscribersProvider } from '../providers/email.subscribers.provide
     ...EpisodeHasQuotesProvider,
     ...AttachmentsProvider,
     ...EmailSubscribersProvider,
+    ...JobApplicantsProvider,
+    ...FeaturedNewsProvider,
+    ...EditorsChoiceNewsProvider,
+    ...TrendingNewsProvider,
+    ...ExclusiveVideosProvider,
+		...MenusProvider,
+		...MarketsProvider
+
   ],
   exports: [
     ...UsersProvider,
@@ -99,6 +113,13 @@ import { EmailSubscribersProvider } from '../providers/email.subscribers.provide
     ...EpisodeHasQuotesProvider,
     ...AttachmentsProvider,
     ...EmailSubscribersProvider,
+    ...JobApplicantsProvider,
+    ...FeaturedNewsProvider,
+    ...EditorsChoiceNewsProvider,
+    ...TrendingNewsProvider,
+    ...ExclusiveVideosProvider,
+		...MenusProvider,
+		...MarketsProvider
   ],
 })
 export class ProvidersModule {}

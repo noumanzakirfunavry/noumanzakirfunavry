@@ -10,7 +10,7 @@ body{
 a{
   color: $primary-color;
   &:hover{
-    // color: $warning;
+    color: $warning;
   }
 }
 a:not([href]):not([class]) {
@@ -174,6 +174,8 @@ header{
   .search-header{
     flex: 1;
     position: relative;
+    width: 250px;
+    flex: inherit;
   }
   .logo-header{
     flex: 3;
@@ -208,13 +210,13 @@ header{
     text-align: center;
     text-decoration: none;
     font-weight: bold;
-    border-bottom: 3px solid transparent;
+    // border-bottom: 3px solid transparent;
     font-size: 15px;
   }
   .header-nav ul li a:hover,
   .header-nav ul li a:focus{
     color: $white;
-    border-bottom-color: $warning;
+    // border-bottom-color: $warning;
   }
   .header-nav ul li.nav-item{
     &:hover{
@@ -305,7 +307,7 @@ header{
     font-size: 15px;
     color: $white !important;
     // padding: 5px 15px;
-    padding: 0;
+    padding: 0 !important;
     text-align: center;
     text-decoration: none;
     font-weight: bold;
@@ -366,17 +368,28 @@ header{
 
 
 //   Page Categories Style
+.newsAarticaldetailwrap{
+  .page-categories {
+    ul{
+      display: inline-block;
+    }
+  }
+}
 
 .page-categories{
-    margin: 15px 0 15px 0;
+    margin: 15px 0 30px 0;
+    ul{
+      display: flex;
+    }
 h6{
   font: normal normal bold 15px/30px Cairo;
     color: $grey-dark;
 }
     .CategoryTitle{
       font-size: 15px;
-      font-weight: bold;
+      font-weight: 900;
       margin-left: 23px;
+      min-width: 90px;
     }
 
     ul{
@@ -410,6 +423,9 @@ h6{
             }
         }
 
+    }
+    ::-webkit-scrollbar{
+      height: 0;
     }
 
 }
@@ -532,17 +548,18 @@ h6{
     border-bottom: none;
   }
   .NewsList li .newsImage{
-    flex: 1;
+    // flex: 1;
     height: 107px;
     overflow: hidden;
     padding-right: 15px;
-    max-width: 190px;
+    width: 190px;
   }
   .NewsList li .newsImage iframe{
     width: 100%;
     height: 100%;
   }
   .NewsList li .newsText{
+    width: 70%;
     flex: 3;
     padding: 5px 0 0 0px;
     margin-left: 100px;
@@ -565,7 +582,8 @@ h6{
     font-weight: bold;
   }
   .NewsList li a:hover{
-    text-decoration: underline;
+    // text-decoration: underline;
+    color: #777777 !important;
   }
   .NewsList li p a{
     font-size: inherit;
@@ -625,7 +643,7 @@ h6{
     margin: 0 0 5px 0;
     font-weight: bold;
     &.text-danger{
-      font-size: 12px;
+      font-size: 15px;
     }
   }
 
@@ -698,10 +716,13 @@ h6{
       transition: width .5s;
   }
   .VideoNews .PlayTime .btn{
-    // padding: 15px 20px 15px 15px;
-    text-align: center;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
   }
 
   .VideoNews .PlayTime:hover .btn{
@@ -716,9 +737,11 @@ h6{
     padding: 0px 15px 0 5px;
     font-size: 20px;
     font-weight: 900;
+    transition: width 0.5s;
   }
   .VideoNews .PlayTime:hover .btn-text span{
     display: block;
+    transition: width 0.5s;
 }
   .VideoNews .PlayTime .btn i{
       color: $white;
@@ -751,11 +774,23 @@ h6{
   .VideoNews .NewsContent h4{
     color: $white;
   }
-  .VideoNews .NewsContent h4:hover, .newsSlider .slick-slider .NewsBox .newscontent h3 a:hover,
+   .newsSlider .slick-slider .NewsBox .newscontent h3 a:hover,
   .NewsTiles .newBox .NewsInfo h3:hover, .NewsTiles .newBox .NewsInfo h4:hover
   {
-    text-decoration: underline;
+    // text-decoration: underline;
     cursor: pointer;
+    color: #777777 !important;
+  }
+  .NewsLightTiles .VideoNews, .VideoNews{
+    cursor: pointer;
+    &:hover{
+      .NewsContent{
+        h4{
+          color: #fcb700;
+        }
+      }
+    }
+    
   }
 
 
@@ -764,11 +799,11 @@ h6{
       margin-bottom: 27px;
   }
   .VideoTiles .VideoNews{
-    flex: 1;
+    // flex: 1;
   }
   .VideoTiles .VideoNews .NewsImage{
     height: 119px;
-    // width: 190px;
+    width: 190px;
   }
   .VideoTiles .VideoNews .PlayTime{
       width: 100%;
@@ -776,6 +811,8 @@ h6{
   .VideoTiles .VideoNews .PlayTime .btn{
     font-size: 12px;
     padding: 5px ;
+    width: 35px;
+    height: 35px;
 }
 .NewsTilesBg .VideoTiles .VideoNews .PlayTime .btn-text span {
     padding: 0px 5px 0px;
@@ -810,19 +847,10 @@ h6{
       margin-right: 10px;
   }
   .VideoTiles .NewsContent h4:hover{
-      text-decoration: underline;
+      // text-decoration: underline;
+      color: #777777 !important;
       cursor: pointer;
   }
-
-
-
-
-
-
-
-
-
-
 
   .NewsLightTiles{
       background: $light;
@@ -899,6 +927,7 @@ h6{
         a{
           color: $secondary-color;
           margin-left: 15px;
+          display: inline-block;
         }
         h3{
           font-size: 24px;
@@ -941,6 +970,8 @@ h6{
 .NewsTiles .newBox .PlayTime .btn{
   font-size: 12px;
   padding: 8px 15px;
+  width: 50px;
+  height: 50px;
 }
 .NewsTiles .newBox .PlayTime .btn-text span {
   padding: 0px 10px 0px;
@@ -1024,6 +1055,7 @@ h6{
   .programDetailNews{
     overflow-x: inherit;
     white-space: inherit;
+    padding: 50px 20px;
     .VideoNews{
       .NewsImage{
         height: 540px;
@@ -1090,7 +1122,8 @@ h6{
     overflow: hidden;
   .presenterImage{
     margin-bottom: 10px;
-    height: 180px;
+    height: 170px;
+    width: 300px;
     overflow: hidden;
     position: relative;
   }
@@ -1103,6 +1136,10 @@ h6{
     h3{
       font-size: 24px;
       font-weight: bold;
+      &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
     h4{
       font-size: 18px;
@@ -1125,6 +1162,9 @@ h6{
     flex-wrap: nowrap;
     justify-content: space-between;
     margin-bottom: 10px;
+    &::-webkit-scrollbar{
+      height: 0;
+    }
 }
 .market-stats .marketBox{
     margin-bottom: 5px;
@@ -1183,6 +1223,13 @@ h6{
     list-style: none;
     margin: 0;
     padding:0;
+
+  }
+  .marketChart .chartBox .chartTop ul{
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding:0;
     align-items: center;
   }
   .marketChart .chartBox .chartTop h4{
@@ -1193,7 +1240,7 @@ h6{
   }
   .marketChart .chartBox .chartTop .active a{
     color: $secondary-color;
-    border-bottom: 2px solid $secondary-color;
+    border-bottom: 3px solid $secondary-color;
     padding-bottom: 5px;
   }
   .marketChart .chartBox .chartTop li{
@@ -1262,7 +1309,8 @@ h6{
       color: $grey-dark;
       font: normal normal bold 14px/22px Cairo;
       &:hover{
-        text-decoration: underline;
+        // text-decoration: underline;
+        color: #777777;
    cursor: pointer;
       }
 
@@ -1341,18 +1389,47 @@ h6{
 }
 .slick-slider .slick-prev{
   left: 0px;
-  background: url(../images/arrow-left.svg) no-repeat !important;
+  // background: url(../images/arrow-left.svg) no-repeat !important;
+  &::after{
+    content: "\27F5";
+    display: inline-block;
+    font-size: 45px;
+    color: #DDDDDD;
+  }
 }
 .slick-slider .slick-next{
   left: 70px;
-  background: url(../images/arrow-right.svg) no-repeat !important;
+  // background: url(../images/arrow-right.svg) no-repeat !important;
+  &::after{
+    content: "\27F6";
+    display: inline-block;
+    font-size: 45px;
+    color: #DDDDDD;
+  }
 }
-.slick-slider .slick-prev:hover{
-  background: url(../images/arrow-left-hover.svg) no-repeat !important;
+.slick-slider .slick-prev, .slick-slider .slick-next{
+  &:hover{
+   &::after{
+    color: #002F6C;
+   }
+  }
 }
-.slick-slider .slick-next:hover{
-  background: url(../images/arrow-right-hover.svg) no-repeat !important;
+.livetvSlider {
+  .slick-slider .slick-prev, .slick-slider .slick-next{
+    &:hover{
+     &::after{
+      color: #FCB700;
+     }
+    }
+  }
 }
+
+// .slick-slider .slick-prev:hover{
+//   background: url(../images/arrow-left-hover.svg) no-repeat !important;
+// }
+// .slick-slider .slick-next:hover{
+//   background: url(../images/arrow-right-hover.svg) no-repeat !important;
+// }
 .slick-slider .slick-prev:before,
 .slick-slider .slick-next:before{
   content: none;
@@ -1433,6 +1510,12 @@ h6{
   background: $primary-color;
   padding: 30px;
   color: $white;
+  .TitleBar{
+    h2{
+      font: normal normal 900 32px/30px Cairo;
+
+    }
+  }
 }
 .sliderTextBg .NewsBox {
   position: relative;
@@ -1534,6 +1617,27 @@ h6{
   .liveTV{
     margin: 0 auto 30px;
     width: 75%;
+    &.VideoNews {
+      .PlayTime{
+        border: none;
+        .btn-text{
+          background-color: #CE2B2B;
+          top: 0;
+          span{
+            color: #fff;
+          }
+        }
+        .btn{
+          border: none;
+        }
+        &:hover{
+          .btn{
+            background-color: transparent;
+            border: none;
+          }
+        }
+      }
+    }
   }
   .fs15_b{
     font-size: 15px;
@@ -1573,6 +1677,8 @@ h6{
 .VideoTextBox .VideoNews .PlayTime .btn{
 font-size: 12px;
 padding: 5px 10px;
+width: 35px;
+height: 35px;
 }
 .VideoTextBox .VideoNews .PlayTime .btn-text span {
 padding: 5px 5px 0px;
@@ -1637,6 +1743,7 @@ width: 110px;
               display: block;
               font-size: 15px;
               padding: 5px 0;
+              direction: ltr;
             }
           }
           .active{
@@ -1832,7 +1939,7 @@ width: 110px;
           border-radius: 0;
           margin: 0;
           opacity: 1;
-          // background-image: url(../images/close-arrow.svg);
+          background-image: url(../images/close-arrow.svg);
         }
       }
       .modal-body{
@@ -1943,6 +2050,7 @@ width: 110px;
           .newsText{
             padding: 0;
             margin-left: 40px;
+            margin-bottom: 30px;
             h6{
               &:hover{
                 text-decoration: underline;
@@ -1958,6 +2066,13 @@ width: 110px;
                   text-decoration: underline;
                 }
               }
+              span{
+                font: normal normal bold 12px/20px Cairo;
+
+              }
+              mark{
+                background-color: #EDEFF3;
+              }
 
             }
 
@@ -1966,9 +2081,10 @@ width: 110px;
           .newsImage{
             width: 300px;
             height: 170px;
+            padding-right: 0;
             img{
               height: 100%;
-              object-fit: contain;
+              object-fit: cover;
             }
           }
 
@@ -2002,8 +2118,10 @@ width: 110px;
         font-size: 14px;
         .menuIcon{
           display: block;
-          margin:0px;
+          margin:0px auto 5px;
           font-size: 20px;
+          width: 28px;
+
         }
       }
     }
@@ -2100,10 +2218,19 @@ width: 110px;
   left: 0;
   width: 100%;
   z-index: 999;
-  padding: 25px;
+  // padding: 0 25px 25px;
   height: calc(100vh - 74px);
+  overflow: auto;
   display: none;
+.toggle_header{
+  background-color: $secondary-color;
 
+    padding: 0 15px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
   .btn-cancel{
     font-size: 24px;
     color: $danger;
@@ -2121,9 +2248,8 @@ width: 110px;
         border-bottom: none;
       }
       .nav-link{
-        font-size: 15px;
-        font-weight: 600;
-        color: $primary-color;
+        font: normal normal bold 21px/32px Cairo;
+        color: $secondary-color;
         padding: 10px;
 
         &:hover{
@@ -2132,6 +2258,79 @@ width: 110px;
       }
     }
   }
+  .header-search-nav ul {
+    justify-content: space-between;
+    li
+    {
+      border: 1px solid #DDDDDD;
+      min-width: 33.3%;
+      text-align: center;
+      a{
+        color: #1C1C1C !important;
+        font: normal normal bold 15px/32px Cairo;
+        padding: 10px !important;
+        min-width: 124px;
+        display: inline-block;
+        .youtube-icon{
+          margin-right: 5px;
+        }
+  }
+
+    }
+  }
+  .accordion-item{
+    .accordion-header{
+      .accordion-button{
+        font: normal normal bold 21px/32px Cairo;
+        color: $secondary-color;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1.25rem 0 0;
+        &::after{
+          margin-left: 0;
+          margin-right: auto;
+          color: $primary-color;
+          background-image: none;
+          content: "";
+          font-family:'Font Awesome 5 Free';
+          background-color: $light;
+          display: none;
+        }
+        &:focus{
+          border: none;
+          box-shadow: none;
+        }
+        a{
+          background-color: $light;
+          width: 70px;
+          height: 70px;
+          text-align: center;
+          line-height: 70px;
+        }
+        &:not(.collapsed){
+          background-color: #fff;
+          color: $primary-dark;
+          border-right: solid 6px $primary-dark;
+          a{
+            background-color: $primary-dark;
+            color: #fff;
+          }
+        }
+
+      }
+    }
+    &.without_collapse{
+      padding: 1rem 0 1.25rem;
+    }
+    .accordion-collapse{
+      &.show{
+        border-right: solid 6px $primary-dark;
+      }
+    }
+
+  }
+
 }
 .breakingNews
 {
@@ -2351,7 +2550,7 @@ select::-ms-expand {
 }
 .min_w111_h31{
   min-width: 111px;
-  height: 31px;
+  height: 40px;
   padding:3px 5px;
 }
  button.btn.btn-outline-primary {
@@ -2360,6 +2559,7 @@ select::-ms-expand {
   font-weight: bold;
   height: 40px;
   padding: 5px;
+  padding: 0 10px;
 }
 .large_add {
   margin-top: 54px;
@@ -2489,15 +2689,20 @@ select::-ms-expand {
     }
 
   }
+ 
 }
 
 }
+
 // newsslider2text
 .newsSlider2Text {
   .NewsBox {
+    cursor: pointer;
     .newsImage {
-      width: 300px;
+      // width: 300px;
+      width: 100%;
       height: 170px;
+      overflow: hidden;
       .PlayTime{
         h5{
           font: normal normal 900 12px/30px Cairo;
@@ -2511,10 +2716,7 @@ select::-ms-expand {
        a{
         color: $grey-dark;
         font: normal normal bold 16px/26px Cairo;
-        &:hover{
-          text-decoration: underline;
-          cursor: pointer;
-        }
+        
        }
       }
       p{
@@ -2527,6 +2729,19 @@ select::-ms-expand {
             cursor: pointer;
           }
         }
+      }
+    }
+    &:hover{
+      .newscontent{
+        h5{
+         
+         a{
+        
+            color: #777777;
+          
+         }
+        }
+        
       }
     }
   }
@@ -2556,11 +2771,17 @@ select::-ms-expand {
 .videNewspage_sidebar {
   .sidebarvideo_sidebar__Xyuy_ {
     border-bottom: none;
+
     .sidebarvideo_themeTitle__onjDO h4 {
       border-color: $grey-light;
       width: 100%;
       margin-top: -6px;
+      font: normal normal 900 20px/30px Cairo;
+
     }
+   .sidebarvideo_listBody__tj4cm{
+     max-height: inherit;
+   }
   }
 }
 .livetvSlider{
@@ -2570,7 +2791,7 @@ select::-ms-expand {
     .NewsBox {
       .newsImage{
         width: 100%;
-        height: 226px;
+        height: 326px;
         img{
           height: 100%;
         }
@@ -2634,8 +2855,7 @@ select::-ms-expand {
     font: normal normal bold 40px/65px Cairo;
     color: $grey-dark;
     &:hover{
-      text-decoration: underline;
-      cursor: pointer;
+      color: #777777;
     }
   }
 }
@@ -2660,8 +2880,7 @@ h6.newsDetailtext
   {
     font: normal normal bold 12px/20px Cairo;
     &:hover{
-      cursor: pointer;
-     text-decoration: underline;
+      color: #777777;
     }
 
   }
@@ -2687,6 +2906,9 @@ h6.newsDetailtext
       }
       a{
         font: normal normal bold 15px/20px Cairo;
+        &:hover{
+          color: $warning;
+        }
 
 
       }
@@ -2725,6 +2947,10 @@ h6.newsDetailtext
 .presenter_detail{
   h1{
     font: normal normal bold 40px/65px Cairo;
+    cursor: pointer;
+    &:hover{
+      text-decoration: underline;
+    }
 
   }
   h5{
@@ -2849,7 +3075,7 @@ h6.newsDetailtext
     .modal-content {
       .modal-header {
         .btn-close {
-          background-color: transparent;
+
         }
       }
     }
@@ -2859,21 +3085,21 @@ h6.newsDetailtext
 .caret_icon_up {
   border-left: solid 5px transparent;
   border-right: solid 5px transparent;
-  border-bottom: solid 12px #fff;
+  border-bottom: solid 10px #fff;
   height: 0;
   width: 0;
 }
 .caret_icon_down {
   border-left: solid 5px transparent;
   border-right: solid 5px transparent;
-  border-top: solid 12px #fff;
+  border-top: solid 10px #fff;
   height: 0;
   width: 0;
 }
 .caret_icon {
   border-left: solid 5px transparent;
   border-right: solid 5px transparent;
-  border-bottom: solid 12px #fff;
+  border-bottom: solid 10px #fff;
   height: 0;
   width: 0;
 }
@@ -2884,10 +3110,152 @@ h6.newsDetailtext
   height: 0;
   width: 0;
 }
+.play_medium {
+  border-top: solid 9px transparent;
+  border-bottom: solid 9px transparent;
+  border-left: solid 15px #fff;
+  height: 0;
+  width: 0;
+}
 .play_small {
   border-top: solid 6px transparent;
   border-bottom: solid 6px transparent;
   border-left: solid 11px #fff;
   height: 0;
   width: 0;
+}
+.program_schedule{
+  h2{
+    margin-right: 165px;
+  }
+
+
+}
+.scheduleCalendar{
+  thead, tbody, tfoot, tr, td, th{
+    border-color: $grey-light !important;
+  }
+}
+
+
+// .navbar-expand-md .navbar-nav .nav-link::after{
+//   height:1px;left:0;opacity:0;pointer-events:none;position:absolute;
+//   -webkit-transform:matrix(0,0,0,0,0,0);transform:matrix(0,0,0,0,0,0);
+//   -webkit-transform-origin:left;transform-origin:left;width:100px;z-index:600
+// }
+
+  // .nav-menu-navUnderline{
+  //   height:1px;
+  //   left:0;
+  //   opacity:0;
+  //   pointer-events:none;
+  //   position:absolute;
+  //   -webkit-transform:matrix(0,0,0,0,0,0);
+  //   transform:matrix(0,0,0,0,0,0);
+  //   -webkit-transform-origin:left;
+  //   transform-origin:left;
+  //   width:100px;
+  //   z-index:600
+  // }
+    .nav-menu-navUnderline:after{
+      content: '';
+      display: block;
+      width: 0;
+      height: 3px;
+      background: $warning;
+      transition: width .3s;
+    }
+    .nav-item:hover .nav-menu-navUnderline:after{
+     width: 100%;
+    }
+
+    .sticky_header {
+      height: 55px;
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 199;
+      transition: all .25s;
+      display: flex;
+      align-items: center;
+
+      .logo-header{
+        display: flex;
+        align-items: center;
+        transition: all .25s;
+      }
+      .header-search-nav{
+        ul{
+          justify-content: end;
+          margin-left: 26px;
+          li{
+            margin-left: 26px;
+            transition: all .25s;
+            &.sticky_none{
+              display: none;
+            }
+          }
+        }
+      }
+
+      .search-header {
+
+        .search-box{
+          margin: 0;
+          input {
+            display: none;
+        }
+        .input-group-text{
+    left: 0;
+    top: -2px;
+    padding-left: 0;
+    cursor: pointer;
+        }
+        }
+      }
+      .cnbc-logo {
+        margin: 0px 0 0px 25px;
+    }
+    .header-box{
+      align-items: baseline;
+    }
+  }
+  .NewsImage.show_mobile{
+    display: none;
+  }
+
+  ul.nav_sublinks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+    padding: 0;
+    li{
+      list-style: none;
+      margin-top: 10px;
+      a{
+        font: normal normal bold 14px/30px Cairo;
+        color: $primary-dark;
+
+      }
+    }
+}
+.PageBuilder-sidebar{
+  margin-top: 5px;
+}
+.newsDetial_w {
+  width: 1000px;
+  margin: auto;
+}
+.mainsection_newsdetails__ugKGf {
+p.tag{
+  a{
+    margin-left: 15px;
+    font-size: 12px !important;
+    color: $secondary-color !important;
+  }
+  b{
+    font-size: 12px;
+    color: $grey;
+  }
+}
 }

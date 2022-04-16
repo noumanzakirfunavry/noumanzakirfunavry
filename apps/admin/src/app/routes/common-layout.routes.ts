@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ChangePasswordComponent } from 'src/app/changePassword/changePassword.component';
+import { ChangePasswordComponent } from '../changePassword/changePassword.component';
 // import { ChangePasswordComponent } from 'src/app/changePassword/changePassword.component';
 // import { EditorsChoiceComponent } from 'src/app/editorsChoice/editorsChoice.component';
 // import { ExclusiveVideosComponent } from 'src/app/exclusiveVideos/exclusiveVideos.component';
@@ -24,8 +24,8 @@ export const CommonLayout_ROUTES: Routes = [
     //         // }, 
     //         {
     //             path: '',
-    //                 loadChildren: () => import('./../../dashboard/dashboard.module').then(m => m.DashboardModule),
-    //             // loadChildren: () => import('./../../news/news.module').then(m => m.NewsModule)
+    //                 loadChildren: () => import('./src/app/src/app/dashboard/dashboard.module').then(m => m.DashboardModule),
+    //             // loadChildren: () => import('./src/app/src/app/news/news.module').then(m => m.NewsModule)
     //         }
     //     ],
     // },
@@ -199,7 +199,7 @@ export const CommonLayout_ROUTES: Routes = [
             },
             {
                 path: '',
-                loadChildren: () => import('../breakingNews/breakingNews.module').then(m => m.BreakingNewsModule)
+                loadChildren: () => import('../breakingNews/breakingnews.module').then(m => m.BreakingNewsModule)
             }
         ]
     },
@@ -467,6 +467,6 @@ export const CommonLayout_ROUTES: Routes = [
     },
     // {
     //     path: 'quickLinks',
-    //     loadChildren: () => import('./../../quickLinks/quicklink.module').then(m => m.QuickLinkModule)
+    //     loadChildren: () => import('./src/app/src/app/quickLinks/quicklink.module').then(m => m.QuickLinkModule)
     // }
 ];

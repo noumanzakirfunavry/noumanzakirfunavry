@@ -21,6 +21,15 @@ const routes: Routes = [
         },
 
     },
+    {
+        path: 'update/:id',
+        component: AddNewsComponent,
+        data: {
+            title: 'Update News',
+            // headerDisplay: "none"
+        },
+
+    },
    
 ];
 

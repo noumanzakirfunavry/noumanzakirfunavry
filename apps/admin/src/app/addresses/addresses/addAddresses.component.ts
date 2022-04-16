@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
     selector: 'app-addAddresses',
@@ -26,7 +26,8 @@ export class AddAddressesComponent implements OnInit {
     constructor(private fb: FormBuilder, 
       private apiService: ApiService, 
       private activatedRoute: ActivatedRoute, 
-      private message: NzMessageService
+      private message: NzMessageService, 
+      private route: Router
       ) {}
   
     ngOnInit(): void {
@@ -36,7 +37,7 @@ export class AddAddressesComponent implements OnInit {
         fax: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
         addressLine1: [null, [Validators.required]],
         addressLine2: [null, [Validators.required]],
-        email: [null, [Validators.email, Validators.required]],
+        email: [null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$')]],
         isActive: [false]
       });
       this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
@@ -58,6 +59,7 @@ export class AddAddressesComponent implements OnInit {
         this.apiService.sendRequest(this.branchId ? requests.updateBranch + this.branchId: requests.addNewBranch, this.branchId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("BRANCHES", res);
           this.addressForm.reset();
+          this.route.navigateByUrl('addresses/list');
           if(this.branchId) {
             this.message.create('success', `Address Updated Successfully`);
           }
@@ -78,10 +80,14 @@ export class AddAddressesComponent implements OnInit {
           fax: [this.branchById?.fax || null, [Validators.required, Validators.pattern("^[0-9]*$")]],
           addressLine1: [this.branchById?.addressLine1 || null, [Validators.required]],
           addressLine2: [this.branchById?.addressLine2 || null, [Validators.required]],
-          email: [this.branchById?.email || null, [Validators.email, Validators.required]],
+          email: [this.branchById?.email || null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$')]],
           isActive: [this.branchById?.isActive || false]
         });
       })
+    }
+
+    cancel() {
+      this.route.navigateByUrl('addresses/list');
     }
     
 }    

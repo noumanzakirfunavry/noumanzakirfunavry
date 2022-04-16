@@ -1,10 +1,19 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
-import { FC, useRef, useState } from "react";
+import GetData from "apps/frontend/services/GetData";
+import { requests } from "apps/frontend/services/Requests";
+import { JobProps } from "apps/frontend/types/Types";
+import { FC, useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
+import dateFormat from "dateformat";
+import  {useRouter} from "next/router";
+import Link from "next/link";
 
 
 const CareersSlider = () =>{
 
+    const [jobs, setJobs] = useState<JobProps[]>([])
+    const router = useRouter()
+    const path = router.pathname
     const ref:any = useRef()
 
        const next = () =>{
@@ -26,7 +35,7 @@ const CareersSlider = () =>{
             className: "center",
             centerMode: false,
             centerPadding: "60px",
-            slidesToScroll: 5,
+            slidesToScroll: 1,
             initialSlide: 0,
             rtl: false,
             arrows:false,
@@ -35,7 +44,7 @@ const CareersSlider = () =>{
                 breakpoint: 1800,
                 settings: {
                   slidesToShow: 4,
-                  slidesToScroll: 4,
+                  slidesToScroll: 1,
                   infinite: true,
                 }
               },
@@ -43,7 +52,7 @@ const CareersSlider = () =>{
                 breakpoint: 1400,
                 settings: {
                   slidesToShow: 3,
-                  slidesToScroll: 3,
+                  slidesToScroll: 1,
                   infinite: true,
                 }
               },
@@ -51,7 +60,7 @@ const CareersSlider = () =>{
                 breakpoint: 992,
                 settings: {
                   slidesToShow: 2,
-                  slidesToScroll: 2,
+                  slidesToScroll: 1,
                   initialSlide: 2
                 }
               },
@@ -64,6 +73,14 @@ const CareersSlider = () =>{
               }
             ]
           });
+    useEffect(()=>{
+        GetData(`${requests.jobs}/getAll?limit=100&pageNo=1`, {}, 'get', false).then(res=>{
+            setJobs(res.data?.response?.jobs)
+          }).catch(err=>{
+            console.warn(err)
+          })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     return (
         <>
@@ -89,7 +106,47 @@ const CareersSlider = () =>{
                 <div className="newsSlider">
 
                     <Slider ref={ref} {...settings}>
+
+                            {
+                                jobs?.length && jobs?.map((job:JobProps)=>{
+                                    return (
+                                        <div className="slider-item" key={job.id}>
+                                            <div className="NewsBox">
+
+                                                <h6>{job.branchId}</h6>
+                                                <h2><Link href={`${path}/${job.id}`}>{job.title}</Link></h2>
+                                                <div className="newscontent">
+                                                    <p>{`Posted ${dateFormat(job.closingDate, 'dd mmmm yyyy')}`}</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                             <div className="slider-item">
+                                <div className="NewsBox">
+
+                                    <h6>Egypt</h6>
+                                    <h2><a>Marketing Manager</a></h2>
+                                    <div className="newscontent">
+                                        <p>Posted 28 November 2021</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div className="slider-item">
+                                <div className="NewsBox">
+
+                                    <h6>Egypt</h6>
+                                    <h2><a>Marketing Manager</a></h2>
+                                    <div className="newscontent">
+                                        <p>Posted 28 November 2021</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                           {/*  <div className="slider-item">
                                 <div className="NewsBox">
 
                                     <h6>Egypt</h6>
@@ -154,29 +211,7 @@ const CareersSlider = () =>{
                                     </div>
 
                                 </div>
-                            </div>
-                            <div className="slider-item">
-                                <div className="NewsBox">
-
-                                    <h6>Egypt</h6>
-                                    <h2><a>Marketing Manager</a></h2>
-                                    <div className="newscontent">
-                                        <p>Posted 28 November 2021</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div className="slider-item">
-                                <div className="NewsBox">
-
-                                    <h6>Egypt</h6>
-                                    <h2><a>Marketing Manager</a></h2>
-                                    <div className="newscontent">
-                                        <p>Posted 28 November 2021</p>
-                                    </div>
-
-                                </div>
-                            </div>
+                            </div>   */}
                     </Slider>
                 </div>
             </div>
@@ -185,13 +220,3 @@ const CareersSlider = () =>{
 }
 
 export default CareersSlider
-
-
-
-
-
-
-
-
-
-
