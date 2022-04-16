@@ -82,18 +82,28 @@
           </nz-form-item>
         </div>
 
-        <div class="col-6">
+        <div class="col-6" *ngIf="!loader">
+          <nz-form-item>
+            <nz-form-control>
           <nz-form-label><h5>Admin Rights</h5></nz-form-label>
-          <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log($event)">
+          <nz-checkbox-group
+          style="display:grid"
+          formControlName="rights"
+          (ngModelChange)="log(checkOptionsThree)"
+        ></nz-checkbox-group>
+          <!-- <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log($event)">
             <div nz-row>
               <div nz-col nzSpan="12">
-                <label *ngFor="let right of allRights" [ngModel]="right.checked" nz-checkbox [nzValue]="right?.id" formControlName="rights">{{right?.title}}</label>
+                
+                <label *ngFor="let right of allRights" [ngModel]="rightChecked(right)" nz-checkbox [nzValue]="right?.id" formControlName="rights">{{right?.title}} {{rightChecked(right)}}</label>
               </div>
             </div>
-          </nz-checkbox-wrapper>
-          <div *ngIf="(!rightsValue || rightsValue.length===0) && submitted===true" style="color: Crimson;">
+          </nz-checkbox-wrapper> -->
+          <!-- <div *ngIf="(!rightsValue || rightsValue.length===0) && submitted===true" style="color: Crimson;">
             Select atleast one option!
-          </div>
+          </div> -->
+        </nz-form-control>
+      </nz-form-item>
         </div>
       </div>
       <nz-form-item>

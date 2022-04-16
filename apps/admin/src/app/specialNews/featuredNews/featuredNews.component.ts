@@ -122,9 +122,7 @@ export class FeaturedNewsComponent implements OnInit {
         const news = this.fNews.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.fNews[news] = updatedNews;
-        } else if (this.fNews.filter(x => !x.newsId)) {
-            this.message.create('error', 'Please add all featured news for Featured section')
-        } else {
+        }  else {
             // this.fNews[news] = null;
             const tempNews = updatedNews;
             setTimeout(() => {
@@ -147,7 +145,7 @@ export class FeaturedNewsComponent implements OnInit {
         this.fNews.forEach(news => {
             news.newsId = parseInt(news.newsId);
         })
-        if (this.fNews.filter(x => !x.newsId)) {
+        if (this.fNews.some(x => !x.newsId)) {
             this.message.create('error', 'Please add all featured news for Featured section')
         } else {
             this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
