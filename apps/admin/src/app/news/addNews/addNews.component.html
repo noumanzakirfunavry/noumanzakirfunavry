@@ -156,15 +156,18 @@
                         <nz-form-item>
                             <nz-form-label nzRequired>Catogory</nz-form-label>
                             <nz-form-control nzErrorTip="Select Catogory!">
-                                <nz-tree-select *ngIf="strucCategories" formControlName="categoryIds"
+                                <nz-tree-select formControlName="categoryIds"
                                     [nzNodes]="strucCategories" (ngModelChange)="onChange($event)"
-                                    nzShowSearch nzCheckable nzPlaceHolder="Select Catogory">
+                                    nzShowSearch nzCheckable [nzDisabled]="!strucCategories" nzPlaceHolder="Select Catogory">
                                 </nz-tree-select>
+                                <!-- <div *ngIf="strucCategories && ((!selectedCat || selectedCat.length===0) && submitted===true)" style="color: Crimson;">
+                                    Select Catogory!
+                                </div> -->
                             </nz-form-control>
+                            <div *ngIf="!strucCategories">
+                                <button class="mt-3" (click)="[getCaptcha($event),addNewCategory()]" nz-button nzType="default">Add Category</button>
+                            </div>
                         </nz-form-item>
-                        <div *ngIf="strucCategories && ((!selectedCat || selectedCat.length===0) && submitted===true)" style="color: Crimson;">
-                            Select Catogory!
-                        </div>
                     </div>
                     <!-- tags -->
                     <div>
