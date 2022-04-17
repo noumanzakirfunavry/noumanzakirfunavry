@@ -42,6 +42,7 @@ export class NewsService {
 			index: 'news',
 			from: paginationDTO.pageNo - 1,
 			size: paginationDTO.limit,
+			sort: "updatedAt",
 			query: {
 				bool: {
 					must: [{
