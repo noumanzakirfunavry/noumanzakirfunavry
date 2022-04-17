@@ -396,4 +396,8 @@ export class AddNewsComponent implements OnInit {
         return nodes;
     }
 
+    addNewCategory() {
+        this.route.navigateByUrl('category/add');
+    }
+
 }    
