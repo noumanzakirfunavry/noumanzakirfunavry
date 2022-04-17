@@ -63,7 +63,7 @@ const Header = () =>{
     },[])
 
     const handleScroll = () => {
-        const scrollCheck = window.scrollY < 100
+        const scrollCheck = window.scrollY < 50
         if (scrollCheck !== scroll) {
           setScroll(scrollCheck)
         }

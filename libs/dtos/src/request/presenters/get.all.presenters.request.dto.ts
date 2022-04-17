@@ -17,8 +17,7 @@ export class GetAllPresentersRequestDto{
     @IsOptional()
     isActive : boolean
 
-    @IsArray()
-    @ArrayNotEmpty()
     @IsOptional()
-    publishers : number[]
+    @IsNumberString()
+		publisher : number
 }

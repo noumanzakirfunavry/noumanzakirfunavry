@@ -133,8 +133,8 @@
     padding-top:15px;
 }
 .sidenumberList li a:hover{
-    /* color: #002F6C; */
-    text-decoration: underline;
+    color: #777777;
+   
 }
 .sidenumberList li a span{
     color: #777777;

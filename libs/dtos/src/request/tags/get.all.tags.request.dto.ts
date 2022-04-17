@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsBooleanString, IsNotEmpty, IsOptional, IsString, isValidationOptions } from "class-validator";
+import { IsArray, IsBoolean, IsBooleanString, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString, isValidationOptions } from "class-validator";
 import { PaginatedRequestDto } from "../pagination.request.dto";
 
 export class GetAllTagsRequestDto extends PaginatedRequestDto
@@ -12,7 +12,7 @@ export class GetAllTagsRequestDto extends PaginatedRequestDto
     status:boolean
 
     @IsOptional()
-    @IsArray()
-    publishers:number[]
+		@IsNumberString()
+    publisher: number
 
 }

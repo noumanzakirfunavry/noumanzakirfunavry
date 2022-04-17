@@ -115,8 +115,8 @@ export class PresentersService {
                     ...(query.isActive && {
                         isActive: JSON.parse(query.isActive.toString())
                     }),
-                    ...(query.publishers && {
-                        publishedBy: query.publishers
+                    ...(query.publisher && {
+                        publishedBy: query.publisher
                     })
                 },
                 limit: parseInt(query.limit.toString()),

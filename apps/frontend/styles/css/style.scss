@@ -174,6 +174,8 @@ header{
   .search-header{
     flex: 1;
     position: relative;
+    width: 250px;
+    flex: inherit;
   }
   .logo-header{
     flex: 3;
@@ -366,6 +368,13 @@ header{
 
 
 //   Page Categories Style
+.newsAarticaldetailwrap{
+  .page-categories {
+    ul{
+      display: inline-block;
+    }
+  }
+}
 
 .page-categories{
     margin: 15px 0 30px 0;
@@ -550,6 +559,7 @@ h6{
     height: 100%;
   }
   .NewsList li .newsText{
+    width: 70%;
     flex: 3;
     padding: 5px 0 0 0px;
     margin-left: 100px;
@@ -633,7 +643,7 @@ h6{
     margin: 0 0 5px 0;
     font-weight: bold;
     &.text-danger{
-      font-size: 12px;
+      font-size: 15px;
     }
   }
 
@@ -706,10 +716,13 @@ h6{
       transition: width .5s;
   }
   .VideoNews .PlayTime .btn{
-    // padding: 15px 20px 15px 15px;
-    text-align: center;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
   }
 
   .VideoNews .PlayTime:hover .btn{
@@ -724,9 +737,11 @@ h6{
     padding: 0px 15px 0 5px;
     font-size: 20px;
     font-weight: 900;
+    transition: width 0.5s;
   }
   .VideoNews .PlayTime:hover .btn-text span{
     display: block;
+    transition: width 0.5s;
 }
   .VideoNews .PlayTime .btn i{
       color: $white;
@@ -759,12 +774,23 @@ h6{
   .VideoNews .NewsContent h4{
     color: $white;
   }
-  .VideoNews .NewsContent h4:hover, .newsSlider .slick-slider .NewsBox .newscontent h3 a:hover,
+   .newsSlider .slick-slider .NewsBox .newscontent h3 a:hover,
   .NewsTiles .newBox .NewsInfo h3:hover, .NewsTiles .newBox .NewsInfo h4:hover
   {
     // text-decoration: underline;
     cursor: pointer;
     color: #777777 !important;
+  }
+  .NewsLightTiles .VideoNews, .VideoNews{
+    cursor: pointer;
+    &:hover{
+      .NewsContent{
+        h4{
+          color: #fcb700;
+        }
+      }
+    }
+    
   }
 
 
@@ -785,6 +811,8 @@ h6{
   .VideoTiles .VideoNews .PlayTime .btn{
     font-size: 12px;
     padding: 5px ;
+    width: 35px;
+    height: 35px;
 }
 .NewsTilesBg .VideoTiles .VideoNews .PlayTime .btn-text span {
     padding: 0px 5px 0px;
@@ -823,16 +851,6 @@ h6{
       color: #777777 !important;
       cursor: pointer;
   }
-
-
-
-
-
-
-
-
-
-
 
   .NewsLightTiles{
       background: $light;
@@ -909,6 +927,7 @@ h6{
         a{
           color: $secondary-color;
           margin-left: 15px;
+          display: inline-block;
         }
         h3{
           font-size: 24px;
@@ -951,6 +970,8 @@ h6{
 .NewsTiles .newBox .PlayTime .btn{
   font-size: 12px;
   padding: 8px 15px;
+  width: 50px;
+  height: 50px;
 }
 .NewsTiles .newBox .PlayTime .btn-text span {
   padding: 0px 10px 0px;
@@ -1368,18 +1389,47 @@ h6{
 }
 .slick-slider .slick-prev{
   left: 0px;
-  background: url(../images/arrow-left.svg) no-repeat !important;
+  // background: url(../images/arrow-left.svg) no-repeat !important;
+  &::after{
+    content: "\27F5";
+    display: inline-block;
+    font-size: 45px;
+    color: #DDDDDD;
+  }
 }
 .slick-slider .slick-next{
   left: 70px;
-  background: url(../images/arrow-right.svg) no-repeat !important;
+  // background: url(../images/arrow-right.svg) no-repeat !important;
+  &::after{
+    content: "\27F6";
+    display: inline-block;
+    font-size: 45px;
+    color: #DDDDDD;
+  }
 }
-.slick-slider .slick-prev:hover{
-  background: url(../images/arrow-left-hover.svg) no-repeat !important;
+.slick-slider .slick-prev, .slick-slider .slick-next{
+  &:hover{
+   &::after{
+    color: #002F6C;
+   }
+  }
 }
-.slick-slider .slick-next:hover{
-  background: url(../images/arrow-right-hover.svg) no-repeat !important;
+.livetvSlider {
+  .slick-slider .slick-prev, .slick-slider .slick-next{
+    &:hover{
+     &::after{
+      color: #FCB700;
+     }
+    }
+  }
 }
+
+// .slick-slider .slick-prev:hover{
+//   background: url(../images/arrow-left-hover.svg) no-repeat !important;
+// }
+// .slick-slider .slick-next:hover{
+//   background: url(../images/arrow-right-hover.svg) no-repeat !important;
+// }
 .slick-slider .slick-prev:before,
 .slick-slider .slick-next:before{
   content: none;
@@ -1627,6 +1677,8 @@ h6{
 .VideoTextBox .VideoNews .PlayTime .btn{
 font-size: 12px;
 padding: 5px 10px;
+width: 35px;
+height: 35px;
 }
 .VideoTextBox .VideoNews .PlayTime .btn-text span {
 padding: 5px 5px 0px;
@@ -2645,10 +2697,12 @@ select::-ms-expand {
 // newsslider2text
 .newsSlider2Text {
   .NewsBox {
+    cursor: pointer;
     .newsImage {
       // width: 300px;
       width: 100%;
       height: 170px;
+      overflow: hidden;
       .PlayTime{
         h5{
           font: normal normal 900 12px/30px Cairo;
@@ -2662,10 +2716,7 @@ select::-ms-expand {
        a{
         color: $grey-dark;
         font: normal normal bold 16px/26px Cairo;
-        &:hover{
-          text-decoration: underline;
-          cursor: pointer;
-        }
+        
        }
       }
       p{
@@ -2678,6 +2729,19 @@ select::-ms-expand {
             cursor: pointer;
           }
         }
+      }
+    }
+    &:hover{
+      .newscontent{
+        h5{
+         
+         a{
+        
+            color: #777777;
+          
+         }
+        }
+        
       }
     }
   }
@@ -2791,8 +2855,7 @@ select::-ms-expand {
     font: normal normal bold 40px/65px Cairo;
     color: $grey-dark;
     &:hover{
-      text-decoration: underline;
-      cursor: pointer;
+      color: #777777;
     }
   }
 }
@@ -2817,8 +2880,7 @@ h6.newsDetailtext
   {
     font: normal normal bold 12px/20px Cairo;
     &:hover{
-      cursor: pointer;
-     text-decoration: underline;
+      color: #777777;
     }
 
   }
@@ -3113,7 +3175,7 @@ h6.newsDetailtext
       top: 0;
       left: 0;
       right: 0;
-      z-index: 1;
+      z-index: 199;
       transition: all .25s;
       display: flex;
       align-items: center;

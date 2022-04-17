@@ -37,10 +37,10 @@
                             <!-- <select [(ngModel)]="news.newsId" (change)="onChangeNews($event.target.value)">
                               <option *ngFor="let catNews of allCategoryNews" [value]="catNews?.id">{{catNews?.title}}</option>
                             </select> -->
-                          <nz-select nzShowSearch (change)="onChangeNews($event.target.value)" [(ngModel)]="news.newsId" nzPlaceHolder="Select News">
+                          <nz-select style="width: max-content;" nzShowSearch (ngModelChange)="onChangeNews($event)" [(ngModel)]="news.newsId" nzPlaceHolder="Select News">
                             <nz-option *ngFor="let catNews of allCategoryNews" [nzValue]="catNews?.id" [nzLabel]="catNews?.title"></nz-option>
                           </nz-select>
-                          <div *ngIf="(!allCategoryNews || allCategoryNews.length===0)" style="color: Crimson;">
+                          <div *ngIf="news.newsId===null" style="color: Crimson;">
                             Select News!
                           </div>
                         </nz-form-item>

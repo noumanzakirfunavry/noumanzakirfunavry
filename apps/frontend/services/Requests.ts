@@ -1,3 +1,5 @@
+// export const baseUrl='http://157.90.67.186:3001/';
+// export const baseUrlAdmin='http://157.90.67.186:3002/';
 export const baseUrl='http://157.90.67.186:4001/';
 export const baseUrlAdmin='http://157.90.67.186:4002/';
 export const newsAPI=baseUrl+'news/api/admin/';

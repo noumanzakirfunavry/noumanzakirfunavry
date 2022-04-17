@@ -1,4 +1,4 @@
-import { AfterContentInit, Component,Input, OnInit} from '@angular/core';
+import { AfterContentInit, Component,EventEmitter,Input, OnInit, Output} from '@angular/core';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -41,6 +41,7 @@ export class Data extends Pagination {
 export class NewsTableRowComponent implements OnInit, AfterContentInit{
     @Input() allCategories: any;
     @Input() news: any = {newId:null};
+    @Output() onNewsSelection:EventEmitter<any>=new EventEmitter();
     pagination: Data = new Data()
     allCategoryNews: any = [];
     selectedCat: any
@@ -64,7 +65,8 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit{
     }
     
     onChangeNews(id){
-        this.news=id;
+        this.news.newsId=id;
+        this.onNewsSelection.emit(this.news);
         console.log("CAT-NEWS-ID", this.news);
     }
 
@@ -73,30 +75,15 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit{
         this.pagination.categoryId= catId ? catId : null;
         this.apiService.sendRequest(requests.getAllNews, 'get', {pageNo:1, limit:30, categoryId:parseInt(catId)}).subscribe((res:any) => {
             this.allCategoryNews= res.response.news;
+            // const uniqueIds = this.allCategoryNews.map(x => x.id).filter((v, i, s) => s.indexOf(v) === i)
             this.news.newsId = null
+            this.onNewsSelection.emit(this.news);
+
             console.log("CATEGORY-NEWS", this.allCategoryNews);
-        //     const dataToShow: any = [];
-        //     this.allCategories.forEach((element: any) => {
-        //     const findId: any = this.allCategoryNews.find((x: any) => x.id == element.id);
-        //     console.log("FIND-ID", findId);
-        //     if (findId == -1) {
-        //         dataToShow.push(element);
-        //     }
-        // });
-        //     return dataToShow;
+            // console.log("CATEGORY-NEWS-UNIQUE-IDS", uniqueIds);
+            return this.allCategoryNews && this.allCategoryNews.filter((x: any) => x.id != this.news.newsId)
         })
     }
-
-    // getOtherCategoryNews() {
-    //     const dataToShow: any = [];
-    //     this.allCategories.forEach((element: any) => {
-    //     const findIndex: any = this.allCategoryNews.findIndex((x: any) => x.id == element.id);
-    //     if (findIndex == -1) {
-    //         dataToShow.push(element);
-    //     }
-    // });
-    //     return dataToShow;
-    // }
 
     clean(obj:any) {
         for (const propName in obj) {

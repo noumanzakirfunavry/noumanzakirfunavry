@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
 
@@ -15,7 +16,9 @@ export class SetPasswordComponent implements OnInit {
 
     constructor(private fb: FormBuilder,
         private activatedRoute:ActivatedRoute,
-         private apiService: ApiService, private route: Router) {
+        private apiService: ApiService, 
+        private route: Router, 
+        private message: NzMessageService) {
     }
 
     ngOnInit(): void {
@@ -39,6 +42,8 @@ export class SetPasswordComponent implements OnInit {
             delete obj['confirmPassword'];
             this.apiService.sendRequest(requests.setPassword + this.token, 'post', obj).subscribe((res:any) => {
                 console.log("Password for reset password", res);
+                this.setPasswordForm.reset();
+                this.message.create('success', `Password reset Successfully`)
                 this.route.navigateByUrl('/full/authentication/login');
             })
         }
