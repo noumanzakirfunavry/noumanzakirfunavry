@@ -42,7 +42,7 @@ const ArticleDetails: FC<any> = ({ news }) => {
                 <div className="col-12">
                     <div className="VideoNews my-3">
                         <div className="NewsImage">
-                            <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                            <img className="img-fluid" src={newsImage.src} />
                         </div>
                         <div className="PlayTime"><h5>05:21</h5>
                             <div className="btn-text"><span>شاهد الآن</span>
