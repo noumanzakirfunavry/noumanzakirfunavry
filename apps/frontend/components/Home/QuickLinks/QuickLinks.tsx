@@ -23,7 +23,7 @@ const QuickLinks = () =>{
     }
 
     const handleRedirect = (url:string)=>{
-        window.location.href = `https://${url}`
+        window.location.href = `${url}`
     }
 
     return (
