@@ -128,6 +128,9 @@ export class AddNewsComponent implements OnInit {
                 this.getNews()
             }else{
                 this.initNewsForm();
+                setTimeout(() => {
+                    this.loader=false;
+                }, 1000);
             }
         })
         // setTimeout(() => {
