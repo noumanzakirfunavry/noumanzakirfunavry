@@ -195,15 +195,14 @@
                         </nz-form-item>
                         <form [formGroup]="tagForm" nz-form [nzLayout]="'horizontal'">
                             <div class="d-flex">
-                                <nz-form-item>
+                                <nz-form-item class="w-100">
                                     <nz-form-control nzErrorTip="Enter Tag!">
                                         <input type="text" formControlName="title" placeholder="Enter Tag" dir="rtl"
                                             nz-input>
                                     </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
-                                    <button class="mr-3" (click)="[getCaptcha($event),addNewTag()]" nz-button
-                                        nzType="default">Create</button>
+                                    <button class="ml-2" (click)="[getCaptcha($event),addNewTag()]" nz-button nzType="default">Create</button>
                                 </nz-form-item>
                             </div>
                         </form>
@@ -223,15 +222,14 @@
                         </nz-form-item>
                         <form [formGroup]="quotesForm" nz-form [nzLayout]="'horizontal'">
                             <div class="d-flex">
-                                <nz-form-item>
+                                <nz-form-item class="w-100">
                                     <nz-form-control nzErrorTip="Enter Quote without spaces!">
                                         <input type="text" formControlName="name" placeholder="Enter Quote" dir="rtl"
                                             nz-input>
                                     </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
-                                    <button (click)="[getCaptcha($event),addNewQuote()]" class="mr-3" nz-button
-                                        nzType="default">Create</button>
+                                    <button  (click)="[getCaptcha($event),addNewQuote()]" class="ml-2" nz-button nzType="default">Create</button>
                                 </nz-form-item>
                             </div>
                         </form>
