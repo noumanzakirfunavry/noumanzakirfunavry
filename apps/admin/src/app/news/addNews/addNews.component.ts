@@ -47,6 +47,7 @@ export class AddNewsComponent implements OnInit {
     fileType: string;
     submitted= false;
     selectedCat: any;
+    tinyConfig: any;
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
@@ -56,6 +57,9 @@ export class AddNewsComponent implements OnInit {
 
     ngOnInit(): void {
         const admin = JSON.parse(localStorage.getItem('admin') || '{}');
+        this.tinyConfig={  base_url: '/tinymce',
+        suffix: '.min',
+        plugins: 'lists link image table code help wordcount' }
         this.config={
             // plugins: [CKFinder , ],
             // plugins: [SimpleUploadAdapter , ],
