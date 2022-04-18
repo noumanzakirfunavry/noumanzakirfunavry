@@ -80,6 +80,7 @@ const Index = () =>{
                     </div>
                 </div>
             </div> */}
+            <div className="infographics_detail_wrap">
             <div className="container">
                 <AdBanner />
 
@@ -134,6 +135,7 @@ const Index = () =>{
                     <h3>أخبار ذات صلة</h3>
                 </Title>
                 <HorizontalFooter2NewsSlider />
+            </div>
             </div>
             </div>
         </>

@@ -40,6 +40,7 @@ export class AddUserComponent implements OnInit{
   userById: any;
   rightsValue: any;
   submitted= false;
+  loader= true;
 
   constructor(private fb: FormBuilder, 
     private apiService: ApiService, 
@@ -52,14 +53,19 @@ export class AddUserComponent implements OnInit{
     this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
       this.userId = + params.get('id');
       if (this.userId) {
-        this.getUserById();
+        this.getAllRights();
+      }else{
+        this.getAllRights();
       }
     });
-    this.inItForm();
-    this.getAllRights();
+    
   }
 
   inItForm() {
+      this.allRights.forEach(right=>{
+          right['checked']=false;
+          right['label']=right.title
+        })
     this.adminForm = this.fb.group({
       // name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('[A-Za-z ]*$')]],
       name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
@@ -70,7 +76,7 @@ export class AddUserComponent implements OnInit{
       confirmPassword: [null, [Validators.required, this.confirmationValidator]],
       email: [null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
       isActive: [false],
-      rights: [null]
+      rights: [this.allRights,]
     });
   }
 
@@ -79,12 +85,13 @@ export class AddUserComponent implements OnInit{
       this.adminForm.controls[i].markAsDirty();
       this.adminForm.controls[i].updateValueAndValidity();
     }
-    this.submitted= true;
+    this.submitted=true;
     if(this.adminForm.valid) {
       const obj= this.adminForm.value;
       obj['name'] = this.adminForm.value.name.trim();
       obj['userName']= this.adminForm.value.userName.toLowerCase();
-      obj['rights']= this.rightsValue;
+      obj['rights']= this.adminForm.value.rights.filter(x=>x.checked);
+      obj['rights']= obj['rights'].map(x=>x.id);
       delete obj['confirmPassword'];
       this.apiService.sendRequest(this.userId ? requests.updateUser + this.userId : requests.registerUser, this.userId ? 'put' : 'post', obj).subscribe((res:any) => {
         console.log("ADMINS", res);
@@ -103,6 +110,16 @@ export class AddUserComponent implements OnInit{
   getAllRights() {
     this.apiService.sendRequest(requests.getAllRights, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
       this.allRights= res.response.rights;
+     
+      if(this.userId){
+        
+        this.getUserById();
+      }else{
+
+        this.inItForm();
+        this.loader=false
+      }
+
       console.log("ALL-RIGHTS", this.allRights);
     })
   }
@@ -116,20 +133,36 @@ export class AddUserComponent implements OnInit{
     return obj
   }
 
+  rightChecked(right){
+    return this.userById.rights.some(x=>x.id==right.id)
+  }
+
   getUserById() {
     this.apiService.sendRequest(requests.getUserById + this.userId, 'get').subscribe((res:any) => {
       this.userById= res.response.admin;
       console.log("USER-BY-ID", this.userById);
-      this.adminForm = this.fb.group({
-        name: [this.userById?.name || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
-        rolesId: [this.userById?.rolesId || null, [Validators.required]],
-        userName: [this.userById?.userName || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
-        password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
-        confirmPassword: [null, [Validators.required, this.confirmationValidator]],
-        email: [this.userById?.email || null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
-        isActive: [this.userById?.isActive || false],
-        rights: [this.userById?.rights?.map(x=>x.id) || null]
-      });
+      // setTimeout(() => {
+        this.allRights.forEach(right=>{
+          right['checked']=this.userById.rights.some(x=>x.id==right.id);
+          right['label']=right.title
+        })
+        // }, 500);
+        console.log("rights enabled",this.allRights);
+        
+        this.adminForm = this.fb.group({
+          name: [this.userById?.name || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
+          rolesId: [this.userById?.rolesId || null, [Validators.required]],
+          userName: [this.userById?.userName || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
+          password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
+          confirmPassword: [null, [Validators.required, this.confirmationValidator]],
+          email: [this.userById?.email || null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
+          isActive: [this.userById?.isActive || false],
+          rights: [this.allRights,]
+        });
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
+   
     })
   }
 

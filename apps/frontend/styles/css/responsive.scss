@@ -1430,9 +1430,56 @@
             }
         }
     }
-    
+    .marketGraph_wrap{
+        .bnner_add {
+          img{
+            width: 320px;
+            height: 50px;
+          }
+        }
+        .PageBuilder-col-9{
+            width: 100%;
+            height: 100vh;
+        }
+      }
+      .program_schedule h2{
+          margin-right: 0;
+      }
+      .pageTitle.PageTitleYellow.program_schedule{
+          margin-bottom: 20px !important;
+          padding-bottom: 20px;
+      }
+      .infographic_slider {
+        .modal-dialog{
+            margin: 0;
+        }
+        .newsSlider2Text .NewsBox .newsImage {
+            width: 100%;
+            height: 208px;
+        }
+        .modal-body{
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+      }
+     
+}
+.infographics_detail_wrap{
+    .bnner_add img{
+        height: 50px;
+        width: 320px;
+    }
 }
   @media screen and (max-width:575px){
+    .infographic_slider {
+        .modal-dialog{
+            margin: 0;
+        }
+        .modal-body{
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+      }
     .latestVideoTileswrap .NewsTiles .newBox {
         flex-direction: unset;
         .NewsImage{

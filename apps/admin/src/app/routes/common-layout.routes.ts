@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { ChangePasswordComponent } from '../changePassword/changePassword.component';
-import { AuthGuard } from '../shared/guard/auth.guard';
 // import { ChangePasswordComponent } from 'src/app/changePassword/changePassword.component';
 // import { EditorsChoiceComponent } from 'src/app/editorsChoice/editorsChoice.component';
 // import { ExclusiveVideosComponent } from 'src/app/exclusiveVideos/exclusiveVideos.component';

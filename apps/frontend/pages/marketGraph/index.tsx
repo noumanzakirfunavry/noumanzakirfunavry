@@ -10,6 +10,7 @@ const Index = () =>{
 
     return (
         <>
+        <div className="marketGraph_wrap">
             <div className="container">
                 <AdBanner/>
 
@@ -63,6 +64,7 @@ const Index = () =>{
                         <SideBar sideBarSequence={[{ componentType: 'simple', position: 2 }, {componentType:'SmallBanner', position:1}]}/>
                     </div>
                 </div>
+            </div>
             </div>
         </>
     )

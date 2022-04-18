@@ -5,9 +5,9 @@
   "proxy": "https://localhost:8080/",
   "scripts": {
     "ng": "nx",
-    "start": "nx serve frontend --port 4000",
-    "frontend": "nx serve frontend --port 4000",
-    "admin": "nx serve admin --port 4400",
+    "start": "nx serve frontend --port 3000",
+    "frontend": "nx serve frontend --port 3000",
+    "admin": "nx serve admin --port 4200",
     "build:frontend": "npx next build",
     "build:admin": "nx build admin",
     "build:admin-microservice": "nx build admin-microservice",

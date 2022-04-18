@@ -17,7 +17,7 @@ const ArticleDetails: FC<any> = ({ news }) => {
             <div className="mb-3 newsDetailimg">
                 <img className="img-fluid" src={news?.image?.url ? news?.image?.url:logoImage.src} />
             </div>
-            <h6 className="newsDetailtext">{news?.image?.description}</h6>
+            <h6 className="newsDetailtext">{/*news?.image?.description*/}</h6>
             <hr></hr>
             {news ? <HtmlData data={news?.content} /> :<div>
             <div className="row">
@@ -42,7 +42,7 @@ const ArticleDetails: FC<any> = ({ news }) => {
                 <div className="col-12">
                     <div className="VideoNews my-3">
                         <div className="NewsImage">
-                            <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                            <img className="img-fluid" src={newsImage.src} />
                         </div>
                         <div className="PlayTime"><h5>05:21</h5>
                             <div className="btn-text"><span>شاهد الآن</span>

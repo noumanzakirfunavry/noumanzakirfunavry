@@ -42,7 +42,10 @@ export class NewsService {
 			index: 'news',
 			from: paginationDTO.pageNo - 1,
 			size: paginationDTO.limit,
+			sort: "updatedAt:desc",
+			track_scores:true,
 			query: {
+				
 				bool: {
 					must: [{
 						match: {
@@ -100,7 +103,7 @@ export class NewsService {
 			index: 'news',
 			from: getNewsByFlagsRequestDto.pageNo - 1,
 			size: getNewsByFlagsRequestDto.limit,
-			sort: 'updatedAt',
+			sort: "updatedAt:desc",
 			query: {
 				bool: {
 					must: [...filtersArray, { match: { isActive: true } }],
@@ -175,6 +178,7 @@ export class NewsService {
 
 		return ElkService.search({
 			index: 'news',
+			sort: "updatedAt:desc",
 			query: {
 				bool: {
 					must: mustArray

@@ -396,8 +396,8 @@ export class AddNewsComponent implements OnInit {
         return nodes;
     }
 
-    enableDisable(e?: MouseEvent) {
-        e.preventDefault();
+    addNewCategory() {
+        this.route.navigateByUrl('category/add');
     }
 
 }    

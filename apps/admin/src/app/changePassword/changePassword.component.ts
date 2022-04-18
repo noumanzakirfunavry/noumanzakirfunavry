@@ -7,7 +7,14 @@ import { ApiService } from '../shared/services/api.service';
 
 
 @Component({
-    templateUrl: './changePassword.component.html'
+    templateUrl: './changePassword.component.html',
+    styles: [
+      `
+        i {
+          cursor: pointer;
+        }
+      `
+    ]
 })
 
 export class ChangePasswordComponent implements OnInit{
@@ -65,6 +72,10 @@ export class ChangePasswordComponent implements OnInit{
               })
           }
       }
+
+      getCaptcha(e: MouseEvent): void {
+        e.preventDefault();
+    }
 
       cancel(): void {
         this.location.back()

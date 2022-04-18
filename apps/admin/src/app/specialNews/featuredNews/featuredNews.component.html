@@ -11,12 +11,18 @@
                     <th class="text-left" colspan="4"></th>
                 </tr>
             </thead>
-            <tbody *ngIf="allCategories && allCategories.length > 0">
+            <tbody *ngIf="!loading">
                 <tr *ngFor="let news of fNews">
-                    <td>#</td>
+                    <!-- <td>#</td> -->
                     <td>{{news?.position}}</td>
                     <ng-container>
-                      <news-table-row [allCategories]="allCategories" [news]="news"></news-table-row>
+                      <!-- {{news | json}} -->
+                      <news-table-row 
+                      [allCategories]="allCategories" 
+                      [news]="news"
+                      (onNewsSelection)="changedNews($event)"
+                      (onCatSelection)="changeCategory($event)"
+                      ></news-table-row>
                     </ng-container>
                 </tr>
             </tbody>
