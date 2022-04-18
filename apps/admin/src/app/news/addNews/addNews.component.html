@@ -1,7 +1,7 @@
 <section>
     <br>
     <br>
-    <div class="col-12">
+    <div class="col-12" *ngIf="!loader">
         <form nz-form [formGroup]="newsForm" [nzLayout]="'vertical'" (ngSubmit)="saveNews()">
             <div class="row">
                 <div class="col-8">
