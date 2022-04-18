@@ -44,7 +44,6 @@ export class NewsTypeService {
 				itemsAfterDelete.forEach(item => {
 					itemDictionary[item.newsId] = 2;
 				});
-				console.log("🚀 ~ file: news-type.service.ts ~ line 50 ~ NewsTypeService ~ updateNews ~ itemsAfterDelete", itemsAfterDelete)
 				let itemsToFlag = [];
 				let positionDetails = [];
 				let itemsToDeflag = [];
@@ -92,7 +91,6 @@ export class NewsTypeService {
 							doc: docToUpload
 						})
 				})
-				console.log("🚀 ~ file: news-type.service.ts ~ line 86 ~ NewsTypeService ~ updateNews ~ itemsToFlag", itemsToFlag)
 
 				itemsToDeflag.forEach(item => {
 					if (entity.prototype.constructor.name === "TrendingNews") {

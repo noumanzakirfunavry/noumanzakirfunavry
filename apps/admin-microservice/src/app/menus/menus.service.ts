@@ -5,6 +5,7 @@ import {
 	GetMenuByIdResponseDto,
 	GetMenuRequestDto,
 	GetMenusResponseDto,
+	PaginatedRequestDto,
 	UpdateMenuRequestDto,
 	UpdateMenuResponseDto
 } from '@cnbc-monorepo/dtos';
@@ -35,13 +36,19 @@ export class MenusService {
   async getMenus(
     getMenuRequestDto: GetMenuRequestDto
   ): Promise<GetMenusResponseDto> {
+		const {limit, pageNo, ...where} = getMenuRequestDto
+    console.log("🚀 ~ file: menus.service.ts ~ line 40 ~ MenusService ~ where", where)
+		
+
     const menus = await this.menusRepo.findAll<Menus>({
+			limit: parseInt(limit.toString()),
+			offset: this.helperService.offsetCalculator(pageNo, limit),
       where: {
-        ...getMenuRequestDto,
-        ...(getMenuRequestDto.title && {
+        ...where,
+        ...(where.title && {
           title: {
             [Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(
-              getMenuRequestDto.title
+              where.title
             )}%`,
           },
         }),
@@ -53,8 +60,13 @@ export class MenusService {
     return new GetMenusResponseDto(HttpStatus.OK, 'Request Successful', menus);
   }
 
-  async getMenusForClient(): Promise<GetMenusResponseDto> {
-    const menus = await this.menusRepo.findAll<Menus>({
+  async getMenusForClient(paginationDto: PaginatedRequestDto): Promise<GetMenusResponseDto> {
+		const {limit, pageNo} = paginationDto;
+    
+
+		const menus = await this.menusRepo.findAll<Menus>({
+			limit: parseInt(limit.toString()),
+			offset: this.helperService.offsetCalculator(pageNo, limit),
       where: {
         isActive: true,
         parentMenuId: null,
