@@ -1,3 +1,4 @@
+import { baseUrlAdmin } from "apps/frontend/services/Requests";
 import { FC } from "react";
 import newsImage from "../../../styles/images/biden.jpg";
 import logoImage from "../../../styles/images/CNBC-favicon.png";
@@ -15,7 +16,7 @@ const ArticleDetails: FC<any> = ({ news }) => {
             <NewsRealtedStock />
 
             <div className="mb-3 newsDetailimg">
-                <img className="img-fluid" src={news?.image?.url ? news?.image?.url:logoImage.src} />
+                <img className="img-fluid" src={news?.image?.path ? baseUrlAdmin+news?.image?.path:logoImage.src} />
             </div>
             <h6 className="newsDetailtext">{/*news?.image?.description*/}</h6>
             <hr></hr>
