@@ -5,6 +5,7 @@ import {
 	GetMenuByIdResponseDto,
 	GetMenuRequestDto,
 	GetMenusResponseDto,
+	PaginatedRequestDto,
 	UpdateMenuRequestDto,
 	UpdateMenuResponseDto
 } from '@cnbc-monorepo/dtos';
@@ -36,6 +37,8 @@ export class MenusService {
     getMenuRequestDto: GetMenuRequestDto
   ): Promise<GetMenusResponseDto> {
     const menus = await this.menusRepo.findAll<Menus>({
+			limit: parseInt(getMenuRequestDto.limit.toString()),
+			offset: this.helperService.offsetCalculator(getMenuRequestDto.pageNo, getMenuRequestDto.limit),
       where: {
         ...getMenuRequestDto,
         ...(getMenuRequestDto.title && {
@@ -53,8 +56,10 @@ export class MenusService {
     return new GetMenusResponseDto(HttpStatus.OK, 'Request Successful', menus);
   }
 
-  async getMenusForClient(): Promise<GetMenusResponseDto> {
+  async getMenusForClient(paginationDto: PaginatedRequestDto): Promise<GetMenusResponseDto> {
     const menus = await this.menusRepo.findAll<Menus>({
+			limit: parseInt(paginationDto.limit.toString()),
+			offset: this.helperService.offsetCalculator(paginationDto.pageNo, paginationDto.limit),
       where: {
         isActive: true,
         parentMenuId: null,
