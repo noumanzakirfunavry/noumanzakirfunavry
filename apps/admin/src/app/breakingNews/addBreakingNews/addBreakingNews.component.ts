@@ -58,7 +58,7 @@ export class AddBreakingNewsComponent implements OnInit {
       if(this.breakingNewsForm.valid) {
         const obj= this.breakingNewsForm.value;
         obj['newsId']= 1;
-        this.apiService.sendRequest(this.breakingNewsId ? requests.updateBreakingNews + this.breakingNewsById : requests.addBreakingNews, this.breakingNewsId ? 'put' : 'post', obj).subscribe((res:any) => {
+        this.apiService.sendRequest(this.breakingNewsId ? requests.updateBreakingNews + this.breakingNewsId : requests.addBreakingNews, this.breakingNewsId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("ADD-BREAKING-NEWS", res);
           this.inItForm();
           this.route.navigateByUrl('breakingNews/list');
