@@ -1,7 +1,7 @@
 <section>
     <br>
     <br>
-    <div class="col-12">
+    <div class="col-12" *ngIf="!loader">
         <form nz-form [formGroup]="newsForm" [nzLayout]="'vertical'" (ngSubmit)="saveNews()">
             <div class="row">
                 <div class="col-8">
@@ -153,12 +153,13 @@
                         </nz-form-item>
                     </div> -->
                     <div>
+                        {{newsForm?.value?.categoryIds | json}}
                         <nz-form-item>
                             <nz-form-label nzRequired>Catogory</nz-form-label>
                             <nz-form-control nzErrorTip="Select Catogory!">
                                 <nz-tree-select formControlName="categoryIds"
                                     [nzNodes]="strucCategories" (ngModelChange)="onChange($event)"
-                                    nzShowSearch nzCheckable [nzDisabled]="!strucCategories" nzPlaceHolder="Select Catogory">
+                                    nzShowSearch nzCheckable  nzPlaceHolder="Select Catogory">
                                 </nz-tree-select>
                                 <!-- <div *ngIf="strucCategories && ((!selectedCat || selectedCat.length===0) && submitted===true)" style="color: Crimson;">
                                     Select Catogory!
