@@ -56,7 +56,7 @@ export class NewsModal {
         this.quotesIds=serverNews.quotes.map(x=>x.id);
         this.seoDetails=serverNews.seoDetail
         this.seoDetailId=serverNews.seoDetailId;
-        this.fileUrl=serverNews.image?.url;
+        this.fileUrl=environment.fileUrl+serverNews.image?.path;
     }
 
     toServerModal(form: any, seoId?) {
