@@ -4,6 +4,7 @@ import newsimg from "../../../styles/images/biden.jpg";
 import dateFormat from "dateformat"
 import Image from "next/image";
 import Link from "next/link";
+import { baseUrlAdmin } from "apps/frontend/services/Requests";
 
 const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
     
@@ -28,7 +29,7 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                         </p>
                                     </div>
                                     <div className="newsImage">
-                                        {news?._source?.image ? <img alt="img" className="img-fluid" src={news._source?.image?.url} />:<img alt="img" className="img-fluid" src={newsimg.src} />}
+                                        {news?._source?.image ? <img alt="img" className="img-fluid" src={baseUrlAdmin+news._source?.image?.path} />:<img alt="img" className="img-fluid" src={newsimg.src} />}
                                         {news?._source?.videoId && (<iframe width="190" src="https://www.youtube.com/embed/SbsgyRhYbdw?controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>)}
                                     </div>
                                 </li>
