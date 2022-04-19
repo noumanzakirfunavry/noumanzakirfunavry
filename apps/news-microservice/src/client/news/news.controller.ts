@@ -1,6 +1,6 @@
 import { Public } from '@cnbc-monorepo/auth-module';
 import { GetNewsByFlagsRequestDto, PaginatedRequestDto, SearchNewsRequestDto } from '@cnbc-monorepo/dtos';
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Req } from '@nestjs/common';
 import { NewsService } from './news.service';
 
 @Controller('news/api/client/news')
@@ -9,8 +9,8 @@ export class NewsClientController {
 
 	@Public()
 	@Get('/getById/:id')
-	getNewsById(@Param('id', ParseIntPipe) newsId: number) {
-		return this.newService.getNewsById(newsId);
+	getNewsById(@Param('id', ParseIntPipe) newsId: number, @Req() req) {
+		return this.newService.getNewsById(newsId, req);
 	}
 
 	@Public()

@@ -12,6 +12,7 @@ import { AlexaProvider } from '../providers/alexa.audio.provider';
 import { ChangeLogsProvider } from '../providers/change.logs.provider';
 import { PresentersProvider } from '../providers/presenters.provider';
 import { NewsProvider } from '../providers/news.provider';
+import { NewsVisitorsProvider } from '../providers/news.visitors.provider';
 import { NewsHasQuotesProvider } from '../providers/news.has.quotes.provider';
 import { NewsHasTagsProvider } from '../providers/news.has.tags.provider';
 import { SeoDetailsProvider } from '../providers/seo.details.provider';
@@ -60,6 +61,7 @@ import { MarketsProvider } from '../providers/markets.provider';
     ...JobsProvider,
     ...BranchesProvider,
     ...DepartmentsProvider,
+		...NewsVisitorsProvider,
     ...CategoriesProvider,
     ...SiteConfigurationProvider,
     ...BreakingNewsProvider,
@@ -89,6 +91,7 @@ import { MarketsProvider } from '../providers/markets.provider';
     ...QuotesProvider,
     ...QuickLinksProvider,
     ...RightsProvider,
+		...NewsVisitorsProvider,
     ...SocialMediaLinkProvider,
     ...AlexaProvider,
     ...ChangeLogsProvider,
