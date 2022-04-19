@@ -22,7 +22,7 @@ const Index = () =>{
     //console.log(router.query);
     console.log("news id",router.query.id);
     
-    const [news, setNews] = useState();
+    const [news, setNews] = useState<any>();
 //  
     useEffect(() => {
         //GetData(`${requests.categories}/getById/${categoryId}`, {}, 'get', false).then(res=>{
@@ -103,7 +103,7 @@ const Index = () =>{
 
                 </div>
                 <div className="row mb-4">
-                    <div className="col-12 col-xl-8"><PageCatgories tags={news?.tags}/></div>
+                    <div className="col-12 col-xl-8"><PageCatgories tags={news && news.tags}/></div>
                 </div>
                 <div className="bannerAddMedia hide_div_web">
         <AdBanner />

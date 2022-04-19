@@ -1,4 +1,4 @@
-
+import newsImage from "./../../styles/images/biden.jpg";
 
 const VideoNewsTiles = () => {
 
@@ -9,7 +9,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -28,7 +28,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -48,7 +48,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -67,7 +67,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -86,7 +86,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -105,7 +105,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -124,7 +124,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -143,7 +143,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -162,7 +162,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -181,7 +181,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -200,7 +200,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -219,7 +219,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -238,7 +238,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -257,7 +257,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -276,7 +276,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -295,7 +295,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -314,7 +314,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>
@@ -333,7 +333,7 @@ const VideoNewsTiles = () => {
                 <div className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
                         <div className="NewsImage">
-                          <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                          <img className="img-fluid" src={newsImage.src} />
 
                             <div className="PlayTime">
                               <h5>05:21</h5>

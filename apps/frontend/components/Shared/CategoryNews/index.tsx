@@ -1,6 +1,6 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import GetData from "apps/frontend/services/GetData";
-import { requests } from "apps/frontend/services/Requests";
+import { baseUrlAdmin, requests } from "apps/frontend/services/Requests";
 import { CategoryNewsProps } from "apps/frontend/types/Types";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
@@ -30,7 +30,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                 <div key={i} className="col-md-4 col-sm-6">
                     <div className="newBox ">
                         <div className="NewsImage img_sm_none">
-                            {news[i]?._source?.image ? <img className="img-fluid" src={news[i]?._source.image.url} />:<img className="img-fluid" src={newsImage.src} />}
+                            {news[i]?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news[i]?._source.image?.path} />:<img className="img-fluid" src={newsImage.src} />}
                         </div>
                         <div className="NewsInfo">
                         <Link href={`/newsDetails/`+news[i]._id}><a><h4>{news && news[i]?._source?.title}</h4> </a></Link>
@@ -56,7 +56,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                             <div className="newBox newBoxf">
                                 <div className="NewsImage">
                                     {/* <img className="img-fluid" src={newsImage.src} /> */}
-                                    {news[0]?._source?.image ? <img className="img-fluid" src={news[0]?._source.image.url} />:<img className="img-fluid" src={newsImage.src} />}
+                                    {news[0]?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news[0]?._source.image?.path} />:<img className="img-fluid" src={newsImage.src} />}
 
                                 </div>
                                 <div className="NewsInfo">
@@ -70,7 +70,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                         {news[1] ? <div className="col-md-4 col-sm-5">
                             <div className="newBox newBoxfs VideoNews ">
                                 <div className="NewsImage">
-                                {news[1]?._source?.image ? <img className="img-fluid" src={news[1]?._source.image.url} />:<img className="img-fluid" src={newsImage.src} />}
+                                {news[1]?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news[1]?._source.image?.path} />:<img className="img-fluid" src={newsImage.src} />}
                                 </div>
                                 {/* <div className="PlayTime">
                                 <h5>05:21</h5>
