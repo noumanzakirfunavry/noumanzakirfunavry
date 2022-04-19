@@ -102,6 +102,22 @@ export class MenusService {
     );
   }
 
+	async getMenuByIdClient(menuId: number) {
+    const menu = await this.menusRepo.findOne({ where: { id: menuId, isActive: true } });
+    if (!menu) {
+      throw new CustomException(
+        Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+        Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+      );
+    }
+
+    return new GetMenuByIdResponseDto(
+      HttpStatus.OK,
+      'Request successful',
+      menu
+    );
+  }
+
   async createMenu(
     createMenuRequestDto: CreateMenuRequestDto,
     userId: number
