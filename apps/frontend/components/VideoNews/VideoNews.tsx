@@ -44,7 +44,7 @@ const VideoNews = () => {
           <p><small>نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</small></p>
 
           <FadedNews/>
-          <PageCatgories/>
+          <PageCatgories tags={[]}/>
           </div>
         </>
     )

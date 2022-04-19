@@ -79,7 +79,7 @@ const Index = () =>{
 
                 </div>
                 <div className="row mb-4">
-                    <div className="col-12 col-xl-8"><PageCatgories/></div>
+                    <div className="col-12 col-xl-8"><PageCatgories tags={[]}/></div>
                 </div>
                 <div className="bannerAddMedia hide_div_web">
         <AdBanner />

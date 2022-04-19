@@ -563,8 +563,10 @@ $positions: static, relative, absolute, fixed, sticky;
 }
 
 .text-gray {
-    color: $gray-light !important;
+    // color: $gray-light !important;
+    color: $light-black !important;
 }
+
 
 .text-body-color {
     color: $body-color !important;

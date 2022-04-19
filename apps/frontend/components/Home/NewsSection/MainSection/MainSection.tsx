@@ -5,6 +5,7 @@ import styles from "./mainsection.module.css";
 import newsimage from "../../../../styles/images/biden.jpg";
 import React from "react";
 import Link from "next/link";
+import { baseUrlAdmin } from "apps/frontend/services/Requests";
 
 const MainSection = ({ newsList }) => {
 
@@ -20,7 +21,7 @@ const MainSection = ({ newsList }) => {
         <>
             <div className="row">
                 <div className="col-lg-8 p_sm_0">
-                    <div className={styles.mainNews} style={{background: `url(${newsList[0]?._source?.image?.url}) no-repeat`}} >
+                    <div className={styles.mainNews} style={{background: `url(${baseUrlAdmin+newsList[0]?._source?.image?.path}) no-repeat`}} >
                         <div className={styles.newscontent} >
                             {/* <h1><a >النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب</a></h1>
                                 <hr></hr>
@@ -57,7 +58,7 @@ const MainSection = ({ newsList }) => {
                                             <div className={styles.newsbox}>
                                                 <div className={styles.newsimage}>
                                                     {/* <img className="img-fluid" src={newsimage.src} /> */}
-                                                    {news?._source?.image ? <img className="img-fluid" src={news?._source?.image.url} /> : <img className="img-fluid" src={newsimage.src} />}
+                                                    {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source?.image?.path} /> : <img className="img-fluid" src={newsimage.src} />}
                                                 </div>
                                                 <div className={styles.newsdetails}>
                                                     <Link href={`/newsDetails/` + news._id}><a >{news?._source?.title}</a></Link>

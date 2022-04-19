@@ -1,3 +1,4 @@
+import { baseUrlAdmin } from "apps/frontend/services/Requests";
 import { FC } from "react";
 import newsImage from "../../../styles/images/biden.jpg";
 import logoImage from "../../../styles/images/CNBC-favicon.png";
@@ -15,7 +16,7 @@ const ArticleDetails: FC<any> = ({ news }) => {
             <NewsRealtedStock />
 
             <div className="mb-3 newsDetailimg">
-                <img className="img-fluid" src={news?.image?.url ? news?.image?.url:logoImage.src} />
+                <img className="img-fluid" src={news?.image?.path ? baseUrlAdmin+news?.image?.path:logoImage.src} />
             </div>
             <h6 className="newsDetailtext">{/*news?.image?.description*/}</h6>
             <hr></hr>
@@ -42,7 +43,7 @@ const ArticleDetails: FC<any> = ({ news }) => {
                 <div className="col-12">
                     <div className="VideoNews my-3">
                         <div className="NewsImage">
-                            <img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" />
+                            <img className="img-fluid" src={newsImage.src} />
                         </div>
                         <div className="PlayTime"><h5>05:21</h5>
                             <div className="btn-text"><span>شاهد الآن</span>
