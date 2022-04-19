@@ -5,12 +5,13 @@ import {
 	SearchNewsRequestDto
 } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
-import { BreakingNews, News, Users } from '@cnbc-monorepo/entity';
+import { BreakingNews, News, NewsVisitors, Users } from '@cnbc-monorepo/entity';
 import {
 	CustomException,
 	Exceptions,
 	ExceptionType
 } from '@cnbc-monorepo/exception-handling';
+import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Op } from 'sequelize';
 
@@ -18,12 +19,30 @@ import { Op } from 'sequelize';
 export class NewsService {
 	constructor(
 		@Inject('NEWS_REPOSITORY')
-		private newsRepository: typeof News
+		private newsRepository: typeof News,
+
+		@Inject('NEWS_VISITORS_REPOSITORY')
+		private newsVisitorsRepository: typeof NewsVisitors,
+
+		private helperService: Helper
 	) { }
 
-	async getNewsById(id: number): Promise<GetNewsByIdResponseDto> {
+	async getNewsById(id: number, req): Promise<GetNewsByIdResponseDto> {
+		console.log("🚀 ~ file: news.service.ts ~ line 28 ~ NewsService ~ getNewsById ~ req", req.ip)
 		const news_exists = await this.newsExists(id);
 		if (news_exists) {
+			// extract ip address from request
+			const ipAddress = this.helperService.extractIP(req);
+			// find newsVisitor having this ip address who has already visited this news
+			this.newsVisitorsRepository.findOne({ where: { ipAddress, newsId: id } }).then(res => {
+				if (res) {
+					// if found then update counter
+					this.newsVisitorsRepository.update({ ...res, count: res.count + 1 }, { where: { ipAddress, newsId: id } })
+				} else {
+					// if not found then create new entry
+					this.newsVisitorsRepository.create({ ipAddress, visitDate: new Date().toDateString(), count: 1, newsId: id })
+				}
+			})
 			return new GetNewsByIdResponseDto(
 				HttpStatus.OK,
 				'News fetched successfully',
@@ -43,9 +62,9 @@ export class NewsService {
 			from: paginationDTO.pageNo - 1,
 			size: paginationDTO.limit,
 			sort: "updatedAt:desc",
-			track_scores:true,
+			track_scores: true,
 			query: {
-				
+
 				bool: {
 					must: [{
 						match: {
