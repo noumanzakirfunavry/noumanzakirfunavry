@@ -58,6 +58,6 @@ export class PagesService {
 			return new GenericResponseDto(HttpStatus.NOT_FOUND, 'Pages not found');
 		}
 
-		return new GenericResponseDto(HttpStatus.OK, 'Request successful');
+		return new GenericResponseDto(HttpStatus.OK, 'Request successful', pages);
 	}
 }

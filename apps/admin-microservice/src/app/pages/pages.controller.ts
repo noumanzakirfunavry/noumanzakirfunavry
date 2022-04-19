@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from 
 import { PagesService } from './pages.service';
 import { CreatePageRequestDto, CreatePageResponseDto, DeletePageResponseDto, GetAllPagesResponseDto, GetPageResponseDto, UpdatePageRequestDto, UpdatePageResponseDto } from '@cnbc-monorepo/dtos';
 
-@Controller('/admin/pages')
+@Controller('admin/api/admin/pages')
 export class PagesController {
 	constructor(private readonly pagesService: PagesService) { }
 
