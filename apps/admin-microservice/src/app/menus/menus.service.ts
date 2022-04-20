@@ -44,6 +44,7 @@ export class MenusService {
 			offset: this.helperService.offsetCalculator(pageNo, limit),
 			where: {
 				...where,
+				parentMenuId: null,
 				...(where.title && {
 					title: {
 						[Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(
