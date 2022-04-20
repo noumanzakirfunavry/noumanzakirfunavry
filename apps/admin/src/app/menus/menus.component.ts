@@ -1,201 +1,77 @@
-// import { Component, OnInit } from '@angular/core';
 
-// @Component({
-//     selector: 'app-dashboard',
-//     templateUrl: './dashboard.component.html',
-// })
-
-// export class DashboardComponent implements OnInit {
-//     constructor() { }
-
-//     ngOnInit(): void { }
-// }
-
-
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core'
-import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
-import { ThemeConstantService } from '../shared/services/theme-constant.service';
-// import { ThemeConstantService } from '../../shared/services/theme-constant.service';
-export interface Data {
-    id: number;
-    name: string;
-    age: number;
-    address: string;
-    disabled: boolean;
-}
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { Pagination } from '../common/models/pagination';
+import { requests } from '../shared/config/config';
+import { ApiService } from '../shared/services/api.service';
+
 
 @Component({
        selector: 'app-menus',
     templateUrl: './menus.component.html',
+    styleUrls: ['./menus.component.scss']
 })
 
-export class MenusComponent {
-
-
+export class MenusComponent implements OnInit{
+  pagination: {
+    pageNo: number, 
+    limit: number, 
+    isActive?: boolean,
+    position?: string, 
+    title?: string } = {pageNo: 1, limit: 1000};
+    allMenus: any;
     indeterminate = false;
     checked = false;
+    loading= true;
+    expandedId: any;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData: Data[] = [];
+    listOfCurrentPageData = [];
 
-    constructor( private colorConfig:ThemeConstantService ) {}
+    constructor( 
+      private apiService: ApiService, 
+      private modal: NzModalService, 
+      private message: NzMessageService ) {}
 
+    ngOnInit(): void {
+      this.getAllMenus();
+    }
 
+    getAllMenus() {
+      this.apiService.sendRequest(requests.getAllMenus, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
+        this.allMenus= res.response;
+        console.log("ALL-MENUS", this.allMenus);
+        this.loading= false;
+      },err => {
+        this.loading = false;
+        throw this.handleError(err)
+      })
+    }
 
-    ordersList = [
-        {
-            id: 5331,
-            name: 'Erin Gonzales',
-            avatar: 'assets/images/avatars/thumb-1.jpg',
-            date: '8 May 2019',
-            amount: 137,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5375,
-            name: 'Darryl Day',
-            avatar: 'assets/images/avatars/thumb-2.jpg',
-            date: '6 May 2019',
-            amount: 322,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5762,
-            name: 'Marshall Nichols',
-            avatar: 'assets/images/avatars/thumb-3.jpg',
-            date: '1 May 2019',
-            amount: 543,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5865,
-            name: 'Virgil Gonzales',
-            avatar: 'assets/images/avatars/thumb-4.jpg',
-            date: '28 April 2019',
-            amount: 876,
-            status: 'pending',
-            checked : false
-        },
-        {
-            id: 5213,
-            name: 'Nicole Wyne',
-            avatar: 'assets/images/avatars/thumb-5.jpg',
-            date: '28 April 2019',
-            amount: 241,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5311,
-            name: 'Riley Newman',
-            avatar: 'assets/images/avatars/thumb-6.jpg',
-            date: '19 April 2019',
-            amount: 872,
-            status: 'rejected',
-            checked : false
-        }
-    ]    
-
-    productsList = [
-        {
-            name: 'Gray Sofa',
-            avatar: 'assets/images/others/thumb-9.jpg',
-            category: 'Home Decoration',
-            growth: 18.3
-        },
-        {
-            name: 'Beat Headphone',
-            avatar: 'assets/images/others/thumb-10.jpg',
-            category: 'Eletronic',
-            growth: 12.7
-        },
-        {
-            name: 'Wooden Rhino',
-            avatar: 'assets/images/others/thumb-11.jpg',
-            category: 'Home Decoration',
-            growth: 9.2
-        },
-        {
-            name: 'Red Chair',
-            avatar: 'assets/images/others/thumb-12.jpg',
-            category: 'Home Decoration',
-            growth: 7.7
-        },
-        {
-            name: 'Wristband',
-            avatar: 'assets/images/others/thumb-13.jpg',
-            category: 'Eletronic',
-            growth: 5.8
-        }
-    ]    
-
-    nodes = [
-        {
-          title: '0-0',
-          key: '00',
-          expanded: true,
-          children: [
-            {
-              title: '0-0-0',
-              key: '000',
-              expanded: true,
-              children: [
-                { title: '0-0-0-0', key: '0000', isLeaf: true },
-                { title: '0-0-0-1', key: '0001', isLeaf: true },
-                { title: '0-0-0-2', key: '0002', isLeaf: true }
-              ]
-            },
-            {
-              title: '0-0-1',
-              key: '001',
-              children: [
-                { title: '0-0-1-0', key: '0010', isLeaf: true },
-                { title: '0-0-1-1', key: '0011', isLeaf: true },
-                { title: '0-0-1-2', key: '0012', isLeaf: true }
-              ]
-            },
-            {
-              title: '0-0-2',
-              key: '002'
-            }
-          ]
-        },
-        {
-          title: '0-1',
-          key: '01',
-          children: [
-            {
-              title: '0-1-0',
-              key: '010',
-              children: [
-                { title: '0-1-0-0', key: '0100', isLeaf: true },
-                { title: '0-1-0-1', key: '0101', isLeaf: true },
-                { title: '0-1-0-2', key: '0102', isLeaf: true }
-              ]
-            },
-            {
-              title: '0-1-1',
-              key: '011',
-              children: [
-                { title: '0-1-1-0', key: '0110', isLeaf: true },
-                { title: '0-1-1-1', key: '0111', isLeaf: true },
-                { title: '0-1-1-2', key: '0112', isLeaf: true }
-              ]
-            }
-          ]
-        },
-        {
-          title: '0-2',
-          key: '02',
-          isLeaf: true
-        }
-      ]
-
-      nzEvent(event: NzFormatEmitEvent): void {
-        console.log(event);
+    handleError(err: any) {
+      if (err) {
+        this.allMenus = [];
       }
+      return err
+    }
+
+  clean(obj:any) {
+      for (const propName in obj) {
+        if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+          delete obj[propName];
+        }
+      }
+      return obj
+    }
+
+    deleteMenus(menusId: number) {
+      this.apiService.sendRequest(requests.deleteMenus, 'delete', {id:[menusId]}).subscribe((res:any) => {
+        console.log("DEL-MENUS", res);
+        this.getAllMenus();
+        this.message.create('success', `Menu Deleted Successfully`);
+      })
+    }
 
     updateCheckedSet(id: number, checked: boolean): void {
         if (checked) {
@@ -210,9 +86,84 @@ export class MenusComponent {
         this.refreshCheckedStatus();
     }
 
+    onAllChecked(checked: boolean): void {
+      this.allMenus.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+      this.refreshCheckedStatus();
+  }
+
+  receiveStatus(data: Pagination) {
+    this.pagination={...this.pagination, isActive: data.isActive, title: data.title, position: data.position};
+    this.pagination.pageNo= 1;
+    this.getAllMenus();        
+}
+
+receiveFilter(data: Pagination) {
+    this.pagination={...this.pagination, isActive: data.isActive, title: data.title, position: data.position};
+    this.pagination.pageNo= 1;
+    this.getAllMenus();        
+}
+
     refreshCheckedStatus(): void {
-        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        const listOfEnabledData = this.allMenus.filter(({ disabled }) => !disabled);
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
+
+    updateMenuOrder(ids?:Array<any>) {
+      this.apiService.sendRequest(requests.updateMenuOrder, 'put', {id:ids}).subscribe((res:any) => {
+          console.log("MENU-ORDER", res);
+      })
+  }
+
+    drop(event: CdkDragDrop<string[] | any>) {
+      moveItemInArray(this.allMenus, event.previousIndex, event.currentIndex);
+      this.updateMenuOrder(this.allMenus.map(x=>x.id));
+    }
+
+  dropSubMenus(event: CdkDragDrop<string[] | any>, index: number) {
+      moveItemInArray(this.allMenus[index].childMenus, event.previousIndex, event.currentIndex);
+      this.updateMenuOrder(this.allMenus[index].sub.map(x=>x.id));
+    }
+
+  toggle(menuId: any) {
+        this.expandedId= this.expandedId===menuId ? null : menuId;
+    }
+
+  deleteSelected() {
+    const id=[];
+      console.log(this.setOfCheckedId.forEach(x=>{
+        id.push(x)
+      }));
+      this.apiService.sendRequest(requests.deleteMenus,'delete',{id:id}).subscribe((res:any) => {
+        this.setOfCheckedId.clear();
+        this.checked= false;
+        this.indeterminate= false;
+        this.getAllMenus();
+        this.message.create('success', `Menu Deleted Successfully`);
+      })
+}
+
+showDeleteConfirm(id?: number): void {
+    this.modal.confirm({
+      nzTitle: 'Delete',
+      nzContent: '<b style="color: red;">Are you sure to delete this menu?</b>',
+      nzOkText: 'Yes',
+    //   nzOkType: 'danger',
+      nzOnOk: () => {
+          if(id) {
+              this.deleteMenus(id);
+          }
+          else {
+              this.deleteSelected();
+          }
+        },
+      nzCancelText: 'No',
+      nzOnCancel: () => {
+        this.setOfCheckedId.clear();
+        this.checked= false;
+        this.indeterminate= false;
+        this.getAllMenus();
+        }
+    });
+}
 }    

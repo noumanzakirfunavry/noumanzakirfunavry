@@ -106,7 +106,6 @@ export class FeaturedNewsComponent implements OnInit {
     getAllFeaturedNews() {
         this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res: any) => {
             this.allFeaturedNews = res.response.featuredNews;
-
             this.fNews = this.allFeaturedNews && this.allFeaturedNews.length > 0 ? this.allFeaturedNews : this.fNews;
             // this.fNews.forEach(news => {
             //     news.newsId = this.allFeaturedNews.find(x=>x.position==news.position)?.newsId
@@ -132,12 +131,13 @@ export class FeaturedNewsComponent implements OnInit {
             this.message.create('error', 'Please select unique news for each position')
         }
     }
+
     findDuplicates() {
         const valueArr = this.fNews.map(function (item) { return item.newsId });
         const isDuplicate = valueArr.some(function (item, idx) {
             return valueArr.indexOf(item) != idx
         });
-        console.log(isDuplicate);
+        console.log("DUPLICATE-NEWS", isDuplicate);
         return isDuplicate
     }
 
@@ -146,8 +146,9 @@ export class FeaturedNewsComponent implements OnInit {
             news.newsId = parseInt(news.newsId);
         })
         if (this.fNews.some(x => !x.newsId)) {
-            this.message.create('error', 'Please add all featured news for Featured section')
-        } else {
+            this.message.create('error', 'Add all Featured News for Featured Section')
+        } 
+        else {
             this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
                 console.log("UPDATE-FEATURED-NEWS", res);
                 this.getAllFeaturedNews();
