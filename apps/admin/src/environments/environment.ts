@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+
   // baseUrlAdmin: "https://backend.admin.staging.cnbcarabia.com/admin/api/admin/",
   // baseUrlNews: "https://backend.news.staging.cnbcarabia.com/news/api/admin/",
   // baseUrlNewsClient: "https://backend.news.staging.cnbcarabia.com/news/api/client/",
