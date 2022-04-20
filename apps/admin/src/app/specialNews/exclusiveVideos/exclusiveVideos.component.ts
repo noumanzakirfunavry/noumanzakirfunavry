@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Pagination } from 'src/app/common/models/pagination';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { Pagination } from '../../common/models/pagination';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 export class Data extends Pagination {
     parentCategoryId?:Array<any>;
@@ -91,7 +91,7 @@ export class ExclusiveVideosComponent implements OnInit{
     getAllExclusiveVideos() {
         this.apiService.sendRequest(requests.getAllExclusiveVideos, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res:any) => {
             this.allExclusiveVideos= res.response.exclusiveVideos;
-            this.exclusiveVideos= [...this.allExclusiveVideos]
+            this.exclusiveVideos = this.allExclusiveVideos && this.allExclusiveVideos.length > 0 ? this.allExclusiveVideos : this.exclusiveVideos;
             console.log("ALL-EXCLUSIVE-VIDEOS", this.allExclusiveVideos);
             this.loading = false;
         }, err => {
@@ -101,21 +101,41 @@ export class ExclusiveVideosComponent implements OnInit{
 
     changedNews(updatedNews) {
         const news = this.exclusiveVideos.findIndex(x => x.position == updatedNews.position);
-        if (news > -1) {
+        if (news > -1 ) {
             this.exclusiveVideos[news] = updatedNews;
+        }  else {
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.exclusiveVideos[news] = tempNews;
+                this.exclusiveVideos[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
+    }
+
+    findDuplicates() {
+        const valueArr = this.exclusiveVideos.map(function (item) { return item.newsId });
+        const isDuplicate = valueArr.some(function (item, idx) {
+            return valueArr.indexOf(item) != idx
+        });
+        console.log("DUPLICATE-NEWS", isDuplicate);
+        return isDuplicate
     }
 
     updateExclusiveVideos() {
         this.exclusiveVideos.forEach(news=>{
             news.newsId=parseInt(news.newsId);
         })
-        this.apiService.sendRequest(requests.updateExclusiveVideos, 'put', { exclusiveVideos: this.exclusiveVideos }).subscribe((res:any) => {
-            console.log("UPDATE-EXCLUSIVE-VIDEOS", res);
-            this.getAllExclusiveVideos();
-            this.message.create('success', `Exclusive Videos Updated Successfully`);
-        })
+        if (this.exclusiveVideos.some(x => !x.newsId)) {
+            this.message.create('error', 'Add all Exclusive Video News for Exclusive Video Section')
+        }
+        else {
+            this.apiService.sendRequest(requests.updateExclusiveVideos, 'put', { exclusiveVideos: this.exclusiveVideos }).subscribe((res:any) => {
+                console.log("UPDATE-EXCLUSIVE-VIDEOS", res);
+                this.getAllExclusiveVideos();
+                this.message.create('success', `Exclusive Videos Updated Successfully`);
+            })
+        }
     }
-
 
 }    

@@ -17,7 +17,7 @@
                             <th>Type</th>
                             <th>Category</th>
                             <th>Created</th>
-                            <th>Publisher</th>
+                            <th>User</th>
                             <th>Last Modified</th>
                             <th>Views</th>
                             <th>Status</th>
@@ -28,7 +28,8 @@
                         <tr *ngFor="let news of allNews">
                             <td [nzChecked]="setOfCheckedId.has(news?.id)" [nzDisabled]="news.disabled"
                                 (nzCheckedChange)="onItemChecked(news?.id, $event)"></td>
-                            <td nzEllipsis nz-tooltip [nzTooltipTitle]="news?.title">{{news?.title}}</td>
+                            <td nzEllipsis nz-tooltip [nzTooltipTitle]="news?.title">
+                                <a [routerLink]="['/news/update/' + news?.id]">{{news?.title}}</a></td>
                             <td>{{news?.newsType}}</td>
                             <td nzEllipsis><span *ngFor="let catNews of news?.categories" nz-tooltip [nzTooltipTitle]="catNews?.title">{{catNews?.title}}, </span></td>
                             <td>{{news?.createdAt | date:'dd-MM-YYYY'}}</td>
