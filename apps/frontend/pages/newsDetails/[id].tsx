@@ -9,36 +9,44 @@ import PageCatgories from "apps/frontend/components/Shared/PageCategories/PageCa
 import HorizontalFooter2NewsSlider from "apps/frontend/components/Shared/NewsFooter2Slider";
 import HorizontalNumberedList from "apps/frontend/components/Home/HorizontalNumberedList/HorizontalNumberedList";
 import MostReadSlider from "apps/frontend/components/Home/MostReadSlider";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+//import { useRouter } from "next/router";
+//import { useEffect, useState } from "react";
 import GetData from "apps/frontend/services/GetData";
 import { requests } from "apps/frontend/services/Requests";
 import HtmlData from "../../components/Shared/HtmlData/HtmlData"
-// import { GetMetaData } from "apps/frontend/services/StaticData";
+import { GetMetaData } from "apps/frontend/services/StaticData";
+import SEO from "../../components/Shared/SEO/SEO"
 
-const Index = () =>{
-    const router = useRouter();
+const Index = (props: any) =>{
+
+    //console.log("Props:::::::::::::::::;;", props);
+    //const router = useRouter();
     //console.log(router.pathname);
     //console.log(router.query);
-    console.log("news id",router.query.id);
-    
-    const [news, setNews] = useState<any>();
+    //console.log("news id",router.query.id);
+
+    const { news, metaData } = props;
+
+    //console.log(news)
+
+    //const [news, setNews] = useState<any>();
 //  
-    useEffect(() => {
+   /* useEffect(() => {
         //GetData(`${requests.categories}/getById/${categoryId}`, {}, 'get', false).then(res=>{
           GetData(`${requests.NewsById+router.query.id}`, {}, 'get', false).then(res=>{
           console.log('test news',res);
-          setNews(res?.data.response.news)
+          //setNews(res?.data.response.news)
           console.log(news);
 
         }).catch(err=>{
             console.warn(err)
         })
 
-    }, [router.query.id])
+    }, [router.query.id])*/
 
     return (
         <>
+        <SEO metaData={metaData} />
         <div className="newsAarticaldetailwrap">
             <div className="container">
                 <AdBanner/>
@@ -133,16 +141,36 @@ const Index = () =>{
     )
 }
 
-// export async function getStaticProps(seoData) {
 
+export async function getStaticPaths() {
+    return {
+      paths:[
+        //{params: {id: '3'}},
+        //{params: {id: '2'}}
+      ],
+      fallback: "blocking",
+    }
+  }
+  
+  export async function getStaticProps(context) {
 
-//     const data = GetMetaData(seoData)
+    const resPost = await GetData(`${requests.NewsById+context.params.id}`, {}, 'get', false);
+    const newsRes = resPost?.data.response.news;
+    
+    const seoData = {
+        ...newsRes?.seoDetail,
+        image: newsRes?.image
+    }
 
-//     return {
-//       props: {
-//         data
-//       },
-//     }
-//   }
+    const metaData = GetMetaData(seoData);
+    
+    return {
+      props: {
+        metaData: metaData,
+        news: newsRes
+      },
+      revalidate: 50,
+    }
+  }
 
 export default Index
