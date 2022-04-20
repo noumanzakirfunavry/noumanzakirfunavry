@@ -16,9 +16,8 @@ import {
 	Delete,
 	Get,
 	Param,
-	ParseIntPipe,
-	Patch,
-	Post,
+	ParseIntPipe, Post,
+	Put,
 	Query,
 	Req
 } from '@nestjs/common';
@@ -50,18 +49,20 @@ export class MenusController {
 		return this.menusService.createMenu(createMenuRequestDto, req.user.data.id);
 	}
 
-	@Patch('/update')
+	@Put('/update/:id')
 	updateMenu(
+		@Param('id', ParseIntPipe) menuId: number,
 		@Body() updateMenuRequestDto: UpdateMenuRequestDto
 	): Promise<UpdateMenuResponseDto> {
-		return this.menusService.updateMenu(updateMenuRequestDto);
+		return this.menusService.updateMenu(menuId, updateMenuRequestDto);
 	}
 
-	@Patch('/updateOrder')
+	@Put('/updateOrder/:id')
 	updateOrderNumber(
+		@Param('id', ParseIntPipe) menuId: number,
 		@Body() updateOrderNumberRequestDto: UpdateOrderNumberRequestDto
 	): Promise<UpdateMenuResponseDto> {
-		return this.menusService.updateOrderNumber(updateOrderNumberRequestDto);
+		return this.menusService.updateOrderNumber(menuId, updateOrderNumberRequestDto);
 	}
 
 	@Delete('/delete')

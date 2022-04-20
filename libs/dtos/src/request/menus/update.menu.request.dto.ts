@@ -9,10 +9,6 @@ import {
 } from 'class-validator';
 
 export class UpdateMenuRequestDto {
-	@IsNumber()
-	@IsNotEmpty()
-	id: number;
-
 	@IsOptional()
 	@IsString()
 	@IsNotEmpty()

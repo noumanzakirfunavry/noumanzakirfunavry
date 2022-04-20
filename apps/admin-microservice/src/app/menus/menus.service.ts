@@ -211,9 +211,9 @@ export class MenusService {
 	}
 
 	async updateMenu(
+		id: number,
 		updateMenuRequestDto: UpdateMenuRequestDto
 	): Promise<UpdateMenuResponseDto> {
-		const { id } = updateMenuRequestDto;
 
 		const updateResult = await this.menusRepo.update({ ...updateMenuRequestDto }, {
 			where: { id },
@@ -230,8 +230,11 @@ export class MenusService {
 		return new UpdateMenuResponseDto(HttpStatus.OK, 'Menu updated successfully')
 	}
 
-	async updateOrderNumber(updateOrderNumberRequestDto: UpdateOrderNumberRequestDto): Promise<UpdateMenuResponseDto> {
-		let { id, orderNo, parentMenuId } = updateOrderNumberRequestDto;
+	async updateOrderNumber(
+		id: number,
+		updateOrderNumberRequestDto: UpdateOrderNumberRequestDto
+		): Promise<UpdateMenuResponseDto> {
+		let { orderNo, parentMenuId } = updateOrderNumberRequestDto;
 		let isOrderNoAvailable = true;
 
 		// check if none of the parameters are provided
@@ -241,9 +244,9 @@ export class MenusService {
 				Exceptions[ExceptionType.ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED].status
 			);
 		}
-	
+
 		// if id and parentMenuId are same, throw exception
-		if(id===parentMenuId){
+		if (id === parentMenuId) {
 			throw new CustomException(
 				Exceptions[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT].message,
 				Exceptions[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT].status
