@@ -72,6 +72,7 @@ export * from './request/menus/create.menu.request.dto';
 export * from './request/menus/delete.menu.request.dto';
 export * from './request/menus/update.menu.request.dto';
 export * from './request/menus/get.menu.request.dto';
+export * from './request/menus/update.order.number.request.dto';
 //...............................Messages.............................
 export * from './request/message/create.message.request.dto';
 export * from './request/message/get.all.message.request.dto';

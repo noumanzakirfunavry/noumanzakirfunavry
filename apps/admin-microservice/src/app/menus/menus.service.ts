@@ -7,7 +7,8 @@ import {
 	GetMenusResponseDto,
 	PaginatedRequestDto,
 	UpdateMenuRequestDto,
-	UpdateMenuResponseDto
+	UpdateMenuResponseDto,
+	UpdateOrderNumberRequestDto
 } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
 import { Menus, Users } from '@cnbc-monorepo/entity';
@@ -211,8 +212,42 @@ export class MenusService {
 	async updateMenu(
 		updateMenuRequestDto: UpdateMenuRequestDto
 	): Promise<UpdateMenuResponseDto> {
-		let { id, orderNo, parentMenuId } = updateMenuRequestDto;
+		const { id } = updateMenuRequestDto;
+
+		const updateResult = await this.menusRepo.update({ ...updateMenuRequestDto }, {
+			where: { id },
+		});
+
+		// check if menu was found or not
+		if (!updateResult) {
+			throw new CustomException(
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+			);
+		}
+
+		return new UpdateMenuResponseDto(HttpStatus.OK, 'Menu updated successfully')
+	}
+
+	async updateOrderNumber(updateOrderNumberRequestDto: UpdateOrderNumberRequestDto): Promise<UpdateMenuResponseDto> {
+		let { id, orderNo, parentMenuId } = updateOrderNumberRequestDto;
 		let isOrderNoAvailable = true;
+
+		// check if none of the parameters are provided
+		if (orderNo === undefined && parentMenuId === undefined) {
+			throw new CustomException(
+				Exceptions[ExceptionType.ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED].message,
+				Exceptions[ExceptionType.ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED].status
+			);
+		}
+	
+		// if id and parentMenuId are same, throw exception
+		if(id===parentMenuId){
+			throw new CustomException(
+				Exceptions[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT].message,
+				Exceptions[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT].status
+			);
+		}
 
 		const menu = await this.menusRepo.findOne({
 			where: { id },
@@ -252,13 +287,12 @@ export class MenusService {
 			if (isOrderNoAvailable) {
 				await this.menusRepo.update<Menus>(
 					{
-						...updateMenuRequestDto,
 						orderNo,
 					},
 					{ where: { id } }
 				);
 				return new UpdateMenuResponseDto(
-					HttpStatus.CREATED,
+					HttpStatus.OK,
 					'Menu updated successfully'
 				);
 			} else {
@@ -275,14 +309,13 @@ export class MenusService {
 
 			await this.menusRepo.update<Menus>(
 				{
-					...updateMenuRequestDto,
 					orderNo,
 					parentMenuId,
 				},
 				{ where: { id } }
 			);
 			return new UpdateMenuResponseDto(
-				HttpStatus.CREATED,
+				HttpStatus.OK,
 				'Menu created successfully'
 			);
 
@@ -297,14 +330,13 @@ export class MenusService {
 			if (isOrderNoAvailable) {
 				await this.menusRepo.update<Menus>(
 					{
-						...updateMenuRequestDto,
 						parentMenuId,
 						orderNo,
 					},
 					{ where: { id } }
 				);
 				return new UpdateMenuResponseDto(
-					HttpStatus.CREATED,
+					HttpStatus.OK,
 					'Menu updated successfully'
 				);
 			} else {
