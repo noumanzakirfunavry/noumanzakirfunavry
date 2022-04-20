@@ -1,5 +1,5 @@
 
-<section>
+<section class="featured_news">
     <br>
     <br>
     <div class="col-12">
@@ -16,7 +16,13 @@
                     <!-- <td>#</td> -->
                     <td>{{news?.position}}</td>
                     <ng-container>
-                      <news-table-row [allCategories]="allCategories" (onNewsSelection)="changedNews($event)" [news]="news"></news-table-row>
+                      <!-- {{news | json}} -->
+                      <news-table-row 
+                      [allCategories]="allCategories" 
+                      [news]="news"
+                      (onNewsSelection)="changedNews($event)"
+                      (onCatSelection)="changeCategory($event)"
+                      ></news-table-row>
                     </ng-container>
                 </tr>
             </tbody>

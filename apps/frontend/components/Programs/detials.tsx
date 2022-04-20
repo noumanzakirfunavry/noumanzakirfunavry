@@ -1,4 +1,4 @@
-
+import newsImage from "./../../styles/images/biden.jpg";
 
 const ProgramDetails = () => {
 
@@ -9,7 +9,7 @@ const ProgramDetails = () => {
         <div className="PageBuilder-pageRow">
                     <div className="PageBuilder-col-9">
                         <div className="VideoNews">
-                            <div className="NewsImage"><img className="img-fluid" src="/_next/static/media/biden.602d4cc9.jpg" /></div>
+                            <div className="NewsImage"><img className="img-fluid" src={newsImage.src} /></div>
                             <div className="PlayTime">
                                 <h5>05:21</h5>
                                 <div className="btn-text">

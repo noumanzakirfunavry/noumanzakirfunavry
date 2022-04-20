@@ -47,6 +47,7 @@ export class AddNewsComponent implements OnInit {
     fileType: string;
     submitted= false;
     selectedCat: any;
+    loader: boolean=true;
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
@@ -55,6 +56,7 @@ export class AddNewsComponent implements OnInit {
         private message: NzMessageService) { }
 
     ngOnInit(): void {
+        this.loader=true;
         const admin = JSON.parse(localStorage.getItem('admin') || '{}');
         this.config={
             // plugins: [CKFinder , ],
@@ -112,7 +114,7 @@ export class AddNewsComponent implements OnInit {
             //     openerMethod: 'popup'
             // }
         }
-        this.initNewsForm();
+       
         this.initQuoteForm();
         this.initTagForm();
 
@@ -124,13 +126,18 @@ export class AddNewsComponent implements OnInit {
             // } 
             if(this.newsId) {
                 this.getNews()
+            }else{
+                this.initNewsForm();
+                setTimeout(() => {
+                    this.loader=false;
+                }, 1000);
             }
         })
-        setTimeout(() => {
+        // setTimeout(() => {
             this.getTags();
             this.getAllCategories();
             this.getAllQuotes()
-        }, 2000);
+        // }, 2000);
     }
 
     private initQuoteForm() {
@@ -153,6 +160,9 @@ export class AddNewsComponent implements OnInit {
             this.newsModal.seoDetailId = res.response.news.seoDetailId;
             console.log("view modal", this.newsModal);
             this.populateNewsForm(res.response.news);
+            setTimeout(() => {
+                this.loader=false;
+            }, 1000); 
         })
     }
 
@@ -273,7 +283,7 @@ export class AddNewsComponent implements OnInit {
                 console.log(res.body);
                 if(mainFile){
                     this.newsModal.imageId = res.body.response.id;
-                    this.newsModal.fileUrl = res.body.response.url
+                    this.newsModal.fileUrl = environment.fileUrl+ res.body.response.path
                 }else{
                     this.newsModal.thumbnailId = res.body.response.id;
                     this.newsModal.thumbnailUrl = environment.fileUrl + res.body.response.path

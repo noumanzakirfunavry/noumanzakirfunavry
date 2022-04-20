@@ -117,11 +117,18 @@ export class FeaturedNewsComponent implements OnInit {
         })
     }
 
+    changeCategory(data){
+        
+    }
+
     changedNews(updatedNews) {
         const news = this.fNews.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.fNews[news] = updatedNews;
-        }  else {
+        } else if(this.fNews.some(x=>!x.newsId)){
+            
+        }
+          else {
             // this.fNews[news] = null;
             const tempNews = updatedNews;
             setTimeout(() => {

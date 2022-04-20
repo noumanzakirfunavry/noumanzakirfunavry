@@ -5,3 +5,66 @@
 @import url('../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
 // @import url('./node_modules/@fortawesome/fontawesome-free/css/all.min.css');
 @import './assets/scss/app.scss';
+
+.ant-checkbox-wrapper{
+    vertical-align: middle;
+}
+.ant-table-cell{
+    .justify-content-between{
+        justify-content: start !important;
+        i{
+            margin-right: 20px;
+        }
+    }
+
+}
+.ant-select-multiple {
+    .ant-select-selector{
+        padding: 1px 4px;
+    }
+}
+.cdk-drop-list{
+    position: absolute;
+    background: #f9fbfd;
+    left: 0;
+    z-index: 1;
+    right: 0;
+    padding: 20px;
+    td{
+        &.ant-table-cell{
+            margin-right: 10px;
+        }
+    }
+}
+.featured_news{
+    thead.ant-table-thead{
+        margin-bottom: 15px;
+    }
+    .ant-table table{
+        padding: 20px;
+        .ant-table-row{
+            .ant-table-cell{
+                .ant-form-item{
+                    margin-bottom: 0;
+                    
+                }
+            }
+            news-table-row{
+                display: inline-block;
+                .co.ant-table-cell{
+                    width: 300px;
+                }
+               
+            }
+        }
+    }
+}
+.cdk-drop-list {
+    .cdk-drag {
+        td{
+            &.ant-table-cell {
+                padding-right: 20px;
+            }
+        }
+    }
+}

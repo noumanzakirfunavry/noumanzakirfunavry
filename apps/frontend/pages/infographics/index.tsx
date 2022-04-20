@@ -38,7 +38,7 @@ const Index = () =>{
             <div className='PageBuilder-pageRow'>
                 <div className='PageBuilder-col-9'>
                 <News2TopTiles/>
-                <NewsDetatilListWithMedia dispalyMoreButton={true} details={details}/>
+                <NewsDetatilListWithMedia dispalyMoreButton={true} newsList={details}/>
                 </div>
                 <div className='PageBuilder-sidebar'>
                     <SideBar sideBarSequence={[{componentType:'numbered', position:1, title:'الأكثر تداولا'}, {componentType:'SmallBanner', position:2}, {componentType:'simple', position:2, title:'الأكثر قراءة'}, {componentType:'LargeBanner', position:2}]}/>
