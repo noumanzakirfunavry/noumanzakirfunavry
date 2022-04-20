@@ -40,7 +40,7 @@ export class AddUserComponent implements OnInit{
   userById: any;
   rightsValue: any;
   submitted= false;
-  loader: boolean=true;
+  loader= true;
 
   constructor(private fb: FormBuilder, 
     private apiService: ApiService, 

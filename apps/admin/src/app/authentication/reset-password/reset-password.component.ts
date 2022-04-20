@@ -37,7 +37,7 @@ export class ResetPasswordComponent implements OnInit {
                 console.log("Email for reset password", res);
                 this.resetPasswordForm.reset();
                 this.message.create('success', `Email sent Successfully`)
-                // this.route.navigateByUrl('full/authentication/login');
+                this.route.navigateByUrl('full/authentication/login');
             })
         }
     }
