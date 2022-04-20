@@ -2,6 +2,7 @@ import { ChangeLogs } from "@cnbc-monorepo/entity";
 import { Inject, Injectable } from "@nestjs/common";
 import * as bcrypt from 'bcrypt';
 import { AddLogRequestDto, CreateEpisodeRequestDto, CreateNewsRequestDto } from '@cnbc-monorepo/dtos'
+import { Request } from "express";
 @Injectable()
 export class Helper {
     constructor(
@@ -161,4 +162,14 @@ export class Helper {
             url : process.env.BASE_URL + path
         }
     }
+
+	/**
+	 * Extract the IP address from Request object.
+	 * @param req - The request object
+	 * @returns {string} IP address
+	 */
+		extractIP(req: Request){
+			// return req.ip
+			return '192.168.1.1'
+		}
 }

@@ -1,4 +1,4 @@
-import { Table,Model, Column, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Table,Model, Column, ForeignKey, BelongsTo, DataType } from "sequelize-typescript";
 import { News } from "./news.entity";
 
 
@@ -11,7 +11,9 @@ export class NewsVisitors extends Model{
     @Column
     ipAddress : string
     
-    @Column
+    @Column({
+			type: DataType.DATEONLY
+		})
     visitDate : Date
 
     @Column
