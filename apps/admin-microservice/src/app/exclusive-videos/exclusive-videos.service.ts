@@ -3,6 +3,7 @@ import { ExclusiveVideos } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { ElkService } from '@cnbc-monorepo/elk';
 
 @Injectable()
 export class ExclusiveVideosService {
@@ -11,10 +12,15 @@ export class ExclusiveVideosService {
 		@Inject('EXCLUSIVE_VIDEOS_REPOSITORY')
 		private exclusiveVideoRepository: typeof ExclusiveVideos,
 	) { }
-	async createExclusiveVideo(body: any, transactionHost?): Promise<GenericResponseDto> {
+	async createExclusiveVideo(body: CreateExclusiveVideosRequestDto, transactionHost?): Promise<GenericResponseDto> {
 		try {
 			const create_exclusive = await this.createExclusiveVideoQuery(body, transactionHost)
 			if (create_exclusive) {
+				ElkService.update({
+					id: body.newsId.toString(),
+					index: 'news',
+					doc: { isExclusiveVideos: true }
+				})
 				return new GenericResponseDto(
 					HttpStatus.OK,
 					"Created successfully"
@@ -191,7 +197,7 @@ export class ExclusiveVideosService {
 	}
 
 	private async allVideosQuery() {
-		return await this.exclusiveVideoRepository.findAndCountAll();
+		return await this.exclusiveVideoRepository.findAndCountAll({include: ['news']});
 	}
 
 	private async videoExists(id: number) {

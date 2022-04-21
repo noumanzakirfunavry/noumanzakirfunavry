@@ -79,7 +79,7 @@ export class NewsService {
 	}
 
 	async elkGetNewsByFlags(getNewsByFlagsRequestDto: GetNewsByFlagsRequestDto) {
-		const { isBreaking, isFeatured, isTrending, isEditorsChoice } = getNewsByFlagsRequestDto
+		const { isExclusiveVideos, isBreaking, isFeatured, isTrending, isEditorsChoice } = getNewsByFlagsRequestDto
 
 		// breaking news will be fetched through DB, others will be fetched ELK
 		if (isBreaking !== undefined) {
@@ -114,6 +114,14 @@ export class NewsService {
 			filtersArray.push({
 				match: {
 					isEditorsChoice
+				}
+			})
+		}
+
+		if (isExclusiveVideos !== undefined) {
+			filtersArray.push({
+				match: {
+					isExclusiveVideos
 				}
 			})
 		}
