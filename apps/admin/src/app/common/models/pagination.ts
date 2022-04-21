@@ -15,6 +15,7 @@ export class Pagination {
     date?: any;
     includeNews?: any; 
     newsLImit?: any;
+    position?: string;
 
     constructor() {
         this.limit= 10;

@@ -27,7 +27,8 @@ export class AddCategoryComponent implements OnInit {
     categoryById: any;
     
 
-    constructor(private fb: FormBuilder, 
+    constructor(
+        private fb: FormBuilder, 
         private apiService: ApiService, 
         private message: NzMessageService, 
         private activatedRoute: ActivatedRoute, 
