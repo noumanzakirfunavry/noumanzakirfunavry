@@ -1,6 +1,6 @@
-import { JwtAuthGuard, Rights, Roles } from '@cnbc-monorepo/auth-module';
-import { CreateExclusiveVideosRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllExclusiveVideos, GetAllExclusiveVideosResponseDto, GetExclusiveVideoByIdResponseDto, UpdateExclusiveVideosRequestDto } from '@cnbc-monorepo/dtos';
-import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
+import { JwtAuthGuard, Roles } from '@cnbc-monorepo/auth-module';
+import { CreateExclusiveVideosRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllExclusiveVideosResponseDto, GetExclusiveVideoByIdResponseDto, UpdateExclusiveVideosRequestDto } from '@cnbc-monorepo/dtos';
+import { RoleTypes } from '@cnbc-monorepo/enums';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ExclusiveVideosService } from './exclusive-videos.service';
 
