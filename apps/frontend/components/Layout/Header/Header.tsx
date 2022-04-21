@@ -331,7 +331,7 @@ const Header = () =>{
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 {
-                                                    moreMenuItems?.length && (
+                                                    moreMenuItems?.length > 0 && (
                                                                 <li className="nav-item" key={moreMenuItems[0].title}>
                                                                     <Link href={moreMenuItems[0].url}><a className="nav-link" >{moreMenuItems[0].title}</a></Link>
                                                                     <div className="nav-menu-navUnderline"></div>
@@ -343,21 +343,24 @@ const Header = () =>{
                                                     <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
-                                                    <ul className="dropdown-menu" aria-labelledby="moreOtions">
-                                                        {
-                                                            moreMenuItems?.length && moreMenuItems?.map((menuItem:any, index:number)=>{
-                                                                if(index > 0)
-                                                                {
-                                                                    return (
-                                                                        <li className="nav-item" key={menuItem.title}>
-                                                                            <Link href={menuItem.url}><a className="nav-link" >{menuItem.title}</a></Link>
-                                                                        </li>
-                                                                    )
-                                                                }
-                                                                  
-                                                            })
-                                                        }
-                                                    </ul>
+                                                    {
+                                                         moreMenuItems?.length > 1 && <ul className="dropdown-menu" aria-labelledby="moreOtions">
+                                                            {
+                                                                moreMenuItems?.map((menuItem:any, index:number)=>{
+                                                                    if(index > 0)
+                                                                    {
+                                                                        return (
+                                                                            <li className="nav-item" key={menuItem.title}>
+                                                                                <Link href={menuItem.url}><a className="nav-link" >{menuItem.title}</a></Link>
+                                                                            </li>
+                                                                        )
+                                                                    }
+                                                                    
+                                                                })
+                                                            }
+                                                        </ul>
+                                                    }
+                                                    
                                                 </li>
 
                                             </ul>
