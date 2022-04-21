@@ -18,7 +18,7 @@
                 </nz-select>
               </nz-form-item>
             <nz-form-item class="mr-2">
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Publisher" [(ngModel)]="filterModel.publishedBy">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="User" [(ngModel)]="filterModel.publishedBy">
                   <nz-option *ngFor="let admin of allAdmins" [nzValue]="admin?.id" [nzLabel]="admin?.name"></nz-option>
                 </nz-select>
               </nz-form-item>

@@ -118,14 +118,15 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     changeCategory(data){
-        
+        console.log(data);
     }
 
     changedNews(updatedNews) {
         const news = this.fNews.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.fNews[news] = updatedNews;
-        } else if(this.fNews.some(x=>!x.newsId)){
+        } 
+        else if(this.fNews.some(x=>!x.newsId)){
             
         }
           else {

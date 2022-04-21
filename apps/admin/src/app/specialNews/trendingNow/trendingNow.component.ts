@@ -95,11 +95,19 @@ export class TrendingNowComponent implements OnInit{
         })
     }
 
+    changeCategory(data){
+        console.log(data);
+    }
+
     changedNews(updatedNews) {
         const news = this.tNews.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.tNews[news] = updatedNews;
-        }  else {
+        }
+        else if(this.tNews.some(x=>!x.newsId)){
+            
+        }
+        else {
             const tempNews = updatedNews;
             setTimeout(() => {
                 this.tNews[news] = tempNews;
