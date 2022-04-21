@@ -136,31 +136,11 @@ export class NewsService {
 	elkSearchNews(searchNewsRequestDto: SearchNewsRequestDto) {
 		const { title, content, tags, quotes } = searchNewsRequestDto;
 
-		// const query = {
-		// 	match: {},
-		// 	terms: {}
-		// };
+		const shouldArray = [];
 
-		// // title ? match[title] : null
-
-		// for (const key of Object.keys(searchNewsRequestDto)) {
-		//   if (typeof searchNewsRequestDto[key] === 'string') {
-		//     query.match[key] = searchNewsRequestDto[key];
-		//   } else if(Array.isArray(searchNewsRequestDto[key])) {
-		// 		match
-		// 	}
-		// }
-
-		const mustArray = [];
-
-		// const query = {
-		//   bool: {
-		//     must: [],
-		//   },
-		// } as QueryDslQueryContainer;
 
 		if (title) {
-			mustArray.push({
+			shouldArray.push({
 				query_string: {
 					default_field: 'title',
 					query: title,
@@ -169,7 +149,7 @@ export class NewsService {
 		}
 
 		if (content) {
-			mustArray.push({
+			shouldArray.push({
 				query_string: {
 					default_field: 'content',
 					query: content,
@@ -178,7 +158,7 @@ export class NewsService {
 		}
 
 		if (tags?.length > 0) {
-			mustArray.push({
+			shouldArray.push({
 				query_string: {
 					default_field: 'tags',
 					query: tags[0],
@@ -187,7 +167,7 @@ export class NewsService {
 		}
 
 		if (quotes?.length > 0) {
-			mustArray.push({
+			shouldArray.push({
 				query_string: {
 					default_field: 'quotes',
 					query: quotes[0],
@@ -200,8 +180,8 @@ export class NewsService {
 			sort: "updatedAt:desc",
 			query: {
 				bool: {
-					must: mustArray
-				}
+					should: shouldArray
+				},
 			},
 		});
 	}
