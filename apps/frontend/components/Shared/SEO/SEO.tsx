@@ -23,7 +23,7 @@ const SEO = (props: any) => {
                 <meta property="og:description" content={props.metaData?.og?.description} />
 
                 <meta name="twitter:site" content={props.metaData.twitter?.site} />
-                <meta name="twitter:card" content={props.metaData.twitter?.card} />
+                <meta name="twitter:card" content={"summary_large_image"} />
                 <meta name="twitter:title" content={props.metaData.twitter?.title}/>
                 <meta name="twitter:description"  content={props.metaData?.twitter?.description} />
                 <meta name="twitter:image:src" content={props.metaData.twitter?.image} />

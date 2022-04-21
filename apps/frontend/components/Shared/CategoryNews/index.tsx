@@ -35,7 +35,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                         <div className="NewsInfo">
                         <Link href={`/newsDetails/`+news[i]._id}><a><h4>{news && news[i]?._source?.title}</h4> </a></Link>
                             {/* <p><a>الإمارات</a> منذ 5 دقائق</p> */}
-                            <p> {news[i]?._source?.tags.map(quote=>{return ( <a className=" ms-3">{quote}</a>)} )}</p>
+                            <p> {news[i]?._source?.tags.map(quote=>{return ( <a key={`${quote} ${i}`} className=" ms-3">{quote}</a>)} )}</p>
 
                         </div>
                     </div>
@@ -62,7 +62,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                 <div className="NewsInfo">
                                    <Link href={`/newsDetails/`+news[0]._id}><a><h3>{news && news[0]?._source?.title}</h3> </a></Link>
                                    {/* <p><a className="ms-3">الإمارات</a> منذ 5 دقائق</p> */}
-                                <p> {news[0]?._source?.tags?.map(quote=>{return ( <a className=" ms-3">{quote}</a>)} )}</p>
+                                <p> {news[0]?._source?.tags?.map(quote=>{return ( <a key={`${quote}`} className=" ms-3">{quote}</a>)} )}</p>
 
                                 </div>
                             </div>
@@ -83,7 +83,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                             </div> */}
                                 <div className="NewsInfo">
                                 <Link href={`/newsDetails/`+news[1]._id}><a><h4>{news && news[1]?._source?.title}</h4> </a></Link>
-                                    <p> {news[1]?._source?.tags?.map(quote=>{return ( <a className=" ms-3">{quote}</a>)} )}</p>
+                                    <p> {news[1]?._source?.tags?.map(quote=>{return ( <a key={`${quote}one`} className=" ms-3">{quote}</a>)} )}</p>
                                 </div>
                             </div>
                         </div>:<span></span>}

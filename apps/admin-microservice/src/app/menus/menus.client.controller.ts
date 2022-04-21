@@ -1,7 +1,9 @@
+import { Public } from '@cnbc-monorepo/auth-module';
 import { PaginatedRequestDto } from '@cnbc-monorepo/dtos';
 import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { MenusService } from './menus.service';
 
+@Public()
 @Controller('admin/api/client/menus')
 
 export class MenusClientController {
