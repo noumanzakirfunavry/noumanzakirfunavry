@@ -24,4 +24,5 @@ export const requests={
     newsByCategories:newsAPIClient+'news/get/category/',
     featuredNews:newsAPIClient+'news/get/flags?isFeatured=true',
     NewsById:newsAPIClient+'news/getById/',
+    moreMenus: adminAPIClient+'menus/'
 }

@@ -24,7 +24,7 @@ const Header = () =>{
     const [displaySerachDropDown, setDisplaySerachDropDown] = useState<boolean>(false)
     const [data, setData] = useState<any>({})
     const router = useRouter()
-    const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}])
+    const [moreMenuItems, setMoreMenuItems] = useState<any>([])  //[{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}]
     const [newsCategoriesList, setNewsCategoriesList] = useState<CategoryProps[]>([])
 
     const [scroll, setScroll] = useState(true);
@@ -57,10 +57,23 @@ const Header = () =>{
             console.warn(err)
         })
 
+        //get all menus
+        getAllMenus()
+
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         }
     },[])
+
+    const getAllMenus = () =>{
+        GetData(`${requests.moreMenus}getAll?limit=50&pageNo=1`, {}, 'get', false).then(res=>{
+
+            setMoreMenuItems(res?.data?.response);
+
+        }).catch(err=>{
+            console.warn(err)
+        })
+    }
 
     const handleScroll = () => {
         const scrollCheck = window.scrollY < 50
@@ -212,10 +225,10 @@ const Header = () =>{
                                                     <Link href="/"><a className="nav-link active" aria-current="page">الرئيسية</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
-                                                <li className="nav-item" key={'2'}>
+                                                {/* <li className="nav-item" key={'2'}>
                                                     <Link href="/videoNews"><a className="nav-link">الفيديو</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
-                                                </li>
+                                                </li> */}
                                                 <li className="nav-item dropdown" key={'98788'}>
                                                     <a className="nav-link dropdown-toggle" href="#" id="morePrograms" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
                                                     </a>
@@ -317,18 +330,31 @@ const Header = () =>{
                                                     <Link href="/marketGraph"><a className="nav-link">الأسواق</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
+                                                {
+                                                    moreMenuItems?.length && (
+                                                                <li className="nav-item" key={moreMenuItems[0].title}>
+                                                                    <Link href={moreMenuItems[0].url}><a className="nav-link" >{moreMenuItems[0].title}</a></Link>
+                                                                    <div className="nav-menu-navUnderline"></div>
+                                                                </li>
+                                                            )
+                                                   
+                                                }
                                                 <li className="nav-item dropdown" key={'654564ytf7656'}>
                                                     <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="moreOtions">
                                                         {
-                                                            moreMenuItems.length && moreMenuItems.map((menuItem)=>{
-                                                                return (
+                                                            moreMenuItems?.length && moreMenuItems?.map((menuItem:any, index:number)=>{
+                                                                if(index > 0)
+                                                                {
+                                                                    return (
                                                                         <li className="nav-item" key={menuItem.title}>
                                                                             <Link href={menuItem.url}><a className="nav-link" >{menuItem.title}</a></Link>
                                                                         </li>
                                                                     )
+                                                                }
+                                                                  
                                                             })
                                                         }
                                                     </ul>
