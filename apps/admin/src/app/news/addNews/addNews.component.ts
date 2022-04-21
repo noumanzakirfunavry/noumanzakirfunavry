@@ -57,9 +57,40 @@ export class AddNewsComponent implements OnInit {
 
     ngOnInit(): void {
         const admin = JSON.parse(localStorage.getItem('admin') || '{}');
-        this.tinyConfig={  base_url: '/tinymce',
+        this.tinyConfig={
+        apiKey:"pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4",
+        base_url: '/tinymce',
         suffix: '.min',
-        plugins: 'lists link image table code help wordcount' }
+        'plugins' : [
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+            "table contextmenu directionality emoticons paste textcolor responsivefilemanager code",
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste qrcode youtube twitter"
+        ],
+        'toolbar1' : "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect | fontselect | fontsizeselect",
+        'toolbar2' : "youtube twitter | responsivefilemanager | link image qrcode | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+        'image_advtab' : true,
+        automatic_uploads: false,
+        file_picker_callback: function(callback, value, meta) {
+            debugger
+            // Provide file and text for the link dialog
+            if (meta.filetype == 'file') {
+              callback('mypage.html', {text: 'My text'});
+            }
+        
+            // Provide image and alt text for the image dialog
+            if (meta.filetype == 'image') {
+              callback('myimage.jpg', {alt: 'My alt text'});
+            }
+        
+            // Provide alternative source and posted for the media dialog
+            if (meta.filetype == 'media') {
+              callback('movie.mp4', {source2: 'alt.ogg', poster: 'image.jpg'});
+            }
+          }
+    }
         this.config={
             // plugins: [CKFinder , ],
             // plugins: [SimpleUploadAdapter , ],
