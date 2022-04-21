@@ -36,11 +36,11 @@ export class NewsTypesController {
     @Public()
     @Get("editors-choice-news/getAll")
     async getAllEditorsChoiceNews(): Promise<GetAllTrendingNewsResponseDto> {
-        const trending_news = await this.newsTypeService.getAllNews(EditorsChoiceNews)
+        const editors_choice_news = await this.newsTypeService.getAllNews(EditorsChoiceNews)
         return new GetAllTrendingNewsResponseDto(
             HttpStatus.OK,
             "Editors choice news fetched successfully",
-            trending_news
+            editors_choice_news
         )
     }
 }

@@ -27,8 +27,8 @@ export class ExclusiveVideosController {
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
     @Get("getAll")
-    async getAllExclusiveVideos(@Query() query : GetAllExclusiveVideos) : Promise<GetAllExclusiveVideosResponseDto>{
-        return await this.exclusiveVideosService.getAllExclusiveVideos(query);
+    async getAllExclusiveVideos() : Promise<GetAllExclusiveVideosResponseDto>{
+        return await this.exclusiveVideosService.getAllExclusiveVideos();
     }
 
     @UseGuards(JwtAuthGuard)
