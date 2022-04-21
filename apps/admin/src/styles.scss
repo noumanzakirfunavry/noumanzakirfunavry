@@ -13,7 +13,7 @@
     .justify-content-between{
         justify-content: start !important;
         i{
-            margin-right: 20px;
+            margin-right: 8px;
         }
     }
 
@@ -46,6 +46,7 @@
             .ant-table-cell{
                 .ant-form-item{
                     margin-bottom: 0;
+                    min-width: 300px;
                     
                 }
             }
@@ -57,6 +58,13 @@
                
             }
         }
+        thead{
+            tr{
+                th{
+                    border-bottom: none;
+                }
+            }
+        }
     }
 }
 .cdk-drop-list {
@@ -66,5 +74,15 @@
                 padding-right: 20px;
             }
         }
+    }
+}
+.error_msg {
+    width: 100%;
+    font-size: 12px;
+    margin-top: 3px;
+}
+.admin_rights_wrap {
+    .ant-checkbox-wrapper{
+        margin-bottom: 10px;
     }
 }
