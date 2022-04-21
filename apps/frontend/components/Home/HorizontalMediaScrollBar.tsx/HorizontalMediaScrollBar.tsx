@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, useRef, useState } from "react";
+import { FC, useRef, useState, useEffect } from "react";
 import Slider from "react-slick";
 import Title from "../../Title";
+import GetData from "../../../services/GetData";
+import { requests } from "../../../services/Requests";
 
 
 
@@ -69,6 +71,20 @@ const HorizontalMediaScrollBar:FC = () =>{
               }
             ]
           });
+
+
+        const [editorChoiceNewsList, setEditorChoiceNewsList] = useState<any>([])
+    
+        useEffect(()=>{
+            GetData(`${requests.editorChoiceNews}&limit=10&pageNo=1`, {}, 'get', false).then(res=>{
+                const newsRes = res.data && res.data.length ? res.data : []
+                setEditorChoiceNewsList(newsRes);
+
+              }).catch(err=>{
+                console.warn(err)
+              })
+        },[])
+
     return (
         <>
       <div className="container">
@@ -98,6 +114,20 @@ const HorizontalMediaScrollBar:FC = () =>{
 
 
             <Slider ref={ref} {...settings}>
+            {  
+               editorChoiceNewsList.length && editorChoiceNewsList.map((item: any, index: number)=>{
+                     return(
+                        <div className="slider-item" key={item.id}>
+                            <div className="NewsBox">
+                                <div className="newscontent">
+                                    <h3><a>{item?._source?.title}</a></h3>
+                                </div>
+                            </div>
+                        </div>                            
+                     )
+                })
+             }
+             {/*
                     <div className="slider-item">
                         <div className="NewsBox">
                             <div className="newscontent">
@@ -154,6 +184,7 @@ const HorizontalMediaScrollBar:FC = () =>{
                             </div>
                         </div>
                     </div>
+            */}
             </Slider>
 
         </div>
