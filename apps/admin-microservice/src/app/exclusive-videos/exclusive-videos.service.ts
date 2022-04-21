@@ -1,9 +1,8 @@
-import { CreateExclusiveVideosRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllExclusiveVideos, GetAllExclusiveVideosResponseDto, GetExclusiveVideoByIdResponseDto, UpdateExclusiveVideosRequestDto } from '@cnbc-monorepo/dtos';
+import { CreateExclusiveVideosRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllExclusiveVideosResponseDto, GetExclusiveVideoByIdResponseDto, UpdateExclusiveVideosRequestDto } from '@cnbc-monorepo/dtos';
 import { ExclusiveVideos } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { Transaction } from 'sequelize/types';
 
 @Injectable()
 export class ExclusiveVideosService {
