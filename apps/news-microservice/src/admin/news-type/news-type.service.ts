@@ -58,9 +58,8 @@ export class NewsTypeService {
 					}
 				}
 
-				let flag;
-
-				itemsToFlag.forEach(item => {
+				const mapEntityToFlag = (item) => {
+					let flag;
 					if (entity.prototype.constructor.name === "TrendingNews") {
 						flag = 'isTrending'
 					} else if (entity.prototype.constructor.name === "EditorsChoiceNews") {
@@ -68,19 +67,25 @@ export class NewsTypeService {
 					} else if (entity.prototype.constructor.name === "FeaturedNews") {
 						flag = 'isFeatured'
 					}
-					
+
+					return flag;
+				}
+
+				itemsToFlag.forEach(item => {
+					const flag = mapEntityToFlag(item);
+
 					const docToUpload = {
 						[flag]: true,
 					}
 
-					if(flag === 'isFeatured'){
+					if (flag === 'isFeatured') {
 						const newsDetail = body.news.filter(news => news.newsId == item);
 
-						if(newsDetail.length !== 0){
+						if (newsDetail.length !== 0) {
 							docToUpload['featuredNews'] = { position: newsDetail[0].position, section: newsDetail[0].section }
 						}
 					}
-				
+
 					elkUpdateArray.push({
 						update: {
 							_index: 'news',
@@ -93,13 +98,7 @@ export class NewsTypeService {
 				})
 
 				itemsToDeflag.forEach(item => {
-					if (entity.prototype.constructor.name === "TrendingNews") {
-						flag = 'isTrending'
-					} else if (entity.prototype.constructor.name === "EditorsChoiceNews") {
-						flag = 'isEditorsChoice'
-					} else if (entity.prototype.constructor.name === "FeaturedNews") {
-						flag = 'isFeatured'
-					}
+					const flag = mapEntityToFlag(item);
 
 					elkUpdateArray.push({
 						update: {
