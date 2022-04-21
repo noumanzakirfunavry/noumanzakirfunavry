@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import GetData from "../../../services/GetData";
 import { requests } from "../../../services/Requests";
+import Link from "next/link";
 
 const HorizontalNumberedList:FC = () =>{
 
@@ -27,9 +28,7 @@ const HorizontalNumberedList:FC = () =>{
                     trendingNewsList.length && trendingNewsList.map((item: any, index: number)=>{
                             return(
                                 <li key={item.id}>
-                                    <a href="javascript:void(0)">
-                                        {item?._source?.title}
-                                    </a>
+                                    <Link href={`/newsDetails/` + item._id}><a >{item?._source?.title}</a></Link>
                                 </li>                           
                             )
                         })

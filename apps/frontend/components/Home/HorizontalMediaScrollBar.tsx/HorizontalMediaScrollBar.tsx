@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import Title from "../../Title";
 import GetData from "../../../services/GetData";
 import { requests } from "../../../services/Requests";
+import Link from "next/link";
 
 
 
@@ -120,7 +121,7 @@ const HorizontalMediaScrollBar:FC = () =>{
                         <div className="slider-item" key={item.id}>
                             <div className="NewsBox">
                                 <div className="newscontent">
-                                    <h3><a>{item?._source?.title}</a></h3>
+                                    <h3><Link href={`/newsDetails/` + item._id}><a >{item?._source?.title}</a></Link></h3>
                                 </div>
                             </div>
                         </div>                            
