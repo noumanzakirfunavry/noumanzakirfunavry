@@ -3,6 +3,7 @@ import { ExclusiveVideos } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { Transaction } from 'sequelize/types';
 
 @Injectable()
 export class ExclusiveVideosService {
@@ -11,9 +12,9 @@ export class ExclusiveVideosService {
         @Inject('EXCLUSIVE_VIDEOS_REPOSITORY')
         private exclusiveVideoRepository: typeof ExclusiveVideos,
     ) { }
-    async createExclusiveVideo(body: any): Promise<GenericResponseDto> {
+    async createExclusiveVideo(body: any, transactionHost): Promise<GenericResponseDto> {
         try {
-            const create_exclusive = await this.createExclusiveVideoQuery(body)
+            const create_exclusive = await this.createExclusiveVideoQuery(body, transactionHost)
             if (create_exclusive) {
                 return new GenericResponseDto(
                     HttpStatus.OK,
@@ -85,7 +86,7 @@ export class ExclusiveVideosService {
                 if (remove_previous) {
                     let record_created;
                     for (let i = 0; i < body.exclusiveVideos.length; i++) {
-                        record_created = await this.createExclusiveVideo(body.exclusiveVideos[i])
+                        record_created = await this.createExclusiveVideo(body.exclusiveVideos[i], transactionHost)
                         if (!record_created) {
                             throw new CustomException(
                                 Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
@@ -214,7 +215,7 @@ export class ExclusiveVideosService {
             });
     }
 
-    private async createExclusiveVideoQuery(body: any) {
-        return await this.exclusiveVideoRepository.create(body);
+    private async createExclusiveVideoQuery(body: any, transactionHost) {
+        return await this.exclusiveVideoRepository.create(body, transactionHost);
     }
 }
