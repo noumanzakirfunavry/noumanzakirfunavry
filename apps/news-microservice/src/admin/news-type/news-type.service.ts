@@ -45,7 +45,6 @@ export class NewsTypeService {
 					itemDictionary[item.newsId] = 2;
 				});
 				let itemsToFlag = [];
-				let positionDetails = [];
 				let itemsToDeflag = [];
 
 				let elkUpdateArray = [];
