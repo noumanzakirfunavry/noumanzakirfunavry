@@ -72,7 +72,8 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
                                 <div className="newsImage">
                                     {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={sliderimg.src} />}
                                     <div className="PlayTime">
-                                        <h5>05:21</h5>
+                                        
+                                        <h5>05:21</h5> {/*@TODO: it will be updated with video time later on*/}
                                         <div className="btn-text">
                                             <button className="btn btn-warning VideoPlay">
                                                 <i className="fa play_medium"></i>
