@@ -10,12 +10,12 @@
                   <th class="text-left" colspan="4"></th>
               </tr>
           </thead>
-          <tbody *ngIf="allCategories && allCategories.length > 0">
+          <tbody *ngIf="!loading">
               <tr *ngFor="let news of editorsChoice">
-                  <td>#</td>
+                  <!-- <td>#</td> -->
                   <td>{{news?.position}}</td>
                   <ng-container>
-                    <news-table-row [allCategories]="allCategories" [news]="news"></news-table-row>
+                    <news-table-row [allCategories]="allCategories" (onNewsSelection)="changedNews($event)" [news]="news"></news-table-row>
                   </ng-container>
               </tr>
           </tbody>

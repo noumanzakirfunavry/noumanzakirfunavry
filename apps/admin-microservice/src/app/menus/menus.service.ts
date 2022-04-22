@@ -5,11 +5,13 @@ import {
 	GetMenuByIdResponseDto,
 	GetMenuRequestDto,
 	GetMenusResponseDto,
+	PaginatedRequestDto,
 	UpdateMenuRequestDto,
-	UpdateMenuResponseDto
+	UpdateMenuResponseDto,
+	UpdateOrderNumberRequestDto
 } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
-import { Menus } from '@cnbc-monorepo/entity';
+import { Menus, Users } from '@cnbc-monorepo/entity';
 import {
 	CustomException,
 	Exceptions,
@@ -27,382 +29,399 @@ import { FindOptions } from 'sequelize/types';
 
 @Injectable()
 export class MenusService {
-  constructor(
-    @Inject('MENUS_REPOSITORY') private menusRepo: typeof Menus,
-    private helperService: Helper
-  ) {}
+	constructor(
+		@Inject('MENUS_REPOSITORY') private menusRepo: typeof Menus,
+		private helperService: Helper
+	) { }
 
-  async getMenus(
-    getMenuRequestDto: GetMenuRequestDto
-  ): Promise<GetMenusResponseDto> {
-    const menus = await this.menusRepo.findAll<Menus>({
-      where: {
-        ...getMenuRequestDto,
-        ...(getMenuRequestDto.title && {
-          title: {
-            [Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(
-              getMenuRequestDto.title
-            )}%`,
-          },
-        }),
-      },
-      include: [{ model: Menus, as: 'childMenus' }],
-      // raw: true,
-    });
+	async getMenus(
+		getMenuRequestDto: GetMenuRequestDto
+	): Promise<GetMenusResponseDto> {
+		const { limit, pageNo, ...where } = getMenuRequestDto
 
-    return new GetMenusResponseDto(HttpStatus.OK, 'Request Successful', menus);
-  }
+		const menus = await this.menusRepo.findAll<Menus>({
+			limit: parseInt(limit.toString()),
+			offset: this.helperService.offsetCalculator(pageNo, limit),
+			where: {
+				...where,
+				parentMenuId: null,
+				...(where.title && {
+					title: {
+						[Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(
+							where.title
+						)}%`,
+					},
+				}),
+			},
+			include: [{
+				model: Users,
+				attributes: ['id', 'name', 'email', 'rolesId']
+			}, { model: Menus, as: 'childMenus' }],
+		});
 
-  async getMenusForClient(): Promise<GetMenusResponseDto> {
-    const menus = await this.menusRepo.findAll<Menus>({
-      where: {
-        isActive: true,
-        parentMenuId: null,
-      },
-      include: [
-        {
-          model: Menus,
-          as: 'childMenus',
-          where: {
-            isActive: true,
-          },
-          required: false,
-        },
-      ],
-    });
+		return new GetMenusResponseDto(HttpStatus.OK, 'Request Successful', menus);
+	}
 
-    return new GetMenusResponseDto(HttpStatus.OK, 'Request Successfull', menus);
-  }
+	async getMenusForClient(paginationDto: PaginatedRequestDto): Promise<GetMenusResponseDto> {
+		const { limit, pageNo } = paginationDto;
 
-  async getMenuById(menuId: number) {
-    const menu = await this.menusRepo.findOne({ where: { id: menuId } });
-    if (!menu) {
-      throw new CustomException(
-        Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-        Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-      );
-    }
 
-    return new GetMenuByIdResponseDto(
-      HttpStatus.OK,
-      'Request successful',
-      menu
-    );
-  }
+		const menus = await this.menusRepo.findAll<Menus>({
+			limit: parseInt(limit.toString()),
+			offset: this.helperService.offsetCalculator(pageNo, limit),
+			where: {
+				isActive: true,
+				parentMenuId: null,
+			},
+			include: [
+				{
+					model: Menus,
+					as: 'childMenus',
+					where: {
+						isActive: true,
+					},
+					required: false,
+				},
+			],
+		});
 
-  async createMenu(
-    createMenuRequestDto: CreateMenuRequestDto,
-    userId: number
-  ): Promise<CreateMenuResponseDto> {
-    let { parentMenuId, orderNo } = createMenuRequestDto;
-    let isOrderNoAvailable = true;
+		return new GetMenusResponseDto(HttpStatus.OK, 'Request Successfull', menus);
+	}
 
-    // case: if parentMenuId is not provided (it means it will be main menu)
-    if (parentMenuId === undefined) {
-      if (orderNo) {
-        // if orderNo provided then check if available
-        isOrderNoAvailable = await this.isOrderNoAvailable({
-          where: { parentMenuId: null, orderNo },
-          plain: true,
-        });
-      } else {
-        // if orderNo not provided, find a available orderNo
-        orderNo = await this.findSuitableOrderNo({
-          where: { parentMenuId: null },
-        });
-      }
+	async getMenuById(menuId: number) {
+		const menu = await this.menusRepo.findOne({
+			where: { id: menuId }, include: [{
+				model: Users,
+				attributes: ['id', 'name', 'email', 'rolesId']
+			}]
+		});
+		if (!menu) {
+			throw new CustomException(
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+			);
+		}
 
-      if (isOrderNoAvailable) {
-        const menu = await this.menusRepo.create<Menus>({
-          ...createMenuRequestDto,
-          orderNo,
-          publishedBy: userId,
-        });
-        return new CreateMenuResponseDto(
-          HttpStatus.CREATED,
-          'Menu created successfully',
-          menu
-        );
-      } else {
-        throw new CustomException(
-          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
-          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
-        );
-      }
+		return new GetMenuByIdResponseDto(
+			HttpStatus.OK,
+			'Request successful',
+			menu
+		);
+	}
 
-      // case: if orderNo not provided  but parentMenuId provided
-    } else if (orderNo === undefined) {
-      // find a suitable orderNo
-      orderNo = await this.findSuitableOrderNo({ where: { parentMenuId } });
+	async getMenuByIdClient(menuId: number) {
+		const menu = await this.menusRepo.findOne({ where: { id: menuId, isActive: true } });
+		if (!menu) {
+			throw new CustomException(
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+			);
+		}
 
-      const menu = await this.menusRepo.create<Menus>({
-        ...createMenuRequestDto,
-        orderNo,
-        publishedBy: userId,
-      });
-      return new CreateMenuResponseDto(
-        HttpStatus.CREATED,
-        'Menu created successfully',
-        menu
-      );
+		return new GetMenuByIdResponseDto(
+			HttpStatus.OK,
+			'Request successful',
+			menu
+		);
+	}
 
-      // if both parentMenuId and orderNo provided
-    } else {
-      // check if orderNo available
-      const isOrderNoAvailable = await this.isOrderNoAvailable({
-        where: { parentMenuId, orderNo },
-        plain: true,
-      });
+	async createMenu(
+		createMenuRequestDto: CreateMenuRequestDto,
+		userId: number
+	): Promise<CreateMenuResponseDto> {
+		let { parentMenuId, orderNo } = createMenuRequestDto;
+		let isOrderNoAvailable = true;
 
-      if (isOrderNoAvailable) {
-        const menu = await this.menusRepo.create<Menus>({
-          ...createMenuRequestDto,
-          parentMenuId,
-          orderNo,
-          publishedBy: userId,
-        });
-        return new CreateMenuResponseDto(
-          HttpStatus.CREATED,
-          'Menu created successfully',
-          menu
-        );
-      } else {
-        throw new CustomException(
-          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
-          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
-        );
-      }
-    }
-  }
+		// case: if parentMenuId is not provided (it means it will be main menu)
+		if (parentMenuId === undefined) {
+			if (orderNo) {
+				// if orderNo provided then check if available
+				isOrderNoAvailable = await this.isOrderNoAvailable({
+					where: { parentMenuId: null, orderNo },
+					plain: true,
+				});
+			} else {
+				// if orderNo not provided, find a available orderNo
+				orderNo = await this.findSuitableOrderNo({
+					where: { parentMenuId: null },
+				});
+			}
 
-  async updateMenu(
-    updateMenuRequestDto: UpdateMenuRequestDto
-  ): Promise<UpdateMenuResponseDto> {
-    let { id, orderNo, parentMenuId } = updateMenuRequestDto;
-    let isOrderNoAvailable = true;
+			if (isOrderNoAvailable) {
+				const menu = await this.menusRepo.create<Menus>({
+					...createMenuRequestDto,
+					orderNo,
+					publishedBy: userId,
+				});
+				return new CreateMenuResponseDto(
+					HttpStatus.CREATED,
+					'Menu created successfully',
+					menu
+				);
+			} else {
+				throw new CustomException(
+					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
+					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
+				);
+			}
 
-    const menu = await this.menusRepo.findOne({
-      where: { id },
-      include: [{ model: Menus, as: 'childMenus' }],
-    });
+			// case: if orderNo not provided  but parentMenuId provided
+		} else if (orderNo === undefined) {
+			// find a suitable orderNo
+			orderNo = await this.findSuitableOrderNo({ where: { parentMenuId } });
 
-    // check if menu was found or not
-    if (!menu) {
-      throw new CustomException(
-        Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-        Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-      );
-    }
+			const menu = await this.menusRepo.create<Menus>({
+				...createMenuRequestDto,
+				orderNo,
+				publishedBy: userId,
+			});
+			return new CreateMenuResponseDto(
+				HttpStatus.CREATED,
+				'Menu created successfully',
+				menu
+			);
 
-    // if update values are same as original then return error
-    if (parentMenuId === menu?.parentMenuId || orderNo === menu?.orderNo) {
-      throw new CustomException(
-        Exceptions[
-          ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL
-        ].message,
-        Exceptions[
-          ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL
-        ].status
-      );
-    }
+			// if both parentMenuId and orderNo provided
+		} else {
+			// check if orderNo available
+			const isOrderNoAvailable = await this.isOrderNoAvailable({
+				where: { parentMenuId, orderNo },
+				plain: true,
+			});
 
-    // case: if parentMenuId is not provided (it means it will be main menu)
-    if (parentMenuId === undefined) {
-      if (orderNo) {
-        // if orderNo provided then check if available
-        isOrderNoAvailable = await this.isOrderNoAvailable({
-          where: { parentMenuId: null, orderNo },
-          plain: true,
-        });
-      }
+			if (isOrderNoAvailable) {
+				const menu = await this.menusRepo.create<Menus>({
+					...createMenuRequestDto,
+					parentMenuId,
+					orderNo,
+					publishedBy: userId,
+				});
+				return new CreateMenuResponseDto(
+					HttpStatus.CREATED,
+					'Menu created successfully',
+					menu
+				);
+			} else {
+				throw new CustomException(
+					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
+					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
+				);
+			}
+		}
+	}
 
-      if (isOrderNoAvailable) {
-        await this.menusRepo.update<Menus>(
-          {
-            ...updateMenuRequestDto,
-            orderNo,
-          },
-          { where: { id } }
-        );
-        return new UpdateMenuResponseDto(
-          HttpStatus.CREATED,
-          'Menu updated successfully'
-        );
-      } else {
-        throw new CustomException(
-          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
-          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
-        );
-      }
+	async updateMenu(
+		id: number,
+		updateMenuRequestDto: UpdateMenuRequestDto
+	): Promise<UpdateMenuResponseDto> {
 
-      // case: if orderNo not provided  but parentMenuId provided
-    } else if (orderNo === undefined) {
-      // find a suitable orderNo
-      orderNo = await this.findSuitableOrderNo({ where: { parentMenuId } });
+		const updateResult = await this.menusRepo.update({ ...updateMenuRequestDto }, {
+			where: { id },
+		});
 
-      await this.menusRepo.update<Menus>(
-        {
-          ...updateMenuRequestDto,
-          orderNo,
-          parentMenuId,
-        },
-        { where: { id } }
-      );
-      return new UpdateMenuResponseDto(
-        HttpStatus.CREATED,
-        'Menu created successfully'
-      );
+		// check if menu was found or not
+		if (!updateResult) {
+			throw new CustomException(
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+			);
+		}
 
-      // if both parentMenuId and orderNo provided
-    } else {
-      // check if orderNo available
-      const isOrderNoAvailable = await this.isOrderNoAvailable({
-        where: { parentMenuId, orderNo },
-        plain: true,
-      });
+		return new UpdateMenuResponseDto(HttpStatus.OK, 'Menu updated successfully')
+	}
 
-      if (isOrderNoAvailable) {
-        await this.menusRepo.update<Menus>(
-          {
-            ...updateMenuRequestDto,
-            parentMenuId,
-            orderNo,
-          },
-          { where: { id } }
-        );
-        return new UpdateMenuResponseDto(
-          HttpStatus.CREATED,
-          'Menu updated successfully'
-        );
-      } else {
-        throw new CustomException(
-          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
-          Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
-        );
-      }
-    }
-  }
+	async updateOrderNumber(
+		id: number,
+		updateOrderNumberRequestDto: UpdateOrderNumberRequestDto
+		): Promise<UpdateMenuResponseDto> {
+		let { orderNo, parentMenuId } = updateOrderNumberRequestDto;
+		let isOrderNoAvailable = true;
 
-  async deleteMenus(id: number[]): Promise<DeleteMenuResponseDto> {
-    const originalId = id;
+		// check if none of the parameters are provided
+		if (orderNo === undefined && parentMenuId === undefined) {
+			throw new CustomException(
+				Exceptions[ExceptionType.ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED].message,
+				Exceptions[ExceptionType.ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED].status
+			);
+		}
 
-    // find the menus
-    const menus = await this.menusRepo.findAll({
-      where: { id },
-      include: [{ model: Menus, as: 'childMenus' }],
-    });
+		// if id and parentMenuId are same, throw exception
+		if (id === parentMenuId) {
+			throw new CustomException(
+				Exceptions[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT].message,
+				Exceptions[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT].status
+			);
+		}
 
-    // check if any of the menus have childMenus, if yes, then dont allow delete
-    menus.forEach((menu) => {
-      if (menu.childMenus.length > 0) {
-        id = id.filter((item) => {
-          if (item != menu.id) {
-            return item;
-          }
-        });
-      }
-    });
+		const menu = await this.menusRepo.findOne({
+			where: { id },
+			include: [{ model: Menus, as: 'childMenus' }],
+		});
 
-    // if menus having children have been found, return unsuccessful reponse with their ids
-    if (id.length !== originalId.length) {
-      id = id
-        .filter((x) => !originalId.includes(x))
-        .concat(originalId.filter((x) => !id.includes(x)));
-      throw new BadRequestException(
-        `Menu(s) with ID: ${id.join(
-          ', '
-        )} contain child menus and cannot be deleted.`
-      );
-    }
+		// check if menu was found or not
+		if (!menu) {
+			throw new CustomException(
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+			);
+		}
 
-    const deletedNumber = await this.menusRepo.destroy<Menus>({
-      where: { id },
-    });
+		// if update values are same as original then return error
+		if (parentMenuId === menu?.parentMenuId || orderNo === menu?.orderNo) {
+			throw new CustomException(
+				Exceptions[
+					ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL
+				].message,
+				Exceptions[
+					ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL
+				].status
+			);
+		}
 
-    // if not all menus were deleted then they are not found
-    if (deletedNumber !== id.length) {
-      return new DeleteMenuResponseDto(
-        HttpStatus.OK,
-        `${deletedNumber} menus were deleted. ${
-          id.length - deletedNumber
-        } menu(s) were not found.`
-      );
-    }
-    return new DeleteMenuResponseDto(
-      HttpStatus.OK,
-      `${deletedNumber} menu(s) deleted successfully.`
-    );
-  }
+		// case: if parentMenuId is not provided (it means it will be main menu)
+		if (parentMenuId === undefined) {
+			if (orderNo) {
+				// if orderNo provided then check if available
+				isOrderNoAvailable = await this.isOrderNoAvailable({
+					where: { parentMenuId: null, orderNo },
+					plain: true,
+				});
+			}
 
-  async elkSearch(searchObj) {
-    let result: any = (
-      await ElkService.search({
-        index: searchObj.index,
-        size: 100,
-        query: { match: searchObj.match },
-      })
-    ).map((item) => item._source as Menus);
-    console.time('Filling Parent Menu');
-    // result = await Promise.all(
-    //   result.map(async (menu) => {
-    //     if (menu.parentMenuId) {
-    //       const pMenu = await this.menusRepo.findOne({
-    //         where: { id: menu.parentMenuId },
-    //         raw: true,
-    //       });
-    //       menu.parent = pMenu;
-    //     }
-    //     return menu;
-    //   })
-    // );
+			if (isOrderNoAvailable) {
+				await this.menusRepo.update<Menus>(
+					{
+						orderNo,
+					},
+					{ where: { id } }
+				);
+				return new UpdateMenuResponseDto(
+					HttpStatus.OK,
+					'Menu updated successfully'
+				);
+			} else {
+				throw new CustomException(
+					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
+					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
+				);
+			}
 
-    // //////////////////////////////////////
-    const ids: any[] = [
-      ...new Set(
-        result
-          .filter((item) => item.parentMenuId != null)
-          .map((element) => element.parentMenuId)
-      ),
-    ];
+			// case: if orderNo not provided  but parentMenuId provided
+		} else if (orderNo === undefined) {
+			// find a suitable orderNo
+			orderNo = await this.findSuitableOrderNo({ where: { parentMenuId } });
 
-    const menus = await this.menusRepo.findAll({
-      where: { id: ids },
-      raw: true,
-    });
-    const parentMenuObject = {};
-    menus.forEach((menu) => {
-      parentMenuObject[menu.id] = menu;
-    });
+			await this.menusRepo.update<Menus>(
+				{
+					orderNo,
+					parentMenuId,
+				},
+				{ where: { id } }
+			);
+			return new UpdateMenuResponseDto(
+				HttpStatus.OK,
+				'Menu created successfully'
+			);
 
-    result
-      .filter((menu) => menu.parentMenuId != null)
-      .forEach((menu) => {
-        menu.parent = parentMenuObject[menu.parentMenuId];
-      });
+			// if both parentMenuId and orderNo provided
+		} else {
+			// check if orderNo available
+			const isOrderNoAvailable = await this.isOrderNoAvailable({
+				where: { parentMenuId, orderNo },
+				plain: true,
+			});
 
-    return result;
-  }
+			if (isOrderNoAvailable) {
+				await this.menusRepo.update<Menus>(
+					{
+						parentMenuId,
+						orderNo,
+					},
+					{ where: { id } }
+				);
+				return new UpdateMenuResponseDto(
+					HttpStatus.OK,
+					'Menu updated successfully'
+				);
+			} else {
+				throw new CustomException(
+					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
+					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
+				);
+			}
+		}
+	}
 
-  // find suitable order number for insertion
-  async findSuitableOrderNo(where: FindOptions<Menus>): Promise<number> {
-    // find orders corresponding to given parameters
-    const orders = await this.menusRepo.findAll<Menus>({
-      ...where,
-      attributes: ['orderNo'],
-      order: [['orderNo', 'DESC']],
-      limit: 1,
-      raw: true,
-    });
+	async deleteMenus(id: number[]): Promise<DeleteMenuResponseDto> {
+		const originalId = id;
 
-    // add 1 to highest order number to generate new orderNo, or 0 if first one
-    return orders[0] ? orders[0].orderNo + 1 : 0;
-  }
+		// find the menus
+		const menus = await this.menusRepo.findAll({
+			where: { id },
+			include: [{ model: Menus, as: 'childMenus' }],
+		});
 
-  // find if a given orderNo is available or already occupied
-  async isOrderNoAvailable(findOptions: FindOptions<Menus>): Promise<boolean> {
-    const order = await this.menusRepo.findOne<Menus>(findOptions);
+		// check if any of the menus have childMenus, if yes, then dont allow delete
+		menus.forEach((menu) => {
+			if (menu.childMenus.length > 0) {
+				id = id.filter((item) => {
+					if (item != menu.id) {
+						return item;
+					}
+				});
+			}
+		});
 
-    // if orderNo available return true else return false
-    return order ? false : true;
-  }
+		// if menus having children have been found, return unsuccessful reponse with their ids
+		if (id.length !== originalId.length) {
+			id = id
+				.filter((x) => !originalId.includes(x))
+				.concat(originalId.filter((x) => !id.includes(x)));
+			throw new BadRequestException(
+				`Menu(s) with ID: ${id.join(
+					', '
+				)} contain child menus and cannot be deleted.`
+			);
+		}
+
+		const deletedNumber = await this.menusRepo.destroy<Menus>({
+			where: { id },
+		});
+
+		// if not all menus were deleted then they are not found
+		if (deletedNumber !== id.length) {
+			return new DeleteMenuResponseDto(
+				HttpStatus.OK,
+				`${deletedNumber} menus were deleted. ${id.length - deletedNumber
+				} menu(s) were not found.`
+			);
+		}
+		return new DeleteMenuResponseDto(
+			HttpStatus.OK,
+			`${deletedNumber} menu(s) deleted successfully.`
+		);
+	}
+
+	// find suitable order number for insertion
+	async findSuitableOrderNo(where: FindOptions<Menus>): Promise<number> {
+		// find orders corresponding to given parameters
+		const orders = await this.menusRepo.findAll<Menus>({
+			...where,
+			attributes: ['orderNo'],
+			order: [['orderNo', 'DESC']],
+			limit: 1,
+			raw: true,
+		});
+
+		// add 1 to highest order number to generate new orderNo, or 0 if first one
+		return orders[0] ? orders[0].orderNo + 1 : 0;
+	}
+
+	// find if a given orderNo is available or already occupied
+	async isOrderNoAvailable(findOptions: FindOptions<Menus>): Promise<boolean> {
+		const order = await this.menusRepo.findOne<Menus>(findOptions);
+
+		// if orderNo available return true else return false
+		return order ? false : true;
+	}
 }

@@ -5,12 +5,13 @@ import {
 	SearchNewsRequestDto
 } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
-import { BreakingNews, News, Users } from '@cnbc-monorepo/entity';
+import { BreakingNews, News, NewsVisitors, Users } from '@cnbc-monorepo/entity';
 import {
 	CustomException,
 	Exceptions,
 	ExceptionType
 } from '@cnbc-monorepo/exception-handling';
+import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Op } from 'sequelize';
 
@@ -18,12 +19,30 @@ import { Op } from 'sequelize';
 export class NewsService {
 	constructor(
 		@Inject('NEWS_REPOSITORY')
-		private newsRepository: typeof News
+		private newsRepository: typeof News,
+
+		@Inject('NEWS_VISITORS_REPOSITORY')
+		private newsVisitorsRepository: typeof NewsVisitors,
+
+		private helperService: Helper
 	) { }
 
-	async getNewsById(id: number): Promise<GetNewsByIdResponseDto> {
+	async getNewsById(id: number, req): Promise<GetNewsByIdResponseDto> {
+		console.log("🚀 ~ file: news.service.ts ~ line 28 ~ NewsService ~ getNewsById ~ req", req.ip)
 		const news_exists = await this.newsExists(id);
 		if (news_exists) {
+			// extract ip address from request
+			const ipAddress = this.helperService.extractIP(req);
+			// find newsVisitor having this ip address who has already visited this news
+			this.newsVisitorsRepository.findOne({ where: { ipAddress, newsId: id } }).then(res => {
+				if (res) {
+					// if found then update counter
+					this.newsVisitorsRepository.update({ ...res, count: res.count + 1 }, { where: { ipAddress, newsId: id } })
+				} else {
+					// if not found then create new entry
+					this.newsVisitorsRepository.create({ ipAddress, visitDate: new Date().toDateString(), count: 1, newsId: id })
+				}
+			})
 			return new GetNewsByIdResponseDto(
 				HttpStatus.OK,
 				'News fetched successfully',
@@ -43,9 +62,9 @@ export class NewsService {
 			from: paginationDTO.pageNo - 1,
 			size: paginationDTO.limit,
 			sort: "updatedAt:desc",
-			track_scores:true,
+			track_scores: true,
 			query: {
-				
+
 				bool: {
 					must: [{
 						match: {
@@ -60,7 +79,7 @@ export class NewsService {
 	}
 
 	async elkGetNewsByFlags(getNewsByFlagsRequestDto: GetNewsByFlagsRequestDto) {
-		const { isBreaking, isFeatured, isTrending, isEditorsChoice } = getNewsByFlagsRequestDto
+		const { isExclusiveVideos, isBreaking, isFeatured, isTrending, isEditorsChoice } = getNewsByFlagsRequestDto
 
 		// breaking news will be fetched through DB, others will be fetched ELK
 		if (isBreaking !== undefined) {
@@ -99,6 +118,14 @@ export class NewsService {
 			})
 		}
 
+		if (isExclusiveVideos !== undefined) {
+			filtersArray.push({
+				match: {
+					isExclusiveVideos
+				}
+			})
+		}
+
 		return ElkService.search({
 			index: 'news',
 			from: getNewsByFlagsRequestDto.pageNo - 1,
@@ -117,31 +144,11 @@ export class NewsService {
 	elkSearchNews(searchNewsRequestDto: SearchNewsRequestDto) {
 		const { title, content, tags, quotes } = searchNewsRequestDto;
 
-		// const query = {
-		// 	match: {},
-		// 	terms: {}
-		// };
+		const shouldArray = [];
 
-		// // title ? match[title] : null
-
-		// for (const key of Object.keys(searchNewsRequestDto)) {
-		//   if (typeof searchNewsRequestDto[key] === 'string') {
-		//     query.match[key] = searchNewsRequestDto[key];
-		//   } else if(Array.isArray(searchNewsRequestDto[key])) {
-		// 		match
-		// 	}
-		// }
-
-		const mustArray = [];
-
-		// const query = {
-		//   bool: {
-		//     must: [],
-		//   },
-		// } as QueryDslQueryContainer;
 
 		if (title) {
-			mustArray.push({
+			shouldArray.push({
 				query_string: {
 					default_field: 'title',
 					query: title,
@@ -150,7 +157,7 @@ export class NewsService {
 		}
 
 		if (content) {
-			mustArray.push({
+			shouldArray.push({
 				query_string: {
 					default_field: 'content',
 					query: content,
@@ -159,7 +166,7 @@ export class NewsService {
 		}
 
 		if (tags?.length > 0) {
-			mustArray.push({
+			shouldArray.push({
 				query_string: {
 					default_field: 'tags',
 					query: tags[0],
@@ -168,7 +175,7 @@ export class NewsService {
 		}
 
 		if (quotes?.length > 0) {
-			mustArray.push({
+			shouldArray.push({
 				query_string: {
 					default_field: 'quotes',
 					query: quotes[0],
@@ -181,8 +188,8 @@ export class NewsService {
 			sort: "updatedAt:desc",
 			query: {
 				bool: {
-					must: mustArray
-				}
+					should: shouldArray
+				},
 			},
 		});
 	}

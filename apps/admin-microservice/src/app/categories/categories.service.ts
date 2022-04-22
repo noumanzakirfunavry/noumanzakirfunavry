@@ -107,11 +107,12 @@ export class CategoriesService {
 
             {
                 include: ['user', {
-                    model: Categories, as: 'sub', required: false, where: {
-                        ...where,
-                    }
+                    model: Categories, as: 'sub', required: false, 
+										// where: {
+                    //     ...where,
+                    // }
                 }],
-                where: { ...where },
+                where: { ...where, parentCategoryId: null },
                 limit,
                 offset
             }

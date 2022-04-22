@@ -101,6 +101,11 @@ table tr td.ant-table-selection-column, table tr th.ant-table-selection-column{
 .ant-table thead > tr > th.w_80 {
     width: 80px;
 }
+.ant-table-tbody > tr > td{
+    a{
+        color: #53535f;
+    }
+}
 
 @media (min-width:1600px) {
     .ant-table thead > tr > th.title_col {

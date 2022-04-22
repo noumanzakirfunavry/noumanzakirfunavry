@@ -7,8 +7,9 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
+import { PaginatedRequestDto } from '../pagination.request.dto';
 
-export class GetMenuRequestDto {
+export class GetMenuRequestDto extends PaginatedRequestDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
