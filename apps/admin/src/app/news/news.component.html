@@ -17,8 +17,9 @@
                             <th class="title_col">Title</th>
                             <th>Type</th>
                             <th>Category</th>
-                            <th>Created</th>
                             <th>User</th>
+                            <th>Created</th>
+                            
                             <th>Last Modified</th>
                             <th class="w_80">Views</th>
                             
@@ -38,8 +39,9 @@
                                 <a [routerLink]="['/news/update/' + news?.id]">{{news?.title}}</a></td>
                             <td>{{news?.newsType}}</td>
                             <td nzEllipsis><span *ngFor="let catNews of news?.categories" nz-tooltip [nzTooltipTitle]="catNews?.title">{{catNews?.title}}, </span></td>
-                            <td>{{news?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{news?.user?.name}}</td>
+                            <td>{{news?.createdAt | date:'dd-MM-YYYY'}}</td>
+                           
                             <td>{{news?.updatedAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{news?.views}}</td>
                             
