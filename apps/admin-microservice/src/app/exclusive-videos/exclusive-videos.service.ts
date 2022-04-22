@@ -38,36 +38,7 @@ export class ExclusiveVideosService {
 			throw err
 		}
 	}
-	async updateExclusiveVideo(body: CreateExclusiveVideosRequestDto, id: number): Promise<GenericResponseDto> {
-		try {
-			const exclusive_exists = await this.videoExists(id)
-			if (exclusive_exists) {
-				const update_exclusive = await this.updateExclusiveQuery(body, id)
-				if (update_exclusive) {
-					return new GenericResponseDto(
-						HttpStatus.OK,
-						"Updated successfully"
-					)
-				}
-				else {
-					throw new CustomException(
-						Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
-						Exceptions[ExceptionType.UNABLE_TO_UPDATE].status
-					)
-				}
-			}
-			else {
-				throw new CustomException(
-					Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-					Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-				)
-			}
-		}
-		catch (err) {
-			console.log("🚀 ~ file: exclusive-videos.service.ts ~ line 40 ~ ExclusiveVideosService ~ updateMessage ~ err", err)
-			throw err
-		}
-	}
+
 	async getAllExclusiveVideos(): Promise<GetAllExclusiveVideosResponseDto> {
 		try {
 			const results_array = await this.allVideosQuery()
@@ -129,6 +100,7 @@ export class ExclusiveVideosService {
 								}
 							}
 
+							// add update with flag: true
 							itemsToFlag.forEach(item => {
 								elkUpdateArray.push({
 									update: {
@@ -143,6 +115,7 @@ export class ExclusiveVideosService {
 									})
 							})
 
+							// add update with flag: 
 							itemsToDeflag.forEach(item => {
 								elkUpdateArray.push({
 									update: {
