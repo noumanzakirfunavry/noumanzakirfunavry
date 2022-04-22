@@ -77,7 +77,7 @@ export class PresentersService {
             where: {
                 id: id
             },
-						include: [{ model: Attachments, as: 'image' }]
+						include: ['attachments']
         })
     }
     async getPresenterById(id: number): Promise<GetPresentersByIdResponseDto> {
@@ -105,7 +105,7 @@ export class PresentersService {
     async getAllPresenters(query: GetAllPresentersRequestDto): Promise<GetAllPresentersResponseDto> {
         try {
             const response = await this.presentersRepository.findAndCountAll({
-                include: ['user', { model: Attachments, as: 'image' }],
+                include: ['user', 'attachments'],
                 where: {
                     ...(query.title &&
                     {
