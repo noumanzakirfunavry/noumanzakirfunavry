@@ -9,10 +9,8 @@ import {
 	PaginatedRequestDto,
 	UpdateMenuRequestDto,
 	UpdateMenuResponseDto,
-	UpdateOrderMenusRequestDto,
-	UpdateOrderNumberRequestDto
+	UpdateOrderMenusRequestDto
 } from '@cnbc-monorepo/dtos';
-import { ElkService } from '@cnbc-monorepo/elk';
 import { Menus, Users } from '@cnbc-monorepo/entity';
 import {
 	CustomException,

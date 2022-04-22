@@ -8,8 +8,7 @@ import {
 	GetMenusResponseDto,
 	UpdateMenuRequestDto,
 	UpdateMenuResponseDto,
-	UpdateOrderMenusRequestDto,
-	UpdateOrderNumberRequestDto
+	UpdateOrderMenusRequestDto
 } from '@cnbc-monorepo/dtos';
 import {
 	Body,
