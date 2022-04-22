@@ -45,7 +45,7 @@
                                     </div>
                                 </td>
                             </tr>
-                                <div *ngIf="expandedId===cat?.id" cdkDropList (cdkDropListDropped)="dropSubCategories($event, i)">
+                                <div class="sub_cat_block" *ngIf="expandedId===cat?.id" cdkDropList (cdkDropListDropped)="dropSubCategories($event, i)">
                                     <tr class="category-block" *ngFor="let subCat of cat?.sub" cdkDrag>
                                         <td [nzChecked]="setOfCheckedId.has(subCat?.id)" (nzCheckedChange)="onItemChecked(subCat?.id, $event)">
                                                 <i nz-icon nzType="drag" nzTheme="outline"></i>
