@@ -42,7 +42,9 @@ export class AddMenusComponent implements OnInit{
         title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
         position: [null, [Validators.required]],
         parentMenuId: [null],
-        url: [null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
+        url: [null, [Validators.required, 
+          // Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+        ]],
         isActive: [false],
         visible: [true, [Validators.required]],
         // orderNo: [1, [Validators.required]]
@@ -94,7 +96,9 @@ export class AddMenusComponent implements OnInit{
           title: [this.menuById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
           position: [this.menuById?.position || null, [Validators.required]],
           parentMenuId: [this.menuById?.parentMenuId || null],
-          url: [this.menuById?.url || null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
+          url: [this.menuById?.url || null, [Validators.required, 
+            // Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+          ]],
           isActive: [this.menuById?.isActive || false],
           visible: [this.menuById?.visible || true, [Validators.required]],
           // orderNo: [1, [Validators.required]]

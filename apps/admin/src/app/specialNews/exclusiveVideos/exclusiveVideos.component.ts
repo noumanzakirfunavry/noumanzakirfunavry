@@ -35,32 +35,32 @@ export class ExclusiveVideosComponent implements OnInit{
     exclusiveVideos: any[] = [
         {
             "position": 1,
-            "title" : "asdsa",
-            "description" : "asdasd",
+            "title" : "title1",
+            "description" : "description1",
             newsId: null
         },
         {
             "position": 2,
-            "title" : "asdsa",
-            "description" : "asdasd",
+            "title" : "title2",
+            "description" : "description2",
             newsId: null
         },
         {
             "position": 3,
-            "title" : "asdsa",
-            "description" : "asdasd",
+            "title" : "title3",
+            "description" : "description3",
             newsId: null
         },
         {
             "position": 4,
-            "title" : "asdsa",
-            "description" : "asdasd",
+            "title" : "title4",
+            "description" : "description4",
             newsId: null
         },
         {
             "position": 5,
-            "title" : "asdsa",
-            "description" : "asdasd",
+            "title" : "title5",
+            "description" : "description5",
             newsId: null
         }
     ];
@@ -89,7 +89,7 @@ export class ExclusiveVideosComponent implements OnInit{
     }
 
     getAllExclusiveVideos() {
-        this.apiService.sendRequest(requests.getAllExclusiveVideos, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res:any) => {
+        this.apiService.sendRequest(requests.getAllExclusiveVideos, 'get').subscribe((res:any) => {
             this.allExclusiveVideos= res.response.exclusiveVideos;
             this.exclusiveVideos = this.allExclusiveVideos && this.allExclusiveVideos.length > 0 ? this.allExclusiveVideos : this.exclusiveVideos;
             console.log("ALL-EXCLUSIVE-VIDEOS", this.allExclusiveVideos);
@@ -99,11 +99,19 @@ export class ExclusiveVideosComponent implements OnInit{
         })
     }
 
+    changeCategory(data){
+        console.log(data);
+    }
+
     changedNews(updatedNews) {
         const news = this.exclusiveVideos.findIndex(x => x.position == updatedNews.position);
-        if (news > -1 ) {
+        if (news > -1 && !this.findDuplicates()) {
             this.exclusiveVideos[news] = updatedNews;
-        }  else {
+        }
+        else if(this.exclusiveVideos.some(x=>!x.newsId)){
+            
+        }
+        else {
             const tempNews = updatedNews;
             setTimeout(() => {
                 this.exclusiveVideos[news] = tempNews;

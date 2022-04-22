@@ -91,11 +91,19 @@ export class EditorsChoiceComponent implements OnInit{
         })
     }
 
+    changeCategory(data){
+        console.log(data);
+    }
+
     changedNews(updatedNews) {
         const news = this.editorsChoice.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.editorsChoice[news] = updatedNews;
-        }  else {
+        }
+        else if(this.editorsChoice.some(x=>!x.newsId)){
+            
+        }
+        else {
             const tempNews = updatedNews;
             setTimeout(() => {
                 this.editorsChoice[news] = tempNews;
