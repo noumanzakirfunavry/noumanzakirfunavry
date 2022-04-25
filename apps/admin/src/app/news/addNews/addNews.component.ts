@@ -21,9 +21,9 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class AddNewsComponent implements OnInit {
     @ViewChild('myInput') myInputVariable: ElementRef;
     currentDate = new Date()
-    newsModal: NewsModal;
+    newsModel: NewsModal;
     newsForm: FormGroup;
-
+    isVisible:boolean=false;
     size = 'default';
 
     quotesForm: FormGroup;
@@ -55,10 +55,10 @@ export class AddNewsComponent implements OnInit {
         private route: Router, 
         private message: NzMessageService) { }
 
-    ngOnInit(): void {
+    ngOnInit =(): void => {
         const admin = JSON.parse(localStorage.getItem('admin') || '{}');
         this.tinyConfig={
-        apiKey:"pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4",
+        // apiKey:"pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4",
         base_url: '/tinymce',
         suffix: '.min',
         'plugins' : [
@@ -82,7 +82,8 @@ export class AddNewsComponent implements OnInit {
             editor.ui.registry.addMenuItem('myCustomMenuItem', {
               text: 'My Custom Menu Item',
               onAction: function() {
-                alert('Menu item clicked');
+                  this.isVisible=true;
+                // alert('Menu item clicked');
               }
             });
         },
@@ -162,11 +163,12 @@ export class AddNewsComponent implements OnInit {
             //     openerMethod: 'popup'
             // }
         }
+        
         this.initNewsForm();
         this.initQuoteForm();
         this.initTagForm();
 
-        this.newsModal = new NewsModal()
+        this.newsModel = new NewsModal()
         this.activatedRoute.params.subscribe(params => {
             this.newsId = parseInt(params.id);
             // if (!this.newsId) {
@@ -198,10 +200,10 @@ export class AddNewsComponent implements OnInit {
     getNews() {
         this.apiService.sendRequest(requests.getNewsById + this.newsId, 'get').subscribe((res: any) => {
             console.log("news data", res.response.news);
-            // this.newsModal=new NewsModal();
-            this.newsModal.populateFromServerModal(res.response.news);
-            this.newsModal.seoDetailId = res.response.news.seoDetailId;
-            console.log("view modal", this.newsModal);
+            // this.newsModel=new NewsModal();
+            this.newsModel.populateFromServerModal(res.response.news);
+            this.newsModel.seoDetailId = res.response.news.seoDetailId;
+            console.log("view modal", this.newsModel);
             this.populateNewsForm(res.response.news);
         })
     }
@@ -269,7 +271,7 @@ export class AddNewsComponent implements OnInit {
             obj['newsType']= 'ARTICLE';
         }
         // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
-        this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModal.toServerModal(obj, this.newsModal.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
+        this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModel.toServerModal(obj, this.newsModel.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
             console.log("News", res);
             this.initNewsForm();
             this.route.navigateByUrl('news/list')
@@ -297,7 +299,7 @@ export class AddNewsComponent implements OnInit {
         // this.isRecodedFile=fileObject.recorded ? fileObject.recorded:false;
         if (fileObject.file) {
             this.fileType = 'file';
-            this.newsModal.mainFile = fileObject.file;
+            this.newsModel.mainFile = fileObject.file;
             this.file = fileObject.file;
         } else if (fileObject.link) {
             this.fileType = 'link';
@@ -322,24 +324,24 @@ export class AddNewsComponent implements OnInit {
                 console.log("Data Uploaded");
                 console.log(res.body);
                 if(mainFile){
-                    this.newsModal.imageId = res.body.response.id;
-                    this.newsModal.fileUrl = res.body.response.url
+                    this.newsModel.imageId = res.body.response.id;
+                    this.newsModel.fileUrl = res.body.response.url
                 }else{
-                    this.newsModal.thumbnailId = res.body.response.id;
-                    this.newsModal.thumbnailUrl = environment.fileUrl + res.body.response.path
+                    this.newsModel.thumbnailId = res.body.response.id;
+                    this.newsModel.thumbnailUrl = environment.fileUrl + res.body.response.path
 
                 }
-                console.log("news modal with image id", this.newsModal);
+                console.log("news modal with image id", this.newsModel);
             }
         })
     }
 
     reset() {
         this.file= null;
-        this.newsModal.imageId= null;
-        this.newsModal.fileUrl= null;
-        this.newsModal.thumbnailId= null;
-        this.newsModal.thumbnailUrl= null;
+        this.newsModel.imageId= null;
+        this.newsModel.fileUrl= null;
+        this.newsModel.thumbnailId= null;
+        this.newsModel.thumbnailUrl= null;
         this.uploadProgress= null;
         this.myInputVariable.nativeElement.value = "";
     }

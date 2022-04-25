@@ -65,8 +65,8 @@
                             </nz-form-control>
                             <span *ngIf="uploadProgress" class="ml-4 mt-1">File Uploading Progress
                                 :{{uploadProgress}}%</span>
-                            <img *ngIf="newsModal?.fileUrl" class="mt-2" width="40%" height="40%"
-                                [src]="newsModal?.fileUrl">
+                            <img *ngIf="newsModel?.fileUrl" class="mt-2" width="40%" height="40%"
+                                [src]="newsModel?.fileUrl">
                         </nz-form-item>
                         <div *ngIf="file && !uploadProgress" style="color: Crimson;">Click upload button to upload
                             Image!</div>
@@ -82,7 +82,7 @@
                                  <span>Maximum file size 2MB</span>
                              </nz-form-control>
                              <span *ngIf="uploadProgress" class="ml-4 mb-2">File Uploading Progress :{{uploadProgress}}%</span>
-                            <img *ngIf="newsModal?.fileUrl" width="40%"  height="40%" [src]="newsModal?.fileUrl">
+                            <img *ngIf="newsModel?.fileUrl" width="40%"  height="40%" [src]="newsModel?.fileUrl">
                         </nz-form-item>
                         <button *ngIf="file" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
                     </div> -->
@@ -277,5 +277,10 @@
                 </nz-form-control>
             </nz-form-item>
         </form>
+    </div>
+
+    <div>
+        <!-- file modal -->
+        <!-- <tiny-file-modal [isVisible]="isVisible"></tiny-file-modal> -->
     </div>
 </section>
