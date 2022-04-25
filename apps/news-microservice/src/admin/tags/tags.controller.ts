@@ -25,21 +25,21 @@ export class TagsController{
         return await this.tagsService.getTagById(id)
     }
 
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 		@Rights(RightsTypes.MODIFY_TAGS)
     @Delete('delete/')
     async deleteTag(@Query() query:DeleteCategoryRequestDto){
         return await this.tagsService.deleteTag(query.ids)
     }
 
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 		@Rights(RightsTypes.MODIFY_TAGS)
     @Post('add')
     async addTag(@Req() req ,@Body() body:AddTagRequestDto){
         return await this.tagsService.addTag(body,req.user.data.id)
     }
 
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Put('update/:id')
 		@Rights(RightsTypes.MODIFY_TAGS)
     async updateTag(@Param('id') id:number,@Body() body){

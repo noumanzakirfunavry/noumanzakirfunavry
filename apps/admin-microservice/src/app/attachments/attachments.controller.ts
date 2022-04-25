@@ -27,7 +27,7 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 export class AttachmentsController {
   constructor(private attachmentsService: AttachmentsService) {}
 
-  @Roles(RoleTypes.Admin)
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
   @UseInterceptors(FileFieldsInterceptor([{ name: 'file' }]))
   @Post()
   async createAttachment(
@@ -42,7 +42,7 @@ export class AttachmentsController {
     );
   }
 
-  @Roles(RoleTypes.Admin)
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
   @Put(':id')
   async updateAttachment(
     @Param('id') id: number,
@@ -51,7 +51,7 @@ export class AttachmentsController {
     return await this.attachmentsService.updateAttachment(id, body);
   }
 
-  @Roles(RoleTypes.Admin)
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
   @Get('getAll')
   async getAllAttachments(
     @Query() query: GetAllEpisodesRequestDto
@@ -66,7 +66,7 @@ export class AttachmentsController {
     return await this.attachmentsService.deleteAttachments(query);
   }
 
-  @Roles(RoleTypes.Admin)
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
   @Get(':id')
   async getAttachmentById(
     @Param('id') id: number

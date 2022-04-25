@@ -8,7 +8,7 @@ import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 export class PagesController {
 	constructor(private readonly pagesService: PagesService) { }
 
-	@Roles(RoleTypes.Admin)
+	@Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 	@Rights(RightsTypes.MODIFY_PAGES)
 	@Post('/create')
 	create(@Body() createPageRequestDto: CreatePageRequestDto): Promise<CreatePageResponseDto> {
@@ -25,14 +25,14 @@ export class PagesController {
 		return this.pagesService.findOne(pageId);
 	}
 
-	@Roles(RoleTypes.Admin)
+	@Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 	@Rights(RightsTypes.MODIFY_PAGES)
 	@Patch('/update/:id')
 	update(@Param('id', ParseIntPipe) pageId: number, @Body() updatePageRequestDto: UpdatePageRequestDto): Promise<UpdatePageResponseDto> {
 		return this.pagesService.update(pageId, updatePageRequestDto);
 	}
 
-	@Roles(RoleTypes.Admin)
+	@Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 	@Rights(RightsTypes.MODIFY_PAGES)
 	@Delete('/delete/:id')
 	delete(@Param('id', ParseIntPipe) pageId: number): Promise<DeletePageResponseDto> {

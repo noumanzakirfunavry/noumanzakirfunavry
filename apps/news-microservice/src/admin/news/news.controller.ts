@@ -12,7 +12,7 @@ export class NewsController {
     ) { }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 		@Rights(RightsTypes.MODIFY_NEWS)
     @Post('add')
     async addNews(@Req() req, @Body() body: CreateNewsRequestDto): Promise<GenericResponseDto> {
@@ -20,7 +20,7 @@ export class NewsController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 		@Rights(RightsTypes.MODIFY_NEWS)
     @Put("update/:id")
     async updateNews(@Req() req, @Param("id") id: number, @Body() body: CreateNewsRequestDto): Promise<GenericResponseDto> {
@@ -28,7 +28,7 @@ export class NewsController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 		@Rights(RightsTypes.MODIFY_NEWS)
     @Delete("delete")
     async deleteNews(@Query() body: DeleteAlexaAudioRequestDto): Promise<GenericResponseDto> {
@@ -36,14 +36,14 @@ export class NewsController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get("getById/:id")
     async getNewsById(@Param("id") id: number): Promise<GetNewsByIdResponseDto> {
         return await this.newService.getNewsById(id)
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get('getAll')
     async getAllNews(@Query() query: GetAllNewsRequestDto): Promise<GenericResponseDto> {
         return await this.newService.getAllNews(query)
