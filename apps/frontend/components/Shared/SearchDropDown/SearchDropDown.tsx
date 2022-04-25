@@ -5,14 +5,18 @@ import backArrow from "../../../styles/images/backArrow.svg";
 import searchimg from "../../../styles/images/searchimg.jpg";
 import Title from "../../Title";
 
-const SearchDropDown:FC<any> = ({data}) => {
+const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal}) => {
 
     const keys = Object.keys(data)
+
+    //console.log()
+
+    //console.log("Search Dropdown:::::", data)
     return (
 
         <div className='searchResulstBox'>
             <div className="dropsearch d-flex align-items-center">
-            <input type="text" className="form-control" placeholder="amazon"/>
+            <input type="text" className="form-control" placeholder={searchVal}/>
             <a href="javascript:void(0)" className="search_icon">
                 <img src={search.src} alt="search" />
                 </a>
@@ -105,7 +109,33 @@ const SearchDropDown:FC<any> = ({data}) => {
             <div className="searchResultList">
                 <div className="NewsList">
                     <ul>
-                        <li>
+                        {
+                            newsSearchData?.length && newsSearchData?.map((news:any, index:number)=>{
+                                  return(
+                                    <li key={index}>
+                                        <div className="newsText">
+                                            <h6><a>{news?._source?.title}</a></h6>
+                                            {/*<p><a>أمريكا</a> 07 مارس 2022</p>*/}
+                                            <p>
+                                                { // to show tags
+                                                    news?._source?.tags?.map((tag: string, tagIndex: number) => {
+                                                        return(
+                                                            <a key={tagIndex} href="#">{tag}</a>
+                                                        )
+                                                    })  
+	                                             }
+                                                  07 مارس 2022
+                                            </p>
+                                        </div>
+                                        <div className="newsImage">
+                                            <img className="img-fluid" src={searchimg.src} />
+                                        </div>
+                                    </li>
+                                  )
+                              })
+                        }
+
+                        {/*<li>
                             <div className="newsText">
                                 <h6><a>
                                 ايدن: سيفقد حوالى 10 ملايين أميركي إعانات Amazon البطالة في حال عدم توقيع ترامب خطة الاقتصادي                                     </a></h6>
@@ -134,7 +164,7 @@ const SearchDropDown:FC<any> = ({data}) => {
                             <img className="img-fluid" src={searchimg.src} />
 
                             </div>
-                        </li>
+                    </li>*/}
                     </ul>
                 </div>
 

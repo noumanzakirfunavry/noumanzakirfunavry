@@ -14,18 +14,25 @@ import MobileHeader from './MobileHeader';
 import { CategoryProps } from '../../../types/Types';
 
 import GetData from '../../../services/GetData';
-import { requests } from '../../../services/Requests';
+import { requests, newsAPIClient } from '../../../services/Requests';
 
 
 
 const Header = () =>{
 
+    //TODO, will refactor code soon related to search dropdown
     const [showMenuList, setShowMenuList] = useState<boolean>(false)
     const [displaySerachDropDown, setDisplaySerachDropDown] = useState<boolean>(false)
     const [data, setData] = useState<any>({})
     const router = useRouter()
     const [moreMenuItems, setMoreMenuItems] = useState<any>([])  //[{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}]
     const [newsCategoriesList, setNewsCategoriesList] = useState<CategoryProps[]>([])
+
+    // news search data
+    const [newsSearchData, setNewsSearchData] = useState<any>([])
+
+    // search Val
+    const [searchVal, setSearchVal] = useState<any>("")
 
     const [scroll, setScroll] = useState(true);
 
@@ -89,6 +96,7 @@ const Header = () =>{
     const handleEvent = (event:any) => {
 
         setDisplaySerachDropDown(true)
+        setSearchVal(event.target.value)
         getData(event.target.value).then((res)=>{
             setData(res)
         }).catch(err=>{
@@ -109,6 +117,27 @@ const Header = () =>{
     const getData = async (value:string): Promise<any> => {
         //!value ? {}:
         //fetch data and return
+          
+
+        GetData(`http://157.90.67.186/zagTrader/api/TickerSearchAPIFull.php?st=test`, {}, 'get', false).then(res=>{
+
+            console.log('zagtrader');
+            console.log(res);
+        
+        }).catch(err=>{
+            console.warn(err)
+        })
+
+        GetData(`http://157.90.67.186:4001/news/api/client/news/search?searchTerm=${value}`, {}, 'post', false).then(res=>{
+
+            //console.log('News Search::::');
+            //console.log(res?.data);
+            setNewsSearchData(res?.data)
+        
+        }).catch(err=>{
+            console.warn(err)
+        });
+
         const data = {
             "16449": {
                 "MarketID": "105",
@@ -372,7 +401,7 @@ const Header = () =>{
                             </div>
                             <div className="search-header">
                                 <div className="search-box desktop_only">
-                                    <input type="text"  className="form-control" onClick={(e)=>handleEvent(e)} placeholder="ابحث في الموقع" />
+                                    <input type="text"  className="form-control" onChange={(e)=>handleEvent(e)} placeholder="ابحث في الموقع" />
                                     <span className="input-group-text"><i className="fa fa-search"></i></span>
                                 </div>
                                 {/* <div className="search-box mobile_only d-md-none">
@@ -387,7 +416,7 @@ const Header = () =>{
                                     </ul>
                                 </div>
                                 {
-                                    displaySerachDropDown && (<SearchDropDown data={data}/>)
+                                    displaySerachDropDown && (<SearchDropDown data={data} newsSearchData={newsSearchData} searchVal={searchVal} />)
                                 }
 
                             </div>
