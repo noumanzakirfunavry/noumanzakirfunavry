@@ -8,7 +8,7 @@ import Title from "apps/frontend/components/Title";
 import GetData from "apps/frontend/services/GetData";
 import { requests } from "apps/frontend/services/Requests";
 import Link from "next/link";
-import TimeAgo from 'react-timeago';
+import TimeAgoArabicFormat from "../../TimeAgoCustom/TimeAgoArabicFormat";
 
 
 const SideList:FC<SideListProps> = ({type, title}) =>{
@@ -23,8 +23,10 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
         }).catch(err=>{
             console.warn(err)
         })
+
       }, [])
 
+      
     return (
         <>
         <div className={styles.sidebar}>
@@ -179,8 +181,8 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
                                   return(
                                       <li key={index} >
                                           <div>
-                                            {/*<span><TimeAgo date={news?._source?.createdAt} /></span>*/}
-                                            <span>منذ 5 دقائق</span>
+                                            {/*<span>منذ 5 دقائق</span>*/}
+                                            <span><TimeAgoArabicFormat date={news?._source?.createdAt} /></span>
                                             <Link href={`/newsDetails/` + news?._id}><a>{news?._source?.title}</a></Link>
                                           </div>
                                       </li>
