@@ -47,7 +47,7 @@ export class AddNewsComponent implements OnInit {
     fileType: string;
     submitted= false;
     selectedCat: any;
-    loader: boolean=true;
+    loader= true;
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
@@ -283,10 +283,10 @@ export class AddNewsComponent implements OnInit {
                 console.log(res.body);
                 if(mainFile){
                     this.newsModal.imageId = res.body.response.id;
-                    this.newsModal.fileUrl = environment.fileUrl+ res.body.response.path
+                    this.newsModal.fileUrl = res.body.response.url;
                 }else{
                     this.newsModal.thumbnailId = res.body.response.id;
-                    this.newsModal.thumbnailUrl = environment.fileUrl + res.body.response.path
+                    this.newsModal.thumbnailUrl = res.body.response.url;
 
                 }
                 console.log("news modal with image id", this.newsModal);

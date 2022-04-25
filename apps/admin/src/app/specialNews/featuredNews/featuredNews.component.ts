@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -79,7 +80,7 @@ export class FeaturedNewsComponent implements OnInit {
     ];
 
 
-    constructor(private apiService: ApiService, private message: NzMessageService) { }
+    constructor(private apiService: ApiService, private message: NzMessageService, private route: Router) { }
 
 
     ngOnInit(): void {
@@ -164,6 +165,10 @@ export class FeaturedNewsComponent implements OnInit {
             })
         }
 
+    }
+
+    cancel() {
+        this.route.navigateByUrl('dashboard')
     }
 
 }    

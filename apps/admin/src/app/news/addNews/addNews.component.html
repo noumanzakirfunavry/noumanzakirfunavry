@@ -59,7 +59,7 @@
                             <img *ngIf="newsModal?.fileUrl" class="mt-2" width="40%"  height="40%" [src]="newsModal?.fileUrl">
                         </nz-form-item>
                         <div *ngIf="file && !uploadProgress" style="color: Crimson;">Click upload button to upload Image!</div>
-                        <button class="mr-2" *ngIf="file" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
+                        <button class="mr-2" *ngIf="file && uploadProgress!==100" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
                         <button *ngIf="file" (click)="[getCaptcha($event),reset()]">Reset</button>
                     </div>
                     <!-- <div class="col-sm-12 col-md-6">
@@ -98,7 +98,7 @@
 
 
 
-                    <nz-card class="bg-white">
+                    <nz-card class="bg-white mt-2">
                         <!-- <div class="m-t-40"> -->
                         <h4>10 Comments</h4>
                         <!-- [nzPagination]="pagination" -->
