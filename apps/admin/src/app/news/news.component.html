@@ -11,16 +11,18 @@
                 <nz-table [nzLoading]="loading" [nzShowPagination]="false" [nzData]="allNews" nzTableLayout="fixed">
                     <thead>
                         <tr>
-                            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                            <th class="w_50" [nzChecked]="checked" [nzIndeterminate]="indeterminate"
                                 (nzCheckedChange)="onAllChecked($event)"></th>
-                            <th>Title</th>
+                                <th class="w_80">Status</th>
+                            <th class="title_col">Title</th>
                             <th>Type</th>
                             <th>Category</th>
-                            <th>Created</th>
                             <th>User</th>
+                            <th>Created</th>
+                            
                             <th>Last Modified</th>
-                            <th>Views</th>
-                            <th>Status</th>
+                            <th class="w_80">Views</th>
+                            
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -28,18 +30,21 @@
                         <tr *ngFor="let news of allNews">
                             <td [nzChecked]="setOfCheckedId.has(news?.id)" [nzDisabled]="news.disabled"
                                 (nzCheckedChange)="onItemChecked(news?.id, $event)"></td>
+                                <td>
+                                    <nz-badge *ngIf="news?.isActive === true" nzStatus="success"></nz-badge>
+                                    <nz-badge *ngIf="news?.isActive === false"  nzStatus="error"></nz-badge> 
+                                </td>
+                            
                             <td nzEllipsis nz-tooltip [nzTooltipTitle]="news?.title">
                                 <a [routerLink]="['/news/update/' + news?.id]">{{news?.title}}</a></td>
                             <td>{{news?.newsType}}</td>
                             <td nzEllipsis><span *ngFor="let catNews of news?.categories" nz-tooltip [nzTooltipTitle]="catNews?.title">{{catNews?.title}}, </span></td>
-                            <td>{{news?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{news?.user?.name}}</td>
+                            <td>{{news?.createdAt | date:'dd-MM-YYYY'}}</td>
+                           
                             <td>{{news?.updatedAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{news?.views}}</td>
-                            <td>
-                                <nz-badge *ngIf="news?.isActive === true" nzStatus="success"></nz-badge>
-                                <nz-badge *ngIf="news?.isActive === false"  nzStatus="error"></nz-badge> 
-                            </td>
+                            
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i nz-tooltip nzTooltipTitle="Edit" class="mr-2" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/news/update/' + news?.id]"></i>

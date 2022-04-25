@@ -45,7 +45,6 @@ export class NewsTypeService {
 					itemDictionary[item.newsId] = 2;
 				});
 				let itemsToFlag = [];
-				let positionDetails = [];
 				let itemsToDeflag = [];
 
 				let elkUpdateArray = [];
@@ -141,6 +140,7 @@ export class NewsTypeService {
 		const response = await sequelize.getRepository(entity).destroy({
 			where: {},
 			truncate: true,
+			restartIdentity: true,
 			transaction: transactionHost.transaction
 		});
 		return response === 0 ? true : response

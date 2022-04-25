@@ -12,7 +12,7 @@ export class NewsTypeController {
     ){}
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get("featured/getAll")
     async getFeaturedNews() : Promise<GetAllFeaturedNewsResponseDto>{
         const featured_news =  await this.newsService.getAllNews(FeaturedNews)
@@ -24,7 +24,7 @@ export class NewsTypeController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get("trending/getAll")
     async getTrendingNews() : Promise<GetAllTrendingNewsResponseDto>{
         const trending_news =  await this.newsService.getAllNews(TrendingNews)
@@ -36,7 +36,7 @@ export class NewsTypeController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get("editors-choice-news/getAll")
     async getEditorsChoiceNews() : Promise<GetAllEditorsChoiceNewsResponseDto>{
         const editors_choice_news =  await this.newsService.getAllNews(EditorsChoiceNews)
@@ -48,21 +48,24 @@ export class NewsTypeController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
+		@Rights(RightsTypes.MODIFY_NEWS)
     @Put("featured/update")
     async updateFeaturedNews(@Req() req,@Body() body : UpdateFeaturedNewsRequestDto) : Promise<GenericResponseDto>{
         return await this.newsService.updateNews(FeaturedNews,body,req.user.data.id)
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
+		@Rights(RightsTypes.MODIFY_NEWS)
     @Put("trending/update")
     async updateTrendingNews(@Req() req,@Body() body : UpdateTrendingNewsRequestDto) : Promise<GenericResponseDto>{
         return await this.newsService.updateNews(TrendingNews,body,req.user.data.id)
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
+		@Rights(RightsTypes.MODIFY_NEWS)
     @Put("editors-choice-news/update")
     async updateEditorChoiceNews(@Req() req,@Body() body : UpdateEditorChoiceNewsRequestDto) : Promise<GenericResponseDto>{
         return await this.newsService.updateNews(EditorsChoiceNews,body,req.user.data.id)

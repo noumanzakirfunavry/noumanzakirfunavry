@@ -11,14 +11,14 @@ export class SystemConfigurationController {
     ){}
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Put()
     async updateSystemConfiguration(@Body() body : UpdateSiteConfiguration) : Promise<GenericResponseDto>{
         return await this.systemConfigurationService.updateSystemConfiguration(body)
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Put("google-analytics")
     async updateGoogleAnalytics(@Body() body : UpdateGoogleAnalyticsRequestDto) : Promise<GenericResponseDto>{
         return await this.systemConfigurationService.updateSystemConfiguration(body)

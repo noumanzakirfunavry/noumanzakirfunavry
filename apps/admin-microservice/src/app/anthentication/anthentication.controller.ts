@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
-import { GenericResponseDto, RegisterAdminRequestDto, RequestResetPasswordRequestDto, ResetPasswordRequestDto, UpdatePasswordRequestDto, UserLoginDto } from '@cnbc-monorepo/dtos'
+import { GenericResponseDto, RegisterAdminRequestDto, RequestResetPasswordRequestDto, ResetPasswordRequestDto, UpdateAdminRequestDto, UpdatePasswordRequestDto, UserLoginDto } from '@cnbc-monorepo/dtos'
 import { AnthenticationService } from './anthentication.service';
 import { JwtAuthGuard, Public, Rights, Roles } from '@cnbc-monorepo/auth-module';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
@@ -35,7 +35,7 @@ export class AnthenticationController {
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Put("update/:id")
-    async updateAdmin(@Param("id") id : number, @Body() body: RegisterAdminRequestDto): Promise<GenericResponseDto> {
+    async updateAdmin(@Param("id") id : number, @Body() body: UpdateAdminRequestDto): Promise<GenericResponseDto> {
         return await this.authService.updateAdmin(id, body)
     }
 
