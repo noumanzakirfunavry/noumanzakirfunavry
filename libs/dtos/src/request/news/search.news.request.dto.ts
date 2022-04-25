@@ -25,6 +25,5 @@ export class SearchNewsRequestDto {
   @IsString()
   @IsNotEmpty()
 	//  if provided, default term will be used to search entire news entity
-  fullBodySearchTerm: string;
-
+  searchTerm: string;
 }

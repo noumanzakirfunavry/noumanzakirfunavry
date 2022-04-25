@@ -142,7 +142,7 @@ export class NewsService {
 
 	// ! find a way to use the DTO directly
 	elkSearchNews(searchNewsRequestDto: SearchNewsRequestDto) {
-		const { title, content, tags, quotes, fullBodySearchTerm } = searchNewsRequestDto;
+		const { title, content, tags, quotes, searchTerm } = searchNewsRequestDto;
 
 		const shouldArray = [];
 
@@ -183,10 +183,10 @@ export class NewsService {
 			});
 		}
 
-		if (fullBodySearchTerm) {
+		if (searchTerm) {
 			shouldArray.push({
 				multi_match: {
-					query: fullBodySearchTerm
+					query: searchTerm
 				}
 			});
 		}
