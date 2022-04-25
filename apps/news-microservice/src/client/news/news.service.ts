@@ -142,7 +142,7 @@ export class NewsService {
 
 	// ! find a way to use the DTO directly
 	elkSearchNews(searchNewsRequestDto: SearchNewsRequestDto) {
-		const { title, content, tags, quotes } = searchNewsRequestDto;
+		const { title, content, tags, quotes, fullBodySearchTerm } = searchNewsRequestDto;
 
 		const shouldArray = [];
 
@@ -183,13 +183,22 @@ export class NewsService {
 			});
 		}
 
+		if (fullBodySearchTerm) {
+			shouldArray.push({
+				multi_match: {
+					query: fullBodySearchTerm
+				}
+			});
+		}
+
 		return ElkService.search({
 			index: 'news',
 			sort: "updatedAt:desc",
+			track_scores: true,
 			query: {
 				bool: {
 					should: shouldArray
-				},
+				}
 			},
 		});
 	}
