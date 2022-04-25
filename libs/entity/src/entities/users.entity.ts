@@ -30,7 +30,9 @@ import { UsersHasRights } from "./users.has.rights.entity";
 
 @Table({
     paranoid : true,
-    timestamps : true
+    timestamps : true,
+		// exclude following fields in select statements by default
+		defaultScope: { attributes: { exclude: ['password'] } },
 })
 export class Users extends Model{
 
