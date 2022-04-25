@@ -23,8 +23,7 @@ export class AnthenticationService {
 
     async loginUser(body: UserLoginDto) {
         try {
-            const response = await this.usersRepository.findOne({
-								attributes: ['id', 'name', 'email', 'password', 'isVerified', 'isActive'],
+            const response = await this.usersRepository.unscoped().findOne({
                 include: [Roles, Rights],
                 where: {
                     userName: body.userName,
