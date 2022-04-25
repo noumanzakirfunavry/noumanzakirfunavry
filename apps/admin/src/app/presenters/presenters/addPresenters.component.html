@@ -73,12 +73,20 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-12 col-md-6">
               <nz-form-item>
-                <h4>Profile Image</h4>
-                  <dynamic-file-selector (onFileSelection)="fileImage($event)" [formField]="presenterForm" [field]="{colName: 'attachmentsId', value: ''}"></dynamic-file-selector>
+                  <nz-form-label><h4>Profile Image</h4></nz-form-label>
+                  <nz-form-control nzErrorTip="Select File!">
+                  <nz-form-label nzRequired>Image Upload</nz-form-label>
+                       <input #myInput (change)="fileRead($event)" formControlName="attachmentsId" type="file" accept="jpg jpeg png gif" />
+                   </nz-form-control>
+                   <span *ngIf="uploadProgress" class="ml-4 mt-1">File Uploading Progress :{{uploadProgress}}%</span>
+                  <img *ngIf="imagePath" class="mt-2" width="40%"  height="40%" [src]="imagePath">
               </nz-form-item>
-            </div>
+              <div *ngIf="file && !uploadProgress" style="color: Crimson;">Click upload button to Upload Image!</div>
+              <button class="mr-2" *ngIf="file && uploadProgress!==100" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
+              <button class="mb-2" *ngIf="file" (click)="[getCaptcha($event),reset()]">Reset</button>
+          </div>
             <div class="col-md-6">
               <h4>General Settings</h4>
               <nz-form-item>
