@@ -15,14 +15,14 @@ export class BranchesController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get("getAll")
     async getAll(@Query() query: GetALLBranchesRequestDto) {
         return await this.breanchService.getAll(query)
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Post('add')
     async addBranch(@Req() req,@Body() body: AddBranchRequestDto) {
         return await this.breanchService.addBranch(body,req.user.data.id)

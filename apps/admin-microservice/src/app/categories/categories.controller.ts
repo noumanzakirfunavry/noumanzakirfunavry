@@ -10,7 +10,7 @@ export class CategoriesController{
         private categoryService:CategoriesService
     ){}
 
-		@Roles(RoleTypes.Admin)
+		@Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 		@Rights(RightsTypes.MODIFY_CATEGORIES)
     @Post('add')
     async add(@Req() req,@Body() body:AddCategoriesRequestDto){
@@ -22,7 +22,7 @@ export class CategoriesController{
         return await this.categoryService.getById(id)
     }
 
-		@Roles(RoleTypes.Admin)
+		@Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 		@Rights(RightsTypes.MODIFY_CATEGORIES)
     @Delete('delete') 
     async delete(@Query() query:DeleteCategoryRequestDto){
@@ -34,16 +34,15 @@ export class CategoriesController{
         return this.categoryService.getAll(query)
     }
 
-		@Roles(RoleTypes.Admin)
+		@Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 		@Rights(RightsTypes.MODIFY_CATEGORIES)
     @Put('update/:id')
     async update(@Param("id") id:number,@Body() body:UpdateCategoriesRequestDto){
         return await this.categoryService.update(id,body)
     }
 
-		@Roles(RoleTypes.Admin)
+		@Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 		@Rights(RightsTypes.MODIFY_CATEGORIES)
-    @Public()
     @Put('updateOrder')
     async updateOrder(@Body() body:UpdateOrderCategoriesRequestDto){
         return await this.categoryService.updateOrder(body)
