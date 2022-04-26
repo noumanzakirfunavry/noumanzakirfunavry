@@ -9,7 +9,7 @@ export const requests = {
     requestPasswordReset: environment.baseUrlAdmin + 'authentication/request/password/reset',
     addNewAttachment: environment.baseUrlAdmin+'attachments',
     getAttachmentDetailsById: 'http://localhost:3333/api/attachment/',
-    getAllAttachments: 'http://localhost:3333/api/attachment/',
+    getAllAttachments: environment.baseUrlAdmin+'attachments/getAll',
     updateAttachment: 'http://localhost:3333/api/attachment/',
     deleteAttachment: 'http://localhost:3333/api/attachment/',
     getAllAdmins: environment.baseUrlAdmin + 'getAll',
