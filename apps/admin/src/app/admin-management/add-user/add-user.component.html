@@ -44,7 +44,8 @@
           <div class="row">
             <div class="col-md-6">
               <nz-form-item>
-                <nz-form-label nzRequired>Password</nz-form-label>
+                <nz-form-label *ngIf="!userId" nzRequired>Password</nz-form-label>
+                <nz-form-label *ngIf="userId">Password</nz-form-label>
                 <nz-form-control nzErrorTip="Enter Password between 6 to 30 characters!">
                   <input type="password" formControlName="password" nz-input placeholder="Enter Password">
                 </nz-form-control>
@@ -52,7 +53,8 @@
             </div>
             <div class="col-md-6">
               <nz-form-item>
-                <nz-form-label nzRequired>Confirm Password</nz-form-label>
+                <nz-form-label *ngIf="!userId" nzRequired>Confirm Password</nz-form-label>
+                <nz-form-label *ngIf="userId">Confirm Password</nz-form-label>
                 <nz-form-control [nzErrorTip]="errorTpl">
                 <input type="password" formControlName="confirmPassword" nz-input placeholder="Confirm Password">
                 <ng-template #errorTpl let-control>

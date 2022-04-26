@@ -110,7 +110,7 @@ receiveFilter(data: Pagination) {
     }
 
     updateMenuOrder(ids?:Array<any>) {
-      this.apiService.sendRequest(requests.updateMenuOrder, 'put', {id:ids}).subscribe((res:any) => {
+      this.apiService.sendRequest(requests.updateMenuOrder, 'put', {ids:ids}).subscribe((res:any) => {
           console.log("MENU-ORDER", res);
       })
   }
