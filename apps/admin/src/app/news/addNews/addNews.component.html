@@ -38,7 +38,6 @@
                         <nz-form-item>
                             <nz-form-label nzRequired>Description</nz-form-label>
                             <nz-form-control nzErrorTip="Enter Description maximum 1500 characters allowed!">
-                                <!-- <h1>TinyMCE 6 Angular Demo</h1> -->
                                 <ng-container *ngIf="tinyConfig">
                                     <editor formControlName="content" [init]="tinyConfig"></editor>
                                 </ng-container>
@@ -48,12 +47,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <nz-form-item>
-                            <!-- <dynamic-file-selector></dynamic-file-selector> -->
-                            <!-- <shared-file-uploader [title]="'Select Image/Video'" [btnLable]="'Upload'" [fileTypes]="'image/png, image/jpeg, image/jpg,video/mp4'"></shared-file-uploader> -->
-                            <!-- <app-file-uploader [fileLimit]="1" [fileTypes]="'image/png, image/jpeg, image/jpg,video/mp4'"
-                                (onFileSelection)="fileSelection($event)"></app-file-uploader> -->
-
-                            <!-- <shared-file-uploader></shared-file-uploader> -->
+                           
                             <nz-form-label>
                                 <h4>Upload Media</h4>
                             </nz-form-label>
@@ -72,41 +66,6 @@
                         <button class="mr-2" *ngIf="file && uploadProgress!==100" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
                         <button *ngIf="file" (click)="[getCaptcha($event),reset()]">Reset</button>
                     </div>
-                    <!-- <div class="col-sm-12 col-md-6">
-                        <nz-form-item>                          
-                            <nz-form-label>Thumbnail Image</nz-form-label>
-                             <nz-form-control>
-                                <nz-form-label>Thumbnail Image Upload</nz-form-label>
-                                 <input (change)="fileRead($event)" formControlName="file" type="file" accept="jpg jpeg png gif" />
-                                 <span>Maximum file size 2MB</span>
-                             </nz-form-control>
-                             <span *ngIf="uploadProgress" class="ml-4 mb-2">File Uploading Progress :{{uploadProgress}}%</span>
-                            <img *ngIf="newsModel?.fileUrl" width="40%"  height="40%" [src]="newsModel?.fileUrl">
-                        </nz-form-item>
-                        <button *ngIf="file" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
-                    </div> -->
-                    <!-- <div class="col-md-12">
-                    
-                    <nz-card>
-                        <nz-upload
-                        nzAction="https://jsonplaceholder.typicode.com/posts/"
-                        nzListType="picture-card"
-                        [(nzFileList)]="fileList"
-                        [nzShowButton]="fileList.length < 15"
-                        [nzPreview]="handlePreview">
-                        <i nz-icon nzType="plus"></i>
-                        <div class="ant-upload-text">Upload</div>
-                    </nz-upload>
-                    <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
-                        <ng-template #modalContent>
-                            <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
-                        </ng-template>
-                    </nz-modal>
-                </nz-card>
-                
-            </div> -->
-
-
 
                     <nz-card class="bg-white mt-2">
                         <!-- <div class="m-t-40"> -->
@@ -152,6 +111,7 @@
                             </nz-form-control>
                         </nz-form-item>
                     </div>
+                    <!-- do not remove this section  -->
                     <!-- <div>
                         <h4 class="mb-2">Sharing Settings</h4>
                         <nz-form-item>

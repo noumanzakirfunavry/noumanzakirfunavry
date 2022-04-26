@@ -7,9 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NewsModel } from '../../common/models/newsModal';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentListData } from './mockComments';
-import { environment } from '../../../environments/environment';
+
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { BehaviorSubject } from 'rxjs';
 // import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 // import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
@@ -118,61 +117,7 @@ export class AddNewsComponent implements OnInit {
                 }
             }
         }
-        this.config = {
-            // plugins: [CKFinder , ],
-            // plugins: [SimpleUploadAdapter , ],
-            language: 'ar',
-            // simpleUpload: {
-            //     // The URL that the images are uploaded to.
-            //     uploadUrl: requests.addNewAttachment,
-
-            //     // Enable the XMLHttpRequest.withCredentials property.
-            //     withCredentials: true,
-
-            //     // Headers sent along with the XMLHttpRequest to the upload server.
-            //     headers: {
-            //         'X-CSRF-TOKEN': 'CSRF-Token',
-            //         Authorization: 'Bearer '+admin.token.access_token
-            //     }
-            // },
-            ckfinder: {
-                // uploadUrl: 'https://ckfinder.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
-                openerMethod: 'popup',
-                uploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-                filebrowserBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles',
-                filebrowserImageBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles?type=Images',
-                filebrowserUploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                // uploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-                // filebrowserBrowseUrl: 'http://localhost:80/ckfinder/userfiles',
-                // filebrowserImageBrowseUrl: 'http://localhost:80/ckfinder/userfiles?type=Images',
-                // filebrowserUploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                // filebrowserImageUploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-
-                options: {
-                    resourceType: 'Images'
-                }
-            },
-            // toolbar: [ 'ckfinder','uploadImage', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
-            toolbar: ['heading', '|',
-                'fontfamily', 'fontsize',
-                'alignment',
-                'fontColor', 'fontBackgroundColor', '|',
-                'bold', 'italic', 'custombutton', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
-                'link', '|',
-                'outdent', 'indent', '|',
-                'bulletedList', 'numberedList', '|',
-                'code', 'codeBlock', '|',
-                'insertTable', '|',
-                'ckfinder', 'imageUpload', 'blockQuote', '|',
-                'undo', 'redo', '|',
-                'youtube',
-                'mediaEmbed']
-            // ckfinder: {
-            //     // Open the file manager in the pop-up window.
-            //     openerMethod: 'popup'
-            // }
-        }
+       
 
         this.initQuoteForm();
         this.initTagForm();
