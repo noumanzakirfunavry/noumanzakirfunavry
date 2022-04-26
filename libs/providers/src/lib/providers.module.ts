@@ -39,6 +39,7 @@ import { TrendingNewsProvider } from '../providers/trending.news.provider';
 import { MenusProvider } from '../providers/menus.provider';
 import { MarketsProvider } from '../providers/markets.provider';
 import { PagesProvider } from '../providers/pages.provider';
+import { ProgramsProvider } from '../providers/programs.provider';
 
 @Module({
   providers: [
@@ -82,7 +83,8 @@ import { PagesProvider } from '../providers/pages.provider';
     ...ExclusiveVideosProvider,
 		...MenusProvider,
 		...MarketsProvider,
-		...PagesProvider
+		...PagesProvider,
+		...ProgramsProvider
 
   ],
   exports: [
@@ -125,8 +127,8 @@ import { PagesProvider } from '../providers/pages.provider';
     ...ExclusiveVideosProvider,
 		...MenusProvider,
 		...MarketsProvider,
-		...PagesProvider
-
+		...PagesProvider,
+		...ProgramsProvider
   ],
 })
 export class ProvidersModule {}
