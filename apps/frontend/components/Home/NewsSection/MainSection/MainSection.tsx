@@ -18,10 +18,11 @@ const MainSection = ({ newsList }) => {
     // })
     
     return (
+        
         <>
             <div className="row">
                 <div className="col-lg-8 p_sm_0">
-                    <div className={styles.mainNews} style={{background: `url(${baseUrlAdmin+newsList[0]?._source?.image?.path}) no-repeat`}} >
+                    <div className={styles.mainNews} style={{background: `url(${baseUrlAdmin+encodeURIComponent(newsList[0]?._source?.image?.path)}) no-repeat`}} >
                         <div className={styles.newscontent} >
                             {/* <h1><a >النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب</a></h1>
                                 <hr></hr>
