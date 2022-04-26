@@ -14,7 +14,7 @@ import MobileHeader from './MobileHeader';
 import { CategoryProps } from '../../../types/Types';
 
 import GetData from '../../../services/GetData';
-import { requests, newsAPIClient } from '../../../services/Requests';
+import { requests } from '../../../services/Requests';
 
 
 
@@ -22,7 +22,7 @@ const Header = () =>{
 
     //TODO, will refactor code soon related to search dropdown
     const [showMenuList, setShowMenuList] = useState<boolean>(false)
-    const [displaySerachDropDown, setDisplaySerachDropDown] = useState<boolean>(false)
+    const [displaySearchDropDown, setdisplaySearchDropDown] = useState<boolean>(false)
     const [data, setData] = useState<any>({})
     const router = useRouter()
     const [moreMenuItems, setMoreMenuItems] = useState<any>([])  //[{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}]
@@ -93,9 +93,14 @@ const Header = () =>{
         setShowMenuList(!showMenuList)
     }
 
+    /*const handleNavigation = (path: string) => {
+        console.log('navigated')
+       router.push(`/${path}`)
+    }*/
+
     const handleEvent = (event:any) => {
 
-        setDisplaySerachDropDown(true)
+        setdisplaySearchDropDown(true)
         setSearchVal(event.target.value)
         getData(event.target.value).then((res)=>{
             setData(res)
@@ -106,7 +111,8 @@ const Header = () =>{
     }
 
     const handleClickOutside = () => {
-        setDisplaySerachDropDown(false)
+        setdisplaySearchDropDown(false)
+        setSearchVal('')
     }
 
     const handleRouting = (url:string, index:number) =>{
@@ -128,10 +134,8 @@ const Header = () =>{
             console.warn(err)
         })
 
-        GetData(`http://157.90.67.186:4001/news/api/client/news/search?searchTerm=${value}`, {}, 'post', false).then(res=>{
-
-            //console.log('News Search::::');
-            //console.log(res?.data);
+        
+        GetData(`${requests.search}searchTerm=${value}`, {}, 'post', false).then(res=>{
             setNewsSearchData(res?.data)
         
         }).catch(err=>{
@@ -416,7 +420,7 @@ const Header = () =>{
                                     </ul>
                                 </div>
                                 {
-                                    displaySerachDropDown && (<SearchDropDown data={data} newsSearchData={newsSearchData} searchVal={searchVal} />)
+                                    displaySearchDropDown && (<SearchDropDown data={data} newsSearchData={newsSearchData} searchVal={searchVal} />)
                                 }
 
                             </div>

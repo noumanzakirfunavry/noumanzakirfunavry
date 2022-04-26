@@ -90,3 +90,11 @@ const pluralized = function(num: number, str: string) {
         }
 
 };
+
+
+export const GetArabicFormattedDate = (dateVal: string) =>
+{
+        const date = new Date(dateVal);
+        return date.toLocaleString('ar-EG-u-nu-latn',{day: 'numeric', month: 'short', year: 'numeric'});
+        
+}

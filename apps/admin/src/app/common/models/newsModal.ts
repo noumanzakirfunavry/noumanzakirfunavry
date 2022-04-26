@@ -1,7 +1,7 @@
 import { environment } from "../../../environments/environment";
 import { SeoModal } from "../../common/models/seo.modal";
 
-export class NewsModal {
+export class NewsModel {
     title: string;
     content: string;
     isPro: boolean;

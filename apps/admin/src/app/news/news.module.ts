@@ -23,6 +23,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 // import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
 import { CommonModule } from '@angular/common';
 // import * as  DtosModule from "./../../../../../libs/dtos/src";
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { FileModalComponent } from './file-modal/file-modal.component';
+
 const icons: IconDefinition[] = [LeftOutline, RightOutline];
 
 
@@ -44,6 +47,7 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         NzTreeSelectModule,
         CKEditorModule,
         NzToolTipModule,
+        EditorModule
         // FileUploaderModule
         // DtosModule
     ],
@@ -52,10 +56,13 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         AddNewsComponent,
         FilterNewsComponent,
         NewsComponent,
+        FileModalComponent
         // FileSelectorComponent
     ],
     providers: [
-        ThemeConstantService
+        ThemeConstantService,
+        { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
+
     ],
 })
 export class NewsModule { }

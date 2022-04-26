@@ -25,6 +25,11 @@
             "glob": "**/*",
             "input": "node_modules/@ant-design/icons-angular/src/inline-svg/",
             "output": "/assets/"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/tinymce",
+            "output": "/tinymce/"
           }
         ],
         "styles": [
@@ -32,7 +37,8 @@
         ],
         "scripts": [
           "node_modules/jquery/dist/jquery.js",
-          "apps/admin/src/assets/lib/hljs/highlight.pack.js"
+          "apps/admin/src/assets/lib/hljs/highlight.pack.js",
+          "node_modules/tinymce/tinymce.min.js"
         ]
       },
       "configurations": {
