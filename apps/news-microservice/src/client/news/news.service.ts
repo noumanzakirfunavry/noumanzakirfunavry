@@ -1,4 +1,5 @@
 import {
+	GenericResponseDto,
 	GetNewsByFlagsRequestDto,
 	GetNewsByIdResponseDto,
 	PaginatedRequestDto,
@@ -225,5 +226,15 @@ export class NewsService {
 				isActive: true
 			},
 		});
+	}
+
+	async getMostReadNews(paginationDto: PaginatedRequestDto): Promise<GenericResponseDto> {
+		const mostReadNews = await this.newsVisitorsRepository.findAndCountAll({
+			limit: parseInt(paginationDto.limit.toString()),
+			offset: this.helperService.offsetCalculator(paginationDto.pageNo, paginationDto.limit),
+			order: [['count', 'DESC']]
+		})
+		
+		return new GenericResponseDto(HttpStatus.OK, 'Request Successful', mostReadNews)
 	}
 }
