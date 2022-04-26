@@ -1,4 +1,4 @@
-const MenuBar = () => {
+const MenuBar = ({activateMenuItem}) => {
 
     return (
         <>
@@ -27,33 +27,36 @@ const MenuBar = () => {
                             <a className="nav-link active" aria-current="page" href="#">تصفية نتائج البحث</a>
                         </li>
 
-                        <li className="nav-item dropdown">
+                        {/*<li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             عرض الكل
                             </a>
-                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {<ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a className="dropdown-item" href="#">Action</a></li>
                                 <li><a className="dropdown-item" href="#">Another action</a></li>
                                 <li><hr className="dropdown-divider"></hr></li>
                                 <li><a className="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
+                            </ul>}
+                    </li>*/}
                         <li className="nav-item me-4">
                             <a className="nav-link" href="#">صنف حسب</a>
                         </li>
-                        <li className="nav-item dropdown">
+                        <li className="nav-item me-4">
+                            <a className="nav-link" href="#" onClick={() => activateMenuItem("relevantNews")}>ذو صلة</a>
+                        </li>
+                        {/*<li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             ذو صلة
                             </a>
-                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {<ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a className="dropdown-item" href="#">Action</a></li>
                                 <li><a className="dropdown-item" href="#">Another action</a></li>
                                 <li><hr className="dropdown-divider"></hr></li>
                                 <li><a className="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
+                            </ul>}
+                    </li>*/}
                         <li className="nav-item">
-                            <a className="nav-link">الأحدث</a>
+                            <a className="nav-link" onClick={() => activateMenuItem("latestNews")}>الأحدث</a>
                         </li>
                     </ul>
                     </div>
