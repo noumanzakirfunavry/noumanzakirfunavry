@@ -2,15 +2,15 @@
   <br>
   <br>
   <div class="col-12">
-    <form nz-form [nzLayout]="'vertical'">
+    <form nz-form [formGroup]="pagesForm" [nzLayout]="'vertical'" (ngSubmit)="pages()">
       <div class="row">
         <div class="col-6">
       <div class="row">
         <div class="col-12">
           <nz-form-item>
-            <nz-form-label nzFor="text">Title</nz-form-label>
-            <nz-form-control>
-              <input nz-input placeholder="Enter Title" dir="rtl" />
+            <nz-form-label nzRequired nzFor="text">Title</nz-form-label>
+            <nz-form-control nzErrorTip="Enter valid Title between 3 to 250 characters!">
+              <input nz-input  formControlName="title" placeholder="Enter Title" dir="rtl" />
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -18,9 +18,9 @@
       <div class="row">
         <div class="col-md-12">
           <nz-form-item>
-            <nz-form-label>Description</nz-form-label>
-            <nz-form-control>
-              <ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
+            <nz-form-label nzRequired>Description</nz-form-label>
+            <nz-form-control nzErrorTip="Enter Description maximum 1500 characters allowed!">
+              <ckeditor  formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
             </nz-form-control>
         </nz-form-item>
         </div>
@@ -28,11 +28,8 @@
       <div class="row">
         <div class="col-md-12">
           <nz-form-item>
-            <!-- <input nz-input placeholder="Active"   /> -->
-            <!-- <nz-form-label [nzSpan]="6" nzFor="active">Active</nz-form-label> -->
-
             <nz-form-control>
-              <nz-switch class="mr-3"> </nz-switch> <strong>Enable Default Sidebar</strong>
+              <nz-switch class="mr-3"  formControlName="showSideBar"> </nz-switch> <strong>Enable Default Sidebar</strong>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -44,7 +41,7 @@
               <nz-form-item>
                 <h4>General Settings</h4>
                 <nz-form-control>
-                  <nz-switch class="mr-3"> </nz-switch> Active
+                  <nz-switch class="mr-3"  formControlName="isActive"> </nz-switch> Active
                 </nz-form-control>
               </nz-form-item>
             </div>
@@ -63,40 +60,54 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-                <nz-form-item>
-                    <nz-form-label>Tags</nz-form-label>
-                    <nz-form-control>
-                        <nz-select [nzSize]="size" nzMode="multiple" nzPlaceHolder="Please select">
-                            <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label"
-                                [nzValue]="option.value"></nz-option>
-                        </nz-select>
-                    </nz-form-control>
-                </nz-form-item>
+              <nz-form-item>
+                <nz-form-label nzRequired>Tags</nz-form-label>
+                <nz-form-control nzErrorTip="Select Tag!">
+                    <nz-select (keyup)="getTags($event.target.value)" [nzSize]="size" formControlName="tagsIds" nzMode="multiple"
+                        nzPlaceHolder="Select Tag">
+                        <nz-option *ngFor="let tag of allTags" [nzLabel]="tag?.title"
+                            [nzValue]="tag?.id"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+                <form [formGroup]="tagForm" nz-form [nzLayout]="'horizontal'">
                   <div class="d-flex">
+                      <nz-form-item class="w-100">
+                          <nz-form-control nzErrorTip="Enter Tag!">
+                          <input type="text" formControlName="title" placeholder="Enter Tag" dir="rtl" nz-input>
+                      </nz-form-control>
+                      </nz-form-item>
                       <nz-form-item>
-                          <input type="text" placeholder="Enter Tag" dir="rtl" nz-input>
-                          <button class="mr-3" nz-button nzType="default">Create</button>
+                          <button class="ml-2" (click)="[getCaptcha($event),addNewTag()]" nz-button nzType="default">Create</button>
                       </nz-form-item>
                   </div>
+              </form>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
               <nz-form-item>
-                <nz-form-label>Related Quotes</nz-form-label>
-                <nz-form-control>
-                    <nz-select [nzSize]="size" nzMode="multiple" nzPlaceHolder="Please select">
-                        <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label"
-                            [nzValue]="option.value"></nz-option>
+                <nz-form-label nzRequired>Related Quotes</nz-form-label>
+                <nz-form-control nzErrorTip="Select Quote!">
+                    <nz-select (keyup)="getAllQuotes($event.target.value)" formControlName="quotesIds"
+                        [nzSize]="size" nzMode="multiple" nzPlaceHolder="Select Quote">
+                        <nz-option *ngFor="let option of allQuotes" [nzLabel]="option.name"
+                            [nzValue]="option.id"></nz-option>
                     </nz-select>
                 </nz-form-control>
             </nz-form-item>
-            <div class="d-flex">
-              <nz-form-item>
-                  <input type="text" placeholder="Enter Quote" dir="rtl" nz-input>
-                  <button class="mr-3" nz-button nzType="default">Create</button>
-              </nz-form-item>
-          </div>
+            <form [formGroup]="quotesForm" nz-form [nzLayout]="'horizontal'">
+              <div class="d-flex">
+                  <nz-form-item class="w-100">
+                      <nz-form-control nzErrorTip="Enter Quote without spaces!">
+                      <input type="text" formControlName="name" placeholder="Enter Quote" dir="rtl" nz-input>
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <button  (click)="[getCaptcha($event),addNewQuote()]" class="ml-2" nz-button nzType="default">Create</button>
+                  </nz-form-item>
+              </div>
+          </form>
             </div>
           </div>
           <div class="rwo">
@@ -104,27 +115,31 @@
               <div class="mb-4">
                 <h4 class="mb-2">SEO Settings</h4>
                 <nz-form-item>
-                    <nz-form-label>Slug Line</nz-form-label>
-                    <nz-form-control>
-                        <input type="text" placeholder="Enter Slug Line" dir="rtl" nz-input>
+                    <nz-form-label nzRequired>Slug Line</nz-form-label>
+                    <nz-form-control nzErrorTip="Enter Slug Line maximum 250 characters allowed!">
+                        <input type="text" formControlName="slugLine" placeholder="Enter Slug Line" dir="rtl"
+                            nz-input>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label>Title</nz-form-label>
-                    <nz-form-control>
-                        <input type="text" placeholder="Enter Title" dir="rtl" nz-input>
+                    <nz-form-label nzRequired>Title</nz-form-label>
+                    <nz-form-control nzErrorTip="Enter Title between 3 to 250 characters!">
+                        <input type="text" formControlName="seoTitle" placeholder="Enter Title" dir="rtl"
+                            nz-input>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label>Description</nz-form-label>
-                    <nz-form-control>
-                        <textarea rows="4" type="text" placeholder="Enter Description" dir="rtl" nz-input></textarea>
+                    <nz-form-label nzRequired>Description</nz-form-label>
+                    <nz-form-control nzErrorTip="Enter Description maximum 250 characters allowed!">
+                        <textarea rows="4" formControlName="description" type="text"
+                            placeholder="Enter Description" dir="rtl" nz-input></textarea>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label>Keyords</nz-form-label>
-                    <nz-form-control nzExtra="Enter keywords seperated by a comma (,) .">
-                        <input type="text" placeholder="Enter Keywords" dir="rtl" nz-input>
+                    <nz-form-label nzRequired>Keywords</nz-form-label>
+                    <nz-form-control nzErrorTip="Enter Keywords!" nzExtra="Enter keywords seperated by a comma (,) .">
+                        <input formControlName="keywords" type="text" placeholder="Enter Keywords" dir="rtl"
+                            nz-input>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -139,7 +154,7 @@
               <nz-form-item>
                 <nz-form-control>
                   <button class="mr-3" nz-button nzType="primary">Save</button>
-                  <button nz-button nzType="default">Cancel</button>
+                  <button (click)="[getCaptcha($event),cancel()]" nz-button nzType="default">Cancel</button>
                 </nz-form-control>
               </nz-form-item>
             </div>
@@ -149,36 +164,3 @@
     </form>
   </div>
 </section>
-<div class="row">
-
-
-
-  <!-- <form nz-form class="ant-advanced-search-form" [nzLayout]="validateForm.get('formLayout')?.value" [formGroup]="validateForm" (ngSubmit)="submitForm()">
-    <nz-form-item>
-      <nz-form-label [nzSpan]="isHorizontal ? 4 : null">Form Layout</nz-form-label>
-      <nz-form-control [nzSpan]="isHorizontal ? 14 : null">
-        <nz-radio-group formControlName="formLayout">
-          <label nz-radio-button [nzValue]="'horizontal'">Horizontal</label>
-          <label nz-radio-button [nzValue]="'vertical'">Vertical</label>
-          <label nz-radio-button [nzValue]="'inline'">Inline</label>
-        </nz-radio-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="isHorizontal ? 4 : null">Field A</nz-form-label>
-      <nz-form-control [nzSpan]="isHorizontal ? 14 : null" nzErrorTip="Please input your username!">
-        <input nz-input formControlName="fieldA" placeholder="input placeholder" />
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="isHorizontal ? 4 : null">Field B</nz-form-label>
-      <nz-form-control [nzSpan]="isHorizontal ? 14 : null" nzErrorTip="Please input your Password!">
-        <input nz-input formControlName="filedB" placeholder="input placeholder" />
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control [nzSpan]="isHorizontal ? 14 : null" [nzOffset]="isHorizontal ? 4 : null">
-        <button nz-button nzType="primary">Submit</button>
-      </nz-form-control>
-    </nz-form-item>
-  </form> -->

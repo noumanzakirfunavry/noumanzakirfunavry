@@ -58,21 +58,21 @@ export class AuthInterceptor implements HttpInterceptor {
         catchError(error => {
           this.commonStore.loaderEnd();
           const ifDisableLoader = DisableNotification.some(x => request.urlWithParams.match(x));
-          if (!ifDisableLoader && error.status != 404 && error.status != 201) {
+          if ((!ifDisableLoader && error.status != 404 && error.status != 201) || (!ifDisableLoader && error.status == 404 && error.statusText == 'Not Found') || error.status == 403) {
             // this.commonStore.notifier({ message: error.statusText == 'Forbidden' ? 'Your session is expired. Please login again' : error.error?.message || error.message || 'Error Occured', action: 'error' })
-            this.message.create( 'error', error.statusText == 'Forbidden' ? 'Your session is expired. Please login again' : error.error?.message || error.message || 'Error Occured' )
+            this.message.create( 'error', error.error?.message || error.message || 'Error Occured' )
           }
           if (error.statusText == 'Unknown Error') {
             this.router.navigateByUrl('server-down');
           }
-          else if ((error.status == 401 && (error.error?.message == 'Unauthorized' || error.message == 'Unauthorized')) || error.status == 403 || error.statusText == 'Forbidden' || error.error?.message == 'Invalid Token' || error.message == 'Invalid Token') {
+          else if ((error.status == 401 && (error.error?.message == 'Unauthorized' || error.message == 'Unauthorized')) || error.error?.message == 'Invalid Token' || error.message == 'Invalid Token') {
             // this.profileStore.reset();
             window.localStorage.clear();
             this.router.navigateByUrl('/full/authentication/login');
           }
-          else if (!ifDisableLoader && error.status == 404 && error.statusText == 'Not Found') {
-            this.message.create('error', error.error?.message || error.message)
-          }
+          // else if ((!ifDisableLoader && error.status == 404 && error.statusText == 'Not Found') || error.status == 403) {
+          //   this.message.create('error', error.error?.message || error.message)
+          // }
           console.log("error auth http call", error)
           throw (error)
         }));

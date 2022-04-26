@@ -11,9 +11,12 @@ export * from './request/alexa-audio/create.alexa.audio.request.dto';
 export * from './request/alexa-audio/delete.alexa.audio.request.dto';
 export * from './request/alexa-audio/get.all.alexa.audio.request.dto';
 //...............................Attachments.............................
+export * from './request/attachments/get.all.attachments.request.dto';
 export * from './request/attachments/create.attachment.request.dto';
 export * from './request/attachments/update.attachment.request.dto';
+//...............................Authentication.............................
 export * from './request/authentication/register.admin.request.dto';
+export * from './request/authentication/update.admin.request.dto';
 export * from './request/authentication/request.reset.password.request.dto';
 export * from './request/authentication/reset.password.request.dto';
 export * from './request/authentication/update.password.request.dto';

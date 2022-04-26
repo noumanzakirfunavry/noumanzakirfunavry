@@ -4,7 +4,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NewsModal } from '../../common/models/newsModal';
+import { NewsModel } from '../../common/models/newsModal';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentListData } from './mockComments';
 import { environment } from '../../../environments/environment';
@@ -22,7 +22,7 @@ import { BehaviorSubject } from 'rxjs';
 export class AddNewsComponent implements OnInit {
     @ViewChild('myInput') myInputVariable: ElementRef;
     currentDate = new Date()
-    newsModel: NewsModal;
+    newsModel: NewsModel;
     newsForm: FormGroup;
     // $isVisible:BehaviorSubject<boolean>=new BehaviorSubject(false);
     isVisible: boolean = false;
@@ -76,6 +76,7 @@ export class AddNewsComponent implements OnInit {
                 // "searchreplace visualblocks code fullscreen",
                 // "insertdatetime media table contextmenu paste qrcode youtube twitter"
             ],
+            directionality : 'rtl',
             toolbar: 'undo redo | code bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
             // toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
             'toolbar1' : "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect | fontselect | fontsizeselect",
@@ -136,7 +137,6 @@ export class AddNewsComponent implements OnInit {
             // },
             ckfinder: {
                 // uploadUrl: 'https://ckfinder.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
-
                 openerMethod: 'popup',
                 uploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
                 filebrowserBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles',
@@ -177,7 +177,7 @@ export class AddNewsComponent implements OnInit {
         this.initQuoteForm();
         this.initTagForm();
 
-        this.newsModel = new NewsModal()
+        this.newsModel = new NewsModel()
         this.activatedRoute.params.subscribe(params => {
             this.newsId = parseInt(params.id);
             // if (!this.newsId) {
@@ -357,12 +357,12 @@ export class AddNewsComponent implements OnInit {
             else if (res?.body) {
                 console.log("Data Uploaded");
                 console.log(res.body);
-                if (mainFile) {
+                if(mainFile){
                     this.newsModel.imageId = res.body.response.id;
-                    this.newsModel.fileUrl = environment.fileUrl + res.body.response.path
-                } else {
+                    this.newsModel.fileUrl = res.body.response.url;
+                }else{
                     this.newsModel.thumbnailId = res.body.response.id;
-                    this.newsModel.thumbnailUrl = environment.fileUrl + res.body.response.path
+                    this.newsModel.thumbnailUrl = res.body.response.url;
 
                 }
                 console.log("news modal with image id", this.newsModel);

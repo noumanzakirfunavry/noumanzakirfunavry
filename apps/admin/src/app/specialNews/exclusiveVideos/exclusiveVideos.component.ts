@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -65,7 +66,7 @@ export class ExclusiveVideosComponent implements OnInit{
         }
     ];
 
-    constructor (private apiService: ApiService,  private message: NzMessageService) {}
+    constructor (private apiService: ApiService,  private message: NzMessageService, private route: Router) {}
 
     ngOnInit(): void {
         this.getAllCategories();
@@ -144,6 +145,10 @@ export class ExclusiveVideosComponent implements OnInit{
                 this.message.create('success', `Exclusive Videos Updated Successfully`);
             })
         }
+    }
+
+    cancel() {
+        this.route.navigateByUrl('dashboard')
     }
 
 }    
