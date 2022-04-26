@@ -1,7 +1,20 @@
-<button nz-button [nzType]="'primary'" (click)="showModal()"><span>Show Modal</span></button>
-    <nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-      <p>Content one</p>
-      <p>Content two</p>
-      <p>Content three</p>
-      <p>Content three</p>
+    <nz-modal nzWidth="80%" [(nzVisible)]="isVisible" nzTitle="File Manager" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container  *nzModalContent >
+            <div class="d-flex" 
+            style="display: flex;
+            width: auto;
+            overflow: auto;
+            flex-wrap: wrap;">
+
+                <ng-container *ngFor="let file of files"  >
+                    <div style="width: 100px; padding:5px" [ngStyle]="file.id===selctedFile.id ? {'background-color': 'lightgray'}:{}" (click)="onSelect(file)">
+    
+                        <img *ngIf="file" src="{{file.url}}" width="80">
+                        <br>
+                        {{file.title}}
+                    </div>
+                    </ng-container>
+            </div>
+          
+          </ng-container>
     </nz-modal>

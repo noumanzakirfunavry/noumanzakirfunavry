@@ -49,6 +49,7 @@ export class NewsTypeController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
+		@Rights(RightsTypes.MODIFY_NEWS)
     @Put("featured/update")
     async updateFeaturedNews(@Req() req,@Body() body : UpdateFeaturedNewsRequestDto) : Promise<GenericResponseDto>{
         return await this.newsService.updateNews(FeaturedNews,body,req.user.data.id)
@@ -56,6 +57,7 @@ export class NewsTypeController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
+		@Rights(RightsTypes.MODIFY_NEWS)
     @Put("trending/update")
     async updateTrendingNews(@Req() req,@Body() body : UpdateTrendingNewsRequestDto) : Promise<GenericResponseDto>{
         return await this.newsService.updateNews(TrendingNews,body,req.user.data.id)
@@ -63,6 +65,7 @@ export class NewsTypeController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
+		@Rights(RightsTypes.MODIFY_NEWS)
     @Put("editors-choice-news/update")
     async updateEditorChoiceNews(@Req() req,@Body() body : UpdateEditorChoiceNewsRequestDto) : Promise<GenericResponseDto>{
         return await this.newsService.updateNews(EditorsChoiceNews,body,req.user.data.id)

@@ -4,11 +4,12 @@
 
 export const environment = {
   production: false,
+
   // baseUrlAdmin: "https://backend.admin.staging.cnbcarabia.com/admin/api/admin/",
   // baseUrlNews: "https://backend.news.staging.cnbcarabia.com/news/api/admin/",
   // baseUrlNewsClient: "https://backend.news.staging.cnbcarabia.com/news/api/client/",
   // baseUrlAdminClient: "https://backend.admin.staging.cnbcarabia.com/admin/api/client/",
-  //  fileUrl:"https://backend.admin.staging.cnbcarabia.com"
+  //  fileUrl:"https://backend.admin.staging.cnbcarabia.com/"
   //  client
   // baseUrlAdmin: "http://157.90.67.186:3002/admin/api/admin/",
   // baseUrlNews: "http://157.90.67.186:3001/news/api/admin/",

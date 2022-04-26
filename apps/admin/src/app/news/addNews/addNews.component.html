@@ -1,7 +1,7 @@
 <section>
     <br>
     <br>
-    <div class="col-12">
+    <div class="col-12" *ngIf="!loader">
         <form nz-form [formGroup]="newsForm" [nzLayout]="'vertical'" (ngSubmit)="saveNews()">
             <div class="row">
                 <div class="col-8">
@@ -38,7 +38,7 @@
                         <nz-form-item>
                             <nz-form-label nzRequired>Description</nz-form-label>
                             <nz-form-control nzErrorTip="Enter Description maximum 1500 characters allowed!">
-                                <h1>TinyMCE 6 Angular Demo</h1>
+                                <!-- <h1>TinyMCE 6 Angular Demo</h1> -->
                                 <ng-container *ngIf="tinyConfig">
                                     <editor formControlName="content" [init]="tinyConfig"></editor>
                                 </ng-container>
@@ -279,8 +279,13 @@
         </form>
     </div>
 
-    <div>
+    <div *ngIf="isVisible">
+        
         <!-- file modal -->
-        <!-- <tiny-file-modal [isVisible]="isVisible"></tiny-file-modal> -->
+        <tiny-file-modal (onSelectFile)="fileFromModal($event)" [isVisible]="isVisible" (closeModal)="closeModal($event)">
+            <div>
+                <p>Please select Image</p>
+            </div>
+        </tiny-file-modal>
     </div>
 </section>

@@ -1,9 +1,13 @@
+
 // export const baseUrl='http://157.90.67.186:3001/';
 // export const baseUrlAdmin='http://157.90.67.186:3002/';
-export const baseUrl= "https://backend.news.staging.cnbcarabia.com/";
-export const baseUrlAdmin="https://backend.admin.staging.cnbcarabia.com/";
-// export const baseUrl='http://157.90.67.186:4001/';
-// export const baseUrlAdmin='http://157.90.67.186:4002/';
+// QA
+export const baseUrl='http://157.90.67.186:4001/';
+export const baseUrlAdmin='http://157.90.67.186:4002/';
+// domains
+// export const baseUrlAdmin= "https://backend.admin.staging.cnbcarabia.com/";
+// export const baseUrl= "https://backend.news.staging.cnbcarabia.com/";
+
 export const newsAPI=baseUrl+'news/api/admin/';
 export const adminApi = baseUrlAdmin + 'admin/api/admin/'
 export const newsAPIClient=baseUrl+'news/api/client/';
@@ -20,4 +24,9 @@ export const requests={
     newsByCategories:newsAPIClient+'news/get/category/',
     featuredNews:newsAPIClient+'news/get/flags?isFeatured=true',
     NewsById:newsAPIClient+'news/getById/',
+    moreMenus: adminAPIClient+'menus/',
+    editorChoiceNews:newsAPIClient+'news/get/flags?isEditorsChoice=true',
+    trendingNews:newsAPIClient+'news/get/flags?isTrending=true',
+    exclusiveVideosNews:newsAPIClient+'news/get/flags?isExclusiveVideos=true',
+    latestNews:newsAPIClient+'news/get/flags?',
 }

@@ -83,7 +83,7 @@ export class EditorsChoiceComponent implements OnInit{
     getAllEditorsChoiceNews() {
         this.apiService.sendRequest(requests.getAllEditorsChoiceNews, 'get').subscribe((res:any) => {
             this.allEditorsChoice= res.response.editorsChoiceNews;
-            this.editorsChoice=[...this.allEditorsChoice]
+            this.editorsChoice = this.allEditorsChoice && this.allEditorsChoice.length > 0 ? this.allEditorsChoice : this.editorsChoice;
             console.log("ALL-EDITORS-CHOICE", this.allEditorsChoice);
             this.loading= false;
         }, err => {
@@ -91,22 +91,51 @@ export class EditorsChoiceComponent implements OnInit{
         })
     }
 
+    changeCategory(data){
+        console.log(data);
+    }
+
     changedNews(updatedNews) {
         const news = this.editorsChoice.findIndex(x => x.position == updatedNews.position);
-        if (news > -1) {
+        if (news > -1 && !this.findDuplicates()) {
             this.editorsChoice[news] = updatedNews;
         }
+        else if(this.editorsChoice.some(x=>!x.newsId)){
+            
+        }
+        else {
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.editorsChoice[news] = tempNews;
+                this.editorsChoice[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
+        }
+    }
+
+    findDuplicates() {
+        const valueArr = this.editorsChoice.map(function (item) { return item.newsId });
+        const isDuplicate = valueArr.some(function (item, idx) {
+            return valueArr.indexOf(item) != idx
+        });
+        console.log("DUPLICATE-NEWS", isDuplicate);
+        return isDuplicate
     }
 
     updateEditorsChoiceNews() {
             this.editorsChoice.forEach(news=>{
                 news.newsId=parseInt(news.newsId);
             })
-            this.apiService.sendRequest(requests.updateEditorsChoiceNews, 'put', { news: this.editorsChoice }).subscribe((res:any) => {
-                console.log("UPDATE-EDITORS-CHOICE", res);
-                this.getAllEditorsChoiceNews();
-                this.message.create('success', `Editor's Choice News Updated Successfully`);
-            })
+            if (this.editorsChoice.some(x => !x.newsId)) {
+                this.message.create('error', 'Add all Editors Choice News for Editors Choice Section')
+            } 
+            else {
+                this.apiService.sendRequest(requests.updateEditorsChoiceNews, 'put', { news: this.editorsChoice }).subscribe((res:any) => {
+                    console.log("UPDATE-EDITORS-CHOICE", res);
+                    this.getAllEditorsChoiceNews();
+                    this.message.create('success', `Editor's Choice News Updated Successfully`);
+                })
+            }
     }
 
 }    

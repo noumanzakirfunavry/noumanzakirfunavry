@@ -1,5 +1,6 @@
-import { Public } from "@cnbc-monorepo/auth-module";
+import { Public, Rights, Roles } from "@cnbc-monorepo/auth-module";
 import { AddCategoriesRequestDto, DeleteCategoryRequestDto, GetAllCategoriesRequestDto, UpdateCategoriesRequestDto, UpdateOrderCategoriesRequestDto } from "@cnbc-monorepo/dtos";
+import { RightsTypes, RoleTypes } from "@cnbc-monorepo/enums";
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req } from "@nestjs/common";
 import { CategoriesService } from "./categories.service";
 
@@ -9,6 +10,8 @@ export class CategoriesController{
         private categoryService:CategoriesService
     ){}
 
+		@Roles(RoleTypes.Admin)
+		@Rights(RightsTypes.MODIFY_CATEGORIES)
     @Post('add')
     async add(@Req() req,@Body() body:AddCategoriesRequestDto){
         return await this.categoryService.add(body,req.user.data.id)
@@ -19,6 +22,8 @@ export class CategoriesController{
         return await this.categoryService.getById(id)
     }
 
+		@Roles(RoleTypes.Admin)
+		@Rights(RightsTypes.MODIFY_CATEGORIES)
     @Delete('delete') 
     async delete(@Query() query:DeleteCategoryRequestDto){
         return await this.categoryService.delete(query.ids)
@@ -29,11 +34,15 @@ export class CategoriesController{
         return this.categoryService.getAll(query)
     }
 
+		@Roles(RoleTypes.Admin)
+		@Rights(RightsTypes.MODIFY_CATEGORIES)
     @Put('update/:id')
     async update(@Param("id") id:number,@Body() body:UpdateCategoriesRequestDto){
         return await this.categoryService.update(id,body)
     }
 
+		@Roles(RoleTypes.Admin)
+		@Rights(RightsTypes.MODIFY_CATEGORIES)
     @Public()
     @Put('updateOrder')
     async updateOrder(@Body() body:UpdateOrderCategoriesRequestDto){

@@ -57,9 +57,6 @@ export class Menus extends Model {
   })
   position: MenuPositionTypes;
 
-  @Column
-  menuPosition: number;
-
   @ForeignKey(() => Users)
   @Column
   publishedBy: number;

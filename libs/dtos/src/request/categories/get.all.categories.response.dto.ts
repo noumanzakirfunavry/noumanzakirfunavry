@@ -3,11 +3,6 @@ import { IsArray, IsBoolean, IsNumberString, IsOptional, IsString } from "class-
 import { PaginatedRequestDto } from "../pagination.request.dto";
 
 export class GetAllCategoriesRequestDto extends PaginatedRequestDto{
-
-    @IsOptional()
-    @IsArray()
-    parentCategoryId:number[]
-
     @IsOptional()
 		@IsNumberString()
     publishedBy: number
@@ -46,7 +41,7 @@ export class GetAllCategoriesRequestDto extends PaginatedRequestDto{
 			if (input.value === 'false' || input.value === '0') return false;
 			return input.value;
 		})
-    includeNews:boolean
+    includeNews: boolean
 
     @IsOptional()
     @IsNumberString()

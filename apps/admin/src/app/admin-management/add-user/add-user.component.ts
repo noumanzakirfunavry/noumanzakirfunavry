@@ -42,7 +42,8 @@ export class AddUserComponent implements OnInit{
   submitted= false;
   loader= true;
 
-  constructor(private fb: FormBuilder, 
+  constructor(
+    private fb: FormBuilder, 
     private apiService: ApiService, 
     private activatedRoute: ActivatedRoute, 
     private message: NzMessageService,
@@ -50,13 +51,9 @@ export class AddUserComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
+    this.getAllRights();
     this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
       this.userId = + params.get('id');
-      if (this.userId) {
-        this.getAllRights();
-      }else{
-        this.getAllRights();
-      }
     });
     
   }
@@ -76,7 +73,7 @@ export class AddUserComponent implements OnInit{
       confirmPassword: [null, [Validators.required, this.confirmationValidator]],
       email: [null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
       isActive: [false],
-      rights: [this.allRights,]
+      rights: [this.allRights, [Validators.required]]
     });
   }
 
@@ -110,16 +107,12 @@ export class AddUserComponent implements OnInit{
   getAllRights() {
     this.apiService.sendRequest(requests.getAllRights, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
       this.allRights= res.response.rights;
-     
       if(this.userId){
-        
         this.getUserById();
       }else{
-
         this.inItForm();
         this.loader=false
       }
-
       console.log("ALL-RIGHTS", this.allRights);
     })
   }
@@ -157,7 +150,7 @@ export class AddUserComponent implements OnInit{
           confirmPassword: [null, [Validators.required, this.confirmationValidator]],
           email: [this.userById?.email || null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
           isActive: [this.userById?.isActive || false],
-          rights: [this.allRights,]
+          rights: [this.allRights, [Validators.required]]
         });
         setTimeout(() => {
           this.loader=false
@@ -182,7 +175,7 @@ export class AddUserComponent implements OnInit{
 
   log(value: string[]): void {
     this.rightsValue= value;
-    console.log("RIGHTS-ID", value);
+    console.log("RIGHTS-ID", this.rightsValue);
   }
 
   cancel() {

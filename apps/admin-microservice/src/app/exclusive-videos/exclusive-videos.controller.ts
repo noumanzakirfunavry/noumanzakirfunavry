@@ -1,6 +1,6 @@
-import { JwtAuthGuard, Rights, Roles } from '@cnbc-monorepo/auth-module';
-import { CreateExclusiveVideosRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllExclusiveVideos, GetAllExclusiveVideosResponseDto, GetExclusiveVideoByIdResponseDto, UpdateExclusiveVideosRequestDto } from '@cnbc-monorepo/dtos';
-import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
+import { JwtAuthGuard, Roles } from '@cnbc-monorepo/auth-module';
+import { CreateExclusiveVideosRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllExclusiveVideosResponseDto, GetExclusiveVideoByIdResponseDto, UpdateExclusiveVideosRequestDto } from '@cnbc-monorepo/dtos';
+import { RoleTypes } from '@cnbc-monorepo/enums';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ExclusiveVideosService } from './exclusive-videos.service';
 
@@ -27,8 +27,8 @@ export class ExclusiveVideosController {
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin)
     @Get("getAll")
-    async getAllExclusiveVideos(@Query() query : GetAllExclusiveVideos) : Promise<GetAllExclusiveVideosResponseDto>{
-        return await this.exclusiveVideosService.getAllExclusiveVideos(query);
+    async getAllExclusiveVideos() : Promise<GetAllExclusiveVideosResponseDto>{
+        return await this.exclusiveVideosService.getAllExclusiveVideos();
     }
 
     @UseGuards(JwtAuthGuard)

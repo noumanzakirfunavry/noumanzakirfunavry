@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { requests } from '../../shared/config/config';
@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommentListData } from './mockComments';
 import { environment } from '../../../environments/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { BehaviorSubject } from 'rxjs';
 // import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 // import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
@@ -23,7 +24,8 @@ export class AddNewsComponent implements OnInit {
     currentDate = new Date()
     newsModel: NewsModal;
     newsForm: FormGroup;
-    isVisible:boolean=false;
+    // $isVisible:BehaviorSubject<boolean>=new BehaviorSubject(false);
+    isVisible: boolean = false;
     size = 'default';
 
     quotesForm: FormGroup;
@@ -39,85 +41,93 @@ export class AddNewsComponent implements OnInit {
     previewImage = '';
     previewVisible = false;
     value: string[] = ['0-0-0'];
-    config:any;
+    config: any;
     commentListData = CommentListData
     newsId: number;
     uploadProgress: number;
     file: any;
     fileType: string;
-    submitted= false;
+    submitted = false;
     selectedCat: any;
     tinyConfig: any;
+    loader: boolean = true;
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
         private activatedRoute: ActivatedRoute,
-        private route: Router, 
+        private route: Router,
+        private zone:NgZone,
         private message: NzMessageService) { }
 
-    ngOnInit =(): void => {
+    ngOnInit(): void {
+        this.loader = true;
         const admin = JSON.parse(localStorage.getItem('admin') || '{}');
-        this.tinyConfig={
-        // apiKey:"pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4",
-        base_url: '/tinymce',
-        suffix: '.min',
-        'plugins' : [
-            'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons'
-            // "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-            // "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
-            // "table contextmenu directionality emoticons paste textcolor responsivefilemanager code",
-            // "advlist autolink lists link image charmap print preview anchor",
-            // "searchreplace visualblocks code fullscreen",
-            // "insertdatetime media table contextmenu paste qrcode youtube twitter"
-        ],
-        toolbar:'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
-        // 'toolbar1' : "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect | fontselect | fontsizeselect",
-        // 'toolbar2' : "youtube twitter | responsivefilemanager | link image qrcode | link unlink anchor | image media | forecolor backcolor  | print preview code ",
-        'image_advtab' : true,
-        menu: {
-            custom: { title: 'Custom Menu', items: 'undo redo myCustomMenuItem' }
-          },
-          menubar: 'file edit custom',
-          setup: function(editor) {
-            editor.ui.registry.addMenuItem('myCustomMenuItem', {
-              text: 'My Custom Menu Item',
-              onAction: function() {
-                  this.isVisible=true;
-                // alert('Menu item clicked');
-              }
-            });
-        },
-        images_upload_url: requests.addNewAttachment,
-        automatic_uploads: false,
-        file_picker_callback: function(callback, value, meta) {
-            debugger
-            // Provide file and text for the link dialog
-            if (meta.filetype == 'file') {
-              callback('mypage.html', {text: 'My text'});
+        let selfp = this;
+        this.tinyConfig = {
+            apiKey:"pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4",
+            base_url: '/tinymce',
+            suffix: '.min',
+            'plugins': [
+                'code print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons'
+                // "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                // "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+                // "table contextmenu directionality emoticons paste textcolor responsivefilemanager code",
+                // "advlist autolink lists link image charmap print preview anchor",
+                // "searchreplace visualblocks code fullscreen",
+                // "insertdatetime media table contextmenu paste qrcode youtube twitter"
+            ],
+            toolbar: 'undo redo | code bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
+            // toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+            'toolbar1' : "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect | fontselect | fontsizeselect",
+            'toolbar2' : "youtube twitter | responsivefilemanager | link image qrcode | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+            'image_advtab': true,
+            menu: {
+                custom: { title: 'Custom File Manager', items: 'myCustomMenuItem' }
+            },
+            menubar: 'file edit view insert table custom format tools',
+            setup: function (editor) {
+                let self = selfp;
+                editor.ui.registry.addMenuItem('myCustomMenuItem', {
+                    text: 'Upload',
+                    onAction:
+                        (function () {
+                            // self.$isVisible.next(true)
+                            // alert('Menu item clicked' + self.isVisible);
+                            self.toggleModal();
+                        }).bind(this)
+                })
+            },
+            images_upload_url: requests.addNewAttachment,
+            automatic_uploads: true,
+            file_picker_callback: function (callback, value, meta) {
+                debugger
+                // Provide file and text for the link dialog
+                if (meta.filetype == 'file') {
+                    callback('mypage.html', { text: 'My text' });
+                }
+
+                // Provide image and alt text for the image dialog
+                if (meta.filetype == 'image') {
+                    callback('myimage.jpg', { alt: 'My alt text' });
+                }
+
+                // Provide alternative source and posted for the media dialog
+                if (meta.filetype == 'media') {
+                    callback('movie.mp4', { source2: 'alt.ogg', poster: 'image.jpg' });
+                }
             }
-        
-            // Provide image and alt text for the image dialog
-            if (meta.filetype == 'image') {
-              callback('myimage.jpg', {alt: 'My alt text'});
-            }
-        
-            // Provide alternative source and posted for the media dialog
-            if (meta.filetype == 'media') {
-              callback('movie.mp4', {source2: 'alt.ogg', poster: 'image.jpg'});
-            }
-          }
-    }
-        this.config={
+        }
+        this.config = {
             // plugins: [CKFinder , ],
             // plugins: [SimpleUploadAdapter , ],
             language: 'ar',
             // simpleUpload: {
             //     // The URL that the images are uploaded to.
             //     uploadUrl: requests.addNewAttachment,
-    
+
             //     // Enable the XMLHttpRequest.withCredentials property.
             //     withCredentials: true,
-    
+
             //     // Headers sent along with the XMLHttpRequest to the upload server.
             //     headers: {
             //         'X-CSRF-TOKEN': 'CSRF-Token',
@@ -131,14 +141,14 @@ export class AddNewsComponent implements OnInit {
                 uploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
                 filebrowserBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles',
                 filebrowserImageBrowseUrl: 'http://157.90.67.186/ckfinder/userfiles?type=Images',
-                filebrowserUploadUrl:'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserUploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
                 filebrowserImageUploadUrl: 'http://157.90.67.186/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
                 // uploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
                 // filebrowserBrowseUrl: 'http://localhost:80/ckfinder/userfiles',
                 // filebrowserImageBrowseUrl: 'http://localhost:80/ckfinder/userfiles?type=Images',
                 // filebrowserUploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
                 // filebrowserImageUploadUrl: 'http://localhost:80/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-    
+
                 options: {
                     resourceType: 'Images'
                 }
@@ -163,8 +173,7 @@ export class AddNewsComponent implements OnInit {
             //     openerMethod: 'popup'
             // }
         }
-        
-        this.initNewsForm();
+
         this.initQuoteForm();
         this.initTagForm();
 
@@ -174,15 +183,37 @@ export class AddNewsComponent implements OnInit {
             // if (!this.newsId) {
             //     this.initNewsForm();
             // } 
-            if(this.newsId) {
+            if (this.newsId) {
                 this.getNews()
+            } else {
+                this.initNewsForm();
+                setTimeout(() => {
+                    this.loader = false;
+                }, 1000);
             }
         })
-        setTimeout(() => {
-            this.getTags();
-            this.getAllCategories();
-            this.getAllQuotes()
-        }, 2000);
+        // setTimeout(() => {
+        this.getTags();
+        this.getAllCategories();
+        this.getAllQuotes()
+        // }, 2000);
+    }
+    toggleModal() {
+        // setTimeout(() => {
+            this.zone.run(e=>{
+
+                this.isVisible = true
+            })
+        // }, 400);
+    }
+    closeModal(data){
+        this.isVisible=false
+    }
+    fileFromModal(file){
+        this.isVisible=false;
+        this.newsForm.patchValue({
+            content: this.newsForm.value.content ? this.newsForm.value.content+`<img src="${file.url}">`:`<img src="${file.url}">`,
+          });
     }
 
     private initQuoteForm() {
@@ -205,6 +236,9 @@ export class AddNewsComponent implements OnInit {
             this.newsModel.seoDetailId = res.response.news.seoDetailId;
             console.log("view modal", this.newsModel);
             this.populateNewsForm(res.response.news);
+            setTimeout(() => {
+                this.loader = false;
+            }, 1000);
         })
     }
 
@@ -255,7 +289,7 @@ export class AddNewsComponent implements OnInit {
     }
 
     onChange($event: string[]): void {
-        this.selectedCat= $event;
+        this.selectedCat = $event;
         console.log("SEL-CAT", this.selectedCat);
     }
 
@@ -264,24 +298,24 @@ export class AddNewsComponent implements OnInit {
             this.newsForm.controls[i].markAsDirty();
             this.newsForm.controls[i].updateValueAndValidity();
         }
-        this.submitted= true;
+        this.submitted = true;
         if (this.newsForm.valid) {
             const obj = this.newsForm.value;
-        if(this.file) {
-            obj['newsType']= 'ARTICLE';
-        }
-        // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
-        this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModel.toServerModal(obj, this.newsModel.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
-            console.log("News", res);
-            this.initNewsForm();
-            this.route.navigateByUrl('news/list')
-            if(this.newsId) {
-                this.message.create('success', `News Updated Successfully`)
+            if (this.file) {
+                obj['newsType'] = 'ARTICLE';
             }
-            else {
-                this.message.create('success', `News Added Successfully`)
-            }
-        })
+            // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
+            this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModel.toServerModal(obj, this.newsModel.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
+                console.log("News", res);
+                this.initNewsForm();
+                this.route.navigateByUrl('news/list')
+                if (this.newsId) {
+                    this.message.create('success', `News Updated Successfully`)
+                }
+                else {
+                    this.message.create('success', `News Added Successfully`)
+                }
+            })
         }
         console.log("form", this.newsForm.value);
     }
@@ -312,7 +346,7 @@ export class AddNewsComponent implements OnInit {
         }
     }
 
-    uploadFile(mainFile=true) {
+    uploadFile(mainFile = true) {
         this.apiService.uploadFileProgress(this.file, this.newsForm.value.description).subscribe((res: any) => {
             // saving files on upload so that no need to load from s3.
 
@@ -323,10 +357,10 @@ export class AddNewsComponent implements OnInit {
             else if (res?.body) {
                 console.log("Data Uploaded");
                 console.log(res.body);
-                if(mainFile){
+                if (mainFile) {
                     this.newsModel.imageId = res.body.response.id;
-                    this.newsModel.fileUrl = res.body.response.url
-                }else{
+                    this.newsModel.fileUrl = environment.fileUrl + res.body.response.path
+                } else {
                     this.newsModel.thumbnailId = res.body.response.id;
                     this.newsModel.thumbnailUrl = environment.fileUrl + res.body.response.path
 
@@ -337,12 +371,12 @@ export class AddNewsComponent implements OnInit {
     }
 
     reset() {
-        this.file= null;
-        this.newsModel.imageId= null;
-        this.newsModel.fileUrl= null;
-        this.newsModel.thumbnailId= null;
-        this.newsModel.thumbnailUrl= null;
-        this.uploadProgress= null;
+        this.file = null;
+        this.newsModel.imageId = null;
+        this.newsModel.fileUrl = null;
+        this.newsModel.thumbnailId = null;
+        this.newsModel.thumbnailUrl = null;
+        this.uploadProgress = null;
         this.myInputVariable.nativeElement.value = "";
     }
 
@@ -361,31 +395,31 @@ export class AddNewsComponent implements OnInit {
 
     getAllQuotes(value?) {
         this.pagination.name = value ? value : '';
-        this.apiService.sendRequest(requests.getAllQuotes, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res: any) => {
+        this.apiService.sendRequest(requests.getAllQuotes, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res: any) => {
             console.log("ALL-QUOTES", res.quotes);
             this.allQuotes = res.quotes;
         })
     }
 
-    clean(obj:any) {
+    clean(obj: any) {
         for (const propName in obj) {
-          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
-            delete obj[propName];
-          }
+            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+                delete obj[propName];
+            }
         }
         return obj
     }
 
     getTags(value?) {
         this.pagination.title = value ? value : '';
-            this.apiService.sendRequest(requests.getAllTags, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res: any) => {
+        this.apiService.sendRequest(requests.getAllTags, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res: any) => {
             this.allTags = res.response.tags;
             console.log("ALL-TAGS", this.allTags);
         })
     }
 
     getAllCategories() {
-        this.apiService.sendRequest(requests.getAllCategories, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res: any) => {
+        this.apiService.sendRequest(requests.getAllCategories, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res: any) => {
             console.log("ALL-CAT", res);
             this.allCategories = res.response.categories;
             this.strucCategories = this.catToNodes(this.allCategories);
@@ -398,7 +432,7 @@ export class AddNewsComponent implements OnInit {
             this.quotesForm.controls[i].markAsDirty();
             this.quotesForm.controls[i].updateValueAndValidity();
         }
-        if(this.quotesForm.valid) {
+        if (this.quotesForm.valid) {
             this.apiService.sendRequest(requests.addNewQuote, 'post', this.quotesForm.value).subscribe((res: any) => {
                 this.allQuotes = res.quote;
                 this.initQuoteForm();
@@ -413,7 +447,7 @@ export class AddNewsComponent implements OnInit {
             this.tagForm.controls[i].markAsDirty();
             this.tagForm.controls[i].updateValueAndValidity();
         }
-        if(this.tagForm.valid) {
+        if (this.tagForm.valid) {
             this.apiService.sendRequest(requests.addNewTag, 'post', { ...this.tagForm.value, isActive: true }).subscribe((res: any) => {
                 this.allQuotes = res.quote;
                 this.initTagForm();
