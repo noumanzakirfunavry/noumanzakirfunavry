@@ -17,6 +17,13 @@ export class Helper {
         const hash = await bcrypt.hash(password, saltOrRounds);
         return hash
     }
+    programObjectCreator(body,seoDetailId,publisherId){
+        return {
+            ...body,
+            seoDetailId,
+            publisherId
+        }
+    }
     addHoursToDate(date: Date, hours: number): Date {
         return new Date(new Date(date).setHours(date.getHours() + hours));
     }
@@ -162,6 +169,7 @@ export class Helper {
             url : process.env.BASE_URL + path
         }
     }
+   
 
 	/**
 	 * Extract the IP address from Request object.

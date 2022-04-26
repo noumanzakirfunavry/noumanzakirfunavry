@@ -1,32 +1,46 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { JwtAuthGuard, Roles } from '@cnbc-monorepo/auth-module';
+import { CreateProgramRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllProgramsRequestDto } from '@cnbc-monorepo/dtos';
+import { RoleTypes } from '@cnbc-monorepo/enums';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards, Req, Put, Query } from '@nestjs/common';
 import { ProgramsService } from './programs.service';
 
-@Controller('programs')
+@Controller('admin/api/admin/programs')
 export class ProgramsController {
-  constructor(private readonly programsService: ProgramsService) {}
+  constructor(private readonly programsService: ProgramsService) { }
 
-  // @Post()
-  // create(@Body() createProgramDto: CreateProgramDto) {
-  //   return this.programsService.create(createProgramDto);
-  // }
-
-  @Get('/getAll')
-  findAll() {
-    return this.programsService.findAll();
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
+  @UseGuards(JwtAuthGuard)
+  @Post()
+  async addProgram(@Req() req, @Body() createProgramDto: CreateProgramRequestDto): Promise<GenericResponseDto> {
+    return  await this.programsService.addProgram(createProgramDto, req.user.data.id);
   }
 
+
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
+  @UseGuards(JwtAuthGuard)
+  @Put(':id')
+  async updateProgram(@Param('id') id: number, @Body() body: CreateProgramRequestDto): Promise<GenericResponseDto> {
+    return await this.programsService.updateProgram(id, body);
+  }
+
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
+  @UseGuards(JwtAuthGuard)
   @Get('/getById/:id')
-  findOne(@Param('id', ParseIntPipe) programId: number) {
-    return this.programsService.findOne(programId);
+  async getById(@Param('id', ParseIntPipe) id: number): Promise<GenericResponseDto> {
+    return await this.programsService.getById(id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateProgramDto: UpdateProgramDto) {
-  //   return this.programsService.update(+id, updateProgramDto);
-  // }
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
+  @UseGuards(JwtAuthGuard)
+  @Get('/getAll')
+  async getAllPrograms(@Query() query: GetAllProgramsRequestDto): Promise<GenericResponseDto> {
+    return await this.programsService.getAllPrograms(query);
+  }
 
-  @Delete('/delete/:id')
-  remove(@Param('id', ParseIntPipe) programId: number) {
-    return this.programsService.remove(programId);
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
+  @UseGuards(JwtAuthGuard)
+  @Delete()
+  async deletePrograms(@Query() query :  DeleteAlexaAudioRequestDto): Promise<GenericResponseDto> {
+    return  await this.programsService.deletePrograms(query);
   }
 }
