@@ -29,4 +29,5 @@ export const requests={
     trendingNews:newsAPIClient+'news/get/flags?isTrending=true',
     exclusiveVideosNews:newsAPIClient+'news/get/flags?isExclusiveVideos=true',
     latestNews:newsAPIClient+'news/get/flags?',
+    search:newsAPIClient+'news/search?',
 }
