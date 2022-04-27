@@ -6,7 +6,7 @@ import smalllogo from '../../styles/images/cnbc-logo.svg';
 import Title from 'apps/frontend/components/Title';
 import ArticleDetails from 'apps/frontend/components/NewsDetails/ArticleDetails';
 import PageCatgories from 'apps/frontend/components/Shared/PageCategories/PageCategories';
-import HorizontalFooter2NewsSlider from 'apps/frontend/components/Shared/NewsFooter2Slider';
+import RelatedNewsSlider from 'apps/frontend/components/Shared/NewsFooter2Slider/RelatedNewsSlider';
 import HorizontalNumberedList from 'apps/frontend/components/Home/HorizontalNumberedList/HorizontalNumberedList';
 import MostReadSlider from 'apps/frontend/components/Home/MostReadSlider';
 //import { useRouter } from "next/router";
@@ -26,7 +26,7 @@ const Index = (props: any) => {
 
   const { news, metaData } = props;
 
-  //console.log(news)
+  //console.log('News Details::::::::::::', news)
 
   //const [news, setNews] = useState<any>();
   //
@@ -140,7 +140,7 @@ const Index = (props: any) => {
             <Title styles={'yellowTitle'}>
               <h3>أخبار ذات صلة</h3>
             </Title>
-            <HorizontalFooter2NewsSlider />
+            <RelatedNewsSlider tags={news && news.tags} quotes={news && news.quotes} />
           </div>
 
           <div className="mb-5 hide_div_web">

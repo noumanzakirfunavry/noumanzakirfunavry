@@ -28,7 +28,7 @@ const Index = () =>{
         if(activatedMenuItem === 'latestNews'){
             GetData(`${requests.latestNews}limit=50&pageNo=1`, {}, 'get', false).then(res=>{
 
-                console.log('latesttt', res.data);
+                //console.log('latest news', res.data);
                 const newsRes = res.data && res.data.length ? res.data : []
                 setNewsSearchData(newsRes);
     
@@ -38,14 +38,17 @@ const Index = () =>{
 
         } else {
             setSearchVal(searchValue)
-            GetData(`${requests.search}searchTerm=${searchValue}`, {}, 'post', false).then(res=>{
-
-                console.log(res?.data);
-                setNewsSearchData(res?.data)
-            
-            }).catch(err=>{
-                console.warn(err)
-            });
+            if(searchVal){
+                GetData(`${requests.search}`, {
+                    searchTerm: `${searchVal}`
+                    }, 'post', false).then(res => {
+                        console.log('filtered news', res.data);
+                        setNewsSearchData(res?.data)
+                    
+                    }).catch(err=>{
+                        console.warn(err)
+                });
+            }
         }
         
     }, [searchVal, activatedMenuItem])
@@ -100,7 +103,7 @@ const Index = () =>{
                             <MenuBar activateMenuItem={activateMenuItem} />
                         </div>
                         <div className='row'>
-                            <SearchResultList newsSearchData={newsSearchData} />
+                            <SearchResultList newsSearchData={newsSearchData}  />
                         </div>
                     </div>
 

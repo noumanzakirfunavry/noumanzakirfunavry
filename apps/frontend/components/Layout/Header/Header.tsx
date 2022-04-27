@@ -125,22 +125,27 @@ const Header = () =>{
         //fetch data and return
           
 
-        GetData(`http://157.90.67.186/zagTrader/api/TickerSearchAPIFull.php?st=test`, {}, 'get', false).then(res=>{
+        /*GetData(`http://157.90.67.186/zagTrader/api/TickerSearchAPIFull.php?st=test`, {}, 'get', false).then(res=>{
 
             console.log('zagtrader');
             console.log(res);
         
         }).catch(err=>{
             console.warn(err)
-        })
+        })*/
 
-        
-        GetData(`${requests.search}searchTerm=${value}`, {}, 'post', false).then(res=>{
-            setNewsSearchData(res?.data)
-        
-        }).catch(err=>{
-            console.warn(err)
-        });
+        if(value){
+            GetData(`${requests.search}`, {
+                    searchTerm: `${value}`
+                }, 'post', false).then(res=>{
+                    //console.log('search Data', res?.data);
+                    setNewsSearchData(res?.data)
+                
+                }).catch(err=>{
+                    console.warn(err)
+            });
+        }
+  
 
         const data = {
             "16449": {
