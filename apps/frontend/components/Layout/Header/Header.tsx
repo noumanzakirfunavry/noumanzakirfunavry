@@ -125,14 +125,13 @@ const Header = () =>{
         //fetch data and return
           
 
-        /*GetData(`http://157.90.67.186/zagTrader/api/TickerSearchAPIFull.php?st=test`, {}, 'get', false).then(res=>{
+        GetData(`http://157.90.67.186/zagTrader/api/TickerSearchAPIFull.php?st=test`, {}, 'get', false).then(res=>{
 
-            console.log('zagtrader');
-            console.log(res);
+            console.log('zagtrader::::::::', res);
         
         }).catch(err=>{
             console.warn(err)
-        })*/
+        })
 
         if(value){
             GetData(`${requests.search}`, {
