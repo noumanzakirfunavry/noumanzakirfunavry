@@ -66,7 +66,7 @@ export class NewsModel {
 
         this.fileUrl=serverNews.image  ? environment.fileUrl+serverNews.image?.path:null;
         this.videoUrl=serverNews.video ? environment.fileUrl+serverNews.video?.path:null;
-        this.thumbnailUrl=serverNews.thumbnail ? environment.fileUrl+serverNews.thumbnail?.path:null;
+        this.thumbnailUrl=serverNews.thumbnail ? serverNews.thumbnail?.url:null;
     }
 
     toServerModal(form: any, seoId?) {
