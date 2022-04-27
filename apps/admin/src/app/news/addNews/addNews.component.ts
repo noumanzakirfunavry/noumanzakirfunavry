@@ -277,7 +277,7 @@ export class AddNewsComponent implements OnInit {
 
 
     mainFileUploaded(file) {
-        if (file.attachmentType == 'Image') {
+        if (file.attachmentType == 'IMAGE') {
             this.newsModel.imageId = file.id;
             this.newsModel.fileUrl = file.url;
         } else {
@@ -287,7 +287,10 @@ export class AddNewsComponent implements OnInit {
     }
     thumbnailUploaded(file) {
         this.newsModel.thumbnailId = file.id;
-        this.newsModel.thumbanailUrl = file.url;
+        this.newsModel.thumbnailUrl=null;
+        setTimeout(() => {
+            this.newsModel.thumbnailUrl = file.url;
+        }, 400);
     }
 
 

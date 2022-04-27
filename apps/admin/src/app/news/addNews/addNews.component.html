@@ -51,12 +51,13 @@
                         <dynamic-file-selector 
                         [title]="'Upload Media'" 
                         [field]="tempFile"
+                        [customDiv]="'mainFile'"
                         [formField]="newsForm" 
                         (onFileRemove)="reset($event)" 
                         (onFileSelection)="mainFileSelection($event)" 
                         (onFileUpload)="mainFileUploaded($event)" 
                         >
-                            <div customData class="mt-2" >
+                            <div mainFile class="mt-2" >
                                 <img *ngIf="newsModel?.fileUrl" class="mt-2" width="50%" height="50%"
                                 [src]="newsModel?.fileUrl">                           
                                 <video *ngIf="newsModel?.videoUrl" id="video1" class="img" style="width:50%; height:50%;" controls>
@@ -89,8 +90,16 @@
                         <button *ngIf="file" (click)="[getCaptcha($event),reset()]">Reset</button> -->
                     </div>
                     <div class="col-md-6" *ngIf="newsModel?.contentType && newsModel?.contentType=='VIDEO'">
-                        <dynamic-file-selector  (onFileRemove)="resetThumbnail($event)" [title]="'Thumbnail Image'" [formField]="newsForm" (onFileUpload)="thumbnailUploaded($event)" [field]="tempThumbanilFile">
-                            <div customData class="mt-2" >
+                        <dynamic-file-selector 
+                        [customDiv]="'thumbnail'" 
+                        [title]="'Thumbnail Image'" 
+                        [field]="tempThumbanilFile"
+                        [formField]="newsForm" 
+                        (onFileSelection)="thumbnailFileSelection($event)"
+                        (onFileRemove)="resetThumbnail($event)" 
+                        (onFileUpload)="thumbnailUploaded($event)" 
+                        >
+                            <div thumbnail class="mt-2" >
                                 <img *ngIf="newsModel?.thumbnailUrl" class="mt-2" width="40%" height="40%"
                                 [src]="newsModel.thumbnailUrl">                                                          
                                 <br>
@@ -272,8 +281,8 @@
 
     <div *ngIf="isVisible">
         
-        <!-- <tiny-file-modal (onSelectFile)="fileFromModal($event)" [isVisible]="isVisible" (closeModal)="closeModal($event)"> -->
+        <tiny-file-modal (onSelectFile)="fileFromModal($event)" [isVisible]="isVisible" (closeModal)="closeModal($event)">
         
-        <!-- </tiny-file-modal> -->
+        </tiny-file-modal>
     </div>
 </section>

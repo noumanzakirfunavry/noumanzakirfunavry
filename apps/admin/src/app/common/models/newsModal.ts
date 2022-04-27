@@ -59,6 +59,11 @@ export class NewsModel {
         this.quotesIds=serverNews.quotes.map(x=>x.id);
         this.seoDetails=serverNews.seoDetail
         this.seoDetailId=serverNews.seoDetailId;
+
+        this.videoId=serverNews.videoId || null;
+        this.imageId=serverNews.imageId || null;
+        this.thumbnailId=serverNews.thumbnailId || null;
+
         this.fileUrl=serverNews.image  ? environment.fileUrl+serverNews.image?.path:null;
         this.videoUrl=serverNews.video ? environment.fileUrl+serverNews.video?.path:null;
         this.thumbnailUrl=serverNews.thumbnail ? environment.fileUrl+serverNews.thumbnail?.path:null;

@@ -11,6 +11,7 @@ import { MediaUtilService } from '../service/mediaUtil';
 export class FileSelectorComponent implements OnInit {
   @ViewChild("imageSelector") imageSelector: ElementRef;
   @Input() field: any;
+  @Input() customDiv: any;
   @Input() formField: FormGroup;
   @Input() validate: any;
   @Input() title = 'Image Upload';
@@ -68,8 +69,8 @@ export class FileSelectorComponent implements OnInit {
             setTimeout(() => {
               
               this.mediaObj.src = res.body.response.url;
+              console.log("url",this.mediaObj.src);
             }, 200);
-            console.log("url",this.mediaObj.src);
             
             // this.newsModel.fileUrl = res.body.response.url;
            this.onFileUpload.emit(res.body.response);

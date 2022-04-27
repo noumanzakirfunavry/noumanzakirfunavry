@@ -16,7 +16,7 @@
 </div>
 </ng-container>
 <!-- <br> -->
-<ng-content select="[customData]"></ng-content>
+<ng-content [select]="[customDiv]"></ng-content>
 <!-- <div class="mt-2" *ngIf="(mediaObj && mediaObj.name) && uploadProgress==100">
   <img *ngIf="mediaObj?.type!='video'"  width="40%" height="40%" src="{{mediaObj.src}}">
   <video *ngIf="mediaObj?.type=='video' && mediaObj?.src" id="video1" width="60%" height="60%" class="img"  controls>
@@ -24,7 +24,7 @@
   </video>
 </div> -->
 <br>
-<i style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i>
+<i *ngIf="(mediaObj && mediaObj.name) && uploadProgress==100" style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i>
 
 <div *ngIf="field.value && !uploadProgress" style="color: Crimson;">Click upload button to upload Image!</div>
                         <button class="mr-2" *ngIf="field.value && uploadProgress!==100" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
