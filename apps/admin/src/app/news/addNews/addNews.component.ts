@@ -26,7 +26,6 @@ export class AddNewsComponent implements OnInit {
     tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Or Image Upload' }
     tempThumbanilFile: { colName: string, value: any, label: string } = { 'colName': 'thumbnail', value: null, label: 'Thumbnail Image Upload' }
     // $isVisible:BehaviorSubject<boolean>=new BehaviorSubject(false);
-    isVisible: boolean = false;
     size = 'default';
 
     quotesForm: FormGroup;
@@ -50,8 +49,9 @@ export class AddNewsComponent implements OnInit {
     fileType: string;
     submitted = false;
     selectedCat: any;
+    loader = true;
     tinyConfig: any;
-    loader: boolean = true;
+    isVisible: boolean;
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
@@ -88,7 +88,7 @@ export class AddNewsComponent implements OnInit {
             },
             // menubar: 'file edit view insert table custom format tools',
             setup: function (editor) {
-                let self = selfp;
+                const self = selfp;
                 editor.ui.registry.addMenuItem('myCustomMenuItem', {
                     text: 'Upload',
                     onAction:
@@ -101,7 +101,6 @@ export class AddNewsComponent implements OnInit {
             images_upload_url: requests.addNewAttachment,
             automatic_uploads: true,
             file_picker_callback: function (callback, value, meta) {
-                debugger
                 // Provide file and text for the link dialog
                 if (meta.filetype == 'file') {
                     callback('mypage.html', { text: 'My text' });

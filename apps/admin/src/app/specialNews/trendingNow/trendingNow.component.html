@@ -3,7 +3,7 @@
   <br>
   <div class="col-12">
       <div class="row">
-        <div class="col-12">
+        <div class="col-12" cdkDropList (cdkDropListDropped)="drop($event)">
         <nz-table [nzData]="allTrendingNow" [nzShowPagination]="false" class="no-border-last">
           <thead>
               <tr>
@@ -11,9 +11,12 @@
               </tr>
           </thead>
           <tbody *ngIf="!loading">
-              <tr *ngFor="let news of tNews">
+              <tr class="news-block" *ngFor="let news of tNews" cdkDrag>
                   <!-- <td>#</td> -->
-                  <td>{{news?.position}}</td>
+                  <!-- <td>{{news?.position}}</td> -->
+                  <td>
+                    <i nz-icon nzType="drag" nzTheme="outline"></i>
+                </td>
                   <ng-container>
                     <news-table-row 
                     [allCategories]="allCategories" 
