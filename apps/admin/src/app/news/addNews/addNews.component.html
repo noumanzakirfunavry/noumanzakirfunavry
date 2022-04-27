@@ -39,7 +39,7 @@
                             <nz-form-label nzRequired>Description</nz-form-label>
                             <nz-form-control nzErrorTip="Enter Description maximum 1500 characters allowed!">
                                 <ng-container *ngIf="tinyConfig">
-                                    <editor formControlName="content" [init]="tinyConfig"></editor>
+                                    <tiny-editor [formField]="newsForm"></tiny-editor>
                                 </ng-container>
                                 <!-- <ckeditor [config]="config" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor> -->
                             </nz-form-control>
@@ -238,13 +238,7 @@
         </form>
     </div>
 
-    <div *ngIf="isVisible">
-        
-        <!-- file modal -->
-        <tiny-file-modal (onSelectFile)="fileFromModal($event)" [isVisible]="isVisible" (closeModal)="closeModal($event)">
-            <div>
-                <p>Please select Image</p>
-            </div>
-        </tiny-file-modal>
-    </div>
+    <!-- <div *ngIf="isVisible">
+        <tiny-editor [newsForm]="newsForm"></tiny-editor>
+    </div> -->
 </section>

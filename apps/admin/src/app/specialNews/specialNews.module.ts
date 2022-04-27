@@ -14,6 +14,8 @@ import { ExclusiveVideosComponent } from './exclusiveVideos/exclusiveVideos.comp
 import { FeaturedNewsComponent } from './featuredNews/featuredNews.component';
 import { TrendingNowComponent } from './trendingNow/trendingNow.component';
 import { NewsTableRowComponent } from './newsTableRow/newsTableRow.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 @NgModule({
     imports: [
@@ -25,7 +27,8 @@ import { NewsTableRowComponent } from './newsTableRow/newsTableRow.component';
         ...antdModule,
         DemoComponentsShareModule,
         QuillModule.forRoot(),
-        NzUploadModule
+        NzUploadModule,
+        DragDropModule
     ],
     exports: [],
     declarations: [
