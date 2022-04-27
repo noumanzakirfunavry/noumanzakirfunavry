@@ -158,6 +158,9 @@ export * from './response/exclusive-videos/get.all.exclusive.videos.response.dto
 export * from './response/exclusive-videos/get.exclusive.video.by.id.response.dto';
 //...............................Featured news.............................
 export * from './response/featured-news/get.all.featured.news.response.dto';
+//...............................Programs.............................
+export * from './request/programs/create.program.request.dto'
+export * from './request/programs/get.all.programs.request.dto'
 
 //.............................response dtos.......................................
 export * from './response/generic.response.dto';
