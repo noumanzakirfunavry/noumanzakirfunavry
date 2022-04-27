@@ -1,9 +1,9 @@
-import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzUploadFile } from 'ng-zorro-antd/upload';
-import { filter } from 'rxjs';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
     selector: 'app-addMenus',
@@ -17,89 +17,97 @@ import { filter } from 'rxjs';
       ]
 })
 
-export class AddMenusComponent {
-    validateForm: FormGroup;
-    uploading = false;
-    fileList: NzUploadFile[] = [];
-
-    editorConfig = {
-      toolbar: [
-          ['bold', 'italic', 'underline', 'strike'],        
-          ['blockquote', 'code-block'],
-          [{ 'header': 1 }, { 'header': 2 }],               
-          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-          [{ 'size': ['small', false, 'large', 'huge'] }],  
-          [{ 'align': [] }],
-          ['link', 'image'] ,
-
-          [{ 'direction': 'rtl' }], 
-          [{ 'font': [] }],
-          [{ 'align': [] }],
-      ]
-  };
-
-    submitForm(): void {
-      for (const i in this.validateForm.controls) {
-        this.validateForm.controls[i].markAsDirty();
-        this.validateForm.controls[i].updateValueAndValidity();
-      }
-    }
+export class AddMenusComponent implements OnInit{
+  pagination: {
+    pageNo: number, 
+    limit: number, 
+    isActive?: boolean,
+    position?: string, 
+    title?: string } = {pageNo: 1, limit: 1000};
+  menuForm: FormGroup;
+  menuId: number;
+  allMenus: any;
+  menuById: any;
   
-    get isHorizontal(): boolean {
-      return this.validateForm.controls.formLayout?.value === 'horizontal';
-    }
-  
-    constructor(private fb: FormBuilder, private http: HttpClient, private msg: NzMessageService) {}
+    constructor(
+      private fb: FormBuilder, 
+      private apiService: ApiService, 
+      private route: Router, 
+      private activatedRoute: ActivatedRoute, 
+      private message: NzMessageService) {}
   
     ngOnInit(): void {
-      this.validateForm = this.fb.group({
-        formLayout: ['horizontal'],
-        fieldA: [null, [Validators.required]],
-        filedB: [null, [Validators.required]]
+      this.getAllMenus();
+      this.menuForm = this.fb.group({
+        title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        position: [null, [Validators.required]],
+        parentMenuId: [null],
+        url: [null, [Validators.required, 
+          // Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+        ]],
+        isActive: [false],
+        visible: [true, [Validators.required]],
+        // orderNo: [1, [Validators.required]]
+      });
+      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+        this.menuId = + params.get('id');
+        if (this.menuId) {
+          this.getMenuById();
+        }
       });
     }
 
-    beforeUpload = (file: NzUploadFile): boolean => {
-      this.fileList = this.fileList.concat(file);
-      return false;
-    };
-  
-    handleUpload(): void {
-      const formData = new FormData();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      this.fileList.forEach((file: any) => {
-        formData.append('files[]', file);
-      });
-      this.uploading = true;
-      // You can use any AJAX library you like
-      const req = new HttpRequest('POST', 'https://www.mocky.io/v2/5cc8019d300000980a055e76', formData, {
-        // reportProgress: true
-      });
-      this.http
-        .request(req)
-        .pipe(filter(e => e instanceof HttpResponse))
-        .subscribe(
-          () => {
-            this.uploading = false;
-            this.fileList = [];
-            this.msg.success('upload successfully.');
-          },
-          () => {
-            this.uploading = false;
-            this.msg.error('upload failed.');
-          }
-        );
+    menus() {
+      for (const i in this.menuForm.controls) {
+        this.menuForm.controls[i].markAsDirty();
+        this.menuForm.controls[i].updateValueAndValidity();
+      }
+      if(this.menuForm.valid) {
+        this.apiService.sendRequest(this.menuId ? requests.updateMenu + this.menuId : requests.addMenu, this.menuId ? 'put' : 'post', this.menuForm.value).subscribe((res:any) => {
+          console.log("MENU", res);
+          this.menuForm.reset();
+          this.route.navigateByUrl('menus/list');
+          if(this.menuId) {
+            this.message.create('success', `Menu Updated Successfully`)
+        }
+        else {
+            this.message.create('success', `Menu Added Successfully`)
+        }
+        })
+      }
     }
 
-    
-}    
-// import { Component } from '@angular/core'
+    getAllMenus() {
+      this.apiService.sendRequest(requests.getAllMenus, 'get', this.pagination).subscribe((res:any) => {
+        this.allMenus= res.response;
+        console.log("ALL-MENUS", this.allMenus);
+      })
+    }
 
-// @Component({
-//     selector: 'app-addquickLink',
-//     templateUrl: './addQuickLinks.component.html'
-// })
+    getOtherMenus() {
+      return this.allMenus && this.allMenus.filter((x:any) => x.id != this.menuId)
+    }
 
-// export class AddQuickLinksComponent {
-   
-// }    
+    getMenuById() {
+      this.apiService.sendRequest(requests.getMenuById + this.menuId, 'get').subscribe((res:any) => {
+        this.menuById= res.response;
+        console.log("MENU-BY-ID", this.menuById);
+        this.menuForm = this.fb.group({
+          title: [this.menuById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+          position: [this.menuById?.position || null, [Validators.required]],
+          parentMenuId: [this.menuById?.parentMenuId || null],
+          url: [this.menuById?.url || null, [Validators.required, 
+            // Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+          ]],
+          isActive: [this.menuById?.isActive || false],
+          visible: [this.menuById?.visible || true, [Validators.required]],
+          // orderNo: [1, [Validators.required]]
+        });
+      })
+    }
+
+    cancel() {
+      this.route.navigateByUrl('menus/list');
+    }
+
+}

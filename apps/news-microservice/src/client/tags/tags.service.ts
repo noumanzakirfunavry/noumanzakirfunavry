@@ -15,8 +15,8 @@ export class TagsService {
         query.pageNo = query.pageNo - 1;
         if (query.pageNo) offset = query.limit * query.pageNo;
         let where = {}
-        if (query.publishers) {
-            where['publishedBy'] = query.publishers
+        if (query.publisher) {
+            where['publishedBy'] = query.publisher
         }
         if (query.status) {
             where['isActive'] = query.status
@@ -24,7 +24,7 @@ export class TagsService {
         if (query.title) {
             where['title'] = query.title
         }
-        const result = await this.tagsRepo.findAndCountAll({ where: where, offset: offset, limit: query.limit })
+        const result = await this.tagsRepo.findAndCountAll({ where: {...where, isActive: true }, offset: offset, limit: query.limit })
         if (!result.count) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,

@@ -12,6 +12,7 @@ import { AlexaProvider } from '../providers/alexa.audio.provider';
 import { ChangeLogsProvider } from '../providers/change.logs.provider';
 import { PresentersProvider } from '../providers/presenters.provider';
 import { NewsProvider } from '../providers/news.provider';
+import { NewsVisitorsProvider } from '../providers/news.visitors.provider';
 import { NewsHasQuotesProvider } from '../providers/news.has.quotes.provider';
 import { NewsHasTagsProvider } from '../providers/news.has.tags.provider';
 import { SeoDetailsProvider } from '../providers/seo.details.provider';
@@ -32,7 +33,13 @@ import { EpisodeHasQuotesProvider } from '../providers/episodes.has.quotes.provi
 import { AttachmentsProvider } from '../providers/attachments.provider';
 import { EmailSubscribersProvider } from '../providers/email.subscribers.provider';
 import { JobApplicantsProvider } from '../providers/job.applicants.provider';
-import { MenusProvider } from '../providers/menus.provider'
+import { FeaturedNewsProvider } from '../providers/featured.news.provider';
+import { EditorsChoiceNewsProvider } from '../providers/editors.choice.news.provider';
+import { TrendingNewsProvider } from '../providers/trending.news.provider';
+import { MenusProvider } from '../providers/menus.provider';
+import { MarketsProvider } from '../providers/markets.provider';
+import { PagesProvider } from '../providers/pages.provider';
+import { ProgramsProvider } from '../providers/programs.provider';
 
 @Module({
   providers: [
@@ -56,6 +63,7 @@ import { MenusProvider } from '../providers/menus.provider'
     ...JobsProvider,
     ...BranchesProvider,
     ...DepartmentsProvider,
+		...NewsVisitorsProvider,
     ...CategoriesProvider,
     ...SiteConfigurationProvider,
     ...BreakingNewsProvider,
@@ -69,7 +77,15 @@ import { MenusProvider } from '../providers/menus.provider'
     ...AttachmentsProvider,
     ...EmailSubscribersProvider,
     ...JobApplicantsProvider,
-		...MenusProvider
+    ...FeaturedNewsProvider,
+    ...EditorsChoiceNewsProvider,
+    ...TrendingNewsProvider,
+    ...ExclusiveVideosProvider,
+		...MenusProvider,
+		...MarketsProvider,
+		...PagesProvider,
+		...ProgramsProvider
+
   ],
   exports: [
     ...UsersProvider,
@@ -79,6 +95,7 @@ import { MenusProvider } from '../providers/menus.provider'
     ...QuotesProvider,
     ...QuickLinksProvider,
     ...RightsProvider,
+		...NewsVisitorsProvider,
     ...SocialMediaLinkProvider,
     ...AlexaProvider,
     ...ChangeLogsProvider,
@@ -104,7 +121,14 @@ import { MenusProvider } from '../providers/menus.provider'
     ...AttachmentsProvider,
     ...EmailSubscribersProvider,
     ...JobApplicantsProvider,
-		...MenusProvider
+    ...FeaturedNewsProvider,
+    ...EditorsChoiceNewsProvider,
+    ...TrendingNewsProvider,
+    ...ExclusiveVideosProvider,
+		...MenusProvider,
+		...MarketsProvider,
+		...PagesProvider,
+		...ProgramsProvider
   ],
 })
 export class ProvidersModule {}

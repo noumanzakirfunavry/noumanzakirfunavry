@@ -47,7 +47,7 @@ export class AuthInterceptor implements HttpInterceptor {
     } else {
       const admin = JSON.parse(localStorage.getItem('admin') || '{}');
       const headers = request.headers
-        .set("Authorization", 'Bearer ' + admin.access_token)
+        .set("Authorization", 'Bearer ' + admin.token?.access_token)
       const authReq = request.clone({ headers: headers });
       return next.handle(authReq).pipe(tap((evt: any) => {
         if (evt.body && (evt.body.message || evt.status==200)) {
@@ -58,14 +58,14 @@ export class AuthInterceptor implements HttpInterceptor {
         catchError(error => {
           this.commonStore.loaderEnd();
           const ifDisableLoader = DisableNotification.some(x => request.urlWithParams.match(x));
-          if (!ifDisableLoader && error.status != 404 && error.status != 201) {
+          if ((!ifDisableLoader && error.status != 404 && error.status != 201) || (!ifDisableLoader && error.status == 403 && error.statusText == 'Forbidden')) {
             // this.commonStore.notifier({ message: error.statusText == 'Forbidden' ? 'Your session is expired. Please login again' : error.error?.message || error.message || 'Error Occured', action: 'error' })
-            this.message.create( 'error', error.statusText == 'Forbidden' ? 'Your session is expired. Please login again' : error.error?.message || error.message || 'Error Occured' )
+            this.message.create( 'error', error.statusText == 'Forbidden' ? 'Access Denied' :  error.error?.message || error.message || 'Error Occured' )
           }
           if (error.statusText == 'Unknown Error') {
             this.router.navigateByUrl('server-down');
           }
-          else if ((error.status == 401 && (error.error?.message == 'Unauthorized' || error.message == 'Unauthorized')) || error.status == 403 || error.statusText == 'Forbidden' || error.error?.message == 'Invalid Token' || error.message == 'Invalid Token') {
+          else if ((error.status == 401 && (error.error?.message == 'Unauthorized' || error.message == 'Unauthorized')) || error.error?.message == 'Invalid Token' || error.message == 'Invalid Token') {
             // this.profileStore.reset();
             window.localStorage.clear();
             this.router.navigateByUrl('/full/authentication/login');

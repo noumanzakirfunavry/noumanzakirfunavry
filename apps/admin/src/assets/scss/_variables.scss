@@ -22,6 +22,7 @@ $geekblue:                  #2f54eb !default;
 // Create grayscale
 $gray-dark:                 #343A40 !default;
 $gray:                      #53535f !default;
+$light-black:               #848484 !default;
 $gray-light:                #DAE0E4  !default; 
 $gray-lighter:              #ededed !default;
 $gray-lightest:             #f1f2f3 !default;
@@ -96,7 +97,7 @@ $body-color:                $gray !default;
 // Template
 //
 // Configuration of template
-$header-height:            70px;
+$header-height:            50px;
 $side-nav-width:           280px;
 $side-nav-width-laptop:    230px;
 $side-nav-folded:          80px;
@@ -699,7 +700,7 @@ $loading-color:                    $brand-primary !default;
 $badge-count-bg:                  #f5222d !default;
 $badge-count-height:              1.25rem !default;
 $badge-count-font-size:           $font-size-base !default;
-$badge-dot-size:                  0.4375rem !default;
+$badge-dot-size:                  0.6375rem !default;
 $badge-dot-processing-bg:         $brand-info !default;
 
 

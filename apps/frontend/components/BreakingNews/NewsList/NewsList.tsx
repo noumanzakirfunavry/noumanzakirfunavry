@@ -4,7 +4,7 @@ import GetData from "apps/frontend/services/GetData"
 import { requests } from "apps/frontend/services/Requests"
 import { BreakingNewsProps } from "apps/frontend/types/Types"
 import { useEffect, useState } from "react"
-import Skeleton from "react-loading-skeleton"
+import SkeletonLoader from "../../Shared/SkeletonLoader/SkeletoLoader"
 
 type BreakingNewsPageProps = {
   newsList:BreakingNewsProps[],
@@ -40,16 +40,16 @@ const NewsList = () => {
             <div className="breakingNews">
               {
                 !pageData.newsList?.length && (
-                  <Skeleton/>
+                  <SkeletonLoader/>
                 )
               }
               {
-                pageData.newsList?.length && pageData.newsList?.map((news:BreakingNewsProps)=>{
+                pageData.newsList?.length > 0 && pageData.newsList?.map((news:BreakingNewsProps)=>{
                   return (
                     <div className="newsbox" key={news.id}>
                       <div className="newslink">
                           <p className="text-danger">{news.title}</p>
-                          <a href="/newsDetails">{news.title}</a>
+                          <a>{news.title}</a>
                       </div>
                       {
                         news.newsLink && (

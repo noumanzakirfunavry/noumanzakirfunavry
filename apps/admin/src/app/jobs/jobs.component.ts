@@ -21,7 +21,10 @@ export class JobsComponent implements OnInit {
     setOfCheckedId = new Set<number>();
 
 
-    constructor(private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {}
+    constructor(
+        private apiService: ApiService, 
+        private message: NzMessageService, 
+        private modal: NzModalService ) {}
 
     ngOnInit(): void {
         this.getAllJobs()
@@ -35,8 +38,17 @@ export class JobsComponent implements OnInit {
             this.loading= false;
         },err => {
             this.loading = false;
+            throw this.handleError(err)
           })
     }
+
+    handleError(err: any) {
+        if (err) {
+          this.allJobs = [];
+          this.jobsCount= 0;
+        }
+        return err
+      }
 
     clean(obj:any) {
         for (const propName in obj) {
@@ -68,13 +80,13 @@ export class JobsComponent implements OnInit {
     }
 
     receiveStatus(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers, branchId: data.branchId};
+        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher, branchId: data.branchId};
         this.pagination.pageNo= 1;
         this.getAllJobs();        
     }
 
     receiveFilter(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publishers: data.publishers, branchId: data.branchId};
+        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher, branchId: data.branchId};
         this.pagination.pageNo= 1;
         this.getAllJobs();        
     }

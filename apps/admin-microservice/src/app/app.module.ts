@@ -26,6 +26,9 @@ import { JobApplicantModule } from './job-applicant/job-applicant.module';
 import { SystemConfigurationModule } from './system-configuration/system-configuration.module';
 import { MenusModule } from './menus/menus.module';
 
+import {ElkModule} from '@cnbc-monorepo/elk'
+import { PagesModule } from './pages/pages.module';
+import { ProgramsModule } from './programs/programs.module';
 @Module({
   imports: [
     EntityModule,
@@ -53,7 +56,10 @@ import { MenusModule } from './menus/menus.module';
     SubscribersModule,
     CountriesModule,
     JobApplicantModule,
-    MenusModule
+    MenusModule,
+    ElkModule,
+    PagesModule,
+    ProgramsModule
   ]
 })
 export class AppModule { }

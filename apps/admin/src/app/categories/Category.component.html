@@ -16,7 +16,7 @@
                             <th>Title</th>
                             <th>Created</th>
                             <th>Modified</th>
-                            <th>Publisher</th>
+                            <th>User</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -40,12 +40,12 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-between">
-                                        <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/update/' + cat?.id]"></i>
-                                        <i nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="showDeleteConfirm(cat?.id)"></i>
+                                        <i nz-tooltip nzTooltipTitle="Edit" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/category/update/' + cat?.id]"></i>
+                                        <i nz-tooltip nzTooltipTitle="Delete" nz-icon nzType="delete" class="cursor-pointer" nzTheme="outline" (click)="showDeleteConfirm(cat?.id)"></i>
                                     </div>
                                 </td>
                             </tr>
-                                <div *ngIf="expandedId===cat?.id" cdkDropList (cdkDropListDropped)="dropSubCategories($event, i)">
+                                <div class="sub_cat_block" *ngIf="expandedId===cat?.id" cdkDropList (cdkDropListDropped)="dropSubCategories($event, i)">
                                     <tr class="category-block" *ngFor="let subCat of cat?.sub" cdkDrag>
                                         <td [nzChecked]="setOfCheckedId.has(subCat?.id)" (nzCheckedChange)="onItemChecked(subCat?.id, $event)">
                                                 <i nz-icon nzType="drag" nzTheme="outline"></i>

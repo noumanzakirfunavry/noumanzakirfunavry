@@ -1,4 +1,4 @@
-import { GenericResponseDto, RegisterAdminRequestDto, RequestResetPasswordRequestDto, ResetPasswordRequestDto, UpdatePasswordRequestDto, UserLoginDto } from '@cnbc-monorepo/dtos';
+import { GenericResponseDto, RegisterAdminRequestDto, RequestResetPasswordRequestDto, ResetPasswordRequestDto, UpdateAdminRequestDto, UpdatePasswordRequestDto, UserLoginDto } from '@cnbc-monorepo/dtos';
 import { Rights, Roles, Sessions, Users, UsersHasRights } from '@cnbc-monorepo/entity';
 import { ForbiddenException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -23,31 +23,63 @@ export class AnthenticationService {
 
     async loginUser(body: UserLoginDto) {
         try {
-            const response = await this.usersRepository.findOne({
+            const response = await this.usersRepository.unscoped().findOne({
                 include: [Roles, Rights],
                 where: {
-                    userName: body.userName
+                    userName: body.userName,
                 }
             })
             if (response) {
                 const compare_passwords = await this.helperService.comparePasswords(body.password, response.password)
                 if (compare_passwords) {
+
+									if(!response.isVerified){
+										throw new CustomException(
+											Exceptions[ExceptionType.USER_IS_NOT_VERIFIED].message,
+											Exceptions[ExceptionType.USER_IS_NOT_VERIFIED].status
+										)
+									}
+
+									if(!response.isActive){
+										throw new CustomException(
+											Exceptions[ExceptionType.USER_IS_INACTIVE].message,
+											Exceptions[ExceptionType.USER_IS_INACTIVE].status
+										)
+									}
+									
                     const session_creation = await this.sessionCreation(body, response)
                     const token = await this.tokenGeneration(response, session_creation)
                     if (session_creation) {
+                        response.update({loginFailAttempts:0})
                         return new GenericResponseDto(
                             HttpStatus.OK,
                             "Logged-in Successfully!",
-                            token
+                            {
+															user: {
+																id: response.id,
+																name: response.name,
+																email: response.email,
+															},
+															token
+														}
                         )
                     }
+                    
                 }
                 else {
+                    response.update({loginFailAttempts:response.loginFailAttempts+1})
+                    if (response.loginFailAttempts>=5){
+                        throw new CustomException(
+                            Exceptions[ExceptionType.LOGIN_ATTEMPT_LIMIT_REACHED].message,
+                             Exceptions[ExceptionType.LOGIN_ATTEMPT_LIMIT_REACHED].status
+                        )
+                    }
                     throw new CustomException(
                         Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].message,
                         Exceptions[ExceptionType.INCORRECT_EMAIL_PASSWORD].status
                     )
                 }
+
             }
             else {
                 throw new CustomException(
@@ -185,7 +217,7 @@ export class AnthenticationService {
         }
     }
 
-    async updateAdmin(id: number, body: RegisterAdminRequestDto): Promise<GenericResponseDto> {
+    async updateAdmin(id: number, body: UpdateAdminRequestDto): Promise<GenericResponseDto> {
         try {
             return await sequelize.transaction(async t => {
                 const transactionHost = { transaction: t };
@@ -248,8 +280,10 @@ export class AnthenticationService {
         return response === 0 ? true : response
     }
 
-    private async updateAdminQuery(body: RegisterAdminRequestDto, id: number, transactionHost) {
-        body.password = await this.helperService.encryptPassword(body.password)
+    private async updateAdminQuery(body: UpdateAdminRequestDto, id: number, transactionHost) {
+				if(body.password){
+					body.password = await this.helperService.encryptPassword(body.password)
+				}  
         return await this.usersRepository.update(body, {
             where: {
                 id: id
@@ -267,10 +301,11 @@ export class AnthenticationService {
         }
         return true
     }
+		// remove isVerified:true
     async addUser(body, transactionHost) {
         const userObj = body
         userObj.password = await this.helperService.encryptPassword(userObj.password)
-        return await this.usersRepository.create(userObj, transactionHost)
+        return await this.usersRepository.create({...userObj, isVerified: true}, transactionHost)
     }
     async requestResetPassword(body: RequestResetPasswordRequestDto): Promise<GenericResponseDto> {
         try {

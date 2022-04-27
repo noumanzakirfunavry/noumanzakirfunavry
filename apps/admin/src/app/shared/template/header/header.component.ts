@@ -3,6 +3,7 @@ import { ThemeConstantService } from '../../services/theme-constant.service';
 import { Router } from '@angular/router';
 import { requests } from '../../config/config';
 import { ApiService } from '../../services/api.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
     selector: 'app-header',
@@ -15,6 +16,7 @@ export class HeaderComponent implements OnInit{
     quickViewVisible = false;
     isFolded : boolean;
     isExpand : boolean;
+    adminInfo: any;
 
     notificationList = [
         {
@@ -43,9 +45,14 @@ export class HeaderComponent implements OnInit{
         }
     ]
 
-    constructor( private themeService: ThemeConstantService, private route: Router, private apiService: ApiService) {}
+    constructor( private themeService: ThemeConstantService, 
+        private route: Router, 
+        private apiService: ApiService, 
+        private message: NzMessageService) {}
 
     ngOnInit(): void {
+        const admin = JSON.parse(localStorage.getItem('admin') || '{}');
+        this.adminInfo= admin.user;
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
     }
@@ -75,6 +82,7 @@ export class HeaderComponent implements OnInit{
             console.log("LOGOUT", res);
             localStorage.clear();
             this.route.navigateByUrl('/full/authentication/login')
+            this.message.create('success', `Logged-Out Successfully`)
         })
     }
     

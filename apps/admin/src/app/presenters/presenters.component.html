@@ -15,7 +15,7 @@
                             (nzCheckedChange)="onAllChecked($event)"></th>
                             <th>Title </th>
                             <th>Job Position</th>
-                            <th>Publisher</th>
+                            <th>User</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -34,8 +34,8 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/presenters/update/' + item?.id]"></i>
-                                    <i style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(item?.id)"></i>
+                                    <i nz-tooltip nzTooltipTitle="Edit" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/presenters/update/' + item?.id]"></i>
+                                    <i nz-tooltip nzTooltipTitle="Delete" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(item?.id)"></i>
                                 </div>
                             </td>
                         </tr>

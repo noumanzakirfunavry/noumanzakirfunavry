@@ -3,7 +3,7 @@
         <button nz-button [nzType]="'primary'" [routerLink]="['/admins/add']">Add Admin</button>
     </div>
     <div class="col-md-10">
-        <user-filter></user-filter>
+        <user-filter (statusEmitter)="receiveStatus($event)" (filterEmitter)="receiveFilter($event)"></user-filter>
     </div>
     <div class="col-lg-12 mt-2">
         <nz-card>
@@ -22,25 +22,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let admin of allAdmins">
-                            <td [nzChecked]="setOfCheckedId.has(admin?.id)" [nzDisabled]="admin.disabled"
-                                (nzCheckedChange)="onItemChecked(admin?.id, $event)"></td>
-                            <td>{{admin?.name}}</td>
-                            <td>{{admin?.userName}}</td>
-                            <td>{{admin?.roles?.title}}</td>
-                            <td>{{admin?.email}}</td>
-                            <td>
-                                <nz-badge *ngIf="admin?.isActive === true" nzStatus="success"></nz-badge>
-                                <nz-badge *ngIf="admin?.isActive === false" nzStatus="error"></nz-badge>
-                                <!-- <span class="text-capitalize">{{item.status}}</span> -->
-                            </td>
-                            <td>
-                                <div class="d-flex justify-content-between">
-                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/admins/update/' + admin?.id]"></i>
-                                    <i style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(admin?.id)"></i>
-                                </div>
-                            </td>
-                        </tr>
+                        <ng-container *ngFor="let admin of allAdmins">
+                            <tr  >
+                                <td [nzChecked]="setOfCheckedId.has(admin?.id)" [nzDisabled]="admin.disabled"
+                                    (nzCheckedChange)="onItemChecked(admin?.id, $event)"></td>
+                                <td>{{admin?.name}}</td>
+                                <td>{{admin?.userName}}</td>
+                                <td>{{admin?.roles?.title}}</td>
+                                <td>{{admin?.email}}</td>
+                                <td >
+                                    <nz-badge *ngIf="admin?.isActive === true" nzStatus="success"></nz-badge>
+                                    <nz-badge *ngIf="admin?.isActive === false" nzStatus="error"></nz-badge>
+                                    <!-- <span class="text-capitalize">{{item.status}}</span> -->
+                                </td>
+                                <td *ngIf="user?.user?.id !== admin.id">
+                                    <div class="d-flex justify-content-between">
+                                        <i nz-tooltip nzTooltipTitle="Edit" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/admins/update/' + admin?.id]"></i>
+                                        <i nz-tooltip nzTooltipTitle="Delete" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(admin?.id)"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-container>
                     </tbody>
                 </nz-table>
                 <div class="send-request" *ngIf="setOfCheckedId.size">

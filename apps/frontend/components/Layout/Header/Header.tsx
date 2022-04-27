@@ -11,15 +11,35 @@ import togglebar from "../../../styles/images/togglebar.svg";
 import SearchDropDown from '../../Shared/SearchDropDown/SearchDropDown';
 import MobileHeader from './MobileHeader';
 
+import { CategoryProps } from '../../../types/Types';
+
+import GetData from '../../../services/GetData';
+import { requests } from '../../../services/Requests';
+
+
+
 const Header = () =>{
 
+    //TODO, will refactor code soon related to search dropdown
     const [showMenuList, setShowMenuList] = useState<boolean>(false)
-    const [displaySerachDropDown, setDisplaySerachDropDown] = useState<boolean>(false)
+    const [displaySearchDropDown, setdisplaySearchDropDown] = useState<boolean>(false)
     const [data, setData] = useState<any>({})
     const router = useRouter()
-    const [moreMenuItems, setMoreMenuItems] = useState([{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}])
+    const [moreMenuItems, setMoreMenuItems] = useState<any>([])  //[{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}]
+    const [newsCategoriesList, setNewsCategoriesList] = useState<CategoryProps[]>([])
 
-    const [scroll, setScroll] = useState(true)
+    // news search data
+    const [newsSearchData, setNewsSearchData] = useState<any>([])
+
+    // search Val
+    const [searchVal, setSearchVal] = useState<any>("")
+
+    const [scroll, setScroll] = useState(true);
+
+    const [params, setParams] = useState<any>({
+        limit:20,
+        pageNo:1
+      });
 
     useEffect(() => {
       document.addEventListener("scroll", handleScroll)
@@ -32,11 +52,35 @@ const Header = () =>{
 
     useEffect(()=>{
         document.addEventListener("mousedown", handleClickOutside);
-        window.scrollTo(0,0)
+        window.scrollTo(0,0);
+
+        // get categories list to show in sub menu
+        GetData(`${requests.categories}/getAll?limit=${params.limit}&pageNo=${params.pageNo}&displayInCategoryMenu=true`, {}, 'get', false).then(res=>{
+
+            const newsCategories = res.data?.response?.categories && res.data?.response?.categories.length ? res.data.response.categories : []
+            setNewsCategoriesList(newsCategories);
+
+        }).catch(err=>{
+            console.warn(err)
+        })
+
+        //get all menus
+        getAllMenus()
+
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         }
     },[])
+
+    const getAllMenus = () =>{
+        GetData(`${requests.moreMenus}getAll?limit=50&pageNo=1`, {}, 'get', false).then(res=>{
+
+            setMoreMenuItems(res?.data?.response);
+
+        }).catch(err=>{
+            console.warn(err)
+        })
+    }
 
     const handleScroll = () => {
         const scrollCheck = window.scrollY < 50
@@ -49,9 +93,15 @@ const Header = () =>{
         setShowMenuList(!showMenuList)
     }
 
+    /*const handleNavigation = (path: string) => {
+        console.log('navigated')
+       router.push(`/${path}`)
+    }*/
+
     const handleEvent = (event:any) => {
 
-        setDisplaySerachDropDown(true)
+        setdisplaySearchDropDown(true)
+        setSearchVal(event.target.value)
         getData(event.target.value).then((res)=>{
             setData(res)
         }).catch(err=>{
@@ -61,18 +111,37 @@ const Header = () =>{
     }
 
     const handleClickOutside = () => {
-        setDisplaySerachDropDown(false)
+        setdisplaySearchDropDown(false)
+        setSearchVal('')
     }
 
     const handleRouting = (url:string, index:number) =>{
        index !== 4 && router.push(`/${url}`)
        index === 4 && handleClickOutside()
     }
-
-
+    
     const getData = async (value:string): Promise<any> => {
         //!value ? {}:
         //fetch data and return
+          
+
+        GetData(`http://157.90.67.186/zagTrader/api/TickerSearchAPIFull.php?st=test`, {}, 'get', false).then(res=>{
+
+            console.log('zagtrader');
+            console.log(res);
+        
+        }).catch(err=>{
+            console.warn(err)
+        })
+
+        
+        GetData(`${requests.search}searchTerm=${value}`, {}, 'post', false).then(res=>{
+            setNewsSearchData(res?.data)
+        
+        }).catch(err=>{
+            console.warn(err)
+        });
+
         const data = {
             "16449": {
                 "MarketID": "105",
@@ -154,6 +223,8 @@ const Header = () =>{
         return data
     }
 
+
+
     return (
         <>
             <header  className={scroll ? 'default':'sticky_header'}>
@@ -187,11 +258,11 @@ const Header = () =>{
                                                     <Link href="/"><a className="nav-link active" aria-current="page">الرئيسية</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
-                                                <li className="nav-item" key={'2'}>
+                                                {/* <li className="nav-item" key={'2'}>
                                                     <Link href="/videoNews"><a className="nav-link">الفيديو</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
-                                                </li>
-                                                <li className="nav-item dropdown" key={'3'}>
+                                                </li> */}
+                                                <li className="nav-item dropdown" key={'98788'}>
                                                     <a className="nav-link dropdown-toggle" href="#" id="morePrograms" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
@@ -286,29 +357,57 @@ const Header = () =>{
                                                         </li> */}
                                                     </ul>
                                                 </li>
-                                                <li className="nav-item" key={'34'}>
-                                                    <Link href="/categoryNewsTiles"><a className="nav-link">التصنيفات</a></Link>
+                                                <li className="nav-item dropdown" key={'654564ytf7655'}>
+                                                    <a className="nav-link dropdown-toggle" href="#" id="moreCategories" role="button" data-bs-toggle="dropdown" aria-expanded="false" >التصنيفات
+                                                    </a>
                                                     <div className="nav-menu-navUnderline"></div>
+                                                    <ul className="dropdown-menu" aria-labelledby="moreCategories">
+                                                    { // show categories in sub menu
+                                                        newsCategoriesList.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
+                                                            return(
+                                                                <li className="nav-item" key={item.id}> 
+                                                                    <Link href={`/categoryNewsTiles/${item.id}`}><a className="nav-link active" aria-current="page">{item.title}</a></Link>
+                                                                </li>
+                                                            )
+                                                        })
+                                                    }
+                                                    </ul>
                                                 </li>
                                                 <li className="nav-item" key={'35'}>
                                                     <Link href="/marketGraph"><a className="nav-link">الأسواق</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
-                                                <li className="nav-item dropdown" key={'3'}>
-                                                    <a className="nav-link dropdown-toggle" href="#" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
+                                                {
+                                                    moreMenuItems?.length > 0 && (
+                                                                <li className="nav-item" key={moreMenuItems[0].title}>
+                                                                    <Link href={moreMenuItems[0].url}><a className="nav-link" >{moreMenuItems[0].title}</a></Link>
+                                                                    <div className="nav-menu-navUnderline"></div>
+                                                                </li>
+                                                            )
+                                                   
+                                                }
+                                                <li className="nav-item dropdown" key={'654564ytf7656'}>
+                                                    <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
-                                                    <ul className="dropdown-menu" aria-labelledby="moreOtions">
-                                                        {
-                                                            moreMenuItems.length && moreMenuItems.map((menuItem)=>{
-                                                                return (
-                                                                        <li className="nav-item" key={menuItem.title}>
-                                                                            <Link href={menuItem.url}><a className="nav-link" >{menuItem.title}</a></Link>
-                                                                        </li>
-                                                                    )
-                                                            })
-                                                        }
-                                                    </ul>
+                                                    {
+                                                         moreMenuItems?.length > 1 && <ul className="dropdown-menu" aria-labelledby="moreOtions">
+                                                            {
+                                                                moreMenuItems?.map((menuItem:any, index:number)=>{
+                                                                    if(index > 0)
+                                                                    {
+                                                                        return (
+                                                                            <li className="nav-item" key={menuItem.title}>
+                                                                                <Link href={menuItem.url}><a className="nav-link" >{menuItem.title}</a></Link>
+                                                                            </li>
+                                                                        )
+                                                                    }
+                                                                    
+                                                                })
+                                                            }
+                                                        </ul>
+                                                    }
+                                                    
                                                 </li>
 
                                             </ul>
@@ -320,7 +419,7 @@ const Header = () =>{
                             </div>
                             <div className="search-header">
                                 <div className="search-box desktop_only">
-                                    <input type="text"  className="form-control" onClick={(e)=>handleEvent(e)} placeholder="ابحث في الموقع" />
+                                    <input type="text"  className="form-control" onChange={(e)=>handleEvent(e)} placeholder="ابحث في الموقع" />
                                     <span className="input-group-text"><i className="fa fa-search"></i></span>
                                 </div>
                                 {/* <div className="search-box mobile_only d-md-none">
@@ -335,7 +434,7 @@ const Header = () =>{
                                     </ul>
                                 </div>
                                 {
-                                    displaySerachDropDown && (<SearchDropDown data={data}/>)
+                                    displaySearchDropDown && (<SearchDropDown data={data} newsSearchData={newsSearchData} searchVal={searchVal} />)
                                 }
 
                             </div>

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
     selector: 'app-addBreakingNews',
@@ -42,7 +42,7 @@ export class AddBreakingNewsComponent implements OnInit {
     inItForm() {
       this.breakingNewsForm = this.fb.group({
         title: [null, [Validators.required]],
-        newsLink: [null, [Validators.required]],
+        newsLink: [null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
         isActive: [false],
         isPushNotificationActive: [false],
         IsTwitterActive: [false],
@@ -58,7 +58,7 @@ export class AddBreakingNewsComponent implements OnInit {
       if(this.breakingNewsForm.valid) {
         const obj= this.breakingNewsForm.value;
         obj['newsId']= 1;
-        this.apiService.sendRequest(this.breakingNewsId ? requests.updateBreakingNews + this.breakingNewsById : requests.addBreakingNews, this.breakingNewsId ? 'put' : 'post', obj).subscribe((res:any) => {
+        this.apiService.sendRequest(this.breakingNewsId ? requests.updateBreakingNews + this.breakingNewsId : requests.addBreakingNews, this.breakingNewsId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("ADD-BREAKING-NEWS", res);
           this.inItForm();
           this.route.navigateByUrl('breakingNews/list');
@@ -78,7 +78,7 @@ export class AddBreakingNewsComponent implements OnInit {
         console.log("BREAKING-NEWS-BY-ID", res);
         this.breakingNewsForm = this.fb.group({
           title: [this.breakingNewsById?.title || null, [Validators.required]],
-          newsLink: [this.breakingNewsById?.newsLink || null, [Validators.required]],
+          newsLink: [this.breakingNewsById?.newsLink || null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
           isActive: [this.breakingNewsById?.isActive || false],
           isPushNotificationActive: [this.breakingNewsById?.isPushNotificationActive || false],
           IsTwitterActive: [this.breakingNewsById?.IsTwitterActive || false],
@@ -88,8 +88,8 @@ export class AddBreakingNewsComponent implements OnInit {
     }
 
     enableDisable(e?: MouseEvent) {
-      this.breakingNewsForm.value.isPushNotificationActive= !this.breakingNewsForm.value.isPushNotificationActive; 
-      console.log("PUSH-NOTIF", this.breakingNewsForm.value.isPushNotificationActive);
+      // this.breakingNewsForm.value.isPushNotificationActive= !this.breakingNewsForm.value.isPushNotificationActive; 
+      // console.log("PUSH-NOTIF", this.breakingNewsForm.value.isPushNotificationActive);
       e.preventDefault();
     }
 

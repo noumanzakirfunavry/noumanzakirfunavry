@@ -1,22 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 
-export const GetMetaData = () => {
+export const GetMetaData = (seoData?:any) => {
 
     const data = {
-      description:"CNBC Meta Tag Description",
-      title:"CNBC",
-      image:"icon",
+      description:seoData?.description || "CNBC Meta Tag Description",
+      title:seoData?.title || "CNBC",
+      image:seoData?.image?.url || "icon",
       siteName:"CNBC Arabia",
+      keywords:seoData?.keywords || "cnbc meta tag keywords",
       og:{
-        description:"CNBC Meta Tag og: description",
-        title:"og title cnbc",
-        image:"icon",
+        description:seoData?.description || "CNBC Meta Tag og: description",
+        title:seoData?.title || "og title cnbc",
+        image:seoData?.image?.url || "icon",
       },
       twitter:{
-        description:"CNBC Meta Tag twitter: description",
-        title:"twitter",
-        image:"icon",
+        description:seoData?.description || "CNBC Meta Tag twitter: description",
+        title:seoData?.description || "CNBC",
+        image:seoData?.image?.url || "icon",
+        site:"@CNBCArabia",
+        card:seoData?.image?.title || "summary_large_image"
       }
     }
 

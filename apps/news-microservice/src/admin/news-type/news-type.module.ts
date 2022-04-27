@@ -1,4 +1,5 @@
 import { AuthModuleModule } from '@cnbc-monorepo/auth-module';
+import { ElkModule } from '@cnbc-monorepo/elk';
 import { EntityModule } from '@cnbc-monorepo/entity';
 import { ExceptionHandlingModule } from '@cnbc-monorepo/exception-handling';
 import { ProvidersModule } from '@cnbc-monorepo/providers';
@@ -13,6 +14,7 @@ import { NewsTypeService } from './news-type.service';
   imports : [
     ProvidersModule,
     UtilityModule,
+		ElkModule
   ]
 })
 export class NewsTypeModule {}

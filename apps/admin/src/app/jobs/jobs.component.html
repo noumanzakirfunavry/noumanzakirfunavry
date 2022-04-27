@@ -18,7 +18,7 @@
                             <th>Branch</th>
                             <th>Created</th>
                             <th>Modified</th>
-                            <th>Publisher</th>
+                            <th>User</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -29,7 +29,7 @@
                             (nzCheckedChange)="onItemChecked(job?.id, $event)"></td>
                             <td>{{job?.id}}</td>
                             <td>{{job?.title}}</td>
-                            <td>{{job?.branchId}}</td>
+                            <td>{{job?.branch?.title}}</td>
                             <td>{{job?.createdAt | date: 'dd-MM-YYYY'}}</td>
                             <td>{{job?.updatedAt | date: 'dd-MM-YYYY'}}</td>
                             <td>{{job?.user?.name}}</td>
@@ -40,8 +40,8 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
-                                    <i nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/jobs/update/' + job?.id]"></i>
-                                    <i style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(job?.id)"></i>
+                                    <i nz-tooltip nzTooltipTitle="Edit" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/jobs/update/' + job?.id]"></i>
+                                    <i nz-tooltip nzTooltipTitle="Delete" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(job?.id)"></i>
                                 </div>
                             </td>
                         </tr>

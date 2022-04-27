@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -33,6 +34,7 @@ export class FeaturedNewsComponent implements OnInit {
     allFeaturedNews: any;
     allCategories: any;
     loading = true;
+    fNewsId: any;
 
     fNews: any[] = [
         {
@@ -76,14 +78,14 @@ export class FeaturedNewsComponent implements OnInit {
             newsId: null
         }
     ];
-    
 
-    constructor(private apiService: ApiService, private message: NzMessageService) { }
+
+    constructor(private apiService: ApiService, private message: NzMessageService, private route: Router) { }
 
 
     ngOnInit(): void {
-        this.getAllFeaturedNews();
         this.getAllCategories();
+        this.getAllFeaturedNews();
     }
 
     getAllCategories() {
@@ -105,7 +107,10 @@ export class FeaturedNewsComponent implements OnInit {
     getAllFeaturedNews() {
         this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res: any) => {
             this.allFeaturedNews = res.response.featuredNews;
-            this.fNews=[...this.allFeaturedNews]
+            this.fNews = this.allFeaturedNews && this.allFeaturedNews.length > 0 ? this.allFeaturedNews : this.fNews;
+            // this.fNews.forEach(news => {
+            //     news.newsId = this.allFeaturedNews.find(x=>x.position==news.position)?.newsId
+            // })
             console.log("ALL-FEATURED-NEWS", this.allFeaturedNews);
             this.loading = false;
         }, err => {
@@ -113,22 +118,57 @@ export class FeaturedNewsComponent implements OnInit {
         })
     }
 
+    changeCategory(data){
+        console.log(data);
+    }
+
     changedNews(updatedNews) {
         const news = this.fNews.findIndex(x => x.position == updatedNews.position);
-        if (news > -1) {
+        if (news > -1 && !this.findDuplicates()) {
             this.fNews[news] = updatedNews;
+        } 
+        else if(this.fNews.some(x=>!x.newsId)){
+            
+        }
+          else {
+            // this.fNews[news] = null;
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.fNews[news] = tempNews;
+                this.fNews[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
     }
 
+    findDuplicates() {
+        const valueArr = this.fNews.map(function (item) { return item.newsId });
+        const isDuplicate = valueArr.some(function (item, idx) {
+            return valueArr.indexOf(item) != idx
+        });
+        console.log("DUPLICATE-NEWS", isDuplicate);
+        return isDuplicate
+    }
+
     updateFeaturedNews() {
-            this.fNews.forEach(news => {
-                news.newsId = parseInt(news.newsId);
-            })
+        this.fNews.forEach(news => {
+            news.newsId = parseInt(news.newsId);
+        })
+        if (this.fNews.some(x => !x.newsId)) {
+            this.message.create('error', 'Add all Featured News for Featured Section')
+        } 
+        else {
             this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
                 console.log("UPDATE-FEATURED-NEWS", res);
-                location.reload();
+                this.getAllFeaturedNews();
                 this.message.create('success', `Featured News Updated Successfully`);
             })
         }
+
+    }
+
+    cancel() {
+        this.route.navigateByUrl('dashboard')
+    }
 
 }    

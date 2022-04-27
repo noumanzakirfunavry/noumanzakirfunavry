@@ -1,6 +1,7 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
-import NewsInfoBox from "apps/frontend/components/Shared/NewsInfoBox/NewsInfoBox";
+// TODO: DummyNewsInfoBox will be updated with actual NewsInfoBox later on
+import DummyNewsInfoBox from "apps/frontend/components/Shared/NewsInfoBox/DummyNewsInfoBox";
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import smalllogo from "../../styles/images/cnbc-logo.svg";
 import Title from "apps/frontend/components/Title";
@@ -62,7 +63,7 @@ const Index = () =>{
 
                 <div className="PageBuilder-pageRow justify-content-center">
                     <div className='PageBuilder-col-9'>
-                        <NewsInfoBox/>
+                        <DummyNewsInfoBox/>
                     </div>
                     <div className='PageBuilder-sidebar'>
                     </div>
@@ -78,7 +79,7 @@ const Index = () =>{
 
                 </div>
                 <div className="row mb-4">
-                    <div className="col-12 col-xl-8"><PageCatgories/></div>
+                    <div className="col-12 col-xl-8"><PageCatgories tags={[]}/></div>
                 </div>
                 <div className="bannerAddMedia hide_div_web">
         <AdBanner />

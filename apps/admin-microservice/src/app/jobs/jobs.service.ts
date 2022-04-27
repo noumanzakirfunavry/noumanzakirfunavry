@@ -1,5 +1,5 @@
 import { AddJobResponseDto, DeleteJobRequestDto, GenericResponseDto, GetAllJobResponseDto, GetALLJobsRequestDto, GetJobByIdResponseDto, UpdateJobRequestDto, UpdateJobResponseDto } from "@cnbc-monorepo/dtos";
-import { Jobs } from "@cnbc-monorepo/entity";
+import { Jobs, Users } from "@cnbc-monorepo/entity";
 import { CustomException, Exceptions, ExceptionType } from "@cnbc-monorepo/exception-handling";
 import { HttpStatus, Inject } from "@nestjs/common";
 export class JobsService {
@@ -30,14 +30,17 @@ export class JobsService {
         if (query.branchId) {
             where['branchId'] = query.branchId
         }
-        if (query.publishers) {
-            where['publishedBy'] = query.publishers
+        if (query.publisher) {
+            where['publishedBy'] = query.publisher
         }
         if (query.title) {
             where['title'] = query.title
         }
         const result = await this.jobRepo.findAndCountAll({
-            include: ['user','branch'],
+            include: [
+							{model: Users, attributes: ['id', 'name', 'userName', 'email']},
+							'branch'
+						],
             where: where, limit: query.limit, offset: offset
         })
         if (!result.count) {
@@ -52,7 +55,10 @@ export class JobsService {
         })
     }
     async getById(id: number) {
-        const result = await this.jobRepo.findOne({ where: { id: id } })
+        const result = await this.jobRepo.findOne({ 
+					where: { id },
+					include: [{model: Users, attributes: ['id', 'name', 'userName', 'email']}, 'branch']
+			})
         if (!result) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,

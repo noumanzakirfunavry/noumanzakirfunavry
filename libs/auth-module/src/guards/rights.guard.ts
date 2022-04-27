@@ -1,4 +1,4 @@
-import { RightsTypes } from '@cnbc-monorepo/enums';
+import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
@@ -16,6 +16,12 @@ export class RightsGuard implements CanActivate {
       return true;
     }
     const { user } = context.switchToHttp().getRequest();
+
+		// if user is super admin, bypass rights guard
+		if(user.roles?.includes(RoleTypes.Super_Admin)){
+			return true
+		}
+
     return requiredRights.some((right) => user.rights?.includes(right));
   }
 }

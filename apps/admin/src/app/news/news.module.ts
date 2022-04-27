@@ -17,11 +17,15 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 // import { FileSelectorComponent } from './file-selector/file-selector.component';
 // import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
 import { CommonModule } from '@angular/common';
 // import * as  DtosModule from "./../../../../../libs/dtos/src";
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { FileModalComponent } from './file-modal/file-modal.component';
+
 const icons: IconDefinition[] = [LeftOutline, RightOutline];
 
 
@@ -42,6 +46,8 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         NzModalModule,
         NzTreeSelectModule,
         CKEditorModule,
+        NzToolTipModule,
+        EditorModule
         // FileUploaderModule
         // DtosModule
     ],
@@ -50,10 +56,13 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         AddNewsComponent,
         FilterNewsComponent,
         NewsComponent,
+        FileModalComponent
         // FileSelectorComponent
     ],
     providers: [
-        ThemeConstantService
+        ThemeConstantService,
+        { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
+
     ],
 })
 export class NewsModule { }

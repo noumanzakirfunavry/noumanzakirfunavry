@@ -1,4 +1,4 @@
-import { AfterContentInit, Component,Input, OnInit} from '@angular/core';
+import { AfterContentInit, Component,EventEmitter,Input, OnInit, Output} from '@angular/core';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -26,15 +26,27 @@ export class Data extends Pagination {
 
 @Component({
     selector: 'news-table-row',
-    templateUrl: './newsTableRow.component.html'
+    templateUrl: './newsTableRow.component.html',
+    styles: [
+        `
+          /* nz-select {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          } */
+        `
+      ]
 })
 
 export class NewsTableRowComponent implements OnInit, AfterContentInit{
     @Input() allCategories: any;
-    @Input() news: any={newId:null};
+    @Input() news: any = {newId:null};
+    @Output() onNewsSelection:EventEmitter<any>=new EventEmitter();
+    @Output() onCatSelection:EventEmitter<any>=new EventEmitter();
+    
     pagination: Data = new Data()
-    allCategoryNews: any=[];
-    selectedCat:any
+    allCategoryNews: any = [];
+    selectedCat: any
 
     constructor(private apiService: ApiService) {}
 
@@ -55,17 +67,23 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit{
     }
     
     onChangeNews(id){
-        this.news=id;
+        this.news.newsId=id;
+        this.onNewsSelection.emit(this.news);
         console.log("CAT-NEWS-ID", this.news);
     }
 
     getCategoryNews(catId?: any) {
-        console.log(this.selectedCat)
+        // console.log("SEL-CAT", this.selectedCat)
         this.pagination.categoryId= catId ? catId : null;
         this.apiService.sendRequest(requests.getAllNews, 'get', {pageNo:1, limit:30, categoryId:parseInt(catId)}).subscribe((res:any) => {
             this.allCategoryNews= res.response.news;
-            this.news.newsId=null
+            // const uniqueIds = this.allCategoryNews.map(x => x.id).filter((v, i, s) => s.indexOf(v) === i)
+            this.news.newsId = null
+            this.onCatSelection.emit(this.news);
+
             console.log("CATEGORY-NEWS", this.allCategoryNews);
+            // console.log("CATEGORY-NEWS-UNIQUE-IDS", uniqueIds);
+            return this.allCategoryNews && this.allCategoryNews.filter((x: any) => x.id != this.news.newsId)
         })
     }
 

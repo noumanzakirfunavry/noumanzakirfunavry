@@ -27,7 +27,8 @@ export type CategoryNewsProps = {
     limit: number,
     displayTitle: boolean,
     displayTopTwoNews:boolean,
-    displayMoreButton:boolean
+    displayMoreButton:boolean,
+    cat:any
 }
 
 export type ModalProps = {
@@ -117,3 +118,16 @@ export type CategoryProps = {
     deletedAt: Date | null,
     user: any
 }
+
+
+export type subCategoryProps = {
+    subCategoryId: number | null,
+    title: string | null
+}
+
+export type CategoryMainProps = {
+    id: number | string | string [],
+    title: string,
+    subCategory: subCategoryProps[]
+}
+

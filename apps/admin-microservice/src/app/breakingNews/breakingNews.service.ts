@@ -7,7 +7,7 @@ import { HttpStatus, Inject, Injectable } from "@nestjs/common";
 export class BreakingNewsService {
     constructor(
         @Inject("BREAKING_NEWS_REPOSITORY")
-        private breakingNewsRepo: typeof BreakingNews
+        private breakingNewsRepo: typeof BreakingNews,
     ) { }
 
     async create(body, userId: number) {
@@ -52,13 +52,17 @@ export class BreakingNewsService {
         if (query.title) {
             where['title'] = query.title
         }
-        if (query.publishers) {
-            where['addedBy'] = query.publishers
+        if (query.publisher) {
+            where['addedBy'] = query.publisher
         }
         if (query.status) {
             where['isActive'] = JSON.parse(query.status.toString())
         }
-        const result = await this.breakingNewsRepo.findAndCountAll({ where: where, limit: query.limit, offset: offset })
+        const result = await this.breakingNewsRepo.findAndCountAll(
+            {
+                include: ['user'],
+                where: where, limit: query.limit, offset: offset
+            })
         if (!result.count) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -92,10 +96,12 @@ export class BreakingNewsService {
         if (query.title) {
             where['title'] = query.title
         }
-        if (query.publishers) {
-            where['addedBy'] = query.publishers
+        if (query.publisher) {
+            where['addedBy'] = query.publisher
         }
-        const result = await this.breakingNewsRepo.findAll({ where: where, limit: query.limit, offset: offset })
+        const result = await this.breakingNewsRepo.findAll({
+            include : ['user'],
+            where: where, limit: query.limit, offset: offset })
         if (!result.length) {
             throw new CustomException(
                 Exceptions[ExceptionType.RECORD_NOT_FOUND].message,

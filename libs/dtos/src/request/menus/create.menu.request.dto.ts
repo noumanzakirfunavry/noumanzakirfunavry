@@ -26,7 +26,4 @@ export class CreateMenuRequestDto{
 	
 	@IsEnum(MenuPositionTypes)
 	position : MenuPositionTypes
-
-	@IsNumber()
-	menuPosition : number
 }

@@ -1,5 +1,5 @@
 import { CreatePresentersRequestDto, DeletePresentersRequestDto, GenericResponseDto, GetAllPresentersRequestDto, GetAllPresentersResponseDto, GetPresentersByIdResponseDto } from '@cnbc-monorepo/dtos';
-import { Presenters } from '@cnbc-monorepo/entity';
+import { Attachments, Presenters } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -76,7 +76,8 @@ export class PresentersService {
         return await this.presentersRepository.findOne({
             where: {
                 id: id
-            }
+            },
+						include: ['attachments']
         })
     }
     async getPresenterById(id: number): Promise<GetPresentersByIdResponseDto> {
@@ -104,10 +105,14 @@ export class PresentersService {
     async getAllPresenters(query: GetAllPresentersRequestDto): Promise<GetAllPresentersResponseDto> {
         try {
             const response = await this.presentersRepository.findAndCountAll({
+                include: ['user', 'attachments'],
                 where: {
-                    name: {
-                        [Op.like]: `%${query.search ? query.search : ""}%`
-                    },
+                    ...(query.title &&
+                    {
+                        name: {
+                            [Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.title)}%`
+                        }
+                    }),
                     ...(query.isActive && {
                         isActive: JSON.parse(query.isActive.toString())
                     }),

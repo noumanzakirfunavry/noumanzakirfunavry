@@ -9,7 +9,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Title </nz-form-label>
-                <nz-form-control nzErrorTip="Please input Title!">
+                <nz-form-control nzErrorTip="Enter Title!">
                   <input type="text" formControlName="name" nz-input placeholder="Enter Title">
                 </nz-form-control>
               </nz-form-item>
@@ -17,7 +17,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Job Position</nz-form-label>
-                <nz-form-control nzErrorTip="Please input Job Position!">
+                <nz-form-control nzErrorTip="Enter Job Position!">
                   <input type="text" formControlName="jobPosition" nz-input placeholder="Enter Job Position">
                 </nz-form-control>
               </nz-form-item>
@@ -27,7 +27,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Age </nz-form-label>
-                <nz-form-control nzErrorTip="Please input Age only numbers allowed!">
+                <nz-form-control nzErrorTip="Enter Age, only numbers allowed!">
                   <input type="text" formControlName="age" nz-input placeholder="Enter Age">
                 </nz-form-control>
               </nz-form-item>
@@ -35,7 +35,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Gender</nz-form-label>
-                <nz-form-control nzErrorTip="Please select Gender!">
+                <nz-form-control nzErrorTip="Select Gender!">
                 <nz-select nzShowSearch nzAllowClear formControlName="gender" nzPlaceHolder="Select Gender">
                   <nz-option nzValue="MALE" [nzLabel]="'Male'"></nz-option>
                   <nz-option nzValue="FEMALE" [nzLabel]="'Female'"></nz-option>
@@ -48,7 +48,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>DOB </nz-form-label>
-                <nz-form-control nzErrorTip="Please select DOB!">
+                <nz-form-control nzErrorTip="Select DOB!">
                   <nz-date-picker formControlName="dob" style="width: 100%;"></nz-date-picker>
                 </nz-form-control>
               </nz-form-item>
@@ -56,7 +56,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Joining Date </nz-form-label>
-                <nz-form-control nzErrorTip="Please select Joining Date!">
+                <nz-form-control nzErrorTip="Select Joining Date!">
                   <nz-date-picker formControlName="joinedNetworkOn" style="width: 100%;"></nz-date-picker>
                 </nz-form-control>
               </nz-form-item>
@@ -73,12 +73,20 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-12 col-md-6">
               <nz-form-item>
-                <h4>Profile Image</h4>
-                  <dynamic-file-selector (onFileSelection)="fileImage($event)" [formField]="presenterForm" [field]="{colName: 'attachmentsId', value: ''}"></dynamic-file-selector>
+                  <nz-form-label><h4>Profile Image</h4></nz-form-label>
+                  <nz-form-control nzErrorTip="Select File!">
+                  <nz-form-label nzRequired>Image Upload</nz-form-label>
+                       <input #myInput (change)="fileRead($event)" formControlName="attachmentsId" type="file" accept="jpg jpeg png gif" />
+                   </nz-form-control>
+                   <span *ngIf="uploadProgress" class="ml-4 mt-1">File Uploading Progress :{{uploadProgress}}%</span>
+                  <img *ngIf="imagePath" class="mt-2" width="40%"  height="40%" [src]="imagePath">
               </nz-form-item>
-            </div>
+              <div *ngIf="file && !uploadProgress" style="color: Crimson;">Click upload button to Upload Image!</div>
+              <button class="mr-2" *ngIf="file && uploadProgress!==100" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
+              <button class="mb-2" *ngIf="file" (click)="[getCaptcha($event),reset()]">Reset</button>
+          </div>
             <div class="col-md-6">
               <h4>General Settings</h4>
               <nz-form-item>
@@ -93,7 +101,7 @@
               <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Twitter Profile</nz-form-label>
-                <nz-form-control nzErrorTip="Please input Twitter Link!">
+                <nz-form-control nzErrorTip="Enter Twitter Link!">
                 <input type="text" formControlName="twitterLink" nz-input placeholder="Enter Twitter Link">
               </nz-form-control>
               </nz-form-item>
@@ -101,7 +109,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Facebook Profile</nz-form-label>
-                <nz-form-control nzErrorTip="Please input Facebook Link!">
+                <nz-form-control nzErrorTip="Enter Facebook Link!">
                 <input type="text" formControlName="facebookLink" nz-input placeholder="Enter Facebook Link">
               </nz-form-control>
               </nz-form-item>
@@ -111,7 +119,7 @@
             <div class="col-md-6">
             <nz-form-item>
               <nz-form-label nzRequired>Instagram Profile</nz-form-label>
-              <nz-form-control nzErrorTip="Please input Instagram Link!">
+              <nz-form-control nzErrorTip="Enter Instagram Link!">
               <input type="text" formControlName="instagramLink" nz-input placeholder="Enter Instagram Link">
             </nz-form-control>
             </nz-form-item>
@@ -119,7 +127,7 @@
           <div class="col-md-6">
             <nz-form-item>
               <nz-form-label nzRequired>Linkedin Profile</nz-form-label>
-              <nz-form-control nzErrorTip="Please input Linkedin Link!">
+              <nz-form-control nzErrorTip="Enter Linkedin Link!">
               <input type="text" formControlName="linkedInLink" nz-input placeholder="Enter Linkedin Link">
             </nz-form-control>
             </nz-form-item>

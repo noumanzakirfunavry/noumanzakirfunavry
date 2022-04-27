@@ -20,6 +20,7 @@ export class UsersComponent implements OnInit{
     checked = false;
     setOfCheckedId = new Set<number>();
     listOfCurrentPageData = [];
+    user: any;
 
     
 
@@ -27,11 +28,16 @@ export class UsersComponent implements OnInit{
 
     ngOnInit(): void {
         this.getAllAdmins();
+        this.user = JSON.parse(localStorage.getItem('admin') || '{}');
     }
 
     getAllAdmins() {
         this.apiService.sendRequest(requests.getAllAdmins, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allAdmins= res.response.admins;
+            const userIndex= this.allAdmins.findIndex(x=>x.id==this.user.user.id);
+            if(userIndex>-1){
+                this.allAdmins[userIndex]['disabled']=true
+            }
             this.adminsCount= res.response.totalCount;
             console.log("ALL-ADMINS", this.allAdmins);
             this.loading= false;
@@ -47,9 +53,9 @@ export class UsersComponent implements OnInit{
           }
         }
         return obj
-      }
+    }
 
-      deleteAdmins(userId: number) {
+    deleteAdmins(userId: number) {
           this.apiService.sendRequest(requests.deleteUsers, 'delete', {id:[userId]}).subscribe((res:any) => {
               console.log("DELETE-ADMIN", res);
               this.setOfCheckedId.clear();
@@ -58,9 +64,21 @@ export class UsersComponent implements OnInit{
               this.getAllAdmins();
               this.message.create('success', `Admin Deleted Successfully`);
           })
-      }
+    }
 
-      onPageIndexChange(pageNo: number) {
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search};
+        this.pagination.pageNo= 1;
+        this.getAllAdmins();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search};
+        this.pagination.pageNo= 1;
+        this.getAllAdmins();        
+    }
+
+    onPageIndexChange(pageNo: number) {
         this.loading= true;
         this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
         this.getAllAdmins();
@@ -108,7 +126,7 @@ export class UsersComponent implements OnInit{
             this.getAllAdmins();
             this.message.create('success', `Admin Deleted Successfully`)
             })
-        }
+    }
 
     showDeleteConfirm(userId?: number): void {
         this.modal.confirm({
@@ -132,6 +150,6 @@ export class UsersComponent implements OnInit{
             this.getAllAdmins();
             }
         });
-      }
+    }
 
 }    

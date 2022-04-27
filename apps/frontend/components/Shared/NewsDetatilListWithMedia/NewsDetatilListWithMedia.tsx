@@ -1,22 +1,36 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @next/next/no-img-element */
 import newsimg from "../../../styles/images/biden.jpg";
+import dateFormat from "dateformat"
+import Image from "next/image";
+import Link from "next/link";
+import { baseUrlAdmin } from "apps/frontend/services/Requests";
 
-const NewsDetatilListWithMedia = ({dispalyMoreButton, details}) =>{
-
+const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
+    
     return (
         <>
             <div className="NewsList">
                 <ul>
                     {
-                        details?.map((detail, index)=>{
+                       newsList?.length && newsList?.map((news:any, index:number)=>{
                             return (
                                 <li key={index}>
                                     <div className="newsText">
-                                        <a href="#">{detail.proIcon && (<span className="badge bg-success ms-3">PRO</span>)}{detail.description}</a>
-                                        <p><a href="#">{detail.tag1}</a> <b> {detail.tag2} </b></p>
+                                        <Link href={`/newsDetails/` + news?._id}><a style={{wordWrap:'break-word'}}>{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a></Link>
+                                        <p>
+                                            { // to show tags
+                                              news?._source?.tags?.map((tag: string, tagIndex: number) => {
+                                                  return(
+                                                    <a key={tagIndex} href="#">{tag}</a>
+                                                  )
+                                              })  
+                                            }
+                                        </p>
                                     </div>
                                     <div className="newsImage">
-                                        {!detail.video && (<img className="img-fluid" src={newsimg.src} />)}
-                                        {detail.video && (<iframe width="190" src="https://www.youtube.com/embed/SbsgyRhYbdw?controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>)}
+                                        {news?._source?.image ? <img alt="img" className="img-fluid" src={baseUrlAdmin+news._source?.image?.path} />:<img alt="img" className="img-fluid" src={newsimg.src} />}
+                                        {news?._source?.videoId && (<iframe width="190" src="https://www.youtube.com/embed/SbsgyRhYbdw?controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>)}
                                     </div>
                                 </li>
                             )

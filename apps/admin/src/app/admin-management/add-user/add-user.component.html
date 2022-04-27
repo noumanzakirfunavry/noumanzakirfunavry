@@ -1,7 +1,7 @@
 <section>
   <br>
   <br>
-  <div class="col-12">
+  <div class="col-12" *ngIf="!loader">
     <form nz-form [formGroup]="adminForm" (ngSubmit)="admin()" [nzLayout]="'vertical'">
       <div class="row">
         <div class="col-6">
@@ -9,7 +9,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Admin Name </nz-form-label>
-                <nz-form-control nzErrorTip="Please input valid Name between 3 to 250 characters!">
+                <nz-form-control nzErrorTip="Enter valid Name between 3 to 250 characters!">
                   <input type="text" nz-input formControlName="name" placeholder="Admin Name">
                 </nz-form-control>
               </nz-form-item>
@@ -17,7 +17,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Admin Role</nz-form-label>
-                <nz-form-control nzErrorTip="Please select Admin Role!">
+                <nz-form-control nzErrorTip="Select Admin Role!">
                 <nz-select nzShowSearch nzAllowClear formControlName="rolesId" nzPlaceHolder="Select Role">
                   <nz-option [nzValue]="3" [nzLabel]="'Super Admin'"></nz-option>
                   <nz-option [nzValue]="1" [nzLabel]="'Admin'"></nz-option>
@@ -30,7 +30,7 @@
             <div class="col-md-6">
               <nz-form-item>
                 <nz-form-label nzRequired>Username</nz-form-label>
-                <nz-form-control nzErrorTip="Please input valid Username without spaces between 3 to 250 characters!">
+                <nz-form-control nzErrorTip="Enter valid Username without spaces between 3 to 250 characters!">
                   <nz-form-control>
                     <input type="text" formControlName="userName" nz-input placeholder="Enter Username"/>
                   </nz-form-control>
@@ -44,23 +44,25 @@
           <div class="row">
             <div class="col-md-6">
               <nz-form-item>
-                <nz-form-label nzRequired>Password</nz-form-label>
-                <nz-form-control nzErrorTip="Please input Password between 6 to 30 characters!">
+                <nz-form-label *ngIf="!userId" nzRequired>Password</nz-form-label>
+                <nz-form-label *ngIf="userId">Password</nz-form-label>
+                <nz-form-control nzErrorTip="Enter Password between 6 to 30 characters!">
                   <input type="password" formControlName="password" nz-input placeholder="Enter Password">
                 </nz-form-control>
               </nz-form-item>
             </div>
             <div class="col-md-6">
               <nz-form-item>
-                <nz-form-label nzRequired>Confirm Password</nz-form-label>
-                <nz-form-control  [nzErrorTip]="errorTpl">
+                <nz-form-label *ngIf="!userId" nzRequired>Confirm Password</nz-form-label>
+                <nz-form-label *ngIf="userId">Confirm Password</nz-form-label>
+                <nz-form-control [nzErrorTip]="errorTpl">
                 <input type="password" formControlName="confirmPassword" nz-input placeholder="Confirm Password">
                 <ng-template #errorTpl let-control>
                   <ng-container *ngIf="control.hasError('required')">
-                    Please Confirm Password!
+                    Confirm Password!
                   </ng-container>
                   <ng-container *ngIf="control.hasError('confirm')">
-                    Passwords that you enter is Inconsistent!
+                    Password does not match!
                   </ng-container>
                 </ng-template>
               </nz-form-control>
@@ -70,7 +72,7 @@
 
           <nz-form-item>
             <nz-form-label nzRequired nzFor="text">Email</nz-form-label>
-            <nz-form-control nzErrorTip="Please input valid Email!">
+            <nz-form-control nzErrorTip="Enter valid Email!">
               <input nz-input formControlName="email" placeholder="Enter Email" />
             </nz-form-control>
           </nz-form-item>
@@ -82,16 +84,28 @@
           </nz-form-item>
         </div>
 
-        <div class="col-6">
-          <nz-form-label nzRequired><h5>Admin Rights</h5></nz-form-label>
-          <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log($event)">
+        <div class="col-6" *ngIf="!loader">
+          <nz-form-item class="admin_rights_wrap">
+            <nz-form-label nzRequired><h5>Admin Rights</h5></nz-form-label>
+            <nz-form-control>
+          <nz-checkbox-group
+          style="display:grid"
+          formControlName="rights"
+          (ngModelChange)="log(checkOptionsThree)"
+        ></nz-checkbox-group>
+          <!-- <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="log($event)">
+            <div nz-row>
               <div nz-col nzSpan="12">
-                <label *ngFor="let right of allRights" nz-checkbox [nzValue]="right?.id" formControlName="rights">{{right?.title}}</label>
+                
+                <label *ngFor="let right of allRights" [ngModel]="rightChecked(right)" nz-checkbox [nzValue]="right?.id" formControlName="rights">{{right?.title}} {{rightChecked(right)}}</label>
               </div>
-          </nz-checkbox-wrapper>
-          <div *ngIf="(!rightsValue || rightsValue.length===0) && submitted===true" style="color: Crimson;">
-            Please select atleast one option!
-          </div>
+            </div>
+          </nz-checkbox-wrapper> -->
+          <!-- <div *ngIf="(!rightsValue || rightsValue.length===0) && submitted===true" style="color: Crimson;">
+            Select atleast one option!
+          </div> -->
+        </nz-form-control>
+      </nz-form-item>
         </div>
       </div>
       <nz-form-item>

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
     selector: 'app-addTag',
@@ -51,7 +51,9 @@ export class AddTagComponent implements OnInit {
         this.tagsForm.controls[i].updateValueAndValidity();
       }
       if(this.tagsForm.valid) {
-        this.apiService.sendRequest(this.tagId ? requests.updateTag + this.tagId : requests.addNewTag, this.tagId ? 'put' : 'post', this.tagsForm.value).subscribe((res:any) => {
+        const obj= this.tagsForm.value;
+        obj['title']= this.tagsForm.value.title.trim();
+        this.apiService.sendRequest(this.tagId ? requests.updateTag + this.tagId : requests.addNewTag, this.tagId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("TAGS", res);
           this.tagsForm.reset();
           this.route.navigateByUrl('tags/list');

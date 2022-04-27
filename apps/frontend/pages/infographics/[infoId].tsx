@@ -3,7 +3,8 @@
 import InfographicsDetails from "apps/frontend/components/Infographics/detials";
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import HorizontalFooter2NewsSlider from "apps/frontend/components/Shared/NewsFooter2Slider";
-import NewsInfoBox from "apps/frontend/components/Shared/NewsInfoBox/NewsInfoBox";
+// TODO: DummyNewsInfoBox will be updated with actual NewsInfoBox later on
+import DummyNewsInfoBox from "apps/frontend/components/Shared/NewsInfoBox/DummyNewsInfoBox";
 import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import Title from "apps/frontend/components/Title";
 import NewsImage from "../../styles/images/biden2.jpg";
@@ -95,7 +96,7 @@ const Index = () =>{
                 <div className="row">
 
                     <div className="col-xl-7 col-lg-9 ofset-xl-1 ms-0 me-auto">
-                        <NewsInfoBox/>
+                        <DummyNewsInfoBox/>
                     </div>
                     <div className='col-xl-3 col-lg-3 offset-xl-1'>
                     </div>
