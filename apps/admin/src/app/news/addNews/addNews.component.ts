@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { requests } from '../../shared/config/config';
@@ -23,6 +23,8 @@ export class AddNewsComponent implements OnInit {
     currentDate = new Date()
     newsModel: NewsModel;
     newsForm: FormGroup;
+    tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Or Image Upload' }
+    tempThumbanilFile: { colName: string, value: any, label: string } = { 'colName': 'thumbnail', value: null, label: 'Thumbnail Image Upload' }
     // $isVisible:BehaviorSubject<boolean>=new BehaviorSubject(false);
     size = 'default';
 
@@ -48,16 +50,75 @@ export class AddNewsComponent implements OnInit {
     submitted = false;
     selectedCat: any;
     loader = true;
+    tinyConfig: any;
+    isVisible: boolean;
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
         private activatedRoute: ActivatedRoute,
         private route: Router,
+        private zone: NgZone,
         private message: NzMessageService) { }
 
     ngOnInit(): void {
         this.loader = true;
         const admin = JSON.parse(localStorage.getItem('admin') || '{}');
+        let selfp = this;
+        this.tinyConfig = {
+            apiKey: "pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4",
+            base_url: '/tinymce',
+            suffix: '.min',
+            'plugins':
+                'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons',
+
+            // 'code print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons'
+            // "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+            // "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+            // "table contextmenu directionality emoticons paste textcolor responsivefilemanager code",
+            // "advlist autolink lists link image charmap print preview anchor",
+            // "searchreplace visualblocks code fullscreen",
+            // "insertdatetime media table contextmenu paste qrcode youtube twitter"
+
+            directionality: 'rtl',
+            menubar: 'file edit view insert format custom tools table help',
+            toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+            'image_advtab': true,
+            menu: {
+                custom: { title: 'Custom', items: 'myCustomMenuItem' }
+            },
+            // menubar: 'file edit view insert table custom format tools',
+            setup: function (editor) {
+                const self = selfp;
+                editor.ui.registry.addMenuItem('myCustomMenuItem', {
+                    text: 'Upload',
+                    onAction:
+                        (function () {
+                            self.toggleModal();
+                        }).bind(this)
+                })
+
+            },
+            images_upload_url: requests.addNewAttachment,
+            automatic_uploads: true,
+            file_picker_callback: function (callback, value, meta) {
+                // Provide file and text for the link dialog
+                if (meta.filetype == 'file') {
+                    callback('mypage.html', { text: 'My text' });
+                }
+
+                // Provide image and alt text for the image dialog
+                if (meta.filetype == 'image') {
+                    callback('myimage.jpg', { alt: 'My alt text' });
+                }
+
+                // Provide alternative source and posted for the media dialog
+                if (meta.filetype == 'media') {
+                    callback('movie.mp4', { source2: 'alt.ogg', poster: 'image.jpg' });
+                }
+            }
+        }
+
+
         this.initQuoteForm();
         this.initTagForm();
 
@@ -82,7 +143,23 @@ export class AddNewsComponent implements OnInit {
         this.getAllQuotes()
         // }, 2000);
     }
-    
+    toggleModal() {
+        // setTimeout(() => {
+        this.zone.run(e => {
+
+            this.isVisible = true
+        })
+        // }, 400);
+    }
+    closeModal(data) {
+        this.isVisible = false
+    }
+    fileFromModal(file) {
+        this.isVisible = false;
+        this.newsForm.patchValue({
+            content: this.newsForm.value.content ? this.newsForm.value.content + `<img src="${file.url}">` : `<img src="${file.url}">`,
+        });
+    }
 
     private initQuoteForm() {
         this.quotesForm = this.fb.group({
@@ -130,6 +207,7 @@ export class AddNewsComponent implements OnInit {
             description: [news?.seoDetail?.description || null, [Validators.required, Validators.maxLength(250)]],
             keywords: [news?.seoDetail?.keywords || null, [Validators.required]],
             file: [null],
+            thumbnail: [null],
         });
     }
 
@@ -153,6 +231,7 @@ export class AddNewsComponent implements OnInit {
             description: [null, [Validators.required, Validators.maxLength(250)]],
             keywords: [null, [Validators.required]],
             file: [null],
+            thumbnail: [null]
         });
     }
 
@@ -169,9 +248,9 @@ export class AddNewsComponent implements OnInit {
         this.submitted = true;
         if (this.newsForm.valid) {
             const obj = this.newsForm.value;
-            if (this.file) {
-                obj['newsType'] = 'ARTICLE';
-            }
+            // if () {
+            obj['newsType'] = this.newsModel.imageId ? 'ARTICLE' : 'NEWS';
+            obj['contentType'] = this.newsModel.imageId ? 'IMAGE' : this.newsModel.videoId ? 'VIDEO' : 'TEXT';
             // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
             this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModel.toServerModal(obj, this.newsModel.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
                 console.log("News", res);
@@ -196,60 +275,51 @@ export class AddNewsComponent implements OnInit {
         this.route.navigateByUrl('news/list');
     }
 
-    fileSelection(fileObject) {
 
-        // this.isRecodedFile=fileObject.recorded ? fileObject.recorded:false;
-        if (fileObject.file) {
-            this.fileType = 'file';
-            this.newsModel.mainFile = fileObject.file;
-            this.file = fileObject.file;
-        } else if (fileObject.link) {
-            this.fileType = 'link';
-            this.file = fileObject.link;
-        } else if (fileObject.fileId) {
-            this.fileType = 'fileId';
-            this.file = fileObject.fileId;
+    mainFileUploaded(file) {
+        if (file.attachmentType == 'Image') {
+            this.newsModel.imageId = file.id;
+            this.newsModel.fileUrl = file.url;
         } else {
-            this.file = null
+            this.newsModel.videoId = file.id;
+            this.newsModel.videoUrl = file.url;
         }
     }
-
-    uploadFile(mainFile = true) {
-        this.apiService.uploadFileProgress(this.file, this.newsForm.value.description).subscribe((res: any) => {
-            // saving files on upload so that no need to load from s3.
-
-            if (res?.type == 1 && res?.loaded && res?.total) {
-                this.uploadProgress = Math.round(100 * (res.loaded / res.total));
-                console.log("file progress", this.uploadProgress);
-            }
-            else if (res?.body) {
-                console.log("Data Uploaded");
-                console.log(res.body);
-                if(mainFile){
-                    this.newsModel.imageId = res.body.response.id;
-                    this.newsModel.fileUrl = res.body.response.url;
-                }else{
-                    this.newsModel.thumbnailId = res.body.response.id;
-                    this.newsModel.thumbnailUrl = res.body.response.url;
-
-                }
-                console.log("news modal with image id", this.newsModel);
-            }
-        })
+    thumbnailUploaded(file) {
+        this.newsModel.thumbnailId = file.id;
+        this.newsModel.thumbanailUrl = file.url;
     }
 
-    reset() {
+
+    reset(data) {
         this.file = null;
         this.newsModel.imageId = null;
         this.newsModel.fileUrl = null;
+        this.newsModel.videoId = null;
+        this.newsModel.videoUrl = null;
+        this.newsModel.contentType = null;
         this.newsModel.thumbnailId = null;
         this.newsModel.thumbnailUrl = null;
-        this.uploadProgress = null;
-        this.myInputVariable.nativeElement.value = "";
     }
 
-    fileRead($event) {
-        this.file = $event.target.files[0];
+    resetThumbnail(data) {
+        this.newsModel.thumbnailId = null;
+        this.newsModel.thumbnailUrl = null;
+        // this.myInputVariable.nativeElement.value = "";
+    }
+
+    mainFileSelection(event) {
+        console.log("file selected", event);
+        this.newsModel.contentType = event.value.name.match(/\.(jpg|jpeg|png|gif)$/) ? 'IMAGE' : 'VIDEO'
+        this.newsModel.fileUrl = null;
+        this.newsModel.videoUrl = null;
+
+        // this.file = $event.target.files[0];
+    }
+    thumbnailFileSelection(event) {
+        console.log("thubnail file selected", event);
+        this.newsModel.thumbnailUrl = null;
+        // this.newsModel.thumbnailFile = $event.target.files[0];
     }
 
     handlePreview = (file: NzUploadFile) => {

@@ -1,15 +1,35 @@
-import { FC } from "react";
+import React, { FC, useEffect } from "react";
 import newslistimg from "../../../styles/images/biden2.jpg";
 import search from "../../../styles/images/search.svg";
 import backArrow from "../../../styles/images/backArrow.svg";
 import searchimg from "../../../styles/images/searchimg.jpg";
 import Title from "../../Title";
+import Link from 'next/link'
+import { useRouter } from 'next/router';
+import Router from 'next/router';
+import { baseUrlAdmin } from '../../../services/Requests';
+import { GetArabicFormattedDate } from '../../../services/Util';
+
+
 
 const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal}) => {
 
     const keys = Object.keys(data)
 
-    //console.log()
+
+    const router = useRouter()
+
+    //useEffect(()=>{
+    //    router.push('/search')
+    //},[])
+    //router.push('/search')
+
+    const handleNav = (event:any) => {
+
+        console.log('clicked');
+        router.push('/search')
+
+    }
 
     //console.log("Search Dropdown:::::", data)
     return (
@@ -22,12 +42,11 @@ const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal}) => {
                 </a>
                 </div>
             <div className="backbar d-flex align-items-center">
-                                <a href="javascript:void(0)">
-                                    <img src={backArrow.src} alt="backarrow" />
-                                    </a>
-
-                                    <h5>amazon <span>عرض جميع نتائج البحث</span></h5>
-                                </div>
+            <a href="javascript:void(0)" onClick={() => handleNav("/search")}>
+                <img src={backArrow.src} alt="backarrow" />
+            </a>
+                 <h5>{searchVal} <span>عرض جميع نتائج البحث</span></h5>
+            </div>
             <Title styles={"topBorderText"}>
                 <h3 className="fs24_bolder">الأسهم ذات الصلة</h3>
             </Title>
@@ -114,7 +133,8 @@ const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal}) => {
                                   return(
                                     <li key={index}>
                                         <div className="newsText">
-                                            <h6><a>{news?._source?.title}</a></h6>
+                                            {/*<h6><a>{news?._source?.title}</a></h6>*/}
+                                            <Link href={`/newsDetails/`+news._id}><a>{news?._source?.title}</a></Link>
                                             {/*<p><a>أمريكا</a> 07 مارس 2022</p>*/}
                                             <p>
                                                 { // to show tags
@@ -124,11 +144,11 @@ const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal}) => {
                                                         )
                                                     })  
 	                                             }
-                                                  07 مارس 2022
+                                                 {GetArabicFormattedDate(news?._source?.createdAt)}
                                             </p>
                                         </div>
                                         <div className="newsImage">
-                                            <img className="img-fluid" src={searchimg.src} />
+                                            {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={searchimg.src} />}
                                         </div>
                                     </li>
                                   )
