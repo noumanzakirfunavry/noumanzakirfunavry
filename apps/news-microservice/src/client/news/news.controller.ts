@@ -1,5 +1,5 @@
 import { Public } from '@cnbc-monorepo/auth-module';
-import { GetNewsByFlagsRequestDto, PaginatedRequestDto, SearchNewsRequestDto } from '@cnbc-monorepo/dtos';
+import { GenericResponseDto, GetNewsByFlagsRequestDto, PaginatedRequestDto, SearchNewsRequestDto } from '@cnbc-monorepo/dtos';
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Req } from '@nestjs/common';
 import { NewsService } from './news.service';
 
@@ -27,4 +27,10 @@ export class NewsClientController {
 	elkSearchNews(@Body() searchNewsRequestDto: SearchNewsRequestDto) {
 		return this.newService.elkSearchNews(searchNewsRequestDto)
 	}
+
+	@Get('/mostRead')
+	getMostReadNews(@Query() paginationDto: PaginatedRequestDto): Promise<GenericResponseDto> {
+		return this.newService.getMostReadNews(paginationDto)
+	}
+
 }
