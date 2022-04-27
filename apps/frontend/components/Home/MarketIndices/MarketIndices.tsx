@@ -8,7 +8,7 @@ import GetData from "../../../services/GetData";
 const MarketIndices = () =>{
 
     useEffect(() => {
-        GetData(`http://cnbcarabia.zagtrader.com/External/cnbcarabiadynamic/api/ConfigHome.php?type=json`, {}, 'get', false).then(res=>{
+        GetData(`https://cnbcarabia.zagtrader.com/External/cnbcarabiadynamic/api/ConfigHome.php?type=json`, {}, 'get', false).then(res=>{
 
             console.log('Market Indices:::', res);
         
