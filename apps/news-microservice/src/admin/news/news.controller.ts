@@ -2,7 +2,7 @@ import { JwtAuthGuard, Public, Rights, Roles } from '@cnbc-monorepo/auth-module'
 import { CreateNewsRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
-import { runInThisContext } from 'vm';
+// import { runInThisContext } from 'vm';
 import { NewsService } from './news.service';
 
 @Controller('news/api/admin/news')
