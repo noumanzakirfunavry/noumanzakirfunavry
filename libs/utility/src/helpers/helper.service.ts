@@ -168,8 +168,7 @@ export class Helper {
 	 * @param req - The request object
 	 * @returns {string} IP address
 	 */
-		extractIP(req: Request){
-			// return req.ip
-			return '192.168.1.1'
+		extractIP(req: Request): string {
+			return req.ip
 		}
 }
