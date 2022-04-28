@@ -64,8 +64,8 @@ export class NewsModel {
         this.imageId=serverNews.imageId || null;
         this.thumbnailId=serverNews.thumbnailId || null;
 
-        this.fileUrl=serverNews.image  ? environment.fileUrl+serverNews.image?.path:null;
-        this.videoUrl=serverNews.video ? environment.fileUrl+serverNews.video?.path:null;
+        this.fileUrl=serverNews.image  ? serverNews.image?.url:null;
+        this.videoUrl=serverNews.video ? serverNews.video?.url:null;
         this.thumbnailUrl=serverNews.thumbnail ? serverNews.thumbnail?.url:null;
     }
 
