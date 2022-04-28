@@ -96,9 +96,13 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
                                                 <div className="PlayTime">
                                                     <h5>05:21</h5>
                                                     <div className="btn-text">
-                                                        <button className="btn btn-warning VideoPlay">
-                                                            <i className="fa play_medium"></i>
-                                                        </button>
+                                                        <Link href={`/newsDetails/`+news._id}>
+                                                            <a>
+                                                                <button className="btn btn-warning VideoPlay">
+                                                                    <i className="fa play_medium"></i>
+                                                                </button>
+                                                            </a>
+                                                        </Link>
                                                         <span>شاهد الآن</span>
                                                     </div>
                                                 </div>
