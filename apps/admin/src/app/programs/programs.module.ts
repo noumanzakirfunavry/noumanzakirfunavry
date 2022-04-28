@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { QuillModule } from 'ngx-quill';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
         ...antdModule,
         NzUploadModule,
         CKEditorModule,
-        QuillModule.forRoot()
+        QuillModule.forRoot(),
+        NzPaginationModule
     ],
     exports: [],
     declarations: [
