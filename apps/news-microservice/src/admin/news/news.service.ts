@@ -68,7 +68,7 @@ export class NewsService {
 							quotes = quotes.map(quote => quote.name);
 
 							// save to elk
-							ElkService.save({ index: 'news_test', id: news_added.id.toString(), document: { ...news, tags, quotes } });
+							ElkService.save({ index: 'news', id: news_added.id.toString(), document: { ...news, tags, quotes } });
 
 							return new GenericResponseDto(
 								HttpStatus.CREATED,

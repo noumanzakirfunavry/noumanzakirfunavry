@@ -58,7 +58,7 @@ export class NewsService {
 
 	elkGetNewsByCategory(categoryId: number, paginationDTO: PaginatedRequestDto) {
 		return ElkService.search({
-			index: 'news_test',
+			index: 'news',
 			from: paginationDTO.pageNo - 1,
 			size: paginationDTO.limit,
 			sort: "updatedAt:desc",
@@ -127,7 +127,7 @@ export class NewsService {
 		}
 
 		return ElkService.search({
-			index: 'news_test',
+			index: 'news',
 			from: getNewsByFlagsRequestDto.pageNo - 1,
 			size: getNewsByFlagsRequestDto.limit,
 			sort: "updatedAt:desc",

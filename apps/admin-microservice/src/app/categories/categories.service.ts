@@ -181,7 +181,7 @@ export class CategoriesService {
 
 		// update category on elk
 		ElkService.updateByQuery({
-			index: 'news_test',
+			index: 'news',
 			query: {
 				match: {
 					"categories.id": id
@@ -305,7 +305,7 @@ export class CategoriesService {
 			res.forEach(news => {
 				bulkUpdateArray.push({
 					update: {
-						_index: 'news_test',
+						_index: 'news',
 						_id: news.id,
 					}
 				},
