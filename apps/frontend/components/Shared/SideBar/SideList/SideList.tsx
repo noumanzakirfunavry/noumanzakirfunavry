@@ -2,12 +2,41 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { SideListProps } from "apps/frontend/types/Types"
 import styles from "./sidelist.module.css";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import newsImage from "../../../../styles/images/biden.jpg";
 import Title from "apps/frontend/components/Title";
+import GetData from "apps/frontend/services/GetData";
+import { requests, baseUrlAdmin } from "apps/frontend/services/Requests";
+import Link from "next/link";
+import TimeAgoArabicFormat from "../../TimeAgoCustom/TimeAgoArabicFormat";
+
 
 const SideList:FC<SideListProps> = ({type, title}) =>{
+    const [latestNewsList, setLatestNewsList] = useState<any>([]);
+    const [mostReadNewsList, setMostReadNewsList] = useState<any>([]);
 
+      useEffect(() => {
+        // get data for latest news in side bar
+        GetData(`${requests.latestNews}limit=50&pageNo=1`, {}, 'get', false).then(res=>{
+            const newsRes = res.data && res.data.length ? res.data : []
+            setLatestNewsList(newsRes);
+
+        }).catch(err=>{
+            console.warn(err)
+        })
+
+        GetData(`${requests.mostReadNews}limit=10&pageNo=1`, {}, 'get', false).then(res=>{
+            const newsRes = res.data?.response && res.data?.response.length ? res.data?.response : []
+            //console.log('Most Read News:::::', newsRes)
+            setMostReadNewsList(newsRes);
+
+        }).catch(err=>{
+            console.warn(err)
+        })
+
+      }, [])
+
+      
     return (
         <>
         <div className={styles.sidebar}>
@@ -58,6 +87,31 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
               }
               {
                 type === "simple" && (
+                  title === "الأكثر قراءة" ? // show lates news :: api data
+                    <>
+                    <div className="sideSimpleListWrap">
+                      <Title styles={styles.themeTitle}>
+                          <h4> {title} </h4>
+                      </Title>
+
+                    <ul className={styles.sidesimpleList}>
+                          {
+                            mostReadNewsList?.length && mostReadNewsList?.map((newsItem:any, index:number)=>{
+                                  return(
+                                  <li key={index} >
+                                      <div className="NewsImage show_mobile">
+                                          <img className="img-fluid" src={newsItem?.news?.image?.path ? baseUrlAdmin+newsItem?.news?.image?.path:newsImage.src} />
+                                      </div>
+                                      <Link href={`/newsDetails/` + newsItem?.news?._id}><a>{newsItem?.news?.title}</a></Link>
+                                      <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                                  </li>
+                                  )
+                              })
+                          }
+                      </ul></div>
+                  </>
+
+                  :
 
                   <>
                     <div className="sideSimpleListWrap">
@@ -149,6 +203,37 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
               }
               {
                 type === 'dotList' && (
+                  title === "آخر الأخبار" && latestNewsList?.length ? // show lates news :: api data
+
+                  <>
+                    <Title styles={styles.themeTitle}>
+                        <h4> {title} </h4>
+                    </Title>
+                    <div className="dotListwrap">
+                        <ul className={styles.sideDotList}>
+                          {
+                            latestNewsList?.length && latestNewsList?.map((news:any, index:number)=>{
+                                  return(
+                                      <li key={index} >
+                                          <div>
+                                            {/*<span>منذ 5 دقائق</span>*/}
+                                            <span><TimeAgoArabicFormat date={news?._source?.createdAt} /></span>
+                                            <Link href={`/newsDetails/` + news?._id}><a>{news?._source?.title}</a></Link>
+                                          </div>
+                                      </li>
+                                  )
+                              })
+                          }
+                        </ul>
+                        {
+                            <div className="text-center mt-3 d-lg-none more_btn">
+                                <button className="btn btn-outline-primary">المزيد</button>
+                            </div>
+                        }
+                        </div>
+                  </>
+                   :
+
                   <>
                       <Title styles={styles.themeTitle}>
                           <h4> {title} </h4>
@@ -247,6 +332,7 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
             }
                       </div>
                   </>
+                  
                 )
               }
             </div>

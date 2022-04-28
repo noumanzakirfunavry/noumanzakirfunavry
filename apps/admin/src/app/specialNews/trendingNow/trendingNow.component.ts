@@ -1,4 +1,6 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -23,7 +25,8 @@ export class Data extends Pagination {
 
 
 @Component({
-    templateUrl: './trendingNow.component.html'
+    templateUrl: './trendingNow.component.html',
+    styleUrls: ['./trendingNow.component.scss']
 })
 
 export class TrendingNowComponent implements OnInit{
@@ -61,7 +64,7 @@ export class TrendingNowComponent implements OnInit{
     ];
 
 
-    constructor (private apiService: ApiService, private message: NzMessageService) {}
+    constructor (private apiService: ApiService, private message: NzMessageService, private route: Router) {}
 
     ngOnInit(): void {
         this.getAllCategories();
@@ -95,11 +98,19 @@ export class TrendingNowComponent implements OnInit{
         })
     }
 
+    changeCategory(data){
+        console.log(data);
+    }
+
     changedNews(updatedNews) {
         const news = this.tNews.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.tNews[news] = updatedNews;
-        }  else {
+        }
+        else if(this.tNews.some(x=>!x.newsId)){
+            console.log('');
+        }
+        else {
             const tempNews = updatedNews;
             setTimeout(() => {
                 this.tNews[news] = tempNews;
@@ -132,6 +143,18 @@ export class TrendingNowComponent implements OnInit{
                     this.message.create('success', `Trending Now News Updated Successfully`);
                 })
             }
+    }
+
+    drop(event: CdkDragDrop<string[] | any>) {
+        moveItemInArray(this.allTrendingNow, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.allTrendingNow.length; i++) {
+            this.allTrendingNow[i].position= i + 1;
+        }
+        console.log("POS", this.allTrendingNow);
+      }
+
+    cancel() {
+        this.route.navigateByUrl('dashboard')
     }
 
 }    

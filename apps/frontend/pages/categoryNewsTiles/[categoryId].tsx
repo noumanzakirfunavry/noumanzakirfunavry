@@ -71,7 +71,7 @@ const NewsCategoryPage = () => {
           !category && <SkeletonLoader />
         }
         {
-          category &&
+          category && category.id &&
 
           <div className="PageBuilder-pageRow">
             <div className="PageBuilder-col-9">

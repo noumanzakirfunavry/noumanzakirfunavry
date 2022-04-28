@@ -1,33 +1,32 @@
-import { Rights, Roles } from '@cnbc-monorepo/auth-module';
+import { Roles } from '@cnbc-monorepo/auth-module';
 import {
-  CreateAttachmentRequestDto,
-  DeleteAlexaAudioRequestDto,
-  GenericResponseDto,
-  GetAllEpisodesRequestDto,
-  UpdateAttachmentRequestDto,
+	CreateAttachmentRequestDto,
+	DeleteAlexaAudioRequestDto,
+	GenericResponseDto,
+	GetAllAttachmentsRequestDto, UpdateAttachmentRequestDto
 } from '@cnbc-monorepo/dtos';
-import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
+import { RoleTypes } from '@cnbc-monorepo/enums';
 import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  Query,
-  Req,
-  UploadedFiles,
-  UseInterceptors,
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	Post,
+	Put,
+	Query,
+	Req,
+	UploadedFiles,
+	UseInterceptors
 } from '@nestjs/common';
-import { AttachmentsService } from './attachments.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { AttachmentsService } from './attachments.service';
 
 @Controller('admin/api/admin/attachments')
 export class AttachmentsController {
   constructor(private attachmentsService: AttachmentsService) {}
 
-  @Roles(RoleTypes.Admin)
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
   @UseInterceptors(FileFieldsInterceptor([{ name: 'file' }]))
   @Post()
   async createAttachment(
@@ -42,7 +41,7 @@ export class AttachmentsController {
     );
   }
 
-  @Roles(RoleTypes.Admin)
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
   @Put(':id')
   async updateAttachment(
     @Param('id') id: number,
@@ -51,10 +50,10 @@ export class AttachmentsController {
     return await this.attachmentsService.updateAttachment(id, body);
   }
 
-  @Roles(RoleTypes.Admin)
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
   @Get('getAll')
   async getAllAttachments(
-    @Query() query: GetAllEpisodesRequestDto
+    @Query() query: GetAllAttachmentsRequestDto
   ): Promise<GenericResponseDto> {
     return await this.attachmentsService.getAllAttachments(query);
   }
@@ -66,7 +65,7 @@ export class AttachmentsController {
     return await this.attachmentsService.deleteAttachments(query);
   }
 
-  @Roles(RoleTypes.Admin)
+  @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
   @Get(':id')
   async getAttachmentById(
     @Param('id') id: number

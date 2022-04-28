@@ -1,4 +1,4 @@
-import { GenericResponseDto, RegisterAdminRequestDto, RequestResetPasswordRequestDto, ResetPasswordRequestDto, UpdatePasswordRequestDto, UserLoginDto } from '@cnbc-monorepo/dtos';
+import { GenericResponseDto, RegisterAdminRequestDto, RequestResetPasswordRequestDto, ResetPasswordRequestDto, UpdateAdminRequestDto, UpdatePasswordRequestDto, UserLoginDto } from '@cnbc-monorepo/dtos';
 import { Rights, Roles, Sessions, Users, UsersHasRights } from '@cnbc-monorepo/entity';
 import { ForbiddenException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -23,7 +23,7 @@ export class AnthenticationService {
 
     async loginUser(body: UserLoginDto) {
         try {
-            const response = await this.usersRepository.findOne({
+            const response = await this.usersRepository.unscoped().findOne({
                 include: [Roles, Rights],
                 where: {
                     userName: body.userName,
@@ -217,7 +217,7 @@ export class AnthenticationService {
         }
     }
 
-    async updateAdmin(id: number, body: RegisterAdminRequestDto): Promise<GenericResponseDto> {
+    async updateAdmin(id: number, body: UpdateAdminRequestDto): Promise<GenericResponseDto> {
         try {
             return await sequelize.transaction(async t => {
                 const transactionHost = { transaction: t };
@@ -280,8 +280,10 @@ export class AnthenticationService {
         return response === 0 ? true : response
     }
 
-    private async updateAdminQuery(body: RegisterAdminRequestDto, id: number, transactionHost) {
-        body.password = await this.helperService.encryptPassword(body.password)
+    private async updateAdminQuery(body: UpdateAdminRequestDto, id: number, transactionHost) {
+				if(body.password){
+					body.password = await this.helperService.encryptPassword(body.password)
+				}  
         return await this.usersRepository.update(body, {
             where: {
                 id: id

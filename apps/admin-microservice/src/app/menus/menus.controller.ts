@@ -8,7 +8,7 @@ import {
 	GetMenusResponseDto,
 	UpdateMenuRequestDto,
 	UpdateMenuResponseDto,
-	UpdateOrderNumberRequestDto
+	UpdateOrderMenusRequestDto
 } from '@cnbc-monorepo/dtos';
 import {
 	Body,
@@ -57,12 +57,9 @@ export class MenusController {
 		return this.menusService.updateMenu(menuId, updateMenuRequestDto);
 	}
 
-	@Put('/updateOrder/:id')
-	updateOrderNumber(
-		@Param('id', ParseIntPipe) menuId: number,
-		@Body() updateOrderNumberRequestDto: UpdateOrderNumberRequestDto
-	): Promise<UpdateMenuResponseDto> {
-		return this.menusService.updateOrderNumber(menuId, updateOrderNumberRequestDto);
+	@Put('/updateOrder')
+	updateOrderNumber(@Body() body: UpdateOrderMenusRequestDto): Promise<UpdateMenuResponseDto> {
+		return this.menusService.updateOrderNumber(body);
 	}
 
 	@Delete('/delete')

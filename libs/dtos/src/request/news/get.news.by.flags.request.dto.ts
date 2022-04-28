@@ -18,6 +18,10 @@ export class GetNewsByFlagsRequestDto {
 	@IsBooleanString()
 	isBreaking: boolean;
 
+	@IsOptional()
+	@IsBooleanString()
+	isExclusiveVideos: boolean;
+
 	@IsNumber()
 	@Min(1)
 	@Type(() => Number)

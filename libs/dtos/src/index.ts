@@ -11,9 +11,12 @@ export * from './request/alexa-audio/create.alexa.audio.request.dto';
 export * from './request/alexa-audio/delete.alexa.audio.request.dto';
 export * from './request/alexa-audio/get.all.alexa.audio.request.dto';
 //...............................Attachments.............................
+export * from './request/attachments/get.all.attachments.request.dto';
 export * from './request/attachments/create.attachment.request.dto';
 export * from './request/attachments/update.attachment.request.dto';
+//...............................Authentication.............................
 export * from './request/authentication/register.admin.request.dto';
+export * from './request/authentication/update.admin.request.dto';
 export * from './request/authentication/request.reset.password.request.dto';
 export * from './request/authentication/reset.password.request.dto';
 export * from './request/authentication/update.password.request.dto';
@@ -71,7 +74,7 @@ export * from './request/menus/create.menu.request.dto';
 export * from './request/menus/delete.menu.request.dto';
 export * from './request/menus/update.menu.request.dto';
 export * from './request/menus/get.menu.request.dto';
-export * from './request/menus/update.order.number.request.dto';
+export * from './request/menus/update.order.menus.request.dto';
 //...............................Messages.............................
 export * from './request/message/create.message.request.dto';
 export * from './request/message/get.all.message.request.dto';
@@ -155,6 +158,9 @@ export * from './response/exclusive-videos/get.all.exclusive.videos.response.dto
 export * from './response/exclusive-videos/get.exclusive.video.by.id.response.dto';
 //...............................Featured news.............................
 export * from './response/featured-news/get.all.featured.news.response.dto';
+//...............................Programs.............................
+export * from './request/programs/create.program.request.dto'
+export * from './request/programs/get.all.programs.request.dto'
 
 //.............................response dtos.......................................
 export * from './response/generic.response.dto';

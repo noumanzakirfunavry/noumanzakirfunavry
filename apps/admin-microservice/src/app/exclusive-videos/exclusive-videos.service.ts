@@ -3,6 +3,7 @@ import { ExclusiveVideos } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { ElkService } from '@cnbc-monorepo/elk';
 
 @Injectable()
 export class ExclusiveVideosService {
@@ -11,10 +12,15 @@ export class ExclusiveVideosService {
 		@Inject('EXCLUSIVE_VIDEOS_REPOSITORY')
 		private exclusiveVideoRepository: typeof ExclusiveVideos,
 	) { }
-	async createExclusiveVideo(body: any, transactionHost?): Promise<GenericResponseDto> {
+	async createExclusiveVideo(body: CreateExclusiveVideosRequestDto, transactionHost?): Promise<GenericResponseDto> {
 		try {
 			const create_exclusive = await this.createExclusiveVideoQuery(body, transactionHost)
 			if (create_exclusive) {
+				ElkService.update({
+					id: body.newsId.toString(),
+					index: 'news',
+					doc: { isExclusiveVideos: true }
+				})
 				return new GenericResponseDto(
 					HttpStatus.OK,
 					"Created successfully"
@@ -32,36 +38,7 @@ export class ExclusiveVideosService {
 			throw err
 		}
 	}
-	async updateExclusiveVideo(body: CreateExclusiveVideosRequestDto, id: number): Promise<GenericResponseDto> {
-		try {
-			const exclusive_exists = await this.videoExists(id)
-			if (exclusive_exists) {
-				const update_exclusive = await this.updateExclusiveQuery(body, id)
-				if (update_exclusive) {
-					return new GenericResponseDto(
-						HttpStatus.OK,
-						"Updated successfully"
-					)
-				}
-				else {
-					throw new CustomException(
-						Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
-						Exceptions[ExceptionType.UNABLE_TO_UPDATE].status
-					)
-				}
-			}
-			else {
-				throw new CustomException(
-					Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-					Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-				)
-			}
-		}
-		catch (err) {
-			console.log("🚀 ~ file: exclusive-videos.service.ts ~ line 40 ~ ExclusiveVideosService ~ updateMessage ~ err", err)
-			throw err
-		}
-	}
+
 	async getAllExclusiveVideos(): Promise<GetAllExclusiveVideosResponseDto> {
 		try {
 			const results_array = await this.allVideosQuery()
@@ -77,11 +54,12 @@ export class ExclusiveVideosService {
 			throw err
 		}
 	}
-	
+
 	async updateAndRemoveExclusiveVideo(body: UpdateExclusiveVideosRequestDto): Promise<GenericResponseDto> {
 		try {
 			return await sequelize.transaction(async t => {
 				const transactionHost = { transaction: t };
+				let itemsBeforeDelete: any = await this.exclusiveVideoRepository.findAll({ attributes: ['id', 'newsId'], raw: true, nest: true, transaction: transactionHost.transaction })
 				const remove_previous = await this.deleteAllExclusiveVideos(transactionHost)
 				if (remove_previous) {
 					let record_created;
@@ -94,6 +72,67 @@ export class ExclusiveVideosService {
 							)
 						}
 					}
+
+					this.exclusiveVideoRepository.findAll({
+						attributes: ['id', 'newsId'],
+						raw: true,
+						nest: true,
+					})
+						.then(itemsAfterDelete => {
+							let itemDictionary = {};
+							// First Loop To Create Dictionary
+							itemsBeforeDelete.forEach(item => {
+								itemDictionary[item.newsId] = 1;
+							})
+							itemsAfterDelete.forEach(item => {
+								itemDictionary[item.newsId] = 2;
+							});
+							let itemsToFlag = [];
+							let itemsToDeflag = [];
+
+							let elkUpdateArray = [];
+
+							for (const item in itemDictionary) {
+								if (itemDictionary[item] === 2) {
+									itemsToFlag.push(item)
+								} else {
+									itemsToDeflag.push(item)
+								}
+							}
+
+							// add update with flag: true
+							itemsToFlag.forEach(item => {
+								elkUpdateArray.push({
+									update: {
+										_index: 'news',
+										_id: item,
+									}
+								},
+									{
+										doc: {
+											isExclusiveVideos: true,
+										}
+									})
+							})
+
+							// add update with flag: 
+							itemsToDeflag.forEach(item => {
+								elkUpdateArray.push({
+									update: {
+										_index: 'news',
+										_id: item,
+									}
+								},
+									{
+										doc: {
+											isExclusiveVideos: false
+										}
+									})
+							})
+
+							ElkService.bulk({ operations: elkUpdateArray })
+						})
+
 					return await new GenericResponseDto(
 						HttpStatus.OK,
 						"Updated sucessfully"
@@ -117,6 +156,7 @@ export class ExclusiveVideosService {
 		const response = await this.exclusiveVideoRepository.destroy({
 			where: {},
 			truncate: true,
+			restartIdentity: true,
 			transaction: transactionHost.transaction
 		});
 		return response === 0 ? true : response
@@ -150,6 +190,12 @@ export class ExclusiveVideosService {
 				const transactionHost = { transaction: t };
 				let video_exists;
 				let delete_video;
+				const itemsBeforeDelete = await this.exclusiveVideoRepository.findAll({ 
+					attributes: ['id', 'newsId'], 
+					raw: true, 
+					nest: true, 
+					transaction: transactionHost.transaction })
+					
 				for (let i = 0; i < query.id.length; i++) {
 					video_exists = await this.videoExists(query.id[i])
 					if (video_exists) {
@@ -168,6 +214,27 @@ export class ExclusiveVideosService {
 						)
 					}
 				}
+
+				let bulkUpdateArray = [];
+
+				// construct bulk update array
+				query.id.forEach(id => {
+					const newsId = itemsBeforeDelete.find(item=> item.id == id)?.newsId
+					bulkUpdateArray.push({
+						update: {
+							_index: 'news',
+							_id: newsId,
+						}
+					},
+						{
+							doc: {
+								isExclusiveVideos: false
+							}
+						})
+				})
+
+				ElkService.bulk({ operations: bulkUpdateArray })
+
 				return new GenericResponseDto(
 					HttpStatus.OK,
 					"Deleted successfully"
@@ -191,7 +258,7 @@ export class ExclusiveVideosService {
 	}
 
 	private async allVideosQuery() {
-		return await this.exclusiveVideoRepository.findAndCountAll();
+		return await this.exclusiveVideoRepository.findAndCountAll({ include: ['news'] });
 	}
 
 	private async videoExists(id: number) {

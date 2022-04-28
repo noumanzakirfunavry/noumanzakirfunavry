@@ -1,0 +1,9 @@
+<tiny-file-modal (onSelectFile)="fileFromModal($event)" [isVisible]="isVisible" (closeModal)="closeModal($event)">
+    <div>
+        <p>Select Image</p>
+    </div>
+</tiny-file-modal>
+
+<div [formGroup]="formField">
+    <editor formControlName="content" [init]="tinyConfig"></editor>
+</div>

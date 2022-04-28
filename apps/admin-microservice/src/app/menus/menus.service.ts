@@ -2,22 +2,22 @@ import {
 	CreateMenuRequestDto,
 	CreateMenuResponseDto,
 	DeleteMenuResponseDto,
+	GenericResponseDto,
 	GetMenuByIdResponseDto,
 	GetMenuRequestDto,
 	GetMenusResponseDto,
 	PaginatedRequestDto,
 	UpdateMenuRequestDto,
 	UpdateMenuResponseDto,
-	UpdateOrderNumberRequestDto
+	UpdateOrderMenusRequestDto
 } from '@cnbc-monorepo/dtos';
-import { ElkService } from '@cnbc-monorepo/elk';
 import { Menus, Users } from '@cnbc-monorepo/entity';
 import {
 	CustomException,
 	Exceptions,
 	ExceptionType
 } from '@cnbc-monorepo/exception-handling';
-import { Helper } from '@cnbc-monorepo/utility';
+import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import {
 	BadRequestException,
 	HttpStatus,
@@ -230,126 +230,161 @@ export class MenusService {
 		return new UpdateMenuResponseDto(HttpStatus.OK, 'Menu updated successfully')
 	}
 
-	async updateOrderNumber(
-		id: number,
-		updateOrderNumberRequestDto: UpdateOrderNumberRequestDto
-		): Promise<UpdateMenuResponseDto> {
-		let { orderNo, parentMenuId } = updateOrderNumberRequestDto;
-		let isOrderNoAvailable = true;
+	// async updateOrderNumber(
+	// 	id: number,
+	// 	updateOrderNumberRequestDto: UpdateOrderNumberRequestDto
+	// 	): Promise<UpdateMenuResponseDto> {
+	// 	let { orderNo, parentMenuId } = updateOrderNumberRequestDto;
+	// 	let isOrderNoAvailable = true;
 
-		// check if none of the parameters are provided
-		if (orderNo === undefined && parentMenuId === undefined) {
-			throw new CustomException(
-				Exceptions[ExceptionType.ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED].message,
-				Exceptions[ExceptionType.ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED].status
-			);
-		}
+	// 	// check if none of the parameters are provided
+	// 	if (orderNo === undefined && parentMenuId === undefined) {
+	// 		throw new CustomException(
+	// 			Exceptions[ExceptionType.ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED].message,
+	// 			Exceptions[ExceptionType.ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED].status
+	// 		);
+	// 	}
 
-		// if id and parentMenuId are same, throw exception
-		if (id === parentMenuId) {
-			throw new CustomException(
-				Exceptions[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT].message,
-				Exceptions[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT].status
-			);
-		}
+	// 	// if id and parentMenuId are same, throw exception
+	// 	if (id === parentMenuId) {
+	// 		throw new CustomException(
+	// 			Exceptions[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT].message,
+	// 			Exceptions[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT].status
+	// 		);
+	// 	}
 
-		const menu = await this.menusRepo.findOne({
-			where: { id },
-			include: [{ model: Menus, as: 'childMenus' }],
-		});
+	// 	const menu = await this.menusRepo.findOne({
+	// 		where: { id },
+	// 		include: [{ model: Menus, as: 'childMenus' }],
+	// 	});
 
-		// check if menu was found or not
-		if (!menu) {
+	// 	// check if menu was found or not
+	// 	if (!menu) {
+	// 		throw new CustomException(
+	// 			Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+	// 			Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+	// 		);
+	// 	}
+
+	// 	// if update values are same as original then return error
+	// 	if (parentMenuId === menu?.parentMenuId || orderNo === menu?.orderNo) {
+	// 		throw new CustomException(
+	// 			Exceptions[
+	// 				ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL
+	// 			].message,
+	// 			Exceptions[
+	// 				ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL
+	// 			].status
+	// 		);
+	// 	}
+
+	// 	// case: if parentMenuId is not provided (it means it will be main menu)
+	// 	if (parentMenuId === undefined) {
+	// 		if (orderNo) {
+	// 			// if orderNo provided then check if available
+	// 			isOrderNoAvailable = await this.isOrderNoAvailable({
+	// 				where: { parentMenuId: null, orderNo },
+	// 				plain: true,
+	// 			});
+	// 		}
+
+	// 		if (isOrderNoAvailable) {
+	// 			await this.menusRepo.update<Menus>(
+	// 				{
+	// 					orderNo,
+	// 				},
+	// 				{ where: { id } }
+	// 			);
+	// 			return new UpdateMenuResponseDto(
+	// 				HttpStatus.OK,
+	// 				'Menu updated successfully'
+	// 			);
+	// 		} else {
+	// 			throw new CustomException(
+	// 				Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
+	// 				Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
+	// 			);
+	// 		}
+
+	// 		// case: if orderNo not provided  but parentMenuId provided
+	// 	} else if (orderNo === undefined) {
+	// 		// find a suitable orderNo
+	// 		orderNo = await this.findSuitableOrderNo({ where: { parentMenuId } });
+
+	// 		await this.menusRepo.update<Menus>(
+	// 			{
+	// 				orderNo,
+	// 				parentMenuId,
+	// 			},
+	// 			{ where: { id } }
+	// 		);
+	// 		return new UpdateMenuResponseDto(
+	// 			HttpStatus.OK,
+	// 			'Menu created successfully'
+	// 		);
+
+	// 		// if both parentMenuId and orderNo provided
+	// 	} else {
+	// 		// check if orderNo available
+	// 		const isOrderNoAvailable = await this.isOrderNoAvailable({
+	// 			where: { parentMenuId, orderNo },
+	// 			plain: true,
+	// 		});
+
+	// 		if (isOrderNoAvailable) {
+	// 			await this.menusRepo.update<Menus>(
+	// 				{
+	// 					parentMenuId,
+	// 					orderNo,
+	// 				},
+	// 				{ where: { id } }
+	// 			);
+	// 			return new UpdateMenuResponseDto(
+	// 				HttpStatus.OK,
+	// 				'Menu updated successfully'
+	// 			);
+	// 		} else {
+	// 			throw new CustomException(
+	// 				Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
+	// 				Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
+	// 			);
+	// 		}
+	// 	}
+	// }
+
+	async updateOrderNumber(body: UpdateOrderMenusRequestDto) {
+		const result = await this.menusRepo.findAll()
+		if (!result) {
 			throw new CustomException(
 				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
 				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-			);
+			)
 		}
-
-		// if update values are same as original then return error
-		if (parentMenuId === menu?.parentMenuId || orderNo === menu?.orderNo) {
-			throw new CustomException(
-				Exceptions[
-					ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL
-				].message,
-				Exceptions[
-					ExceptionType.ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL
-				].status
-			);
-		}
-
-		// case: if parentMenuId is not provided (it means it will be main menu)
-		if (parentMenuId === undefined) {
-			if (orderNo) {
-				// if orderNo provided then check if available
-				isOrderNoAvailable = await this.isOrderNoAvailable({
-					where: { parentMenuId: null, orderNo },
-					plain: true,
-				});
+		return await sequelize.transaction(async t => {
+			const transactionHost = { transaction: t };
+			for (let i = 0; i < body.ids.length; ++i) {
+				const item = body.ids[i];
+				const updateRes = await this.updateMenuPosition(i + 1, item, transactionHost)
+				if (!updateRes[0]) {
+					throw new CustomException(
+						Exceptions[ExceptionType.UNABLE_TO_UPDATE].message,
+						Exceptions[ExceptionType.UNABLE_TO_UPDATE].status
+					)
+				}
 			}
-
-			if (isOrderNoAvailable) {
-				await this.menusRepo.update<Menus>(
-					{
-						orderNo,
-					},
-					{ where: { id } }
-				);
-				return new UpdateMenuResponseDto(
-					HttpStatus.OK,
-					'Menu updated successfully'
-				);
-			} else {
-				throw new CustomException(
-					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
-					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
-				);
-			}
-
-			// case: if orderNo not provided  but parentMenuId provided
-		} else if (orderNo === undefined) {
-			// find a suitable orderNo
-			orderNo = await this.findSuitableOrderNo({ where: { parentMenuId } });
-
-			await this.menusRepo.update<Menus>(
-				{
-					orderNo,
-					parentMenuId,
-				},
-				{ where: { id } }
-			);
-			return new UpdateMenuResponseDto(
+			return new GenericResponseDto(
 				HttpStatus.OK,
-				'Menu created successfully'
-			);
+				"Menus updated successfully"
+			)
+		})
 
-			// if both parentMenuId and orderNo provided
-		} else {
-			// check if orderNo available
-			const isOrderNoAvailable = await this.isOrderNoAvailable({
-				where: { parentMenuId, orderNo },
-				plain: true,
-			});
+	}
+	async updateMenuPosition(pos: number, id: number, transactionHost) {
+		return await this.menusRepo.update({ orderNo: pos }, {
+			where: { id },
+			transaction: transactionHost.transaction
+		})
 
-			if (isOrderNoAvailable) {
-				await this.menusRepo.update<Menus>(
-					{
-						parentMenuId,
-						orderNo,
-					},
-					{ where: { id } }
-				);
-				return new UpdateMenuResponseDto(
-					HttpStatus.OK,
-					'Menu updated successfully'
-				);
-			} else {
-				throw new CustomException(
-					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].message,
-					Exceptions[ExceptionType.ORDER_NUMBER_NOT_AVAILABLE].status
-				);
-			}
-		}
 	}
 
 	async deleteMenus(id: number[]): Promise<DeleteMenuResponseDto> {

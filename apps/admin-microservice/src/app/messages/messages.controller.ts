@@ -11,28 +11,28 @@ export class MessagesController {
     ){}
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Post()
     async createMessage(@Body() body : CreateMessageRequestDto) : Promise<GenericResponseDto>{
         return await this.messageService.createMessage(body);
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Put(":id")
     async updateMessage(@Param("id") id : number,@Body() body : CreateMessageRequestDto) : Promise<GenericResponseDto>{
         return await this.messageService.updateMessage(body,id);
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get("getAll")
     async getAllMessages(@Query() query : GetAllMessagesRequestDto) : Promise<GetAllMessagesResponseDto>{
         return await this.messageService.getAllMessages(query);
     }
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get(":id")
     async getMessageById(@Param("id") id : number) : Promise<GetMessageByIdResponseDto>{
         return await this.messageService.getMessageById(id);
@@ -40,7 +40,7 @@ export class MessagesController {
 
     
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Delete()
     async deleteMessageById(@Query() query : DeleteAlexaAudioRequestDto) : Promise<GenericResponseDto>{
         return await this.messageService.deleteMessageById(query);

@@ -1,4 +1,6 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -24,7 +26,8 @@ export class Data extends Pagination {
 
 
 @Component({
-    templateUrl: './editorsChoice.component.html'
+    templateUrl: './editorsChoice.component.html',
+    styleUrls: ['./editorsChoice.component.scss']
 })
 
 export class EditorsChoiceComponent implements OnInit{
@@ -57,7 +60,7 @@ export class EditorsChoiceComponent implements OnInit{
     ];
 
 
-    constructor (private apiService: ApiService,  private message: NzMessageService) {}
+    constructor (private apiService: ApiService,  private message: NzMessageService, private route: Router) {}
 
     ngOnInit(): void {
         this.getAllCategories();
@@ -91,11 +94,19 @@ export class EditorsChoiceComponent implements OnInit{
         })
     }
 
+    changeCategory(data){
+        console.log(data);
+    }
+
     changedNews(updatedNews) {
         const news = this.editorsChoice.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.editorsChoice[news] = updatedNews;
-        }  else {
+        }
+        else if(this.editorsChoice.some(x=>!x.newsId)){
+            console.log('');
+        }
+        else {
             const tempNews = updatedNews;
             setTimeout(() => {
                 this.editorsChoice[news] = tempNews;
@@ -128,6 +139,18 @@ export class EditorsChoiceComponent implements OnInit{
                     this.message.create('success', `Editor's Choice News Updated Successfully`);
                 })
             }
+    }
+
+    drop(event: CdkDragDrop<string[] | any>) {
+        moveItemInArray(this.allEditorsChoice, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.allEditorsChoice.length; i++) {
+            this.allEditorsChoice[i].position= i + 1;
+        }
+        console.log("POS", this.allEditorsChoice);
+      }
+
+    cancel() {
+        this.route.navigateByUrl('dashboard')
     }
 
 }    

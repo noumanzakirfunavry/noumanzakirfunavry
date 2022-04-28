@@ -11,32 +11,32 @@ export class PresentersController {
         private presentersService: PresentersService
     ) { }
 
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get("getAll")
     async getAllPresenters(@Query() query: GetAllPresentersRequestDto): Promise<GetAllPresentersResponseDto> {
         return await this.presentersService.getAllPresenters(query)
     }
 
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Post()
     async addPresenter(@Req() req, @Body() body: CreatePresentersRequestDto): Promise<GenericResponseDto> {
         return await this.presentersService.addPresenter(body, req)
     }
 
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Put(":id")
     async updatePresenter(@Param("id") id: number, @Body() body: CreatePresentersRequestDto): Promise<GenericResponseDto> {
         return await this.presentersService.updatePresenter(body, id)
     }
 
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get(":id")
     async getPresenterById(@Param("id") id: number): Promise<GetPresentersByIdResponseDto> {
         return await this.presentersService.getPresenterById(id)
     }
 
 
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Delete()
     async deletePresenterById(@Query() query: DeletePresentersRequestDto): Promise<GenericResponseDto> {
         return await this.presentersService.deletePresenterById(query)

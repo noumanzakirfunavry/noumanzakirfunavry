@@ -1,4 +1,6 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -25,7 +27,8 @@ export class Data extends Pagination {
 }
 
 @Component({
-    templateUrl: './featuredNews.component.html'
+    templateUrl: './featuredNews.component.html',
+    styleUrls: ['./featuredNews.component.scss']
 })
 
 export class FeaturedNewsComponent implements OnInit {
@@ -79,7 +82,7 @@ export class FeaturedNewsComponent implements OnInit {
     ];
 
 
-    constructor(private apiService: ApiService, private message: NzMessageService) { }
+    constructor(private apiService: ApiService, private message: NzMessageService, private route: Router) { }
 
 
     ngOnInit(): void {
@@ -118,15 +121,16 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     changeCategory(data){
-        
+        console.log(data);
     }
 
     changedNews(updatedNews) {
         const news = this.fNews.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.fNews[news] = updatedNews;
-        } else if(this.fNews.some(x=>!x.newsId)){
-            
+        } 
+        else if(this.fNews.some(x=>!x.newsId)){
+            console.log('');
         }
           else {
             // this.fNews[news] = null;
@@ -162,7 +166,18 @@ export class FeaturedNewsComponent implements OnInit {
                 this.message.create('success', `Featured News Updated Successfully`);
             })
         }
+    }
 
+    drop(event: CdkDragDrop<string[] | any>) {
+        moveItemInArray(this.allFeaturedNews, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.allFeaturedNews.length; i++) {
+            this.allFeaturedNews[i].position= i + 1;
+        }
+        console.log("POS", this.allFeaturedNews);
+      }
+
+    cancel() {
+        this.route.navigateByUrl('dashboard')
     }
 
 }    

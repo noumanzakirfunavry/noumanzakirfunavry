@@ -1,4 +1,5 @@
 import {
+	GenericResponseDto,
 	GetNewsByFlagsRequestDto,
 	GetNewsByIdResponseDto,
 	PaginatedRequestDto,
@@ -11,7 +12,7 @@ import {
 	Exceptions,
 	ExceptionType
 } from '@cnbc-monorepo/exception-handling';
-import { Helper } from '@cnbc-monorepo/utility';
+import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Op } from 'sequelize';
 
@@ -37,7 +38,7 @@ export class NewsService {
 			this.newsVisitorsRepository.findOne({ where: { ipAddress, newsId: id } }).then(res => {
 				if (res) {
 					// if found then update counter
-					this.newsVisitorsRepository.update({ ...res, count: res.count + 1 }, { where: { ipAddress, newsId: id } })
+					this.newsVisitorsRepository.update({ ...res, visitDate: new Date().toDateString(), count: res.count + 1 }, { where: { ipAddress, newsId: id } })
 				} else {
 					// if not found then create new entry
 					this.newsVisitorsRepository.create({ ipAddress, visitDate: new Date().toDateString(), count: 1, newsId: id })
@@ -79,7 +80,7 @@ export class NewsService {
 	}
 
 	async elkGetNewsByFlags(getNewsByFlagsRequestDto: GetNewsByFlagsRequestDto) {
-		const { isBreaking, isFeatured, isTrending, isEditorsChoice } = getNewsByFlagsRequestDto
+		const { isExclusiveVideos, isBreaking, isFeatured, isTrending, isEditorsChoice } = getNewsByFlagsRequestDto
 
 		// breaking news will be fetched through DB, others will be fetched ELK
 		if (isBreaking !== undefined) {
@@ -118,6 +119,14 @@ export class NewsService {
 			})
 		}
 
+		if (isExclusiveVideos !== undefined) {
+			filtersArray.push({
+				match: {
+					isExclusiveVideos
+				}
+			})
+		}
+
 		return ElkService.search({
 			index: 'news',
 			from: getNewsByFlagsRequestDto.pageNo - 1,
@@ -134,7 +143,7 @@ export class NewsService {
 
 	// ! find a way to use the DTO directly
 	elkSearchNews(searchNewsRequestDto: SearchNewsRequestDto) {
-		const { title, content, tags, quotes } = searchNewsRequestDto;
+		const { title, content, tags, quotes, searchTerm } = searchNewsRequestDto;
 
 		const shouldArray = [];
 
@@ -175,13 +184,22 @@ export class NewsService {
 			});
 		}
 
+		if (searchTerm) {
+			shouldArray.push({
+				multi_match: {
+					query: searchTerm
+				}
+			});
+		}
+
 		return ElkService.search({
 			index: 'news',
 			sort: "updatedAt:desc",
+			track_scores: true,
 			query: {
 				bool: {
 					should: shouldArray
-				},
+				}
 			},
 		});
 	}
@@ -205,5 +223,28 @@ export class NewsService {
 				isActive: true
 			},
 		});
+	}
+
+	async getMostReadNews(paginationDto: PaginatedRequestDto): Promise<GenericResponseDto> {
+		const mostReadNews = await this.newsVisitorsRepository.findAll({
+			attributes: [
+
+				[sequelize.fn('sum', sequelize.col('count')), 'Visits'],
+
+			],
+			where: {
+				visitDate: {
+					// only count visits from last 7 days
+					[Op.gt]: new Date(new Date().setDate(new Date().getDate() - 7)),
+				},
+			},
+			include: ['news'],
+			group: [sequelize.col('news.id')],
+			order: [[sequelize.col('Visits'), 'DESC']],
+			limit: parseInt(paginationDto.limit.toString()),
+			offset: this.helperService.offsetCalculator(paginationDto.pageNo, paginationDto.limit),
+		});
+		
+		return new GenericResponseDto(HttpStatus.OK, 'Request Successful', mostReadNews)
 	}
 }
