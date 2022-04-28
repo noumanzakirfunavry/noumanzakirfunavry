@@ -23,9 +23,11 @@ export class CategoriesController{
     }
 
 		@Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
-		// @Rights(RightsTypes.MODIFY_CATEGORIES)
+		@Rights(RightsTypes.MODIFY_CATEGORIES)
     @Delete('delete') 
     async delete(@Query() query:DeleteCategoryRequestDto){
+			// implementation has been changed to allow a single delete at a time.
+			// However, DTO has not been changed and the id at index 0 is picked for delete.
         return await this.categoryService.delete(query.ids[0])
     }
 
