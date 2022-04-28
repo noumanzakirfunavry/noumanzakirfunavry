@@ -30,4 +30,5 @@ export const requests={
     exclusiveVideosNews:newsAPIClient+'news/get/flags?isExclusiveVideos=true',
     latestNews:newsAPIClient+'news/get/flags?',
     search:newsAPIClient+'news/search',
+    mostReadNews:newsAPIClient+'news/mostRead?',
 }
