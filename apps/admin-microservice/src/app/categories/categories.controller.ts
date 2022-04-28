@@ -23,10 +23,10 @@ export class CategoriesController{
     }
 
 		@Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
-		@Rights(RightsTypes.MODIFY_CATEGORIES)
+		// @Rights(RightsTypes.MODIFY_CATEGORIES)
     @Delete('delete') 
     async delete(@Query() query:DeleteCategoryRequestDto){
-        return await this.categoryService.delete(query.ids)
+        return await this.categoryService.delete(query.ids[0])
     }
 
     @Get('getAll')

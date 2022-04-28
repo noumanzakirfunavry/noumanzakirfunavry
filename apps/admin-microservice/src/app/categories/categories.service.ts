@@ -1,6 +1,6 @@
 import { AddCategoriesResponseDto, GenericResponseDto, GetAllCategoriesForClientRequestDto, GetAllCategoriesRequestDto, GetAllCategoriesResponseDto, GetByIdCategoryResponseDto, UpdateCategoriesRequestDto, UpdateCategoriesResponseDto, UpdateOrderCategoriesRequestDto } from "@cnbc-monorepo/dtos";
 import { ElkService } from "@cnbc-monorepo/elk";
-import { Categories } from "@cnbc-monorepo/entity";
+import { Categories, News } from "@cnbc-monorepo/entity";
 import { CustomException, Exceptions, ExceptionType } from "@cnbc-monorepo/exception-handling";
 import { Helper, sequelize } from "@cnbc-monorepo/utility";
 import { HttpStatus, Inject, Injectable } from "@nestjs/common";
@@ -10,6 +10,11 @@ export class CategoriesService {
 	constructor(
 		@Inject('CATEGORIES_REPOSITORY')
 		private categoryRepo: typeof Categories,
+
+		@Inject('NEWS_REPOSITORY')
+    private newsRepository: typeof News,
+
+				 
 		private helperService: Helper
 	) { }
 
@@ -45,14 +50,17 @@ export class CategoriesService {
 		}
 		return new AddCategoriesResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
 	}
-	async delete(ids: number[]) {
-		const result = await this.categoryRepo.destroy({ where: { id: ids } })
+	async delete(id: number) {
+		const result = await this.categoryRepo.destroy({ where: { id } })
 		if (!result) {
 			throw new CustomException(
 				Exceptions[ExceptionType.UNABLE_TO_DELETE].message,
 				Exceptions[ExceptionType.UNABLE_TO_DELETE].status
 			)
 		}
+
+		this.deleteCategoriesElk(id)
+
 		return new GenericResponseDto(HttpStatus.OK, "DELETED SUCCESSFULLY")
 	}
 	async getAllForClient(query: GetAllCategoriesForClientRequestDto) {
@@ -277,6 +285,39 @@ export class CategoriesService {
 			arr.splice(index, 1);
 		}
 		return arr;
+	}
+
+	deleteCategoriesElk(id: number){
+		(this.newsRepository.findAll({
+			include: [
+				{
+					model: Categories,
+					where: { id },
+					through: { attributes: [] },
+					paranoid: false
+				}
+			],
+			raw: true
+		})).then(res => {
+			let bulkUpdateArray = [];
+
+			// construct bulk update array
+			res.forEach(news => {
+				bulkUpdateArray.push({
+					update: {
+						_index: 'news_test',
+						_id: news.id,
+					}
+				},
+					{
+						script: {
+							source: `for (int i = 0; i < ctx._source.categories.length; ++i) {if(ctx._source.categories[i].id == ${id}) {ctx._source.categories[i].deletedAt = '${new Date().toISOString()}';}}`
+						}
+					})
+			})
+
+				ElkService.bulk({ operations: bulkUpdateArray })
+		})
 	}
 
 }
