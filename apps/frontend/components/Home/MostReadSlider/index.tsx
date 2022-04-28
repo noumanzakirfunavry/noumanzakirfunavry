@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, useRef, useState } from "react";
+import { FC, useRef, useState, useEffect } from "react";
 import Slider from "react-slick";
 import Title from "../../Title";
 import newsImage from "./../../../styles/images/biden.jpg";
+import GetData from "../../../services/GetData";
+import { requests, baseUrlAdmin } from "../../../services/Requests";
+import Link from "next/link";
+
 
 
 
@@ -70,6 +74,21 @@ const MostReadSlider: FC = () => {
             }
         ]
     });
+
+    const [mostReadNewsList, setMostReadNewsList] = useState<any>([]);
+
+    useEffect(() => {
+        GetData(`${requests.mostReadNews}limit=10&pageNo=1`, {}, 'get', false).then(res=>{
+            const newsRes = res.data?.response && res.data?.response.length ? res.data?.response : []
+            //console.log('Most Read News:::::', newsRes)
+            setMostReadNewsList(newsRes);
+
+        }).catch(err=>{
+            console.warn(err)
+        })
+
+      }, [])
+
     return (
         <>
      
@@ -100,7 +119,24 @@ const MostReadSlider: FC = () => {
 
                     <Slider ref={ref} {...settings}>
                         <div className="slider-item">
-                        <li key={'12'} >
+
+                        {
+                            mostReadNewsList?.length && mostReadNewsList?.map((newsItem:any, index:number)=>{
+                                  return(
+                                    <li key={index} >
+                                        <div className="NewsImage show_mobile">
+                                            <img className="img-fluid" src={newsItem?.news?.image?.path ? baseUrlAdmin+newsItem?.news?.image?.path:newsImage.src} />
+                                        </div>
+                                        <Link href={`/newsDetails/` + newsItem?.news?._id}><a>{newsItem?.news?.title}</a></Link>
+                                        <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                                    </li>
+
+                                  
+                                  )
+                              })
+                          }
+
+                        {/*<li key={'12'} >
                         <div className="NewsImage show_mobile">
                             <img className="img-fluid" src={newsImage.src} />
                         </div>
@@ -185,7 +221,7 @@ const MostReadSlider: FC = () => {
                           النفط يصعد لأعلى مستوى في أسبوعين حيث أدى رفع حظر السفر الأميركي إلى زيادة الطلب
                           </a>
                           <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
-                          </li>
+                          </li>*/}
                         </div>
                     </Slider>
 
