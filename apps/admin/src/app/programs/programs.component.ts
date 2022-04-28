@@ -1,133 +1,83 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//     selector: 'app-dashboard',
-//     templateUrl: './dashboard.component.html',
-// })
-
-// export class DashboardComponent implements OnInit {
-//     constructor() { }
-
-//     ngOnInit(): void { }
-// }
-
-
 import { Component, OnInit } from '@angular/core'
-import { ThemeConstantService } from '../shared/services/theme-constant.service';
-// import { ThemeConstantService } from '../../shared/services/theme-constant.service';
+import { Pagination } from '../common/models/pagination';
+import { requests } from '../shared/config/config';
+import { ApiService } from '../shared/services/api.service';
 
-export interface Data {
-    id: number;
-    name: string;
-    age: number;
-    address: string;
-    disabled: boolean;
-}
+
 
 @Component({
        selector: 'app-programs',
     templateUrl: './programs.component.html',
 })
 
-export class ProgramsComponent {
-
+export class ProgramsComponent implements OnInit{
+    pagination: Pagination = new Pagination()
     indeterminate = false;
     checked = false;
+    loading = true;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData: Data[] = [];
+    listOfCurrentPageData = [];
+    allPrograms: any;
+    programsCount: any;
 
-    constructor( private colorConfig:ThemeConstantService ) {}
+    constructor( private apiService: ApiService ) {}
 
-   
-    ordersList = [
-        {
-            id: 5331,
-            name: 'Erin Gonzales',
-            avatar: 'assets/images/avatars/thumb-1.jpg',
-            date: '8 May 2019',
-            amount: 137,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5375,
-            name: 'Darryl Day',
-            avatar: 'assets/images/avatars/thumb-2.jpg',
-            date: '6 May 2019',
-            amount: 322,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5762,
-            name: 'Marshall Nichols',
-            avatar: 'assets/images/avatars/thumb-3.jpg',
-            date: '1 May 2019',
-            amount: 543,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5865,
-            name: 'Virgil Gonzales',
-            avatar: 'assets/images/avatars/thumb-4.jpg',
-            date: '28 April 2019',
-            amount: 876,
-            status: 'pending',
-            checked : false
-        },
-        {
-            id: 5213,
-            name: 'Nicole Wyne',
-            avatar: 'assets/images/avatars/thumb-5.jpg',
-            date: '28 April 2019',
-            amount: 241,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5311,
-            name: 'Riley Newman',
-            avatar: 'assets/images/avatars/thumb-6.jpg',
-            date: '19 April 2019',
-            amount: 872,
-            status: 'rejected',
-            checked : false
+    ngOnInit(): void {
+        this.getAllPrograms();
+    }
+
+    getAllPrograms() {
+        this.apiService.sendRequest(requests.getAllPrograms, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
+            this.allPrograms= res.response.program;
+            this.programsCount= res.response.totalCount;
+            console.log("ALL-PROGRAMS", this.allPrograms);
+            this.loading= false;
+        },err => {
+            this.loading = false;
+            throw this.handleError(err);
+          })
+    }
+
+    handleError(err: any) {
+        if (err) {
+          this.allPrograms = [];
+          this.programsCount = 0;
         }
-    ]    
+        return err
+      }
 
-    productsList = [
-        {
-            name: 'Gray Sofa',
-            avatar: 'assets/images/others/thumb-9.jpg',
-            category: 'Home Decoration',
-            growth: 18.3
-        },
-        {
-            name: 'Beat Headphone',
-            avatar: 'assets/images/others/thumb-10.jpg',
-            category: 'Eletronic',
-            growth: 12.7
-        },
-        {
-            name: 'Wooden Rhino',
-            avatar: 'assets/images/others/thumb-11.jpg',
-            category: 'Home Decoration',
-            growth: 9.2
-        },
-        {
-            name: 'Red Chair',
-            avatar: 'assets/images/others/thumb-12.jpg',
-            category: 'Home Decoration',
-            growth: 7.7
-        },
-        {
-            name: 'Wristband',
-            avatar: 'assets/images/others/thumb-13.jpg',
-            category: 'Eletronic',
-            growth: 5.8
+    clean(obj:any) {
+        for (const propName in obj) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            delete obj[propName];
+          }
         }
-    ]    
+        return obj
+    }
+
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publishedBy: data.publishedBy, categoryId: data.categoryId, newsType: data.newsType, date: data.date};
+        this.pagination.pageNo= 1;
+        this.getAllPrograms();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publishedBy: data.publishedBy, categoryId: data.categoryId, newsType: data.newsType, date: data.date};
+        this.pagination.pageNo= 1;
+        this.getAllPrograms();        
+    }
+
+    onPageIndexChange(pageNo: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
+        this.getAllPrograms();
+    }
+
+    onPageSizeChange(limit: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, limit: limit})
+        this.getAllPrograms();
+    }
 
     updateCheckedSet(id: number, checked: boolean): void {
         if (checked) {
@@ -142,8 +92,13 @@ export class ProgramsComponent {
         this.refreshCheckedStatus();
     }
 
+    onAllChecked(checked: boolean): void {
+        this.allPrograms.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+        this.refreshCheckedStatus();
+    }
+
     refreshCheckedStatus(): void {
-        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        const listOfEnabledData = this.allPrograms.filter(({ disabled }) => !disabled);
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
