@@ -62,14 +62,13 @@ export class NewsService {
                                 }
                             }
 
-							let { tags, quotes, categories, deletedAt, ...news } = await (await this.newsRepository.findOne({ where: { id: news_added.id }, include: ['tags', 'quotes', { model: Attachments, as: 'image' }, { model: Attachments, as: 'video' }, { model: Attachments, as: 'thumbnail' }, { model: Categories, attributes: ['id'] }], transaction: transactionHost.transaction })).toJSON()
+							let { tags, quotes, deletedAt, ...news } = await (await this.newsRepository.findOne({ where: { id: news_added.id }, include: ['tags', 'quotes', { model: Attachments, as: 'image' }, { model: Attachments, as: 'video' }, { model: Attachments, as: 'thumbnail' }, { model: Categories, through: { attributes: [] },attributes: ['id', 'title', 'isActive'] }], transaction: transactionHost.transaction })).toJSON()
 
 							tags = tags.map(tag => tag.title);
 							quotes = quotes.map(quote => quote.name);
-							categories = categories.map(category => category.id);
 
 							// save to elk
-							ElkService.save({ index: 'news', id: news_added.id.toString(), document: { ...news, tags, quotes, categories } });
+							ElkService.save({ index: 'news_test', id: news_added.id.toString(), document: { ...news, tags, quotes } });
 
 							return new GenericResponseDto(
 								HttpStatus.CREATED,

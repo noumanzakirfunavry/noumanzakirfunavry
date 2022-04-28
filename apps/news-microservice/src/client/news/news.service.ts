@@ -58,7 +58,7 @@ export class NewsService {
 
 	elkGetNewsByCategory(categoryId: number, paginationDTO: PaginatedRequestDto) {
 		return ElkService.search({
-			index: 'news',
+			index: 'news_test',
 			from: paginationDTO.pageNo - 1,
 			size: paginationDTO.limit,
 			sort: "updatedAt:desc",
@@ -68,7 +68,7 @@ export class NewsService {
 				bool: {
 					must: [{
 						match: {
-							categories: categoryId,
+							"categories.id": categoryId,
 						}
 					}, { match: { isActive: true } }],
 					must_not: [{ exists: { field: "deletedAt" } }]
@@ -127,7 +127,7 @@ export class NewsService {
 		}
 
 		return ElkService.search({
-			index: 'news',
+			index: 'news_test',
 			from: getNewsByFlagsRequestDto.pageNo - 1,
 			size: getNewsByFlagsRequestDto.limit,
 			sort: "updatedAt:desc",

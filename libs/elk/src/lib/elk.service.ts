@@ -4,6 +4,7 @@ import {
 	DeleteByQueryRequest,
 	IndexRequest,
 	SearchRequest,
+	UpdateByQueryRequest,
 	UpdateRequest
 } from '@elastic/elasticsearch/lib/api/types';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -13,7 +14,7 @@ export class ElkService {
 	
 
 	private static client: Client = new Client({
-		node: "http://157.90.67.186:9217",
+		node: "http://157.90.67.186:9200",
 		auth: { username: "developer", password: "Dev@321" },
 	});
 	static get elkInstance() {
@@ -64,6 +65,20 @@ export class ElkService {
 	static async update(params: UpdateRequest) {
 		this.client
 			.update(params)
+			.then(() => {
+				this.client.indices.refresh({ index: params.index });
+			})
+			.catch((err) => {
+				console.log(
+					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ update ~ error',
+					err.meta.body
+				);
+			});
+	}
+
+	static async updateByQuery(params: UpdateByQueryRequest) {
+		this.client
+			.updateByQuery(params)
 			.then(() => {
 				this.client.indices.refresh({ index: params.index });
 			})
