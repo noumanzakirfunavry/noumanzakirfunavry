@@ -19,8 +19,8 @@ export class Quotes extends Model{
     @Column
     name : string
 
-    @BelongsToMany(() => News, () => NewsHasQuotes)
-    news : News[]
+    // @BelongsToMany(() => News, () => NewsHasQuotes)
+    // news : News[]
 
     @BelongsToMany(() => Pages,() => PagesHasQuotes)
     pages : Pages[]

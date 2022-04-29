@@ -50,9 +50,9 @@ export class News extends Model {
   @Column
   title: string;
 
-	@Column({
-		type: DataType.TEXT
-	})
+  @Column({
+    type: DataType.TEXT
+  })
   content: string;
 
   @Column({
@@ -111,6 +111,9 @@ export class News extends Model {
   })
   isActive: boolean;
 
+  @Column
+  totalViews: number
+
   @ForeignKey(() => SeoDetails)
   @Column
   seoDetailId: number;
@@ -129,11 +132,14 @@ export class News extends Model {
   @BelongsToMany(() => Tags, () => NewsHasTags)
   tags: Tags[];
 
-  @BelongsToMany(() => Quotes, () => NewsHasQuotes)
-  quotes: Quotes[];
+  // @BelongsToMany(() => Quotes, () => NewsHasQuotes)
+  // quotes: Quotes[];
 
   @HasMany(() => ContentAnalytics)
   contentAnalytics: ContentAnalytics[];
+
+  @HasMany(() => NewsHasQuotes,"newsId")
+  newsHasQuotes: NewsHasQuotes[]
 
   @HasMany(() => EditorsChoiceNews)
   editorsChoiceNews: EditorsChoiceNews[];
