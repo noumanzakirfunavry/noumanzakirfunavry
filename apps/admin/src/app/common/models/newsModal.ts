@@ -1,4 +1,3 @@
-import { environment } from "../../../environments/environment";
 import { SeoModal } from "../../common/models/seo.modal";
 
 export class NewsModel {

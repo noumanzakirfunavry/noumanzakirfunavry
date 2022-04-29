@@ -89,7 +89,7 @@
                         <button class="mr-2" *ngIf="file && uploadProgress!==100" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
                         <button *ngIf="file" (click)="[getCaptcha($event),reset()]">Reset</button> -->
                     </div>
-                    <div class="col-md-6" *ngIf="newsModel?.contentType && newsModel?.contentType=='VIDEO'">
+                    <div class="col-md-6" *ngIf="newsModel?.contentType && newsModel?.contentType==='VIDEO'">
                         <dynamic-file-selector 
                         [customDiv]="'thumbnail'" 
                         [title]="'Thumbnail Image'" 
@@ -280,9 +280,8 @@
     </div>
 
     <div *ngIf="isVisible">
-        
         <tiny-file-modal (onSelectFile)="fileFromModal($event)" [isVisible]="isVisible" (closeModal)="closeModal($event)">
-        
         </tiny-file-modal>
     </div>
+    
 </section>

@@ -143,6 +143,7 @@ export class AddNewsComponent implements OnInit {
         this.getAllQuotes()
         // }, 2000);
     }
+
     toggleModal() {
         // setTimeout(() => {
         this.zone.run(e => {
@@ -151,9 +152,11 @@ export class AddNewsComponent implements OnInit {
         })
         // }, 400);
     }
+
     closeModal(data) {
         this.isVisible = false
     }
+
     fileFromModal(file) {
         this.isVisible = false;
         this.newsForm.patchValue({
@@ -301,8 +304,6 @@ export class AddNewsComponent implements OnInit {
         this.newsModel.videoId = null;
         this.newsModel.videoUrl = null;
         this.newsModel.contentType = null;
-        this.newsModel.thumbnailId = null;
-        this.newsModel.thumbnailUrl = null;
     }
 
     resetThumbnail(data) {
