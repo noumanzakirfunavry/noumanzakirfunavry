@@ -234,6 +234,8 @@ header{
     border-radius: 0;
     border: none;
     min-width: 230px;
+    right: 0;
+    left: auto;
   }
   .header-nav ul li.nav-item.dropdown{
     .dropdown-toggle{
@@ -253,10 +255,10 @@ header{
   .header-nav ul li.nav-item .dropdown-menu li a{
     background: $white;
     // border-bottom: 1px gray;
-    font-size: 14px;
+    font-size: 13px;
     color: $secondary-color;
     text-align: right;
-    padding:  10px 15px;
+    padding:  10px 10px;
     &:hover{
       background-color: #f3f5f7;
       font-weight: 900;
@@ -922,6 +924,10 @@ h6{
         overflow: hidden;
         position: relative;
         width: 300px;
+        img{
+          height: 100%;
+          object-fit: cover;
+        }
       }
       .NewsInfo{
         a{
@@ -3259,3 +3265,24 @@ p.tag{
   }
 }
 }
+
+.dropdown-menu li.sb_hover {
+  position: relative;
+
+}
+.dropdown-menu .dropdown-submenu {
+  display: none !important;
+  position: absolute !important;
+  left: -230px !important;
+  right: auto !important;
+  top: 0;
+  }
+  .dropdown-menu .dropdown-submenu-left {
+  right: 100%;
+  left: auto;
+
+  }
+  .dropdown-menu > li.sb_hover:hover > .dropdown-submenu {
+  display: block !important;
+  border-right: solid 4px #005594;
+  }

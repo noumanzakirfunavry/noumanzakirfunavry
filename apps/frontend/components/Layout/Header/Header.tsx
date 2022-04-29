@@ -274,8 +274,22 @@ const Header = () =>{
                                                         <li key={'8'}>
                                                             <Link href="/programs/100/"><a className="dropdown-item">اكسبو في أسبوع</a></Link>
                                                         </li>
-                                                        <li key={'9'}>
-                                                            <Link href="/programs/95/"><a className="dropdown-item">حديث المملكة مع راشد الفوزان</a></Link>
+                                                        <li className='sb_hover' key={'9'}>
+                                                            <Link href="/programs/95/"><a className="dropdown-item">  حديث المملكة مع راشد الفوزان <i className='fa fa-angle-left me-2'></i> </a></Link>
+                                                            <ul className="dropdown-menu dropdown-submenu" aria-labelledby="morePrograms">
+                                                                <li>
+                                                                <Link href="/programs/95/"><a className="dropdown-item">حديث المملكة مع راشد الفوزان</a></Link>
+                                                                </li>
+                                                                <li>
+                                                            <Link href="/programs/96/"><a className="dropdown-item">تحت الضوء</a></Link>
+                                                                </li>
+                                                                <li>
+                                                            <Link href="/programs/96/"><a className="dropdown-item">تحت الضوء</a></Link>
+                                                                </li>
+                                                                <li>
+                                                            <Link href="/programs/96/"><a className="dropdown-item">تحت الضوء</a></Link>
+                                                                </li>
+                                                            </ul>
                                                         </li>
                                                         <li key={'10'}>
                                                             <Link href="/programs/96/"><a className="dropdown-item">تحت الضوء</a></Link>
