@@ -136,6 +136,7 @@ export class ProgramsService {
 						publisherId: query.publisherId
 					})
 				},
+				include: 'user',
 				limit: parseInt(query.limit.toString()),
 				offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
 			})
