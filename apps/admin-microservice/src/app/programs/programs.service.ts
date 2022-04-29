@@ -1,5 +1,5 @@
 import { CreateProgramRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllProgramsRequestDto } from '@cnbc-monorepo/dtos';
-import { Programs, SeoDetails, Users } from '@cnbc-monorepo/entity';
+import { Attachments, Programs, SeoDetails, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -211,9 +211,22 @@ export class ProgramsService {
 	private async findProgramQuery(id) {
 		return await this.programsRepository.findOne(
 			{
-				include: [{
-					model: Users
-				}],
+				include: [
+					{
+						model: Users
+					},
+					{
+						model: SeoDetails
+					},
+					{
+						model: Attachments,
+						as: 'thumbnail'
+					},
+					{
+						model: Attachments,
+						as: 'promo'
+					}
+				],
 				where: {
 					id: id
 				}
