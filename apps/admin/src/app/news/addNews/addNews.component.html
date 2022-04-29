@@ -215,12 +215,12 @@
                             <nz-form-control nzErrorTip="Select Quote!">
                                 <nz-select (keyup)="getAllQuotes($event.target.value)" formControlName="quotesIds"
                                     [nzSize]="size" nzMode="multiple" nzPlaceHolder="Select Quote">
-                                    <nz-option *ngFor="let option of allQuotes" [nzLabel]="option.name"
-                                        [nzValue]="option.id"></nz-option>
+                                    <nz-option *ngFor="let option of allQuotes" [nzLabel]="option.quoteSymbol"
+                                        [nzValue]="option.quoteTickerId"></nz-option>
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
-                        <form [formGroup]="quotesForm" nz-form [nzLayout]="'horizontal'">
+                        <!-- <form [formGroup]="quotesForm" nz-form [nzLayout]="'horizontal'">
                             <div class="d-flex">
                                 <nz-form-item class="w-100">
                                     <nz-form-control nzErrorTip="Enter Quote without spaces!">
@@ -232,7 +232,7 @@
                                     <button  (click)="[getCaptcha($event),addNewQuote()]" class="ml-2" nz-button nzType="default">Create</button>
                                 </nz-form-item>
                             </div>
-                        </form>
+                        </form> -->
                     </div>
                     <div class="mb-4">
                         <h4 class="mb-2">SEO Settings</h4>

@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommentListData } from './mockComments';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { QuotesMockData } from './mock-quotes';
 // import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 // import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
@@ -28,7 +29,7 @@ export class AddNewsComponent implements OnInit {
     // $isVisible:BehaviorSubject<boolean>=new BehaviorSubject(false);
     size = 'default';
 
-    quotesForm: FormGroup;
+    // quotesForm: FormGroup;
     tagForm: FormGroup;
 
     allQuotes: any = [];
@@ -119,7 +120,7 @@ export class AddNewsComponent implements OnInit {
         }
 
 
-        this.initQuoteForm();
+        // this.initQuoteForm();
         this.initTagForm();
 
         this.newsModel = new NewsModel()
@@ -165,9 +166,9 @@ export class AddNewsComponent implements OnInit {
     }
 
     private initQuoteForm() {
-        this.quotesForm = this.fb.group({
-            name: [null, [Validators.required, Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]]
-        });
+        // this.quotesForm = this.fb.group({
+        //     name: [null, [Validators.required, Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]]
+        // });
     }
 
     private initTagForm() {
@@ -204,7 +205,7 @@ export class AddNewsComponent implements OnInit {
             isActive: [news.isActive || true,],
             categoryIds: [news?.categories.map(x => x.id) || null, [Validators.required]],
             tagsIds: [news?.tags.map(x => x.id) || null, [Validators.required]],
-            quotesIds: [news?.quotes.map(x => x.id) || null, [Validators.required]],
+            quotesIds: [news?.quotes && news?.quotes.map(x => x.quoteTickerId) || [], [Validators.required]],
             seoTitle: [news?.seoDetail?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             slugLine: [news?.seoDetail?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
             description: [news?.seoDetail?.description || null, [Validators.required, Validators.maxLength(250)]],
@@ -254,7 +255,13 @@ export class AddNewsComponent implements OnInit {
             // if () {
             obj['newsType'] = this.newsModel.imageId ? 'ARTICLE' : 'NEWS';
             obj['contentType'] = this.newsModel.imageId ? 'IMAGE' : this.newsModel.videoId ? 'VIDEO' : 'TEXT';
-            // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
+            obj['quotes'] = this.allQuotes.filter(x => {
+                if (this.newsForm.value.quotesIds.some(z => z == x.quoteTickerId)) {
+                    return x
+                }
+            })
+            debugger
+            // // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
             this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModel.toServerModal(obj, this.newsModel.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
                 console.log("News", res);
                 this.initNewsForm();
@@ -290,7 +297,7 @@ export class AddNewsComponent implements OnInit {
     }
     thumbnailUploaded(file) {
         this.newsModel.thumbnailId = file.id;
-        this.newsModel.thumbnailUrl=null;
+        this.newsModel.thumbnailUrl = null;
         setTimeout(() => {
             this.newsModel.thumbnailUrl = file.url;
         }, 400);
@@ -337,10 +344,11 @@ export class AddNewsComponent implements OnInit {
 
     getAllQuotes(value?) {
         this.pagination.name = value ? value : '';
-        this.apiService.sendRequest(requests.getAllQuotes, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res: any) => {
-            console.log("ALL-QUOTES", res.quotes);
-            this.allQuotes = res.quotes;
-        })
+        // zag trader api 
+        // this.apiService.sendRequest(requests.getAllQuotes, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res: any) => {
+        //     console.log("ALL-QUOTES", res.quotes);
+        this.allQuotes = QuotesMockData;
+        // })
     }
 
     clean(obj: any) {
@@ -369,20 +377,20 @@ export class AddNewsComponent implements OnInit {
         })
     }
 
-    addNewQuote(value?) {
-        for (const i in this.quotesForm.controls) {
-            this.quotesForm.controls[i].markAsDirty();
-            this.quotesForm.controls[i].updateValueAndValidity();
-        }
-        if (this.quotesForm.valid) {
-            this.apiService.sendRequest(requests.addNewQuote, 'post', this.quotesForm.value).subscribe((res: any) => {
-                this.allQuotes = res.quote;
-                this.initQuoteForm();
-                this.getAllQuotes();
-                console.log("ADD-TAG", this.allQuotes);
-            })
-        }
-    }
+    // addNewQuote(value?) {
+    //     for (const i in this.quotesForm.controls) {
+    //         this.quotesForm.controls[i].markAsDirty();
+    //         this.quotesForm.controls[i].updateValueAndValidity();
+    //     }
+    //     if (this.quotesForm.valid) {
+    //         this.apiService.sendRequest(requests.addNewQuote, 'post', this.quotesForm.value).subscribe((res: any) => {
+    //             this.allQuotes = res.quote;
+    //             this.initQuoteForm();
+    //             this.getAllQuotes();
+    //             console.log("ADD-TAG", this.allQuotes);
+    //         })
+    //     }
+    // }
 
     addNewTag() {
         for (const i in this.tagForm.controls) {

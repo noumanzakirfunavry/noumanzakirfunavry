@@ -509,7 +509,7 @@ export class NewsService {
 
 	async newsExists(id: number) {
 		return await this.newsRepository.findOne({
-			include: ['tags', 'categories', 'seoDetail', 'image', 'thumbnail', 'video', {
+			include: ['tags', 'categories', 'quotes', 'seoDetail', 'image', 'thumbnail', 'video', {
 				model: Users
 			},
 			{
