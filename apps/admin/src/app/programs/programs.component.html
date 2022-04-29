@@ -8,7 +8,7 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
-                <nz-table [nzLoading]="loading" [nzShowPagination]="false" [nzData]="allPrograms" nzTableLayout="fixed">
+                <nz-table [nzLoading]="loading" [nzShowPagination]="false" [nzData]="allPrograms" class="no-border-last">
                     <thead>
                         <tr>
                             <th class="w_50" [nzChecked]="checked" [nzIndeterminate]="indeterminate"
@@ -38,7 +38,7 @@
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i nz-tooltip nzTooltipTitle="Edit" class="mr-2" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/programs/update/' + prog?.id]"></i>
-                                    <i nz-tooltip nzTooltipTitle="Delete" class="mr-2" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline"(click)="showDeleteConfirm(prog?.id)"></i>
+                                    <i nz-tooltip nzTooltipTitle="Delete" class="mr-2" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(prog?.id)"></i>
                                     <i nz-tooltip nzTooltipTitle="View" class="mr-2" style="cursor: pointer;" nz-icon nzType="eye" nzTheme="outline"></i>
                                     <i nz-tooltip nzTooltipTitle="Share" style="cursor: pointer;" nz-icon nzType="share-alt" nzTheme="outline"></i>
                                 </div>
