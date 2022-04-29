@@ -27,7 +27,7 @@ const HorizontalNumberedList:FC = () =>{
                     {  
                     trendingNewsList.length && trendingNewsList.map((item: any, index: number)=>{
                             return(
-                                <li key={item.id}>
+                                <li key={index}>
                                     <Link href={`/newsDetails/` + item._id}><a >{item?._source?.title}</a></Link>
                                 </li>                           
                             )
