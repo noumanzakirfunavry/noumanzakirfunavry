@@ -31,7 +31,7 @@ const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal}) => {
 
     }
 
-    //console.log("Search Dropdown:::::", data)
+    console.log("Search Dropdown:::::", newsSearchData)
     return (
 
         <div className='searchResulstBox'>
@@ -147,9 +147,16 @@ const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal}) => {
                                                  {GetArabicFormattedDate(news?._source?.createdAt)}
                                             </p>
                                         </div>
-                                        <div className="newsImage">
-                                            {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={searchimg.src} />}
-                                        </div>
+                                        { // show thmbnail if video news
+                                            news?._source?.videoId ?
+                                                <div className="newsImage">
+                                                    {news?._source?.thumbnail ? <img className="img-fluid" src={baseUrlAdmin+news?._source.thumbnail?.path} />:<img className="img-fluid" src={searchimg.src} />}
+                                                </div>
+                                            : // else show image
+                                                <div className="newsImage">
+                                                    {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={searchimg.src} />}
+                                                </div>
+                                            }
                                     </li>
                                   )
                               })

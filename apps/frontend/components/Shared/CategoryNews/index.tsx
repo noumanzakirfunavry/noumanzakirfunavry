@@ -35,18 +35,19 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                 <>
                                     <div className="NewsImage img_sm_none">
                                         <img className="img-fluid" src={news[i]?._source?.thumbnail?.path ? baseUrlAdmin+news[i]?._source?.thumbnail?.path:newsImage.src} />
-                                    </div>
-                                    <div className="PlayTime">
-                                        <h5>05:21</h5>
-                                        <div className="btn-text">
-                                            <span>شاهد الآن</span>
-                                            <Link href={`/newsDetails/` + news[i]._id}>
-                                                <a>
-                                                    <button className="btn btn-warning VideoPlay">
-                                                        <i className="fa play_small"></i>
-                                                    </button>
-                                                </a>
-                                            </Link>
+                                    
+                                        <div className="PlayTime">
+                                            <h5>05:21</h5>
+                                            <div className="btn-text">
+                                                <span>شاهد الآن</span>
+                                                <Link href={`/newsDetails/` + news[i]._id}>
+                                                    <a>
+                                                        <button className="btn btn-warning VideoPlay">
+                                                            <i className="fa play_small"></i>
+                                                        </button>
+                                                    </a>
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
                                  </>

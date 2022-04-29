@@ -1,5 +1,5 @@
 import { baseUrlAdmin } from "apps/frontend/services/Requests";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import newsImage from "../../../styles/images/biden.jpg";
 import logoImage from "../../../styles/images/CNBC-favicon.png";
 import twite from "../../../styles/images/twite.png";
@@ -10,6 +10,10 @@ import NewsRealtedStock from "../CategoryDetailsBoxes/CategoryDetailsBoxes";
 const ArticleDetails: FC<any> = ({ news }) => {
 
     const [playVideo, setPlayVideo] = useState<boolean>(false)
+
+    useEffect(() => {
+        setPlayVideo(false);
+    }, [news])
     
     console.log("news id====>",news);
     
@@ -18,14 +22,13 @@ const ArticleDetails: FC<any> = ({ news }) => {
             <NewsRealtedStock />
             
 
-            { news?.videoId ?
-                playVideo ?
-                    <div className="mb-3 newsDetailimg">
-                        <video width="750" height="500" controls autoPlay>
-                            <source src={news?.video?.path ? baseUrlAdmin+news?.video?.path:logoImage.src}  />
-                        </video>
-                    </div>
-                    :
+            { // if video news then deal with video
+                news?.videoId ? 
+                playVideo ? // play video if play flag is set
+                    <video className="mb-3 newsDetailimg" controls autoPlay loop>
+                        <source src={news?.video?.path ? baseUrlAdmin+news?.video?.path:logoImage.src} type="video/mp4" />
+                    </video>
+                : // else show thumbnail with play icon
                     <div className="VideoNews mb-4 ">
                         <div className="NewsImage">
                             <img className="img-fluid" src={news?.thumbnail?.path ? baseUrlAdmin+news?.thumbnail?.path:logoImage.src} />
@@ -41,7 +44,7 @@ const ArticleDetails: FC<any> = ({ news }) => {
                         </div>
                     </div>
 
-            :
+            : // else show image if not video news
 
                 <div className="mb-3 newsDetailimg">
                     <img className="img-fluid" src={news?.image?.path ? baseUrlAdmin+news?.image?.path:logoImage.src} />
