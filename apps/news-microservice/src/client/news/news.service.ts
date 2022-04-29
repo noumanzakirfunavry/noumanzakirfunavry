@@ -44,17 +44,28 @@ export class NewsService {
 					this.newsVisitorsRepository.create({ ipAddress, visitDate: new Date().toDateString(), count: 1, newsId: id })
 				}
 			})
-			return new GetNewsByIdResponseDto(
-				HttpStatus.OK,
-				'News fetched successfully',
-				news_exists
-			);
+			const update_total_count = await this.updateTotalCountQuery(news_exists)
+			if (update_total_count) {
+				return new GetNewsByIdResponseDto(
+					HttpStatus.OK,
+					'News fetched successfully',
+					news_exists
+				);
+			}
 		} else {
 			throw new CustomException(
 				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
 				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
 			);
 		}
+	}
+
+	private async updateTotalCountQuery(news_exists: News) {
+		return await this.newsRepository.update({ totalViews: news_exists.totalViews + 1 }, {
+			where: {
+				id: news_exists.id
+			}
+		});
 	}
 
 	elkGetNewsByCategory(categoryId: number, paginationDTO: PaginatedRequestDto) {
@@ -244,7 +255,7 @@ export class NewsService {
 			limit: parseInt(paginationDto.limit.toString()),
 			offset: this.helperService.offsetCalculator(paginationDto.pageNo, paginationDto.limit),
 		});
-		
+
 		return new GenericResponseDto(HttpStatus.OK, 'Request Successful', mostReadNews)
 	}
 }

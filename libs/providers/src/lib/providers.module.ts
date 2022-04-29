@@ -40,6 +40,7 @@ import { MenusProvider } from '../providers/menus.provider';
 import { MarketsProvider } from '../providers/markets.provider';
 import { PagesProvider } from '../providers/pages.provider';
 import { ProgramsProvider } from '../providers/programs.provider';
+import { CommentsProvider } from '../providers/comments.provider';
 
 @Module({
   providers: [
@@ -84,8 +85,8 @@ import { ProgramsProvider } from '../providers/programs.provider';
 		...MenusProvider,
 		...MarketsProvider,
 		...PagesProvider,
-		...ProgramsProvider
-
+		...ProgramsProvider,
+    ...CommentsProvider
   ],
   exports: [
     ...UsersProvider,
@@ -128,7 +129,8 @@ import { ProgramsProvider } from '../providers/programs.provider';
 		...MenusProvider,
 		...MarketsProvider,
 		...PagesProvider,
-		...ProgramsProvider
+		...ProgramsProvider,
+    ...CommentsProvider
   ],
 })
 export class ProvidersModule {}
