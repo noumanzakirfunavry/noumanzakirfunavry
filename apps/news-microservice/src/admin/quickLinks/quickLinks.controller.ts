@@ -4,7 +4,7 @@ import { RightsTypes, RoleTypes } from "@cnbc-monorepo/enums";
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { QuickLinksService } from "./quickLinks.service";
 
-@Roles(RoleTypes.Admin)
+@Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
 @Controller('news/api/admin/quickLinks')
 export class QuickLinksController{
     constructor(
