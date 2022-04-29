@@ -1,6 +1,6 @@
 import { DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
-import { Attachments, BreakingNews, Categories, EditorsChoiceNews, ExclusiveVideos, FeaturedNews, News, NewsHasCategories, NewsHasQuotes, NewsHasTags, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
+import { Attachments, BreakingNews, Categories, EditorsChoiceNews, ExclusiveVideos, FeaturedNews, News, NewsHasCategories, NewsHasQuotes, NewsHasTags, SeoDetails, Tags, TrendingNews, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -275,6 +275,9 @@ export class NewsService {
 					...(query.categoryId && {
 						id: query.categoryId
 					})
+				},
+				through: {
+					attributes: []
 				}
 
 			},
@@ -509,7 +512,7 @@ export class NewsService {
 
 	async newsExists(id: number) {
 		return await this.newsRepository.findOne({
-			include: ['tags', 'categories', 'quotes', 'seoDetail', 'image', 'thumbnail', 'video', {
+			include: [{ model: Tags, through: { attributes: [] }}, { model: Categories, through: { attributes: [] }}, 'quotes', 'seoDetail', 'image', 'thumbnail', 'video', {
 				model: Users
 			},
 			{
