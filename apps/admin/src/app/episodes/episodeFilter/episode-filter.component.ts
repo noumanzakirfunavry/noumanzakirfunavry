@@ -37,7 +37,7 @@ export class EpisodeFilterComponent implements OnInit{
     getAllPrograms() {
         this.apiService.sendRequest(requests.getAllPrograms, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
             this.allPrograms= res.response.program;
-            console.log("ALL-PROGRAMS", this.allAdmins);
+            console.log("ALL-PROGRAMS", this.allPrograms);
             this.loading= false;
         },err => {
             this.loading = false;
