@@ -63,12 +63,13 @@ export class NewsService {
                             }
 
 							let { tags, quotes, deletedAt, ...news } = await (await this.newsRepository.findOne({ where: { id: news_added.id }, include: ['tags', 'quotes', { model: Attachments, as: 'image' }, { model: Attachments, as: 'video' }, { model: Attachments, as: 'thumbnail' }, { model: Categories, through: { attributes: [] },attributes: ['id', 'title', 'isActive'] }], transaction: transactionHost.transaction })).toJSON()
+              console.log("🚀 ~ file: news.service.ts ~ line 66 ~ NewsService ~ addNews ~ news", news)
 
 							tags = tags.map(tag => tag.title);
 							quotes = quotes.map(quote => quote.name);
 
 							// save to elk
-							ElkService.save({ index: 'news', id: news_added.id.toString(), document: { ...news, tags, quotes } });
+							ElkService.save({ index: process.env.ELK_INDEX, id: news_added.id.toString(), document: { ...news, tags, quotes } });
 
 							return new GenericResponseDto(
 								HttpStatus.CREATED,
@@ -205,7 +206,7 @@ export class NewsService {
 								quotes = quotes.map(quote => quote.name);
 								categories = categories.map(category => category.id);
 
-								ElkService.update({ id: newsId.toString(), index: 'news', doc: { ...news, tags, quotes, categories } })
+								ElkService.update({ id: newsId.toString(), index: process.env.ELK_INDEX, doc: { ...news, tags, quotes, categories } })
 								return new GenericResponseDto(
 									HttpStatus.OK,
 									"News updated successfully"
@@ -452,7 +453,7 @@ export class NewsService {
 						}
 					}
 					ElkService.update({
-						index: 'news',
+						index: process.env.ELK_INDEX,
 						id: body.id[i],
 						doc: {
 							deletedAt: new Date().toISOString()

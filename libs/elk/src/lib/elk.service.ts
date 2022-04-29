@@ -11,12 +11,12 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class ElkService {
-	
 
 	private static client: Client = new Client({
-		node: "http://157.90.67.186:9200",
-		auth: { username: "developer", password: "Dev@321" },
+		node: process.env.ELK_NODE,
+		auth: { username: process.env.ELK_USERNAME, password: process.env.ELK_PASSWORD },
 	});
+
 	static get elkInstance() {
 		return this.client;
 	}

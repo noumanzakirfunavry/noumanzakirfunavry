@@ -305,7 +305,7 @@ export class CategoriesService {
 			res.forEach(news => {
 				bulkUpdateArray.push({
 					update: {
-						_index: 'news',
+						_index: 'news_test',
 						_id: news.id,
 					}
 				},
