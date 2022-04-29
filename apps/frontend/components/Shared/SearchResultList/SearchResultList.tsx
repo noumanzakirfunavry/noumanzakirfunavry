@@ -18,9 +18,34 @@ const SearchResultList = ({newsSearchData}) => {
                                   return(
 
                                     <li key={index}>
-                                    <div className="newsImage">
-                                            {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={newslistimg.src} />}
-                                        </div>
+
+                                    { // show thmbnail with play icon if video news
+                                        news?._source?.videoId ?
+                                        <div className="VideoTextBox VideoNews">
+                                            <div className="newsImage">
+                                                <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newslistimg.src} />
+                                            
+                                                <div className="PlayTime">
+                                                    <h5>05:21</h5>
+                                                    <div className="btn-text">
+                                                        <span>شاهد الآن</span>
+                                                        <Link href={`/newsDetails/` + news._id}>
+                                                            <a>
+                                                                <button className="btn btn-warning VideoPlay">
+                                                                    <i className="fa play_small"></i>
+                                                                </button>
+                                                            </a>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        : // else show image
+                                            <div className="newsImage">
+                                                {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={newslistimg.src} />}
+                                            </div>
+                                        }
+                                        
                                         <div className="newsText">
                                             <p>
                                                 { // to show tags
