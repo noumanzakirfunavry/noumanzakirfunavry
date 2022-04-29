@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -24,7 +25,8 @@ export class Data extends Pagination {
 
 
 @Component({
-    templateUrl: './trendingNow.component.html'
+    templateUrl: './trendingNow.component.html',
+    styleUrls: ['./trendingNow.component.scss']
 })
 
 export class TrendingNowComponent implements OnInit{
@@ -106,7 +108,7 @@ export class TrendingNowComponent implements OnInit{
             this.tNews[news] = updatedNews;
         }
         else if(this.tNews.some(x=>!x.newsId)){
-            
+            console.log('');
         }
         else {
             const tempNews = updatedNews;
@@ -142,6 +144,14 @@ export class TrendingNowComponent implements OnInit{
                 })
             }
     }
+
+    drop(event: CdkDragDrop<string[] | any>) {
+        moveItemInArray(this.allTrendingNow, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.allTrendingNow.length; i++) {
+            this.allTrendingNow[i].position= i + 1;
+        }
+        console.log("POS", this.allTrendingNow);
+      }
 
     cancel() {
         this.route.navigateByUrl('dashboard')

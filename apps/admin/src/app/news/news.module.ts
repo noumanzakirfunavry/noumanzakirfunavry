@@ -24,7 +24,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { CommonModule } from '@angular/common';
 // import * as  DtosModule from "./../../../../../libs/dtos/src";
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
-import { FileModalComponent } from './file-modal/file-modal.component';
+// import { FileModalComponent } from './file-modal/file-modal.component';
+import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
+import { FileModalComponent } from '../modules/tiny-editor/file-modal/file-modal.component';
 
 const icons: IconDefinition[] = [LeftOutline, RightOutline];
 
@@ -47,8 +49,8 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         NzTreeSelectModule,
         CKEditorModule,
         NzToolTipModule,
-        EditorModule
-        // FileUploaderModule
+        EditorModule,
+        FileUploaderModule
         // DtosModule
     ],
     exports: [],

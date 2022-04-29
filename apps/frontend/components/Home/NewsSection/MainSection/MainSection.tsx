@@ -56,11 +56,35 @@ const MainSection = ({ newsList }) => {
                                 if (index >= 3) {
                                     return (
                                         <div className="col-sm-6 col-lg-12 list_w" key={news._id}>
-                                            <div className={styles.newsbox}>
+                                            <div className={styles.newsbox} >
+                                                {
+                                                news?._source?.videoId ?
+                                                    <div className="VideoNews">
+                                                        <div>
+                                                            <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newsimage.src} />
+                                                        </div>
+                                                        <div className="PlayTime">
+                                                            <h5>05:21</h5>
+                                                            <div className="btn-text">
+                                                                <span>شاهد الآن</span>
+                                                                <Link href={`/newsDetails/` + news._id}>
+                                                                    <a>
+                                                                        <button className="btn btn-warning VideoPlay">
+                                                                            <i className="fa play_small"></i>
+                                                                        </button>
+                                                                    </a>
+                                                                </Link>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                :
+
                                                 <div className={styles.newsimage}>
                                                     {/* <img className="img-fluid" src={newsimage.src} /> */}
                                                     {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source?.image?.path} /> : <img className="img-fluid" src={newsimage.src} />}
                                                 </div>
+                                                }
                                                 <div className={styles.newsdetails}>
                                                     <Link href={`/newsDetails/` + news._id}><a >{news?._source?.title}</a></Link>
                                                 </div>

@@ -67,10 +67,11 @@ export class ApiService {
 
   uploadFileProgress(file, description?,) {
     let formData: FormData = Object.assign(new FormData());
+    let fileType=file.type.toString();
     formData.append("file", file);
     formData.append("title", file.name);
     formData.append("description", description || 'test description');
-    formData.append("attachmentType", 'IMAGE');
+    formData.append("attachmentType", file.name.match(/\.(jpg|jpeg|png|gif)$/) ? 'IMAGE':'VIDEO');
     // if (recorded) {
     //   formData.append("recorded", recorded);
     // }

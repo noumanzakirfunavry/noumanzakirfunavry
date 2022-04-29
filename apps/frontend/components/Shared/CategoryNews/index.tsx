@@ -28,10 +28,39 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
     for (let i = 2; i < news?.length; i++) {
         fields.push(
                 <div key={i} className="col-md-4 col-sm-6">
-                    <div className="newBox ">
-                        <div className="NewsImage img_sm_none">
+                    <div className="newBox VideoNews">
+
+                    {
+                        news[i]?._source?.videoId ?
+                                <>
+                                    <div className="NewsImage img_sm_none">
+                                        <img className="img-fluid" src={news[i]?._source?.thumbnail?.path ? baseUrlAdmin+news[i]?._source?.thumbnail?.path:newsImage.src} />
+                                    </div>
+                                    <div className="PlayTime">
+                                        <h5>05:21</h5>
+                                        <div className="btn-text">
+                                            <span>شاهد الآن</span>
+                                            <Link href={`/newsDetails/` + news[i]._id}>
+                                                <a>
+                                                    <button className="btn btn-warning VideoPlay">
+                                                        <i className="fa play_small"></i>
+                                                    </button>
+                                                </a>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                 </>
+
+                            :
+
+                                <div className="NewsImage img_sm_none">
+                                    {news[i]?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news[i]?._source.image?.path} />:<img className="img-fluid" src={newsImage.src} />}
+                                </div>
+                    }
+
+                        {/*<div className="NewsImage img_sm_none">
                             {news[i]?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news[i]?._source.image?.path} />:<img className="img-fluid" src={newsImage.src} />}
-                        </div>
+                                            </div>*/}
                         <div className="NewsInfo">
                         <Link href={`/newsDetails/`+news[i]._id}><a><h4>{news && news[i]?._source?.title}</h4> </a></Link>
                             {/* <p><a>الإمارات</a> منذ 5 دقائق</p> */}
@@ -53,12 +82,41 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                     <div className="row">
                         {/* 2 Top News */}
                         <div className="col-md-8 col-sm-7">
-                            <div className="newBox newBoxf">
-                                <div className="NewsImage">
-                                    {/* <img className="img-fluid" src={newsImage.src} /> */}
+                            <div className="newBox newBoxf VideoNews">
+
+                            {
+                            news[0]?._source?.videoId ?
+                                <>
+                                    <div className="NewsImage img_sm_none">
+                                        <img className="img-fluid" src={news[0]?._source?.thumbnail?.path ? baseUrlAdmin+news[0]?._source?.thumbnail?.path:newsImage.src} />
+                                    </div>
+                                    <div className="PlayTime">
+                                        <h5>05:21</h5>
+                                        <div className="btn-text">
+                                            <span>شاهد الآن</span>
+                                            <Link href={`/newsDetails/` + news[0]._id}>
+                                                <a>
+                                                    <button className="btn btn-warning VideoPlay">
+                                                        <i className="fa play_small"></i>
+                                                    </button>
+                                                </a>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                 </>
+
+                            :
+
+                                <div className="NewsImage img_sm_none">
+                                    {news[0]?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news[0]?._source.image?.path} />:<img className="img-fluid" src={newsImage.src} />}
+                                </div>
+                            }
+
+                                {/*<div className="NewsImage">
                                     {news[0]?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news[0]?._source.image?.path} />:<img className="img-fluid" src={newsImage.src} />}
 
-                                </div>
+                                </div>*/}
+                               
                                 <div className="NewsInfo">
                                    <Link href={`/newsDetails/`+news[0]._id}><a><h3>{news && news[0]?._source?.title}</h3> </a></Link>
                                    {/* <p><a className="ms-3">الإمارات</a> منذ 5 دقائق</p> */}
@@ -69,9 +127,38 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                         </div>
                         {news[1] ? <div className="col-md-4 col-sm-5">
                             <div className="newBox newBoxfs VideoNews ">
-                                <div className="NewsImage">
-                                {news[1]?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news[1]?._source.image?.path} />:<img className="img-fluid" src={newsImage.src} />}
+
+                            {
+                            news[1]?._source?.videoId ?
+                                <>
+                                    <div className="NewsImage img_sm_none">
+                                        <img className="img-fluid" src={news[1]?._source?.thumbnail?.path ? baseUrlAdmin+news[1]?._source?.thumbnail?.path:newsImage.src} />
+                                    </div>
+                                    <div className="PlayTime">
+                                        <h5>05:21</h5>
+                                        <div className="btn-text">
+                                            <span>شاهد الآن</span>
+                                            <Link href={`/newsDetails/` + news[1]._id}>
+                                                <a>
+                                                    <button className="btn btn-warning VideoPlay">
+                                                        <i className="fa play_small"></i>
+                                                    </button>
+                                                </a>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                 </>
+
+                            :
+
+                                <div className="NewsImage img_sm_none">
+                                    {news[1]?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news[1]?._source.image?.path} />:<img className="img-fluid" src={newsImage.src} />}
                                 </div>
+                            }
+
+                               {/* <div className="NewsImage">
+                                {news[1]?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news[1]?._source.image?.path} />:<img className="img-fluid" src={newsImage.src} />}
+                        </div>*/}
                                 {/* <div className="PlayTime">
                                 <h5>05:21</h5>
                                 <div className="btn-text">

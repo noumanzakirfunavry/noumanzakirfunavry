@@ -7,10 +7,9 @@ const siteConfiguration = require('./site.configuration.seeder')
 module.exports = {
  
   async up(queryInterface, Sequelize) {
-
+    await rights.addRights(queryInterface)
     await roles.addRoles(queryInterface)
     await users.addUsers(queryInterface)
-    await rights.addRights(queryInterface)
     await userRights.addUserRights(queryInterface)
     await siteConfiguration.addSiteConfiguration(queryInterface)
   },

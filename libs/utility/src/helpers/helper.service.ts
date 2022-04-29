@@ -17,6 +17,13 @@ export class Helper {
         const hash = await bcrypt.hash(password, saltOrRounds);
         return hash
     }
+    programObjectCreator(body,seoDetailId,publisherId){
+        return {
+            ...body,
+            seoDetailId,
+            publisherId
+        }
+    }
     addHoursToDate(date: Date, hours: number): Date {
         return new Date(new Date(date).setHours(date.getHours() + hours));
     }
@@ -124,10 +131,9 @@ export class Helper {
             episodesId: episodesId
         }
     }
-    quotesObject(position, quotesId, newsId) {
+    quotesObject(quotes, newsId) {
         return {
-            position: position,
-            quotesId: quotesId,
+            ...quotes,
             newsId: newsId
         }
     }
@@ -163,13 +169,13 @@ export class Helper {
         }
     }
 
+
 	/**
 	 * Extract the IP address from Request object.
 	 * @param req - The request object
 	 * @returns {string} IP address
 	 */
-		extractIP(req: Request){
-			// return req.ip
-			return '192.168.1.1'
+		extractIP(req: Request): string {
+			return req.ip
 		}
 }

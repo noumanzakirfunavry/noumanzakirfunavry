@@ -1,4 +1,5 @@
 import {
+	GenericResponseDto,
 	GetNewsByFlagsRequestDto,
 	GetNewsByIdResponseDto,
 	PaginatedRequestDto,
@@ -11,7 +12,7 @@ import {
 	Exceptions,
 	ExceptionType
 } from '@cnbc-monorepo/exception-handling';
-import { Helper } from '@cnbc-monorepo/utility';
+import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Op } from 'sequelize';
 
@@ -37,23 +38,34 @@ export class NewsService {
 			this.newsVisitorsRepository.findOne({ where: { ipAddress, newsId: id } }).then(res => {
 				if (res) {
 					// if found then update counter
-					this.newsVisitorsRepository.update({ ...res, count: res.count + 1 }, { where: { ipAddress, newsId: id } })
+					this.newsVisitorsRepository.update({ ...res, visitDate: new Date().toDateString(), count: res.count + 1 }, { where: { ipAddress, newsId: id } })
 				} else {
 					// if not found then create new entry
 					this.newsVisitorsRepository.create({ ipAddress, visitDate: new Date().toDateString(), count: 1, newsId: id })
 				}
 			})
-			return new GetNewsByIdResponseDto(
-				HttpStatus.OK,
-				'News fetched successfully',
-				news_exists
-			);
+			const update_total_count = await this.updateTotalCountQuery(news_exists)
+			if (update_total_count) {
+				return new GetNewsByIdResponseDto(
+					HttpStatus.OK,
+					'News fetched successfully',
+					news_exists
+				);
+			}
 		} else {
 			throw new CustomException(
 				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
 				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
 			);
 		}
+	}
+
+	private async updateTotalCountQuery(news_exists: News) {
+		return await this.newsRepository.update({ totalViews: news_exists.totalViews + 1 }, {
+			where: {
+				id: news_exists.id
+			}
+		});
 	}
 
 	elkGetNewsByCategory(categoryId: number, paginationDTO: PaginatedRequestDto) {
@@ -225,5 +237,28 @@ export class NewsService {
 				isActive: true
 			},
 		});
+	}
+
+	async getMostReadNews(paginationDto: PaginatedRequestDto): Promise<GenericResponseDto> {
+		const mostReadNews = await this.newsVisitorsRepository.findAll({
+			attributes: [
+
+				[sequelize.fn('sum', sequelize.col('count')), 'Visits'],
+
+			],
+			where: {
+				visitDate: {
+					// only count visits from last 7 days
+					[Op.gt]: new Date(new Date().setDate(new Date().getDate() - 7)),
+				},
+			},
+			include: ['news'],
+			group: [sequelize.col('news.id')],
+			order: [[sequelize.col('Visits'), 'DESC']],
+			limit: parseInt(paginationDto.limit.toString()),
+			offset: this.helperService.offsetCalculator(paginationDto.pageNo, paginationDto.limit),
+		});
+
+		return new GenericResponseDto(HttpStatus.OK, 'Request Successful', mostReadNews)
 	}
 }

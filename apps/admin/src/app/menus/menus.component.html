@@ -50,7 +50,7 @@
                             </td>
                         </tr>
                         <div *ngIf="expandedId===menu?.id" cdkDropList (cdkDropListDropped)="dropSubMenus($event, i)">
-                            <tr class="category-block" *ngFor="let subMenu of menu?.childMenus" cdkDrag>
+                            <tr class="menu-block" *ngFor="let subMenu of menu?.childMenus" cdkDrag>
                                 <td [nzChecked]="setOfCheckedId.has(subMenu?.id)" (nzCheckedChange)="onItemChecked(subMenu?.id, $event)">
                                         <i nz-icon nzType="drag" nzTheme="outline"></i>
                                 </td>
