@@ -3,6 +3,9 @@ import Head from "next/head";
 
 const SEO = (props: any) => {
   // @TODO some meta tags would be updated later on
+
+  const url = window? window.location.href : '';
+
   return (
        <Head>
                 <title>{props.metaData?.title}</title>
@@ -21,6 +24,7 @@ const SEO = (props: any) => {
                 <meta property="og:image:height"  content="557"/>
                 <meta property="og:title" content={props.metaData.og?.title}/>
                 <meta property="og:description" content={props.metaData?.og?.description} />
+                <meta property="og:url" content={url} />
 
                 <meta name="twitter:site" content={props.metaData.twitter?.site} />
                 <meta name="twitter:card" content={"summary_large_image"} />
