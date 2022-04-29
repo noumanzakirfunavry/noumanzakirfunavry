@@ -2,7 +2,7 @@ import { SeoModal } from "./seo.modal";
 
 export class ProgramsModel {
     title: string;
-    content: string;
+    description: string;
     isActive: boolean;
     seoDetails: SeoModal;
     seoDetailId: number;
@@ -17,7 +17,7 @@ export class ProgramsModel {
 
     constructor() {
         this.title = ""
-        this.content = ""
+        this.description = ""
         this.isActive = false
         this.seoDetails = new SeoModal();
         this.seoDetailId = null
@@ -25,7 +25,7 @@ export class ProgramsModel {
 
     populateFromServerModal(serverPrograms: any) {
         this.title=serverPrograms.title
-        this.content=serverPrograms.content
+        this.description=serverPrograms.description
         this.isActive=serverPrograms.isActive
         this.seoDetails=serverPrograms.seoDetail
         this.seoDetailId=serverPrograms.seoDetailId;
