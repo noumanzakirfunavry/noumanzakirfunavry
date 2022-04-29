@@ -24,10 +24,10 @@
   </video>
 </div> -->
 <br>
-<i *ngIf="(mediaObj && mediaObj.name) && uploadProgress==100" style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i>
 
-<div *ngIf="field.value && !uploadProgress" style="color: Crimson;">Click upload button to upload Image!</div>
-                        <button class="mr-2" *ngIf="field.value && uploadProgress!==100" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
+<div class="mb-2" *ngIf="field.value && !uploadProgress" style="color: Crimson;">Click to Upload File!</div>
+  <i nz-tooltip nzTooltipTitle="Upload" class="mr-4 mb-2" *ngIf="field.value && uploadProgress!==100" style="cursor: pointer; font-size: 18px;" nz-icon nzType="upload" nzTheme="outline" (click)="[getCaptcha($event),uploadFile()]"></i>
+  <i nz-tooltip nzTooltipTitle="Delete" class="mb-2" *ngIf="(mediaObj && mediaObj.name)" style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i>
 <div *ngIf="error">
     <span class="text-danger">{{error}}</span>
 </div>
