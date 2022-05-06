@@ -20,7 +20,7 @@ export class AddProgramsComponent implements OnInit{
   file: any;
   programId: number;
   tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Upload' }
-  tempThumbanilFile: { colName: string, value: any, label: string } = { 'colName': 'thumbnail', value: null, label: 'Thumbnail Image Upload' }
+  tempThumbanilFile: { colName: string, value: any, label: string } = { 'colName': 'thumbnail', value: null, label: 'Image Upload' }
   
     constructor(
       private fb: FormBuilder, 
@@ -137,7 +137,7 @@ export class AddProgramsComponent implements OnInit{
 
   getProgramById() {
     this.apiService.sendRequest(requests.getProgramById + this.programId, 'get').subscribe((res: any) => {
-        console.log("news data", res.response.program);
+        console.log("program data", res.response.program);
         this.programsModel.populateFromServerModal(res.response.program);
         this.programsModel.seoDetailId = res.response.program.seoDetailId;
         console.log("view modal", this.programsModel);
