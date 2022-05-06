@@ -25,19 +25,19 @@ export class EpisodesModel {
         this.seoDetailId = null
     }
 
-    populateFromServerModal(serverPrograms: any) {
-        this.title=serverPrograms.title
-        this.programId=serverPrograms.programId
-        this.description=serverPrograms.description
-        this.isActive=serverPrograms.isActive
-        this.seoDetails=serverPrograms.seoDetail
-        this.seoDetailId=serverPrograms.seoDetailId;
+    populateFromServerModal(serverEpisodes: any) {
+        this.title=serverEpisodes.title
+        this.programId=serverEpisodes.programId
+        this.description=serverEpisodes.description
+        this.isActive=serverEpisodes.isActive
+        this.seoDetails=serverEpisodes.seoDetail
+        this.seoDetailId=serverEpisodes.seoDetailId;
 
-        this.videoId=serverPrograms.videoId || null;
-        this.thumbnailId=serverPrograms.thumbnailId || null;
+        this.videoId=serverEpisodes.videoId || null;
+        this.thumbnailId=serverEpisodes.thumbnailId || null;
 
-        this.videoUrl=serverPrograms.video ? serverPrograms.video?.url:null;
-        this.thumbnailUrl=serverPrograms.thumbnail ? serverPrograms.thumbnail?.url:null;
+        this.videoUrl=serverEpisodes.video ? serverEpisodes.video?.url:null;
+        this.thumbnailUrl=serverEpisodes.thumbnail ? serverEpisodes.thumbnail?.url:null;
     }
 
     toServerModal(form: any, seoId?) {
@@ -49,7 +49,7 @@ export class EpisodesModel {
             description: form.description,
             isActive: form.isActive || false,
             videoId:this.videoId,
-            // ...(this.videoId ? {videoId:this.videoId}:null),
+            ...(this.videoId ? {videoId:this.videoId}:null),
             ...(this.thumbnailId ? {thumbnailId:this.thumbnailId}:null),
             seoDetails: {
                 title: form.seoTitle,

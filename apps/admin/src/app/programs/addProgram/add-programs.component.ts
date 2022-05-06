@@ -101,7 +101,7 @@ export class AddProgramsComponent implements OnInit{
       this.programForm = this.fb.group({
           firstAiredOn: [new Date(), []],
           title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-          description: [null, [Validators.required, Validators.maxLength(1500)]],
+          content: [null, [Validators.required, Validators.maxLength(1500)]],
           isActive: [true],
           seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
           slugLine: [null, [Validators.required, Validators.maxLength(250)]],
@@ -149,13 +149,13 @@ export class AddProgramsComponent implements OnInit{
       this.programForm = this.fb.group({
         firstAiredOn: [new Date(program.updatedAt), []],
         title: [program?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-        description: [program?.description || null, [Validators.required, Validators.maxLength(1500)]],
+        content: [program?.content || null, [Validators.required, Validators.maxLength(1500)]],
         isActive: [program?.isActive],
-        seoTitle: [program?.seoDetail?.seoTitle || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-        slugLine: [program?.seoDetail?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
-        seoDescription: [program?.seoDetail?.seoDescription || null, [Validators.required, Validators.maxLength(250)]],
-        keywords: [program?.seoDetail?.keywords || null, [Validators.required]],
-        file: [program?.file || null, [Validators.required]],
+        seoTitle: [program?.seoDetails?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        slugLine: [program?.seoDetails?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
+        seoDescription: [program?.seoDetails?.description || null, [Validators.required, Validators.maxLength(250)]],
+        keywords: [program?.seoDetails?.keywords || null, [Validators.required]],
+        file: [program?.promo || null, [Validators.required]],
         thumbnail: [program?.thumbnail || null, [Validators.required]],
         orders: [program?.orders || 1, [Validators.required]],
         producedBy: [program?.producedBy || 'CNBC NEWS', [Validators.required]]
@@ -181,7 +181,10 @@ export class AddProgramsComponent implements OnInit{
 
     mainFileUploaded(file) {
           this.programsModel.promoId = file.id;
-          this.programsModel.videoUrl = file.url;
+          this.programsModel.videoUrl = null;
+          setTimeout(() => {
+            this.programsModel.videoUrl = file.url;
+        }, 400);
   }
 
     thumbnailUploaded(file) {
