@@ -26,12 +26,12 @@
                     <tbody>
                         <tr *ngFor="let ep of allEpisodes">
                             <td [nzChecked]="setOfCheckedId.has(ep?.id)" [nzDisabled]="ep?.disabled"
-                            (nzCheckedChange)="onItemChecked(ep?.id, $event)">{{ep?.id}}</td>
-                            <td></td>
+                            (nzCheckedChange)="onItemChecked(ep?.id, $event)"></td>
+                            <td>{{ep?.title}}</td>
                             <td>Sample Title Test</td>
-                            <td>{{ep?.date}}</td>
-                            <td>{{ep?.date}}</td>
-                            <td>Sample User</td>
+                            <td>{{ep?.createdAt | date:'dd-MM-YYYY'}}</td>
+                            <td>{{ep?.updatedAt | date:'dd-MM-YYYY'}}</td>
+                            <td>{{ep?.user?.name}}</td>
                             <td>10k</td>
                             <td>
                                 <nz-badge *ngIf="ep?.isActive === true" nzStatus="success"></nz-badge>
