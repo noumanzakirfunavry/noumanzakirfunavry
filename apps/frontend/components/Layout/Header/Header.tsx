@@ -51,8 +51,9 @@ const Header = () =>{
     })
 
     useEffect(()=>{
-        document.addEventListener("mousedown", handleClickOutside);
+       // document.addEventListener("mousedown", handleClickOutside);
         window.scrollTo(0,0);
+        clearSearchBox();
 
         // get categories list to show in sub menu
         GetData(`${requests.categories}/getAll?limit=${params.limit}&pageNo=${params.pageNo}&displayInCategoryMenu=true`, {}, 'get', false).then(res=>{
@@ -67,9 +68,9 @@ const Header = () =>{
         //get all menus
         getAllMenus()
 
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
+        //return () => {
+        //    document.removeEventListener("mousedown", handleClickOutside);
+       // }
     },[])
 
     const getAllMenus = () =>{
@@ -93,11 +94,6 @@ const Header = () =>{
         setShowMenuList(!showMenuList)
     }
 
-    /*const handleNavigation = (path: string) => {
-        console.log('navigated')
-       router.push(`/${path}`)
-    }*/
-
     const handleEvent = (event:any) => {
 
         setdisplaySearchDropDown(true)
@@ -110,14 +106,25 @@ const Header = () =>{
 
     }
 
-    const handleClickOutside = () => {
+    const clearSearchBox = () => {
         setdisplaySearchDropDown(false)
         setSearchVal('')
     }
 
+    const handleNavigation = (path: string) => {
+        if(path === 'search'){
+            router.push(`/${path}/?query=${searchVal}&qsearchterm=${searchVal}`)
+        } else {
+            router.push(`/${path}`)
+        }
+
+        clearSearchBox();
+    }
+
+
     const handleRouting = (url:string, index:number) =>{
        index !== 4 && router.push(`/${url}`)
-       index === 4 && handleClickOutside()
+       index === 4 && clearSearchBox()
     }
     
     const getData = async (value:string): Promise<any> => {
@@ -274,8 +281,22 @@ const Header = () =>{
                                                         <li key={'8'}>
                                                             <Link href="/programs/100/"><a className="dropdown-item">اكسبو في أسبوع</a></Link>
                                                         </li>
-                                                        <li key={'9'}>
-                                                            <Link href="/programs/95/"><a className="dropdown-item">حديث المملكة مع راشد الفوزان</a></Link>
+                                                        <li className='sb_hover' key={'9'}>
+                                                            <Link href="/programs/95/"><a className="dropdown-item">  حديث المملكة مع راشد الفوزان <i className='fa fa-angle-left me-2'></i> </a></Link>
+                                                            <ul className="dropdown-menu dropdown-submenu" aria-labelledby="morePrograms">
+                                                                <li>
+                                                                <Link href="/programs/95/"><a className="dropdown-item">حديث المملكة مع راشد الفوزان</a></Link>
+                                                                </li>
+                                                                <li>
+                                                            <Link href="/programs/96/"><a className="dropdown-item">تحت الضوء</a></Link>
+                                                                </li>
+                                                                <li>
+                                                            <Link href="/programs/96/"><a className="dropdown-item">تحت الضوء</a></Link>
+                                                                </li>
+                                                                <li>
+                                                            <Link href="/programs/96/"><a className="dropdown-item">تحت الضوء</a></Link>
+                                                                </li>
+                                                            </ul>
                                                         </li>
                                                         <li key={'10'}>
                                                             <Link href="/programs/96/"><a className="dropdown-item">تحت الضوء</a></Link>
@@ -424,7 +445,7 @@ const Header = () =>{
                                     </ul>
                                 </div>
                                 {
-                                    displaySearchDropDown && (<SearchDropDown data={data} newsSearchData={newsSearchData} searchVal={searchVal} />)
+                                    displaySearchDropDown && (<SearchDropDown data={data} newsSearchData={newsSearchData} searchVal={searchVal} handleNavigation={handleNavigation} clearSearchBox={clearSearchBox} />)
                                 }
 
                             </div>
