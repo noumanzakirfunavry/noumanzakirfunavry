@@ -9,10 +9,13 @@ import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import search from "../../styles/images/search.svg";
 import Title from "apps/frontend/components/Title";
 import { requests } from '../../services/Requests';
+import { useRouter } from "next/router"
 
 import GetData from '../../services/GetData';
 
 const Index = () =>{
+
+    const router = useRouter();
 
     // news search data
     const [newsSearchData, setNewsSearchData] = useState<any>([])
@@ -21,10 +24,12 @@ const Index = () =>{
     const [searchVal, setSearchVal] = useState<any>("")
 
     const [activatedMenuItem, setActivatedMenuItem] = useState<string>("")
-
-    const searchValue = 'test'; // TODO: it will be updated when routing will work, for now having static value
+    
+    //console.log(router.query.qsearchterm);
 
     useEffect(() => {
+        setSearchVal(router.query.qsearchterm);
+
         if(activatedMenuItem === 'latestNews'){
             GetData(`${requests.latestNews}limit=50&pageNo=1`, {}, 'get', false).then(res=>{
 
@@ -37,25 +42,29 @@ const Index = () =>{
             })
 
         } else {
-            setSearchVal(searchValue)
-            if(searchVal){
-                GetData(`${requests.search}`, {
-                    searchTerm: `${searchVal}`
-                    }, 'post', false).then(res => {
-                        console.log('filtered news', res.data);
-                        setNewsSearchData(res?.data)
-                    
-                    }).catch(err=>{
-                        console.warn(err)
-                });
+            if(router.query.qsearchterm){
+                getSearhData(router.query.qsearchterm)
             }
         }
         
-    }, [searchVal, activatedMenuItem])
+    }, [router.query.qsearchterm, activatedMenuItem])
+
+    const getSearhData = (searchKey) => {
+        GetData(`${requests.search}`, {
+            searchTerm: `${searchKey}`
+            }, 'post', false).then(res => {
+                console.log('filtered news', res.data);
+                setNewsSearchData(res?.data)
+            
+            }).catch(err=>{
+                console.warn(err)
+        });
+    }
 
 
     const handleEvent = (event:any) => {
         setSearchVal(event.target.value)
+        getSearhData(event.target.value);
     }
 
     const activateMenuItem = (stringVal: string) => {
@@ -73,7 +82,7 @@ const Index = () =>{
                                 {/* <i className="fa fa-search"></i> */}
                                 <img className="img-fluid" src={search.src} />
                                 </span>
-                            <input type="text" className="form-control text-end border-start-0" onChange={(e)=>handleEvent(e)} placeholder={searchVal}/>
+                            <input type="text" className="form-control text-end border-start-0" value={searchVal} onChange={(e)=>handleEvent(e)} />
                         </div>
                     </div>
                 </div>
