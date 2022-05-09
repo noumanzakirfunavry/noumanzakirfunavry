@@ -231,7 +231,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'TV Schedule',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'play-squre',
+        icon: 'play-square',
         submenu: []
     },
     {
