@@ -266,8 +266,6 @@ export class NewsService {
 	}
 
 	private async getAllNewsQuery(query: GetAllNewsRequestDto) {
-		console.log("🚀 ~ file: news.service.ts ~ line 278 ~ NewsService ~ getAllNewsQuery ~ query", query)
-
 		return await this.newsRepository.findAndCountAll({
 			include: [{
 				model: Categories,
