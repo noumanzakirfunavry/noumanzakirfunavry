@@ -28,7 +28,9 @@ export type CategoryNewsProps = {
     displayTitle: boolean,
     displayTopTwoNews:boolean,
     displayMoreButton:boolean,
-    cat:any
+    cat:any,
+    loopIndex: number,
+    extended: boolean
 }
 
 export type ModalProps = {
