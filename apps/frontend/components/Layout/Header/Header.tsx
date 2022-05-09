@@ -51,8 +51,9 @@ const Header = () =>{
     })
 
     useEffect(()=>{
-        document.addEventListener("mousedown", handleClickOutside);
+       // document.addEventListener("mousedown", handleClickOutside);
         window.scrollTo(0,0);
+        clearSearchBox();
 
         // get categories list to show in sub menu
         GetData(`${requests.categories}/getAll?limit=${params.limit}&pageNo=${params.pageNo}&displayInCategoryMenu=true`, {}, 'get', false).then(res=>{
@@ -67,14 +68,15 @@ const Header = () =>{
         //get all menus
         getAllMenus()
 
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
+        //return () => {
+        //    document.removeEventListener("mousedown", handleClickOutside);
+       // }
     },[])
 
     const getAllMenus = () =>{
         GetData(`${requests.moreMenus}getAll?limit=50&pageNo=1`, {}, 'get', false).then(res=>{
 
+            //console.log('Menus::::::::::', res?.data?.response);
             setMoreMenuItems(res?.data?.response);
 
         }).catch(err=>{
@@ -93,11 +95,6 @@ const Header = () =>{
         setShowMenuList(!showMenuList)
     }
 
-    /*const handleNavigation = (path: string) => {
-        console.log('navigated')
-       router.push(`/${path}`)
-    }*/
-
     const handleEvent = (event:any) => {
 
         setdisplaySearchDropDown(true)
@@ -110,14 +107,25 @@ const Header = () =>{
 
     }
 
-    const handleClickOutside = () => {
+    const clearSearchBox = () => {
         setdisplaySearchDropDown(false)
         setSearchVal('')
     }
 
+    const handleNavigation = (path: string) => {
+        if(path === 'search'){
+            router.push(`/${path}/?query=${searchVal}&qsearchterm=${searchVal}`)
+        } else {
+            router.push(`/${path}`)
+        }
+
+        clearSearchBox();
+    }
+
+
     const handleRouting = (url:string, index:number) =>{
        index !== 4 && router.push(`/${url}`)
-       index === 4 && handleClickOutside()
+       index === 4 && clearSearchBox()
     }
     
     const getData = async (value:string): Promise<any> => {
@@ -381,15 +389,37 @@ const Header = () =>{
                                                     <Link href="/marketGraph"><a className="nav-link">الأسواق</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
-                                                {
+
+                                                { // dynamic menu with nested sub menu
                                                     moreMenuItems?.length > 0 && (
-                                                                <li className="nav-item" key={moreMenuItems[0].title}>
-                                                                    <Link href={moreMenuItems[0].url}><a className="nav-link" >{moreMenuItems[0].title}</a></Link>
-                                                                    <div className="nav-menu-navUnderline"></div>
-                                                                </li>
-                                                            )
+                                                        moreMenuItems[0]?.childMenus?.length === 0 ?
+                                                        <li className="nav-item" key={moreMenuItems[0].title}>
+                                                            <Link href={moreMenuItems[0].url}><a className="nav-link" >{moreMenuItems[0].title}</a></Link>
+                                                            <div className="nav-menu-navUnderline"></div>
+                                                        </li>
+
+                                                        : 
+
+                                                        <li className="nav-item dropdown" key={'654564ytf7657'}>
+                                                            <Link href={moreMenuItems[0].url}><a className="nav-link dropdown-toggle" href="#" id="moreDynamicMenus" role="button" data-bs-toggle="dropdown" aria-expanded="false" >{moreMenuItems[0].title}</a></Link>
+                                                            <div className="nav-menu-navUnderline"></div>
+                                                            <ul className="dropdown-menu" aria-labelledby="moreDynamicMenus">
+                                                            { // show nested menu
+                                                                moreMenuItems[0]?.childMenus?.length && moreMenuItems[0]?.childMenus.map((subMenuItem: any, subMenuIndex: number)=>{
+                                                                    return(
+                                                                        <li className="nav-item" key={subMenuIndex}> 
+                                                                            <Link href={subMenuItem.url}><a className="nav-link active" aria-current="page">{subMenuItem.title}</a></Link>
+                                                                        </li>
+                                                                    )
+                                                                })
+                                                            }
+                                                            </ul>
+                                                        </li>
+                                                                
+                                                        )
                                                    
                                                 }
+                                                
                                                 <li className="nav-item dropdown" key={'654564ytf7656'}>
                                                     <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
@@ -401,9 +431,33 @@ const Header = () =>{
                                                                     if(index > 0)
                                                                     {
                                                                         return (
-                                                                            <li className="nav-item" key={menuItem.title}>
-                                                                                <Link href={menuItem.url}><a className="nav-link" >{menuItem.title}</a></Link>
-                                                                            </li>
+                                                                            <>
+                                                                            {
+                                                                                menuItem?.childMenus?.length === 0 ?
+                                                                                <li className="nav-item" key={menuItem.title}>
+                                                                                    <Link href={menuItem.url}><a className="nav-link" >{menuItem.title}</a></Link>
+                                                                                </li>
+
+                                                                                : 
+
+                                                                                <li className='sb_hover' key={menuItem.title}>
+                                                                                    <Link href={menuItem.url}><a className="dropdown-item"> {menuItem.title}<i className='fa fa-angle-left me-2'></i> </a></Link>
+                                                                                    {menuItem.childMenus?.length > 0 && 
+                                                                                        <ul className="dropdown-menu dropdown-submenu" aria-labelledby="morePrograms">
+                                                                                            { // show nested menu
+                                                                                                menuItem.childMenus?.map((subMenuItem:any, subMenuIndex:number)=>{
+                                                                                                    return (
+                                                                                                        <li key={subMenuIndex}>
+                                                                                                            <Link href={subMenuItem.url}><a className="dropdown-item">{subMenuItem.title}</a></Link>
+                                                                                                        </li>
+                                                                                                    )
+                                                                                                })
+                                                                                            }
+                                                                                        </ul>
+                                                                                    }
+                                                                                </li>
+                                                                            }
+                                                                            </>
                                                                         )
                                                                     }
                                                                     
@@ -438,7 +492,7 @@ const Header = () =>{
                                     </ul>
                                 </div>
                                 {
-                                    displaySearchDropDown && (<SearchDropDown data={data} newsSearchData={newsSearchData} searchVal={searchVal} />)
+                                    displaySearchDropDown && (<SearchDropDown data={data} newsSearchData={newsSearchData} searchVal={searchVal} handleNavigation={handleNavigation} clearSearchBox={clearSearchBox} />)
                                 }
 
                             </div>

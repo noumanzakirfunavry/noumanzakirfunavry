@@ -13,7 +13,6 @@
                         <tr>
                             <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
                             (nzCheckedChange)="onAllChecked($event)"></th>
-                            <th>Reorder </th>
                             <th>Title </th>
                             <th>Created</th>
                             <th>Modified</th>
@@ -26,9 +25,6 @@
                         <ng-container *ngFor="let menu of allMenus">
                         <tr class="menu-block" cdkDrag>
                             <td [nzChecked]="setOfCheckedId.has(menu?.id)" (nzCheckedChange)="onItemChecked(menu?.id, $event)"></td>
-                            <td>
-                                <i nz-icon nzType="drag" nzTheme="outline"></i>
-                            </td>
                             <td>
                                 <i *ngIf="expandedId!==menu?.id" nz-icon nzType="caret-right" class="cursor-pointer" nzTheme="outline" (click)="toggle(menu?.id)"></i>
                                 <i *ngIf="expandedId===menu?.id" nz-icon nzType="caret-down" class="cursor-pointer" nzTheme="outline" (click)="toggle(menu?.id)"></i>
@@ -51,8 +47,8 @@
                         </tr>
                         <div *ngIf="expandedId===menu?.id" cdkDropList (cdkDropListDropped)="dropSubMenus($event, i)">
                             <tr class="menu-block" *ngFor="let subMenu of menu?.childMenus" cdkDrag>
-                                <td [nzChecked]="setOfCheckedId.has(subMenu?.id)" (nzCheckedChange)="onItemChecked(subMenu?.id, $event)">
-                                        <i nz-icon nzType="drag" nzTheme="outline"></i>
+                                <td 
+                                    [nzChecked]="setOfCheckedId.has(subMenu?.id)" (nzCheckedChange)="onItemChecked(subMenu?.id, $event)">
                                 </td>
                                 <td>{{subMenu?.title}}</td>
                                 <td>{{subMenu?.createdAt | date:'dd-MM-YYYY'}}</td>

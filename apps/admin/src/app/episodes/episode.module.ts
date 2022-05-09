@@ -16,6 +16,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 
 
@@ -34,7 +36,9 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
         NzPaginationModule,
         NzModalModule,
         NzDatePickerModule,
-        NzMessageModule
+        NzMessageModule,
+        FileUploaderModule,
+        EditorModule
 
     ],
     exports: [],
@@ -44,7 +48,8 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
         EpisodeFilterComponent
     ],
     providers: [
-        ThemeConstantService
+        ThemeConstantService,
+        { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
     ],
 })
 export class EpisodeModule { }

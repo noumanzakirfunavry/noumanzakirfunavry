@@ -26,12 +26,12 @@
                     <tbody>
                         <tr *ngFor="let ep of allEpisodes">
                             <td [nzChecked]="setOfCheckedId.has(ep?.id)" [nzDisabled]="ep?.disabled"
-                            (nzCheckedChange)="onItemChecked(ep?.id, $event)">{{ep?.id}}</td>
-                            <td></td>
+                            (nzCheckedChange)="onItemChecked(ep?.id, $event)"></td>
+                            <td>{{ep?.title}}</td>
                             <td>Sample Title Test</td>
-                            <td>{{ep?.date}}</td>
-                            <td>{{ep?.date}}</td>
-                            <td>Sample User</td>
+                            <td>{{ep?.createdAt | date:'dd-MM-YYYY'}}</td>
+                            <td>{{ep?.updatedAt | date:'dd-MM-YYYY'}}</td>
+                            <td>{{ep?.user?.name}}</td>
                             <td>10k</td>
                             <td>
                                 <nz-badge *ngIf="ep?.isActive === true" nzStatus="success"></nz-badge>
@@ -41,6 +41,7 @@
                                 <div class="d-flex justify-content-between">
                                     <i nz-tooltip nzTooltipTitle="Edit" class="mr-2" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/episodes/update/' + ep?.id]"></i>
                                     <i nz-tooltip nzTooltipTitle="Delete" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(ep?.id)"></i>
+                                    <i nz-tooltip nzTooltipTitle="View" class="mr-2" style="cursor: pointer;" nz-icon nzType="eye" nzTheme="outline"></i>
                                 </div>
                             </td>
                         </tr>

@@ -2,7 +2,7 @@ import { SeoModal } from "./seo.modal";
 
 export class ProgramsModel {
     title: string;
-    description: string;
+    content: string;
     isActive: boolean;
     seoDetails: SeoModal;
     seoDetailId: number;
@@ -17,7 +17,7 @@ export class ProgramsModel {
 
     constructor() {
         this.title = ""
-        this.description = ""
+        this.content = ""
         this.isActive = false
         this.seoDetails = new SeoModal();
         this.seoDetailId = null
@@ -25,7 +25,7 @@ export class ProgramsModel {
 
     populateFromServerModal(serverPrograms: any) {
         this.title=serverPrograms.title
-        this.description=serverPrograms.description
+        this.content=serverPrograms.content
         this.isActive=serverPrograms.isActive
         this.seoDetails=serverPrograms.seoDetail
         this.seoDetailId=serverPrograms.seoDetailId;
@@ -33,7 +33,7 @@ export class ProgramsModel {
         this.promoId=serverPrograms.promoId || null;
         this.thumbnailId=serverPrograms.thumbnailId || null;
 
-        this.videoUrl=serverPrograms.video ? serverPrograms.video?.url:null;
+        this.videoUrl=serverPrograms.promo ? serverPrograms.promo?.url:null;
         this.thumbnailUrl=serverPrograms.thumbnail ? serverPrograms.thumbnail?.url:null;
     }
 
@@ -42,12 +42,12 @@ export class ProgramsModel {
         return {
             firstAiredOn: form.firstAiredOn,
             title: form.title,
-            description: form.description,
+            content: form.content,
             orders: form.orders,
             producedBy: form.producedBy,
             isActive: form.isActive || false,
             promoId:this.promoId,
-            // ...(this.promoId ? {promoId:this.promoId}:null),
+            ...(this.promoId ? {promoId:this.promoId}:null),
             ...(this.thumbnailId ? {thumbnailId:this.thumbnailId}:null),
             seoDetails: {
                 title: form.seoTitle,

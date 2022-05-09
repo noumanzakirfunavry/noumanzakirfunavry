@@ -20,7 +20,7 @@ export class AddProgramsComponent implements OnInit{
   file: any;
   programId: number;
   tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Upload' }
-  tempThumbanilFile: { colName: string, value: any, label: string } = { 'colName': 'thumbnail', value: null, label: 'Thumbnail Image Upload' }
+  tempThumbanilFile: { colName: string, value: any, label: string } = { 'colName': 'thumbnail', value: null, label: 'Image Upload' }
   
     constructor(
       private fb: FormBuilder, 
@@ -101,7 +101,7 @@ export class AddProgramsComponent implements OnInit{
       this.programForm = this.fb.group({
           firstAiredOn: [new Date(), []],
           title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-          description: [null, [Validators.required, Validators.maxLength(1500)]],
+          content: [null, [Validators.required, Validators.maxLength(1500)]],
           isActive: [true],
           seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
           slugLine: [null, [Validators.required, Validators.maxLength(250)]],
@@ -137,7 +137,7 @@ export class AddProgramsComponent implements OnInit{
 
   getProgramById() {
     this.apiService.sendRequest(requests.getProgramById + this.programId, 'get').subscribe((res: any) => {
-        console.log("news data", res.response.program);
+        console.log("program data", res.response.program);
         this.programsModel.populateFromServerModal(res.response.program);
         this.programsModel.seoDetailId = res.response.program.seoDetailId;
         console.log("view modal", this.programsModel);
@@ -149,13 +149,13 @@ export class AddProgramsComponent implements OnInit{
       this.programForm = this.fb.group({
         firstAiredOn: [new Date(program.updatedAt), []],
         title: [program?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-        description: [program?.description || null, [Validators.required, Validators.maxLength(1500)]],
+        content: [program?.content || null, [Validators.required, Validators.maxLength(1500)]],
         isActive: [program?.isActive],
-        seoTitle: [program?.seoDetail?.seoTitle || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-        slugLine: [program?.seoDetail?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
-        seoDescription: [program?.seoDetail?.seoDescription || null, [Validators.required, Validators.maxLength(250)]],
-        keywords: [program?.seoDetail?.keywords || null, [Validators.required]],
-        file: [program?.file || null, [Validators.required]],
+        seoTitle: [program?.seoDetails?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        slugLine: [program?.seoDetails?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
+        seoDescription: [program?.seoDetails?.description || null, [Validators.required, Validators.maxLength(250)]],
+        keywords: [program?.seoDetails?.keywords || null, [Validators.required]],
+        file: [program?.promo || null, [Validators.required]],
         thumbnail: [program?.thumbnail || null, [Validators.required]],
         orders: [program?.orders || 1, [Validators.required]],
         producedBy: [program?.producedBy || 'CNBC NEWS', [Validators.required]]
@@ -181,7 +181,10 @@ export class AddProgramsComponent implements OnInit{
 
     mainFileUploaded(file) {
           this.programsModel.promoId = file.id;
-          this.programsModel.videoUrl = file.url;
+          this.programsModel.videoUrl = null;
+          setTimeout(() => {
+            this.programsModel.videoUrl = file.url;
+        }, 400);
   }
 
     thumbnailUploaded(file) {

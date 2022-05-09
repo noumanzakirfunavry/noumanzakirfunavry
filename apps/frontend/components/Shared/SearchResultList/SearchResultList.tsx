@@ -58,7 +58,7 @@ const SearchResultList = ({newsSearchData}) => {
                                                   {/*07 مارس 2022*/}
                                                   {GetArabicFormattedDate(news?._source?.createdAt)}
                                             </p>
-                                            <h6><a><Link href={`/newsDetails/`+news._id}><a>{news?._source?.title}</a></Link></a></h6>
+                                            <h6><Link href={`/newsDetails/`+news._id}><a>{news?._source?.title}</a></Link></h6>
                                             <HtmlData data={news?._source?.content} />
                                             {/*<p>إنتعشت <mark>Amazon</mark> أسعار النفط في الجلسة الأميركية وفاقت مكاسب خام نايمكس الأميركي 2.5% وذلك إثر إنخفاض حاد في مخزونات الخام الأميركي. فقد أظهرت بيانات إدارة معلومات الطاقة الأميركية أن مخزونات النفط الخام في الولايات المتحدة هبطت بشكل حاد الأسبوع الماضي مع انخفاض إنتاج المصافي فيما تراجعت مخزونات البنزين وارتفعت مخزونات</p>*/}
                                         </div>
