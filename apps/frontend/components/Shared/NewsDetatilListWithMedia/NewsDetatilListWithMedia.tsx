@@ -15,7 +15,7 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                     {
                        newsList?.length && newsList?.map((news:any, index:number)=>{
                             return (
-                                <li key={news.item}>
+                                <li key={index}>
                                     <div className="newsText">
                                         <Link href={`/newsDetails/` + news?._id}><a style={{wordWrap:'break-word'}}>{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a></Link>
                                         <p>
