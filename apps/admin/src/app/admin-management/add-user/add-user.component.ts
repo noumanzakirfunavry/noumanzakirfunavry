@@ -92,7 +92,7 @@ export class AddUserComponent implements OnInit{
       obj['rights']= this.adminForm.value.rights.filter(x=>x.checked);
       obj['rights']= obj['rights'].map(x=>x.id);
       if(obj['password'] == '' || this.adminForm.value.password == '') {
-        obj['password']= null;
+        delete obj['password'];
       }
       delete obj['confirmPassword'];
       this.apiService.sendRequest(this.userId ? requests.updateUser + this.userId : requests.registerUser, this.userId ? 'put' : 'post', obj).subscribe((res:any) => {

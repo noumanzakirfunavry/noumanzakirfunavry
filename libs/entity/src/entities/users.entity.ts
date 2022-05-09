@@ -4,6 +4,7 @@ import { Branches } from "./branches.entity";
 import { BreakingNews } from "./breaking.news.entity";
 import { Categories } from "./categories.entity";
 import { ChangeLogs } from "./change.logs.entity";
+import { Comments } from "./comments.entity";
 import { EditorsChoiceNews } from "./editors.choice.news.entity";
 import { Episodes } from "./episodes.entity";
 import { FeaturedNews } from "./featured.news.entity";
@@ -152,4 +153,7 @@ export class Users extends Model{
 
     @HasMany(() => TrendingNowNews)
     trendingNowNews : TrendingNowNews[]
+
+    @HasMany(() => Comments)
+    comments : Comments[]
 }

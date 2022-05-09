@@ -1,130 +1,84 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//     selector: 'app-dashboard',
-//     templateUrl: './dashboard.component.html',
-// })
-
-// export class DashboardComponent implements OnInit {
-//     constructor() { }
-
-//     ngOnInit(): void { }
-// }
-
-
 import { Component, OnInit } from '@angular/core'
-import { ThemeConstantService } from '../shared/services/theme-constant.service';
-// import { ThemeConstantService } from '../../shared/services/theme-constant.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { Pagination } from '../common/models/pagination';
+import { requests } from '../shared/config/config';
+import { ApiService } from '../shared/services/api.service';
 
-export interface Data {
-    id: number;
-    name: string;
-    age: number;
-    address: string;
-    disabled: boolean;
-}
+
 
 @Component({
        selector: 'app-episode',
     templateUrl: './episode.component.html',
 })
 
-export class EpisodeComponent {
-
+export class EpisodeComponent implements OnInit{
+    pagination: Pagination = new Pagination()
     indeterminate = false;
     checked = false;
+    loading = true;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData: Data[] = [];
+    allEpisodes: any;
+    episodesCount: any;
 
-    ordersList = [
-        {
-            id: 5331,
-            name: 'Erin Gonzales',
-            avatar: 'assets/images/avatars/thumb-1.jpg',
-            date: '8 May 2019',
-            amount: 137,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5375,
-            name: 'Darryl Day',
-            avatar: 'assets/images/avatars/thumb-2.jpg',
-            date: '6 May 2019',
-            amount: 322,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5762,
-            name: 'Marshall Nichols',
-            avatar: 'assets/images/avatars/thumb-3.jpg',
-            date: '1 May 2019',
-            amount: 543,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5865,
-            name: 'Virgil Gonzales',
-            avatar: 'assets/images/avatars/thumb-4.jpg',
-            date: '28 April 2019',
-            amount: 876,
-            status: 'pending',
-            checked : false
-        },
-        {
-            id: 5213,
-            name: 'Nicole Wyne',
-            avatar: 'assets/images/avatars/thumb-5.jpg',
-            date: '28 April 2019',
-            amount: 241,
-            status: 'approved',
-            checked : false
-        },
-        {
-            id: 5311,
-            name: 'Riley Newman',
-            avatar: 'assets/images/avatars/thumb-6.jpg',
-            date: '19 April 2019',
-            amount: 872,
-            status: 'rejected',
-            checked : false
-        }
-    ]    
+    constructor(private apiService: ApiService, private message: NzMessageService, private modal: NzModalService) {}
 
-    productsList = [
-        {
-            name: 'Gray Sofa',
-            avatar: 'assets/images/others/thumb-9.jpg',
-            category: 'Home Decoration',
-            growth: 18.3
-        },
-        {
-            name: 'Beat Headphone',
-            avatar: 'assets/images/others/thumb-10.jpg',
-            category: 'Eletronic',
-            growth: 12.7
-        },
-        {
-            name: 'Wooden Rhino',
-            avatar: 'assets/images/others/thumb-11.jpg',
-            category: 'Home Decoration',
-            growth: 9.2
-        },
-        {
-            name: 'Red Chair',
-            avatar: 'assets/images/others/thumb-12.jpg',
-            category: 'Home Decoration',
-            growth: 7.7
-        },
-        {
-            name: 'Wristband',
-            avatar: 'assets/images/others/thumb-13.jpg',
-            category: 'Eletronic',
-            growth: 5.8
+    ngOnInit(): void {
+        this.getAllEpisodes();
+    }
+
+    getAllEpisodes() {
+        this.apiService.sendRequest(requests.getAllEpisodes, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
+            this.allEpisodes= res.response.episodes;
+            this.episodesCount= res.response.totalCount;
+            console.log("ALL-EPISODES", this.allEpisodes);
+            this.loading = false;
+        },err => {
+            this.loading = false;
+            throw this.handleError(err);
+          })
+    }
+
+    handleError(err: any) {
+        if (err) {
+          this.allEpisodes = [];
+          this.episodesCount = 0;
         }
-    ]    
+        return err
+      }
+
+    clean(obj:any) {
+        for (const propName in obj) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            delete obj[propName];
+          }
+        }
+        return obj
+    }
+
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publishedBy: data.publishedBy, programId: data.programId, date: data.date};
+        this.pagination.pageNo= 1;
+        this.getAllEpisodes();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publishedBy: data.publishedBy, programId: data.programId, date: data.date};
+        this.pagination.pageNo= 1;
+        this.getAllEpisodes();        
+    }
+
+    onPageIndexChange(pageNo: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
+        this.getAllEpisodes();
+    }
+
+    onPageSizeChange(limit: number) {
+        this.loading= true;
+        this.pagination = Object.assign({...this.pagination, limit: limit})
+        this.getAllEpisodes();
+    }
 
     updateCheckedSet(id: number, checked: boolean): void {
         if (checked) {
@@ -139,9 +93,60 @@ export class EpisodeComponent {
         this.refreshCheckedStatus();
     }
 
+    onAllChecked(checked: boolean): void {
+        this.allEpisodes.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+        this.refreshCheckedStatus();
+    }
+
     refreshCheckedStatus(): void {
-        const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+        const listOfEnabledData = this.allEpisodes.filter(({ disabled }) => !disabled);
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
+
+    deleteSelected() {
+        const id= [];
+          console.log(this.setOfCheckedId.forEach(x=>{
+            id.push(x)
+          }));
+          this.apiService.sendRequest(requests.deleteProgramEpisode,'delete',{id:id}).subscribe((res:any) => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllEpisodes();
+            this.message.create('success', `Episode Deleted Successfully`)
+            })
+        }
+        
+        deleteEpisode(episodeId: number): void {
+            this.apiService.sendRequest(requests.deleteProgramEpisode, 'delete', {id:[episodeId]}).subscribe((res:any) => {
+                console.log("DELETE-EPISODE", res);
+                this.getAllEpisodes();
+                this.message.create('success', `Episode Deleted Successfully`)
+            })
+        }
+    
+        showDeleteConfirm(id?: number): void {
+            this.modal.confirm({
+              nzTitle: 'Delete',
+              nzContent: '<b style="color: red;">Are you sure to delete this Episode?</b>',
+              nzOkText: 'Yes',
+            //   nzOkType: 'danger',
+              nzOnOk: () => {
+                  if(id) {
+                      this.deleteEpisode(id);
+                  }
+                  else {
+                      this.deleteSelected();
+                  }
+                },
+              nzCancelText: 'No',
+              nzOnCancel: () => {
+                this.setOfCheckedId.clear();
+                this.checked= false;
+                this.indeterminate= false;
+                this.getAllEpisodes();
+                }
+            });
+          }
 }    

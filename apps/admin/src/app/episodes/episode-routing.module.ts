@@ -29,7 +29,14 @@ const routes: Routes = [
             title: 'Add Episode',
             // headerDisplay: "none"
         },
-
+    },
+    {
+        path: 'update/:id',
+        component: AddEpisodeComponent,
+        data: {
+            title: 'Update Episode',
+            // headerDisplay: "none"
+        },
     }
 ];
 

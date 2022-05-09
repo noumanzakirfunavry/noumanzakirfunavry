@@ -32,3 +32,5 @@ export const requests={
     search:newsAPIClient+'news/search',
     mostReadNews:newsAPIClient+'news/mostRead?',
 }
+
+export const limitOfList = '20' ;

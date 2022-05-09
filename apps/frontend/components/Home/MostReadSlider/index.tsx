@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import Title from "../../Title";
 import newsImage from "./../../../styles/images/biden.jpg";
 import GetData from "../../../services/GetData";
-import { requests, baseUrlAdmin } from "../../../services/Requests";
+import { requests, baseUrlAdmin, limitOfList } from "../../../services/Requests";
 import Link from "next/link";
 
 
@@ -78,9 +78,9 @@ const MostReadSlider: FC = () => {
     const [mostReadNewsList, setMostReadNewsList] = useState<any>([]);
 
     useEffect(() => {
-        GetData(`${requests.mostReadNews}limit=10&pageNo=1`, {}, 'get', false).then(res=>{
+        GetData(`${requests.mostReadNews}limit=${limitOfList}&pageNo=1`, {}, 'get', false).then(res=>{
             const newsRes = res.data?.response && res.data?.response.length ? res.data?.response : []
-            //console.log('Most Read News:::::', newsRes)
+            console.log('Most Read News:::::', newsRes)
             setMostReadNewsList(newsRes);
 
         }).catch(err=>{
@@ -124,10 +124,38 @@ const MostReadSlider: FC = () => {
                             mostReadNewsList?.length && mostReadNewsList?.map((newsItem:any, index:number)=>{
                                   return(
                                     <li key={index} >
-                                        <div className="NewsImage show_mobile">
-                                            <img className="img-fluid" src={newsItem?.news?.image?.path ? baseUrlAdmin+newsItem?.news?.image?.path:newsImage.src} />
+
+                        { // show thmbnail with play icon if video news
+                            newsItem?.news?.videoId ?
+                                    <>
+                                        <div className="NewsImage VideoNews show_mobile">
+                                            <img className="img-fluid" src={newsItem?.news?.thumbnail?.path ? baseUrlAdmin+newsItem?.news?.thumbnail?.path:newsImage.src} />
+                                        
+                                            <div className="PlayTime">
+                                                <h5>05:21</h5>
+                                                <div className="btn-text">
+                                                    <span>شاهد الآن</span>
+                                                    <Link href={`/newsDetails/` + newsItem?.news?.id}>
+                                                        <a>
+                                                            <button className="btn btn-warning VideoPlay">
+                                                                <i className="fa play_small"></i>
+                                                            </button>
+                                                        </a>
+                                                    </Link>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <Link href={`/newsDetails/` + newsItem?.news?._id}><a>{newsItem?.news?.title}</a></Link>
+                                    </>
+
+                            : // else how image
+
+                                <div className="NewsImage show_mobile">
+                                    <img className="img-fluid" src={newsItem?.news?.image?.path ? baseUrlAdmin+newsItem?.news?.image?.path:newsImage.src} />
+                                </div>
+                            }
+
+                                        
+                                        <Link href={`/newsDetails/` + newsItem?.news?.id}><a>{newsItem?.news?.title}</a></Link>
                                         <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                                     </li>
 

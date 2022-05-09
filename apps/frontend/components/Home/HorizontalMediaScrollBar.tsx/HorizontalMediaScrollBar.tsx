@@ -3,7 +3,7 @@ import { FC, useRef, useState, useEffect } from "react";
 import Slider from "react-slick";
 import Title from "../../Title";
 import GetData from "../../../services/GetData";
-import { requests } from "../../../services/Requests";
+import { requests, baseUrlAdmin } from "../../../services/Requests";
 import Link from "next/link";
 
 
@@ -86,6 +86,7 @@ const HorizontalMediaScrollBar:FC = () =>{
               })
         },[])
 
+        
     return (
         <>
       <div className="container">
@@ -117,9 +118,26 @@ const HorizontalMediaScrollBar:FC = () =>{
             <Slider ref={ref} {...settings}>
             {  
                editorChoiceNewsList.length && editorChoiceNewsList.map((item: any, index: number)=>{
+                    const backgroundImagePath = item?._source?.videoId ?item?._source?.thumbnail?.path : item?._source?.image?.path
+                
                      return(
                         <div className="slider-item" key={item.id}>
-                            <div className="NewsBox">
+                            <div className="NewsBox VideoNews" style={{background: `url(${baseUrlAdmin+encodeURIComponent(backgroundImagePath)}) no-repeat`}}>
+                                { item?._source?.videoId &&
+                                    <div className="PlayTime">
+                                        <h5>05:21</h5>
+                                            <div className="btn-text">
+                                                <span>شاهد الآن</span>
+                                                <Link href={`/newsDetails/` + item._id}>
+                                                    <a>
+                                                        <button className="btn btn-warning VideoPlay">
+                                                            <i className="fa play_small"></i>
+                                                        </button>
+                                                    </a>
+                                                </Link>
+                                        </div>
+                                    </div>
+                                }
                                 <div className="newscontent">
                                     <h3><Link href={`/newsDetails/` + item._id}><a >{item?._source?.title}</a></Link></h3>
                                 </div>

@@ -6,7 +6,7 @@ import { ProgramsComponent } from './programs.component';
 const routes: Routes = [
     {
         path: '',
-        component: AddProgramsComponent,
+        component: ProgramsComponent,
         data: {
             title: 'Programs',
             // headerDisplay: "none"
@@ -29,7 +29,14 @@ const routes: Routes = [
             title: 'Add Program',
             // headerDisplay: "none"
         },
-
+    },
+    {
+        path: 'update/:id',
+        component: AddProgramsComponent,
+        data: {
+            title: 'Update Program',
+            // headerDisplay: "none"
+        },
     }
 ];
 

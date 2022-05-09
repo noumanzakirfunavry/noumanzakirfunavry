@@ -131,10 +131,9 @@ export class Helper {
             episodesId: episodesId
         }
     }
-    quotesObject(position, quotesId, newsId) {
+    quotesObject(quotes, newsId) {
         return {
-            position: position,
-            quotesId: quotesId,
+            ...quotes,
             newsId: newsId
         }
     }
