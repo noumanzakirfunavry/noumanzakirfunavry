@@ -144,6 +144,8 @@ export function Index() {
                     displayTitle={true}
                     displayTopTwoNews={true}
                     displayMoreButton={false}
+                    loopIndex={2}
+                    extended={false}
                   />
                 </div>
                 <div className="PageBuilder-sidebar">

@@ -27,8 +27,10 @@ export class Episodes extends Model{
     @Column
     title : string
 
-    @Column
-    description : string
+    @Column({
+			type: DataType.TEXT
+		})
+    content : string
 
     @Column({
         type : DataType.BOOLEAN

@@ -120,6 +120,30 @@ export class ProgramsService {
 		}
 	}
 
+	async getProgramByIdClient(id: number): Promise<GenericResponseDto> {
+		const response = await this.programsRepository.findOne({
+			where: {
+					id,
+					isActive: true
+			},
+			include: ['seoDetails', 'thumbnail', 'promo']
+	});
+		if (response) {
+			return new GenericResponseDto(
+				HttpStatus.OK,
+				"Fetched successfully",
+				{ program: response }
+			)
+		}
+		else {
+			throw new CustomException(
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+			)
+		}
+
+	}
+
 	async getAllPrograms(query: GetAllProgramsRequestDto): Promise<GenericResponseDto> {
 		try {
 			const findAllPrograms = await this.programsRepository.findAndCountAll({
@@ -153,6 +177,30 @@ export class ProgramsService {
 			console.log("🚀 ~ file: programs.service.ts ~ line 127 ~ ProgramsService ~ getAllPrograms ~ err", err)
 			throw err
 		}
+	}
+
+	async getAllProgramsClient() {
+		const response = await this.programsRepository.findAndCountAll({
+			where: {
+				isActive: true
+			},
+		});
+
+		if (response.count === 0) {
+			throw new CustomException(
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+			)
+		}
+
+		return new GenericResponseDto(
+			HttpStatus.OK,
+			"Fetched successfully",
+			{
+				programs: response.rows,
+				totalCount: response.count
+			}
+		)
 	}
 
 	async deletePrograms(query: DeleteAlexaAudioRequestDto): Promise<GenericResponseDto> {

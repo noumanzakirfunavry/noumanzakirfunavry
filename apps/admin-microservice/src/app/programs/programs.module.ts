@@ -4,6 +4,7 @@ import { ProgramsController } from './programs.controller';
 import { ProvidersModule } from '@cnbc-monorepo/providers';
 import { UtilityModule } from '@cnbc-monorepo/utility';
 import { ExceptionHandlingModule } from '@cnbc-monorepo/exception-handling';
+import { ProgramsClientController } from './programs.client.controller';
 
 @Module({
   imports : [
@@ -11,7 +12,7 @@ import { ExceptionHandlingModule } from '@cnbc-monorepo/exception-handling';
     UtilityModule,
     ExceptionHandlingModule,
   ],
-  controllers: [ProgramsController],
+  controllers: [ProgramsController, ProgramsClientController],
   providers: [ProgramsService]
 })
 export class ProgramsModule {}
