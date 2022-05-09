@@ -125,7 +125,8 @@ export class ProgramsService {
 			where: {
 					id,
 					isActive: true
-			}
+			},
+			include: ['seoDetails', 'thumbnail', 'promo']
 	});
 		if (response) {
 			return new GenericResponseDto(
@@ -182,7 +183,7 @@ export class ProgramsService {
 		const response = await this.programsRepository.findAndCountAll({
 			where: {
 				isActive: true
-			}
+			},
 		});
 
 		if (response.count === 0) {

@@ -179,7 +179,8 @@ export class EpisodesService {
 				where: {
 						id,
 						isActive: true
-				}
+				},
+				include: ['seoDetails', 'thumbnail', 'program', 'video']
 		});
 			if (response) {
 				return new GenericResponseDto(
