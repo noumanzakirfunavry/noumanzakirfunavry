@@ -32,7 +32,7 @@
                             <td>{{ep?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{ep?.updatedAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{ep?.user?.name}}</td>
-                            <td></td>
+                            <td>{{ep?.totalViews}}</td>
                             <td>
                                 <nz-badge *ngIf="ep?.isActive === true" nzStatus="success"></nz-badge>
                                 <nz-badge *ngIf="ep?.isActive === false" nzStatus="error"></nz-badge>

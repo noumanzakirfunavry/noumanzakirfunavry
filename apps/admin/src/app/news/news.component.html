@@ -39,7 +39,7 @@
                             <td>{{news?.user?.name}}</td>
                             <td>{{news?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{news?.updatedAt | date:'dd-MM-YYYY'}}</td>
-                            <td>{{news?.views}}</td>
+                            <td>{{news?.totalViews}}</td>
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i nz-tooltip nzTooltipTitle="Edit" class="mr-2" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/news/update/' + news?.id]"></i>
