@@ -57,7 +57,6 @@ export class AddUserComponent implements OnInit{
     this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
       this.userId = + params.get('id');
     });
-    
   }
 
   inItForm() {
@@ -143,12 +142,10 @@ export class AddUserComponent implements OnInit{
         this.route.navigateByUrl('admins/list');
         this.message.create('error', `Access Denied`);
       }
-      // setTimeout(() => {
         this.allRights.forEach(right=>{
           right['checked']=this.userById.rights.some(x=>x.id==right.id);
           right['label']=right.title
         })
-        // }, 500);
         console.log("rights enabled",this.allRights);
         this.adminForm = this.fb.group({
           name: [this.userById?.name || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],

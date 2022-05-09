@@ -2,18 +2,18 @@
       <div class="float-right">
         <div class="d-flex">
             <nz-form-item class="mr-2">
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="User" nzSpan="8" [(ngModel)]="filterModel.publisher">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="User" nzSpan="8" [(ngModel)]="filterModel.publisherId">
                   <nz-option *ngFor="let admin of allAdmins" [nzValue]="admin?.id" [nzLabel]="admin?.name"></nz-option>
                 </nz-select>
               </nz-form-item>
             <nz-form-item class="mr-2">
-              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Status" nzSpan="8" [(ngModel)]="filterModel.status">
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Status" nzSpan="8" [(ngModel)]="filterModel.isActive">
                 <nz-option [nzValue]="true" [nzLabel]="'Active'"></nz-option>
                 <nz-option [nzValue]="false" [nzLabel]="'InActive'"></nz-option>
               </nz-select>
             </nz-form-item>
             <nz-form-item class="mr-2">
-                    <input [(ngModel)]="filterModel.title" nz-input placeholder="Search Title">
+                    <input [(ngModel)]="filterModel.search" nz-input placeholder="Search Title">
             </nz-form-item>
             <nz-form-item class="mr-2">
               <nz-form-control>

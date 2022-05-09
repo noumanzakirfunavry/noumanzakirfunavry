@@ -5,6 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { ProgramsModel } from '../../common/models/programsModel';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
+import { MediaUtilService } from '../../shared/services/mediaUtil';
 
 @Component({
     selector: 'app-add-programs',
@@ -28,7 +29,8 @@ export class AddProgramsComponent implements OnInit{
       private route: Router, 
       private apiService: ApiService, 
       private activatedRoute: ActivatedRoute, 
-      private message: NzMessageService) {}
+      private message: NzMessageService, 
+      private mediaUtil: MediaUtilService) {}
   
     ngOnInit(): void {
       this.programsModel = new ProgramsModel();
@@ -121,7 +123,7 @@ export class AddProgramsComponent implements OnInit{
         }
         if(this.programForm.valid) {
           const obj= this.programForm.value;
-          this.apiService.sendRequest(requests.addNewProgram, 'post', { ...this.programsModel.toServerModal(obj, this.programsModel.seoDetailId), ...this.programId ? { id: this.programId } : null }).subscribe((res:any) => {
+          this.apiService.sendRequest(this.programId ? requests.updateProgramDetails + this.programId : requests.addNewProgram, this.programId ? 'put' : 'post', { ...this.programsModel.toServerModal(obj, this.programsModel.seoDetailId), ...this.programId ? { id: this.programId } : null }).subscribe((res:any) => {
             console.log("PROGRAM", res);
             this.initForm();
                 this.route.navigateByUrl('programs/list')
@@ -145,7 +147,8 @@ export class AddProgramsComponent implements OnInit{
     })
 }
 
-    populateProgramsForm(program: any) {
+    async populateProgramsForm(program: any) {
+      // const file = await this.urlToFile(program.promo.url);
       this.programForm = this.fb.group({
         firstAiredOn: [new Date(program.updatedAt), []],
         title: [program?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
@@ -155,17 +158,25 @@ export class AddProgramsComponent implements OnInit{
         slugLine: [program?.seoDetails?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
         seoDescription: [program?.seoDetails?.description || null, [Validators.required, Validators.maxLength(250)]],
         keywords: [program?.seoDetails?.keywords || null, [Validators.required]],
-        file: [program?.promo || null, [Validators.required]],
-        thumbnail: [program?.thumbnail || null, [Validators.required]],
+        file: [null],
+        thumbnail: [null],
         orders: [program?.orders || 1, [Validators.required]],
         producedBy: [program?.producedBy || 'CNBC NEWS', [Validators.required]]
     });
     }
 
+    // urlToFile(url) {
+    //   return new Promise((resolve, reject) => {
+    //     this.mediaUtil.urlToFile(url).then(res => {
+    //       return resolve(res);
+    //     })
+    //   })
+    // }
+
     toggleModal() {
         this.zone.run(e => {
-            this.isVisible = true
-        })
+          this.isVisible = true
+      })
   }
 
     closeModal(data) {
@@ -175,8 +186,8 @@ export class AddProgramsComponent implements OnInit{
     fileFromModal(file) {
         this.isVisible = false;
         this.programForm.patchValue({
-            content: this.programForm.value.content ? this.programForm.value.content + `<img src="${file.url}">` : `<img src="${file.url}">`,
-        });
+        content: this.programForm.value.content ? this.programForm.value.content + `<img src="${file.url}">` : `<img src="${file.url}">`,
+    });
   }
 
     mainFileUploaded(file) {
