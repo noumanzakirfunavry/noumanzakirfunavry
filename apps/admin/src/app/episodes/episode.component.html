@@ -28,11 +28,11 @@
                             <td [nzChecked]="setOfCheckedId.has(ep?.id)" [nzDisabled]="ep?.disabled"
                             (nzCheckedChange)="onItemChecked(ep?.id, $event)"></td>
                             <td>{{ep?.title}}</td>
-                            <td>Sample Title Test</td>
+                            <td>{{ep?.program?.title}}</td>
                             <td>{{ep?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{ep?.updatedAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{ep?.user?.name}}</td>
-                            <td>10k</td>
+                            <td></td>
                             <td>
                                 <nz-badge *ngIf="ep?.isActive === true" nzStatus="success"></nz-badge>
                                 <nz-badge *ngIf="ep?.isActive === false" nzStatus="error"></nz-badge>

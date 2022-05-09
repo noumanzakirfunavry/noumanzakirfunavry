@@ -83,8 +83,8 @@ export class TinyEditorComponent implements OnInit{
     toggleModal() {
         // setTimeout(() => {
             this.zone.run(e=>{
-                this.isVisible = true
-            })
+            this.isVisible = true
+        })
         // }, 400);
     }
 

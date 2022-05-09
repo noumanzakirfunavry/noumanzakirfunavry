@@ -19,7 +19,7 @@ export class FileModalComponent implements OnInit {
     constructor(private apiService: ApiService) {}
 
     ngOnInit(): void {
-            this.apiService.sendRequest(requests.getAllAttachments,'get',{limit:25,pageNo:1}).subscribe((res:any)=>{
+            this.apiService.sendRequest(requests.getAllAttachments,'get', {limit: 25,pageNo: 1}).subscribe((res:any)=>{
                 console.log("files",res);
                 this.files=res.response.attachments;
                 console.log("files",this.files);

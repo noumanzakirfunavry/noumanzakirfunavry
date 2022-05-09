@@ -39,7 +39,7 @@
                 <nz-form-item>
                   <nz-form-label nzRequired>Description</nz-form-label>
                   <nz-form-control nzErrorTip="Enter Description maximum 1500 characters allowed!">
-                      <editor formControlName="description" [init]="tinyConfig"></editor>
+                      <editor formControlName="content" [init]="tinyConfig"></editor>
                   </nz-form-control>
               </nz-form-item>
               </div>
@@ -51,7 +51,7 @@
               <div class="col-md-5">
                 <dynamic-file-selector 
                         [title]="'Episode Video'" 
-                        [fileTypes]="'video/mp4 video/3gp video/avi video/mpeg video/mov'" 
+                        [fileTypes]="'video/mp4 video/3gp video/avi video/mpeg video/mov video/webm'" 
                         [field]="tempFile"
                         [customDiv]="'mainFile'"
                         [formField]="episodeForm" 

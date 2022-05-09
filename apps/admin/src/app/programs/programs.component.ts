@@ -57,13 +57,13 @@ export class ProgramsComponent implements OnInit{
     }
 
     receiveStatus(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher};
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publisherId: data.publisherId};
         this.pagination.pageNo= 1;
         this.getAllPrograms();        
     }
 
     receiveFilter(data: Pagination) {
-        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher};
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publisherId: data.publisherId};
         this.pagination.pageNo= 1;
         this.getAllPrograms();        
     }
