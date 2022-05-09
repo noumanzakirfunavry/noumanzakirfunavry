@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import LoginModal from '../LoginModal/LoginModal'
 // import BannerLayout from '../BannerLayout/BannerLayout'
-import Cookies from '../Shared/CookieConsent/Cookies'
+import CookiesComponent from '../Shared/CookieConsent/CookiesComponent'
 import Footer from './Footer/Footer'
 import Header from './Header/Header'
 import TopBar from './TopBar/TopBar'
@@ -17,7 +17,7 @@ const Layout = ({children}) =>{
             {/* <BannerLayout></BannerLayout> */}
             {children}
             <Footer/>
-            {displayCookies && <Cookies/>}
+            {displayCookies && <CookiesComponent/>}
             <LoginModal/>
         </>
     )
