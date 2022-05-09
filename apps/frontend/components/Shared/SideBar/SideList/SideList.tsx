@@ -18,7 +18,7 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
       useEffect(() => {
         // get data for latest news in side bar
         GetData(`${requests.latestNews}limit=${limitOfList}&pageNo=1`, {}, 'get', false).then(res=>{
-            const newsRes = res.data && res.data.length ? res.data : []
+            const newsRes = res?.data && res?.data?.length ? res?.data : []
             setLatestNewsList(newsRes);
 
         }).catch(err=>{
@@ -26,7 +26,7 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
         })
 
         GetData(`${requests.mostReadNews}limit=${limitOfList}&pageNo=1`, {}, 'get', false).then(res=>{
-            const newsRes = res.data?.response && res.data?.response.length ? res.data?.response : []
+            const newsRes = res.data?.response && res.data?.response?.length ? res.data?.response : []
             //console.log('Most Read News:::::', newsRes)
             setMostReadNewsList(newsRes);
 

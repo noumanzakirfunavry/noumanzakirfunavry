@@ -33,7 +33,7 @@ const NewsCategoryPage = () => {
   useEffect(() => {
     GetData(`${requests.categories}/getById/${router.query.categoryId}`, {}, 'get', false).then(res => {
       //console.log(res);
-      setCategory(res.data.response.category);
+      setCategory(res?.data?.response?.category);
 
     }).catch(err => {
       console.warn(err)
@@ -55,7 +55,7 @@ const NewsCategoryPage = () => {
           {category && category?.sub?.map((cat: any) => {
             return (
               <li key={cat.id}>
-                <a href="javascript:void(0)">{cat.title}</a>
+                <a>{cat.title}</a>
               </li>
             )
           })}
