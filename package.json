@@ -8,7 +8,7 @@
     "start": "npx next start",
     "frontend": "nx serve frontend --port 3000",
     "admin": "nx serve admin --port 4200",
-    "build:frontend": "npx next build",
+    "build:frontend": "nx build frontend",
     "build:admin": "nx build admin",
     "build:admin-microservice": "nx build admin-microservice",
     "build:news-microservice": "nx build news-microservice",
