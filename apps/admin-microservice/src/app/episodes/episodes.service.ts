@@ -173,6 +173,30 @@ export class EpisodesService {
             throw err
         }
     }
+
+		async getEpisodeByIdClient(id: number): Promise<GenericResponseDto> {
+			const response = await this.episodeRepository.findOne({
+				where: {
+						id,
+						isActive: true
+				}
+		});
+			if (response) {
+				return new GenericResponseDto(
+					HttpStatus.OK,
+					"Fetched successfully",
+					{ episode: response }
+				)
+			}
+			else {
+				throw new CustomException(
+					Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+					Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+				)
+			}
+
+		}
+
     async getAllEpisodes(query: GetAllEpisodesRequestDto): Promise<GenericResponseDto> {
         try {
             const search_episodes = await this.searchEpisodesQuery(query)
@@ -190,6 +214,30 @@ export class EpisodesService {
             throw err
         }
     }
+
+		async getAllEpisodesClient() {
+			const response = await this.episodeRepository.findAndCountAll({
+				where: {
+					isActive: true
+				}
+			});
+
+			if (response.count === 0) {
+				throw new CustomException(
+					Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+					Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+				)
+			}
+
+			return new GenericResponseDto(
+				HttpStatus.OK,
+				"Fetched successfully",
+				{
+					episodes: response.rows,
+					totalCount: response.count
+				}
+			)
+		}
 
     private async searchEpisodesQuery(query: GetAllEpisodesRequestDto) {
         return await this.episodeRepository.findAndCountAll(
