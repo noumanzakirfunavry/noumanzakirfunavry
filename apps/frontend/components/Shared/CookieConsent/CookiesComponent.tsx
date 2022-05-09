@@ -1,7 +1,7 @@
 import { FC } from "react";
 import CookieConsent, { Cookies } from "react-cookie-consent";
 
-const CookiesComponent: FC<any> = ({limit}) =>{
+const CookiesComponent: FC<any> = () =>{
 
   return (
     <CookieConsent
