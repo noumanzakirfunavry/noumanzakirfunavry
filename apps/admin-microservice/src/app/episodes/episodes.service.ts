@@ -342,7 +342,7 @@ export class EpisodesService {
         return response === 0 ? true : response
     }
 
-    private async updateEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; description: string; isActive: boolean; }, id: number) {
+    private async updateEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; content: string; isActive: boolean; }, id: number) {
         return await this.episodeRepository.update(episode_object, {
             where: {
                 id: id
@@ -358,7 +358,7 @@ export class EpisodesService {
         });
     }
 
-    private async addEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; description: string; isActive: boolean; }, transactionHost) {
+    private async addEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; content: string; isActive: boolean; }, transactionHost) {
         return await this.episodeRepository.create(episode_object, { transaction: transactionHost.transaction });
     }
 
