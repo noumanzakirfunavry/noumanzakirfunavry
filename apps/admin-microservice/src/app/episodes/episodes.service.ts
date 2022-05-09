@@ -1,5 +1,5 @@
 import { CreateEpisodeRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllEpisodesRequestDto } from '@cnbc-monorepo/dtos';
-import { Episodes, EpisodesHasQuotes, EpisodesHasTags, SeoDetails } from '@cnbc-monorepo/entity';
+import { Attachments, Episodes, EpisodesHasQuotes, EpisodesHasTags, SeoDetails } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -214,6 +214,7 @@ export class EpisodesService {
                         publishedBy: query.publishedBy
                     })
                 },
+								include: ['program', 'user'],
                 limit: parseInt(query.limit.toString()),
                 offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
             }
@@ -269,7 +270,8 @@ export class EpisodesService {
         return await this.episodeRepository.findOne({
             where: {
                 id: id
-            }
+            },
+						include: [{model: Attachments, as: 'thumbnail'}, {model: Attachments, as: 'video'}, 'seoDetails']
         });
     }
 
