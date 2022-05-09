@@ -3,7 +3,7 @@ import { Attachments, Episodes, EpisodesHasQuotes, EpisodesHasTags, SeoDetails }
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 
 @Injectable()
 export class EpisodesService {
@@ -253,7 +253,7 @@ export class EpisodesService {
                         isActive: JSON.parse(query.isActive.toString())
                     }),
                     ...(query.date && {
-                        airedOn: query.date
+                        airedOn: where(sequelize.fn('date', sequelize.col('Episodes.airedOn')), '=', query.date)
                     }),
                     ...(query.programId && {
                         programId: query.programId
