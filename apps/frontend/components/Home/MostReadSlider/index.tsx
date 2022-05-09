@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import Title from "../../Title";
 import newsImage from "./../../../styles/images/biden.jpg";
 import GetData from "../../../services/GetData";
-import { requests, baseUrlAdmin } from "../../../services/Requests";
+import { requests, baseUrlAdmin, limitOfList } from "../../../services/Requests";
 import Link from "next/link";
 
 
@@ -78,7 +78,7 @@ const MostReadSlider: FC = () => {
     const [mostReadNewsList, setMostReadNewsList] = useState<any>([]);
 
     useEffect(() => {
-        GetData(`${requests.mostReadNews}limit=10&pageNo=1`, {}, 'get', false).then(res=>{
+        GetData(`${requests.mostReadNews}limit=${limitOfList}&pageNo=1`, {}, 'get', false).then(res=>{
             const newsRes = res.data?.response && res.data?.response.length ? res.data?.response : []
             console.log('Most Read News:::::', newsRes)
             setMostReadNewsList(newsRes);

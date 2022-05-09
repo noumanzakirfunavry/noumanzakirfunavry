@@ -82,6 +82,8 @@ const NewsCategoryPage = () => {
                 displayTitle={false}
                 displayTopTwoNews={true}
                 displayMoreButton={false}
+                loopIndex={2}
+                extended={false}
               />
               {category && category?.sub?.map((cat: any) => {
                 return ( <CategoryNewsSection
@@ -91,6 +93,8 @@ const NewsCategoryPage = () => {
                   displayTitle={true}
                   displayTopTwoNews={true}
                   displayMoreButton={false}
+                  loopIndex={2}
+                  extended={false}
                 />)
               })}
              
@@ -108,6 +112,16 @@ const NewsCategoryPage = () => {
                 displayTopTwoNews={false}
                 displayMoreButton={true}
               /> */}
+
+              <CategoryNewsSection
+                cat={category}
+                limit={20}
+                displayTitle={true}
+                displayTopTwoNews={false}
+                displayMoreButton={true}
+                loopIndex={11}
+                extended={true}
+              />    
             </div>
 
             <div className="PageBuilder-sidebar">
