@@ -28,7 +28,7 @@
     left: 0;
     z-index: 1;
     right: 0;
-    padding: 20px;
+    // padding: 20px;
     td{
         &.ant-table-cell{
             margin-right: 10px;
@@ -37,25 +37,32 @@
 }
 .sub_cat_block {
     position: absolute;
+    padding: 16px;
+   td.ant-table-cell{
+       padding-right: 20px;
+   }
 }
 .featured_news{
     thead.ant-table-thead{
         margin-bottom: 15px;
     }
     .ant-table table{
-        padding: 20px;
+        padding: 20px 0;
         .ant-table-row{
             .ant-table-cell{
                 .ant-form-item{
                     margin-bottom: 0;
-                    min-width: 300px;
+                    min-width: 230px;
+                    .ant-select-single{
+                        width: 100% !important;
+                    }
                     
                 }
             }
             news-table-row{
                 display: inline-block;
                 .co.ant-table-cell{
-                    width: 300px;
+                    width: 230px;
                 }
                
             }
@@ -73,7 +80,7 @@
     .cdk-drag {
         td{
             &.ant-table-cell {
-                padding-right: 20px;
+                // padding-right: 20px;
             }
         }
     }
@@ -110,6 +117,12 @@ table tr td.ant-table-selection-column, table tr th.ant-table-selection-column{
 }
 .min_w150{
     min-width: 150px;
+}
+.ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+    min-width: 102px;
+}
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title{
+    font-size: 16px;
 }
 
 // mediaqueries
