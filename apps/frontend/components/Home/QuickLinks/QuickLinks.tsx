@@ -16,7 +16,9 @@ const QuickLinks = () =>{
 
     const getDataFromApi = () =>{
         GetData(`${requests.quickLinks}/getAll?limit=100&pageNo=1`,{},"get", false).then((res)=>{
-            setQuickLinks(res.data?.response?.quickLinks)
+            setQuickLinks(res.data?.quickLinks);
+            console.log("Quick Links",res.data);
+            
         }).catch(err=>{
             console.log(err)
         })
@@ -32,7 +34,7 @@ const QuickLinks = () =>{
                 !quickLinks?.length && <SkeletonLoader/>
             }
             {
-                quickLinks?.length > 0 && (
+                quickLinks && quickLinks.length > 0 && (
                 <div className="page-categories d-flex">
                     <h6 className="CategoryTitle  ">روابط سريعة</h6>
                     <ul>
