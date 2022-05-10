@@ -68,7 +68,7 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
                 {
                   exclusiveVideosNewsList.map((news: any, index: number) => {
                     return(
-                        <div className="slider-item" key={news.id}>
+                        <div className="slider-item" key={index}>
                             <div className="NewsBox ">
                                 <div className="newsImage">
                                 {news?._source?.thumbnail?.path ? <img className="img-fluid" src={baseUrlAdmin+news?._source.thumbnail?.path} />:<img className="img-fluid" src={sliderimg.src} />}

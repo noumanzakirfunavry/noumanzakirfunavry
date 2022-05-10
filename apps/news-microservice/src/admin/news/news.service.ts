@@ -276,7 +276,9 @@ export class NewsService {
 				},
 				through: {
 					attributes: []
-				}
+				},
+				
+				required:false
 
 			},
 			{
@@ -318,8 +320,10 @@ export class NewsService {
 				})
 
 			},
+		  distinct:true,
 			limit: parseInt(query.limit.toString()),
 			offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
+			
 		});
 	}
 

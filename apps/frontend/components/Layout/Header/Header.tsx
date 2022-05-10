@@ -377,7 +377,7 @@ const Header = () =>{
                                                     { // show categories in sub menu
                                                         newsCategoriesList.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
                                                             return(
-                                                                <li className="nav-item" key={item.id}> 
+                                                                <li className="nav-item" key={index}> 
                                                                     <Link href={`/categoryNewsTiles/${item.id}`}><a className="nav-link active" aria-current="page">{item.title}</a></Link>
                                                                 </li>
                                                             )
@@ -421,7 +421,7 @@ const Header = () =>{
                                                 }
                                                 
                                                 <li className="nav-item dropdown" key={'654564ytf7656'}>
-                                                    <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
+                                                    <a className="nav-link dropdown-toggle" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
                                                     {
@@ -434,13 +434,13 @@ const Header = () =>{
                                                                             <>
                                                                             {
                                                                                 menuItem?.childMenus?.length === 0 ?
-                                                                                <li className="nav-item" key={menuItem.title}>
+                                                                                <li className="nav-item" key={index}>
                                                                                     <Link href={menuItem.url}><a className="nav-link" >{menuItem.title}</a></Link>
                                                                                 </li>
 
                                                                                 : 
 
-                                                                                <li className='sb_hover' key={menuItem.title}>
+                                                                                <li className='sb_hover' key={index}>
                                                                                     <Link href={menuItem.url}><a className="dropdown-item"> {menuItem.title}<i className='fa fa-angle-left me-2'></i> </a></Link>
                                                                                     {menuItem.childMenus?.length > 0 && 
                                                                                         <ul className="dropdown-menu dropdown-submenu" aria-labelledby="morePrograms">
