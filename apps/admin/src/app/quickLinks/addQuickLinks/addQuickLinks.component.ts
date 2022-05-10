@@ -23,6 +23,7 @@ export class AddQuickLinksComponent implements OnInit {
   quickLinkId: any;
   quickLinkById: any;
   loader= true;
+  isLoading= false;
   
   constructor(private fb: FormBuilder, 
     private apiService: ApiService, 
@@ -60,12 +61,16 @@ export class AddQuickLinksComponent implements OnInit {
       this.quickLinkForm.controls[i].updateValueAndValidity();
     }
     if(this.quickLinkForm.valid) {
+      this.isLoading= true;
       const obj= this.quickLinkForm.value;
       obj['position']= 1;
       this.apiService.sendRequest(this.quickLinkId ? requests.updateQuickLink + this.quickLinkId : requests.addNewQuickLink, this.quickLinkId ? 'put' : 'post', obj).subscribe((res:any) => {
         console.log("QUICK-LINK", res);
         this.quickLinkForm.reset();
         this.route.navigateByUrl('quickLinks/list');
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
         if(this.quickLinkId) {
           this.message.create('success', `Quick Link Updated Successfully`)
         }

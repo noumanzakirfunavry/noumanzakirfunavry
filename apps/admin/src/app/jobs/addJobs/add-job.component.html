@@ -44,8 +44,8 @@
             <div class="col-md-12">
               <nz-form-item>
                 <nz-form-control [nzSpan]="14">
-                  <button *ngIf="!jobId" class="mr-3" nz-button nzType="primary">Save</button>
-                  <button *ngIf="jobId" class="mr-3" nz-button nzType="primary">Update</button>
+                  <button *ngIf="!jobId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Save</button>
+                  <button *ngIf="jobId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Update</button>
                   <button nz-button nzType="default" (click)="cancel()">Cancel</button>
                 </nz-form-control>
               </nz-form-item>
