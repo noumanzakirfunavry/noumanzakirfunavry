@@ -15,7 +15,7 @@ export const adminAPIClient=baseUrlAdmin+'admin/api/client/';
 export const requests={
     login:newsAPI+'login',
     signup:newsAPI+'register',
-    quickLinks:newsAPI+'quickLinks',
+    quickLinks:newsAPIClient+'quickLinks',
     breakingNews:adminApi+'breakingNews',
     branches:adminApi+'branches',
     jobs:adminApi+'jobs',
@@ -31,6 +31,7 @@ export const requests={
     latestNews:newsAPIClient+'news/get/flags?',
     search:newsAPIClient+'news/search',
     mostReadNews:newsAPIClient+'news/mostRead?',
+   
 }
 
 export const limitOfList = '20' ;
