@@ -77,12 +77,11 @@ const MainSection = ({ newsList }) => {
                                                 { // show thmbnail with play icon if video news
                                                 //.NewsTiles .newBox .PlayTime
                                                 //.VideoTextBox .VideoNews .PlayTime
-                                                news?._source?.videoId ?
+                                                !news?._source?.videoId ?
                                                     <div className="VideoNews">
-                                                        <div>
+                                                        <div className="mainsection_newsimage__zRzlt">
                                                             <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newsimage.src} />
-                                                        </div>
-                                                        <div className="PlayTime">
+                                                            <div className="PlayTime">
                                                             <h5>05:21</h5>
                                                             <div className="btn-text">
                                                                 <span>شاهد الآن</span>
@@ -95,6 +94,8 @@ const MainSection = ({ newsList }) => {
                                                                 </Link>
                                                             </div>
                                                         </div>
+                                                        </div>
+                                                        
                                                     </div>
 
                                                 : // else show image

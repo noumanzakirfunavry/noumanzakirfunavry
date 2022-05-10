@@ -37,8 +37,7 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                                 <div className="newBox">
                                                     <div className="NewsImage">
                                                         <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newsimg.src} />
-                                                    </div>
-                                                    <div className="PlayTime">
+                                                        <div className="PlayTime">
                                                         <h5>05:21</h5>
                                                         <div className="btn-text">
                                                             <span>شاهد الآن</span>
@@ -51,6 +50,8 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                                             </Link>
                                                         </div>
                                                     </div>
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                                     

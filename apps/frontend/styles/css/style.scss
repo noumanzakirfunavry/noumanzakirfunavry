@@ -713,9 +713,24 @@ h6{
     align-items: center;
     justify-content: center;
   }
+  
   .VideoNews .PlayTime:hover .btn-text{
       width: 180px;
       transition: width .5s;
+  }
+  .VideoNews .mainsection_newsimage__zRzlt .PlayTime .btn-text, .VideoNews .mainsection_newsimage__zRzlt .PlayTime .btn{
+    width: 50px;
+    height: 50px;
+  }
+  .VideoNews .mainsection_newsimage__zRzlt  .PlayTime:hover .btn-text{
+      width: 180px;
+      transition: width .5s;
+  }
+  .VideoNews .mainsection_newsimage__zRzlt .PlayTime{
+    h5{
+      left: 60px;
+      top: 5px;
+    }
   }
   .VideoNews .PlayTime .btn{
     width: 60px;
