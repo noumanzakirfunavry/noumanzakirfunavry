@@ -184,6 +184,7 @@ export class ProgramsService {
 			where: {
 				isActive: true
 			},
+			include: ['seoDetails', 'thumbnail', 'promo']
 		});
 
 		if (response.count === 0) {
