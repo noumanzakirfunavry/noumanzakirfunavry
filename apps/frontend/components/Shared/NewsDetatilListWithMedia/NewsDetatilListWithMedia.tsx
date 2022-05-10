@@ -7,7 +7,7 @@ import Link from "next/link";
 import { baseUrlAdmin } from "apps/frontend/services/Requests";
 
 const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
-    
+    console.log('secondary section::::', newsList);
     return (
         <>
             <div className="NewsList">
@@ -28,10 +28,43 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                             }
                                         </p>
                                     </div>
-                                    <div className="newsImage">
+                                    
+                                    { // show thmbnail with play icon if video news
+                                    //.NewsTiles .newBox .PlayTime
+                                    //.VideoTextBox .VideoNews .PlayTime
+                                        news?._source?.videoId ?
+                                            <div className="NewsTiles">
+                                                <div className="newBox">
+                                                    <div className="NewsImage">
+                                                        <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newsimg.src} />
+                                                    </div>
+                                                    <div className="PlayTime">
+                                                        <h5>05:21</h5>
+                                                        <div className="btn-text">
+                                                            <span>شاهد الآن</span>
+                                                            <Link href={`/newsDetails/` + news._id}>
+                                                                <a>
+                                                                    <button className="btn btn-warning VideoPlay">
+                                                                        <i className="fa play_small"></i>
+                                                                    </button>
+                                                                </a>
+                                                            </Link>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                    
+                                            : // else show image
+
+                                            <div className="newsImage">
+                                                    {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source?.image?.path} /> : <img className="img-fluid" src={newsimg.src} />}
+                                            </div>
+                                    }
+
+                                    {/*<div className="newsImage">
                                         {news?._source?.image ? <img alt="img" className="img-fluid" src={baseUrlAdmin+news._source?.image?.path} />:<img alt="img" className="img-fluid" src={newsimg.src} />}
                                         {news?._source?.videoId && (<iframe width="190" src="https://www.youtube.com/embed/SbsgyRhYbdw?controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>)}
-                                    </div>
+                                        </div>*/}
                                 </li>
                             )
                         })

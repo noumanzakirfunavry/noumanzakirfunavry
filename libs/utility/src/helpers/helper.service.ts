@@ -99,7 +99,7 @@ export class Helper {
         const news_object = {
             airedOn: body.airedOn,
             title: body.title,
-            description: body.description,
+            content: body.content,
             isActive: body.isActive,
             ...(body.videoId && {
                 videoId: body.videoId
@@ -131,10 +131,9 @@ export class Helper {
             episodesId: episodesId
         }
     }
-    quotesObject(position, quotesId, newsId) {
+    quotesObject(quotes, newsId) {
         return {
-            position: position,
-            quotesId: quotesId,
+            ...quotes,
             newsId: newsId
         }
     }

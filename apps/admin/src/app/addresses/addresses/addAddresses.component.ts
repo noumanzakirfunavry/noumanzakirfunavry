@@ -21,6 +21,7 @@ export class AddAddressesComponent implements OnInit {
     addressForm: FormGroup;
     branchId: any;
     branchById: any;
+    loader= true;
   
 
     constructor(private fb: FormBuilder, 
@@ -31,6 +32,21 @@ export class AddAddressesComponent implements OnInit {
       ) {}
   
     ngOnInit(): void {
+      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+        this.branchId = + params.get('id');
+        if (this.branchId) {
+          this.getBranchById();
+        }
+        else {
+          this.initForm();
+          setTimeout(() => {
+            this.loader=false
+          }, 200);
+        }
+      });
+    }
+
+    initForm() {
       this.addressForm = this.fb.group({
         title: [null, [Validators.required]],
         phone: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
@@ -39,12 +55,6 @@ export class AddAddressesComponent implements OnInit {
         addressLine2: [null, [Validators.required]],
         email: [null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$')]],
         isActive: [false]
-      });
-      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
-        this.branchId = + params.get('id');
-        if (this.branchId) {
-          this.getBranchById();
-        }
       });
     }
 
@@ -83,6 +93,9 @@ export class AddAddressesComponent implements OnInit {
           email: [this.branchById?.email || null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$')]],
           isActive: [this.branchById?.isActive || false]
         });
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
       })
     }
 

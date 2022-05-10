@@ -4,6 +4,7 @@ import sliderimg from "../../../styles/images/biden2.jpg";
 
 import GetData from "../../../services/GetData";
 import { requests, baseUrlAdmin } from "../../../services/Requests";
+import Link from "next/link";
 
 
 
@@ -58,7 +59,7 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
               })
         },[])
 
-        //console.log('Exclusive Videos:::::', exclusiveVideosNewsList);
+        console.log('Exclusive Videos:::::', exclusiveVideosNewsList);
 
     return (
         <>
@@ -67,20 +68,25 @@ const NewsFooter2SliderWithColoredBackGround:FC = () =>{
                 {
                   exclusiveVideosNewsList.map((news: any, index: number) => {
                     return(
-                        <div className="slider-item" key={news.id}>
+                        <div className="slider-item" key={index}>
                             <div className="NewsBox ">
                                 <div className="newsImage">
-                                    {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={sliderimg.src} />}
+                                {news?._source?.thumbnail?.path ? <img className="img-fluid" src={baseUrlAdmin+news?._source.thumbnail?.path} />:<img className="img-fluid" src={sliderimg.src} />}
                                     <div className="PlayTime">
                                         
                                         <h5>05:21</h5> {/*@TODO: it will be updated with video time later on*/}
                                         <div className="btn-text">
+                                        <Link href={`/newsDetails/` + news._id}>
+                                                    <a>
                                             <button className="btn btn-warning VideoPlay">
                                                 <i className="fa play_medium"></i>
                                             </button>
+                                            </a>
+                                                </Link>
                                             <span>شاهد الآن</span>
                                         </div>
                                     </div>
+                                    
                                 </div>
                                 <div className="newscontent">
                                     <h5><a>{news?._source?.title}</a></h5>

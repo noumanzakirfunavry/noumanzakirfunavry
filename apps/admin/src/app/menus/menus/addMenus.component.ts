@@ -28,6 +28,7 @@ export class AddMenusComponent implements OnInit{
   menuId: number;
   allMenus: any;
   menuById: any;
+  loader= true;
   
     constructor(
       private fb: FormBuilder, 
@@ -38,6 +39,21 @@ export class AddMenusComponent implements OnInit{
   
     ngOnInit(): void {
       this.getAllMenus();
+      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+        this.menuId = + params.get('id');
+        if (this.menuId) {
+          this.getMenuById();
+        }
+        else {
+          this.initForm();
+          setTimeout(() => {
+            this.loader=false
+          }, 200);
+        }
+      });
+    }
+
+    initForm() {
       this.menuForm = this.fb.group({
         title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
         position: [null, [Validators.required]],
@@ -48,12 +64,6 @@ export class AddMenusComponent implements OnInit{
         isActive: [false],
         visible: [true, [Validators.required]],
         // orderNo: [1, [Validators.required]]
-      });
-      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
-        this.menuId = + params.get('id');
-        if (this.menuId) {
-          this.getMenuById();
-        }
       });
     }
 
@@ -103,6 +113,9 @@ export class AddMenusComponent implements OnInit{
           visible: [this.menuById?.visible || true, [Validators.required]],
           // orderNo: [1, [Validators.required]]
         });
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
       })
     }
 

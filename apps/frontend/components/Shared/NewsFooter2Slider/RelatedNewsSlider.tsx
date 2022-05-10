@@ -91,22 +91,32 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
                                     <div className="slider-item"  key={index}>
                                         <div className="NewsBox ">
                                             <div className="newsImage">
-                                            {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={sliderimg.src} />}
-                                            { news.videoId &&
-                                                <div className="PlayTime">
-                                                    <h5>05:21</h5>
-                                                    <div className="btn-text">
-                                                        <button className="btn btn-warning VideoPlay">
-                                                            <i className="fa play_medium"></i>
-                                                        </button>
-                                                        <span>شاهد الآن</span>
+                                                { // show thmbnail with play icon if video news
+                                                    news?._source?.videoId ?
+                                                    <>
+                                                    {news?._source?.thumbnail ? <img className="img-fluid" src={baseUrlAdmin+news?._source.thumbnail?.path} />:<img className="img-fluid" src={sliderimg.src} />}
+                                                    <div className="PlayTime">
+                                                        <h5>05:21</h5>
+                                                        <div className="btn-text">
+                                                            <Link href={`/newsDetails/`+news._id}>
+                                                                <a>
+                                                                    <button className="btn btn-warning VideoPlay">
+                                                                        <i className="fa play_medium"></i>
+                                                                    </button>
+                                                                </a>
+                                                            </Link>
+                                                            <span>شاهد الآن</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            }
+                                                    </>
+                                                : // else show image
+                                                    news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={sliderimg.src} />
+                                                }
+
                                             </div>
                                             <div className="newscontent">
                                                 {/*<h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>*/}
-                                                <h5><Link href={`/newsDetails/`+news._id}><a>{news?._source?.title}</a></Link></h5>
+                                                <h5><Link href={`/newsDetails/`+news._id}><a>{news?._source?.title.substring(0, 35)}</a></Link></h5>
                                                 {<p><a href="#">الإمارات</a> منذ 5 دقائق</p> /* @TODO: will show sub categories here once it gets done from backend side. */}
                                             </div>
                                         </div>

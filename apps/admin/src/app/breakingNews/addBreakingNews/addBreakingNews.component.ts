@@ -21,6 +21,7 @@ export class AddBreakingNewsComponent implements OnInit {
   breakingNewsForm: FormGroup;
   breakingNewsId: number;
   breakingNewsById: any;
+  loader= true;
   
     constructor(private fb: FormBuilder, 
       private apiService: ApiService, 
@@ -35,8 +36,14 @@ export class AddBreakingNewsComponent implements OnInit {
         if (this.breakingNewsId) {
           this.getBreakingNewsById();
         }
+        else {
+          this.inItForm();
+          setTimeout(() => {
+            this.loader=false
+          }, 200);
+        }
       });
-      this.inItForm();
+      
     }
 
     inItForm() {
@@ -84,6 +91,9 @@ export class AddBreakingNewsComponent implements OnInit {
           IsTwitterActive: [this.breakingNewsById?.IsTwitterActive || false],
           isFacebookActive: [this.breakingNewsById?.isFacebookActive || false]
         });
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
       })
     }
 

@@ -11,10 +11,11 @@ import { MediaUtilService } from '../service/mediaUtil';
 export class FileSelectorComponent implements OnInit {
   @ViewChild("imageSelector") imageSelector: ElementRef;
   @Input() field: any;
+  @Input() customDiv: any;
   @Input() formField: FormGroup;
   @Input() validate: any;
-  @Input() title = 'Image Upload';
-  @Input() fileTypes = 'image/png image/jpg image/jpeg video/mp4 mp4';
+  @Input() title = 'File Upload';
+  @Input() fileTypes = 'image/png image/jpg image/jpeg video/mp4 video/3gp video/avi video/mpeg video/mov video/webm mp4';
   @Output() onFileSelection: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFileUpload:  EventEmitter<any> = new EventEmitter<any>();
   @Output() onFileRemove:  EventEmitter<any> = new EventEmitter<any>();
@@ -68,8 +69,8 @@ export class FileSelectorComponent implements OnInit {
             setTimeout(() => {
               
               this.mediaObj.src = res.body.response.url;
+              console.log("url",this.mediaObj.src);
             }, 200);
-            console.log("url",this.mediaObj.src);
             
             // this.newsModel.fileUrl = res.body.response.url;
            this.onFileUpload.emit(res.body.response);
@@ -113,6 +114,7 @@ export class FileSelectorComponent implements OnInit {
       }
     } else {
       this.error = 'Select one file with these extensions ' + this.fileTypes;
+      this.field.value = null;
       setTimeout(() => {
         this.error = null
       }, 3000);
@@ -121,7 +123,7 @@ export class FileSelectorComponent implements OnInit {
 
   removePicture() {
     this.field.value = null;
-    this.uploadProgress=null;
+    this.uploadProgress= null;
     this.imageSelector.nativeElement.value = null;
     this.mediaObj = { name: '', src: null, type: null };
     this.onFileRemove.emit(this.field);

@@ -18,9 +18,34 @@ const SearchResultList = ({newsSearchData}) => {
                                   return(
 
                                     <li key={index}>
-                                    <div className="newsImage">
-                                            {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={newslistimg.src} />}
-                                        </div>
+
+                                    { // show thmbnail with play icon if video news
+                                        news?._source?.videoId ?
+                                        <div className="VideoTextBox VideoNews">
+                                            <div className="newsImage">
+                                                <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newslistimg.src} />
+                                            
+                                                <div className="PlayTime">
+                                                    <h5>05:21</h5>
+                                                    <div className="btn-text">
+                                                        <span>شاهد الآن</span>
+                                                        <Link href={`/newsDetails/` + news._id}>
+                                                            <a>
+                                                                <button className="btn btn-warning VideoPlay">
+                                                                    <i className="fa play_small"></i>
+                                                                </button>
+                                                            </a>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        : // else show image
+                                            <div className="newsImage">
+                                                {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={newslistimg.src} />}
+                                            </div>
+                                        }
+                                        
                                         <div className="newsText">
                                             <p>
                                                 { // to show tags
@@ -33,7 +58,7 @@ const SearchResultList = ({newsSearchData}) => {
                                                   {/*07 مارس 2022*/}
                                                   {GetArabicFormattedDate(news?._source?.createdAt)}
                                             </p>
-                                            <h6><a><Link href={`/newsDetails/`+news._id}><a>{news?._source?.title}</a></Link></a></h6>
+                                            <h6><Link href={`/newsDetails/`+news._id}><a>{news?._source?.title}</a></Link></h6>
                                             <HtmlData data={news?._source?.content} />
                                             {/*<p>إنتعشت <mark>Amazon</mark> أسعار النفط في الجلسة الأميركية وفاقت مكاسب خام نايمكس الأميركي 2.5% وذلك إثر إنخفاض حاد في مخزونات الخام الأميركي. فقد أظهرت بيانات إدارة معلومات الطاقة الأميركية أن مخزونات النفط الخام في الولايات المتحدة هبطت بشكل حاد الأسبوع الماضي مع انخفاض إنتاج المصافي فيما تراجعت مخزونات البنزين وارتفعت مخزونات</p>*/}
                                         </div>

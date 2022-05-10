@@ -1,4 +1,3 @@
-import { environment } from "../../../environments/environment";
 import { SeoModal } from "../../common/models/seo.modal";
 
 export class NewsModel {
@@ -54,14 +53,19 @@ export class NewsModel {
         this.newsType=serverNews.newsType
         this.showOnHomepage=serverNews.showOnHomepage
         this.isActive=serverNews.isActive
-        this.categoryIds=serverNews.categories.map(x=>x.id);
-        this.tagsIds=serverNews.tags.map(x=>x.id);
-        this.quotesIds=serverNews.quotes.map(x=>x.id);
-        this.seoDetails=serverNews.seoDetail
-        this.seoDetailId=serverNews.seoDetailId;
-        this.fileUrl=serverNews.image  ? environment.fileUrl+serverNews.image?.path:null;
-        this.videoUrl=serverNews.video ? environment.fileUrl+serverNews.video?.path:null;
-        this.thumbnailUrl=serverNews.thumbnail ? environment.fileUrl+serverNews.thumbnail?.path:null;
+        this.categoryIds=serverNews?.categories.map(x=>x.id);
+        this.tagsIds=serverNews?.tags.map(x=>x.id);
+        this.quotesIds=serverNews?.quotes ? serverNews?.quotes.map(x=>x.quoteTickerId):[];
+        this.seoDetails=serverNews?.seoDetail
+        this.seoDetailId=serverNews?.seoDetailId;
+
+        this.videoId=serverNews.videoId || null;
+        this.imageId=serverNews.imageId || null;
+        this.thumbnailId=serverNews.thumbnailId || null;
+
+        this.fileUrl=serverNews.image  ? serverNews.image?.url:null;
+        this.videoUrl=serverNews.video ? serverNews.video?.url:null;
+        this.thumbnailUrl=serverNews.thumbnail ? serverNews.thumbnail?.url:null;
     }
 
     toServerModal(form: any, seoId?) {
@@ -81,6 +85,7 @@ export class NewsModel {
             tagsIds:form.tagsIds,
             // tagsIds: [1],
             quotesIds: form.quotesIds,
+            quotes:form.quotes,
             imageId:this.imageId,
             ...(this.videoId ? {videoId:this.videoId}:null),
             ...(this.thumbnailId ? {thumbnailId:this.thumbnailId}:null),

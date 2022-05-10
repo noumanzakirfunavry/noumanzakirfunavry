@@ -18,11 +18,11 @@ const RegistrationModal = ()=>{
                     </div>
 
                     <div className="form-floating mb-3">
-                        <input type="email" className="form-control" id="floatingInput" placeholder="البريد الإلكتروني"/>
+                        <input type="email1" className="form-control" id="floatingInput" placeholder="البريد الإلكتروني"/>
                         <label htmlFor="floatingInput">البريد الإلكتروني</label>
                     </div>
                     <div className="form-floating mb-3 iconFiled">
-                        <input type="password" className="form-control" id="floatingPassword" placeholder="Password"/>
+                        <input type="password1" className="form-control" id="floatingPassword" placeholder="Password"/>
                         <label htmlFor="floatingPassword">كلمه السر</label>
                         <span className="showIcon"><i title="Show Password" className="fa fa-eye"></i></span>
 

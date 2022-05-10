@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -24,7 +25,8 @@ export class Data extends Pagination {
 
 
 @Component({
-    templateUrl: './exclusiveVideos.component.html'
+    templateUrl: './exclusiveVideos.component.html',
+    styleUrls: ['./exclusiveVideos.component.scss']
 })
 
 export class ExclusiveVideosComponent implements OnInit{
@@ -110,7 +112,7 @@ export class ExclusiveVideosComponent implements OnInit{
             this.exclusiveVideos[news] = updatedNews;
         }
         else if(this.exclusiveVideos.some(x=>!x.newsId)){
-            
+            console.log('');
         }
         else {
             const tempNews = updatedNews;
@@ -145,6 +147,14 @@ export class ExclusiveVideosComponent implements OnInit{
                 this.message.create('success', `Exclusive Videos Updated Successfully`);
             })
         }
+    }
+
+    drop(event: CdkDragDrop<string[] | any>) {
+        moveItemInArray(this.allExclusiveVideos, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.allExclusiveVideos.length; i++) {
+            this.allExclusiveVideos[i].position= i + 1;
+        }
+        console.log("POS", this.allExclusiveVideos);
     }
 
     cancel() {

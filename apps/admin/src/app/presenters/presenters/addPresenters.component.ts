@@ -30,6 +30,7 @@ export class AddPresentersComponent implements OnInit{
     uploadProgress: number;
     imageId: any;
     imagePath: any;
+    loader= true;
 
   
     constructor(private fb: FormBuilder, 
@@ -39,6 +40,21 @@ export class AddPresentersComponent implements OnInit{
       private message: NzMessageService) {}
   
     ngOnInit(): void {
+      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+        this.presenterId = + params.get('id');
+        if (this.presenterId) {
+          this.getPresenterById();
+        }
+        else {
+          this.initForm();
+          setTimeout(() => {
+            this.loader=false
+          }, 200);
+        }
+      });
+    }
+
+    initForm() {
       this.presenterForm = this.fb.group({
         name: [null, [Validators.required]],
         jobPosition: [null, [Validators.required]],
@@ -53,12 +69,6 @@ export class AddPresentersComponent implements OnInit{
         instagramLink: [null, [Validators.required]],
         linkedInLink: [null, [Validators.required]],
         isActive: [false]
-      });
-      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
-        this.presenterId = + params.get('id');
-        if (this.presenterId) {
-          this.getPresenterById();
-        }
       });
     }
 
@@ -123,6 +133,9 @@ export class AddPresentersComponent implements OnInit{
           linkedInLink: [this.presenterById?.linkedInLink || null, [Validators.required]],
           isActive: [this.presenterById?.isActive || false]
         });
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
       })
     }
 

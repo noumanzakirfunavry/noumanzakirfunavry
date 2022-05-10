@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -26,7 +27,8 @@ export class Data extends Pagination {
 }
 
 @Component({
-    templateUrl: './featuredNews.component.html'
+    templateUrl: './featuredNews.component.html',
+    styleUrls: ['./featuredNews.component.scss']
 })
 
 export class FeaturedNewsComponent implements OnInit {
@@ -128,7 +130,7 @@ export class FeaturedNewsComponent implements OnInit {
             this.fNews[news] = updatedNews;
         } 
         else if(this.fNews.some(x=>!x.newsId)){
-            
+            console.log('');
         }
           else {
             // this.fNews[news] = null;
@@ -164,8 +166,15 @@ export class FeaturedNewsComponent implements OnInit {
                 this.message.create('success', `Featured News Updated Successfully`);
             })
         }
-
     }
+
+    drop(event: CdkDragDrop<string[] | any>) {
+        moveItemInArray(this.allFeaturedNews, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.allFeaturedNews.length; i++) {
+            this.allFeaturedNews[i].position= i + 1;
+        }
+        console.log("POS", this.allFeaturedNews);
+      }
 
     cancel() {
         this.route.navigateByUrl('dashboard')
