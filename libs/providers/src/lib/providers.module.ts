@@ -39,6 +39,7 @@ import { TrendingNewsProvider } from '../providers/trending.news.provider';
 import { MenusProvider } from '../providers/menus.provider';
 import { MarketsProvider } from '../providers/markets.provider';
 import { PagesProvider } from '../providers/pages.provider';
+import { DailymotionUploadRequestsProvider } from '../providers/dailyMotion.upload.requests.provider';
 
 @Module({
   providers: [
@@ -82,8 +83,8 @@ import { PagesProvider } from '../providers/pages.provider';
     ...ExclusiveVideosProvider,
 		...MenusProvider,
 		...MarketsProvider,
-		...PagesProvider
-
+		...PagesProvider,
+		...DailymotionUploadRequestsProvider
   ],
   exports: [
     ...UsersProvider,
@@ -125,7 +126,8 @@ import { PagesProvider } from '../providers/pages.provider';
     ...ExclusiveVideosProvider,
 		...MenusProvider,
 		...MarketsProvider,
-		...PagesProvider
+		...PagesProvider,
+		...DailymotionUploadRequestsProvider
 
   ],
 })

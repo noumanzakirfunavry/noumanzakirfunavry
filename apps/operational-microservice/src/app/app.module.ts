@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
-
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { DailymotionModule } from './dailymotion/dailymotion.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [DailymotionModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

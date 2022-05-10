@@ -1,17 +1,25 @@
 
+import axios from 'axios';
+import path from 'path';
+import { Op } from 'sequelize';
+import fs from 'fs'
+import request from 'request'
 import { CreateAttachmentRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllAttachmentsRequestDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
-import { Attachments } from '@cnbc-monorepo/entity';
+import { Attachments, DailymotionUploadRequests } from '@cnbc-monorepo/entity';
 import { AttachmentTypes } from '@cnbc-monorepo/enums';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { Op } from 'sequelize';
 
 @Injectable()
 export class AttachmentsService {
 	constructor(
 		@Inject('ATTACHMENTS_REPOSITORY')
 		private attachmentsRepository: typeof Attachments,
+
+		@Inject('DAILYMOTION_UPLOAD_REQUESTS_REPOSITORY')
+		private dailymotionUploadRepo: typeof DailymotionUploadRequests,
+
 		private helperService: Helper
 	) { }
 
@@ -21,7 +29,10 @@ export class AttachmentsService {
 			const response = await this.attachmentCreationQuery(attachment_obj)
 			if (response) {
 				if (response.attachmentType === AttachmentTypes.VIDEO) {
-					this.uploadToDailyMotion(response)
+					// this.uploadToDailyMotion(response)
+					this.dailymotionUploadRepo.create({
+						status: 'Pending',
+					})
 				}
 				return new GenericResponseDto(
 					HttpStatus.OK,
@@ -203,44 +214,5 @@ export class AttachmentsService {
 
 	private async attachmentCreationQuery(attachment_obj: any) {
 		return await this.attachmentsRepository.create(attachment_obj);
-	}
-
-	async uploadToDailyMotion(video: Attachments) {
-		const url = 'https://api.dailymotion.com/file/upload';
-		const access_token = 'Zjd0SV5dCUllPwRiOw4bPg81KTp9FCdZMwQ_fGNVOC1_';
-
-		try {
-			// const { data } = await axios.get(url, {
-			// 	headers: {
-			// 		Authorization: `Bearer ${access_token}`,
-			// 	},
-			// });
-			// console.log("🚀 ~ file: attachments.service.ts ~ line 206 ~ AttachmentsService ~ uploadToDailyMotion ~ data", data)
-			// console.log(path.join(process.env.DATABASE_FILE_UPLOAD_PATH, video.path));
-
-			// const options = {
-			// 	method: 'POST',
-			// 	url: data.upload_url,
-			// 	headers: {},
-			// 	formData: {
-			// 		file: {
-			// 			value: fs.createReadStream(path.join(process.env.DATABASE_FILE_UPLOAD_PATH, video.path)),
-			// 			options: {
-			// 				// filename: video.title,
-			// 				contentType: null,
-			// 			},
-			// 		},
-			// 	},
-			// };
-      // console.log("🚀 ~ file: attachments.service.ts ~ line 224 ~ AttachmentsService ~ uploadToDailyMotion ~ options", options.formData)
-				// request(options, function (error, response) {
-				// 	if (error) throw new Error(error);
-				// 	console.log(JSON.parse(response.body));
-				// });
-		} catch (err) {
-			console.log(err);
-
-		}
-
 	}
 }

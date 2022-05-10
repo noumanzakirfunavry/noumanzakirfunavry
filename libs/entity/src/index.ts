@@ -8,6 +8,7 @@ import { BreakingNews } from './entities/breaking.news.entity';
 import { Categories } from './entities/categories.entity';
 import { ChangeLogs } from './entities/change.logs.entity';
 import { ContentAnalytics } from './entities/content.analytics.entity';
+import { DailymotionUploadRequests } from './entities/dailyMotion.upload.requests.entity';
 import { Departments } from './entities/departments.entity';
 import { EditorsChoiceNews } from './entities/editors.choice.news.entity';
 import { EmailSubscribers } from './entities/email.subscribers.entity';
@@ -78,6 +79,7 @@ export * from './entities/breaking.news.entity'
 export * from './entities/categories.entity'
 export * from './entities/change.logs.entity'
 export * from './entities/content.analytics.entity'
+export * from './entities/dailyMotion.upload.requests.entity'
 export * from './entities/departments.entity'
 export * from './entities/editors.choice.news.entity'
 export * from './entities/email.subscribers.entity'
@@ -137,6 +139,7 @@ export const Entities=[
     Categories,
     ChangeLogs,
     ContentAnalytics,
+		DailymotionUploadRequests,
     Departments,
     EditorsChoiceNews,
     EmailSubscribers,
