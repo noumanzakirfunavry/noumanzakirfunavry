@@ -20,6 +20,7 @@ export class AddProgramsComponent implements OnInit{
   isVisible: boolean;
   file: any;
   programId: number;
+  loader= true;
   tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Upload' }
   tempThumbanilFile: { colName: string, value: any, label: string } = { 'colName': 'thumbnail', value: null, label: 'Image Upload' }
   
@@ -40,6 +41,9 @@ export class AddProgramsComponent implements OnInit{
             this.getProgramById()
         } else {
             this.initForm();
+            setTimeout(() => {
+              this.loader=false
+            }, 200);
         }
     })
       let selfp = this;
@@ -96,7 +100,6 @@ export class AddProgramsComponent implements OnInit{
               }
           }
       }
-      this.initForm();
     }
 
     initForm() {
@@ -144,6 +147,9 @@ export class AddProgramsComponent implements OnInit{
         this.programsModel.seoDetailId = res.response.program.seoDetailId;
         console.log("view modal", this.programsModel);
         this.populateProgramsForm(res.response.program);
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
     })
 }
 

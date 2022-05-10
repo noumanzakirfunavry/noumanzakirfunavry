@@ -22,6 +22,7 @@ export class AddQuickLinksComponent implements OnInit {
   selectedQuickLink: any;
   quickLinkId: any;
   quickLinkById: any;
+  loader= true;
   
   constructor(private fb: FormBuilder, 
     private apiService: ApiService, 
@@ -31,16 +32,25 @@ export class AddQuickLinksComponent implements OnInit {
     ) {}
   
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+      this.quickLinkId = + params.get('id');
+      if (this.quickLinkId) {
+        this.getQuickLinkById();
+      }
+      else {
+        this.initForm()
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
+      }
+  });
+  }
+
+  initForm() {
     this.quickLinkForm = this.fb.group({
       title: [ null, [ Validators.required ] ],
       url: [ null, [ Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?') ] ],
       visible: [false]
-  });
-  this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
-    this.quickLinkId = + params.get('id');
-    if (this.quickLinkId) {
-      this.getQuickLinkById();
-    }
   });
   }
 
@@ -75,6 +85,9 @@ export class AddQuickLinksComponent implements OnInit {
         url: [ this.quickLinkById?.url || null, [ Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?') ] ],
         visible: [this.quickLinkById?.visible || false]
     });
+    setTimeout(() => {
+      this.loader=false
+    }, 200);
     })
   }
 

@@ -18,6 +18,7 @@ export class AddJobComponent implements OnInit {
     jobId: any;
     jobById: any;
     allBranches: any;
+    loader= true;
     public Editor = ClassicEditor;
 
     constructor(private fb: FormBuilder, 
@@ -29,17 +30,26 @@ export class AddJobComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllBranches();
-        this.jobForm = this.fb.group({
-            title: [null, [Validators.required]],
-            branchId: [null, [Validators.required]],
-            description: [null, [Validators.required, Validators.maxLength(1500)]],
-            isActive: [false]
-          });
           this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
             this.jobId = + params.get('id');
             if (this.jobId) {
               this.getJobById();
             }
+            else {
+                this.initForm();
+                setTimeout(() => {
+                    this.loader=false
+                  }, 200);
+            }
+          });
+    }
+
+    initForm() {
+        this.jobForm = this.fb.group({
+            title: [null, [Validators.required]],
+            branchId: [null, [Validators.required]],
+            description: [null, [Validators.required, Validators.maxLength(1500)]],
+            isActive: [false]
           });
     }
 
@@ -93,6 +103,9 @@ export class AddJobComponent implements OnInit {
                 description: [this.jobById?.description || null, [Validators.required, Validators.maxLength(1500)]],
                 isActive: [this.jobById?.isActive || false]
               });
+              setTimeout(() => {
+                this.loader=false
+              }, 200);
         })
     }
 
