@@ -48,11 +48,11 @@ export class AddNewsComponent implements OnInit {
     uploadProgress: number;
     file: any;
     fileType: string;
-    submitted = false;
     selectedCat: any;
     loader = true;
     tinyConfig: any;
     isVisible: boolean;
+    isLoading= false;
 
     constructor(private apiService: ApiService,
         private fb: FormBuilder,
@@ -248,10 +248,9 @@ export class AddNewsComponent implements OnInit {
             this.newsForm.controls[i].markAsDirty();
             this.newsForm.controls[i].updateValueAndValidity();
         }
-        this.submitted = true;
         if (this.newsForm.valid) {
+            this.isLoading= true;
             const obj = this.newsForm.value;
-            // if () {
             obj['newsType'] = this.newsModel.imageId ? 'ARTICLE' : 'NEWS';
             obj['contentType'] = this.newsModel.imageId ? 'IMAGE' : this.newsModel.videoId ? 'VIDEO' : 'TEXT';
             obj['quotes'] = this.allQuotes.filter(x => {
@@ -264,6 +263,9 @@ export class AddNewsComponent implements OnInit {
                 console.log("News", res);
                 this.initNewsForm();
                 this.route.navigateByUrl('news/list')
+                setTimeout(() => {
+                    this.isLoading = false;
+                  }, 2000);
                 if (this.newsId) {
                     this.message.create('success', `News Updated Successfully`)
                 }

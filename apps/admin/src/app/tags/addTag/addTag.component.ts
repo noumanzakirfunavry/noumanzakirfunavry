@@ -22,6 +22,7 @@ export class AddTagComponent implements OnInit {
   tagId: any;
   tagById: any;
   loader= true;
+  isLoading= false;
 
 
     constructor(private fb: FormBuilder, 
@@ -61,12 +62,16 @@ export class AddTagComponent implements OnInit {
         this.tagsForm.controls[i].updateValueAndValidity();
       }
       if(this.tagsForm.valid) {
+        this.isLoading= true;
         const obj= this.tagsForm.value;
         obj['title']= this.tagsForm.value.title.trim();
         this.apiService.sendRequest(this.tagId ? requests.updateTag + this.tagId : requests.addNewTag, this.tagId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("TAGS", res);
           this.tagsForm.reset();
           this.route.navigateByUrl('tags/list');
+          setTimeout(() => {
+            this.isLoading= false;
+          }, 2000)
           if(this.tagId) {
             this.message.create('success', `Tag Updated Successfully`)
           }

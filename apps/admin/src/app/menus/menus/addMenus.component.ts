@@ -29,6 +29,7 @@ export class AddMenusComponent implements OnInit{
   allMenus: any;
   menuById: any;
   loader= true;
+  isLoading= false;
   
     constructor(
       private fb: FormBuilder, 
@@ -73,10 +74,14 @@ export class AddMenusComponent implements OnInit{
         this.menuForm.controls[i].updateValueAndValidity();
       }
       if(this.menuForm.valid) {
+        this.isLoading= true;
         this.apiService.sendRequest(this.menuId ? requests.updateMenu + this.menuId : requests.addMenu, this.menuId ? 'put' : 'post', this.menuForm.value).subscribe((res:any) => {
           console.log("MENU", res);
           this.menuForm.reset();
           this.route.navigateByUrl('menus/list');
+          setTimeout(() => {
+            this.isLoading= false;
+          }, 2000);
           if(this.menuId) {
             this.message.create('success', `Menu Updated Successfully`)
         }
