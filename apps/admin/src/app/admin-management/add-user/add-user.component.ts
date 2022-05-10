@@ -160,7 +160,6 @@ export class AddUserComponent implements OnInit{
         setTimeout(() => {
           this.loader=false
         }, 200);
-   
     })
   }
 

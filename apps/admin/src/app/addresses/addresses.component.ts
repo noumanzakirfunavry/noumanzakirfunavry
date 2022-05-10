@@ -46,8 +46,17 @@ export class AddressesComponent implements OnInit{
             this.loading= false;
         },err => {
             this.loading = false;
+            throw this.handleError(err);
           })
     }
+
+    handleError(err: any) {
+        if (err) {
+          this.allBranches = [];
+          this.branchesCount= 0;
+        }
+        return err
+      }
 
     clean(obj:any) {
         for (const propName in obj) {
@@ -76,6 +85,18 @@ export class AddressesComponent implements OnInit{
         this.loading= true;
         this.pagination = Object.assign({...this.pagination, limit: limit})
         this.getAllBranches();
+    }
+
+    receiveStatus(data: Pagination) {
+        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher};
+        this.pagination.pageNo= 1;
+        this.getAllBranches();        
+    }
+
+    receiveFilter(data: Pagination) {
+        this.pagination={...this.pagination, status: data.status, title: data.title, publisher: data.publisher};
+        this.pagination.pageNo= 1;
+        this.getAllBranches();        
     }
 
     updateCheckedSet(id: number, checked: boolean): void {

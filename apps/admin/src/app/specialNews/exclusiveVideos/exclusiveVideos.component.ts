@@ -155,7 +155,7 @@ export class ExclusiveVideosComponent implements OnInit{
             this.allExclusiveVideos[i].position= i + 1;
         }
         console.log("POS", this.allExclusiveVideos);
-      }
+    }
 
     cancel() {
         this.route.navigateByUrl('dashboard')

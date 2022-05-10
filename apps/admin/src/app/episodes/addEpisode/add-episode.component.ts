@@ -23,6 +23,7 @@ export class AddEpisodeComponent implements OnInit {
     isVisible: boolean;
     file: any;
     loading= true;
+    loader= true;
     allPrograms: any;
     episodeId: number;
     tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Upload' }
@@ -43,8 +44,12 @@ export class AddEpisodeComponent implements OnInit {
         this.episodeId = parseInt(params.id);
         if (this.episodeId) {
             this.getEpisodeById()
-        } else {
+        } 
+        else {
             this.initForm();
+            setTimeout(() => {
+              this.loader=false
+            }, 200);
         }
     })
       let selfp = this;
@@ -101,7 +106,6 @@ export class AddEpisodeComponent implements OnInit {
               }
           }
       }
-      this.initForm();
     }
 
     initForm() {
@@ -173,6 +177,9 @@ export class AddEpisodeComponent implements OnInit {
           this.episodesModel.seoDetailId = res.response.episode.seoDetailId;
           console.log("view modal", this.episodesModel);
           this.populateEpisodessForm(res.response.episode);
+          setTimeout(() => {
+            this.loader=false
+          }, 200);
         })
       }
 

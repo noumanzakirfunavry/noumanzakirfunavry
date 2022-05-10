@@ -23,8 +23,9 @@ export class AddCategoryComponent implements OnInit {
     } = {limit: 1000, pageNo: 1}
     allCategories: any;
     categoryForm: FormGroup;
-    categoryId: number
+    categoryId: number;
     categoryById: any;
+    loader= true;
     
 
     constructor(
@@ -36,18 +37,27 @@ export class AddCategoryComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllCategories();
+          this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+            this.categoryId = + params.get('id');
+            if (this.categoryId) {
+              this.getCategoryById();
+            }
+            else {
+                this.initForm();
+                setTimeout(() => {
+                    this.loader=false
+                  }, 200);
+            }
+          });
+    }
+
+    initForm() {
         this.categoryForm = this.fb.group({
             title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             parentCategoryId: [null],
             isActive: [false],
             displayInCategoryMenu: [false],
             displayInHomePage: [false]
-          });
-          this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
-            this.categoryId = + params.get('id');
-            if (this.categoryId) {
-              this.getCategoryById();
-            }
           });
     }
 
@@ -84,6 +94,9 @@ export class AddCategoryComponent implements OnInit {
                 displayInCategoryMenu: [this.categoryById?.displayInCategoryMenu || false],
                 displayInHomePage: [this.categoryById?.displayInHomePage || false]
               });
+              setTimeout(() => {
+                this.loader=false
+              }, 200);
         })
     }
 

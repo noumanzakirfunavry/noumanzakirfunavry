@@ -62,7 +62,6 @@ export class AddNewsComponent implements OnInit {
         private message: NzMessageService) { }
 
     ngOnInit(): void {
-        this.loader = true;
         const admin = JSON.parse(localStorage.getItem('admin') || '{}');
         let selfp = this;
         this.tinyConfig = {
@@ -260,7 +259,6 @@ export class AddNewsComponent implements OnInit {
                     return x
                 }
             })
-            debugger
             // // obj['parentCategoryId'] = parseInt(this.newsForm.value.parentCategoryId);
             this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModel.toServerModal(obj, this.newsModel.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
                 console.log("News", res);
