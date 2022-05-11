@@ -5,12 +5,14 @@ import { ProvidersModule } from '@cnbc-monorepo/providers';
 import { UtilityModule } from '@cnbc-monorepo/utility';
 import { ExceptionHandlingModule } from '@cnbc-monorepo/exception-handling';
 import { ProgramsClientController } from './programs.client.controller';
+import { InterceptorsModule } from '@cnbc-monorepo/interceptors';
 
 @Module({
   imports : [
     ProvidersModule,
     UtilityModule,
     ExceptionHandlingModule,
+		InterceptorsModule
   ],
   controllers: [ProgramsController, ProgramsClientController],
   providers: [ProgramsService]
