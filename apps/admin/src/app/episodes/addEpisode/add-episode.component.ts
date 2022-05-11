@@ -23,6 +23,8 @@ export class AddEpisodeComponent implements OnInit {
     isVisible: boolean;
     file: any;
     loading= true;
+    loader= true;
+    isLoading= false;
     allPrograms: any;
     episodeId: number;
     tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Upload' }
@@ -43,8 +45,12 @@ export class AddEpisodeComponent implements OnInit {
         this.episodeId = parseInt(params.id);
         if (this.episodeId) {
             this.getEpisodeById()
-        } else {
+        } 
+        else {
             this.initForm();
+            setTimeout(() => {
+              this.loader=false
+            }, 200);
         }
     })
       let selfp = this;
@@ -101,7 +107,6 @@ export class AddEpisodeComponent implements OnInit {
               }
           }
       }
-      this.initForm();
     }
 
     initForm() {
@@ -109,7 +114,7 @@ export class AddEpisodeComponent implements OnInit {
           airedOn: [new Date(), []],
           title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
           programId: [null, [Validators.required]],
-          description: [null, [Validators.required, Validators.maxLength(1500)]],
+          content: [null, [Validators.required, Validators.maxLength(1500)]],
           isActive: [true],
           seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
           slugLine: [null, [Validators.required, Validators.maxLength(250)]],
@@ -151,11 +156,15 @@ export class AddEpisodeComponent implements OnInit {
           this.episodeForm.controls[i].updateValueAndValidity();
         }
         if(this.episodeForm.valid) {
+          this.isLoading= true;
           const obj = this.episodeForm.value;
-          this.apiService.sendRequest(requests.addProgramEpisode, 'post', { ...this.episodesModel.toServerModal(obj, this.episodesModel.seoDetailId), ...this.episodeId ? { id: this.episodeId } : null }).subscribe((res:any) => {
+          this.apiService.sendRequest(this.episodeId ? requests.updateProgramEpisode + this.episodeId : requests.addProgramEpisode, this.episodeId ? 'put' : 'post', { ...this.episodesModel.toServerModal(obj, this.episodesModel.seoDetailId), ...this.episodeId ? { id: this.episodeId } : null }).subscribe((res:any) => {
             console.log("EPISODES", res);
             this.initForm();
             this.route.navigateByUrl('episodes/list')
+            setTimeout(() => {
+              this.isLoading= false
+            }, 2000)
             if (this.episodeId) {
                 this.message.create('success', `Episode Updated Successfully`)
             }
@@ -173,6 +182,9 @@ export class AddEpisodeComponent implements OnInit {
           this.episodesModel.seoDetailId = res.response.episode.seoDetailId;
           console.log("view modal", this.episodesModel);
           this.populateEpisodessForm(res.response.episode);
+          setTimeout(() => {
+            this.loader=false
+          }, 200);
         })
       }
 
@@ -181,14 +193,14 @@ export class AddEpisodeComponent implements OnInit {
           airedOn: [new Date(episode.updatedAt), []],
           title: [episode?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
           programId: [episode?.programId || null, [Validators.required]],
-          description: [episode?.description || null, [Validators.required, Validators.maxLength(1500)]],
+          content: [episode?.content || null, [Validators.required, Validators.maxLength(1500)]],
           isActive: [episode?.isActive],
-          seoTitle: [episode?.seoDetail?.seoTitle || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-          slugLine: [episode?.seoDetail?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
-          seoDescription: [episode?.seoDetail?.seoDescription || null, [Validators.required, Validators.maxLength(250)]],
-          keywords: [episode?.seoDetail?.keywords || null, [Validators.required]],
-          file: [episode?.file || null, [Validators.required]],
-          thumbnail: [episode?.thumbnail || null, [Validators.required]]
+          seoTitle: [episode?.seoDetails?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+          slugLine: [episode?.seoDetails?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
+          seoDescription: [episode?.seoDetails?.description || null, [Validators.required, Validators.maxLength(250)]],
+          keywords: [episode?.seoDetails?.keywords || null, [Validators.required]],
+          file: [null],
+          thumbnail: [null]
       });
       }
 

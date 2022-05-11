@@ -10,15 +10,15 @@ const ContactUsForm = () => {
             <form>
                     <div className="mb-3">
                         <label className="form-label fs12_gray">الاسم</label>
-                        <input type="email" className="form-control"/>
+                        <input type="email1" className="form-control"/>
                     </div>
                     <div className="mb-3">
                         <label className="form-label fs12_gray">بريد الكتروني</label>
-                        <input type="email" className="form-control"/>
+                        <input type="email2" className="form-control"/>
                     </div>
                     <div className="mb-3">
                         <label className="form-label fs12_gray">رقم الهاتف</label>
-                        <input type="email" className="form-control"/>
+                        <input type="email3" className="form-control"/>
                     </div>
                     <div className="mb-3">
                 <label className="form-label">الدول</label>

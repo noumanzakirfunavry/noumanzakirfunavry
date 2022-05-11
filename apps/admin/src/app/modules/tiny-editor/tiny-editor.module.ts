@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoComponentsShareModule } from '../../demo-components-share/demo-components-share.module';
 import { TinyEditorComponent } from './tiny-editor.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
-// import { FileModalComponent } from './file-modal/file-modal.component';
+import { FileModalComponent } from './file-modal/file-modal.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 
 
@@ -31,7 +31,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     exports: [],
     declarations: [
         TinyEditorComponent,
-        // FileModalComponent
+        FileModalComponent
     ],
     providers: [
         { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }

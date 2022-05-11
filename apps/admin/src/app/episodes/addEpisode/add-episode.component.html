@@ -1,7 +1,7 @@
 <section>
     <br>
     <br>
-    <div class="col-12">
+    <div *ngIf="!loader" class="col-12">
       <form nz-form [formGroup]="episodeForm" [nzLayout]="'vertical'" (ngSubmit)="episodes()">
         <div class="row">
           <div class="col-8">
@@ -39,7 +39,7 @@
                 <nz-form-item>
                   <nz-form-label nzRequired>Description</nz-form-label>
                   <nz-form-control nzErrorTip="Enter Description maximum 1500 characters allowed!">
-                      <editor formControlName="description" [init]="tinyConfig"></editor>
+                      <editor formControlName="content" [init]="tinyConfig"></editor>
                   </nz-form-control>
               </nz-form-item>
               </div>
@@ -51,7 +51,7 @@
               <div class="col-md-5">
                 <dynamic-file-selector 
                         [title]="'Episode Video'" 
-                        [fileTypes]="'video/mp4 video/3gp video/avi video/mpeg video/mov'" 
+                        [fileTypes]="'video/mp4 video/3gp video/avi video/mpeg video/mov video/webm'" 
                         [field]="tempFile"
                         [customDiv]="'mainFile'"
                         [formField]="episodeForm" 
@@ -134,8 +134,8 @@
         </div>
         <nz-form-item>
           <nz-form-control [nzSpan]="14">
-            <button *ngIf="!episodeId" class="mr-3" nz-button nzType="primary">Save</button>
-            <button *ngIf="episodeId" class="mr-3" nz-button nzType="primary">Update</button>
+            <button *ngIf="!episodeId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Save</button>
+            <button *ngIf="episodeId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Update</button>
             <button (click)="[getCaptcha($event),cancel()]" nz-button nzType="default">Cancel</button>
           </nz-form-control>
         </nz-form-item>

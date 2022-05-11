@@ -15,7 +15,7 @@ export class FileSelectorComponent implements OnInit {
   @Input() formField: FormGroup;
   @Input() validate: any;
   @Input() title = 'File Upload';
-  @Input() fileTypes = 'image/png image/jpg image/jpeg video/mp4 video/3gp video/avi video/mpeg video/mov mp4';
+  @Input() fileTypes = 'image/png image/jpg image/jpeg video/mp4 video/3gp video/avi video/mpeg video/mov video/webm mp4';
   @Output() onFileSelection: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFileUpload:  EventEmitter<any> = new EventEmitter<any>();
   @Output() onFileRemove:  EventEmitter<any> = new EventEmitter<any>();

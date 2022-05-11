@@ -25,8 +25,8 @@ const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal, handleNavigati
 
         <div className='searchResulstBox' ref={searchBox}>
             <div className="dropsearch d-flex align-items-center">
-            <input type="text" className="form-control" placeholder={searchVal} value={searchVal}/>
-            <a href="javascript:void(0)" className="search_icon">
+            <input type="text" className="form-control" placeholder={searchVal}/>
+            <a className="search_icon">
                 <img src={search.src} alt="search" />
                 </a>
                 </div>

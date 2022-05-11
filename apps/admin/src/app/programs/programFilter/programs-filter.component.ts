@@ -11,7 +11,7 @@ import { ApiService } from '../../shared/services/api.service';
 export class ProgramsFilterComponent implements OnInit{
     @Output() statusEmitter = new EventEmitter (); 
     @Output() filterEmitter = new EventEmitter (); 
-    filterModel : {status: boolean, title: string, publisher: number} = {status: null, title: null, publisher: null}
+    filterModel : {isActive: boolean, search: string, publisherId: number} = {isActive: null, search: null, publisherId: null}
     pagination : Pagination = new Pagination();
     allAdmins: any;
     loading= true;
@@ -42,14 +42,14 @@ export class ProgramsFilterComponent implements OnInit{
       }
 
     search() {
-        // if(this.filterModel.publishers) {
-        //     this.filterModel.publishers= [this.filterModel.publishers]
+        // if(this.filterModel.publisherId) {
+        //     this.filterModel.publisherId= [this.filterModel.publisherId]
         // }
         this.statusEmitter.emit(this.filterModel);
     }
 
     clear() {
-        this.filterModel= { status : null, title : null, publisher: null};
+        this.filterModel= { isActive : null, search : null, publisherId: null};
         this.filterEmitter.emit(this.filterModel);
     }
    

@@ -1,7 +1,7 @@
 <section>
     <br>
     <br>
-    <div class="col-12">
+    <div *ngIf="!loader" class="col-12">
       <form nz-form [formGroup]="programForm" [nzLayout]="'vertical'" (ngSubmit)="programs()">
         <div class="row">
           <div class="col-8">
@@ -38,7 +38,7 @@
               <div class="col-md-6">
                 <dynamic-file-selector 
                         [title]="'Promo Video'" 
-                        [fileTypes]="'video/mp4 video/3gp video/avi video/mpeg video/mov'" 
+                        [fileTypes]="'video/mp4 video/3gp video/avi video/mpeg video/mov video/webm'" 
                         [field]="tempFile"
                         [customDiv]="'mainFile'"
                         [formField]="programForm" 
@@ -121,8 +121,8 @@
         </div>
         <nz-form-item>
           <nz-form-control [nzSpan]="14">
-            <button *ngIf="!programId" class="mr-3" nz-button nzType="primary">Save</button>
-            <button *ngIf="programId" class="mr-3" nz-button nzType="primary">Update</button>
+            <button *ngIf="!programId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Save</button>
+            <button *ngIf="programId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Update</button>
             <button (click)="[getCaptcha($event),cancel()]" nz-button nzType="default">Cancel</button>
           </nz-form-control>
         </nz-form-item>
