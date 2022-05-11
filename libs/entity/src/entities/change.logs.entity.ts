@@ -14,21 +14,8 @@ export class ChangeLogs extends Model{
 @Column
 id : number
 
-// @Column({
-//     type : DataType.ENUM,
-//     values : Object.values(ChangeTypes)
-
-// })
-// changeType : ChangeTypes
 @Column
 changeType : string
-
-// @Column({
-//     type : DataType.ENUM,
-//     values : Object.values(EntityTypes)
-
-// })
-// entityType : EntityTypes
 
 @Column
 entityType : string
