@@ -17,7 +17,7 @@ const MainSection = ({ newsList }) => {
     //     return news?._source?.featuredNews?.position > 3 && news?._source?.featuredNews?.position <= 5
     // })
     
-    // background image path
+    // background image patht
     const backgroundImagePath = newsList[0]?._source?.videoId ? newsList[0]?._source?.thumbnail?.path : newsList[0]?._source?.image?.path
     return (
         <>
