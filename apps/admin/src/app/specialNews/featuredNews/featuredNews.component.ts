@@ -109,10 +109,13 @@ export class FeaturedNewsComponent implements OnInit {
     getAllFeaturedNews() {
         this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res: any) => {
             this.allFeaturedNews = res.response.featuredNews;
-            this.fNews = this.allFeaturedNews && this.allFeaturedNews.length > 0 ? this.allFeaturedNews : this.fNews;
-            // this.fNews.forEach(news => {
-            //     news.newsId = this.allFeaturedNews.find(x=>x.position==news.position)?.newsId
-            // })
+            for(let i = 0; i < this.fNews.length; i++) {
+                const feaNews= this.allFeaturedNews.find(x => x.position == this.fNews[i].position)
+                if(feaNews) {
+                    feaNews['section']=feaNews.position > 5 ? 'SECONDARY':'MAIN';
+                    this.fNews[i] = feaNews;
+                }
+            }
             console.log("ALL-FEATURED-NEWS", this.allFeaturedNews);
             this.loading = false;
         }, err => {
@@ -133,7 +136,6 @@ export class FeaturedNewsComponent implements OnInit {
             console.log('');
         }
           else {
-            // this.fNews[news] = null;
             const tempNews = updatedNews;
             setTimeout(() => {
                 this.fNews[news] = tempNews;
@@ -160,7 +162,8 @@ export class FeaturedNewsComponent implements OnInit {
             this.message.create('error', 'Add all Featured News for Featured Section')
         } 
         else {
-            this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
+            const body = this.fNews.map(x=>{return {newsId: x.newsId, position: x.position, section: x.section}});
+            this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: body }).subscribe((res: any) => {
                 console.log("UPDATE-FEATURED-NEWS", res);
                 this.getAllFeaturedNews();
                 this.message.create('success', `Featured News Updated Successfully`);
