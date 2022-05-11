@@ -14,47 +14,27 @@ export class ChangeLogs extends Model{
 @Column
 id : number
 
-@Column({
-    type : DataType.ENUM,
-    values : Object.values(ChangeTypes)
-
-})
-changeType : ChangeTypes
-
-@Column({
-    type : DataType.ENUM,
-    values : Object.values(EntityTypes)
-
-})
-entityType : EntityTypes
+@Column
+changeType : string
 
 @Column
-entityId : number
+entityType : string
 
 @Column
-changeDate : Date
-
-@Column
-changeComment : string
+changes : string
 
 @Column
 ipAddress : string
 
-@Column
-location : string
-
 @ForeignKey(() => Sessions)
 @Column
-sessionsId : number
-
+sessionId : number
 @BelongsTo(() => Sessions)
 session : Sessions
-
 
 @ForeignKey(() => Users)
 @Column
 changedBy : number
-
 @BelongsTo(() => Users)
 user : Users
 

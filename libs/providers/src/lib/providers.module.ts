@@ -86,7 +86,8 @@ import { CommentsProvider } from '../providers/comments.provider';
 		...MarketsProvider,
 		...PagesProvider,
 		...ProgramsProvider,
-    ...CommentsProvider
+    ...CommentsProvider,
+		...ChangeLogsProvider
   ],
   exports: [
     ...UsersProvider,
@@ -130,7 +131,8 @@ import { CommentsProvider } from '../providers/comments.provider';
 		...MarketsProvider,
 		...PagesProvider,
 		...ProgramsProvider,
-    ...CommentsProvider
+    ...CommentsProvider,
+		...ChangeLogsProvider
   ],
 })
 export class ProvidersModule {}
