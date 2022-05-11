@@ -18,8 +18,8 @@ export class AdminLogInterceptor implements NestInterceptor {
 						const splittedUrl = req.url.split('/')
 						const resource: string = splittedUrl[4] ?? null
 						const endpoint: string = splittedUrl[5] ?? null
-						try {
-							const loggableRequest = loggableRequests[resource][method][endpoint] ?? null
+						const loggableRequest = loggableRequests?.[resource]?.[method]?.[endpoint]
+						if (loggableRequest) {
 							this.logsRepository.create({
 								changeType: loggableRequest.action,
 								entityType: loggableRequest.entity,
@@ -28,8 +28,6 @@ export class AdminLogInterceptor implements NestInterceptor {
 								sessionId: req.user.sessionId,
 								changedBy: req.user.data.id
 							}).catch(err => console.log(err))
-						} catch (err) {
-              console.log("🚀 ~ file: admin.log.interceptor.ts ~ line 32 ~ AdminLogInterceptor ~ An error occured while logging the request inside admin logs interceptor (possibly beccause the request has not been defined inside loggableRequests file)")							
 						}
 					}
 				}),
