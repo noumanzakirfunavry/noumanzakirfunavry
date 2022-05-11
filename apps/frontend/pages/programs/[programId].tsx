@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import GetData from '../../services/GetData';
 import { requests } from '../../services/Requests';
+import RecordNotFound from '../../components/Shared/RecordNotFound/RecordNotFound';
 
 const Index = () => {
 
@@ -28,11 +29,12 @@ const Index = () => {
       }, [router.query.programId]);
 
     return (
+        programDetails ?
         <>
             <div className="container">
                 <AdBanner />
             </div>
-            <Title styles="pageTitle PageTitleYellow mb-0"><h2>{programDetails.title}</h2></Title>
+            <Title styles="pageTitle PageTitleYellow mb-0"><h2>{programDetails?.title}</h2></Title>
             <ProgramDetails programDetails={programDetails} />
             <div className="container">
                 <div className='PageBuilder-pageRow'>
@@ -46,6 +48,8 @@ const Index = () => {
                 </div>
             </div>
         </>
+        :
+        <RecordNotFound />
     )
 }
 
