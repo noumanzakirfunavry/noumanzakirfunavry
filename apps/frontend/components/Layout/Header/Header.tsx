@@ -146,7 +146,7 @@ const Header = () =>{
         //fetch data and return
           
         if(value){
-            GetData(`http://157.90.67.186/zagTrader/api/TickerSearchAPIFull.php?st=${value}`, {}, 'get', false).then(res=>{
+            GetData(`https://cnbc-config.cnbcarabia.com/zagTrader/api/TickerSearchAPIFull.php?st=${value}`, {}, 'get', false).then(res=>{
                 setData(res?.data);
                 console.log('zagtrader::::::::', res);
             }).catch(err=>{

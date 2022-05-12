@@ -573,7 +573,7 @@ export class NewsService {
 		if (isExclusiveNews) { resObj['isExclusive'] = true }
 		else { resObj['isExclusive'] = false }
 
-		return new GenericResponseDto(HttpStatus, "News Status", resObj)
+		return new GenericResponseDto(HttpStatus.OK, "News Status", resObj)
 
 	}
 	isObjectEmpty(object) {

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { useEffect, useState } from "react";
 const parseString = require('xml2js').parseString;
+import GetData from "../../../services/GetData";
 
 //import { useEffect } from 'react';
 //import useSWR from 'swr'
@@ -30,7 +31,11 @@ const SplitScreenBarCharts = () =>{
     //     .then(json => console.log(json))
     // },[])
 
-    const [data, setData] = useState<PageProps>({Market:[]})
+    const [marketIndices, setMarketIndices] = useState<any>({})
+    const [barChartMenu, setBarChartMenu] = useState<any>([])
+    
+    const [marketBarChartData, setMarketBarChartData] = useState<PageProps>({Market:[]})
+    //const [data, setData] = useState<PageProps>({Market:[]})
 
     const xml = '<?xml version="1.0" encoding="TF-8" standalone="yes" ?>\
     <response>\
@@ -54,29 +59,69 @@ const SplitScreenBarCharts = () =>{
     </response>'
 
     useEffect(()=>{
+            // get data for menu items from zagrader Markets api
+            GetData(`https://cnbcarabia.zagtrader.com/External/cnbcarabiadynamic/api/ConfigMarkets.php?type=json`, {}, 'get', false).then(res=>{
+    
+                console.log('Zagtrader ConfigMarkets:::', res);
+                setMarketIndices(res?.data);
 
-        getData().then((res)=>{
-            parseString(res, function (err, result) {
-                setData(result.response)
-            });
-        }).catch(err=>{
-            console.warn(err)
-        })
+                const menuKeys = res?.data ? Object.keys(res?.data) : []
+                setBarChartMenu(menuKeys)
+
+            }).catch(err=>{
+                console.warn(err)
+            })
+
+            getMarketBarChartData()
+
+            //get data for graph, based on symbol api
+            /*getXmlData().then((res)=>{
+                parseString(res, function (err, result) {
+                    setMarketBarChartData(result.response)
+                });
+            }).catch(err=>{
+                console.warn(err)
+            })*/
 
     },[])
 
-    const market = data?.Market
-    const firstMarket = data?.Market && market[0]
+    
+    const getMarketBarChartData = () => {
+        //fetch data and convert to text here
+        GetData(`https://cnbc-config.cnbcarabia.com/zagTrader/api/GainerLoserAPI.php?marketSymbol=BHB?type=xml`, {}, 'get', false).then( res =>{
+            const chartData = res?.data;
+            console.log('Zagtrader GainerLoser:::', res?.data)
+
+            parseString(chartData, function (err, result) {
+                console.log('parseString:::', result.response)
+                setMarketBarChartData(result.response)
+            });
+                
+        }).catch(err=>{
+                console.warn(err)
+        })
+
+    }
+
+
+    const market = marketBarChartData?.Market
+    const firstMarket = marketBarChartData?.Market && market[0]
     const gainers = firstMarket && firstMarket['Gainer']
     const allGainers = gainers?.length && gainers[0]
 
     const losers = firstMarket && firstMarket['Looser']
     const allLosers = losers?.length && losers[0]
 
-    const getData = async (): Promise<string> => {
-
+    const getXmlData = async (): Promise<string> => {
         //fetch data and convert to text here
-        return xml
+         return xml
+
+    }
+
+    
+
+    const setMarketBarChart = (marketSymbol: string) => {
+        console.log('menuKey::', marketSymbol);
     }
 
     return (
@@ -90,11 +135,20 @@ const SplitScreenBarCharts = () =>{
                    <h4>محركات السوق</h4>
                    <ul className="d-flex">
 
-                       <li><a>الرئيسية</a></li>
+                        { // show bar chart menu
+                            barChartMenu?.length && barChartMenu.map((item: string, index: number)=>{
+                                return(
+                                    <li key={index} className="nav-item">
+                                        <a>{item}</a>
+                                    </li>
+                                )
+                            })
+                        }
+                      {/* <li><a>الرئيسية</a></li>
                        <li><a>الرئيسية</a></li>
                        <li className="active"><a>الرئيسية</a></li>
                        <li><a>الرئيسية</a></li>
-                       <li><a>الرئيسية</a></li>
+                    <li><a>الرئيسية</a></li>*/}
                    </ul>
                    </div>
 
