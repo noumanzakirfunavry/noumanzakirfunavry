@@ -21,7 +21,7 @@ changeType : string
 entityType : string
 
 @Column
-changes : string
+changedEntityID : string
 
 @Column
 ipAddress : string
