@@ -24,6 +24,7 @@ export class AddEpisodeComponent implements OnInit {
     file: any;
     loading= true;
     loader= true;
+    isLoading= false;
     allPrograms: any;
     episodeId: number;
     tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Upload' }
@@ -155,11 +156,15 @@ export class AddEpisodeComponent implements OnInit {
           this.episodeForm.controls[i].updateValueAndValidity();
         }
         if(this.episodeForm.valid) {
+          this.isLoading= true;
           const obj = this.episodeForm.value;
           this.apiService.sendRequest(this.episodeId ? requests.updateProgramEpisode + this.episodeId : requests.addProgramEpisode, this.episodeId ? 'put' : 'post', { ...this.episodesModel.toServerModal(obj, this.episodesModel.seoDetailId), ...this.episodeId ? { id: this.episodeId } : null }).subscribe((res:any) => {
             console.log("EPISODES", res);
             this.initForm();
             this.route.navigateByUrl('episodes/list')
+            setTimeout(() => {
+              this.isLoading= false
+            }, 2000)
             if (this.episodeId) {
                 this.message.create('success', `Episode Updated Successfully`)
             }

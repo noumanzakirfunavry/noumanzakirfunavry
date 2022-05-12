@@ -14,7 +14,7 @@ import { GetArabicFormattedDate } from '../../../services/Util';
 
 const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal, handleNavigation, clearSearchBox}) => {
 
-    const keys = Object.keys(data)
+    const keys = data ? Object.keys(data) : []
 
     const searchBox = useRef(null);
     useOutsideClickHandler(searchBox, clearSearchBox)
@@ -43,7 +43,7 @@ const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal, handleNavigati
                 <div className="table-responsive">
                     <table className="table table-borderless table-striped">
                         {
-                            keys.map((key:string, index:number)=>{
+                            keys?.length > 0 && keys.map((key:string, index:number)=>{
                                 return (
                                     <tr key={index}>
                                         <td>

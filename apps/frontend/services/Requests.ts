@@ -31,7 +31,10 @@ export const requests={
     latestNews:newsAPIClient+'news/get/flags?',
     search:newsAPIClient+'news/search',
     mostReadNews:newsAPIClient+'news/mostRead?',
-   
+    programs:adminAPIClient+'programs/getAll',
+    programById:adminAPIClient+'programs/getById',
+    episodes:adminAPIClient+'episodes/getAll',
+    episodeById:adminAPIClient+'episodes/getById',
 }
 
 export const limitOfList = '20' ;

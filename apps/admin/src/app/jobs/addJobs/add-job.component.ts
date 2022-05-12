@@ -19,6 +19,7 @@ export class AddJobComponent implements OnInit {
     jobById: any;
     allBranches: any;
     loader= true;
+    isLoading= false;
     public Editor = ClassicEditor;
 
     constructor(private fb: FormBuilder, 
@@ -59,6 +60,7 @@ export class AddJobComponent implements OnInit {
             this.jobForm.controls[i].updateValueAndValidity();
         }
         if(this.jobForm.valid) {
+            this.isLoading= true;
             const obj= this.jobForm.value;
             obj['departments']= [1,2,3];
             obj['totalOpenings']= 1;
@@ -67,6 +69,9 @@ export class AddJobComponent implements OnInit {
                 console.log("JOBS", res);
                 this.jobForm.reset();
                 this.route.navigateByUrl('jobs/list');
+                setTimeout(() => {
+                    this.isLoading= false;
+                }, 2000);
                 if(this.jobId) {
                     this.message.create('success', `Job Updated Successfully`)
                 }

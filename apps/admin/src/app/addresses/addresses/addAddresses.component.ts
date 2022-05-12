@@ -22,6 +22,7 @@ export class AddAddressesComponent implements OnInit {
     branchId: any;
     branchById: any;
     loader= true;
+    isLoading= false;
   
 
     constructor(private fb: FormBuilder, 
@@ -64,12 +65,16 @@ export class AddAddressesComponent implements OnInit {
         this.addressForm.controls[i].updateValueAndValidity();
       }
       if(this.addressForm.valid) {
+        this.isLoading= true;
         const obj= this.addressForm.value;
         obj['zipCode']= "12345"
         this.apiService.sendRequest(this.branchId ? requests.updateBranch + this.branchId: requests.addNewBranch, this.branchId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("BRANCHES", res);
           this.addressForm.reset();
           this.route.navigateByUrl('addresses/list');
+          setTimeout(() => {
+            this.isLoading= false;
+          }, 2000);
           if(this.branchId) {
             this.message.create('success', `Address Updated Successfully`);
           }
