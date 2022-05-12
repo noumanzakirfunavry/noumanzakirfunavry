@@ -14,11 +14,8 @@ export class Comments extends Model {
     @Column
     id: number;
 
-    @Column({
-        type: DataType.ENUM,
-        values: Object.values(EntityTypesComments),
-    })
-    entityType: EntityTypesComments
+    @Column
+    entityType: string
 
     @Column
     entityId: number
