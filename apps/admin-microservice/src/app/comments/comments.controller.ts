@@ -1,7 +1,7 @@
 import { Roles } from '@cnbc-monorepo/auth-module';
-import { AddCommentRequestDto, GenericResponseDto } from '@cnbc-monorepo/dtos';
+import { AddCommentRequestDto, GenericResponseDto, GetAllCommentsRequestDto } from '@cnbc-monorepo/dtos';
 import { RoleTypes } from '@cnbc-monorepo/enums';
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Req } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 
 @Controller('admin/api/admin/comments')
@@ -12,8 +12,8 @@ export class CommentsController {
 	) { }
 
 	@Get('/getAll')
-	async getAllComments(): Promise<GenericResponseDto> {
-		return await this.commentsService.getAllComments();
+	async getAllComments(@Query() getAllCommentDto: GetAllCommentsRequestDto): Promise<GenericResponseDto> {
+		return await this.commentsService.getAllComments(getAllCommentDto);
 	}
 
 	@Get('/getById/:id')

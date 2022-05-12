@@ -1,14 +1,25 @@
-import { AddCommentRequestDto, GenericResponseDto } from '@cnbc-monorepo/dtos';
+import { AddCommentRequestDto, GenericResponseDto, GetAllCommentsRequestDto } from '@cnbc-monorepo/dtos';
 import { Comments } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
+import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CommentsService {
-	constructor(@Inject('COMMENTS_REPOSITORY') private commentsRepository: typeof Comments) { }
+	constructor(
+		@Inject('COMMENTS_REPOSITORY') private commentsRepository: typeof Comments,
+		private helperService: Helper
+	) { }
 
-	async getAllComments() {
-		const res = await this.commentsRepository.findAndCountAll();
+	async getAllComments(getAllCommentDto: GetAllCommentsRequestDto) {
+		const { entityType, pageNo, limit } = getAllCommentDto;
+		const res = await this.commentsRepository.findAndCountAll({
+			where: {
+				...(entityType && { entityType })
+			},
+			limit: parseInt(limit.toString()),
+			offset: this.helperService.offsetCalculator(pageNo, limit),
+		});
 		if (res.count === 0) {
 			throw new CustomException(
 				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,

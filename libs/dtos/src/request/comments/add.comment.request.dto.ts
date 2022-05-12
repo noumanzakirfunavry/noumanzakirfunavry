@@ -1,9 +1,9 @@
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator'
+import { EntityTypesComments } from '@cnbc-monorepo/enums'
+import { IsString, IsNotEmpty, IsNumber, IsEnum } from 'class-validator'
 
 export class AddCommentRequestDto {
-	@IsString()
-	@IsNotEmpty()
-	entityType: string
+	@IsEnum(EntityTypesComments)
+	entityType: EntityTypesComments
 
 	@IsNumber()
 	entityId: number
