@@ -126,7 +126,7 @@ export class ProgramsService {
 					id,
 					isActive: true
 			},
-			include: ['seoDetails', 'thumbnail', 'promo']
+			include: [ 'episodes', 'seoDetails', 'thumbnail', 'promo']
 	});
 		if (response) {
 			return new GenericResponseDto(
@@ -184,6 +184,7 @@ export class ProgramsService {
 			where: {
 				isActive: true
 			},
+			include: ['seoDetails', 'thumbnail', 'promo', 'episodes']
 		});
 
 		if (response.count === 0) {

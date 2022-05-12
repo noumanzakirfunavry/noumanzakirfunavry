@@ -1,11 +1,12 @@
-const FadedNews = () =>{
+import HtmlData from "../../../components/Shared/HtmlData/HtmlData";
+
+const FadedNews = ({news}) =>{
 
     return (
         <>
             {/* <div className="fadedNews mb-3"> */}
             <div className="fadenews fadeNewsDetail mb-5 fadedNews">
-                <p>لا يتوقع شرقاوي أن ينجح مشروع القانون المقدم في الكونغرس في تصنيف الجماعة إرهابية، لكنه “سيمثل أداة ضغط على الإدارة الأميركية لتغير سياستها في التعاطي مع التنظيم”، فضلا عن كونه “خطوة في طريق حظره”.
-                </p>
+                <HtmlData data={news?.content} />
                 {/* <p>
                 وأكد شرقاوي أن “الضغوط المستمرة من جانب النواب في الكونغرس على إدارة بايدن ستجعلها تغير سياستها تجاه الإخوان، أو تجعلها محايدة”.
                 </p>

@@ -15,18 +15,20 @@ export class AdminLogInterceptor implements NestInterceptor {
 					const { req } = context.switchToHttp().getResponse()
 					if (req.user && (req.method === 'PUT' || req.method === 'POST')) {
 						const method: string = req.method
-						const resource: string = req.url.split('/')[4]
-						const endpoint: string = req.url.split('/')[5]
-
-						const loggableRequest = loggableRequests[resource][method][endpoint]
-						this.logsRepository.create({
-							changeType: loggableRequest.action,
-							entityType: loggableRequest.entity,
-							changes: JSON.stringify(req.params),
-							ipAddress: req.ip,
-							sessionId: req.user.sessionId,
-							changedBy: req.user.data.id
-						}).catch(err => console.log(err))
+						const splittedUrl = req.url.split('/')
+						const resource: string = splittedUrl[4] ?? null
+						const endpoint: string = splittedUrl[5] ?? null
+						const loggableRequest = loggableRequests?.[resource]?.[method]?.[endpoint]
+						if (loggableRequest) {
+							this.logsRepository.create({
+								changeType: loggableRequest.action,
+								entityType: loggableRequest.entity,
+								changes: Object.keys(req.params).length > 0 ? JSON.stringify(req.params) : null,
+								ipAddress: req.ip,
+								sessionId: req.user.sessionId,
+								changedBy: req.user.data.id
+							}).catch(err => console.log(err))
+						}
 					}
 				}),
 			);

@@ -220,7 +220,8 @@ export class EpisodesService {
 			const response = await this.episodeRepository.findAndCountAll({
 				where: {
 					isActive: true
-				}
+				},
+				include: ['seoDetails', 'thumbnail', 'program', 'video']
 			});
 
 			if (response.count === 0) {

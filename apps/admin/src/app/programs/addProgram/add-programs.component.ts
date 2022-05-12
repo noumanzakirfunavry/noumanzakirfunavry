@@ -20,6 +20,8 @@ export class AddProgramsComponent implements OnInit{
   isVisible: boolean;
   file: any;
   programId: number;
+  loader= true;
+  isLoading= false;
   tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Upload' }
   tempThumbanilFile: { colName: string, value: any, label: string } = { 'colName': 'thumbnail', value: null, label: 'Image Upload' }
   
@@ -40,6 +42,9 @@ export class AddProgramsComponent implements OnInit{
             this.getProgramById()
         } else {
             this.initForm();
+            setTimeout(() => {
+              this.loader=false
+            }, 200);
         }
     })
       let selfp = this;
@@ -96,7 +101,6 @@ export class AddProgramsComponent implements OnInit{
               }
           }
       }
-      this.initForm();
     }
 
     initForm() {
@@ -122,19 +126,23 @@ export class AddProgramsComponent implements OnInit{
           this.programForm.controls[i].updateValueAndValidity();
         }
         if(this.programForm.valid) {
+          this.isLoading= true;
           const obj= this.programForm.value;
           this.apiService.sendRequest(this.programId ? requests.updateProgramDetails + this.programId : requests.addNewProgram, this.programId ? 'put' : 'post', { ...this.programsModel.toServerModal(obj, this.programsModel.seoDetailId), ...this.programId ? { id: this.programId } : null }).subscribe((res:any) => {
             console.log("PROGRAM", res);
             this.initForm();
-                this.route.navigateByUrl('programs/list')
-                if (this.programId) {
-                    this.message.create('success', `Program Updated Successfully`)
-                }
-                else {
-                    this.message.create('success', `Program Added Successfully`)
-                }
-          })
-        }
+            this.route.navigateByUrl('programs/list')
+            setTimeout(() => {
+              this.isLoading = false;
+            }, 2000);
+            if (this.programId) {
+                this.message.create('success', `Program Updated Successfully`)
+            }
+            else {
+                this.message.create('success', `Program Added Successfully`)
+            }
+      })
+    }
   }
 
   getProgramById() {
@@ -144,6 +152,9 @@ export class AddProgramsComponent implements OnInit{
         this.programsModel.seoDetailId = res.response.program.seoDetailId;
         console.log("view modal", this.programsModel);
         this.populateProgramsForm(res.response.program);
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
     })
 }
 

@@ -276,7 +276,9 @@ export class NewsService {
 				},
 				through: {
 					attributes: []
-				}
+				},
+				
+				required:false
 
 			},
 			{
@@ -318,8 +320,10 @@ export class NewsService {
 				})
 
 			},
+		  distinct:true,
 			limit: parseInt(query.limit.toString()),
 			offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
+			
 		});
 	}
 
@@ -569,7 +573,7 @@ export class NewsService {
 		if (isExclusiveNews) { resObj['isExclusive'] = true }
 		else { resObj['isExclusive'] = false }
 
-		return new GenericResponseDto(HttpStatus, "News Status", resObj)
+		return new GenericResponseDto(HttpStatus.OK, "News Status", resObj)
 
 	}
 	isObjectEmpty(object) {

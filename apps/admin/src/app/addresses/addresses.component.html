@@ -3,7 +3,7 @@
         <button nz-button [nzType]="'primary'" [routerLink]="['/addresses/add']">Add Addresses</button>
     </div>
     <div class="col-md-10">
-        <addresses-filter></addresses-filter>
+        <addresses-filter (statusEmitter)="receiveStatus($event)" (filterEmitter)="receiveFilter($event)"></addresses-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>

@@ -22,6 +22,8 @@ export class AddQuickLinksComponent implements OnInit {
   selectedQuickLink: any;
   quickLinkId: any;
   quickLinkById: any;
+  loader= true;
+  isLoading= false;
   
   constructor(private fb: FormBuilder, 
     private apiService: ApiService, 
@@ -31,16 +33,25 @@ export class AddQuickLinksComponent implements OnInit {
     ) {}
   
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+      this.quickLinkId = + params.get('id');
+      if (this.quickLinkId) {
+        this.getQuickLinkById();
+      }
+      else {
+        this.initForm()
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
+      }
+  });
+  }
+
+  initForm() {
     this.quickLinkForm = this.fb.group({
       title: [ null, [ Validators.required ] ],
       url: [ null, [ Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?') ] ],
       visible: [false]
-  });
-  this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
-    this.quickLinkId = + params.get('id');
-    if (this.quickLinkId) {
-      this.getQuickLinkById();
-    }
   });
   }
 
@@ -50,12 +61,16 @@ export class AddQuickLinksComponent implements OnInit {
       this.quickLinkForm.controls[i].updateValueAndValidity();
     }
     if(this.quickLinkForm.valid) {
+      this.isLoading= true;
       const obj= this.quickLinkForm.value;
       obj['position']= 1;
       this.apiService.sendRequest(this.quickLinkId ? requests.updateQuickLink + this.quickLinkId : requests.addNewQuickLink, this.quickLinkId ? 'put' : 'post', obj).subscribe((res:any) => {
         console.log("QUICK-LINK", res);
         this.quickLinkForm.reset();
         this.route.navigateByUrl('quickLinks/list');
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
         if(this.quickLinkId) {
           this.message.create('success', `Quick Link Updated Successfully`)
         }
@@ -75,6 +90,9 @@ export class AddQuickLinksComponent implements OnInit {
         url: [ this.quickLinkById?.url || null, [ Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?') ] ],
         visible: [this.quickLinkById?.visible || false]
     });
+    setTimeout(() => {
+      this.loader=false
+    }, 200);
     })
   }
 
