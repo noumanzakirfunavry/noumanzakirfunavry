@@ -88,7 +88,7 @@ const SplitScreenBarCharts = () =>{
     
     const getMarketBarChartData = () => {
         //fetch data and convert to text here
-        GetData(`https://cnbc-config.cnbcarabia.com/zagTrader/api/GainerLoserAPI.php?marketSymbol=BHB?type=xml`, {}, 'get', false).then( res =>{
+        GetData(`https://cnbc-config.cnbcarabia.com/zagTrader/api/GainerLoserAPI.php?marketSymbol=BHB`, {}, 'get', false).then( res =>{
             const chartData = res?.data;
             console.log('Zagtrader GainerLoser:::', res?.data)
 
