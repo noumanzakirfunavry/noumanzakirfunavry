@@ -3,6 +3,7 @@ import PageCatgories from "../Shared/PageCategories/PageCategories"
 import newsImage from "../../styles/images/biden2.jpg";
 import { baseUrlAdmin } from '../../services/Requests';
 import { useEffect, useState } from "react";
+import DateArabicFormat from "../Shared/DateCustomFomat/DateArabicFormat"
 
 const VideoNews = ({videoNews}) => {
 
@@ -51,17 +52,17 @@ const VideoNews = ({videoNews}) => {
                       </ul>
                   </div>
               </div>
-              <div className="float-end">
+              {/*<div className="float-end">
               <h6 className="text-secondary">الإمارات</h6>
-              </div>
+                </div>*/}
               <div className="clearfix"></div>
               <h1>{videoNews?.title}</h1>
           </div>
 
-          <p><small>نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</small></p>
-
+          <p><small><DateArabicFormat date={videoNews?.createdAt} /></small></p>
+          {/*<p><small>نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</small></p>*/}
           <FadedNews news={videoNews} />
-          <PageCatgories tags={[]}/>
+          {/*<PageCatgories tags={[]}/>*/}
           </div>
         </>
     )

@@ -117,7 +117,7 @@ const HorizontalMediaScrollBar:FC = () =>{
 
             <Slider ref={ref} {...settings}>
             {  
-               editorChoiceNewsList.length && editorChoiceNewsList.map((item: any, index: number)=>{
+               editorChoiceNewsList?.length && editorChoiceNewsList.map((item: any, index: number)=>{
                     const backgroundImagePath = item?._source?.videoId ?item?._source?.thumbnail?.path : item?._source?.image?.path
                 
                      return(
@@ -146,6 +146,7 @@ const HorizontalMediaScrollBar:FC = () =>{
                      )
                 })
              }
+             
              {/*
                     <div className="slider-item">
                         <div className="NewsBox">
