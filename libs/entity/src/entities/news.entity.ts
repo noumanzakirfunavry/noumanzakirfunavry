@@ -111,7 +111,10 @@ export class News extends Model {
   })
   isActive: boolean;
 
-  @Column
+  @Column({
+		type: DataType.INTEGER,
+		defaultValue: 0
+	})
   totalViews: number
 
   @ForeignKey(() => SeoDetails)
@@ -139,7 +142,7 @@ export class News extends Model {
   contentAnalytics: ContentAnalytics[];
 
   @HasMany(() => NewsHasQuotes,"newsId")
-  newsHasQuotes: NewsHasQuotes[]
+  quotes: NewsHasQuotes[]
 
   @HasMany(() => EditorsChoiceNews)
   editorsChoiceNews: EditorsChoiceNews[];

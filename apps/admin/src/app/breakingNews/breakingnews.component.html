@@ -14,7 +14,7 @@
                             <th class="w_50" [nzChecked]="checked" [nzIndeterminate]="indeterminate"
                             (nzCheckedChange)="onAllChecked($event)"></th>
                             <th class="w_80">Status</th>
-                            <th  class="w_50">ID</th>
+                            <!-- <th  class="w_50">ID</th> -->
                             <th class="title_col">Title</th>
                             <th>News Link</th>
                             <th>Created</th>
@@ -33,7 +33,7 @@
                                     <nz-badge *ngIf="breakingNews?.isActive === false" nzStatus="error"></nz-badge>
                                     <!-- <span class="text-capitalize">{{breakingNews?.isActive}}</span> -->
                                 </td>
-                            <td>{{breakingNews?.id}}</td>
+                            <!-- <td>{{breakingNews?.id}}</td> -->
                             <td nzEllipsis nz-tooltip [nzTooltipTitle]="breakingNews?.title">{{breakingNews?.title}}</td>
                             <td nzEllipsis nz-tooltip [nzTooltipTitle]="breakingNews?.newsLink">{{breakingNews?.newsLink}}</td>
                             <td>{{breakingNews?.createdAt | date: 'dd-MM-YYYY'}}</td>

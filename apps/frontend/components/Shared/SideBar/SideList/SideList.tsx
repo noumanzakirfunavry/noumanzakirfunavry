@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from "react";
 import newsImage from "../../../../styles/images/biden.jpg";
 import Title from "apps/frontend/components/Title";
 import GetData from "apps/frontend/services/GetData";
-import { requests, baseUrlAdmin } from "apps/frontend/services/Requests";
+import { requests, baseUrlAdmin, limitOfList } from "apps/frontend/services/Requests";
 import Link from "next/link";
 import TimeAgoArabicFormat from "../../TimeAgoCustom/TimeAgoArabicFormat";
 
@@ -17,16 +17,16 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
 
       useEffect(() => {
         // get data for latest news in side bar
-        GetData(`${requests.latestNews}limit=50&pageNo=1`, {}, 'get', false).then(res=>{
-            const newsRes = res.data && res.data.length ? res.data : []
+        GetData(`${requests.latestNews}limit=${limitOfList}&pageNo=1`, {}, 'get', false).then(res=>{
+            const newsRes = res?.data && res?.data?.length ? res?.data : []
             setLatestNewsList(newsRes);
 
         }).catch(err=>{
             console.warn(err)
         })
 
-        GetData(`${requests.mostReadNews}limit=10&pageNo=1`, {}, 'get', false).then(res=>{
-            const newsRes = res.data?.response && res.data?.response.length ? res.data?.response : []
+        GetData(`${requests.mostReadNews}limit=${limitOfList}&pageNo=1`, {}, 'get', false).then(res=>{
+            const newsRes = res.data?.response && res.data?.response?.length ? res.data?.response : []
             //console.log('Most Read News:::::', newsRes)
             setMostReadNewsList(newsRes);
 

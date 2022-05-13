@@ -29,10 +29,12 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                         </p>
                                     </div>
                                     
-                                    {
+                                    { // show thmbnail with play icon if video news
+                                    //.NewsTiles .newBox .PlayTime
+                                    //.VideoTextBox .VideoNews .PlayTime
                                         news?._source?.videoId ?
-                                            <div className="VideoTiles">
-                                                <div className="VideoNews">
+                                            <div className="NewsTiles">
+                                                <div className="newBox">
                                                     <div className="NewsImage">
                                                         <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newsimg.src} />
                                                     </div>
@@ -52,7 +54,7 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                                 </div>
                                             </div>
                                                     
-                                            :
+                                            : // else show image
 
                                             <div className="newsImage">
                                                     {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source?.image?.path} /> : <img className="img-fluid" src={newsimg.src} />}

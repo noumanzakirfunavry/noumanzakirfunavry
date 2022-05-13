@@ -21,6 +21,8 @@ export class AddAddressesComponent implements OnInit {
     addressForm: FormGroup;
     branchId: any;
     branchById: any;
+    loader= true;
+    isLoading= false;
   
 
     constructor(private fb: FormBuilder, 
@@ -31,6 +33,21 @@ export class AddAddressesComponent implements OnInit {
       ) {}
   
     ngOnInit(): void {
+      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+        this.branchId = + params.get('id');
+        if (this.branchId) {
+          this.getBranchById();
+        }
+        else {
+          this.initForm();
+          setTimeout(() => {
+            this.loader=false
+          }, 200);
+        }
+      });
+    }
+
+    initForm() {
       this.addressForm = this.fb.group({
         title: [null, [Validators.required]],
         phone: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
@@ -40,12 +57,6 @@ export class AddAddressesComponent implements OnInit {
         email: [null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$')]],
         isActive: [false]
       });
-      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
-        this.branchId = + params.get('id');
-        if (this.branchId) {
-          this.getBranchById();
-        }
-      });
     }
 
     branches(): void {
@@ -54,12 +65,16 @@ export class AddAddressesComponent implements OnInit {
         this.addressForm.controls[i].updateValueAndValidity();
       }
       if(this.addressForm.valid) {
+        this.isLoading= true;
         const obj= this.addressForm.value;
         obj['zipCode']= "12345"
         this.apiService.sendRequest(this.branchId ? requests.updateBranch + this.branchId: requests.addNewBranch, this.branchId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("BRANCHES", res);
           this.addressForm.reset();
           this.route.navigateByUrl('addresses/list');
+          setTimeout(() => {
+            this.isLoading= false;
+          }, 2000);
           if(this.branchId) {
             this.message.create('success', `Address Updated Successfully`);
           }
@@ -83,6 +98,9 @@ export class AddAddressesComponent implements OnInit {
           email: [this.branchById?.email || null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$')]],
           isActive: [this.branchById?.isActive || false]
         });
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
       })
     }
 

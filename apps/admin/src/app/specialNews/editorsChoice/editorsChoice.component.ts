@@ -86,9 +86,14 @@ export class EditorsChoiceComponent implements OnInit{
     getAllEditorsChoiceNews() {
         this.apiService.sendRequest(requests.getAllEditorsChoiceNews, 'get').subscribe((res:any) => {
             this.allEditorsChoice= res.response.editorsChoiceNews;
-            this.editorsChoice = this.allEditorsChoice && this.allEditorsChoice.length > 0 ? this.allEditorsChoice : this.editorsChoice;
+            for(let i = 0; i < this.editorsChoice.length; i++) {
+                const edNews= this.allEditorsChoice.find(x => x.position == this.editorsChoice[i].position)
+                if(edNews) {
+                    this.editorsChoice[i] = edNews;
+                }
+            }
             console.log("ALL-EDITORS-CHOICE", this.allEditorsChoice);
-            this.loading= false;
+            this.loading = false;
         }, err => {
             this.loading = false;
         })
@@ -119,6 +124,8 @@ export class EditorsChoiceComponent implements OnInit{
     findDuplicates() {
         const valueArr = this.editorsChoice.map(function (item) { return item.newsId });
         const isDuplicate = valueArr.some(function (item, idx) {
+            console.log("VAL",valueArr.indexOf(item));
+            
             return valueArr.indexOf(item) != idx
         });
         console.log("DUPLICATE-NEWS", isDuplicate);
@@ -133,7 +140,8 @@ export class EditorsChoiceComponent implements OnInit{
                 this.message.create('error', 'Add all Editors Choice News for Editors Choice Section')
             } 
             else {
-                this.apiService.sendRequest(requests.updateEditorsChoiceNews, 'put', { news: this.editorsChoice }).subscribe((res:any) => {
+                const body = this.editorsChoice.map(x=>{return {newsId:x.newsId,position: x.position}});
+                this.apiService.sendRequest(requests.updateEditorsChoiceNews, 'put', { news: body }).subscribe((res:any) => {
                     console.log("UPDATE-EDITORS-CHOICE", res);
                     this.getAllEditorsChoiceNews();
                     this.message.create('success', `Editor's Choice News Updated Successfully`);

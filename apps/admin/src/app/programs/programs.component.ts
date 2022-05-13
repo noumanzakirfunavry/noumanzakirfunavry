@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core'
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
@@ -16,11 +18,10 @@ export class ProgramsComponent implements OnInit{
     checked = false;
     loading = true;
     setOfCheckedId = new Set<number>();
-    listOfCurrentPageData = [];
     allPrograms: any;
     programsCount: any;
 
-    constructor( private apiService: ApiService ) {}
+    constructor( private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {}
 
     ngOnInit(): void {
         this.getAllPrograms();
@@ -56,13 +57,13 @@ export class ProgramsComponent implements OnInit{
     }
 
     receiveStatus(data: Pagination) {
-        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publishedBy: data.publishedBy, categoryId: data.categoryId, newsType: data.newsType, date: data.date};
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publisherId: data.publisherId};
         this.pagination.pageNo= 1;
         this.getAllPrograms();        
     }
 
     receiveFilter(data: Pagination) {
-        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publishedBy: data.publishedBy, categoryId: data.categoryId, newsType: data.newsType, date: data.date};
+        this.pagination={...this.pagination, isActive: data.isActive, search: data.search, publisherId: data.publisherId};
         this.pagination.pageNo= 1;
         this.getAllPrograms();        
     }
@@ -102,4 +103,50 @@ export class ProgramsComponent implements OnInit{
         this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
         this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
     }
+
+    deleteSelected() {
+        const id= [];
+          console.log(this.setOfCheckedId.forEach(x=>{
+            id.push(x)
+          }));
+          this.apiService.sendRequest(requests.deleteProgram,'delete',{id:id}).subscribe((res:any) => {
+            this.setOfCheckedId.clear();
+            this.checked= false;
+            this.indeterminate= false;
+            this.getAllPrograms();
+            this.message.create('success', `Program Deleted Successfully`)
+            })
+        }
+        
+        deleteProgram(programId: number): void {
+            this.apiService.sendRequest(requests.deleteProgram, 'delete', {id:[programId]}).subscribe((res:any) => {
+                console.log("DELETE-PROGRAM", res);
+                this.getAllPrograms();
+                this.message.create('success', `Program Deleted Successfully`)
+            })
+        }
+    
+        showDeleteConfirm(id?: number): void {
+            this.modal.confirm({
+              nzTitle: 'Delete',
+              nzContent: '<b style="color: red;">Are you sure to delete this Program?</b>',
+              nzOkText: 'Yes',
+            //   nzOkType: 'danger',
+              nzOnOk: () => {
+                  if(id) {
+                      this.deleteProgram(id);
+                  }
+                  else {
+                      this.deleteSelected();
+                  }
+                },
+              nzCancelText: 'No',
+              nzOnCancel: () => {
+                this.setOfCheckedId.clear();
+                this.checked= false;
+                this.indeterminate= false;
+                this.getAllPrograms();
+                }
+            });
+          }
 }    

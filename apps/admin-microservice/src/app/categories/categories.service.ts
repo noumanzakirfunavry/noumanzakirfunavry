@@ -127,8 +127,6 @@ export class CategoriesService {
 			}
 
 		)
-		// console.log("🚀 ~ file: categories.service.ts ~ line 109 ~ CategoriesService ~ getAll ~ result", result.rows)
-		// console.log("🚀 ~ file: categories.service.ts ~ line 108 ~ CategoriesService ~ getAll ~ { ...where, isActive: true }", { ...where, isActive: true })
 		if (!result.count) {
 			throw new CustomException(
 				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -319,5 +317,11 @@ export class CategoriesService {
 				ElkService.bulk({ operations: bulkUpdateArray })
 		})
 	}
+
+		async isCategoryTitleUnique(body){
+			// check whether the category to be created has a unqiue title or not
+			const categories = await this.categoryRepo.findAll();
+			return !categories.some(category => category.title.toLowerCase() === body.title.toLowerCase())
+		}
 
 }

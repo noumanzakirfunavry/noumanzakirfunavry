@@ -22,7 +22,9 @@ export class Programs extends Model{
     @Column
     title : string
 
-    @Column
+    @Column({
+			type: DataType.TEXT
+		})
     content : string
 
     @Column

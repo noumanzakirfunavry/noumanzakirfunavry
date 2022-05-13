@@ -42,6 +42,7 @@ export enum ExceptionType {
   ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL = 'ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL',
   ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED = 'ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED',
   CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT = 'CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT',
+  CATEGORY_TITLE_DUPLICATE = 'CATEGORY_TITLE_DUPLICATE',
 }
 
 interface ExceptionOptions {
@@ -216,5 +217,9 @@ export const Exceptions: Record<ExceptionType, ExceptionOptions> = {
 	[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT]: {
     status: HttpStatus.BAD_REQUEST,
     message: 'Provided id and parentMenuId are same. A child menu cannot be its own parent',
+  },
+	[ExceptionType.CATEGORY_TITLE_DUPLICATE]: {
+    status: HttpStatus.BAD_REQUEST,
+    message: 'A category with the provided title already exists',
   },
 };

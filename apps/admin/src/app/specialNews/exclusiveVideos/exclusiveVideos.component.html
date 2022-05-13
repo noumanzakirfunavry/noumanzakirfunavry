@@ -4,13 +4,13 @@
   <div class="col-12">
       <div class="row">
         <div class="col-12" cdkDropList (cdkDropListDropped)="drop($event)">
-        <nz-table [nzData]="allExclusiveVideos" [nzShowPagination]="false" class="no-border-last">
+        <nz-table [nzData]="allExclusiveVideos" [nzLoading]="loading" [nzShowPagination]="false" class="no-border-last">
           <thead>
               <tr>
                   <th class="text-left" colspan="4"></th>
               </tr>
           </thead>
-          <tbody *ngIf="!loading">
+          <tbody>
               <tr class="news-block" *ngFor="let news of exclusiveVideos" cdkDrag>
                   <!-- <td>#</td> -->
                   <!-- <td>{{news?.position}}</td> -->

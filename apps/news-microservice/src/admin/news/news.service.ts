@@ -1,6 +1,6 @@
 import { DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllNewsRequestDto, GetNewsByIdResponseDto } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
-import { Attachments, BreakingNews, Categories, EditorsChoiceNews, ExclusiveVideos, FeaturedNews, News, NewsHasCategories, NewsHasQuotes, NewsHasTags, SeoDetails, TrendingNews, Users } from '@cnbc-monorepo/entity';
+import { Attachments, BreakingNews, Categories, EditorsChoiceNews, ExclusiveVideos, FeaturedNews, News, NewsHasCategories, NewsHasQuotes, NewsHasTags, SeoDetails, Tags, TrendingNews, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -266,8 +266,6 @@ export class NewsService {
 	}
 
 	private async getAllNewsQuery(query: GetAllNewsRequestDto) {
-		console.log("🚀 ~ file: news.service.ts ~ line 278 ~ NewsService ~ getAllNewsQuery ~ query", query)
-
 		return await this.newsRepository.findAndCountAll({
 			include: [{
 				model: Categories,
@@ -275,7 +273,12 @@ export class NewsService {
 					...(query.categoryId && {
 						id: query.categoryId
 					})
-				}
+				},
+				through: {
+					attributes: []
+				},
+				
+				required:false
 
 			},
 			{
@@ -317,8 +320,10 @@ export class NewsService {
 				})
 
 			},
+		  distinct:true,
 			limit: parseInt(query.limit.toString()),
 			offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
+			
 		});
 	}
 
@@ -509,7 +514,7 @@ export class NewsService {
 
 	async newsExists(id: number) {
 		return await this.newsRepository.findOne({
-			include: ['tags', 'categories', 'seoDetail', 'image', 'thumbnail', 'video', {
+			include: [{ model: Tags, through: { attributes: [] }}, { model: Categories, through: { attributes: [] }}, 'quotes', 'seoDetail', 'image', 'thumbnail', 'video', {
 				model: Users
 			},
 			{
@@ -568,7 +573,7 @@ export class NewsService {
 		if (isExclusiveNews) { resObj['isExclusive'] = true }
 		else { resObj['isExclusive'] = false }
 
-		return new GenericResponseDto(HttpStatus, "News Status", resObj)
+		return new GenericResponseDto(HttpStatus.OK, "News Status", resObj)
 
 	}
 	isObjectEmpty(object) {
