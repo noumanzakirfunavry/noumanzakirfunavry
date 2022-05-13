@@ -4,9 +4,13 @@ import { baseUrlAdmin, requests } from "../../../services/Requests";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import newsImage from "../../../styles/images/biden.jpg";
+import TimeAgoArabicFormat from "../TimeAgoCustom/TimeAgoArabicFormat";
 
-const EpisodesTiles = () => {
-    const [episodes, setEpisodes] = useState<any[]>([])
+const EpisodesTiles = ({programDetails}) => {
+
+    const episodes  = programDetails?.episodes;
+
+    /*const [episodes, setEpisodes] = useState<any[]>([])
 
     useEffect(() => {
         GetData(`${requests.episodes}`, {}, 'get', false).then(res => {
@@ -16,14 +20,14 @@ const EpisodesTiles = () => {
             console.warn(err)
         })
 
-    }, [])
+    }, [])*/
     
     return (
         <>
         <div className="NewsTiles">
             <div className="row" >
             { // show episodes
-                    episodes.length && episodes.map((episode: any, index: number)=>{
+                    episodes?.length && episodes.map((episode: any, index: number)=>{
                         return (
                             <div key={index} className="col-md-4 col-sm-6">
                             <div className="newBox VideoNews">
@@ -59,7 +63,8 @@ const EpisodesTiles = () => {
                                
                                 {<div className="NewsInfo">
                                     <Link href={`/episode/`+episode.id}><a><h4>{episode && episode?.title}</h4> </a></Link>
-                                    <p><a>الإمارات</a>منذ 5 دقائق</p>
+                                    {/*</p><p>منذ 5 دقائق</p>*/}
+                                    <p>{<TimeAgoArabicFormat date={episode?.createdAt}/>}</p>
                                 </div>}
                             </div>
                         </div>
