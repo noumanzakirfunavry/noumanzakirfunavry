@@ -19,21 +19,20 @@ const JobDetails = ({title,description, id}) => {
 
     const [newsDetails, setNewsDetails] = useState<string>('')
 
-    // useEffect(()=>{
+    //useEffect(()=>{
         
-    GetData(`${requests.jobs}/getById/${id}`, {}, 'get', false).then(res=>{
-        setNewsDetails(res.data?.response?.job?.description)
-    }).catch(err=>{
-        console.warn(err)
-    })
+        GetData(`${requests.jobs}/getById/${id}`, {}, 'get', false).then(res=>{
 
-    // }, [])
+            setNewsDetails(res?.data?.response?.job?.description)
+        }).catch(err=>{
+            console.warn(err)
+        })
 
-    
+     //}, [])
 
     return (
         <>
-            <HtmlData data={newsDetails}/>
+            {newsDetails && <HtmlData data={newsDetails}/>}
 {/* 
                 <div className="job_detail_container">
                                 {newLocal}
