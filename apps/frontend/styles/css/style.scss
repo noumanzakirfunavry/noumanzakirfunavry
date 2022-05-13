@@ -1444,6 +1444,12 @@ header {
 
 }
 
+.marketChart .chartBox .chartTop ul li a.active {
+  color: $secondary-color;
+  border-bottom: 3px solid $secondary-color;
+
+}
+
 .marketChart .chartBox h3 {
   font-weight: 900;
   margin: 16px 0 15px;

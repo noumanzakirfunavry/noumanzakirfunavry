@@ -31,6 +31,7 @@ const SplitScreenBarCharts = () =>{
     //     .then(json => console.log(json))
     // },[])
 
+    const [activeIndex, setActiveIndex] = useState(null);
     const [marketIndices, setMarketIndices] = useState<any>({})
     const [barChartMenu, setBarChartMenu] = useState<any>([])
     
@@ -118,7 +119,10 @@ const SplitScreenBarCharts = () =>{
 
     }
 
-    
+    const handleClickMenuItem = (index) => {
+        console.log('clicked')
+        setActiveIndex(index)
+    }
 
     const setMarketBarChart = (marketSymbol: string) => {
         console.log('menuKey::', marketSymbol);
@@ -139,7 +143,7 @@ const SplitScreenBarCharts = () =>{
                             barChartMenu?.length && barChartMenu.map((item: string, index: number)=>{
                                 return(
                                     <li key={index} className="nav-item">
-                                        <a>{item}</a>
+                                        <a onClick={() => handleClickMenuItem(index)} className={`nav-link ${index === activeIndex ? 'active' : ''}`}>{item}</a>
                                     </li>
                                 )
                             })
