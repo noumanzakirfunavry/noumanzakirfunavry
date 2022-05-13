@@ -62,7 +62,7 @@ export * from './request/jobs/update.job.request.dto';
 export * from './request/live-stream-links/create.live.stream.links.request.dto';
 export * from './request/live-stream-links/get.all.live.stream.links.request.dto';
 //...............................Change log.............................
-export * from './request/logger/add.log.request.dto';
+export * from './request/logs/get.all.logs.request.dto';
 //...............................Job applicants.............................
 export * from './request/job-applicants/get.all.job.applicants.request.dto';
 export * from './request/job-applicants/create.job.applicant.request.dto';
