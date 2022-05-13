@@ -26,7 +26,9 @@ export class CategoriesController{
 		@Rights(RightsTypes.MODIFY_CATEGORIES)
     @Delete('delete') 
     async delete(@Query() query:DeleteCategoryRequestDto){
-        return await this.categoryService.delete(query.ids)
+			// implementation has been changed to allow a single delete at a time.
+			// However, DTO has not been changed and the id at index 0 is picked for delete.
+        return await this.categoryService.delete(query.ids[0])
     }
 
     @Get('getAll')

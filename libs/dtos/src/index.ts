@@ -14,6 +14,7 @@ export * from './request/alexa-audio/get.all.alexa.audio.request.dto';
 export * from './request/attachments/get.all.attachments.request.dto';
 export * from './request/attachments/create.attachment.request.dto';
 export * from './request/attachments/update.attachment.request.dto';
+export * from './request/attachments/delete.attachment.request.dto';
 //...............................Authentication.............................
 export * from './request/authentication/register.admin.request.dto';
 export * from './request/authentication/update.admin.request.dto';
