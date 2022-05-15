@@ -4,5 +4,5 @@ import { PaginatedRequestDto } from "../pagination.request.dto";
 
 export class GetAllLogsRequestDto extends PaginatedRequestDto {
 	@IsNumberString()
-	userId: number
+	sessionId: number
 }

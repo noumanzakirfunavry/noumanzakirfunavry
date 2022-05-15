@@ -14,32 +14,12 @@ export class LogsService {
 	) { }
 
 	async getAllLogs(getAllLogsDto: GetAllLogsRequestDto): Promise<GenericResponseDto> {
-		// const { userId } = getAllLogsDto
-		const sessions = await this.sessionsRepo.findAll({
-			where: {
-				usersId: getAllLogsDto.userId
-			},
-			raw: true,
-			nest: true
-		})
-		console.log("🚀 ~ file: logs.service.ts ~ line 16 ~ LogsService ~ getAllLogsDto ~ sessions", sessions)
-
-		if (!sessions) {
-			throw new CustomException(
-				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-			);
-		}
-
-		const sessionIds = sessions.map(session => session.id)
-		console.log("🚀 ~ file: logs.service.ts ~ line 25 ~ LogsService ~ getAllLogsDto ~ sessionIds", sessionIds)
-
 		const logs = await this.logsRepo.findAndCountAll({
 			where: {
-				sessionId: sessionIds
+				sessionId: getAllLogsDto.sessionId
 			},
 			order: [['updatedAt', 'DESC']],
-			limit: parseInt(getAllLogsDto.limit.toString()),
+			limit: getAllLogsDto.limit,
 			offset: this.helperService.offsetCalculator(getAllLogsDto.pageNo, getAllLogsDto.limit)
 		});
 
