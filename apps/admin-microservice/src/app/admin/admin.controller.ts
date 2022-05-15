@@ -1,5 +1,5 @@
 import { Rights, Roles } from '@cnbc-monorepo/auth-module';
-import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto } from '@cnbc-monorepo/dtos';
+import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto, PaginatedRequestDto } from '@cnbc-monorepo/dtos';
 import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
 import { Controller, Delete, Get, Param, Query, Req } from '@nestjs/common';
 import { AdminService } from './admin.service';
@@ -14,6 +14,12 @@ export class AdminController {
     @Get("getAll")
     async getAllAdmin(@Query() query : GetAllAdminsRequestDto) : Promise<GetAllAdminsResponseDto>{
         return await this.adminService.getAllAdmin(query)
+    }
+
+		@Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
+    @Get('/sessions')
+    async getAllSessions(@Query() paginationDto : PaginatedRequestDto) : Promise<GenericResponseDto>{
+        return await this.adminService.getAllSessions(paginationDto)
     }
     
     @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
