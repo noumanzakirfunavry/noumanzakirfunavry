@@ -29,7 +29,6 @@ export class NewsService {
 	) { }
 
 	async getNewsById(id: number, req): Promise<GetNewsByIdResponseDto> {
-		console.log("🚀 ~ file: news.service.ts ~ line 28 ~ NewsService ~ getNewsById ~ req", req.ip)
 		const news_exists = await this.newsExists(id);
 		if (news_exists) {
 			// extract ip address from request
@@ -93,8 +92,9 @@ export class NewsService {
 		});
 	}
 
+	// * This method acts as getAllNews when no flag is given
 	async elkGetNewsByFlags(getNewsByFlagsRequestDto: GetNewsByFlagsRequestDto) {
-		const { isExclusiveVideos, isBreaking, isFeatured, isTrending, isEditorsChoice } = getNewsByFlagsRequestDto
+		const { isExclusiveVideos, isBreaking, isFeatured, isTrending, isEditorsChoice, contentType } = getNewsByFlagsRequestDto
 
 		// breaking news will be fetched through DB, others will be fetched ELK
 		if (isBreaking !== undefined) {
@@ -137,6 +137,14 @@ export class NewsService {
 			filtersArray.push({
 				match: {
 					isExclusiveVideos
+				}
+			})
+		}
+
+		if (contentType !== undefined) {
+			filtersArray.push({
+				match: {
+					contentType
 				}
 			})
 		}
