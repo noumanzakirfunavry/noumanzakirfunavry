@@ -315,7 +315,6 @@ export class CategoriesService {
 			})
 
 				ElkService.bulk({ operations: bulkUpdateArray })
-        console.log("🚀 ~ file: categories.service.ts ~ line 318 ~ CategoriesService ~ deleteCategoriesElk ~ bulkUpdateArray", bulkUpdateArray)
 		})
 	}
 
