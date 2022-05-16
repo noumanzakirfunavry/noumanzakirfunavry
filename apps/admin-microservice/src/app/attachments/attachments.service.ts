@@ -303,7 +303,7 @@ export class AttachmentsService {
 					}					
 					bulkUpdateArray.push({
 						update: {
-							_index: 'news',
+							_index: process.env.ELK_INDEX,
 							_id: news.id,
 						}
 					},
@@ -367,7 +367,7 @@ export class AttachmentsService {
 							}
 							bulkUpdateArray.push({
 								update: {
-									_index: 'news',
+									_index: process.env.ELK_INDEX,
 									_id: news.id,
 								}
 							},
