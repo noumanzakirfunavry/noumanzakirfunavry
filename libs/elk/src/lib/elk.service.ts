@@ -30,7 +30,7 @@ export class ElkService {
 			.catch((err) => {
 				console.log(
 					'🚀 ~ file: elk.service.ts ~ line 24 ~ ElkService ~ index ~ err',
-					err.meta.body
+					err.meta.body.error.root_cause
 				);
 			});
 	}
@@ -42,7 +42,7 @@ export class ElkService {
 		} catch (err) {
 			console.log(
 				'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ deleteByQuery ~ error',
-				err.meta.body)
+				err.meta.body.error.root_cause)
 
 			throw new InternalServerErrorException
 		}
@@ -57,7 +57,7 @@ export class ElkService {
 			.catch((err) => {
 				console.log(
 					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ deleteByQuery ~ error',
-					err.meta.body
+					err.meta.body.error.root_cause
 				);
 			});
 	}
@@ -71,7 +71,7 @@ export class ElkService {
 			.catch((err) => {
 				console.log(
 					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ update ~ error',
-					err.meta.body
+					err.meta.body.error.root_cause
 				);
 			});
 	}
@@ -85,7 +85,7 @@ export class ElkService {
 			.catch((err) => {
 				console.log(
 					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ update ~ error',
-					err.meta.body
+					err.meta.body.error.root_cause
 				);
 			});
 	}
@@ -98,7 +98,7 @@ export class ElkService {
 			.catch((err) => {
 				console.log(
 					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ bulk ~ error',
-					err.meta.body
+					err.meta.body.error.root_cause
 				);
 			});
 	}
