@@ -1,29 +1,41 @@
-import { FC } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import newslistimg from "../../../styles/images/biden2.jpg";
 import search from "../../../styles/images/search.svg";
 import backArrow from "../../../styles/images/backArrow.svg";
 import searchimg from "../../../styles/images/searchimg.jpg";
 import Title from "../../Title";
+import Link from 'next/link'
+import { useRouter } from 'next/router';
+import Router from 'next/router';
+import { baseUrlAdmin } from '../../../services/Requests';
+import { GetArabicFormattedDate } from '../../../services/Util';
 
-const SearchDropDown:FC<any> = ({data}) => {
 
-    const keys = Object.keys(data)
+
+const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal, handleNavigation, clearSearchBox}) => {
+
+    const keys = data ? Object.keys(data) : []
+
+    const searchBox = useRef(null);
+    useOutsideClickHandler(searchBox, clearSearchBox)
+    
+
+    console.log("Search Dropdown:::::", newsSearchData)
     return (
 
-        <div className='searchResulstBox'>
+        <div className='searchResulstBox' ref={searchBox}>
             <div className="dropsearch d-flex align-items-center">
-            <input type="text" className="form-control" placeholder="amazon"/>
-            <a href="javascript:void(0)" className="search_icon">
+            <input type="text" className="form-control" placeholder={searchVal}/>
+            <a className="search_icon">
                 <img src={search.src} alt="search" />
                 </a>
                 </div>
             <div className="backbar d-flex align-items-center">
-                                <a href="javascript:void(0)">
-                                    <img src={backArrow.src} alt="backarrow" />
-                                    </a>
-
-                                    <h5>amazon <span>عرض جميع نتائج البحث</span></h5>
-                                </div>
+            <a onClick={() => handleNavigation("search")}>
+                <img src={backArrow.src} alt="backarrow" />
+            </a>
+                 <h5>{searchVal} <span>عرض جميع نتائج البحث</span></h5>
+            </div>
             <Title styles={"topBorderText"}>
                 <h3 className="fs24_bolder">الأسهم ذات الصلة</h3>
             </Title>
@@ -31,7 +43,7 @@ const SearchDropDown:FC<any> = ({data}) => {
                 <div className="table-responsive">
                     <table className="table table-borderless table-striped">
                         {
-                            keys.map((key:string, index:number)=>{
+                            keys?.length > 0 && keys.map((key:string, index:number)=>{
                                 return (
                                     <tr key={index}>
                                         <td>
@@ -105,7 +117,41 @@ const SearchDropDown:FC<any> = ({data}) => {
             <div className="searchResultList">
                 <div className="NewsList">
                     <ul>
-                        <li>
+                        {
+                            newsSearchData?.length && newsSearchData?.map((news:any, index:number)=>{
+                                  return(
+                                    <li key={index}>
+                                        <div className="newsText">
+                                            {/*<h6><a>{news?._source?.title}</a></h6>*/}
+                                                <a onClick={() => handleNavigation(`newsDetails/`+news._id)}><h6>{news?._source?.title}</h6></a>
+                                            {/*<p><a>أمريكا</a> 07 مارس 2022</p>*/}
+                                            <p>
+                                                { // to show tags
+                                                    news?._source?.tags?.map((tag: string, tagIndex: number) => {
+                                                        return(
+                                                            <a key={tagIndex} href="#">{tag}</a>
+                                                        )
+                                                    })  
+	                                             }
+                                                 {GetArabicFormattedDate(news?._source?.createdAt)}
+                                            </p>
+                                        </div>
+                                        { // show thmbnail if video news
+                                            news?._source?.videoId ?
+                                                <div className="newsImage">
+                                                    {news?._source?.thumbnail ? <img className="img-fluid" src={baseUrlAdmin+news?._source.thumbnail?.path} />:<img className="img-fluid" src={searchimg.src} />}
+                                                </div>
+                                            : // else show image
+                                                <div className="newsImage">
+                                                    {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={searchimg.src} />}
+                                                </div>
+                                            }
+                                    </li>
+                                  )
+                              })
+                        }
+
+                        {/*<li>
                             <div className="newsText">
                                 <h6><a>
                                 ايدن: سيفقد حوالى 10 ملايين أميركي إعانات Amazon البطالة في حال عدم توقيع ترامب خطة الاقتصادي                                     </a></h6>
@@ -134,7 +180,7 @@ const SearchDropDown:FC<any> = ({data}) => {
                             <img className="img-fluid" src={searchimg.src} />
 
                             </div>
-                        </li>
+                    </li>*/}
                     </ul>
                 </div>
 
@@ -144,3 +190,18 @@ const SearchDropDown:FC<any> = ({data}) => {
 }
 
 export default SearchDropDown
+
+
+
+function useOutsideClickHandler(ref, clearSearchBox) {
+     useEffect(() => {
+       function handleOutsideClick(event) {
+         if (ref.current && !ref.current.contains(event.target)) {
+           clearSearchBox();
+         }
+       }
+    
+       document.addEventListener("click", handleOutsideClick);
+       return () => document.removeEventListener("click", handleOutsideClick);
+     }, [ref]);
+}

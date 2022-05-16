@@ -41,6 +41,8 @@ export class AddUserComponent implements OnInit{
   rightsValue: any;
   submitted= false;
   loader= true;
+  user: any;
+  isLoading= false;
 
   constructor(
     private fb: FormBuilder, 
@@ -52,10 +54,10 @@ export class AddUserComponent implements OnInit{
 
   ngOnInit(): void {
     this.getAllRights();
+    this.user = JSON.parse(localStorage.getItem('admin') || '{}');
     this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
       this.userId = + params.get('id');
     });
-    
   }
 
   inItForm() {
@@ -70,7 +72,7 @@ export class AddUserComponent implements OnInit{
       // userName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^[A-Za-z][A-Za-z0-9_][A-Za-z0-9!@#$%^&*_]{0,250}$')]],
       userName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
       password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
-      confirmPassword: [null, [Validators.required, this.confirmationValidator]],
+      confirmPassword: [null, [Validators.required, this.requiredValidator]],
       email: [null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
       isActive: [false],
       rights: [this.allRights, [Validators.required]]
@@ -84,16 +86,23 @@ export class AddUserComponent implements OnInit{
     }
     this.submitted=true;
     if(this.adminForm.valid) {
+      this.isLoading= true;
       const obj= this.adminForm.value;
       obj['name'] = this.adminForm.value.name.trim();
       obj['userName']= this.adminForm.value.userName.toLowerCase();
       obj['rights']= this.adminForm.value.rights.filter(x=>x.checked);
       obj['rights']= obj['rights'].map(x=>x.id);
+      if(obj['password'] == '' || this.adminForm.value.password == '') {
+        delete obj['password'];
+      }
       delete obj['confirmPassword'];
       this.apiService.sendRequest(this.userId ? requests.updateUser + this.userId : requests.registerUser, this.userId ? 'put' : 'post', obj).subscribe((res:any) => {
         console.log("ADMINS", res);
         this.inItForm();
         this.route.navigateByUrl('admins/list');
+        setTimeout(() => {
+          this.isLoading= false;
+        }, 2000);
         if(this.userId) {
           this.message.create('success', `Admin Updated Successfully`);
         }
@@ -134,20 +143,21 @@ export class AddUserComponent implements OnInit{
     this.apiService.sendRequest(requests.getUserById + this.userId, 'get').subscribe((res:any) => {
       this.userById= res.response.admin;
       console.log("USER-BY-ID", this.userById);
-      // setTimeout(() => {
+      if(this.user.user.id===this.userId) {
+        this.route.navigateByUrl('admins/list');
+        this.message.create('error', `Access Denied`);
+      }
         this.allRights.forEach(right=>{
           right['checked']=this.userById.rights.some(x=>x.id==right.id);
           right['label']=right.title
         })
-        // }, 500);
         console.log("rights enabled",this.allRights);
-        
         this.adminForm = this.fb.group({
           name: [this.userById?.name || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
           rolesId: [this.userById?.rolesId || null, [Validators.required]],
           userName: [this.userById?.userName || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
-          password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
-          confirmPassword: [null, [Validators.required, this.confirmationValidator]],
+          password: [null, [Validators.minLength(6), Validators.maxLength(30)]],
+          confirmPassword: [null, [this.confirmationValidator]],
           email: [this.userById?.email || null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$'), Validators.required]],
           isActive: [this.userById?.isActive || false],
           rights: [this.allRights, [Validators.required]]
@@ -155,7 +165,6 @@ export class AddUserComponent implements OnInit{
         setTimeout(() => {
           this.loader=false
         }, 200);
-   
     })
   }
 
@@ -164,9 +173,18 @@ export class AddUserComponent implements OnInit{
     Promise.resolve().then(() => this.adminForm.controls.confirmPassword.updateValueAndValidity());
   }
 
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+  requiredValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
+    } else if (control.value !== this.adminForm.controls.password.value) {
+      return { confirm: true, error: true };
+    }
+    return {};
+  };
+
+  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return {};
     } else if (control.value !== this.adminForm.controls.password.value) {
       return { confirm: true, error: true };
     }

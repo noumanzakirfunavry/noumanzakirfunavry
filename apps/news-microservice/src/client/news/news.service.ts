@@ -1,17 +1,18 @@
 import {
+	GenericResponseDto,
 	GetNewsByFlagsRequestDto,
 	GetNewsByIdResponseDto,
 	PaginatedRequestDto,
 	SearchNewsRequestDto
 } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
-import { BreakingNews, News, NewsVisitors, Users } from '@cnbc-monorepo/entity';
+import { BreakingNews, Categories, News, NewsVisitors, Users } from '@cnbc-monorepo/entity';
 import {
 	CustomException,
 	Exceptions,
 	ExceptionType
 } from '@cnbc-monorepo/exception-handling';
-import { Helper } from '@cnbc-monorepo/utility';
+import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Op } from 'sequelize';
 
@@ -28,7 +29,6 @@ export class NewsService {
 	) { }
 
 	async getNewsById(id: number, req): Promise<GetNewsByIdResponseDto> {
-		console.log("🚀 ~ file: news.service.ts ~ line 28 ~ NewsService ~ getNewsById ~ req", req.ip)
 		const news_exists = await this.newsExists(id);
 		if (news_exists) {
 			// extract ip address from request
@@ -37,17 +37,20 @@ export class NewsService {
 			this.newsVisitorsRepository.findOne({ where: { ipAddress, newsId: id } }).then(res => {
 				if (res) {
 					// if found then update counter
-					this.newsVisitorsRepository.update({ ...res, count: res.count + 1 }, { where: { ipAddress, newsId: id } })
+					this.newsVisitorsRepository.update({ ...res, visitDate: new Date().toDateString(), count: res.count + 1 }, { where: { ipAddress, newsId: id } })
 				} else {
 					// if not found then create new entry
 					this.newsVisitorsRepository.create({ ipAddress, visitDate: new Date().toDateString(), count: 1, newsId: id })
 				}
 			})
-			return new GetNewsByIdResponseDto(
-				HttpStatus.OK,
-				'News fetched successfully',
-				news_exists
-			);
+			const update_total_count = await this.updateTotalCountQuery(news_exists)
+			if (update_total_count) {
+				return new GetNewsByIdResponseDto(
+					HttpStatus.OK,
+					'News fetched successfully',
+					news_exists
+				);
+			}
 		} else {
 			throw new CustomException(
 				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
@@ -56,9 +59,17 @@ export class NewsService {
 		}
 	}
 
+	private async updateTotalCountQuery(news_exists: News) {
+		return await this.newsRepository.update({ totalViews: news_exists.totalViews + 1 }, {
+			where: {
+				id: news_exists.id
+			}
+		});
+	}
+
 	elkGetNewsByCategory(categoryId: number, paginationDTO: PaginatedRequestDto) {
 		return ElkService.search({
-			index: 'news',
+			index: process.env.ELK_INDEX,
 			from: paginationDTO.pageNo - 1,
 			size: paginationDTO.limit,
 			sort: "updatedAt:desc",
@@ -68,18 +79,22 @@ export class NewsService {
 				bool: {
 					must: [{
 						match: {
-							categories: categoryId,
+							"categories.id": categoryId,
 						}
 					}, { match: { isActive: true } }],
-					must_not: [{ exists: { field: "deletedAt" } }]
+					must_not: [
+						{ exists: { field: "deletedAt" } },
+						{ exists: { field: "categories.deletedAt" } }
+					]
 				}
 
 			},
 		});
 	}
 
+	// * This method acts as getAllNews when no flag is given
 	async elkGetNewsByFlags(getNewsByFlagsRequestDto: GetNewsByFlagsRequestDto) {
-		const { isExclusiveVideos, isBreaking, isFeatured, isTrending, isEditorsChoice } = getNewsByFlagsRequestDto
+		const { isExclusiveVideos, isBreaking, isFeatured, isTrending, isEditorsChoice, contentType } = getNewsByFlagsRequestDto
 
 		// breaking news will be fetched through DB, others will be fetched ELK
 		if (isBreaking !== undefined) {
@@ -126,8 +141,16 @@ export class NewsService {
 			})
 		}
 
+		if (contentType !== undefined) {
+			filtersArray.push({
+				match: {
+					contentType
+				}
+			})
+		}
+
 		return ElkService.search({
-			index: 'news',
+			index: process.env.ELK_INDEX,
 			from: getNewsByFlagsRequestDto.pageNo - 1,
 			size: getNewsByFlagsRequestDto.limit,
 			sort: "updatedAt:desc",
@@ -192,7 +215,7 @@ export class NewsService {
 		}
 
 		return ElkService.search({
-			index: 'news',
+			index: process.env.ELK_INDEX,
 			sort: "updatedAt:desc",
 			track_scores: true,
 			query: {
@@ -222,5 +245,44 @@ export class NewsService {
 				isActive: true
 			},
 		});
+	}
+
+	async getMostReadNews(paginationDto: PaginatedRequestDto): Promise<GenericResponseDto> {
+		const mostReadNews = await this.newsVisitorsRepository.findAll({
+			where: {
+				visitDate: {
+					// only count visits from last 7 days
+					[Op.gt]: new Date(new Date().setDate(new Date().getDate() - 7)),
+				},
+			},
+			attributes:{
+				include: [
+
+					[sequelize.fn('sum', sequelize.col('count')), 'Visits'],
+	
+				],
+				exclude:['id']
+			},
+
+			include: [{
+				model: News,
+				required: true,
+				duplicating: false,
+				include: [{
+					model: Categories,
+					required: true,
+					duplicating: false,
+					through: {
+						attributes: []
+					}
+				}]
+			}],
+			group: [sequelize.col('news.id'),sequelize.col('NewsVisitors.id'),sequelize.col('news->categories.id')],
+			order: [[sequelize.col('Visits'), 'DESC']],
+			limit: parseInt(paginationDto.limit.toString()),
+			offset: this.helperService.offsetCalculator(paginationDto.pageNo, paginationDto.limit),
+		});
+
+		return new GenericResponseDto(HttpStatus.OK, 'Request Successful', mostReadNews)
 	}
 }

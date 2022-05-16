@@ -28,6 +28,8 @@ export class AddMenusComponent implements OnInit{
   menuId: number;
   allMenus: any;
   menuById: any;
+  loader= true;
+  isLoading= false;
   
     constructor(
       private fb: FormBuilder, 
@@ -38,6 +40,21 @@ export class AddMenusComponent implements OnInit{
   
     ngOnInit(): void {
       this.getAllMenus();
+      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+        this.menuId = + params.get('id');
+        if (this.menuId) {
+          this.getMenuById();
+        }
+        else {
+          this.initForm();
+          setTimeout(() => {
+            this.loader=false
+          }, 200);
+        }
+      });
+    }
+
+    initForm() {
       this.menuForm = this.fb.group({
         title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
         position: [null, [Validators.required]],
@@ -49,12 +66,6 @@ export class AddMenusComponent implements OnInit{
         visible: [true, [Validators.required]],
         // orderNo: [1, [Validators.required]]
       });
-      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
-        this.menuId = + params.get('id');
-        if (this.menuId) {
-          this.getMenuById();
-        }
-      });
     }
 
     menus() {
@@ -63,10 +74,14 @@ export class AddMenusComponent implements OnInit{
         this.menuForm.controls[i].updateValueAndValidity();
       }
       if(this.menuForm.valid) {
+        this.isLoading= true;
         this.apiService.sendRequest(this.menuId ? requests.updateMenu + this.menuId : requests.addMenu, this.menuId ? 'put' : 'post', this.menuForm.value).subscribe((res:any) => {
           console.log("MENU", res);
           this.menuForm.reset();
           this.route.navigateByUrl('menus/list');
+          setTimeout(() => {
+            this.isLoading= false;
+          }, 2000);
           if(this.menuId) {
             this.message.create('success', `Menu Updated Successfully`)
         }
@@ -103,6 +118,9 @@ export class AddMenusComponent implements OnInit{
           visible: [this.menuById?.visible || true, [Validators.required]],
           // orderNo: [1, [Validators.required]]
         });
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
       })
     }
 

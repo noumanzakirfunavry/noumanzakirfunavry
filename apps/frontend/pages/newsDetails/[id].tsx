@@ -6,7 +6,7 @@ import smalllogo from '../../styles/images/cnbc-logo.svg';
 import Title from 'apps/frontend/components/Title';
 import ArticleDetails from 'apps/frontend/components/NewsDetails/ArticleDetails';
 import PageCatgories from 'apps/frontend/components/Shared/PageCategories/PageCategories';
-import HorizontalFooter2NewsSlider from 'apps/frontend/components/Shared/NewsFooter2Slider';
+import RelatedNewsSlider from 'apps/frontend/components/Shared/NewsFooter2Slider/RelatedNewsSlider';
 import HorizontalNumberedList from 'apps/frontend/components/Home/HorizontalNumberedList/HorizontalNumberedList';
 import MostReadSlider from 'apps/frontend/components/Home/MostReadSlider';
 //import { useRouter } from "next/router";
@@ -16,6 +16,7 @@ import { requests } from 'apps/frontend/services/Requests';
 import HtmlData from '../../components/Shared/HtmlData/HtmlData';
 import { GetMetaData } from 'apps/frontend/services/StaticData';
 import SEO from '../../components/Shared/SEO/SEO';
+import RecordNotFound from 'apps/frontend/components/Shared/RecordNotFound/RecordNotFound';
 
 const Index = (props: any) => {
   //console.log("Props:::::::::::::::::;;", props);
@@ -26,7 +27,7 @@ const Index = (props: any) => {
 
   const { news, metaData } = props;
 
-  //console.log(news)
+  //console.log('News Details::::::::::::', news)
 
   //const [news, setNews] = useState<any>();
   //
@@ -43,7 +44,10 @@ const Index = (props: any) => {
 
     }, [router.query.id])*/
 
+    //console.log('newsDetails:::', news)
+
   return (
+    Object.keys(news).length > 0 ?
     <>
       <SEO metaData={metaData} />
       <div className="newsAarticaldetailwrap">
@@ -140,7 +144,7 @@ const Index = (props: any) => {
             <Title styles={'yellowTitle'}>
               <h3>أخبار ذات صلة</h3>
             </Title>
-            <HorizontalFooter2NewsSlider />
+            <RelatedNewsSlider tags={news && news.tags} quotes={news && news.quotes} />
           </div>
 
           <div className="mb-5 hide_div_web">
@@ -154,6 +158,8 @@ const Index = (props: any) => {
         </div>
       </div>
     </>
+    :
+    <RecordNotFound />
   );
 };
 
@@ -174,7 +180,7 @@ export async function getStaticProps(context) {
     'get',
     false
   );
-  const newsRes = resPost?.data.response.news;
+  const newsRes = resPost?.data?.response?.news ? resPost?.data?.response?.news : {}
 
   const seoData = {
     ...newsRes?.seoDetail,

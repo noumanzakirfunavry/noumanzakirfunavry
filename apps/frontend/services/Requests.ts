@@ -15,7 +15,7 @@ export const adminAPIClient=baseUrlAdmin+'admin/api/client/';
 export const requests={
     login:newsAPI+'login',
     signup:newsAPI+'register',
-    quickLinks:newsAPI+'quickLinks',
+    quickLinks:newsAPIClient+'quickLinks',
     breakingNews:adminApi+'breakingNews',
     branches:adminApi+'branches',
     jobs:adminApi+'jobs',
@@ -29,4 +29,12 @@ export const requests={
     trendingNews:newsAPIClient+'news/get/flags?isTrending=true',
     exclusiveVideosNews:newsAPIClient+'news/get/flags?isExclusiveVideos=true',
     latestNews:newsAPIClient+'news/get/flags?',
+    search:newsAPIClient+'news/search',
+    mostReadNews:newsAPIClient+'news/mostRead?',
+    programs:adminAPIClient+'programs/getAll',
+    programById:adminAPIClient+'programs/getById',
+    episodes:adminAPIClient+'episodes/getAll',
+    episodeById:adminAPIClient+'episodes/getById',
 }
+
+export const limitOfList = '20' ;

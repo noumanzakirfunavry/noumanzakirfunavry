@@ -1,7 +1,7 @@
 import { ChangeLogs } from "@cnbc-monorepo/entity";
 import { Inject, Injectable } from "@nestjs/common";
 import * as bcrypt from 'bcrypt';
-import { AddLogRequestDto, CreateEpisodeRequestDto, CreateNewsRequestDto } from '@cnbc-monorepo/dtos'
+import { CreateEpisodeRequestDto, CreateNewsRequestDto } from '@cnbc-monorepo/dtos'
 import { Request } from "express";
 @Injectable()
 export class Helper {
@@ -16,6 +16,13 @@ export class Helper {
         const saltOrRounds = 10;
         const hash = await bcrypt.hash(password, saltOrRounds);
         return hash
+    }
+    programObjectCreator(body,seoDetailId,publisherId){
+        return {
+            ...body,
+            seoDetailId,
+            publisherId
+        }
     }
     addHoursToDate(date: Date, hours: number): Date {
         return new Date(new Date(date).setHours(date.getHours() + hours));
@@ -40,22 +47,23 @@ export class Helper {
     stringTrimmerAndCaseLower(name: string) {
         return name.toLocaleLowerCase().trim()
     }
-    async addLog(body: any) {
-        return await this.changeLogsRepository.create(body)
-    }
-    logObjectCreator(changeType, entityType, id, changeDate, changeComment, req) {
-        const logObject = {
-            changeType: changeType,
-            entityType: entityType,
-            entityId: id,
-            changeDate: changeDate,
-            changeComment: changeComment,
-            ipAddress: req.ip,
-            sessionsId: req.user.sessionId,
-            changedBy: req.user.data.id
-        }
-        return logObject;
-    }
+		// * No need as we will be intercepting the requests and logging them through that process
+    // async addLog(body: any) {
+    //     return await this.changeLogsRepository.create(body)
+    // }
+    // logObjectCreator(changeType, entityType, id, changeDate, changeComment, req) {
+    //     const logObject = {
+    //         changeType: changeType,
+    //         entityType: entityType,
+    //         entityId: id,
+    //         changeDate: changeDate,
+    //         changeComment: changeComment,
+    //         ipAddress: req.ip,
+    //         sessionsId: req.user.sessionId,
+    //         changedBy: req.user.data.id
+    //     }
+    //     return logObject;
+    // }
 
     newsObjectCreator(body: CreateNewsRequestDto, seoDetailId: number, userId: number) {
         const news_object = {
@@ -92,7 +100,7 @@ export class Helper {
         const news_object = {
             airedOn: body.airedOn,
             title: body.title,
-            description: body.description,
+            content: body.content,
             isActive: body.isActive,
             ...(body.videoId && {
                 videoId: body.videoId
@@ -124,10 +132,9 @@ export class Helper {
             episodesId: episodesId
         }
     }
-    quotesObject(position, quotesId, newsId) {
+    quotesObject(quotes, newsId) {
         return {
-            position: position,
-            quotesId: quotesId,
+            ...quotes,
             newsId: newsId
         }
     }
@@ -163,13 +170,13 @@ export class Helper {
         }
     }
 
+
 	/**
 	 * Extract the IP address from Request object.
 	 * @param req - The request object
 	 * @returns {string} IP address
 	 */
-		extractIP(req: Request){
-			// return req.ip
-			return '192.168.1.1'
+		extractIP(req: Request): string {
+			return req.ip
 		}
 }

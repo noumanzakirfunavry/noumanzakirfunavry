@@ -1,4 +1,6 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -23,7 +25,8 @@ export class Data extends Pagination {
 
 
 @Component({
-    templateUrl: './exclusiveVideos.component.html'
+    templateUrl: './exclusiveVideos.component.html',
+    styleUrls: ['./exclusiveVideos.component.scss']
 })
 
 export class ExclusiveVideosComponent implements OnInit{
@@ -65,7 +68,7 @@ export class ExclusiveVideosComponent implements OnInit{
         }
     ];
 
-    constructor (private apiService: ApiService,  private message: NzMessageService) {}
+    constructor (private apiService: ApiService,  private message: NzMessageService, private route: Router) {}
 
     ngOnInit(): void {
         this.getAllCategories();
@@ -91,7 +94,12 @@ export class ExclusiveVideosComponent implements OnInit{
     getAllExclusiveVideos() {
         this.apiService.sendRequest(requests.getAllExclusiveVideos, 'get').subscribe((res:any) => {
             this.allExclusiveVideos= res.response.exclusiveVideos;
-            this.exclusiveVideos = this.allExclusiveVideos && this.allExclusiveVideos.length > 0 ? this.allExclusiveVideos : this.exclusiveVideos;
+            for(let i = 0; i < this.exclusiveVideos.length; i++) {
+                const evNews= this.allExclusiveVideos.find(x => x.position == this.exclusiveVideos[i].position)
+                if(evNews) {
+                    this.exclusiveVideos[i] = evNews;
+                }
+            }
             console.log("ALL-EXCLUSIVE-VIDEOS", this.allExclusiveVideos);
             this.loading = false;
         }, err => {
@@ -109,7 +117,7 @@ export class ExclusiveVideosComponent implements OnInit{
             this.exclusiveVideos[news] = updatedNews;
         }
         else if(this.exclusiveVideos.some(x=>!x.newsId)){
-            
+            console.log('');
         }
         else {
             const tempNews = updatedNews;
@@ -138,12 +146,25 @@ export class ExclusiveVideosComponent implements OnInit{
             this.message.create('error', 'Add all Exclusive Video News for Exclusive Video Section')
         }
         else {
-            this.apiService.sendRequest(requests.updateExclusiveVideos, 'put', { exclusiveVideos: this.exclusiveVideos }).subscribe((res:any) => {
+            const body = this.exclusiveVideos.map(x=>{return {newsId: x.newsId, position: x.position, title: x.title, description: x.description}});
+            this.apiService.sendRequest(requests.updateExclusiveVideos, 'put', { exclusiveVideos: body }).subscribe((res:any) => {
                 console.log("UPDATE-EXCLUSIVE-VIDEOS", res);
                 this.getAllExclusiveVideos();
                 this.message.create('success', `Exclusive Videos Updated Successfully`);
             })
         }
+    }
+
+    drop(event: CdkDragDrop<string[] | any>) {
+        moveItemInArray(this.allExclusiveVideos, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.allExclusiveVideos.length; i++) {
+            this.allExclusiveVideos[i].position= i + 1;
+        }
+        console.log("POS", this.allExclusiveVideos);
+    }
+
+    cancel() {
+        this.route.navigateByUrl('dashboard')
     }
 
 }    

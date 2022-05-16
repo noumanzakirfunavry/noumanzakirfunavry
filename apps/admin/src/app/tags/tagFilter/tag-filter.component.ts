@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core'
+import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -8,7 +8,7 @@ import { ApiService } from '../../shared/services/api.service';
     templateUrl: './tag-filter.component.html'
 })
 
-export class TagFilterComponent {
+export class TagFilterComponent implements OnInit{
     @Output() statusEmitter = new EventEmitter (); 
     @Output() filterEmitter = new EventEmitter (); 
     filterModel : {status: boolean, title: string, publisher: number} = {status: null, title: null, publisher: null}

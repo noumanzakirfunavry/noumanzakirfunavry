@@ -1,4 +1,6 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -24,7 +26,8 @@ export class Data extends Pagination {
 
 
 @Component({
-    templateUrl: './editorsChoice.component.html'
+    templateUrl: './editorsChoice.component.html',
+    styleUrls: ['./editorsChoice.component.scss']
 })
 
 export class EditorsChoiceComponent implements OnInit{
@@ -57,7 +60,7 @@ export class EditorsChoiceComponent implements OnInit{
     ];
 
 
-    constructor (private apiService: ApiService,  private message: NzMessageService) {}
+    constructor (private apiService: ApiService,  private message: NzMessageService, private route: Router) {}
 
     ngOnInit(): void {
         this.getAllCategories();
@@ -83,9 +86,14 @@ export class EditorsChoiceComponent implements OnInit{
     getAllEditorsChoiceNews() {
         this.apiService.sendRequest(requests.getAllEditorsChoiceNews, 'get').subscribe((res:any) => {
             this.allEditorsChoice= res.response.editorsChoiceNews;
-            this.editorsChoice = this.allEditorsChoice && this.allEditorsChoice.length > 0 ? this.allEditorsChoice : this.editorsChoice;
+            for(let i = 0; i < this.editorsChoice.length; i++) {
+                const edNews= this.allEditorsChoice.find(x => x.position == this.editorsChoice[i].position)
+                if(edNews) {
+                    this.editorsChoice[i] = edNews;
+                }
+            }
             console.log("ALL-EDITORS-CHOICE", this.allEditorsChoice);
-            this.loading= false;
+            this.loading = false;
         }, err => {
             this.loading = false;
         })
@@ -101,7 +109,7 @@ export class EditorsChoiceComponent implements OnInit{
             this.editorsChoice[news] = updatedNews;
         }
         else if(this.editorsChoice.some(x=>!x.newsId)){
-            
+            console.log('');
         }
         else {
             const tempNews = updatedNews;
@@ -116,6 +124,8 @@ export class EditorsChoiceComponent implements OnInit{
     findDuplicates() {
         const valueArr = this.editorsChoice.map(function (item) { return item.newsId });
         const isDuplicate = valueArr.some(function (item, idx) {
+            console.log("VAL",valueArr.indexOf(item));
+            
             return valueArr.indexOf(item) != idx
         });
         console.log("DUPLICATE-NEWS", isDuplicate);
@@ -130,12 +140,25 @@ export class EditorsChoiceComponent implements OnInit{
                 this.message.create('error', 'Add all Editors Choice News for Editors Choice Section')
             } 
             else {
-                this.apiService.sendRequest(requests.updateEditorsChoiceNews, 'put', { news: this.editorsChoice }).subscribe((res:any) => {
+                const body = this.editorsChoice.map(x=>{return {newsId:x.newsId,position: x.position}});
+                this.apiService.sendRequest(requests.updateEditorsChoiceNews, 'put', { news: body }).subscribe((res:any) => {
                     console.log("UPDATE-EDITORS-CHOICE", res);
                     this.getAllEditorsChoiceNews();
                     this.message.create('success', `Editor's Choice News Updated Successfully`);
                 })
             }
+    }
+
+    drop(event: CdkDragDrop<string[] | any>) {
+        moveItemInArray(this.allEditorsChoice, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.allEditorsChoice.length; i++) {
+            this.allEditorsChoice[i].position= i + 1;
+        }
+        console.log("POS", this.allEditorsChoice);
+      }
+
+    cancel() {
+        this.route.navigateByUrl('dashboard')
     }
 
 }    

@@ -40,6 +40,8 @@ import { MenusProvider } from '../providers/menus.provider';
 import { MarketsProvider } from '../providers/markets.provider';
 import { PagesProvider } from '../providers/pages.provider';
 import { DailymotionUploadRequestsProvider } from '../providers/dailyMotion.upload.requests.provider';
+import { ProgramsProvider } from '../providers/programs.provider';
+import { CommentsProvider } from '../providers/comments.provider';
 
 @Module({
   providers: [
@@ -84,7 +86,10 @@ import { DailymotionUploadRequestsProvider } from '../providers/dailyMotion.uplo
 		...MenusProvider,
 		...MarketsProvider,
 		...PagesProvider,
-		...DailymotionUploadRequestsProvider
+		...DailymotionUploadRequestsProvider,
+		...ProgramsProvider,
+    ...CommentsProvider,
+		...ChangeLogsProvider
   ],
   exports: [
     ...UsersProvider,
@@ -127,8 +132,10 @@ import { DailymotionUploadRequestsProvider } from '../providers/dailyMotion.uplo
 		...MenusProvider,
 		...MarketsProvider,
 		...PagesProvider,
-		...DailymotionUploadRequestsProvider
-
+		...DailymotionUploadRequestsProvider,
+		...ProgramsProvider,
+    ...CommentsProvider,
+		...ChangeLogsProvider
   ],
 })
 export class ProvidersModule {}

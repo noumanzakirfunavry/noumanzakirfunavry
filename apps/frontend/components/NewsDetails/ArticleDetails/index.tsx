@@ -1,5 +1,5 @@
 import { baseUrlAdmin } from "apps/frontend/services/Requests";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import newsImage from "../../../styles/images/biden.jpg";
 import logoImage from "../../../styles/images/CNBC-favicon.png";
 import twite from "../../../styles/images/twite.png";
@@ -9,15 +9,47 @@ import NewsRealtedStock from "../CategoryDetailsBoxes/CategoryDetailsBoxes";
 
 const ArticleDetails: FC<any> = ({ news }) => {
 
+    const [playVideo, setPlayVideo] = useState<boolean>(false)
+
+    useEffect(() => {
+        setPlayVideo(false);
+    }, [news])
+    
     console.log("news id====>",news);
     
     return (
         <>
             <NewsRealtedStock />
+            
 
-            <div className="mb-3 newsDetailimg">
-                <img className="img-fluid" src={news?.image?.path ? baseUrlAdmin+news?.image?.path:logoImage.src} />
-            </div>
+            { // if video news then deal with video
+                news?.videoId ? 
+                playVideo ? // play video if play flag is set
+                    <video className="mb-3 newsDetailimg" controls autoPlay loop>
+                        <source src={news?.video?.path ? baseUrlAdmin+news?.video?.path:logoImage.src} type="video/mp4" />
+                    </video>
+                : // else show thumbnail with play icon
+                    <div className="VideoNews mb-4 ">
+                        <div className="NewsImage">
+                            <img className="img-fluid" src={news?.thumbnail?.path ? baseUrlAdmin+news?.thumbnail?.path:logoImage.src} />
+                        </div>
+                        <div className="PlayTime">
+                            <h5>05:21</h5>
+                            <div className="btn-text">
+                                <span>شاهد الآن</span>
+                                <button className="btn btn-warning VideoPlay" onClick={() => setPlayVideo(!playVideo)}>
+                                    <i className="fa play_big"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+            : // else show image if not video news
+
+                <div className="mb-3 newsDetailimg">
+                    <img className="img-fluid" src={news?.image?.path ? baseUrlAdmin+news?.image?.path:logoImage.src} />
+                </div>
+            } 
             <h6 className="newsDetailtext">{/*news?.image?.description*/}</h6>
             <hr></hr>
             {news ? <HtmlData data={news?.content} /> :<div>

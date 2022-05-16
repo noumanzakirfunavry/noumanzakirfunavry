@@ -21,6 +21,8 @@ export class AddBreakingNewsComponent implements OnInit {
   breakingNewsForm: FormGroup;
   breakingNewsId: number;
   breakingNewsById: any;
+  loader= true;
+  isLoading= false;
   
     constructor(private fb: FormBuilder, 
       private apiService: ApiService, 
@@ -35,8 +37,14 @@ export class AddBreakingNewsComponent implements OnInit {
         if (this.breakingNewsId) {
           this.getBreakingNewsById();
         }
+        else {
+          this.inItForm();
+          setTimeout(() => {
+            this.loader=false
+          }, 200);
+        }
       });
-      this.inItForm();
+      
     }
 
     inItForm() {
@@ -56,12 +64,16 @@ export class AddBreakingNewsComponent implements OnInit {
         this.breakingNewsForm.controls[i].updateValueAndValidity();
       }
       if(this.breakingNewsForm.valid) {
+        this.isLoading= true;
         const obj= this.breakingNewsForm.value;
         obj['newsId']= 1;
         this.apiService.sendRequest(this.breakingNewsId ? requests.updateBreakingNews + this.breakingNewsId : requests.addBreakingNews, this.breakingNewsId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("ADD-BREAKING-NEWS", res);
           this.inItForm();
           this.route.navigateByUrl('breakingNews/list');
+          setTimeout(() => {
+            this.isLoading= false;
+          }, 2000);
           if(this.breakingNewsId) {
             this.message.create('success', `Breaking News Updated Successfully`);
           }
@@ -84,6 +96,9 @@ export class AddBreakingNewsComponent implements OnInit {
           IsTwitterActive: [this.breakingNewsById?.IsTwitterActive || false],
           isFacebookActive: [this.breakingNewsById?.isFacebookActive || false]
         });
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
       })
     }
 

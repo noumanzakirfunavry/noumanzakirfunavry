@@ -1,46 +1,33 @@
 <!-- <button class="btn btn-primary"  (click)="fileSelector()" >Profile Picture</button> -->
 <ng-container>
 <div [formGroup]="formField">
-  <!-- <label class="col-form-label" for="{{field.colName}}">{{field.label}}</label> -->
-  <!-- <button *ngIf="field.properties?.fileData?.path" title="{{field.label}}" class="ml-3 float-right btn btn-success waves-effect btn-circle waves-light"
-    type="button" (click)="fileSelector()">
-    <i class="mdi mdi-upload"></i>
-  </button> -->
-<!-- <button  type="button" (click)="fileSelector()" class="ml-3 form-control2">
-  Choose File<i class="ml-1 mdi mdi-upload"></i>
-  </button>  -->
-<!-- {{field | json}} -->
-  <!-- <i class="mdi mdi-upload ml-2" role="button" title="Profile Picture" (click)="fileSelector()"></i> -->
-  
-  <!-- <input style="display: none;"  name="{{field.colName}}" [formControlName]="field.colName"  #imageSelector placeholder="{{field.label}}" type="file" (change)="fileRead($event)"
-    accept="{{fileTypes}}" class="form-control" [id]="field.colName"> -->
     <nz-form-item>
-    <nz-form-label nzRequired>Upload Media</nz-form-label>
+      <nz-form-label>
+        <h4>{{title}}</h4>
+    </nz-form-label>    
     <nz-form-control nzErrorTip="Choose File!">
-       <nz-form-label>{{title}}</nz-form-label>
+       <nz-form-label>{{field.label}}</nz-form-label>
         <input #imageSelector (change)="fileRead($event)" [formControlName]="field.colName" type="file" accept="{{fileTypes}}"  />
+        <span *ngIf="uploadProgress && uploadProgress<100" class="ml-4 mt-1">File Uploading Progress
+          :{{uploadProgress}}%</span>
         <!-- <span>Maximum file size 2MB</span> -->
     </nz-form-control>
   </nz-form-item>
 </div>
 </ng-container>
 <!-- <br> -->
+<ng-content [select]="[customDiv]"></ng-content>
+<!-- <div class="mt-2" *ngIf="(mediaObj && mediaObj.name) && uploadProgress==100">
+  <img *ngIf="mediaObj?.type!='video'"  width="40%" height="40%" src="{{mediaObj.src}}">
+  <video *ngIf="mediaObj?.type=='video' && mediaObj?.src" id="video1" width="60%" height="60%" class="img"  controls>
+    <source [src]="mediaObj?.src">
+  </video>
+</div> -->
+<br>
 
-<div class="mt-2" *ngIf="(mediaObj && mediaObj.name)">
-  
-  <!-- <img style="height: 40px;" src="{{mediaObj.src}}">{{mediaObj && mediaObj.name ? mediaObj.name:''}} -->
-  <!-- <button title="Delete" class="ml-3 btn btn-success waves-effect btn-circle waves-light" type="button"
-    (click)="removePicture()"> <i nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i>
-  </button> -->
-  <i style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i>
-  <!-- <i class="ti ti-trash text-danger" role="button" title="Remove" (click)="removePicture()"></i> -->
-</div>
-<div *ngIf="mediaObj">
-  {{this.mediaObj.name}}
-</div>
-<!-- {{field | json}} -->
-<!-- <div *ngIf="!mediaObj.name"><i class="fa fa-download" (click)="downloadResume(field?.properties?.fileData?.path)"></i></div> -->
-
+<div class="mb-2" *ngIf="field.value && !uploadProgress" style="color: Crimson;">Click to Upload File!</div>
+  <i nz-tooltip nzTooltipTitle="Upload" class="mr-4 mb-2" *ngIf="field.value && !uploadProgress" style="cursor: pointer; font-size: 18px;" nz-icon nzType="upload" nzTheme="outline" (click)="[getCaptcha($event),uploadFile()]"></i>
+  <i nz-tooltip nzTooltipTitle="Delete" class="mb-2" *ngIf="(mediaObj && mediaObj.name) && (!uploadProgress || uploadProgress===100)" style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i>
 <div *ngIf="error">
     <span class="text-danger">{{error}}</span>
 </div>

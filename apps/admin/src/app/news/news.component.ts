@@ -55,6 +55,7 @@ export class NewsComponent implements OnInit {
     handleError(err: any) {
         if (err) {
           this.allNews = [];
+          this.newsCount= 0;
         }
         return err
       }

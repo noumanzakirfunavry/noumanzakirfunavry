@@ -1,15 +1,12 @@
 
-import axios from 'axios';
-import path from 'path';
-import { Op } from 'sequelize';
-import fs from 'fs'
-import request from 'request'
-import { CreateAttachmentRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllAttachmentsRequestDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
-import { Attachments, DailymotionUploadRequests } from '@cnbc-monorepo/entity';
+import { CreateAttachmentRequestDto, DeleteAttachmentRequestDto, GenericResponseDto, GetAllAttachmentsRequestDto, UpdateAttachmentRequestDto } from '@cnbc-monorepo/dtos';
+import { ElkService } from '@cnbc-monorepo/elk';
+import { Attachments, DailymotionUploadRequests, News } from '@cnbc-monorepo/entity';
 import { AttachmentTypes } from '@cnbc-monorepo/enums';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class AttachmentsService {
@@ -19,6 +16,9 @@ export class AttachmentsService {
 
 		@Inject('DAILYMOTION_UPLOAD_REQUESTS_REPOSITORY')
 		private dailymotionUploadRepo: typeof DailymotionUploadRequests,
+		
+		@Inject('NEWS_REPOSITORY')
+		private newsRepository: typeof News,
 
 		private helperService: Helper
 	) { }
@@ -99,7 +99,9 @@ export class AttachmentsService {
 			const attachment_exists = await this.attachmentExistsQuery(id)
 			if (attachment_exists) {
 				const response = await this.updateAttachmentQuery(body, id)
-				if (response) {
+				if (response[0]) {
+					this.updateAttachmentElk(id, attachment_exists.attachmentType)
+
 					return new GenericResponseDto(
 						HttpStatus.OK,
 						"Updated successfully"
@@ -125,16 +127,15 @@ export class AttachmentsService {
 		}
 	}
 
-	async deleteAttachments(query: DeleteAlexaAudioRequestDto): Promise<GenericResponseDto> {
+	async deleteAttachments(query: DeleteAttachmentRequestDto): Promise<GenericResponseDto> {
 		let attachment_exists;
 		let response;
 		try {
 			return await sequelize.transaction(async t => {
 				const transactionHost = { transaction: t };
-				for (let i = 0; i < query.id.length; i++) {
-					attachment_exists = await this.attachmentExistsQuery(query.id[i])
+					attachment_exists = await this.attachmentExistsQuery(query.id[0])
 					if (attachment_exists) {
-						response = await this.deleteAttachmentsQuery(query.id[i], transactionHost)
+						response = await this.deleteAttachmentsQuery(query.id[0], transactionHost)
 						if (!response) {
 							throw new CustomException(
 								Exceptions[ExceptionType.SOMETHING_WENT_WRONG].message,
@@ -148,7 +149,8 @@ export class AttachmentsService {
 							Exceptions[ExceptionType.RECORD_NOT_FOUND].status
 						)
 					}
-				}
+				this.deleteAttachmentElk(query.id[0])
+
 				return new GenericResponseDto(
 					HttpStatus.OK,
 					"Deleted successfully"
@@ -214,5 +216,176 @@ export class AttachmentsService {
 
 	private async attachmentCreationQuery(attachment_obj: any) {
 		return await this.attachmentsRepository.create(attachment_obj);
+	}
+
+	async uploadToDailyMotion(video: Attachments) {
+		const url = 'https://api.dailymotion.com/file/upload';
+		const access_token = 'Zjd0SV5dCUllPwRiOw4bPg81KTp9FCdZMwQ_fGNVOC1_';
+
+		try {
+			// const { data } = await axios.get(url, {
+			// 	headers: {
+			// 		Authorization: `Bearer ${access_token}`,
+			// 	},
+			// });
+			// console.log("🚀 ~ file: attachments.service.ts ~ line 206 ~ AttachmentsService ~ uploadToDailyMotion ~ data", data)
+			// console.log(path.join(process.env.DATABASE_FILE_UPLOAD_PATH, video.path));
+
+			// const options = {
+			// 	method: 'POST',
+			// 	url: data.upload_url,
+			// 	headers: {},
+			// 	formData: {
+			// 		file: {
+			// 			value: fs.createReadStream(path.join(process.env.DATABASE_FILE_UPLOAD_PATH, video.path)),
+			// 			options: {
+			// 				// filename: video.title,
+			// 				contentType: null,
+			// 			},
+			// 		},
+			// 	},
+			// };
+      // console.log("🚀 ~ file: attachments.service.ts ~ line 224 ~ AttachmentsService ~ uploadToDailyMotion ~ options", options.formData)
+				// request(options, function (error, response) {
+				// 	if (error) throw new Error(error);
+				// 	console.log(JSON.parse(response.body));
+				// });
+		} catch (err) {
+			console.log(err);
+
+		}
+
+	}
+
+	updateAttachmentElk(id: number, attachmentType: AttachmentTypes) {
+		(this.newsRepository.findAll({
+			include: [
+				{
+					model: Attachments,
+					as: attachmentType.toLowerCase(),
+					where: { id },
+					paranoid: false
+				}
+			],
+			raw: true,
+			nest: true
+		}))
+			.then(res => {
+				let bulkUpdateArray = [];
+
+				// construct bulk update array
+				res.forEach(news => {
+					let updateDoc = {};
+
+					// check what was updated, and build a update object accordingly
+					// +id is for explicitly casting id to number type
+					switch (+id) {
+						case news.imageId:
+							updateDoc = {
+								image: {
+									title: news.image.title,
+									description: news.image.description
+								}
+							}
+							break;
+						case news.videoId:
+							updateDoc = {
+								video: {
+									title: news.video.title,
+									description: news.video.description
+								}
+							}
+							break;
+						case news.thumbnailId:
+							updateDoc = {
+								thumbnail: {
+									title: news.thumbnail.title,
+									description: news.thumbnail.description
+								}
+							}
+							break;
+						default:
+							break;
+					}					
+					bulkUpdateArray.push({
+						update: {
+							_index: process.env.ELK_INDEX,
+							_id: news.id,
+						}
+					},
+						{
+							doc: updateDoc
+						})
+				})
+				ElkService.bulk({ operations: bulkUpdateArray })
+			})
+			.catch(err=>{
+				console.log(err.message)
+			})
+	}
+
+	deleteAttachmentElk(id: number) {
+		this.attachmentsRepository.findOne({ where: { id }, paranoid: false, raw: true, nest: true })
+			.then(res => {
+				this.newsRepository.findAll({
+					include: [{
+						model: Attachments,
+						as: res.attachmentType.toLowerCase(),
+						where: { id },
+						paranoid: false
+					}],
+					raw: true,
+					nest: true
+				})
+					.then(newsRes => {
+						let bulkUpdateArray = [];
+
+						// construct bulk update array
+						newsRes.forEach(news => {
+							let updateDoc = {};
+
+							// check what was deleted, and build a update object accordingly
+							// +id is for explicitly casting id to number type
+							switch (+id) {
+								case news.imageId:
+									updateDoc = {
+										image: {
+											deletedAt: new Date().toISOString()
+										}
+									}
+									break;
+								case news.videoId:
+									updateDoc = {
+										video: {
+											deletedAt: new Date().toISOString()
+										}
+									}
+									break;
+								case news.thumbnailId:
+									updateDoc = {
+										thumbnail: {
+											deletedAt: new Date().toISOString()
+										}
+									}
+									break;
+								default:
+									break;
+							}
+							bulkUpdateArray.push({
+								update: {
+									_index: process.env.ELK_INDEX,
+									_id: news.id,
+								}
+							},
+								{
+									doc: updateDoc
+								})
+						})
+						ElkService.bulk({ operations: bulkUpdateArray })
+					})
+			})
+			.catch(err=>{
+				console.log(err.message)
+			})
 	}
 }

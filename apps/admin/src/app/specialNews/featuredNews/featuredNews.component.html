@@ -4,19 +4,21 @@
     <br>
     <div class="col-12">
         <div class="row">
-          <div class="col-12">
-          <nz-table [nzData]="allFeaturedNews" [nzShowPagination]="false" class="no-border-last">
+          <div class="col-12" cdkDropList (cdkDropListDropped)="drop($event)">
+          <nz-table [nzData]="allFeaturedNews" [nzLoading]="loading" [nzShowPagination]="false" class="no-border-last">
             <thead>
                 <tr>
                     <th class="text-left" colspan="4"></th>
                 </tr>
             </thead>
-            <tbody *ngIf="!loading">
-                <tr *ngFor="let news of fNews">
+            <tbody>
+                <tr class="news-block" *ngFor="let news of fNews" cdkDrag>
                     <!-- <td>#</td> -->
-                    <td>{{news?.position}}</td>
+                    <!-- <td>{{news?.position}}</td> -->
+                    <td>
+                      <i nz-icon nzType="drag" nzTheme="outline"></i>
+                  </td>
                     <ng-container>
-                      <!-- {{news | json}} -->
                       <news-table-row 
                       [allCategories]="allCategories" 
                       [news]="news"
@@ -32,7 +34,7 @@
             <nz-form-item>
               <nz-form-control>
                 <button class="mr-3" (click)="updateFeaturedNews()" nz-button nzType="primary">Save</button>
-                <!-- <button nz-button nzType="default">Cancel</button> -->
+                <button nz-button nzType="default" (click)="cancel()">Cancel</button>
               </nz-form-control>
             </nz-form-item>
           </div>

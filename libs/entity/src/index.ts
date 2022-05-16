@@ -7,6 +7,7 @@ import { Branches } from './entities/branches.entity';
 import { BreakingNews } from './entities/breaking.news.entity';
 import { Categories } from './entities/categories.entity';
 import { ChangeLogs } from './entities/change.logs.entity';
+import { Comments } from './entities/comments.entity';
 import { ContentAnalytics } from './entities/content.analytics.entity';
 import { DailymotionUploadRequests } from './entities/dailyMotion.upload.requests.entity';
 import { Departments } from './entities/departments.entity';
@@ -108,6 +109,7 @@ export * from './entities/notification.subscribers.entity'
 export * from './entities/pages.entity'
 export * from './entities/presenters.entity'
 export * from './entities/programs.entity'
+export * from './entities/programs.schedule.entity'
 export * from './entities/push.notification.entity'
 export * from './entities/qualification.entity'
 export * from './entities/quick.links.entity'
@@ -128,6 +130,7 @@ export * from './entities/users.has.rights.entity'
 export * from './entities/news.has.tags.entity'
 export * from './entities/news.has.quotes.entity'
 export * from './entities/news.has.categories.entity'
+export * from './entities/comments.entity'
 export const Entities=[
     Alerts,
     AlexaAudio,
@@ -197,5 +200,6 @@ export const Entities=[
     TrendingNews,
     TrendingNowNews,
     Users,
-    UsersHasRights
+    UsersHasRights,
+    Comments
 ]

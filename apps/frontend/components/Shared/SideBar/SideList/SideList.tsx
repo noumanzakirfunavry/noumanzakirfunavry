@@ -6,19 +6,29 @@ import { FC, useEffect, useState } from "react";
 import newsImage from "../../../../styles/images/biden.jpg";
 import Title from "apps/frontend/components/Title";
 import GetData from "apps/frontend/services/GetData";
-import { requests } from "apps/frontend/services/Requests";
+import { requests, baseUrlAdmin, limitOfList } from "apps/frontend/services/Requests";
 import Link from "next/link";
 import TimeAgoArabicFormat from "../../TimeAgoCustom/TimeAgoArabicFormat";
 
 
 const SideList:FC<SideListProps> = ({type, title}) =>{
     const [latestNewsList, setLatestNewsList] = useState<any>([]);
+    const [mostReadNewsList, setMostReadNewsList] = useState<any>([]);
 
       useEffect(() => {
         // get data for latest news in side bar
-        GetData(`${requests.latestNews}limit=50&pageNo=1`, {}, 'get', false).then(res=>{
-            const newsRes = res.data && res.data.length ? res.data : []
+        GetData(`${requests.latestNews}limit=${limitOfList}&pageNo=1`, {}, 'get', false).then(res=>{
+            const newsRes = res?.data && res?.data?.length ? res?.data : []
             setLatestNewsList(newsRes);
+
+        }).catch(err=>{
+            console.warn(err)
+        })
+
+        GetData(`${requests.mostReadNews}limit=${limitOfList}&pageNo=1`, {}, 'get', false).then(res=>{
+            const newsRes = res.data?.response && res.data?.response?.length ? res.data?.response : []
+            //console.log('Most Read News:::::', newsRes)
+            setMostReadNewsList(newsRes);
 
         }).catch(err=>{
             console.warn(err)
@@ -77,6 +87,31 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
               }
               {
                 type === "simple" && (
+                  title === "الأكثر قراءة" ? // show lates news :: api data
+                    <>
+                    <div className="sideSimpleListWrap">
+                      <Title styles={styles.themeTitle}>
+                          <h4> {title} </h4>
+                      </Title>
+
+                    <ul className={styles.sidesimpleList}>
+                          {
+                            mostReadNewsList?.length && mostReadNewsList?.map((newsItem:any, index:number)=>{
+                                  return(
+                                  <li key={index} >
+                                      <div className="NewsImage show_mobile">
+                                          <img className="img-fluid" src={newsItem?.news?.image?.path ? baseUrlAdmin+newsItem?.news?.image?.path:newsImage.src} />
+                                      </div>
+                                      <Link href={`/newsDetails/` + newsItem?.news?._id}><a>{newsItem?.news?.title}</a></Link>
+                                      <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                                  </li>
+                                  )
+                              })
+                          }
+                      </ul></div>
+                  </>
+
+                  :
 
                   <>
                     <div className="sideSimpleListWrap">
