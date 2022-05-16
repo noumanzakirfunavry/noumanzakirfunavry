@@ -1,14 +1,7 @@
 import { IsBoolean, IsBooleanString, IsDateString, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString } from "class-validator";
+import { PaginatedRequestDto } from "../pagination.request.dto";
 
-export class GetAllEpisodesRequestDto{
-    @IsNotEmpty()
-    @IsNumberString()
-    limit : number
-
-    @IsNotEmpty()
-    @IsNumberString()
-    pageNo : number
-
+export class GetAllEpisodesRequestDto extends PaginatedRequestDto{
     @IsNotEmpty()
     @IsString()
     @IsOptional()

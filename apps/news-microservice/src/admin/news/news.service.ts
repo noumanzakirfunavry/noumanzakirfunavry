@@ -65,7 +65,7 @@ export class NewsService {
 							let { tags, quotes, deletedAt, ...news } = await (await this.newsRepository.findOne({ where: { id: news_added.id }, include: ['tags', 'quotes', { model: Attachments, as: 'image' }, { model: Attachments, as: 'video' }, { model: Attachments, as: 'thumbnail' }, { model: Categories, through: { attributes: [] },attributes: ['id', 'title', 'isActive'] }], transaction: transactionHost.transaction })).toJSON()
 
 							tags = tags.map(tag => tag.title);
-							quotes = quotes.map(quote => quote.name);
+							quotes = quotes.map(quote => quote.quoteTitle);
 
 							// save to elk
 							ElkService.save({ index: process.env.ELK_INDEX, id: news_added.id.toString(), document: { ...news, tags, quotes } });

@@ -1,5 +1,5 @@
-import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto } from '@cnbc-monorepo/dtos';
-import { Rights, Roles, Users } from '@cnbc-monorepo/entity';
+import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto, PaginatedRequestDto } from '@cnbc-monorepo/dtos';
+import { Rights, Roles, Sessions, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -10,6 +10,8 @@ export class AdminService {
 	constructor(
 		@Inject('USERS_REPOSITORY')
 		private usersRepository: typeof Users,
+		@Inject('SESSIONS_REPOSITORY')
+    private sessionRepository: typeof Sessions,
 		private helperService: Helper
 	) { }
 	async getUserById(id: number): Promise<GetAdminByIdResponseDto> {
@@ -129,4 +131,26 @@ export class AdminService {
 		});
 		return delete_user;
 	}
+
+	async getAllSessions(paginationDto : PaginatedRequestDto) {
+		const result = await this.sessionRepository.findAndCountAll({
+			group: ['usersId', 'users.id', 'Sessions.id'],
+			include: 'users',
+			order: [['updatedAt', 'DESC']],
+			limit: paginationDto.limit,
+      offset: this.helperService.offsetCalculator(paginationDto.pageNo, paginationDto.limit)
+		})
+		// if (result.count === 0) {
+		// 	throw new CustomException(
+		// 		Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+		// 		Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+		// 	)
+		// }
+
+		return new GenericResponseDto(HttpStatus.OK, "Request Successful", {
+			sessions: result.rows,
+			totalCount: result.count
+		})
+	}
+
 }

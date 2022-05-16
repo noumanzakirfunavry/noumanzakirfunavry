@@ -12,12 +12,14 @@ export class CommentsService {
 	) { }
 
 	async getAllComments(getAllCommentDto: GetAllCommentsRequestDto) {
-		const { entityType, pageNo, limit } = getAllCommentDto;
+		const { entityType, entityId, pageNo, limit } = getAllCommentDto;
 		const res = await this.commentsRepository.findAndCountAll({
 			where: {
-				...(entityType && { entityType })
+				// ...(entityType && entityId && { entityType, entityId })
+				entityType, 
+				entityId
 			},
-			limit: parseInt(limit.toString()),
+			limit: limit,
 			offset: this.helperService.offsetCalculator(pageNo, limit),
 		});
 		if (res.count === 0) {
