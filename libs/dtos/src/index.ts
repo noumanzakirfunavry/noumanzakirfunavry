@@ -14,6 +14,7 @@ export * from './request/alexa-audio/get.all.alexa.audio.request.dto';
 export * from './request/attachments/get.all.attachments.request.dto';
 export * from './request/attachments/create.attachment.request.dto';
 export * from './request/attachments/update.attachment.request.dto';
+export * from './request/attachments/delete.attachment.request.dto';
 //...............................Authentication.............................
 export * from './request/authentication/register.admin.request.dto';
 export * from './request/authentication/update.admin.request.dto';
@@ -38,6 +39,9 @@ export * from './request/categories/get.all.categories.response.dto';
 export * from './request/categories/update.category.request.dto';
 export * from './request/categories/update.order.categories.request.dto';
 export * from './request/categories/get.all.categories.for.client.request.dto';
+//...............................comments..........................
+export * from './request/comments/add.comment.request.dto';
+export * from './request/comments/get.all.comments.request.dto';
 //...............................departments..........................
 export * from './request/departments/get.all.departments.request.dto';
 //...............................Editor choice news.............................
@@ -62,7 +66,7 @@ export * from './request/jobs/update.job.request.dto';
 export * from './request/live-stream-links/create.live.stream.links.request.dto';
 export * from './request/live-stream-links/get.all.live.stream.links.request.dto';
 //...............................Change log.............................
-export * from './request/logger/add.log.request.dto';
+export * from './request/logs/get.all.logs.request.dto';
 //...............................Job applicants.............................
 export * from './request/job-applicants/get.all.job.applicants.request.dto';
 export * from './request/job-applicants/create.job.applicant.request.dto';

@@ -43,7 +43,7 @@ export class AddNewsComponent implements OnInit {
     previewVisible = false;
     value: string[] = ['0-0-0'];
     config: any;
-    commentListData = CommentListData
+    
     newsId: number;
     uploadProgress: number;
     file: any;

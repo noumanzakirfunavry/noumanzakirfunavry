@@ -1,5 +1,5 @@
 import { CreateProgramRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllProgramsRequestDto } from '@cnbc-monorepo/dtos';
-import { Attachments, Programs, SeoDetails, Users } from '@cnbc-monorepo/entity';
+import { Attachments, Episodes, Programs, SeoDetails, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -123,11 +123,11 @@ export class ProgramsService {
 	async getProgramByIdClient(id: number): Promise<GenericResponseDto> {
 		const response = await this.programsRepository.findOne({
 			where: {
-					id,
-					isActive: true
+				id,
+				isActive: true
 			},
-			include: ['seoDetails', 'thumbnail', 'promo']
-	});
+			include: [{ model: Episodes, include: ['video', 'thumbnail'] }, 'seoDetails', 'thumbnail', 'promo']
+		});
 		if (response) {
 			return new GenericResponseDto(
 				HttpStatus.OK,
@@ -184,7 +184,7 @@ export class ProgramsService {
 			where: {
 				isActive: true
 			},
-			include: ['seoDetails', 'thumbnail', 'promo']
+			include: ['seoDetails', 'thumbnail', 'promo', 'episodes']
 		});
 
 		if (response.count === 0) {

@@ -87,7 +87,7 @@ export class NewsTypeService {
 
 					elkUpdateArray.push({
 						update: {
-							_index: 'news',
+							_index: process.env.ELK_INDEX,
 							_id: item,
 						}
 					},
@@ -101,7 +101,7 @@ export class NewsTypeService {
 
 					elkUpdateArray.push({
 						update: {
-							_index: 'news',
+							_index: process.env.ELK_INDEX,
 							_id: item,
 						}
 					},

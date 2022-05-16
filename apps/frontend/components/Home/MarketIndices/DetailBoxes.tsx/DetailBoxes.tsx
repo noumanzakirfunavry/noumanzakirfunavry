@@ -1,11 +1,44 @@
+import Link from "next/link";
 
-const DetatilBoxes = () =>{
-
+const DetatilBoxes = ({marketIndicesTilesData}) =>{
+   
     return (
         <>
             <div className="market-stats">
 
-                        <div className="marketBox bg-danger">
+                { // show market indices tiles
+                    marketIndicesTilesData?.length && marketIndicesTilesData.map((item: any, index: number)=>{
+                        const bgClass = item?.changePercent > 0 ? 'bg-success' : 'bg-danger';
+                        const iconClass = item?.changePercent > 0 ? 'caret_icon_up' : 'caret_icon_down';
+                        return(
+                            <div className={`marketBox ${bgClass}`} key={index}>
+                                <Link href={`/marketGraph/${item?.tickerId}`}><a>
+                                <table className="table table-borderless table-sm">
+                                    <tbody>
+                                    <tr>
+                                        <th style={{width:'35%'}}>{item?.shortArabicDescription}</th>
+                                        <th className="text-start">{item?.lastPrice}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div className={iconClass}></div>
+                                         </td>
+                                        <td className="ltr">{item?.lastDelta + ' ' + item?.changePercent}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td className="text-dim pt-2 ltr">5:55:00 PM GMT +3</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </a>
+                                </Link>
+                            </div>
+                            )
+                        })
+                }
+
+                       {/*  <div className="marketBox bg-danger">
                             <table className="table table-borderless table-sm">
                                 <tbody>
                                 <tr>
@@ -14,7 +47,7 @@ const DetatilBoxes = () =>{
                                 </tr>
                                 <tr>
                                     <td>
-                                        {/* <i className="fa fa-caret-down"></i> */}
+                                         <i className="fa fa-caret-down"></i>
                                         <div className="caret_icon_down"></div>
 
                                         </td>
@@ -128,7 +161,7 @@ const DetatilBoxes = () =>{
                             </table>
 
 
-                </div>
+                </div>*/}
             </div>
 
         </>

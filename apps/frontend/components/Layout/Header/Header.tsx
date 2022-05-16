@@ -59,7 +59,7 @@ const Header = () =>{
         // get categories list to show in sub menu
         GetData(`${requests.categories}/getAll?limit=${params.limit}&pageNo=${params.pageNo}&displayInCategoryMenu=true`, {}, 'get', false).then(res=>{
 
-            const newsCategories = res.data?.response?.categories && res.data?.response?.categories.length ? res.data.response.categories : []
+            const newsCategories = res.data?.response?.categories && res.data?.response?.categories?.length ? res.data.response.categories : []
             setNewsCategoriesList(newsCategories);
 
         }).catch(err=>{
@@ -113,14 +113,13 @@ const Header = () =>{
 
         setdisplaySearchDropDown(true)
         setSearchVal(event.target.value)
-        getData(event.target.value).then((res)=>{
-            setData(res)
-        }).catch(err=>{
-            console.warn(err)
-        })
+
+        if(event.target.value){
+            setSearchData(event.target.value)
+        }
 
     }
-
+ 
     const clearSearchBox = () => {
         setdisplaySearchDropDown(false)
         setSearchVal('')
@@ -142,20 +141,18 @@ const Header = () =>{
        index === 4 && clearSearchBox()
     }
     
-    const getData = async (value:string): Promise<any> => {
+    const setSearchData = (value:string) => {
         //!value ? {}:
         //fetch data and return
           
-
-        GetData(`http://157.90.67.186/zagTrader/api/TickerSearchAPIFull.php?st=test`, {}, 'get', false).then(res=>{
-
-            console.log('zagtrader::::::::', res);
-        
-        }).catch(err=>{
-            console.warn(err)
-        })
-
         if(value){
+            GetData(`https://cnbc-config.cnbcarabia.com/zagTrader/api/TickerSearchAPIFull.php?st=${value}`, {}, 'get', false).then(res=>{
+                setData(res?.data);
+                console.log('zagtrader::::::::', res);
+            }).catch(err=>{
+                console.warn(err)
+            })
+
             GetData(`${requests.search}`, {
                     searchTerm: `${value}`
                 }, 'post', false).then(res=>{
@@ -168,7 +165,7 @@ const Header = () =>{
         }
   
 
-        const data = {
+        /*const data = {
             "16449": {
                 "MarketID": "105",
                 "PriceDecimal": 2,
@@ -246,7 +243,7 @@ const Header = () =>{
              },
 
         }
-        return data
+        return data*/
     }
 
 
@@ -390,7 +387,7 @@ const Header = () =>{
                                                     <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="morePrograms">
                                                     { // show programs in sub menu
-                                                        programsList.length && programsList.map((item: any, index: number)=>{
+                                                        programsList?.length && programsList.map((item: any, index: number)=>{
                                                             return(
                                                                 <li className="nav-item" key={index}> 
                                                                     <Link href={`/programs/${item.id}`}><a className="nav-link active" aria-current="page">{item.title}</a></Link>
@@ -406,7 +403,7 @@ const Header = () =>{
                                                     <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="moreCategories">
                                                     { // show categories in sub menu
-                                                        newsCategoriesList.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
+                                                        newsCategoriesList?.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
                                                             return(
                                                                 <li className="nav-item" key={index}> 
                                                                     <Link href={`/categoryNewsTiles/${item.id}`}><a className="nav-link active" aria-current="page">{item.title}</a></Link>

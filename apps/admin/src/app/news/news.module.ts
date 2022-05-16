@@ -26,6 +26,7 @@ import { CommonModule } from '@angular/common';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 // import { FileModalComponent } from './file-modal/file-modal.component';
 import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
+import { NewsCommentsComponent } from './news-comments/news-comments.component';
 // import { FileModalComponent } from '../modules/tiny-editor/file-modal/file-modal.component';
 
 const icons: IconDefinition[] = [LeftOutline, RightOutline];
@@ -58,6 +59,7 @@ const icons: IconDefinition[] = [LeftOutline, RightOutline];
         AddNewsComponent,
         FilterNewsComponent,
         NewsComponent,
+        NewsCommentsComponent,
         // FileModalComponent
         // FileSelectorComponent
     ],

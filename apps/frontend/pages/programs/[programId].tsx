@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import GetData from '../../services/GetData';
 import { requests } from '../../services/Requests';
+import RecordNotFound from '../../components/Shared/RecordNotFound/RecordNotFound';
+import EpisodesTiles from "../../components/Shared/EpisodesTiles/EpisodesTiles";
 
 const Index = () => {
 
@@ -28,17 +30,20 @@ const Index = () => {
       }, [router.query.programId]);
 
     return (
+        programDetails ?
         <>
             <div className="container">
                 <AdBanner />
             </div>
-            <Title styles="pageTitle PageTitleYellow mb-0"><h2>{programDetails.title}</h2></Title>
+            <Title styles="pageTitle PageTitleYellow mb-0"><h2>{programDetails?.title}</h2></Title>
             <ProgramDetails programDetails={programDetails} />
             <div className="container">
                 <div className='PageBuilder-pageRow'>
                     <div className='PageBuilder-col-9'>
                         <Title styles="yellowTitle mb-4"><h3>الحلقات اكسبو في أسبوع</h3></Title>
-                        <DummyCategoryNewsSection limit={8} displayMoreButton={true} displayTopTwoNews={false} displayTitle={false} />
+                        {/*<DummyCategoryNewsSection limit={8} displayMoreButton={true} displayTopTwoNews={false} displayTitle={false} />*/}
+                        <EpisodesTiles programDetails={programDetails} />
+
                     </div>
                     <div className='PageBuilder-sidebar pt_0'>
                         <SideBar sideBarSequence={[{ componentType: 'LargeBanner', position: 1 }]} />
@@ -46,6 +51,8 @@ const Index = () => {
                 </div>
             </div>
         </>
+        :
+        <RecordNotFound />
     )
 }
 

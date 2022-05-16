@@ -6,7 +6,7 @@ import {
 	SearchNewsRequestDto
 } from '@cnbc-monorepo/dtos';
 import { ElkService } from '@cnbc-monorepo/elk';
-import { BreakingNews, News, NewsVisitors, Users } from '@cnbc-monorepo/entity';
+import { BreakingNews, Categories, News, NewsVisitors, Users } from '@cnbc-monorepo/entity';
 import {
 	CustomException,
 	Exceptions,
@@ -70,7 +70,7 @@ export class NewsService {
 
 	elkGetNewsByCategory(categoryId: number, paginationDTO: PaginatedRequestDto) {
 		return ElkService.search({
-			index: 'news',
+			index: process.env.ELK_INDEX,
 			from: paginationDTO.pageNo - 1,
 			size: paginationDTO.limit,
 			sort: "updatedAt:desc",
@@ -80,10 +80,13 @@ export class NewsService {
 				bool: {
 					must: [{
 						match: {
-							categories: categoryId,
+							"categories.id": categoryId,
 						}
 					}, { match: { isActive: true } }],
-					must_not: [{ exists: { field: "deletedAt" } }]
+					must_not: [
+						{ exists: { field: "deletedAt" } },
+						{ exists: { field: "categories.deletedAt" } }
+					]
 				}
 
 			},
@@ -139,7 +142,7 @@ export class NewsService {
 		}
 
 		return ElkService.search({
-			index: 'news',
+			index: process.env.ELK_INDEX,
 			from: getNewsByFlagsRequestDto.pageNo - 1,
 			size: getNewsByFlagsRequestDto.limit,
 			sort: "updatedAt:desc",
@@ -204,7 +207,7 @@ export class NewsService {
 		}
 
 		return ElkService.search({
-			index: 'news',
+			index: process.env.ELK_INDEX,
 			sort: "updatedAt:desc",
 			track_scores: true,
 			query: {
@@ -238,19 +241,35 @@ export class NewsService {
 
 	async getMostReadNews(paginationDto: PaginatedRequestDto): Promise<GenericResponseDto> {
 		const mostReadNews = await this.newsVisitorsRepository.findAll({
-			attributes: [
-
-				[sequelize.fn('sum', sequelize.col('count')), 'Visits'],
-
-			],
 			where: {
 				visitDate: {
 					// only count visits from last 7 days
 					[Op.gt]: new Date(new Date().setDate(new Date().getDate() - 7)),
 				},
 			},
-			include: ['news'],
-			group: [sequelize.col('news.id')],
+			attributes:{
+				include: [
+
+					[sequelize.fn('sum', sequelize.col('count')), 'Visits'],
+	
+				],
+				exclude:['id']
+			},
+
+			include: [{
+				model: News,
+				required: true,
+				duplicating: false,
+				include: [{
+					model: Categories,
+					required: true,
+					duplicating: false,
+					through: {
+						attributes: []
+					}
+				}]
+			}],
+			group: [sequelize.col('news.id'),sequelize.col('NewsVisitors.id'),sequelize.col('news->categories.id')],
 			order: [[sequelize.col('Visits'), 'DESC']],
 			limit: parseInt(paginationDto.limit.toString()),
 			offset: this.helperService.offsetCalculator(paginationDto.pageNo, paginationDto.limit),

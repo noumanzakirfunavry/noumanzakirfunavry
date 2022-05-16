@@ -13,6 +13,8 @@ export const requests = {
     updateAttachment: 'http://localhost:3333/api/attachment/',
     deleteAttachment: 'http://localhost:3333/api/attachment/',
     getAllAdmins: environment.baseUrlAdmin + 'getAll',
+    getNewsComments:environment.baseUrlAdmin+'alerts/comments',
+    addNewsComments:environment.baseUrlAdmin+'alerts/comments',
     onBoardNewUser: 'http://localhost:3333/api/user',
     getUserById: environment.baseUrlAdmin + '',
     deleteUsers: environment.baseUrlAdmin + '',
