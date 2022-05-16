@@ -89,11 +89,13 @@
                         <button class="mr-2" *ngIf="file && uploadProgress!==100" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
                         <button *ngIf="file" (click)="[getCaptcha($event),reset()]">Reset</button> -->
                     </div>
-                    <div class="col-md-6" *ngIf="newsModel?.contentType && newsModel?.contentType==='VIDEO'">
+                    <!-- [ngClass]="newsModel?.contentType && newsModel?.contentType==='VIDEO' ? '' : 'disable-div'" -->
+                    <div class="col-md-6" [ngClass]="newsModel?.contentType && newsModel?.contentType==='VIDEO' ? '' : 'disable-div'">
                         <dynamic-file-selector 
                         [customDiv]="'thumbnail'" 
                         [title]="'Thumbnail Image'" 
                         [field]="tempThumbanilFile"
+                        [fileTypes]="'image/png image/jpg image/jpeg image/gif'"
                         [formField]="newsForm" 
                         (onFileSelection)="thumbnailFileSelection($event)"
                         (onFileRemove)="resetThumbnail($event)" 

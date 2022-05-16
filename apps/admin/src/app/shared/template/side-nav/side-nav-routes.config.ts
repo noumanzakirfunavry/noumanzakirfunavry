@@ -79,7 +79,6 @@ export const ROUTES: SideNavInterface[] = [
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'link',
-        
         submenu: []
     },
     {

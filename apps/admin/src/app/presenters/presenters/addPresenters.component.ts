@@ -99,6 +99,9 @@ export class AddPresentersComponent implements OnInit{
       }   
       if(this.presenterForm.valid) {
         this.isLoading= true;
+        setTimeout(() => {
+          this.isLoading= false;
+        }, 2000);
       const obj= this.presenterForm.value;
       obj['age']= parseInt(this.presenterForm.value.age);
       obj['attachmentsId']= this.imageId;
@@ -106,9 +109,6 @@ export class AddPresentersComponent implements OnInit{
         console.log("ADD-PRESENTERS", res);
         this.presenterForm.reset();
         this.route.navigateByUrl('presenters/list');
-        setTimeout(() => {
-          this.isLoading= false;
-        }, 2000);
         if (this.presenterId) {
           this.message.create('success', `Presenter Updated Successfully`);
         }

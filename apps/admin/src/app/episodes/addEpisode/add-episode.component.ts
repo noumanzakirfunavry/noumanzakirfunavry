@@ -27,8 +27,8 @@ export class AddEpisodeComponent implements OnInit {
     isLoading= false;
     allPrograms: any;
     episodeId: number;
-    tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Upload' }
-    tempThumbanilFile: { colName: string, value: any, label: string } = { 'colName': 'thumbnail', value: null, label: 'Image Upload' }
+    tempFile: { colName: string, value: any, label: string, showDelBtn: boolean } = { 'colName': 'file', value: null, label: 'Video Upload', showDelBtn: false }
+    tempThumbanilFile: { colName: string, value: any, label: string, showDelBtn: boolean } = { 'colName': 'thumbnail', value: null, label: 'Image Upload', showDelBtn: false }
 
     constructor(
       private fb: FormBuilder, 
@@ -157,14 +157,14 @@ export class AddEpisodeComponent implements OnInit {
         }
         if(this.episodeForm.valid) {
           this.isLoading= true;
+          setTimeout(() => {
+            this.isLoading= false
+          }, 2000)
           const obj = this.episodeForm.value;
           this.apiService.sendRequest(this.episodeId ? requests.updateProgramEpisode + this.episodeId : requests.addProgramEpisode, this.episodeId ? 'put' : 'post', { ...this.episodesModel.toServerModal(obj, this.episodesModel.seoDetailId), ...this.episodeId ? { id: this.episodeId } : null }).subscribe((res:any) => {
             console.log("EPISODES", res);
             this.initForm();
             this.route.navigateByUrl('episodes/list')
-            setTimeout(() => {
-              this.isLoading= false
-            }, 2000)
             if (this.episodeId) {
                 this.message.create('success', `Episode Updated Successfully`)
             }
@@ -179,6 +179,12 @@ export class AddEpisodeComponent implements OnInit {
         this.apiService.sendRequest(requests.getProgramEpisodeById + this.episodeId, 'get').subscribe((res:any) => {
           console.log("EPISODE-BY-ID", res);
           this.episodesModel.populateFromServerModal(res.response.episode);
+          if(this.episodesModel.videoUrl) {
+            this.tempFile.showDelBtn = true;
+          }
+          if(this.episodesModel.thumbnailUrl) {
+              this.tempThumbanilFile.showDelBtn = true;
+          }
           this.episodesModel.seoDetailId = res.response.episode.seoDetailId;
           console.log("view modal", this.episodesModel);
           this.populateEpisodessForm(res.response.episode);
@@ -207,13 +213,16 @@ export class AddEpisodeComponent implements OnInit {
       mainFileUploaded(file) {
         this.episodesModel.videoId = file.id;
         this.episodesModel.videoUrl = file.url;
+        this.tempFile.showDelBtn = true;
       }
 
       thumbnailUploaded(file) {
         this.episodesModel.thumbnailId = file.id;
         this.episodesModel.thumbnailUrl=null;
+        this.tempThumbanilFile.showDelBtn = false;
         setTimeout(() => {
             this.episodesModel.thumbnailUrl = file.url;
+            this.tempThumbanilFile.showDelBtn = true;
         }, 400);
     }
 
@@ -221,21 +230,29 @@ export class AddEpisodeComponent implements OnInit {
         this.file = null;
         this.episodesModel.videoId = null;
         this.episodesModel.videoUrl = null;
+        this.episodesModel.thumbnailId = null;
+        this.episodesModel.thumbnailUrl = null;
+        this.tempFile.showDelBtn = false;
+        this.tempThumbanilFile.value = null;
+        this.tempThumbanilFile.showDelBtn = false;
       }
     
       resetThumbnail(data) {
         this.episodesModel.thumbnailId = null;
         this.episodesModel.thumbnailUrl = null;
+        this.tempThumbanilFile.showDelBtn = false;
       }
     
       mainFileSelection(event) {
         console.log("file selected", event);
         this.episodesModel.videoUrl = null;
+        this.tempFile.showDelBtn = true;
       }
     
       thumbnailFileSelection(event) {
         console.log("thubnail file selected", event);
         this.episodesModel.thumbnailUrl = null;
+        this.tempThumbanilFile.showDelBtn = true;
       }
     
       getCaptcha(e: MouseEvent): void {
