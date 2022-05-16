@@ -42,7 +42,7 @@ const Index = () => {
                     <div className='PageBuilder-col-9'>
                         <Title styles="yellowTitle mb-4"><h3>الحلقات اكسبو في أسبوع</h3></Title>
                         {/*<DummyCategoryNewsSection limit={8} displayMoreButton={true} displayTopTwoNews={false} displayTitle={false} />*/}
-                        <EpisodesTiles />
+                        {programDetails?.episodes && programDetails?.episodes.length > 0 && <EpisodesTiles programDetails={programDetails} />}
 
                     </div>
                     <div className='PageBuilder-sidebar pt_0'>

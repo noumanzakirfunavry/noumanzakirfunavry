@@ -24,7 +24,7 @@ const AllProgrmasTilesList = () => {
               <div className="row">
 
                    { // show programs tiles
-                    programsList.length && programsList.map((item: any, index: number)=>{
+                    programsList?.length && programsList.map((item: any, index: number)=>{
                         return(
                             <div className="col-md-4 col-sm-6" key={index}>
                                 <div className="programBox">

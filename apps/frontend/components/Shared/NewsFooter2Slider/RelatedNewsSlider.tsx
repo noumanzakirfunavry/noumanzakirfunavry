@@ -53,7 +53,7 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
             });
 
             let quotesList = []
-            quotesList = quotes && quotes.length && quotes.map((quote) => {
+            quotesList = quotes && quotes?.length && quotes.map((quote) => {
                 return quote.name;
             });
 
@@ -61,8 +61,8 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
             //console.log('quotesList::::::', quotesList);
 
             let searchObj = {};
-            searchObj = tagsList.length > 0 && {...searchObj, tags: tagsList} 
-            searchObj = quotesList.length > 0 && {...searchObj, quotes: quotesList} 
+            searchObj = tagsList?.length > 0 && {...searchObj, tags: tagsList} 
+            searchObj = quotesList?.length > 0 && {...searchObj, quotes: quotesList} 
 
             const _data = {
                 tags: tagsList,

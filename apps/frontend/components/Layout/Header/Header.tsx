@@ -146,7 +146,7 @@ const Header = () =>{
         //fetch data and return
           
         if(value){
-            GetData(`http://157.90.67.186/zagTrader/api/TickerSearchAPIFull.php?st=${value}`, {}, 'get', false).then(res=>{
+            GetData(`https://cnbc-config.cnbcarabia.com/zagTrader/api/TickerSearchAPIFull.php?st=${value}`, {}, 'get', false).then(res=>{
                 setData(res?.data);
                 console.log('zagtrader::::::::', res);
             }).catch(err=>{
@@ -403,7 +403,7 @@ const Header = () =>{
                                                     <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="moreCategories">
                                                     { // show categories in sub menu
-                                                        newsCategoriesList.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
+                                                        newsCategoriesList?.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
                                                             return(
                                                                 <li className="nav-item" key={index}> 
                                                                     <Link href={`/categoryNewsTiles/${item.id}`}><a className="nav-link active" aria-current="page">{item.title}</a></Link>

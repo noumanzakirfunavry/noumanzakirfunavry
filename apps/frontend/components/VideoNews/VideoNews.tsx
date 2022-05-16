@@ -3,6 +3,7 @@ import PageCatgories from "../Shared/PageCategories/PageCategories"
 import newsImage from "../../styles/images/biden2.jpg";
 import { baseUrlAdmin } from '../../services/Requests';
 import { useEffect, useState } from "react";
+import DateArabicFormat from "../Shared/DateCustomFomat/DateArabicFormat"
 
 const VideoNews = ({videoNews}) => {
 
@@ -13,15 +14,14 @@ const VideoNews = ({videoNews}) => {
     }, [videoNews])
 
     return (
-        <>
         <div className="single_video_main">
                 <div className="VideoNews mb-4 ">
                     {
                     videoNews?.videoId &&
                     playVideo ? // play video if play flag is set
                         <video className="mb-3 newsDetailimg" controls autoPlay loop muted>
-                        <source src={videoNews?.video?.path && baseUrlAdmin+videoNews?.video?.path}/>
-                    </video>
+                            <source src={videoNews?.video?.path && baseUrlAdmin+videoNews?.video?.path}/>
+                        </video>
                         :
                         <div><div className="NewsImage">
                         <img className="img-fluid" src={videoNews?.thumbnail?.path ? baseUrlAdmin+videoNews?.thumbnail?.path:newsImage.src} />
@@ -36,9 +36,22 @@ const VideoNews = ({videoNews}) => {
                         </div>
                     </div></div>
                     }
+
+            {/*<div className="NewsImage">
+                <img className="img-fluid" src={newsImage.src} />
+            </div>
+            <div className="PlayTime">
+                <h5>05:21</h5>
+                <div className="btn-text">
+                    <span>شاهد الآن</span>
+                    <button className="btn btn-warning VideoPlay">
+                        <i className="fa play_big"></i>
+                    </button>
+                </div>
+            </div>
+                </div>*/}
                 
             </div>
-
           <div className="pageSimpleTitle mb-4">
               <div className="float-start">
                   <div className="newsSocial">
@@ -51,19 +64,19 @@ const VideoNews = ({videoNews}) => {
                       </ul>
                   </div>
               </div>
-              <div className="float-end">
+              {/*<div className="float-end">
               <h6 className="text-secondary">الإمارات</h6>
-              </div>
+                </div>*/}
               <div className="clearfix"></div>
+              {/*<h1>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</h1>*/}
               <h1>{videoNews?.title}</h1>
           </div>
 
-          <p><small>نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</small></p>
-
-          <FadedNews news={videoNews} />
+          {/*<p><small><DateArabicFormat date={videoNews?.createdAt} /></small></p>*/}
+          {/*<p><small>نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</small></p>*/}
+          <FadedNews news={videoNews}/>
           <PageCatgories tags={[]}/>
           </div>
-        </>
     )
 }
 

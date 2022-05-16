@@ -12,7 +12,7 @@ const ProgramDetails = ({programDetails}) => {
     }, [programDetails])
     
 
-    console.log('programDetails:::', programDetails);
+    //console.log('programDetails:::', programDetails);
 
     return (
         <>
@@ -52,8 +52,8 @@ const ProgramDetails = ({programDetails}) => {
                             <h5 className="mb-4">عن البرنامج</h5>
                             {/*<p className="mb-5">أبرزالأحداث والفعاليات التي قامت CNBC عربية بتغطيتها على مدار الأسبوع تأتيكم في برنامج “اكسبو في أسبوع” مع لين خضير </p>*/}
                             <HtmlData data={programDetails?.content} />
-                            <button className="btn btn-outline-light ms-3">تحميل المزيد</button>
-                            <button className="btn btn-outline-light">تحميل المزيد</button>
+                            {/*<button className="btn btn-outline-light ms-3">تحميل المزيد</button>
+                            <button className="btn btn-outline-light">تحميل المزيد</button>*/}
                         </div>
 
                         <div className="text-center d-block d-md-none px-3">

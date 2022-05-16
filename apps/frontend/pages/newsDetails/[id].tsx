@@ -16,6 +16,7 @@ import { requests } from 'apps/frontend/services/Requests';
 import HtmlData from '../../components/Shared/HtmlData/HtmlData';
 import { GetMetaData } from 'apps/frontend/services/StaticData';
 import SEO from '../../components/Shared/SEO/SEO';
+import RecordNotFound from 'apps/frontend/components/Shared/RecordNotFound/RecordNotFound';
 
 const Index = (props: any) => {
   //console.log("Props:::::::::::::::::;;", props);
@@ -43,7 +44,10 @@ const Index = (props: any) => {
 
     }, [router.query.id])*/
 
+    //console.log('newsDetails:::', news)
+
   return (
+    Object.keys(news).length > 0 ?
     <>
       <SEO metaData={metaData} />
       <div className="newsAarticaldetailwrap">
@@ -154,6 +158,8 @@ const Index = (props: any) => {
         </div>
       </div>
     </>
+    :
+    <RecordNotFound />
   );
 };
 
@@ -174,7 +180,7 @@ export async function getStaticProps(context) {
     'get',
     false
   );
-  const newsRes = resPost?.data.response.news;
+  const newsRes = resPost?.data?.response?.news ? resPost?.data?.response?.news : {}
 
   const seoData = {
     ...newsRes?.seoDetail,

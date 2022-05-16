@@ -35,6 +35,7 @@ export const requests={
     programById:adminAPIClient+'programs/getById',
     episodes:adminAPIClient+'episodes/getAll',
     episodeById:adminAPIClient+'episodes/getById',
+    videoNews:newsAPIClient+'news/get/flags?contentType=VIDEO',
 }
 
 export const limitOfList = '20' ;

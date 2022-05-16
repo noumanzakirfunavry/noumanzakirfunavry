@@ -1,9 +1,9 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
-import VideoNews from "apps/frontend/components/VideoNews/VideoNews"
+import Episode from "apps/frontend/components/Episode/Episode"
 import HorizontalFooter2NewsSlider from "apps/frontend/components/Shared/NewsFooter2Slider"
 import Title from "apps/frontend/components/Title"
-import SideBarWithVideo from "apps/frontend/components/VideoNews/SideBarWithVideo"
+import SideBarWithEpisodes from "apps/frontend/components/Episode/SideBarWithEpisodes"
 import GetData from 'apps/frontend/services/GetData';
 import { requests } from 'apps/frontend/services/Requests';
 import { useEffect, useState } from 'react';
@@ -11,18 +11,28 @@ import { useRouter } from 'next/router';
 
 const Index = () =>{
     const router = useRouter();
-    const [episode, setEpisode] = useState<any>();
+    const [episodeDetail, setEpisodeDetail] = useState<any>();
+    const [episodes, setEpisodes] = useState<any[]>([])
+    const [programDetails, setProgramDetails] = useState<any>();
   
    useEffect(() => {
         GetData(`${requests.episodeById}/${router.query.episodeId}`, {}, 'get', false).then(res => {
           console.log('episode::::', res?.data?.response?.episode);
-          setEpisode(res?.data?.response?.episode)
+          setEpisodeDetail(res?.data?.response?.episode)
 
         }).catch(err=>{
             console.warn(err)
         })
 
+        GetData(`${requests.episodes}`, {}, 'get', false).then(res => {
+            setEpisodes(res?.data?.response?.episodes)
+            console.log('Episodes::::', res?.data?.response?.episodes)
+        }).catch(err => {
+            console.warn(err)
+        })
+
     }, [router.query.episodeId])
+
 
     return (
         <>
@@ -30,10 +40,10 @@ const Index = () =>{
                 <AdBanner/>
                 <div className='PageBuilder-pageRow mb-3'>
                 <div className='PageBuilder-col-9'>
-                    <VideoNews videoNews={episode} />
+                    <Episode episodeDetail={episodeDetail} />
                 </div>
                 <div className='PageBuilder-sidebar mt-0'>
-                    <SideBarWithVideo title={'آخرون من اكسبو في أسبوع'}/>
+                    <SideBarWithEpisodes title={'آخرون من اكسبو في أسبوع'} episodes={episodes}/>
                 </div>
             </div>
             </div>
