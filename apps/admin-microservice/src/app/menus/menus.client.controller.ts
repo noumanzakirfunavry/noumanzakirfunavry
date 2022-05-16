@@ -1,5 +1,5 @@
 import { Public } from '@cnbc-monorepo/auth-module';
-import { PaginatedRequestDto } from '@cnbc-monorepo/dtos';
+import { GetMenuRequestDto, PaginatedRequestDto } from '@cnbc-monorepo/dtos';
 import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { MenusService } from './menus.service';
 
@@ -10,8 +10,8 @@ export class MenusClientController {
   constructor(private readonly menusService: MenusService) {}
 
   @Get('/getAll')
-  getAllMenus(@Query() paginationDto: PaginatedRequestDto) {
-    return this.menusService.getMenusForClient(paginationDto);
+  getAllMenus(@Query() getMenuRequestDto: GetMenuRequestDto) {
+    return this.menusService.getMenusForClient(getMenuRequestDto);
   }
 
   @Get('/getById/:id')
