@@ -1,9 +1,9 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
-import VideoNews from "apps/frontend/components/VideoNews/VideoNews"
+import Episode from "apps/frontend/components/Episode/Episode"
 import HorizontalFooter2NewsSlider from "apps/frontend/components/Shared/NewsFooter2Slider"
 import Title from "apps/frontend/components/Title"
-import SideBarWithVideo from "apps/frontend/components/VideoNews/SideBarWithVideo"
+import SideBarWithEpisodes from "apps/frontend/components/Episode/SideBarWithEpisodes"
 import GetData from 'apps/frontend/services/GetData';
 import { requests } from 'apps/frontend/services/Requests';
 import { useEffect, useState } from 'react';
@@ -40,10 +40,10 @@ const Index = () =>{
                 <AdBanner/>
                 <div className='PageBuilder-pageRow mb-3'>
                 <div className='PageBuilder-col-9'>
-                    <VideoNews videoNews={episodeDetail} />
+                    <Episode episodeDetail={episodeDetail} />
                 </div>
                 <div className='PageBuilder-sidebar mt-0'>
-                    <SideBarWithVideo title={'آخرون من اكسبو في أسبوع'} videos={episodes}/>
+                    <SideBarWithEpisodes title={'آخرون من اكسبو في أسبوع'} episodes={episodes}/>
                 </div>
             </div>
             </div>
