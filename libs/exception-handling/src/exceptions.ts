@@ -23,6 +23,7 @@ export enum ExceptionType {
   USER_CANT_DELETE_THEMSELF = 'USER_CANT_DELETE_THEMSELF',
   USER_IS_NOT_VERIFIED = 'USER_IS_NOT_VERIFIED',
   USER_IS_INACTIVE = 'USER_IS_INACTIVE',
+  USERNAME_OR_EMAIL_ALREADY_EXISTS = 'USERNAME_OR_EMAIL_ALREADY_EXISTS',
   EMPLOYEE_NOT_FOUND = 'EMPLOYEE_NOT_FOUND',
   MANAGER_AND_EMPLOYEE_IS_SAME = 'MANAGER_AND_EMPLOYEE_IS_SAME',
   APPRAISAL_NOT_FOUND = 'APPRAISAL_NOT_FOUND',
@@ -154,6 +155,10 @@ export const Exceptions: Record<ExceptionType, ExceptionOptions> = {
 	[ExceptionType.USER_IS_INACTIVE]: {
     status: HttpStatus.UNAUTHORIZED,
     message: 'User is inactive',
+  },
+	[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS]: {
+    status: HttpStatus.BAD_REQUEST,
+    message: 'A user already exists having your username/email',
   },
   [ExceptionType.EMAIL_NOT_FOUND]: {
     status: HttpStatus.BAD_REQUEST,

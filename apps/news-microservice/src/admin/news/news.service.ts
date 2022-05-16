@@ -321,6 +321,7 @@ export class NewsService {
 
 			},
 		  distinct:true,
+			order: [['createdAt', 'DESC']],
 			limit: parseInt(query.limit.toString()),
 			offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
 			
