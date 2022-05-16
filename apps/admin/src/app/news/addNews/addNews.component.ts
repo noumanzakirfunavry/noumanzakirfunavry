@@ -159,9 +159,18 @@ export class AddNewsComponent implements OnInit {
 
     fileFromModal(file) {
         this.isVisible = false;
-        this.newsForm.patchValue({
-            content: this.newsForm.value.content ? this.newsForm.value.content + `<img src="${file.url}">` : `<img src="${file.url}">`,
-        });
+        debugger
+        if(file.attachmentType!='VIDEO'){
+            this.newsForm.patchValue({
+                content: this.newsForm.value.content ? this.newsForm.value.content + `<img src="${file.url}">` : `<img src="${file.url}">`,
+            });
+        }else{
+            this.newsForm.patchValue({
+                content: this.newsForm.value.content ? this.newsForm.value.content + 
+                `<video><sourse src="${file.url} constrols"></video>` : 
+                `<video><sourse src="${file.url} constrols"></video>`,
+            });
+        }
     }
 
     private initQuoteForm() {

@@ -17,6 +17,8 @@ import { requests } from '../../shared/config/config';
 
 export class TinyEditorComponent implements OnInit{
     @Input() formField: FormGroup;
+    @Input() label:string='Content';
+    @Input() error:string='Enter Content maximum 1500 characters allowed!';
     isVisible = false;
     tinyConfig: any;
 
@@ -38,15 +40,13 @@ export class TinyEditorComponent implements OnInit{
                 // "insertdatetime media table contextmenu paste qrcode youtube twitter"
             ],
             directionality : 'rtl',
-            toolbar: 'undo redo | code bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
-            // toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
-            'toolbar1' : "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect | fontselect | fontsizeselect",
-            'toolbar2' : "youtube twitter | responsivefilemanager | link image qrcode | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+            menubar: 'file edit view insert format custom tools table help',
+            toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
             'image_advtab': true,
             menu: {
                 custom: { title: 'Custom File Manager', items: 'myCustomMenuItem' }
             },
-            menubar: 'file edit view insert table custom format tools',
+            // menubar: 'file edit view insert table custom format tools',
             setup: function (editor) {
                 let self = selfp;
                 editor.ui.registry.addMenuItem('myCustomMenuItem', {
@@ -92,11 +92,27 @@ export class TinyEditorComponent implements OnInit{
         this.isVisible=false
     }
 
+    // fileFromModal(file) {
+    //     this.isVisible=false;
+    //     this.formField.patchValue({
+    //         content: this.formField.value.content ? this.formField.value.content+`<img src="${file.url}" width='100%' height='auto'>`:`<img src="${file.url}" width='100%' height='auto'>`,
+    //       });
+    // }
+
     fileFromModal(file) {
-        this.isVisible=false;
-        this.formField.patchValue({
-            content: this.formField.value.content ? this.formField.value.content+`<img src="${file.url}" width='100%' height='auto'>`:`<img src="${file.url}" width='100%' height='auto'>`,
-          });
+        this.isVisible = false;
+        debugger
+        if(file.attachmentType!='VIDEO'){
+            this.formField.patchValue({
+                content: this.formField.value.content ? this.formField.value.content + `<img src="${file.url}">` : `<img src="${file.url}">`,
+            });
+        }else{
+            this.formField.patchValue({
+                content: this.formField.value.content ? this.formField.value.content + 
+                `<video controls><source src="${file.url}" ></video>` : 
+                `<video controls><source src="${file.url}" ></video>`,
+            });
+        }
     }
 
 }    
