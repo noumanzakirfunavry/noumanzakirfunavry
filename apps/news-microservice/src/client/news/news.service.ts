@@ -1,5 +1,6 @@
 import {
 	GenericResponseDto,
+	GetMostReadNewsDto,
 	GetNewsByFlagsRequestDto,
 	GetNewsByIdResponseDto,
 	PaginatedRequestDto,
@@ -247,7 +248,8 @@ export class NewsService {
 		});
 	}
 
-	async getMostReadNews(paginationDto: PaginatedRequestDto): Promise<GenericResponseDto> {
+	async getMostReadNews(getMostReadNewsDto: GetMostReadNewsDto): Promise<GenericResponseDto> {
+		const { contentType } = getMostReadNewsDto
 		const mostReadNews = await this.newsVisitorsRepository.findAll({
 			where: {
 				visitDate: {
@@ -266,6 +268,9 @@ export class NewsService {
 
 			include: [{
 				model: News,
+				where: {
+					...(contentType && { contentType })
+				},
 				required: true,
 				duplicating: false,
 				include: [{
@@ -279,8 +284,8 @@ export class NewsService {
 			}],
 			group: [sequelize.col('news.id'),sequelize.col('NewsVisitors.id'),sequelize.col('news->categories.id')],
 			order: [[sequelize.col('Visits'), 'DESC']],
-			limit: parseInt(paginationDto.limit.toString()),
-			offset: this.helperService.offsetCalculator(paginationDto.pageNo, paginationDto.limit),
+			limit: getMostReadNewsDto.limit,
+			offset: this.helperService.offsetCalculator(getMostReadNewsDto.pageNo, getMostReadNewsDto.limit),
 		});
 
 		return new GenericResponseDto(HttpStatus.OK, 'Request Successful', mostReadNews)

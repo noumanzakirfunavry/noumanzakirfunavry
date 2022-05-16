@@ -87,6 +87,7 @@ export * from './request/news/create.news.request.dto';
 export * from './request/news/get.all.news.request.dto';
 export * from './request/news/search.news.request.dto';
 export * from './request/news/get.news.by.flags.request.dto';
+export * from './request/news/get.most.read.news.request.dto';
 //............................request dtos................................
 export * from './request/pagination.request.dto';
 //...........................Pages................................
