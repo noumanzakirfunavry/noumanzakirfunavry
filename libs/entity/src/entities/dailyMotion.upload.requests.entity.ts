@@ -1,3 +1,4 @@
+import { DailymotionUploadStatus } from "@cnbc-monorepo/enums";
 import { AutoIncrement, Column, DataType, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
 
 @Table({
@@ -13,8 +14,12 @@ export class DailymotionUploadRequests extends Model {
 	@Column
 	status: string
 
-	@Column
-	localPath: string
+	@Column({
+		type: DataType.ENUM,
+		values: Object.values(DailymotionUploadStatus)
+
+	})
+	localPath: DailymotionUploadStatus
 
 	@Column
 	error: string
