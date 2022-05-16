@@ -17,7 +17,8 @@ export class Pagination {
     includeNews?: any; 
     newsLImit?: any;
     position?: string;
-    programId?: number
+    programId?: number;
+    admin?: any;
 
     constructor() {
         this.limit= 10;

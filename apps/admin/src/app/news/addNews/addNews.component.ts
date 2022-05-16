@@ -24,15 +24,15 @@ export class AddNewsComponent implements OnInit {
     currentDate = new Date()
     newsModel: NewsModel;
     newsForm: FormGroup;
-    tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Or Image Upload' }
-    tempThumbanilFile: { colName: string, value: any, label: string } = { 'colName': 'thumbnail', value: null, label: 'Thumbnail Image Upload' }
+    tempFile: { colName: string, value: any, label: string, showDelBtn: boolean } = { 'colName': 'file', value: null, label: 'Video Or Image Upload', showDelBtn: false }
+    tempThumbanilFile: { colName: string, value: any, label: string, showDelBtn: boolean } = { 'colName': 'thumbnail', value: null, label: 'Thumbnail Image Upload', showDelBtn: false }
     // $isVisible:BehaviorSubject<boolean>=new BehaviorSubject(false);
     size = 'default';
 
     // quotesForm: FormGroup;
     tagForm: FormGroup;
-
     allQuotes: any = [];
+    newTags: any = [];
     allTags: any = [];
     allCategories: any = [];
     strucCategories: any;
@@ -129,19 +129,18 @@ export class AddNewsComponent implements OnInit {
             //     this.initNewsForm();
             // } 
             if (this.newsId) {
-                this.getNews()
-            } else {
+                this.getNews();
+            }    
+            else {
                 this.initNewsForm();
                 setTimeout(() => {
                     this.loader = false;
                 }, 1000);
             }
         })
-        // setTimeout(() => {
         this.getTags();
         this.getAllCategories();
-        this.getAllQuotes()
-        // }, 2000);
+        this.getAllQuotes();
     }
 
     toggleModal() {
@@ -179,8 +178,13 @@ export class AddNewsComponent implements OnInit {
     getNews() {
         this.apiService.sendRequest(requests.getNewsById + this.newsId, 'get').subscribe((res: any) => {
             console.log("news data", res.response.news);
-            // this.newsModel=new NewsModal();
             this.newsModel.populateFromServerModal(res.response.news);
+            if(this.newsModel.fileUrl || this.newsModel.videoUrl) {
+                this.tempFile.showDelBtn = true;
+            }
+            if(this.newsModel.thumbnailUrl) {
+                this.tempThumbanilFile.showDelBtn = true;
+            }
             this.newsModel.seoDetailId = res.response.news.seoDetailId;
             console.log("view modal", this.newsModel);
             this.populateNewsForm(res.response.news);
@@ -250,8 +254,11 @@ export class AddNewsComponent implements OnInit {
         }
         if (this.newsForm.valid) {
             this.isLoading= true;
+            setTimeout(() => {
+                this.isLoading = false;
+              }, 2000);
             const obj = this.newsForm.value;
-            obj['newsType'] = this.newsModel.imageId ? 'ARTICLE' : 'NEWS';
+            obj['newsType'] = this.newsModel.videoId ? 'NEWS' : 'ARTICLE';
             obj['contentType'] = this.newsModel.imageId ? 'IMAGE' : this.newsModel.videoId ? 'VIDEO' : 'TEXT';
             obj['quotes'] = this.allQuotes.filter(x => {
                 if (this.newsForm.value.quotesIds.some(z => z == x.quoteTickerId)) {
@@ -263,9 +270,6 @@ export class AddNewsComponent implements OnInit {
                 console.log("News", res);
                 this.initNewsForm();
                 this.route.navigateByUrl('news/list')
-                setTimeout(() => {
-                    this.isLoading = false;
-                  }, 2000);
                 if (this.newsId) {
                     this.message.create('success', `News Updated Successfully`)
                 }
@@ -285,21 +289,26 @@ export class AddNewsComponent implements OnInit {
         this.route.navigateByUrl('news/list');
     }
 
-
     mainFileUploaded(file) {
         if (file.attachmentType == 'IMAGE') {
             this.newsModel.imageId = file.id;
             this.newsModel.fileUrl = file.url;
-        } else {
+            this.tempFile.showDelBtn = true;
+        } 
+        else {
             this.newsModel.videoId = file.id;
             this.newsModel.videoUrl = file.url;
+            this.tempFile.showDelBtn = true;
         }
     }
+
     thumbnailUploaded(file) {
         this.newsModel.thumbnailId = file.id;
         this.newsModel.thumbnailUrl = null;
+        this.tempThumbanilFile.showDelBtn = false;
         setTimeout(() => {
             this.newsModel.thumbnailUrl = file.url;
+            this.tempThumbanilFile.showDelBtn = true;
         }, 400);
     }
 
@@ -310,27 +319,32 @@ export class AddNewsComponent implements OnInit {
         this.newsModel.fileUrl = null;
         this.newsModel.videoId = null;
         this.newsModel.videoUrl = null;
+        this.newsModel.thumbnailId = null;
+        this.newsModel.thumbnailUrl = null;
         this.newsModel.contentType = null;
+        this.tempFile.showDelBtn = false;
+        this.tempThumbanilFile.value = null;
+        this.tempThumbanilFile.showDelBtn = false;
     }
 
     resetThumbnail(data) {
         this.newsModel.thumbnailId = null;
         this.newsModel.thumbnailUrl = null;
-        // this.myInputVariable.nativeElement.value = "";
+        this.tempThumbanilFile.showDelBtn = false;
     }
 
     mainFileSelection(event) {
         console.log("file selected", event);
-        this.newsModel.contentType = event.value.name.match(/\.(jpg|jpeg|png|gif)$/) ? 'IMAGE' : 'VIDEO'
+        this.newsModel.contentType = event?.value?.name.match(/\.(jpg|jpeg|png|gif)$/) ? 'IMAGE' : 'VIDEO'
         this.newsModel.fileUrl = null;
         this.newsModel.videoUrl = null;
-
-        // this.file = $event.target.files[0];
+        this.tempFile.showDelBtn = event?.value ? true : false;
     }
+
     thumbnailFileSelection(event) {
         console.log("thubnail file selected", event);
         this.newsModel.thumbnailUrl = null;
-        // this.newsModel.thumbnailFile = $event.target.files[0];
+        this.tempThumbanilFile.showDelBtn = event?.value ? true : false;
     }
 
     handlePreview = (file: NzUploadFile) => {
@@ -399,10 +413,10 @@ export class AddNewsComponent implements OnInit {
         }
         if (this.tagForm.valid) {
             this.apiService.sendRequest(requests.addNewTag, 'post', { ...this.tagForm.value, isActive: true }).subscribe((res: any) => {
-                this.allQuotes = res.quote;
+                this.newTags = res.response;
                 this.initTagForm();
                 this.getTags();
-                console.log("ADD-TAG", this.allQuotes);
+                console.log("ADD-TAG", this.newTags);
             })
         }
     }

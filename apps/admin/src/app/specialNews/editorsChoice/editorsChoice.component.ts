@@ -107,6 +107,7 @@ export class EditorsChoiceComponent implements OnInit{
         const news = this.editorsChoice.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.editorsChoice[news] = updatedNews;
+            console.log(this.editorsChoice[news]);
         }
         else if(this.editorsChoice.some(x=>!x.newsId)){
             console.log('');
@@ -125,9 +126,9 @@ export class EditorsChoiceComponent implements OnInit{
         const valueArr = this.editorsChoice.map(function (item) { return item.newsId });
         const isDuplicate = valueArr.some(function (item, idx) {
             console.log("VAL",valueArr.indexOf(item));
-            
             return valueArr.indexOf(item) != idx
         });
+        debugger
         console.log("DUPLICATE-NEWS", isDuplicate);
         return isDuplicate
     }

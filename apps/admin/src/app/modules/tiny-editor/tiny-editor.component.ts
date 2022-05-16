@@ -17,7 +17,7 @@ import { requests } from '../../shared/config/config';
 
 export class TinyEditorComponent implements OnInit{
     @Input() formField: FormGroup;
-    isVisible = false;
+    isVisible: boolean;
     tinyConfig: any;
 
     constructor(private zone: NgZone) {}

@@ -19,7 +19,7 @@
                       <td class="col-4">
                         <nz-form-item>
                           <!-- <nz-form-control > -->
-                          <nz-select nzShowSearch (ngModelChange)="getCategoryNews($event)" [(ngModel)]="selectedCat" nzPlaceHolder="Select Category">
+                          <nz-select nzAllowClear nzShowSearch (ngModelChange)="getCategoryNews($event)" [(ngModel)]="selectedCat" nzPlaceHolder="Select Category">
                             <nz-option  *ngFor="let cat of allCategories" [nzValue]="cat?.id" [nzLabel]="cat?.title"></nz-option>
                           </nz-select>
                         <!-- </nz-form-control> -->
@@ -37,7 +37,7 @@
                             <!-- <select [(ngModel)]="news.newsId" (change)="onChangeNews($event.target.value)">
                               <option *ngFor="let catNews of allCategoryNews" [value]="catNews?.id">{{catNews?.title}}</option>
                             </select> -->
-                          <nz-select style="width: max-content;" nzShowSearch (ngModelChange)="onChangeNews($event)" [(ngModel)]="news.newsId" nzPlaceHolder="Select News">
+                          <nz-select nzAllowClear style="width: max-content;" nzShowSearch (ngModelChange)="onChangeNews($event)" [(ngModel)]="news.newsId" nzPlaceHolder="Select News">
                             <nz-option *ngFor="let catNews of allCategoryNews" [nzValue]="catNews?.id" [nzLabel]="catNews?.title"></nz-option>
                           </nz-select>
                           <div *ngIf="news.newsId===null" class="error_msg" style="color: Crimson;">
