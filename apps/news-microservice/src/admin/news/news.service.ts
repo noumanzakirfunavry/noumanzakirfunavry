@@ -277,8 +277,7 @@ export class NewsService {
 				through: {
 					attributes: []
 				},
-				
-				required:false
+				required: true
 
 			},
 			{
