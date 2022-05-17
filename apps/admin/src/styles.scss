@@ -24,7 +24,7 @@
     }
 }
 .cdk-drop-list{
-    background: #f9fbfd;
+   
     left: 0;
     z-index: 1;
     right: 0;
@@ -36,8 +36,15 @@
     }
 }
 .sub_cat_block {
-    position: absolute;
-    padding: 16px;
+    // position: absolute;
+    // display: contents;
+    padding: 16px 16px 70px;
+    display: block;
+    table{
+        position: absolute;
+        background: #f9fbfd;
+        padding: 10px;
+    }
    td.ant-table-cell{
        padding-right: 20px;
    }
@@ -49,10 +56,21 @@
     .ant-table table{
         padding: 20px 0;
         .ant-table-row{
-            .ant-table-cell{
+            .col-4.ant-table-cell{
                 .ant-form-item{
                     margin-bottom: 0;
                     min-width: 230px;
+                    .ant-select-single{
+                        width: 100% !important;
+                    }
+                    
+                }
+            }
+            .ant-table-cell{
+                .ant-form-item{
+                    margin-bottom: 0;
+                    min-width: 860px;
+                    max-width: 860px;
                     .ant-select-single{
                         width: 100% !important;
                     }
@@ -102,7 +120,7 @@ table tr td.ant-table-selection-column, table tr th.ant-table-selection-column{
 //     min-width: 150px;
 // }
 .ant-table thead > tr > th.title_col {
-    width: 250px;
+    width: 248px;
 }
 .ant-table thead > tr > th.w_50 {
     width: 50px;
