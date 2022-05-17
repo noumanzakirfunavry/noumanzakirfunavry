@@ -8,9 +8,9 @@
 
 <div [formGroup]="formField">
     <nz-form-item>
-        <nz-form-label>{{label}}</nz-form-label>
+        <nz-form-label nzRequired>{{label}}</nz-form-label>
         <nz-form-control nzErrorTip="{{error}}">
-            <editor formControlName="content" [init]="tinyConfig"></editor>
+            <editor formControlName="{{fieldName}}" [init]="tinyConfig"></editor>
         </nz-form-control>
     </nz-form-item>
 </div>

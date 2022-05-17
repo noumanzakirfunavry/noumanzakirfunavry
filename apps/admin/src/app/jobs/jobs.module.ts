@@ -12,6 +12,7 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
+import { TinyEditorModule } from '../modules/tiny-editor/tiny-editor.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
@@ -28,7 +29,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
         CKEditorModule,
         QuillModule.forRoot(),
         NzPaginationModule,
-        NzModalModule
+        NzModalModule,
+        TinyEditorModule
 
     ],
     exports: [],

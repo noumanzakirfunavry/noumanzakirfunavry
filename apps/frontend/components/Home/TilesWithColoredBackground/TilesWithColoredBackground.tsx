@@ -13,7 +13,7 @@ const TilesWithColoredBackground: FC = () => {
     useEffect(()=>{
             GetData(`${requests.videoNews}&limit=4&pageNo=1`, {}, 'get', false).then(res=>{
                 const newsRes = res?.data && res?.data?.length ? res?.data : []
-                console.log('Video News List::::', newsRes[0]);
+                //console.log('Video News List::::', newsRes);
                 setVideoNewsList(newsRes);
 
               }).catch(err=>{
@@ -62,7 +62,7 @@ const TilesWithColoredBackground: FC = () => {
                             </div>
                             <div className="NewsContent">
                                 <h4>
-                                    {videoNewsList[0]?._source?.title} ID: {videoNewsList[0]?._id}
+                                    {videoNewsList[0]?._source?.title}
                                     {/*
                                     بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم
                                     توقيع ترامب خطة التحفيز الاقتصادي{' '}
@@ -98,7 +98,7 @@ const TilesWithColoredBackground: FC = () => {
                                         </div>
                                     </div>
                                     <div className="NewsContent">
-                                        <h4>{videoNewsList[0]?._source?.title} ID: {newsItem?._id}</h4>
+                                        <h4>{videoNewsList[0]?._source?.title}</h4>
                                         {/*
                                         <h4>
                                         بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة{' '}
