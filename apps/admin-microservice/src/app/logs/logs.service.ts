@@ -1,5 +1,5 @@
 import { GenericResponseDto, GetAllLogsRequestDto } from '@cnbc-monorepo/dtos';
-import { ChangeLogs, Sessions } from '@cnbc-monorepo/entity';
+import { ChangeLogs, Sessions, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -18,6 +18,9 @@ export class LogsService {
 			where: {
 				sessionId: getAllLogsDto.sessionId
 			},
+			// include: {
+			// 	model: Users.scope('basicScope')
+			// },
 			order: [['updatedAt', 'DESC']],
 			limit: getAllLogsDto.limit,
 			offset: this.helperService.offsetCalculator(getAllLogsDto.pageNo, getAllLogsDto.limit)
