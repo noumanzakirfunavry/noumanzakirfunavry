@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoComponentsShareModule } from '../demo-components-share/demo-components-share.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
+import { TinyEditorModule } from '../modules/tiny-editor/tiny-editor.module';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { FileUploaderModule } from '../modules/file-uploader/file-uploader.modul
         CKEditorModule,
         NzPaginationModule,
         NzModalModule,
-        FileUploaderModule
+        FileUploaderModule,
+        TinyEditorModule
     ],
     exports: [],
     declarations: [

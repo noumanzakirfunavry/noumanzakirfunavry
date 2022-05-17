@@ -11,8 +11,7 @@
                     <nz-form-item nzSize="small">
                         <!-- <nz-form-label nzRequired>Slug Line</nz-form-label> -->
                         <nz-form-control >
-                            <input  type="text" formControlName="slugLine" placeholder="Search Tilte"
-                                nz-input>
+                            <input  type="text" formControlName="slugLine" placeholder="Search Tilte" nz-input>
                         </nz-form-control>
                     </nz-form-item>
                     <!-- <nz-item>
@@ -29,8 +28,8 @@
                 <div style="width: 100px; padding:5px"
                     [ngStyle]="file.id===selctedFile.id ? {'background-color': 'lightgray'}:{}"
                     (click)="onSelect(file)">
-                    <img *ngIf="file && file.attachmentType!='VIDEO'" src="{{file.url}}" width="80">
-                    <video *ngIf="file && file.attachmentType=='VIDEO'"  width="100" controls>
+                    <img *ngIf="file && file.attachmentType!=='VIDEO'" src="{{file.url}}" width="80">
+                    <video *ngIf="file && file.attachmentType==='VIDEO'"  width="100" controls>
                         <source src="{{file.url}}">
                     </video>
                     <br>
@@ -51,7 +50,7 @@
             <!-- <i nz-icon nzType="right-circle" nzTheme="outline"></i> -->
             <div class="col-md-12 ">
                 <div class="float-right">
-                    <i nz-icon class="mr-2" role="button" [disabled]="this.pagination.pageNo==1" nzType="left-circle"
+                    <i nz-icon class="mr-2" role="button" [disabled]="this.pagination.pageNo===1" nzType="left-circle"
                         (click)="prev()" nzTheme="outline"></i>
                     <i nz-icon class="mr-2" role="button" nzType="right-circle" (click)="next()" nzTheme="outline"></i>
                 </div>

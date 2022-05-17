@@ -35,17 +35,9 @@
                         </div> -->
 
                         <div class="col-md-12">
-                            <nz-form-item>
-                                <nz-form-label nzRequired>Description</nz-form-label>
-                                <nz-form-control nzErrorTip="Enter Description maximum 1500 characters allowed!">
-                                    <!-- <ng-container *ngIf="tinyConfig">
-                                    </ng-container> -->
-                                    <tiny-editor [label]="'Content'" [error]="'Enter Content maximum 1500 characters allowed!'" [formField]="newsForm"></tiny-editor>
-                                    <!-- <editor formControlName="content" [init]="tinyConfig"></editor> -->
-
-                                    <!-- <editor [config]="tinyConfig" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></editor> -->
-                                </nz-form-control>
-                            </nz-form-item>
+                            <tiny-editor [label]="'Content'" [error]="'Enter Content maximum 1500 characters allowed!'" [formField]="newsForm"></tiny-editor>
+                            <!-- <editor formControlName="content" [init]="tinyConfig"></editor>
+                            <editor [config]="tinyConfig" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></editor> -->
                         </div>
                         <div class="col-md-6">
                             <dynamic-file-selector [title]="'Upload Media'" [field]="tempFile" [customDiv]="'mainFile'"
@@ -62,27 +54,6 @@
                                     <!-- <i style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i> -->
                                 </div>
                             </dynamic-file-selector>
-                            <!-- <nz-form-item>
-                           
-                            <nz-form-label>
-                                <h4>Upload Media</h4>
-                            </nz-form-label>
-                            <nz-form-control>
-                                <nz-form-label>Video Or Image Upload</nz-form-label>
-                                <input #myInput (change)="fileRead($event)" formControlName="file" type="file"
-                                    accept="jpg jpeg png gif mp4" />
-                            </nz-form-control>
-                            <span *ngIf="uploadProgress" class="ml-4 mt-1">File Uploading Progress
-                                :{{uploadProgress}}%</span>
-                            <img *ngIf="newsModel?.fileUrl" class="mt-2" width="40%" height="40%"
-                                [src]="newsModel?.fileUrl">                           
-                                <video *ngIf="newsModel?.videoUrl" id="video1" class="img" style="width:80%; height:370px;" controls>
-                                    <source [src]="newsModel?.videoUrl">
-                                  </video>
-                        </nz-form-item>
-                        <div *ngIf="file && !uploadProgress" style="color: Crimson;">Click upload button to upload Image!</div>
-                        <button class="mr-2" *ngIf="file && uploadProgress!==100" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
-                        <button *ngIf="file" (click)="[getCaptcha($event),reset()]">Reset</button> -->
                         </div>
                         <div class="col-md-6" *ngIf="newsModel?.contentType && newsModel?.contentType==='VIDEO'">
                             <dynamic-file-selector [customDiv]="'thumbnail'" [title]="'Thumbnail Image'"
@@ -119,35 +90,6 @@
                         </dynamic-file-selector>
                     </div>
                 </div>
-                    <nz-card class="bg-white mt-2">
-                        <!-- <div class="m-t-40"> -->
-                        <h4>10 Comments</h4>
-                        <!-- [nzPagination]="pagination" -->
-                        <nz-list [nzDataSource]="commentListData" [nzRenderItem]="comment" [nzItemLayout]="'vertical'">
-                            <ng-template #comment let-item>
-                                <!-- [nzActions]="[action]" -->
-                                <nz-list-item class="d-block" [nzContent]="item.comment">
-                                    <!-- [nzAvatar]="item.img" -->
-                                    <nz-list-item-meta [nzTitle]="commentTitle" [nzDescription]="item.date">
-                                        <ng-template #commentTitle>
-                                            <a class="font-size-15" href="">{{item.name}}</a>
-                                        </ng-template>
-                                    </nz-list-item-meta>
-                                </nz-list-item>
-                            </ng-template>
-                            <nz-form-item>
-                                <!-- <nz-form-label>title</nz-form-label> -->
-                                <textarea type="text" style="min-height:150px;" placeholder="Write a comment..."
-                                    nz-input></textarea>
-                                <button class="mr-3" style="position: absolute; right: 0px;bottom:10px" nz-button
-                                    nzType="primary" (click)="getCaptcha($event)">Add Comment</button>
-                            </nz-form-item>
-                            <!-- <ng-template #pagination>
-                <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
-            </ng-template> -->
-                        </nz-list>
-                        <!-- </div> -->
-                    </nz-card>
                     <news-comments></news-comments>
                 </div>
                 <div class="col-4 ">

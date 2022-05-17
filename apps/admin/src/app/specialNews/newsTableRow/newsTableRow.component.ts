@@ -74,17 +74,16 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit{
 
     getCategoryNews(catId?: any) {
         // console.log("SEL-CAT", this.selectedCat)
-        this.pagination.categoryId= catId ? catId : null;
-        this.apiService.sendRequest(requests.getAllNews, 'get', {pageNo:1, limit:30, categoryId:parseInt(catId)}).subscribe((res:any) => {
-            this.allCategoryNews= res.response.news;
-            // const uniqueIds = this.allCategoryNews.map(x => x.id).filter((v, i, s) => s.indexOf(v) === i)
-            this.news.newsId = null
-            this.onCatSelection.emit(this.news);
-
-            console.log("CATEGORY-NEWS", this.allCategoryNews);
-            // console.log("CATEGORY-NEWS-UNIQUE-IDS", uniqueIds);
-            return this.allCategoryNews && this.allCategoryNews.filter((x: any) => x.id != this.news.newsId)
-        })
+            this.pagination.categoryId= catId ? catId : null;
+            this.apiService.sendRequest(requests.getAllNews, 'get', {pageNo:1, limit:30, categoryId:parseInt(catId)}).subscribe((res:any) => {
+                this.allCategoryNews= res.response.news;
+                // const uniqueIds = this.allCategoryNews.map(x => x.id).filter((v, i, s) => s.indexOf(v) === i)
+                this.news.newsId = null
+                this.onCatSelection.emit(this.news);
+                console.log("CATEGORY-NEWS", this.allCategoryNews);
+                // console.log("CATEGORY-NEWS-UNIQUE-IDS", uniqueIds);
+                return this.allCategoryNews && this.allCategoryNews.filter((x: any) => x.id != this.news.newsId)
+            })
     }
 
     clean(obj:any) {
