@@ -17,14 +17,13 @@ export class NewsModel {
     seoDetailId: number;
 
     videoId : number
-    thumbnailFile:File;
     thumbnailId : number;
-    thumbanailUrl:string;
+    thumbnailFile: File;
     imageId : number
     mainFile: any;
-    fileUrl:string;
-    videoUrl:string;
-    thumbnailUrl:string;
+    fileUrl: string;
+    videoUrl: string;
+    thumbnailUrl: string;
 
     constructor() {
         this.title = ""
