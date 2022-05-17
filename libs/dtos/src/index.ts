@@ -3,6 +3,8 @@
 export * from './dtos.module';
 //...............................Users.............................
 export * from './request/admin/get.all.admins.request.dto';
+export * from './request/admin/get.all.sessions.request.dto';
+export * from './request/admin/get.sessions.by.user.id.request.dto';
 //...............................Alerts.............................
 export * from './request/alert/create.alert.request.dto';
 export * from './request/alert/get.all.alerts.request.dto';
