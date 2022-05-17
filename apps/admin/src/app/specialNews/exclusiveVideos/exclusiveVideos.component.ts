@@ -118,6 +118,12 @@ export class ExclusiveVideosComponent implements OnInit{
         }
         else if(this.exclusiveVideos.some(x=>!x.newsId)){
             console.log('');
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.exclusiveVideos[news] = tempNews;
+                this.exclusiveVideos[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
         else {
             const tempNews = updatedNews;
