@@ -17,6 +17,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
+import { TinyEditorModule } from '../modules/tiny-editor/tiny-editor.module';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 
@@ -38,7 +39,8 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
         NzDatePickerModule,
         NzMessageModule,
         FileUploaderModule,
-        EditorModule
+        EditorModule,
+        TinyEditorModule
 
     ],
     exports: [],

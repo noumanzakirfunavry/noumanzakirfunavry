@@ -2,6 +2,8 @@ import { EventEmitter, Component, Input, OnInit, Output } from "@angular/core";
 import { Pagination } from "../../../common/models/pagination";
 import { requests } from "../../../shared/config/config";
 import { ApiService } from "../../../shared/services/api.service";
+
+
 export class Data extends Pagination {
     title?: string;
     attachmentType?: 'VIDEO' | 'IMAGE'
@@ -11,14 +13,14 @@ export class Data extends Pagination {
         this.title = "";
     }
 }
+
+
 @Component({
     selector: 'tiny-file-modal',
     templateUrl: './file-modal.component.html',
 })
 
 export class FileModalComponent implements OnInit {
-    // 
-    // @Input() $isVisible: Observable<any>;
     @Input() isVisible = false;
     @Output() closeModal: EventEmitter<any> = new EventEmitter();
     @Output() onSelectFile: EventEmitter<any> = new EventEmitter();
@@ -41,7 +43,7 @@ export class FileModalComponent implements OnInit {
         this.apiService.sendRequest(requests.getAllAttachments, 'get', this.pagination).subscribe((res: any) => {
             console.log("files", res);
             this.files = res.response.attachments;
-            this.totalCount = res.responsetotalCount
+            this.totalCount = res.response.totalCount;
             console.log("files", this.files);
         });
     }
@@ -60,11 +62,13 @@ export class FileModalComponent implements OnInit {
         this.onSelectFile.emit(this.selctedFile)
         this.isVisible = false;
     }
+
     onPageSizeChange(limit: number) {
         this.loading = true;
         this.pagination = Object.assign({ ...this.pagination, limit: limit })
         this.fetchAttachments();
     }
+
     onPageIndexChange(pageNo: number) {
         this.loading = true;
         this.pagination = Object.assign({ ...this.pagination, pageNo: pageNo })
@@ -76,29 +80,33 @@ export class FileModalComponent implements OnInit {
         this.isVisible = false;
         this.closeModal.emit(this.isVisible);
     }
+
     confirm(item) {
         console.log("delete", item);
-
         this.apiService.sendRequest(requests.deleteAttachment, 'delete', { id: [item.id] }).subscribe(res => {
             this.fetchAttachments();
         })
     }
+
     next() {
         this.pagination.pageNo = this.pagination.pageNo + 1;
         this.fetchAttachments();
     }
+
     prev() {
         if (this.pagination.pageNo > 1) {
             this.pagination.pageNo = this.pagination.pageNo - 1;
             this.fetchAttachments();
         }
     }
+
     filterFiles(fileType) {
         this.pagination.attachmentType = fileType;
         this.fetchAttachments()
     }
-    cancel() {
 
+    cancel() {
+        console.log("TASK-NOT-DELETED");
     }
 
 }
