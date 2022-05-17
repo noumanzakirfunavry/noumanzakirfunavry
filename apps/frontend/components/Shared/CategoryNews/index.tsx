@@ -197,7 +197,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                 displayMoreButton && (
                     news?.length === limitX &&
                     <div className="text-center mt-3 mb-4 more_btn" onClick={() => setLimitX(limitX + loopIndex - 2)}>
-                        <button className="btn btn-outline-primary">المزيد {news?.length} length {limitX} limit</button>
+                        <button className="btn btn-outline-primary">المزيد</button>
                     </div>
                 )
             } 

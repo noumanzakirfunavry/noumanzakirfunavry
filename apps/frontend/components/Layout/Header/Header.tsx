@@ -281,6 +281,10 @@ const Header = () =>{
                                                     <Link href="/"><a className="nav-link active" aria-current="page">الرئيسية</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
+                                                <li className="nav-item" key={'654564ytf7653'}>
+                                                    <Link href="/latestVideos"><a className="nav-link active" aria-current="page">فيديو CNBC عربية</a></Link>
+                                                    <div className="nav-menu-navUnderline"></div>
+                                                </li>
                                                 {/* <li className="nav-item" key={'2'}>
                                                     <Link href="/videoNews"><a className="nav-link">الفيديو</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
