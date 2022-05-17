@@ -78,7 +78,7 @@ const Header = () =>{
     },[])
 
     const getAllMenus = () =>{
-        GetData(`${requests.moreMenus}getAll?limit=50&pageNo=1`, {}, 'get', false).then(res=>{
+        GetData(`${requests.moreMenus}getAll?position=HEADER&limit=50&pageNo=1`, {}, 'get', false).then(res=>{
 
             //console.log('Menus::::::::::', res?.data?.response);
             setMoreMenuItems(res?.data?.response);

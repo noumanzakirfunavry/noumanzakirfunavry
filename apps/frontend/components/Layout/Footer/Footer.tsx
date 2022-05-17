@@ -4,9 +4,63 @@
 import { useRouter } from 'next/router';
 import logo from '../../../styles/images/cnbc-arabia-logo.svg';
 import styles from './footer.module.css';
+import { requests } from '../../../services/Requests';
+import GetData from '../../../services/GetData';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { MenuProps } from "../../../types/Types";
 
 const Footer = () =>{
     const router = useRouter()
+
+    const [menuItems, setMenuItems] = useState<MenuProps[]>([{
+        id: 0,
+        title: '',
+        url: ''
+    }]);
+    
+    const [activeIndex, setActiveIndex] = useState(null);
+    const [activeColumn, setActiveColumn] = useState(0);
+    
+
+    useEffect(() => {
+        GetData(`${requests.moreMenus}getAll?position=FOOTER&limit=12&pageNo=1`, {}, 'get', false).then(res=>{
+            setMenuItems(res?.data?.response);
+
+        }).catch(err=>{
+            console.warn(err)
+        })
+    }, [activeIndex, activeColumn])
+    
+    const fields: JSX.Element[] = [];
+
+    let menuChunk;
+    let column = 0;
+    while (menuItems?.length > 0) {
+        menuChunk = menuItems?.splice(0,4)
+        fields.push(
+            <div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0'>
+                <ul className={styles.footerLink}>
+                    {
+                        menuChunk?.length && menuChunk.map((menuItem: any, index: number)=>{
+                            
+                            return(
+                                <li key={index}> 
+                                    <Link href={menuItem.url}><a onClick={() => handleClickMenuItem(index, column)}>{menuItem.title}</a></Link>
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+            </div>
+        )
+        column++
+    }
+
+    const handleClickMenuItem = (index, column) => {
+        setActiveIndex(index)
+        setActiveColumn(column)
+    };
 
     return (
         <>
@@ -28,10 +82,11 @@ const Footer = () =>{
                     <div className={styles.clearfix}></div>
                 </div>
                 <div className='row w_90'>
-
-                    <div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0'>
+                    {fields && fields}
+                    
+                    {/*<div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0'>
                         <ul className={styles.footerLink}>
-                        <li><a href="#">الرئيسية</a></li>
+                            <li><a href="#">الرئيسية</a></li>
                             <li key={'zxc'}><a href="#">إشترك في نشرتنا البريدية</a></li>
                             <li key={'xvvcb'}><a href="#">الرئيسية</a></li>
                             <li key={'aswerddlhsa'}><a href="#">إشترك في نشرتنا البريدية</a></li>
@@ -55,7 +110,8 @@ const Footer = () =>{
                             <li key={'54765'}><a href="#">إشترك في نشرتنا البريدية</a></li>
                             <li key={'hgf'}><a href="/careers">الرئيسية</a></li>
                         </ul>
-                    </div>
+    </div>*/}
+
                     <div className="col-12 text-center d-sm-none">
                     <div className={styles.footerSocial}>
                         <ul>
