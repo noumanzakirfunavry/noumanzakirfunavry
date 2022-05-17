@@ -1,13 +1,15 @@
-import { Programs } from "@cnbc-monorepo/entity"
-import { ChangeTypes } from "@cnbc-monorepo/enums"
+import { News } from "@cnbc-monorepo/entity"
 
 export const loggableRequests = {
-	programs: {
+	news: {
 		PUT: {
 			
 		},
 		POST: {
-
+			add: {
+				entity: News.name,
+				action: 'Added new news'
+			}
 		}
 	}
 }
