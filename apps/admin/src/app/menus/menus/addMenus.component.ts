@@ -75,13 +75,13 @@ export class AddMenusComponent implements OnInit{
       }
       if(this.menuForm.valid) {
         this.isLoading= true;
+        setTimeout(() => {
+          this.isLoading= false;
+        }, 2000);
         this.apiService.sendRequest(this.menuId ? requests.updateMenu + this.menuId : requests.addMenu, this.menuId ? 'put' : 'post', this.menuForm.value).subscribe((res:any) => {
           console.log("MENU", res);
           this.menuForm.reset();
           this.route.navigateByUrl('menus/list');
-          setTimeout(() => {
-            this.isLoading= false;
-          }, 2000);
           if(this.menuId) {
             this.message.create('success', `Menu Updated Successfully`)
         }

@@ -131,3 +131,7 @@ table tr td.ant-table-selection-column, table tr th.ant-table-selection-column{
         width: 520px;
     }
 }
+
+.disable-div {
+    pointer-events: none;
+}

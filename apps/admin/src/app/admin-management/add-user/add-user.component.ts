@@ -87,12 +87,15 @@ export class AddUserComponent implements OnInit{
     this.submitted=true;
     if(this.adminForm.valid) {
       this.isLoading= true;
+      setTimeout(() => {
+        this.isLoading= false;
+      }, 2000);
       const obj= this.adminForm.value;
       obj['name'] = this.adminForm.value.name.trim();
       obj['userName']= this.adminForm.value.userName.toLowerCase();
       obj['rights']= this.adminForm.value.rights.filter(x=>x.checked);
       obj['rights']= obj['rights'].map(x=>x.id);
-      if(obj['password'] == '' || this.adminForm.value.password == '') {
+      if(obj['password'] == '' || obj['password'] == null || this.adminForm.value.password == '' || this.adminForm.value.password == null) {
         delete obj['password'];
       }
       delete obj['confirmPassword'];
@@ -100,9 +103,6 @@ export class AddUserComponent implements OnInit{
         console.log("ADMINS", res);
         this.inItForm();
         this.route.navigateByUrl('admins/list');
-        setTimeout(() => {
-          this.isLoading= false;
-        }, 2000);
         if(this.userId) {
           this.message.create('success', `Admin Updated Successfully`);
         }

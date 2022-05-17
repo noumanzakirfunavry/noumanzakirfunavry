@@ -9,10 +9,9 @@ export class EpisodesModel {
     seoDetailId: number;
 
     videoId : number
-    thumbnailFile:File;
     thumbnailId : number;
-    thumbanailUrl:string;
     mainFile: any;
+    thumbnailFile:File;
     videoUrl:string;
     thumbnailUrl:string;
 

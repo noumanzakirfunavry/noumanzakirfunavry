@@ -11,9 +11,9 @@
                 <nz-table [nzLoading]="loading" [nzShowPagination]="false" [nzData]="allNews" nzTableLayout="fixed">
                     <thead>
                         <tr>
-                            <th class="w_50" [nzChecked]="checked" [nzIndeterminate]="indeterminate"
-                                (nzCheckedChange)="onAllChecked($event)"></th>
-                                <th class="w_80">Status</th>
+                            <!-- <th class="w_50" [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                                (nzCheckedChange)="onAllChecked($event)"></th> -->
+                            <th class="w_80">Status</th>
                             <th class="title_col">Title</th>
                             <th>Type</th>
                             <th>Category</th>
@@ -26,8 +26,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let news of allNews">
-                            <td [nzChecked]="setOfCheckedId.has(news?.id)" [nzDisabled]="news.disabled"
-                                (nzCheckedChange)="onItemChecked(news?.id, $event)"></td>
+                            <!-- <td [nzChecked]="setOfCheckedId.has(news?.id)" [nzDisabled]="news.disabled"
+                                (nzCheckedChange)="onItemChecked(news?.id, $event)"></td> -->
                                 <td>
                                     <nz-badge *ngIf="news?.isActive === true" nzStatus="success"></nz-badge>
                                     <nz-badge *ngIf="news?.isActive === false"  nzStatus="error"></nz-badge> 
@@ -43,7 +43,7 @@
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <i nz-tooltip nzTooltipTitle="Edit" class="mr-2" nz-icon nzType="edit" nzTheme="outline" [routerLink]="['/news/update/' + news?.id]"></i>
-                                    <i nz-tooltip nzTooltipTitle="Delete" class="mr-2" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm(news?.id)"></i>
+                                    <i nz-tooltip nzTooltipTitle="Delete" class="mr-2" style="cursor: pointer;" nz-icon nzType="delete" nzTheme="outline" (click)="getNewsStatus(news?.id)"></i>
                                     <i nz-tooltip nzTooltipTitle="View" class="mr-2" style="cursor: pointer;" nz-icon nzType="eye" nzTheme="outline"></i>
                                     <i nz-tooltip nzTooltipTitle="Share" style="cursor: pointer;" nz-icon nzType="share-alt" nzTheme="outline"></i>
                                 </div>
@@ -52,7 +52,7 @@
                     </tbody>
                 </nz-table>
                 <div class="send-request" *ngIf="setOfCheckedId.size">
-                    <button class="mt-4" nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="showDeleteConfirm()">
+                    <button class="mt-4" nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading" (click)="getNewsStatus()">
                       Delete Selected
                     </button>
                     <span class="ml-2">Selected {{ setOfCheckedId.size }} items</span>

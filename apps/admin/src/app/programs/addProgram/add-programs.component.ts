@@ -22,8 +22,8 @@ export class AddProgramsComponent implements OnInit{
   programId: number;
   loader= true;
   isLoading= false;
-  tempFile: { colName: string, value: any, label: string } = { 'colName': 'file', value: null, label: 'Video Upload' }
-  tempThumbanilFile: { colName: string, value: any, label: string } = { 'colName': 'thumbnail', value: null, label: 'Image Upload' }
+  tempFile: { colName: string, value: any, label: string, showDelBtn: boolean } = { 'colName': 'file', value: null, label: 'Video Upload', showDelBtn: false }
+  tempThumbanilFile: { colName: string, value: any, label: string, showDelBtn: boolean } = { 'colName': 'thumbnail', value: null, label: 'Image Upload', showDelBtn: false }
   
     constructor(
       private fb: FormBuilder, 
@@ -127,14 +127,14 @@ export class AddProgramsComponent implements OnInit{
         }
         if(this.programForm.valid) {
           this.isLoading= true;
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 2000);
           const obj= this.programForm.value;
           this.apiService.sendRequest(this.programId ? requests.updateProgramDetails + this.programId : requests.addNewProgram, this.programId ? 'put' : 'post', { ...this.programsModel.toServerModal(obj, this.programsModel.seoDetailId), ...this.programId ? { id: this.programId } : null }).subscribe((res:any) => {
             console.log("PROGRAM", res);
             this.initForm();
             this.route.navigateByUrl('programs/list')
-            setTimeout(() => {
-              this.isLoading = false;
-            }, 2000);
             if (this.programId) {
                 this.message.create('success', `Program Updated Successfully`)
             }
@@ -149,6 +149,12 @@ export class AddProgramsComponent implements OnInit{
     this.apiService.sendRequest(requests.getProgramById + this.programId, 'get').subscribe((res: any) => {
         console.log("program data", res.response.program);
         this.programsModel.populateFromServerModal(res.response.program);
+        if(this.programsModel.videoUrl) {
+          this.tempFile.showDelBtn = true;
+        }
+        if(this.programsModel.thumbnailUrl) {
+          this.tempThumbanilFile.showDelBtn = true;
+        }
         this.programsModel.seoDetailId = res.response.program.seoDetailId;
         console.log("view modal", this.programsModel);
         this.populateProgramsForm(res.response.program);
@@ -204,16 +210,20 @@ export class AddProgramsComponent implements OnInit{
     mainFileUploaded(file) {
           this.programsModel.promoId = file.id;
           this.programsModel.videoUrl = null;
+          this.tempFile.showDelBtn = false;
           setTimeout(() => {
             this.programsModel.videoUrl = file.url;
+            this.tempFile.showDelBtn = true;
         }, 400);
   }
 
     thumbnailUploaded(file) {
       this.programsModel.thumbnailId = file.id;
       this.programsModel.thumbnailUrl=null;
+      this.tempThumbanilFile.showDelBtn = false;
       setTimeout(() => {
           this.programsModel.thumbnailUrl = file.url;
+          this.tempThumbanilFile.showDelBtn = true;
       }, 400);
   }
 
@@ -221,21 +231,29 @@ export class AddProgramsComponent implements OnInit{
     this.file = null;
     this.programsModel.promoId = null;
     this.programsModel.videoUrl = null;
+    this.programsModel.thumbnailId = null;
+    this.programsModel.thumbnailUrl = null;
+    this.tempFile.showDelBtn = false;
+    this.tempThumbanilFile.value = null;
+    this.tempThumbanilFile.showDelBtn = false;
   }
 
     resetThumbnail(data) {
     this.programsModel.thumbnailId = null;
     this.programsModel.thumbnailUrl = null;
+    this.tempThumbanilFile.showDelBtn = false;
   }
 
     mainFileSelection(event) {
     console.log("file selected", event);
     this.programsModel.videoUrl = null;
+    this.tempFile.showDelBtn = event?.value ? true : false;
   }
 
     thumbnailFileSelection(event) {
     console.log("thubnail file selected", event);
     this.programsModel.thumbnailUrl = null;
+    this.tempThumbanilFile.showDelBtn = event?.value ? true : false;
   }
 
     getCaptcha(e: MouseEvent): void {

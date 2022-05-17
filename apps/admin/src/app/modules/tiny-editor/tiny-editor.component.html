@@ -1,8 +1,10 @@
-<tiny-file-modal (onSelectFile)="fileFromModal($event)" [isVisible]="isVisible" (closeModal)="closeModal($event)">
-    <div>
-        <p>Select Image</p>
-    </div>
-</tiny-file-modal>
+<div *ngIf="isVisible">
+    <tiny-file-modal (onSelectFile)="fileFromModal($event)" [isVisible]="isVisible" (closeModal)="closeModal($event)">
+        <div>
+            <p>Select Image</p>
+        </div>
+    </tiny-file-modal>
+</div>
 
 <div [formGroup]="formField">
     <nz-form-item>

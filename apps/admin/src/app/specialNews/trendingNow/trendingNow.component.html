@@ -20,10 +20,10 @@
                   <ng-container>
                     <news-table-row 
                     [allCategories]="allCategories" 
-                    [news]="news">
+                    [news]="news"
                     (onNewsSelection)="changedNews($event)" 
                     (onCatSelection)="changeCategory($event)"
-                  </news-table-row>
+                    ></news-table-row>
                   </ng-container>
               </tr>
           </tbody>

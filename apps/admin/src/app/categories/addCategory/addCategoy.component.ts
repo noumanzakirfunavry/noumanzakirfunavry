@@ -69,15 +69,15 @@ export class AddCategoryComponent implements OnInit {
         }
         if(this.categoryForm.valid) {
             this.isLoading= true;
+            setTimeout(() => {
+                this.isLoading= false;
+            }, 2000);
             const obj= this.categoryForm.value;
             obj['parentCategoryId'] = parseInt(this.categoryForm.value.parentCategoryId);
             this.apiService.sendRequest(this.categoryId ? requests.updateCategory + this.categoryId : requests.addCategory, this.categoryId ? 'put' : 'post', obj).subscribe((res:any) => {
                 console.log("CATEGORIES", res);
                 this.categoryForm.reset();
                 this.route.navigateByUrl('category/list');
-                setTimeout(() => {
-                    this.isLoading= false;
-                }, 2000);
                 if(this.categoryId) {
                     this.message.create('success', `Category Updated Successfully`)
                 }

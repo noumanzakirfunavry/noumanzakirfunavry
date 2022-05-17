@@ -128,6 +128,7 @@ export class TrendingNowComponent implements OnInit{
     findDuplicates() {
         const valueArr = this.tNews.map(function (item) { return item.newsId });
         const isDuplicate = valueArr.some(function (item, idx) {
+            console.log("VAL",valueArr.indexOf(item));
             return valueArr.indexOf(item) != idx
         });
         console.log("DUPLICATE-NEWS", isDuplicate);

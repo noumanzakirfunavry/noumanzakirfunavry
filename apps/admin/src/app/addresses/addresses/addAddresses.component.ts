@@ -66,15 +66,15 @@ export class AddAddressesComponent implements OnInit {
       }
       if(this.addressForm.valid) {
         this.isLoading= true;
+        setTimeout(() => {
+          this.isLoading= false;
+        }, 2000);
         const obj= this.addressForm.value;
         obj['zipCode']= "12345"
         this.apiService.sendRequest(this.branchId ? requests.updateBranch + this.branchId: requests.addNewBranch, this.branchId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("BRANCHES", res);
           this.addressForm.reset();
           this.route.navigateByUrl('addresses/list');
-          setTimeout(() => {
-            this.isLoading= false;
-          }, 2000);
           if(this.branchId) {
             this.message.create('success', `Address Updated Successfully`);
           }
