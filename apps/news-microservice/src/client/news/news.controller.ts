@@ -1,5 +1,5 @@
 import { Public } from '@cnbc-monorepo/auth-module';
-import { GenericResponseDto, GetMostReadNews, GetMostReadNewsDto, GetNewsByFlagsRequestDto, PaginatedRequestDto, SearchNewsRequestDto } from '@cnbc-monorepo/dtos';
+import { GenericResponseDto, GetMostReadNewsDto, GetNewsByFlagsRequestDto, PaginatedRequestDto, SearchNewsRequestDto } from '@cnbc-monorepo/dtos';
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Req } from '@nestjs/common';
 import { NewsService } from './news.service';
 

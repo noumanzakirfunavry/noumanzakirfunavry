@@ -1,4 +1,4 @@
-import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto, PaginatedRequestDto } from '@cnbc-monorepo/dtos';
+import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto, GetAllSessionsRequestDto, GetSessionsByUserIdRequestDto } from '@cnbc-monorepo/dtos';
 import { Rights, Roles, Sessions, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
@@ -11,7 +11,7 @@ export class AdminService {
 		@Inject('USERS_REPOSITORY')
 		private usersRepository: typeof Users,
 		@Inject('SESSIONS_REPOSITORY')
-    private sessionRepository: typeof Sessions,
+		private sessionRepository: typeof Sessions,
 		private helperService: Helper
 	) { }
 	async getUserById(id: number): Promise<GetAdminByIdResponseDto> {
@@ -132,24 +132,46 @@ export class AdminService {
 		return delete_user;
 	}
 
-	async getAllSessions(paginationDto : PaginatedRequestDto) {
-		const result = await this.sessionRepository.findAndCountAll({
-			group: ['usersId', 'users.id', 'Sessions.id'],
-			include: 'users',
-			order: [['updatedAt', 'DESC']],
-			limit: paginationDto.limit,
-      offset: this.helperService.offsetCalculator(paginationDto.pageNo, paginationDto.limit)
+	async getAllSessions(getAllSessionsDto: GetAllSessionsRequestDto) {
+		const result = await this.usersRepository.scope('basicScope').findAndCountAll({
+			include: {
+				model: Sessions,
+				order: [['updatedAt', 'DESC']],
+				limit: getAllSessionsDto.sessionLimit,
+			},
+			limit: getAllSessionsDto.userLimit,
+			offset: this.helperService.offsetCalculator(getAllSessionsDto.userPageNo, getAllSessionsDto.userLimit)
 		})
-		// if (result.count === 0) {
-		// 	throw new CustomException(
-		// 		Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
-		// 		Exceptions[ExceptionType.RECORD_NOT_FOUND].status
-		// 	)
-		// }
 
 		return new GenericResponseDto(HttpStatus.OK, "Request Successful", {
-			sessions: result.rows,
+			users: result.rows,
 			totalCount: result.count
+		})
+	}
+
+	async getSessionsByUserId(getSessionsDto: GetSessionsByUserIdRequestDto) {
+		const res = await this.sessionRepository.findAndCountAll({
+			where: {
+				usersId: getSessionsDto.userId
+			},
+			// include: {
+			// 	model: Users.scope('basicScope'),
+
+			// },
+			limit: getSessionsDto.limit,
+			offset: this.helperService.offsetCalculator(getSessionsDto.pageNo, getSessionsDto.limit)
+		})
+
+		if (res.count === 0) {
+			throw new CustomException(
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+			)
+		}
+
+		return new GenericResponseDto(HttpStatus.OK, 'Request Successful', {
+			sessions: res.rows,
+			totalCount: res.count,
 		})
 	}
 
