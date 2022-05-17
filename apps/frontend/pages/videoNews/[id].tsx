@@ -1,7 +1,8 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import AdBanner from "apps/frontend/components/Shared/AdBanner/AdBanner"
 import VideoNews from "apps/frontend/components/VideoNews/VideoNews"
-import HorizontalFooter2NewsSlider from "apps/frontend/components/Shared/NewsFooter2Slider"
+import HorizontalFooter2VideoNewsSlider from "../../components/VideoNews/HorizontalFooter2VideoNewsSlider"
+import HorizontalFooter2NewsSlider from "../../components/Shared/HorizontalFooterNewsSlider"
 import Title from "apps/frontend/components/Title"
 import SideBarWithVideo from "apps/frontend/components/VideoNews/SideBarWithVideo"
 import { useEffect, useState } from "react";
@@ -20,7 +21,7 @@ const Index = () =>{
     useEffect(() => {
         if(router.query.id){
             GetData(`${requests.NewsById+router.query.id}`, {}, 'get', false).then(res=>{
-            console.log('test news',res);
+            //console.log('test news',res);
             setVideoNews(res?.data?.response?.news)
 
             }).catch(err=>{
@@ -31,7 +32,6 @@ const Index = () =>{
     }, [router.query.id])
 
     useEffect(() => {
-        // get data for latest news in side bar
         GetData(`${requests.videoNews}&limit=${limitOfList}&pageNo=1`, {}, 'get', false).then(res=>{
             const newsRes = res?.data && res?.data?.length ? res?.data : []
             setLatestVideoNews(newsRes);
@@ -61,7 +61,8 @@ const Index = () =>{
                 <Title styles={"yellowTitle"}>
                     <h3>أحدث مقاطع الفيديو</h3>
                 </Title>
-                <HorizontalFooter2NewsSlider />
+                {/*<HorizontalFooter2NewsSlider videoNewsList={latestVideoNews} />*/}
+                <HorizontalFooter2VideoNewsSlider videoNewsList={latestVideoNews} />
             </div>
                 </div>
                 
