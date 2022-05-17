@@ -31,9 +31,14 @@
                             <editor [config]="tinyConfig" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></editor> -->
                         </div>
                         <div class="col-md-6">
-                            <dynamic-file-selector [title]="'Upload Media'" [field]="tempFile" [customDiv]="'mainFile'"
-                                [formField]="newsForm" (onFileRemove)="reset($event)"
-                                (onFileSelection)="mainFileSelection($event)" (onFileUpload)="mainFileUploaded($event)">
+                            <dynamic-file-selector 
+                            [title]="'Upload Media'" 
+                            [field]="tempFile" 
+                            [customDiv]="'mainFile'"
+                            [formField]="newsForm" 
+                            (onFileRemove)="reset($event)"
+                            (onFileSelection)="mainFileSelection($event)" 
+                            (onFileUpload)="mainFileUploaded($event)">
                                 <div mainFile class="mt-2">
                                     <img *ngIf="newsModel?.fileUrl" class="mt-2" width="50%" height="50%"
                                         [src]="newsModel?.fileUrl">
@@ -46,20 +51,7 @@
                                 </div>
                             </dynamic-file-selector>
                         </div>
-                        <div class="col-md-6" *ngIf="newsModel?.contentType && newsModel?.contentType==='VIDEO'">
-                            <dynamic-file-selector [customDiv]="'thumbnail'" [title]="'Thumbnail Image'"
-                                [field]="tempThumbanilFile" [formField]="newsForm"
-                                (onFileSelection)="thumbnailFileSelection($event)"
-                                (onFileRemove)="resetThumbnail($event)" (onFileUpload)="thumbnailUploaded($event)">
-                                <div thumbnail class="mt-2">
-                                    <img *ngIf="newsModel?.thumbnailUrl" class="mt-2" width="40%" height="40%"
-                                        [src]="newsModel.thumbnailUrl">
-                                    <br>
-                                    <!-- <i style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i> -->
-                                </div>
-                            </dynamic-file-selector>
-                        </div>
-                        <div class="col-md-6" [ngClass]="newsModel?.contentType && newsModel?.contentType==='VIDEO' ? '' : 'disable-div'">
+                        <div class="col-md-6" [ngClass]="newsModel?.contentType && newsModel?.contentType==='VIDEO' && newsModel?.videoId && newsModel?.videoUrl ? '' : 'disable-div'">
                             <dynamic-file-selector 
                             [customDiv]="'thumbnail'" 
                             [title]="'Thumbnail Image'" 
@@ -68,13 +60,11 @@
                             [formField]="newsForm" 
                             (onFileSelection)="thumbnailFileSelection($event)"
                             (onFileRemove)="resetThumbnail($event)" 
-                            (onFileUpload)="thumbnailUploaded($event)" 
-                            >
+                            (onFileUpload)="thumbnailUploaded($event)">
                                 <div thumbnail class="mt-2" >
                                     <img *ngIf="newsModel?.thumbnailUrl" class="mt-2" width="40%" height="40%"
                                     [src]="newsModel.thumbnailUrl">                                                          
                                     <br>
-                                    <!-- <i style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i> -->
                                   </div>
                             </dynamic-file-selector>
                         </div>
