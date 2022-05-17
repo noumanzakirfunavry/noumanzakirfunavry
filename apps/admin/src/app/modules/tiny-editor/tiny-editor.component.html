@@ -7,5 +7,10 @@
 </div>
 
 <div [formGroup]="formField">
-    <editor formControlName="content" [init]="tinyConfig"></editor>
+    <nz-form-item>
+        <nz-form-label>{{label}}</nz-form-label>
+        <nz-form-control nzErrorTip="{{error}}">
+            <editor formControlName="content" [init]="tinyConfig"></editor>
+        </nz-form-control>
+    </nz-form-item>
 </div>

@@ -11,7 +11,7 @@ export const requests = {
     getAttachmentDetailsById: 'http://localhost:3333/api/attachment/',
     getAllAttachments: environment.baseUrlAdmin+'attachments/getAll',
     updateAttachment: 'http://localhost:3333/api/attachment/',
-    deleteAttachment: 'http://localhost:3333/api/attachment/',
+    deleteAttachment: environment.baseUrlAdmin+'attachments',
     getAllAdmins: environment.baseUrlAdmin + 'getAll',
     getNewsComments:environment.baseUrlAdmin+'alerts/comments',
     addNewsComments:environment.baseUrlAdmin+'alerts/comments',

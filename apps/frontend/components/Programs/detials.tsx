@@ -12,7 +12,7 @@ const ProgramDetails = ({programDetails}) => {
     }, [programDetails])
     
 
-    console.log('programDetails:::', programDetails);
+    //console.log('programDetails:::', programDetails);
 
     return (
         <>
