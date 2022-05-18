@@ -118,7 +118,8 @@ export class AddUserComponent implements OnInit{
       this.allRights= res.response.rights;
       if(this.userId){
         this.getUserById();
-      }else{
+      }
+      else{
         this.inItForm();
         this.loader=false
       }
@@ -176,7 +177,8 @@ export class AddUserComponent implements OnInit{
   requiredValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
-    } else if (control.value !== this.adminForm.controls.password.value) {
+    } 
+    else if (control.value !== this.adminForm.controls.password.value) {
       return { confirm: true, error: true };
     }
     return {};
@@ -185,7 +187,8 @@ export class AddUserComponent implements OnInit{
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return {};
-    } else if (control.value !== this.adminForm.controls.password.value) {
+    } 
+    else if (control.value !== this.adminForm.controls.password.value) {
       return { confirm: true, error: true };
     }
     return {};

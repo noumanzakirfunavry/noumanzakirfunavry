@@ -11,7 +11,6 @@ const routes: Routes = [
             title: 'Quick Link',
             headerDisplay: "none"
         },
-
     },
     {
         path: 'list',
@@ -20,7 +19,6 @@ const routes: Routes = [
             title: 'All Quick Links',
             // headerDisplay: "none"
         },
-
     },
     {
         path: 'add',
@@ -29,7 +27,6 @@ const routes: Routes = [
             title: 'Add Quick Link',
             // headerDisplay: "none"
         },
-
     },
     {
         path: 'update/:id',
