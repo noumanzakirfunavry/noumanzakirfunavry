@@ -4,6 +4,7 @@ import newsImage from "../../styles/images/biden2.jpg";
 import { baseUrlAdmin } from '../../services/Requests';
 import { useEffect, useState } from "react";
 import DateArabicFormat from "../Shared/DateCustomFomat/DateArabicFormat"
+import HtmlData from "../Shared/HtmlData/HtmlData";
 
 const VideoNews = ({videoNews}) => {
 
@@ -72,10 +73,11 @@ const VideoNews = ({videoNews}) => {
               <h1>{videoNews?.title}</h1>
           </div>
 
+          {videoNews && <HtmlData data={videoNews?.content} />}
           {/*<p><small><DateArabicFormat date={videoNews?.createdAt} /></small></p>*/}
           {/*<p><small>نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</small></p>*/}
-          <FadedNews news={videoNews}/>
-          <PageCatgories tags={[]}/>
+          {/*<FadedNews news={videoNews}/>*/}
+          {/*<PageCatgories tags={[]}/>*/}
           </div>
     )
 }
