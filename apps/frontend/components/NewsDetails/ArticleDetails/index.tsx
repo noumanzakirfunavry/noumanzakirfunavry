@@ -20,14 +20,15 @@ const ArticleDetails: FC<any> = ({ news }) => {
     return (
         <>
             <NewsRealtedStock />
-            
-
+            {/* <script src="https://geo.dailymotion.com/player/x8lqy.js" data-video="x8adsti"></script> */}
             { // if video news then deal with video
                 news?.videoId ? 
                 playVideo ? // play video if play flag is set
                     <video className="mb-3 newsDetailimg" controls autoPlay loop>
                         <source src={news?.video?.path ? baseUrlAdmin+news?.video?.path:logoImage.src} type="video/mp4" />
                     </video>
+                    // apply condition base player if daily motion video exist then show otherwise show local video 
+                    // <iframe src="https://geo.dailymotion.com/player/x8lqy.html?video=x8adsti" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen frameBorder="0" width="100%" height="360"></iframe>
                 : // else show thumbnail with play icon
                     <div className="VideoNews mb-4 ">
                         <div className="NewsImage">

@@ -112,6 +112,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             <meta name='viewport' content='width=device-width, initial-scale=1' />
             <meta content="text/html; charset=UTF-8" httpEquiv="content-type" />
             <meta httpEquiv="content-language" content="ar" />
+            {/* Daily motino domain 'site-staging' verification */}
+            <meta name='dailymotion-domain-verification' content='dmnqxo6qgp1arjsfs' />
+            {/* Daily motino domain verification */}
             <link rel="icon" type="image/x-icon" href="../favicon.ico" />
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

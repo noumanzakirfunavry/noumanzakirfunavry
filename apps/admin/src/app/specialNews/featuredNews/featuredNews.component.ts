@@ -133,7 +133,12 @@ export class FeaturedNewsComponent implements OnInit {
             this.fNews[news] = updatedNews;
         } 
         else if(this.fNews.some(x=>!x.newsId)){
-            console.log('');
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.fNews[news] = tempNews;
+                this.fNews[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
           else {
             const tempNews = updatedNews;

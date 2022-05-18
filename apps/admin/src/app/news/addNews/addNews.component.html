@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <!-- [ngClass]="newsModel?.contentType && newsModel?.contentType==='VIDEO' ? '' : 'disable-div'" -->
-                    <news-comments></news-comments>
+                    <news-comments [newsId]="newsModel.id"></news-comments>
                 </div>
                 
                 <div class="col-4 ">

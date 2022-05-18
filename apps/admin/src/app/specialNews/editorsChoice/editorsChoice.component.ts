@@ -121,6 +121,12 @@ export class EditorsChoiceComponent implements OnInit{
         }
         else if(this.editorsChoice.some(x=>!x.newsId)){
             console.log();
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.editorsChoice[news] = tempNews;
+                this.editorsChoice[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
         else {
             const tempNews = updatedNews;
