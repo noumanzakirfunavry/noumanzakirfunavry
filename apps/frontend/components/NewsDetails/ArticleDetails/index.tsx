@@ -20,8 +20,7 @@ const ArticleDetails: FC<any> = ({ news }) => {
     return (
         <>
             <NewsRealtedStock />
-            
-
+            {/* <script src="https://geo.dailymotion.com/player/x8lqy.js" data-video="x8adsti"></script> */}
             { // if video news then deal with video
                 news?.videoId ? 
                 playVideo ? // play video if play flag is set
