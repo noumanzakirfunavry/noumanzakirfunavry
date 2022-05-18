@@ -147,8 +147,8 @@
                     <div>
 
                         <nz-form-item>
-                            <nz-form-label nzRequired>Related Quotes</nz-form-label>
-                            <nz-form-control nzErrorTip="Select Quote!">
+                            <nz-form-label>Related Quotes</nz-form-label>
+                            <nz-form-control>
                                 <nz-select (keyup)="getAllQuotes($event.target.value)" formControlName="quotesIds"
                                     [nzSize]="size" nzMode="multiple" nzPlaceHolder="Select Quote">
                                     <nz-option *ngFor="let option of allQuotes" [nzLabel]="option.quoteSymbol"

@@ -23,7 +23,7 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let admin of allAdmins">
-                            <tr  >
+                            <tr>
                                 <td [nzChecked]="setOfCheckedId.has(admin?.id)" [nzDisabled]="admin.disabled"
                                     (nzCheckedChange)="onItemChecked(admin?.id, $event)"></td>
                                 <td>{{admin?.name}}</td>

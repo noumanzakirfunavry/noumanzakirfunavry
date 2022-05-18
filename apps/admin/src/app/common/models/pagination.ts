@@ -19,6 +19,7 @@ export class Pagination {
     position?: string;
     programId?: number;
     admin?: any;
+    userId?: number;
 
     constructor() {
         this.limit= 10;
