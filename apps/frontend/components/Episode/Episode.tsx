@@ -1,5 +1,6 @@
 import FadedNews from "../Shared/FadedNews/FadedNews"
 import PageCatgories from "../Shared/PageCategories/PageCategories"
+import HtmlData from "../Shared/HtmlData/HtmlData";
 import newsImage from "../../styles/images/biden2.jpg";
 import { baseUrlAdmin } from '../../services/Requests';
 import { useEffect, useState } from "react";
@@ -60,8 +61,9 @@ const Episode = ({episodeDetail}) => {
           </div>
 
           <p><small><DateArabicFormat date={episodeDetail?.createdAt} /></small></p>
+          {episodeDetail && <HtmlData data={episodeDetail?.content} />}
           {/*<p><small>نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</small></p>*/}
-          <FadedNews news={episodeDetail} />
+          {/*<FadedNews news={episodeDetail} />*/}
           {/*<PageCatgories tags={[]}/>*/}
           </div>
         </>
