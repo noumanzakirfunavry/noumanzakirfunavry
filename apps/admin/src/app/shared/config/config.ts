@@ -196,6 +196,7 @@ export const requests = {
     getAllAdminLogs: environment.baseUrlAdmin + 'logs/getAll',
     addAdminLog: 'http://localhost:3333/api/adminLogs',
     updateAdminLog: 'http://localhost:3333/api/adminLogs/',
+    getAllSessions: environment.baseUrlAdmin + 'sessions',
     deleteAlerts: 'http://localhost:3333/api/alerts/',
     getAlertById: 'http://localhost:3333/api/alerts/',
     getAllAlerts: 'http://localhost:3333/api/alertsAll',

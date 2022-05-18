@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Pagination } from '../common/models/pagination';
 import { requests } from '../shared/config/config';
 import { ApiService } from '../shared/services/api.service';
 
@@ -9,32 +10,41 @@ import { ApiService } from '../shared/services/api.service';
 })
 
 export class AdminLogComponent implements OnInit{
-    pagination: {limit: number, pageNo: number, userId: number} = {limit: 10, pageNo: 1, userId: 1}
+    pagination: Pagination = new Pagination();
     allAdminLogs: any;
+    allSessions: any;
+    sessionsCount: any;
+    logsCount: any;
+    selectedSession: any;
     loading = true;
     isVisible = false;
     isConfirmLoading = false;
-
-    indeterminate = false;
-    checked = false;
-    setOfCheckedId = new Set<number>();
-    listOfCurrentPageData = [];
 
    
     constructor( private apiService: ApiService ) {}
 
     ngOnInit(): void {
-        this.getAllAdminLogs();
+      this.getAllSessions();
     }
     
-    getAllAdminLogs() {
-        this.apiService.sendRequest(requests.getAllAdminLogs, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
-            this.allAdminLogs= res.response;
-            console.log("ALL-ADMIN-LOGS", this.allAdminLogs);
-            this.loading = false;
-        },err => {
-            this.loading = false;
-          })
+    getAllSessions() {
+      this.apiService.sendRequest(requests.getAllSessions, 'get', this.clean(Object.assign({...this.pagination}))).subscribe((res:any) => {
+        this.allSessions= res.response.sessions;
+        this.sessionsCount= res.response.totalCount;
+        console.log("ALL-SESSIONS", this.allSessions);
+        this.loading = false;
+      },err => {
+        this.loading = false;
+        throw this.handleError(err);
+      })
+    }
+
+    handleError(err: any) {
+      if (err) {
+        this.allSessions = [];
+        this.sessionsCount= 0;
+      }
+      return err
     }
 
     clean(obj:any) {
@@ -46,43 +56,56 @@ export class AdminLogComponent implements OnInit{
         return obj
     }
 
-    updateCheckedSet(id: number, checked: boolean): void {
-        if (checked) {
-            this.setOfCheckedId.add(id);
-        } else {
-            this.setOfCheckedId.delete(id);
-        }
-    }
+    receiveStatus(data: Pagination) {
+      this.pagination={...this.pagination, userId: data.userId, date: data.date};
+      this.pagination.pageNo= 1;
+      this.getAllSessions();        
+  }
 
-    onItemChecked(id: number, checked: boolean): void {
-        this.updateCheckedSet(id, checked);
-        this.refreshCheckedStatus();
-    }
+    receiveFilter(data: Pagination) {
+      this.pagination={...this.pagination, userId: data.userId, date: data.date};
+      this.pagination.pageNo= 1;
+      this.getAllSessions();        
+  }
 
-    onAllChecked(checked: boolean): void {
-        this.allAdminLogs.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
-        this.refreshCheckedStatus();
-    }
+    onPageIndexChange(pageNo: number) {
+      this.loading= true;
+      this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
+      this.getAllSessions();
+  }
 
-    refreshCheckedStatus(): void {
-        const listOfEnabledData = this.allAdminLogs.filter(({ disabled }) => !disabled);
-        this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
-        this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
-    }
+    onPageSizeChange(limit: number) {
+      this.loading= true;
+      this.pagination = Object.assign({...this.pagination, limit: limit})
+      this.getAllSessions();
+  }
 
-    showModal(): void {
+    showModal(index: number): void {
         this.isVisible = true;
-      }
+        this.selectedSession= this.allSessions[index];
+        this.apiService.sendRequest(requests.getAllAdminLogs, 'get', {limit: 1000, pageNo: 1, sessionId: this.selectedSession.id}).subscribe((res:any) => {
+            this.allAdminLogs= res.response.logs;
+            this.logsCount= res.response.totalCount;
+            console.log("ALL-ADMIN-LOGS", this.allAdminLogs);
+            this.loading = false;
+        },err => {
+            this.loading = false;
+          })
+  }
     
-      handleOk(): void {
+    handleOk(): void {
         this.isConfirmLoading = true;
         setTimeout(() => {
           this.isVisible = false;
           this.isConfirmLoading = false;
-        }, 3000);
-      }
+        }, 2000);
+  }
     
-      handleCancel(): void {
+    handleCancel(): void {
         this.isVisible = false;
-      }
+        this.selectedSession= null;
+        this.allAdminLogs= null;
+        this.logsCount= 0;
+  }
+
 }    

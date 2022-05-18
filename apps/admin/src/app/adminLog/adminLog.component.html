@@ -1,14 +1,13 @@
 <div class="row">
     <div class="col-md-12">
-        <adminLog-filter></adminLog-filter>
+        <adminLog-filter (statusEmitter)="receiveStatus($event)" (filterEmitter)="receiveFilter($event)"></adminLog-filter>
     </div>
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
-                <nz-table [nzData]="allAdminLogs" [nzShowPagination]="true" class="no-border-last">
+                <nz-table [nzData]="allSessions" [nzLoading]="loading" [nzShowPagination]="false" class="no-border-last">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Username</th>
                             <th>Admin</th>
                             <th>Logged In</th>
@@ -17,38 +16,56 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let admin of allAdminLogs">
-                            <td>{{admin?.id}}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{{admin?.date}}</td>
-                            <td>{{admin?.date}}</td>
-                            <td (click)="showModal()"><a>View History</a></td>
+                        <tr *ngFor="let session of allSessions; let i= index;">
+                            <td>{{session?.users?.userName}}</td>
+                            <td>{{session?.users?.name}}</td>
+                            <td>{{session?.startTime | date: 'dd-MM-YYYY'}} <br>
+                                {{session?.startTime | date: 'hh:mm:ss aa'}}</td>
+                            <td>{{session?.endTime | date: 'dd-MM-YYYY'}} <br>
+                                {{session?.endTime | date: 'hh:mm:ss aa'}}</td>
+                            <td (click)="showModal(i)">
+                                <button style="background: rgb(127, 131, 131);" nz-button nzType="primary" nzSize="small" nzShape="round">View History</button>
+                            </td>
                         </tr>
                     </tbody>
                 </nz-table>
+                <div class="text-right mt-2">
+                    <nz-pagination [nzPageIndex]="pagination.pageNo" [nzTotal]="sessionsCount" [nzPageSize]="pagination.limit" [nzShowSizeChanger]="true"
+                    [nzResponsive]="true" (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"></nz-pagination>
+                </div>
             </div>
         </nz-card>
     </div>
 </div>
 
-<nz-modal
+<nz-modal *ngIf="allAdminLogs"
       [(nzVisible)]="isVisible"
       [nzTitle]="modalTitle"
       [nzContent]="modalContent"
       [nzFooter]="modalFooter"
       (nzOnCancel)="handleCancel()"
-    >
+      >
       <ng-template #modalTitle>
-        Custom Modal Title
+          <div>
+            Session ID # {{selectedSession?.id}}
+          </div>
       </ng-template>
 
       <ng-template #modalContent>
-        <p>Modal Content</p>
-        <p>Modal Content</p>
-        <p>Modal Content</p>
-        <p>Modal Content</p>
-        <p>Modal Content</p>
+          <div>
+              <div><strong>Action History</strong></div><br>
+              <div>Admin: {{selectedSession?.users?.name}}</div>
+              <div>Username: {{selectedSession?.users?.userName}}</div>
+              <div>Logged In: {{selectedSession?.startTime | date: 'dd-MM-YYYY'}} {{selectedSession?.startTime | date: 'hh:mm:ss aa'}}</div>
+              <div>Logged Off: {{selectedSession?.endTime | date: 'dd-MM-YYYY'}} {{selectedSession?.endTime | date: 'hh:mm:ss aa'}}</div>
+              <!-- <div>IP Address: </div>
+              <div>Location: </div> -->
+          </div>
+          <hr>
+              <p *ngFor="let log of allAdminLogs">
+                {{log?.changeType}} <span class="text-gray ml-4">{{log?.updatedAt | date: 'dd-MM-YYYY'}}</span><br>
+                {{log?.entityType}}<br>
+              </p>
       </ng-template>
 
       <ng-template #modalFooter>
