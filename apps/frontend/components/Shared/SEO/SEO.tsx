@@ -10,6 +10,7 @@ const SEO = (props: any) => {
        <Head>
                 <title>{props.metaData?.title}</title>
                 <meta name="description" content={props.metaData?.description} />
+                <meta itemProp="description" content={props.metaData?.description} />
                 <meta name="theme-color" content="#000000" />
                 <meta name="keywords" content={props.metaData?.keywords}/>
 
