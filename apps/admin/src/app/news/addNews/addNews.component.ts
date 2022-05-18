@@ -28,7 +28,6 @@ export class AddNewsComponent implements OnInit {
     tempThumbanilFile: { colName: string, value: any, label: string, showDelBtn: boolean } = { 'colName': 'thumbnail', value: null, label: 'Thumbnail Image Upload', showDelBtn: false }
     // $isVisible:BehaviorSubject<boolean>=new BehaviorSubject(false);
     size = 'default';
-
     // quotesForm: FormGroup;
     tagForm: FormGroup;
     allQuotes: any = [];
@@ -36,14 +35,12 @@ export class AddNewsComponent implements OnInit {
     allTags: any = [];
     allCategories: any = [];
     strucCategories: any;
-
     pagination: { limit: number, pageNo: number, name?: string, title?: string } = { limit: 15, pageNo: 1 }
     public Editor = ClassicEditor;
     previewImage = '';
     previewVisible = false;
     value: string[] = ['0-0-0'];
     config: any;
-    
     newsId: number;
     uploadProgress: number;
     file: any;
@@ -145,12 +142,12 @@ export class AddNewsComponent implements OnInit {
             visible: [news.visible || true, [Validators.required]],
             contentType: [news.contentType || 'TEXT', [Validators.required]],
             // authorName: [news?.authorName || 'CNBC News', [Validators.required, Validators.maxLength(250)]],
-            newsType: [news?.newsType || 'NEWS',],
+            newsType: [news?.newsType || 'NEWS'],
             showOnHomepage: [news.showOnHomepage || true, [Validators.required]],
             isActive: [news.isActive || true,],
             categoryIds: [news?.categories.map(x => x.id) || null, [Validators.required]],
             tagsIds: [news?.tags.map(x => x.id) || null, [Validators.required]],
-            quotesIds: [news?.quotes && news?.quotes.map(x => x.quoteTickerId) || [], [Validators.required]],
+            quotesIds: [news?.quotes && news?.quotes.map(x => x.quoteTickerId) || []],
             seoTitle: [news?.seoDetail?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             slugLine: [news?.seoDetail?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
             description: [news?.seoDetail?.description || null, [Validators.required, Validators.maxLength(250)]],
@@ -169,12 +166,12 @@ export class AddNewsComponent implements OnInit {
             visible: [true, [Validators.required]],
             contentType: ['TEXT', [Validators.required]],
             // authorName: ['CNBC News', [Validators.required, Validators.maxLength(250)]],
-            newsType: ['NEWS',],
+            newsType: ['NEWS'],
             showOnHomepage: [true, [Validators.required]],
             isActive: [true],
             categoryIds: [null, [Validators.required]],
             tagsIds: [null, [Validators.required]],
-            quotesIds: [null, [Validators.required]],
+            quotesIds: [null],
             seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             slugLine: [null, [Validators.required, Validators.maxLength(250)]],
             description: [null, [Validators.required, Validators.maxLength(250)]],
@@ -208,7 +205,7 @@ export class AddNewsComponent implements OnInit {
                 }
             })
             this.apiService.sendRequest(this.newsId ? requests.updateNews + this.newsId : requests.addNews, this.newsId ? 'put' : 'post', { ...this.newsModel.toServerModal(obj, this.newsModel.seoDetailId), ...this.newsId ? { id: this.newsId } : null }).subscribe((res: any) => {
-                console.log("News", res);
+                console.log("NEWS", res);
                 this.initNewsForm();
                 this.route.navigateByUrl('news/list')
                 if (this.newsId) {

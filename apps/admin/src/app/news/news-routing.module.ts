@@ -4,13 +4,20 @@ import {NewsComponent } from './news.component';
 import { AddNewsComponent } from './addNews/addNews.component';
 const routes: Routes = [
     {
+        path: '',
+        component: NewsComponent,
+        data: {
+            title: 'News',
+            headerDisplay: "none"
+        },
+    },
+    {
         path: 'list',
         component: NewsComponent,
-        // data: {
-        //     title: 'News',
-        //     // headerDisplay: "none"
-        // },
-
+        data: {
+            title: 'All News',
+            // headerDisplay: "none"
+        },
     },
     {
         path: 'add',

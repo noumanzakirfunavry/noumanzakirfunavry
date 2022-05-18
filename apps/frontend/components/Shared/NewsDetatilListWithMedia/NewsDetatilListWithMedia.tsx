@@ -30,9 +30,7 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                     </div>
                                     
                                     { // show thmbnail with play icon if video news
-                                    //.NewsTiles .newBox .PlayTime
-                                    //.VideoTextBox .VideoNews .PlayTime
-                                     !news?._source?.videoId ?
+                                     news?._source?.videoId ?
                                             <div className="NewsTiles">
                                                 <div className="newBox">
                                                     <div className="newsImage">

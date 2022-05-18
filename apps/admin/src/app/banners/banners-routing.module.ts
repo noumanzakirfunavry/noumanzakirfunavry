@@ -20,7 +20,7 @@ const routes: Routes = [
         path: 'list',
         component: BannersComponent,
         data: {
-            title: 'Banners',
+            title: 'All Banners',
             // headerDisplay: "none"
         },
 

@@ -7,60 +7,31 @@ import styles from './footer.module.css';
 import { requests } from '../../../services/Requests';
 import GetData from '../../../services/GetData';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { MenuProps } from "../../../types/Types";
+import FooterMenu from './Menu/FooterMenu';
 
 const Footer = () =>{
     const router = useRouter()
 
-    const [menuItems, setMenuItems] = useState<MenuProps[]>([{
-        id: 0,
-        title: '',
-        url: ''
-    }]);
-    
-    const [activeIndex, setActiveIndex] = useState(null);
-    const [activeColumn, setActiveColumn] = useState(0);
-    
+    const [menuSectionList, setMenuSectionList] = useState<any>([]);
 
     useEffect(() => {
         GetData(`${requests.moreMenus}getAll?position=FOOTER&limit=12&pageNo=1`, {}, 'get', false).then(res=>{
-            setMenuItems(res?.data?.response);
-
+            setMenuChunks(res?.data?.response)
+            
         }).catch(err=>{
             console.warn(err)
         })
-    }, [activeIndex, activeColumn])
-    
-    const fields: JSX.Element[] = [];
+    }, [])
 
-    let menuChunk;
-    let column = 0;
-    while (menuItems?.length > 0) {
-        menuChunk = menuItems?.splice(0,4)
-        fields.push(
-            <div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0'>
-                <ul className={styles.footerLink}>
-                    {
-                        menuChunk?.length && menuChunk.map((menuItem: any, index: number)=>{
-                            
-                            return(
-                                <li key={index}> 
-                                    <Link href={menuItem.url}><a onClick={() => handleClickMenuItem(index, column)}>{menuItem.title}</a></Link>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
-            </div>
-        )
-        column++
+    const setMenuChunks = (menuItems) => {
+        const chunkSize = 4;
+        const sections = menuItems.map((e, i) => { 
+            return i % chunkSize === 0 ? menuItems.slice(i, i + chunkSize) : null; 
+        }).filter(e => { return e; });
+        
+        setMenuSectionList(sections);
     }
 
-    const handleClickMenuItem = (index, column) => {
-        setActiveIndex(index)
-        setActiveColumn(column)
-    };
 
     return (
         <>
@@ -82,8 +53,18 @@ const Footer = () =>{
                     <div className={styles.clearfix}></div>
                 </div>
                 <div className='row w_90'>
-                    {fields && fields}
-                    
+                    { // menu sections
+                        menuSectionList?.length > 0 && menuSectionList.map((item: any, index: number)=>{
+                            return(
+                                    <div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0' key={index}>
+                                        <ul className={styles.footerLink}>
+                                            <FooterMenu pageNo={(index + 1)}/>
+                                        </ul>
+                                    </div>
+                            )
+                        })
+                    }
+
                     {/*<div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0'>
                         <ul className={styles.footerLink}>
                             <li><a href="#">الرئيسية</a></li>
