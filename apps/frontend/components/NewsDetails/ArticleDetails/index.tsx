@@ -28,6 +28,8 @@ const ArticleDetails: FC<any> = ({ news }) => {
                     <video className="mb-3 newsDetailimg" controls autoPlay loop>
                         <source src={news?.video?.path ? baseUrlAdmin+news?.video?.path:logoImage.src} type="video/mp4" />
                     </video>
+                    // apply condition base player if daily motion video exist then show otherwise show local video 
+                    // <iframe src="https://geo.dailymotion.com/player/x8lqy.html?video=x8adsti" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen frameBorder="0" width="100%" height="360"></iframe>
                 : // else show thumbnail with play icon
                     <div className="VideoNews mb-4 ">
                         <div className="NewsImage">

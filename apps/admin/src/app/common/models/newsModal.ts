@@ -24,6 +24,7 @@ export class NewsModel {
     fileUrl: string;
     videoUrl: string;
     thumbnailUrl: string;
+    id?:number | string;
 
     constructor() {
         this.title = ""
@@ -65,6 +66,7 @@ export class NewsModel {
         this.fileUrl=serverNews.image  ? serverNews.image?.url:null;
         this.videoUrl=serverNews.video ? serverNews.video?.url:null;
         this.thumbnailUrl=serverNews.thumbnail ? serverNews.thumbnail?.url:null;
+        this.id=serverNews.id || null;
     }
 
     toServerModal(form: any, seoId?) {
