@@ -1,4 +1,4 @@
-import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto, GetAllSessionsRequestDto, GetSessionsByUserIdRequestDto } from '@cnbc-monorepo/dtos';
+import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto, GetAllSessionsRequestDto } from '@cnbc-monorepo/dtos';
 import { Rights, Roles, Sessions, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
@@ -132,34 +132,18 @@ export class AdminService {
 		return delete_user;
 	}
 
-	async getAllSessions(getAllSessionsDto: GetAllSessionsRequestDto) {
-		const result = await this.usersRepository.scope('basicScope').findAndCountAll({
-			include: {
-				model: Sessions,
-				order: [['updatedAt', 'DESC']],
-				limit: getAllSessionsDto.sessionLimit,
-			},
-			limit: getAllSessionsDto.userLimit,
-			offset: this.helperService.offsetCalculator(getAllSessionsDto.userPageNo, getAllSessionsDto.userLimit)
-		})
-
-		return new GenericResponseDto(HttpStatus.OK, "Request Successful", {
-			users: result.rows,
-			totalCount: result.count
-		})
-	}
-
-	async getSessionsByUserId(getSessionsDto: GetSessionsByUserIdRequestDto) {
+	async getAllSessions(getAllSessionsRequestDto: GetAllSessionsRequestDto) {
 		const res = await this.sessionRepository.findAndCountAll({
 			where: {
-				usersId: getSessionsDto.userId
+				...(getAllSessionsRequestDto.userId && {
+					usersId: getAllSessionsRequestDto.userId
+				}),
 			},
-			// include: {
-			// 	model: Users.scope('basicScope'),
-
-			// },
-			limit: getSessionsDto.limit,
-			offset: this.helperService.offsetCalculator(getSessionsDto.pageNo, getSessionsDto.limit)
+			include: {
+				model: Users.scope('basicScope'),
+			},
+			limit: getAllSessionsRequestDto.limit,
+			offset: this.helperService.offsetCalculator(getAllSessionsRequestDto.pageNo, getAllSessionsRequestDto.limit)
 		})
 
 		if (res.count === 0) {
