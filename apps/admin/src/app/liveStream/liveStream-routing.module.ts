@@ -19,7 +19,7 @@ const routes: Routes = [
         path: 'list',
         component: LiveStreamComponent,
         data: {
-            title: 'Live Stream',
+            title: 'All Live Streams',
             // headerDisplay: "none"
         },
 
