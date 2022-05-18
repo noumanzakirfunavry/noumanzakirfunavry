@@ -8,6 +8,7 @@ import GetData from 'apps/frontend/services/GetData';
 import { requests } from 'apps/frontend/services/Requests';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import RecordNotFound from '../../components/Shared/RecordNotFound/RecordNotFound';
 
 const Index = () =>{
     const router = useRouter();
@@ -35,6 +36,7 @@ const Index = () =>{
 
 
     return (
+        episodeDetail ?
         <>
             <div className="container">
                 <AdBanner/>
@@ -61,8 +63,9 @@ const Index = () =>{
                 <HorizontalFooter2NewsSlider />
             </div>
            </div>
-
         </>
+        :
+        <RecordNotFound />
     )
 }
 
