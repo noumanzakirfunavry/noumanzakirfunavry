@@ -6,6 +6,7 @@ import { AttachmentTypes } from '@cnbc-monorepo/enums';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import axios from 'axios';
 import { Op } from 'sequelize';
 
 @Injectable()
@@ -29,10 +30,19 @@ export class AttachmentsService {
 			const response = await this.attachmentCreationQuery(attachment_obj)
 			if (response) {
 				if (response.attachmentType === AttachmentTypes.VIDEO) {
-					// this.uploadToDailyMotion(response)
 					this.dailymotionUploadRepo.create({
-						status: 'Pending',
-					})
+						title: response.title,
+						description: response.description,
+						tags: body.tags,
+						channel: body.channel,
+						toBePublished: body.toBePublished,
+						toBePrivate: body.toBePrivate,
+						isCreatedForKids: body.isCreatedForKids,
+						localPath: response.path,
+						attachmentId: response.id
+					}).then(res => {
+						axios.post(process.env.DAILYMOTION_UPLOAD_API_PATH, res)
+					}).catch(console.log)
 				}
 				return new GenericResponseDto(
 					HttpStatus.OK,
@@ -216,45 +226,6 @@ export class AttachmentsService {
 
 	private async attachmentCreationQuery(attachment_obj: any) {
 		return await this.attachmentsRepository.create(attachment_obj);
-	}
-
-	async uploadToDailyMotion(video: Attachments) {
-		const url = 'https://api.dailymotion.com/file/upload';
-		const access_token = 'Zjd0SV5dCUllPwRiOw4bPg81KTp9FCdZMwQ_fGNVOC1_';
-
-		try {
-			// const { data } = await axios.get(url, {
-			// 	headers: {
-			// 		Authorization: `Bearer ${access_token}`,
-			// 	},
-			// });
-			// console.log("🚀 ~ file: attachments.service.ts ~ line 206 ~ AttachmentsService ~ uploadToDailyMotion ~ data", data)
-			// console.log(path.join(process.env.DATABASE_FILE_UPLOAD_PATH, video.path));
-
-			// const options = {
-			// 	method: 'POST',
-			// 	url: data.upload_url,
-			// 	headers: {},
-			// 	formData: {
-			// 		file: {
-			// 			value: fs.createReadStream(path.join(process.env.DATABASE_FILE_UPLOAD_PATH, video.path)),
-			// 			options: {
-			// 				// filename: video.title,
-			// 				contentType: null,
-			// 			},
-			// 		},
-			// 	},
-			// };
-      // console.log("🚀 ~ file: attachments.service.ts ~ line 224 ~ AttachmentsService ~ uploadToDailyMotion ~ options", options.formData)
-				// request(options, function (error, response) {
-				// 	if (error) throw new Error(error);
-				// 	console.log(JSON.parse(response.body));
-				// });
-		} catch (err) {
-			console.log(err);
-
-		}
-
 	}
 
 	updateAttachmentElk(id: number, attachmentType: AttachmentTypes) {

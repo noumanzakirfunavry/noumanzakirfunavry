@@ -1,5 +1,6 @@
 import { DailymotionUploadStatus } from "@cnbc-monorepo/enums";
-import { AutoIncrement, Column, DataType, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
+import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
+import { Attachments } from "./attachments.entity";
 
 @Table({
 	timestamps: true
@@ -12,20 +13,55 @@ export class DailymotionUploadRequests extends Model {
 	id: number
 
 	@Column
-	status: string
+	title: string
+
+	@Column
+	tags: string
+
+	@Column
+	channel: string
+
+	@Column
+	description: string
+
+	@Column({
+		type: DataType.BOOLEAN,
+	})
+	toBePublished: boolean
+
+	@Column({
+		type: DataType.BOOLEAN,
+	})
+	toBePrivate: boolean
+
+	@Column({
+		type: DataType.BOOLEAN,
+	})
+	isCreatedForKids: boolean
 
 	@Column({
 		type: DataType.ENUM,
-		values: Object.values(DailymotionUploadStatus)
-
+		values: Object.values(DailymotionUploadStatus),
+		defaultValue: DailymotionUploadStatus.PENDING
 	})
-	localPath: DailymotionUploadStatus
+	status: DailymotionUploadStatus
+
+	@Column
+	progressUrl: string
+
+	@Column
+	localPath: string
 
 	@Column
 	error: string
 
-	@Column({
-		type: DataType.DATE
-	})
-	uploadedAt: number
+	@ForeignKey(() => Attachments)
+	@Column
+	attachmentId: number
+	@BelongsTo(() => Attachments)
+	attachment: Attachments
+	// @Column({
+	// 	type: DataType.DATE
+	// })
+	// uploadedAt: number
 }
