@@ -18,8 +18,8 @@
               <nz-form-item>
                 <nz-form-label nzRequired>Admin Role</nz-form-label>
                 <nz-form-control nzErrorTip="Select Admin Role!">
-                <nz-select nzShowSearch nzAllowClear formControlName="rolesId" nzPlaceHolder="Select Role">
-                  <nz-option [nzValue]="3" [nzLabel]="'Super Admin'"></nz-option>
+                <nz-select (ngModelChange)="onRoleChange($event)" nzShowSearch nzAllowClear formControlName="rolesId" nzPlaceHolder="Select Role">
+                  <nz-option [nzDisabled]="userRoleId!==3" [nzValue]="3" [nzLabel]="'Super Admin'"></nz-option>
                   <nz-option [nzValue]="1" [nzLabel]="'Admin'"></nz-option>
                 </nz-select>
               </nz-form-control>
@@ -84,11 +84,12 @@
           </nz-form-item>
         </div>
 
-        <div class="col-6" *ngIf="!loader">
+        <div class="col-6">
           <nz-form-item class="admin_rights_wrap">
             <nz-form-label nzRequired><h5>Admin Rights</h5></nz-form-label>
             <nz-form-control>
           <nz-checkbox-group
+          [nzDisabled]="adminRoleId===3"
           style="display:grid"
           formControlName="rights"
           (ngModelChange)="log(checkOptionsThree)"

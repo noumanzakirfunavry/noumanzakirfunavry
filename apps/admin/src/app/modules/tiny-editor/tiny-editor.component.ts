@@ -18,7 +18,7 @@ import { requests } from '../../shared/config/config';
 export class TinyEditorComponent implements OnInit {
     @Input() formField: FormGroup;
     @Input() label = 'Content';
-    @Input() error = 'Enter Content maximum 1500 characters allowed!';
+    @Input() error = 'Enter Content!';
     @Input() fieldName = 'content';
     isVisible = false;
     tinyConfig: any;
