@@ -111,7 +111,7 @@ export class DailymotionService {
 					sequelize.transaction(async t => {
 						await this.attachmentsRepository.update(
 							{
-								dailymotionVideoId: response.data.id,
+								dailyMotionURL: response.data.id,
 							},
 							{
 								where: {
