@@ -257,13 +257,13 @@ export class NewsService {
 					[Op.gt]: new Date(new Date().setDate(new Date().getDate() - 7)),
 				},
 			},
-			attributes:{
+			attributes: {
 				include: [
 
 					[sequelize.fn('sum', sequelize.col('count')), 'Visits'],
-	
+
 				],
-				exclude:['id']
+				exclude: ['id']
 			},
 
 			include: [{
@@ -273,16 +273,27 @@ export class NewsService {
 				},
 				required: true,
 				duplicating: false,
-				include: [{
-					model: Categories,
-					required: true,
-					duplicating: false,
-					through: {
-						attributes: []
-					}
-				}]
+				include: [
+					'video',
+					'image',
+					'thumbnail',
+					{
+						model: Categories,
+						required: true,
+						duplicating: false,
+						through: {
+							attributes: []
+						}
+					}]
 			}],
-			group: [sequelize.col('news.id'),sequelize.col('NewsVisitors.id'),sequelize.col('news->categories.id')],
+			group: [
+				sequelize.col('news.id'), 
+				sequelize.col('NewsVisitors.id'), 
+				sequelize.col('news->categories.id'), 
+				sequelize.col('news->video.id'), 
+				sequelize.col('news->image.id'), 
+				sequelize.col('news->thumbnail.id')
+			],
 			order: [[sequelize.col('Visits'), 'DESC']],
 			limit: getMostReadNewsDto.limit,
 			offset: this.helperService.offsetCalculator(getMostReadNewsDto.pageNo, getMostReadNewsDto.limit),
