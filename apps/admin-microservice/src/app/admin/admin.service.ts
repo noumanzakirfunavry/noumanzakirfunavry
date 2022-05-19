@@ -1,9 +1,9 @@
 import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto, GetAllSessionsRequestDto } from '@cnbc-monorepo/dtos';
 import { Rights, Roles, Sessions, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
-import { Helper } from '@cnbc-monorepo/utility';
+import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 
 @Injectable()
 export class AdminService {
@@ -137,6 +137,9 @@ export class AdminService {
 			where: {
 				...(getAllSessionsRequestDto.userId && {
 					usersId: getAllSessionsRequestDto.userId
+				}),
+				...(getAllSessionsRequestDto.date && {
+					createdAt: where(sequelize.fn('date', sequelize.col('Sessions.createdAt')), '=', getAllSessionsRequestDto.date)
 				}),
 			},
 			include: {
