@@ -49,7 +49,7 @@ export class AddJobComponent implements OnInit {
         this.jobForm = this.fb.group({
             title: [null, [Validators.required]],
             branchId: [null, [Validators.required]],
-            description: [null, [Validators.required, Validators.maxLength(1500)]],
+            description: [null, [Validators.required]],
             isActive: [false]
           });
     }
@@ -105,7 +105,7 @@ export class AddJobComponent implements OnInit {
             this.jobForm = this.fb.group({
                 title: [this.jobById?.title || null, [Validators.required]],
                 branchId: [this.jobById?.branchId || null, [Validators.required]],
-                description: [this.jobById?.description || null, [Validators.required, Validators.maxLength(1500)]],
+                description: [this.jobById?.description || null, [Validators.required]],
                 isActive: [this.jobById?.isActive || false]
               });
               setTimeout(() => {

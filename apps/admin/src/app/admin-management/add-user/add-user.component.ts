@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AnalysisLanguage } from '@elastic/elasticsearch/lib/api/types';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -43,6 +44,8 @@ export class AddUserComponent implements OnInit{
   loader= true;
   user: any;
   isLoading= false;
+  userRoleId: number;
+  adminRoleId: any;
 
   constructor(
     private fb: FormBuilder, 
@@ -53,10 +56,12 @@ export class AddUserComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
-    this.getAllRights();
+   
     this.user = JSON.parse(localStorage.getItem('admin') || '{}');
+    this.userRoleId= this.user.user.roleId;
     this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
       this.userId = + params.get('id');
+       this.getAllRights();
     });
   }
 
@@ -93,6 +98,12 @@ export class AddUserComponent implements OnInit{
       const obj= this.adminForm.value;
       obj['name'] = this.adminForm.value.name.trim();
       obj['userName']= this.adminForm.value.userName.toLowerCase();
+      if(this.adminRoleId==3) {
+        this.allRights.forEach(right=>{
+          right['checked']=true;
+          right['label']=right.title
+        })
+      }
       obj['rights']= this.adminForm.value.rights.filter(x=>x.checked);
       obj['rights']= obj['rights'].map(x=>x.id);
       if(obj['password'] == '' || obj['password'] == null || this.adminForm.value.password == '' || this.adminForm.value.password == null) {
@@ -144,6 +155,7 @@ export class AddUserComponent implements OnInit{
     this.apiService.sendRequest(requests.getUserById + this.userId, 'get').subscribe((res:any) => {
       this.userById= res.response.admin;
       console.log("USER-BY-ID", this.userById);
+      this.adminRoleId=this.userById?.rolesId
       if(this.user.user.id===this.userId) {
         this.route.navigateByUrl('admins/list');
         this.message.create('error', `Access Denied`);
@@ -197,6 +209,23 @@ export class AddUserComponent implements OnInit{
   log(value: string[]): void {
     this.rightsValue= value;
     console.log("RIGHTS-ID", this.rightsValue);
+  }
+
+  onRoleChange($event: string[]): void {
+    this.adminRoleId= $event;
+    if(this.adminRoleId==3) {
+      this.allRights.forEach(right=>{
+        right['checked']=true;
+        right['label']=right.title
+      })
+    }
+    else {
+      this.allRights.forEach(right=>{
+        right['checked']=false;
+        right['label']=right.title
+      })
+    }
+    console.log("ADMIN-ROLE", this.adminRoleId);
   }
 
   cancel() {

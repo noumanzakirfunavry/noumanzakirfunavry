@@ -59,12 +59,20 @@ export class AddEpisodeComponent implements OnInit {
           airedOn: [new Date(), []],
           title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
           programId: [null, [Validators.required]],
-          content: [null, [Validators.required, Validators.maxLength(1500)]],
+          content: [null, [Validators.required]],
           isActive: [true],
-          seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-          slugLine: [null, [Validators.required, Validators.maxLength(250)]],
-          seoDescription: [null, [Validators.required, Validators.maxLength(250)]],
-          keywords: [null, [Validators.required]],
+          seoTitle: [null, 
+            // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
+          ],
+          slugLine: [null, 
+            // [Validators.required, Validators.maxLength(250)]
+          ],
+          seoDescription: [null, 
+            // [Validators.required, Validators.maxLength(250)]
+          ],
+          keywords: [null, 
+            // [Validators.required]
+          ],
           file: [null, [Validators.required]],
           thumbnail: [null, [Validators.required]]
       });
@@ -144,12 +152,20 @@ export class AddEpisodeComponent implements OnInit {
           airedOn: [new Date(episode.updatedAt), []],
           title: [episode?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
           programId: [episode?.programId || null, [Validators.required]],
-          content: [episode?.content || null, [Validators.required, Validators.maxLength(1500)]],
+          content: [episode?.content || null, [Validators.required]],
           isActive: [episode?.isActive],
-          seoTitle: [episode?.seoDetails?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-          slugLine: [episode?.seoDetails?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
-          seoDescription: [episode?.seoDetails?.description || null, [Validators.required, Validators.maxLength(250)]],
-          keywords: [episode?.seoDetails?.keywords || null, [Validators.required]],
+          seoTitle: [episode?.seoDetails?.title || null, 
+            // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
+          ],
+          slugLine: [episode?.seoDetails?.slugLine || null, 
+            // [Validators.required, Validators.maxLength(250)]
+          ],
+          seoDescription: [episode?.seoDetails?.description || null, 
+            // [Validators.required, Validators.maxLength(250)]
+          ],
+          keywords: [episode?.seoDetails?.keywords || null, 
+            // [Validators.required]
+          ],
           file: [null],
           thumbnail: [null]
       });
