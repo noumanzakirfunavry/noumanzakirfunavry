@@ -1,5 +1,6 @@
 import { Attachments, DailymotionUploadRequests } from '@cnbc-monorepo/entity';
 import { DailymotionUploadStatus } from '@cnbc-monorepo/enums';
+import { sequelize } from '@cnbc-monorepo/utility';
 import { Inject, Injectable } from '@nestjs/common';
 import axios, { AxiosRequestConfig } from 'axios';
 import fs from 'fs';
@@ -107,19 +108,20 @@ export class DailymotionService {
 				};
 
 				axios(publishVideoConfig).then((response) => {
-					this.attachmentsRepository.update(
-						{
-							dailyMotionURL: response.data.url,
-						},
-						{
-							where: {
-								id: dailymotionRequestDto.attachmentId
-							}
-						})
-						.then(res => {
-							this.dailymotionUploadRepo.destroy({ where: { id: dailymotionRequestDto.id } })
-						})
+					sequelize.transaction(async t => {
+						await this.attachmentsRepository.update(
+							{
+								dailymotionVideoId: response.data.id,
+							},
+							{
+								where: {
+									id: dailymotionRequestDto.attachmentId
+								},
+								transaction: t
+							})
 
+						await this.dailymotionUploadRepo.destroy({ where: { id: dailymotionRequestDto.id }, transaction: t })
+					})
 				});
 			});
 		}).catch(err => {
