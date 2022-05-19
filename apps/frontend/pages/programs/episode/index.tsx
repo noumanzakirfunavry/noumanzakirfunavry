@@ -8,31 +8,51 @@ import GetData from 'apps/frontend/services/GetData';
 import { requests } from 'apps/frontend/services/Requests';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import RecordNotFound from '../../components/Shared/RecordNotFound/RecordNotFound';
+import RecordNotFound from '../../../components/Shared/RecordNotFound/RecordNotFound';
+import HorizontalFooter2EpisodesSlider from "apps/frontend/components/Episode/HorizontalFooter2EpisodesSlider"
 
 const Index = () =>{
     const router = useRouter();
     const [episodeDetail, setEpisodeDetail] = useState<any>();
     const [episodes, setEpisodes] = useState<any[]>([])
-    const [programDetails, setProgramDetails] = useState<any>();
+    const [programEpisodes, setProgramEpisodes] = useState<any>();
   
    useEffect(() => {
-        GetData(`${requests.episodeById}/${router.query.episodeId}`, {}, 'get', false).then(res => {
-          console.log('episode::::', res?.data?.response?.episode);
-          setEpisodeDetail(res?.data?.response?.episode)
+       if(router.query.episodeId){
+            GetData(`${requests.episodeById}/${router.query.episodeId}`, {}, 'get', false).then(res => {
+            //console.log('episode::::', res?.data?.response?.episode);
+            setEpisodeDetail(res?.data?.response?.episode)
 
-        }).catch(err=>{
-            console.warn(err)
-        })
+            }).catch(err=>{
+                console.warn(err)
+            })
+        }
 
-        GetData(`${requests.episodes}`, {}, 'get', false).then(res => {
+    }, [router.query.episodeId])
+
+
+    useEffect(() => {
+        if(router.query.programId){
+            GetData(`${requests.episodes}?programId=${router.query.programId}&limit=20&pageNo=1`, {}, 'get', false).then(res => {
+                setProgramEpisodes(res?.data?.response?.episodes)
+            }).catch(err => {
+                console.warn(err)
+            })
+        }
+
+    }, [router.query.programId])
+
+
+
+    useEffect(() => {
+        
+        GetData(`${requests.episodes}?limit=20&pageNo=1`, {}, 'get', false).then(res => {
             setEpisodes(res?.data?.response?.episodes)
-            console.log('Episodes::::', res?.data?.response?.episodes)
         }).catch(err => {
             console.warn(err)
         })
 
-    }, [router.query.episodeId])
+    }, [])
 
 
     return (
@@ -54,7 +74,7 @@ const Index = () =>{
                 <Title styles={"yellowTitle"}>
                     <h3>أحدث حلقات البرنامج</h3>
                 </Title>
-                <HorizontalFooter2NewsSlider />
+                {programEpisodes && programEpisodes?.length > 0 && <HorizontalFooter2EpisodesSlider episodes={programEpisodes} />}
             </div>
             <div className="mb-3">
                 <Title styles={"yellowTitle"}>
