@@ -141,6 +141,7 @@ export class AdminService {
 			},
 			include: {
 				model: Users.scope('basicScope'),
+				paranoid: false
 			},
 			limit: getAllSessionsRequestDto.limit,
 			offset: this.helperService.offsetCalculator(getAllSessionsRequestDto.pageNo, getAllSessionsRequestDto.limit)

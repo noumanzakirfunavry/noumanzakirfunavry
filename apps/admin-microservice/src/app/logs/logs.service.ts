@@ -19,7 +19,8 @@ export class LogsService {
 				sessionId: getAllLogsDto.sessionId
 			},
 			include: {
-				model: Users.scope('basicScope')
+				model: Users.scope('basicScope'),
+				paranoid: false
 			},
 			order: [['updatedAt', 'DESC']],
 			limit: getAllLogsDto.limit,
