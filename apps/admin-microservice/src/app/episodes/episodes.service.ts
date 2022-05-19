@@ -183,6 +183,7 @@ export class EpisodesService {
 				include: ['seoDetails', 'thumbnail', 'program', 'video']
 		});
 			if (response) {
+				this.episodeRepository.update({ views: response.views + 1 }, { where: { id } })
 				return new GenericResponseDto(
 					HttpStatus.OK,
 					"Fetched successfully",
