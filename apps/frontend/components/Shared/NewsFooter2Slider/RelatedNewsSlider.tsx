@@ -49,12 +49,12 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
 
             let tagsList = []
             tagsList = tags && tags?.length && tags.map((tag) => {
-                return tag.title;
+                return tag?.title;
             });
 
             let quotesList = []
             quotesList = quotes && quotes?.length && quotes.map((quote) => {
-                return quote.name;
+                return quote?.quoteTitle;
             });
 
             //console.log('tagsList::::::::', tagsList);
@@ -72,8 +72,9 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
             //console.log('searchObj:::::', searchObj)
 
             GetData(`${requests.search}`, searchObj, 'post', false).then(res => {
-                    console.log('related news:::::::', res.data);
                     setRelatedNewsList(res?.data)
+
+                    //console.log('Related News::::', res?.data);
                 
                 }).catch(err=>{
                     console.warn(err)

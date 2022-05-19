@@ -50,9 +50,7 @@ export class AddBreakingNewsComponent implements OnInit {
     inItForm() {
       this.breakingNewsForm = this.fb.group({
         title: [null, [Validators.required]],
-        newsLink: [null, [Validators.required, 
-          // Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
-        ]],
+        newsLink: [null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w !@#$%^&*()+=;:<>?.-]*/?')]],
         isActive: [false],
         isPushNotificationActive: [false],
         IsTwitterActive: [false],
@@ -92,9 +90,7 @@ export class AddBreakingNewsComponent implements OnInit {
         console.log("BREAKING-NEWS-BY-ID", res);
         this.breakingNewsForm = this.fb.group({
           title: [this.breakingNewsById?.title || null, [Validators.required]],
-          newsLink: [this.breakingNewsById?.newsLink || null, [Validators.required, 
-            // Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
-          ]],
+          newsLink: [this.breakingNewsById?.newsLink || null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w !@#$%^&*()+=;:<>?.-]*/?')]],
           isActive: [this.breakingNewsById?.isActive || false],
           isPushNotificationActive: [this.breakingNewsById?.isPushNotificationActive || false],
           IsTwitterActive: [this.breakingNewsById?.IsTwitterActive || false],

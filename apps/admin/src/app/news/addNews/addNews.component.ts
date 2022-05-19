@@ -137,7 +137,7 @@ export class AddNewsComponent implements OnInit {
         this.newsForm = this.fb.group({
             date: [new Date(news.updatedAt), []],
             title: [news.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-            content: [news?.content || null, [Validators.required, Validators.maxLength(1500)]],
+            content: [news?.content || null, [Validators.required]],
             isPro: [news.isPro || false],
             visible: [news.visible || true, [Validators.required]],
             contentType: [news.contentType || 'TEXT', [Validators.required]],
@@ -148,10 +148,18 @@ export class AddNewsComponent implements OnInit {
             categoryIds: [news?.categories.map(x => x.id) || null, [Validators.required]],
             tagsIds: [news?.tags.map(x => x.id) || null, [Validators.required]],
             quotesIds: [news?.quotes && news?.quotes.map(x => x.quoteTickerId) || []],
-            seoTitle: [news?.seoDetail?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-            slugLine: [news?.seoDetail?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
-            description: [news?.seoDetail?.description || null, [Validators.required, Validators.maxLength(250)]],
-            keywords: [news?.seoDetail?.keywords || null, [Validators.required]],
+            seoTitle: [news?.seoDetail?.title || null, 
+                // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
+            ],
+            slugLine: [news?.seoDetail?.slugLine || null, 
+                // [Validators.required, Validators.maxLength(250)]
+            ],
+            description: [news?.seoDetail?.description || null, 
+                // [Validators.required, Validators.maxLength(250)]
+            ],
+            keywords: [news?.seoDetail?.keywords || null, 
+                // [Validators.required]
+            ],
             file: [null],
             thumbnail: [null],
         });
@@ -161,7 +169,7 @@ export class AddNewsComponent implements OnInit {
         this.newsForm = this.fb.group({
             date: [new Date(), []],
             title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-            content: [null, [Validators.required, Validators.maxLength(1500)]],
+            content: [null, [Validators.required]],
             isPro: [false],
             visible: [true, [Validators.required]],
             contentType: ['TEXT', [Validators.required]],
@@ -172,10 +180,18 @@ export class AddNewsComponent implements OnInit {
             categoryIds: [null, [Validators.required]],
             tagsIds: [null, [Validators.required]],
             quotesIds: [null],
-            seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-            slugLine: [null, [Validators.required, Validators.maxLength(250)]],
-            description: [null, [Validators.required, Validators.maxLength(250)]],
-            keywords: [null, [Validators.required]],
+            seoTitle: [null, 
+                // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
+            ],
+            slugLine: [null, 
+                // [Validators.required, Validators.maxLength(250)]
+            ],
+            description: [null, 
+                // [Validators.required, Validators.maxLength(250)]
+            ],
+            keywords: [null, 
+                // [Validators.required]
+            ],
             file: [null],
             thumbnail: [null]
         });

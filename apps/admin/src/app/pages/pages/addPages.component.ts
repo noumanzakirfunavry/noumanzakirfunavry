@@ -47,16 +47,24 @@ export class AddPagesComponent implements OnInit{
     initPagesForm() {
       this.pagesForm = this.fb.group({
         title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-        content: [null, [Validators.required, Validators.maxLength(1500)]],
+        content: [null, [Validators.required]],
         showOnHomepage: [true, [Validators.required]],
         isActive: [true],
         // categoryIds: [null, [Validators.required]],
         tagsIds: [null, [Validators.required]],
         quotesIds: [null, [Validators.required]],
-        seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-        slugLine: [null, [Validators.required, Validators.maxLength(250)]],
-        description: [null, [Validators.required, Validators.maxLength(250)]],
-        keywords: [null, [Validators.required]],
+        seoTitle: [null, 
+          // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
+        ],
+        slugLine: [null, 
+          // [Validators.required, Validators.maxLength(250)]
+        ],
+        description: [null, 
+          // [Validators.required, Validators.maxLength(250)]
+        ],
+        keywords: [null, 
+          // [Validators.required]
+        ],
       });
     }
 
