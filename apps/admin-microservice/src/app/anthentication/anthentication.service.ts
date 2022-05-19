@@ -60,6 +60,7 @@ export class AnthenticationService {
 																id: response.id,
 																name: response.name,
 																email: response.email,
+																roleId: response.rolesId
 															},
 															token
 														}
