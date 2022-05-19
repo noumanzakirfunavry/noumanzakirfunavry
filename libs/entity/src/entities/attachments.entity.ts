@@ -47,7 +47,7 @@ export class Attachments extends Model{
   url : string | null
 
   @Column
-  dailymotionVideoId : string
+  dailyMotionURL : string
 
 	@HasMany(() => DailymotionUploadRequests)
   dailymotionUploadRequest : DailymotionUploadRequests[]
