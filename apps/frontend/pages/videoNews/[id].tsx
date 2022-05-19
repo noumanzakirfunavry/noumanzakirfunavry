@@ -10,10 +10,10 @@ import GetData from "../../services/GetData";
 import { requests, limitOfList } from "../../services/Requests";
 import { useRouter } from "next/router";
 import RelatedNewsSlider from "apps/frontend/components/Shared/NewsFooter2Slider/RelatedNewsSlider"
+import RecordNotFound from '../../components/Shared/RecordNotFound/RecordNotFound';
 
 const Index = () =>{
     const router = useRouter();
-    console.log('id::::', router.query.id);
     const [videoNews, setVideoNews] = useState<any>();
     const [latestVideoNews, setLatestVideoNews] = useState<any>();
     //const [mostWatchedVideoNews, setMostWatchedVideoNews] = useState<any>();
@@ -43,6 +43,7 @@ const Index = () =>{
     }, [])
 
     return (
+        videoNews ?
         <>
             <div className="container">
                 <AdBanner/>
@@ -74,7 +75,7 @@ const Index = () =>{
                     <h3>فيديوهات ذات صلة</h3>
                 </Title>
                 {/*<HorizontalFooter2NewsSlider />*/}
-                <RelatedNewsSlider tags={videoNews && videoNews.tags} quotes={videoNews && videoNews.quotes} />
+                <RelatedNewsSlider tags={videoNews && videoNews?.tags} quotes={videoNews && videoNews?.quotes} />
             </div>
             <div className="mb-3">
                 <Title styles={"yellowTitle"}>
@@ -85,6 +86,8 @@ const Index = () =>{
            </div>
 
         </>
+        :
+        <RecordNotFound />
     )
 }
 

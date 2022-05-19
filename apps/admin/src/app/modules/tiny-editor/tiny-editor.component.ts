@@ -32,7 +32,7 @@ export class TinyEditorComponent implements OnInit {
             apiKey: "pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4",
             base_url: '/tinymce',
             suffix: '.min',
-            plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker imagetools textpattern noneditable help formatpainter permanentpen pageembed charmap tinycomments mentions quickbars linkchecker emoticons advtable export',
+            plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker imagetools textpattern noneditable help formatpainter permanentpen code pageembed charmap tinycomments mentions quickbars linkchecker emoticons advtable export',
             directionality: 'rtl',
             menubar: 'file edit view insert format custom tools table tc help',
             toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
@@ -120,24 +120,24 @@ export class TinyEditorComponent implements OnInit {
         this.isVisible = false;
         if (file.attachmentType != 'VIDEO' && this.fieldName == 'content') {
             this.formField.patchValue({
-                content: this.formField.value.fieldName ? this.formField.value.fieldName + `<img src="${file.url}">` : `<img src="${file.url}">`,
+                content: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] + `<img src="${file.url}">` : `<img src="${file.url}">`,
             });
         }
         else if (file.attachmentType != 'VIDEO' && this.fieldName != 'content') {
             this.formField.patchValue({
-                description: this.formField.value.fieldName ? this.formField.value.fieldName + `<img src="${file.url}">` : `<img src="${file.url}">`,
+                description: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] + `<img src="${file.url}">` : `<img src="${file.url}">`,
             });
         }
         else if (file.attachmentType == 'VIDEO' && this.fieldName == 'content') {
             this.formField.patchValue({
-                content: this.formField.value.fieldName ? this.formField.value.fieldName +
+                content: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] +
                     `<video controls><source src="${file.url}" ></video>` :
                     `<video controls><source src="${file.url}" ></video>`,
             });
         }
         else if (file.attachmentType == 'VIDEO' && this.fieldName != 'content') {
             this.formField.patchValue({
-                description: this.formField.value.fieldName ? this.formField.value.fieldName +
+                description: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] +
                     `<video controls><source src="${file.url}" ></video>` :
                     `<video controls><source src="${file.url}" ></video>`,
             });

@@ -69,7 +69,9 @@
                         </div>
                     </div>
                     <!-- [ngClass]="newsModel?.contentType && newsModel?.contentType==='VIDEO' ? '' : 'disable-div'" -->
-                    <news-comments [newsId]="newsModel.id"></news-comments>
+                    <ng-container *ngIf="newsModel.id">
+                        <news-comments [newsId]="newsModel.id"></news-comments>
+                    </ng-container>
                 </div>
                 
                 <div class="col-4 ">

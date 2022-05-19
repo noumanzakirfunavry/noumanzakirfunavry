@@ -37,6 +37,10 @@ export class Episodes extends Model{
     })
     isActive : boolean
 
+		@Column({
+			defaultValue: 0
+		})
+		views : number
 
     @ForeignKey(() => Programs)
     @Column

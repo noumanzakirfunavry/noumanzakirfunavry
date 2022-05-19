@@ -5,6 +5,7 @@ import { baseUrlAdmin } from '../../services/Requests';
 import { useEffect, useState } from "react";
 import DateArabicFormat from "../Shared/DateCustomFomat/DateArabicFormat"
 import HtmlData from "../Shared/HtmlData/HtmlData";
+import logoImage from "../../styles/images/CNBC-favicon.png";
 
 const VideoNews = ({videoNews}) => {
 
@@ -25,17 +26,17 @@ const VideoNews = ({videoNews}) => {
                         </video>
                         :
                         <div><div className="NewsImage">
-                        <img className="img-fluid" src={videoNews?.thumbnail?.path ? baseUrlAdmin+videoNews?.thumbnail?.path:newsImage.src} />
-                    </div>
-                    <div className="PlayTime">
-                        <h5>05:21</h5>
-                        <div className="btn-text">
-                            <span>شاهد الآن</span>
-                            <button className="btn btn-warning VideoPlay" onClick={() => setPlayVideo(!playVideo)}>
-                                <i className="fa play_big"></i>
-                            </button>
+                            <img className="img-fluid" src={videoNews?.thumbnail?.path ? baseUrlAdmin+videoNews?.thumbnail?.path:logoImage.src} />
                         </div>
-                    </div></div>
+                        <div className="PlayTime">
+                            <h5>05:21</h5>
+                            <div className="btn-text">
+                                <span>شاهد الآن</span>
+                                <button className="btn btn-warning VideoPlay" onClick={() => setPlayVideo(!playVideo)}>
+                                    <i className="fa play_big"></i>
+                                </button>
+                            </div>
+                        </div></div>
                     }
 
             {/*<div className="NewsImage">

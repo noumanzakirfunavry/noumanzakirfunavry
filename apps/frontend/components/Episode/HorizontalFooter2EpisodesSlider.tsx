@@ -1,15 +1,15 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import Slider from "react-slick";
-import sliderimg from "../../../styles/images/biden2.jpg";
-import GetData from "../../../services/GetData";
-import { requests, baseUrlAdmin } from '../../../services/Requests';
-import Link from 'next/link';
+import sliderimg from "../../styles/images/biden2.jpg";
+import Link from "next/link";
+import { baseUrlAdmin } from '../../services/Requests';
 
 
 
-const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quotes})=>{
-    const [relatedNewsList, setRelatedNewsList] = useState<any>([]);
-    const [settings, setSettings] = useState({
+const HorizontalFooter2EpisodesSlider =  ({episodes})=>{
+
+
+        const [settings, setSettings] = useState({
             dots: false,
             infinite: true,
             speed: 500,
@@ -43,90 +43,88 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
               }
             ]
           });
-
-
-    useEffect(() => {
-
-            let tagsList = []
-            tagsList = tags && tags?.length && tags.map((tag) => {
-                return tag?.title;
-            });
-
-            let quotesList = []
-            quotesList = quotes && quotes?.length && quotes.map((quote) => {
-                return quote?.quoteTitle;
-            });
-
-            //console.log('tagsList::::::::', tagsList);
-            //console.log('quotesList::::::', quotesList);
-
-            let searchObj = {};
-            searchObj = tagsList?.length > 0 && {...searchObj, tags: tagsList} 
-            searchObj = quotesList?.length > 0 && {...searchObj, quotes: quotesList} 
-
-            const _data = {
-                tags: tagsList,
-                quotes: quotesList
-            }
-
-            //console.log('searchObj:::::', searchObj)
-
-            GetData(`${requests.search}`, searchObj, 'post', false).then(res => {
-                    setRelatedNewsList(res?.data)
-
-                    //console.log('Related News::::', res?.data);
-                
-                }).catch(err=>{
-                    console.warn(err)
-            });
-            
-    }, [])
-
     return (
         <>
         <div className="newsSliderText newsSlider2Text video_newsSlider_wrap">
-            <Slider {...settings}>
-                        {
-                            relatedNewsList?.length && relatedNewsList?.map((news:any, index:number)=>{
-                                  return(
-                                    <div className="slider-item"  key={index}>
-                                        <div className="NewsBox ">
-                                            <div className="newsImage">
-                                                { // show thmbnail with play icon if video news
-                                                    news?._source?.videoId ?
-                                                    <>
-                                                    {news?._source?.thumbnail ? <img className="img-fluid" src={baseUrlAdmin+news?._source.thumbnail?.path} />:<img className="img-fluid" src={sliderimg.src} />}
-                                                    <div className="PlayTime">
-                                                        <h5>05:21</h5>
-                                                        <div className="btn-text">
-                                                            <Link href={`/videoNews/`+news._id}>
-                                                                <a>
-                                                                    <button className="btn btn-warning VideoPlay">
-                                                                        <i className="fa play_medium"></i>
-                                                                    </button>
-                                                                </a>
-                                                            </Link>
-                                                            <span>شاهد الآن</span>
-                                                        </div>
-                                                    </div>
-                                                    </>
-                                                : // else show image
-                                                    news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={sliderimg.src} />
-                                                }
+        <Slider {...settings}>
 
-                                            </div>
-                                            <div className="newscontent">
-                                                {/*<h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>*/}
-                                                <h5><Link href={`/newsDetails/`+news._id}><a>{news?._source?.title.substring(0, 35)}</a></Link></h5>
-                                                {<p><a href="#">الإمارات</a> منذ 5 دقائق</p> /* @TODO: will show sub categories here once it gets done from backend side. */}
+                    {// show episodes
+                    episodes?.length && episodes.map((episode: any, index: number)=>{
+                        return (
+                            <div className="slider-item" key={index}>
+                                <div className="NewsBox ">
+                                    <div className="newsImage">
+                                    <img className="img-fluid" src={episode?.thumbnail?.path ? baseUrlAdmin+episode?.thumbnail?.path:sliderimg.src} />
+                                        <div className="PlayTime">
+                                            <h5>05:21</h5>
+                                            <div className="btn-text">
+                                            <Link href={{ pathname: 'episode', query: { episodeId: episode.id, programId: episode.programId }}}>
+                                                <a>
+                                                    <button className="btn btn-warning VideoPlay">
+                                                        <i className="fa play_medium"></i>
+                                                    </button>
+                                                </a>
+                                            </Link>
+                                            <span>شاهد الآن</span>
                                             </div>
                                         </div>
                                     </div>
-                                  )
-                            })
-                        }
+                                    <div className="newscontent">
+                                        <h5>
+                                            <Link href={{ pathname: 'episode', query: { episodeId: episode.id, programId: episode.programId }}}>
+                                                <a>{episode && episode?.title}</a>
+                                            </Link>
+                                        </h5>
+                                        {/*<p><a href="#">الإمارات</a> منذ 5 دقائق</p>*/}
+                                    </div>
+                                </div>
+                            </div>
+                            )
+                        })
+                    }
 
-                    {/*<div className="slider-item">
+                    <div className="slider-item">
+                        <div className="NewsBox ">
+                            <div className="newsImage">
+                                <img className="img-fluid" src={sliderimg.src} />
+                                <div className="PlayTime">
+                                    <h5>05:21</h5>
+                                    <div className="btn-text">
+                                        <button className="btn btn-warning VideoPlay">
+                                            <i className="fa play_medium"></i>
+                                        </button>
+                                        <span>شاهد الآن</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="newscontent">
+                                <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
+                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="slider-item">
+                        <div className="NewsBox ">
+                            <div className="newsImage">
+                                <img className="img-fluid" src={sliderimg.src} />
+                                <div className="PlayTime">
+                                    <h5>05:21</h5>
+                                    <div className="btn-text">
+                                        <button className="btn btn-warning VideoPlay">
+                                            <i className="fa play_medium"></i>
+                                        </button>
+                                        <span>شاهد الآن</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="newscontent">
+                                <h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>
+                                <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
+                            </div>
+                        </div>
+                    </div>
+
+                   {/*<div className="slider-item">
                         <div className="NewsBox ">
                             <div className="newsImage">
                                 <img className="img-fluid" src={sliderimg.src} />
@@ -242,7 +240,7 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
                                 <p><a href="#">الإمارات</a> منذ 5 دقائق</p>
                             </div>
                         </div>
-                    </div>*/}
+                </div>*/}
 
             </Slider>
         </div>
@@ -250,4 +248,4 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
     )
 }
 
-export default RelatedNewsSlider
+export default HorizontalFooter2EpisodesSlider

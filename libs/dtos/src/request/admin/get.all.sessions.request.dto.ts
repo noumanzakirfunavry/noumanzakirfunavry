@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumberString, IsOptional } from "class-validator";
+import { IsDateString, IsNotEmpty, IsNumberString, IsOptional } from "class-validator";
 import { PaginatedRequestDto } from "../pagination.request.dto";
 
 export class GetAllSessionsRequestDto extends PaginatedRequestDto {
@@ -6,4 +6,9 @@ export class GetAllSessionsRequestDto extends PaginatedRequestDto {
 	@IsNotEmpty()
 	@IsNumberString()
 	userId: number
+
+	@IsNotEmpty()
+	@IsDateString()
+	@IsOptional()
+	date: Date
 }

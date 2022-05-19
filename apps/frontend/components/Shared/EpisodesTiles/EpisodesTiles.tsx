@@ -9,6 +9,7 @@ import TimeAgoArabicFormat from "../TimeAgoCustom/TimeAgoArabicFormat";
 const EpisodesTiles = ({programDetails}) => {
 
     const episodes  = programDetails?.episodes;
+    const programId = programDetails?.id
 
     /*const [episodes, setEpisodes] = useState<any[]>([])
 
@@ -41,7 +42,7 @@ const EpisodesTiles = ({programDetails}) => {
                                                     <h5>05:21</h5>
                                                     <div className="btn-text">
                                                         <span>شاهد الآن</span>
-                                                        <Link href={`/episode/` + episode.id}>
+                                                        <Link href={{ pathname: 'episode', query: { episodeId: episode.id, programId: programId }}}>
                                                             <a>
                                                                 <button className="btn btn-warning VideoPlay">
                                                                     <i className="fa play_small"></i>
@@ -62,7 +63,9 @@ const EpisodesTiles = ({programDetails}) => {
         
                                
                                 {<div className="NewsInfo">
-                                    <Link href={`/episode/`+episode.id}><a><h4>{episode && episode?.title}</h4> </a></Link>
+                                <Link href={{ pathname: 'episode', query: { episodeId: episode.id, programId: programId }}}><a><h4>{episode && episode?.title}</h4> </a></Link>
+                                
+                                    {/*<Link href={`/episode/`+episode.id}><a><h4>{episode && episode?.title}</h4> </a></Link>*/}
                                     {/*</p><p>منذ 5 دقائق</p>*/}
                                     <p>{<TimeAgoArabicFormat date={episode?.createdAt}/>}</p>
                                 </div>}
