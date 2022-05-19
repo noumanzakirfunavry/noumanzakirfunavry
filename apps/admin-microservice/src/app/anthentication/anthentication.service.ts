@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Helper, sequelize } from '@cnbc-monorepo/utility'
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { MailService } from '@cnbc-monorepo/mail';
+import { UniqueConstraintError } from 'sequelize';
 @Injectable()
 export class AnthenticationService {
     constructor
@@ -59,6 +60,7 @@ export class AnthenticationService {
 																id: response.id,
 																name: response.name,
 																email: response.email,
+																roleId: response.rolesId
 															},
 															token
 														}
@@ -303,9 +305,20 @@ export class AnthenticationService {
     }
 		// remove isVerified:true
     async addUser(body, transactionHost) {
-        const userObj = body
-        userObj.password = await this.helperService.encryptPassword(userObj.password)
-        return await this.usersRepository.create({...userObj, isVerified: true}, transactionHost)
+				const userObj = body
+				try {
+					userObj.password = await this.helperService.encryptPassword(userObj.password)
+					return await this.usersRepository.create({ ...userObj, isVerified: true }, transactionHost)
+				} catch (error) {
+					if (error instanceof UniqueConstraintError) {
+						throw new CustomException(
+							Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].message,
+							Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].status
+						)
+					} else {
+						console.log("🚀 ~ file: anthentication.service.ts ~ line 318 ~ AnthenticationService ~ addUser ~ error", error)
+					}
+				}
     }
     async requestResetPassword(body: RequestResetPasswordRequestDto): Promise<GenericResponseDto> {
         try {

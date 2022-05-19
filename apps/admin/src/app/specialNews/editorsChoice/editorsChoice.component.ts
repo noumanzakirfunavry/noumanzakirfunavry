@@ -99,17 +99,34 @@ export class EditorsChoiceComponent implements OnInit{
         })
     }
 
-    changeCategory(data){
-        console.log(data);
+    changeCategory(data) {
+        console.log("CHANGE-CAT", data);
+    }
+
+    findDuplicates() {
+        const valueArr = this.editorsChoice.map(function (item) { return item.newsId });
+        const isDuplicate = valueArr.some(function (item, idx) {
+            console.log("VAL",valueArr.indexOf(item));
+            return valueArr.indexOf(item) != idx
+        });
+        console.log("DUPLICATE-NEWS", isDuplicate);
+        return isDuplicate
     }
 
     changedNews(updatedNews) {
         const news = this.editorsChoice.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.editorsChoice[news] = updatedNews;
+            console.log("UPDATED-NEWS", this.editorsChoice[news]);
         }
         else if(this.editorsChoice.some(x=>!x.newsId)){
-            console.log('');
+            console.log();
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.editorsChoice[news] = tempNews;
+                this.editorsChoice[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
         else {
             const tempNews = updatedNews;
@@ -119,17 +136,6 @@ export class EditorsChoiceComponent implements OnInit{
             }, 500);
             this.message.create('error', 'Please select unique news for each position')
         }
-    }
-
-    findDuplicates() {
-        const valueArr = this.editorsChoice.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            console.log("VAL",valueArr.indexOf(item));
-            
-            return valueArr.indexOf(item) != idx
-        });
-        console.log("DUPLICATE-NEWS", isDuplicate);
-        return isDuplicate
     }
 
     updateEditorsChoiceNews() {

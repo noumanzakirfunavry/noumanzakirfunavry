@@ -3,6 +3,7 @@
 export * from './dtos.module';
 //...............................Users.............................
 export * from './request/admin/get.all.admins.request.dto';
+export * from './request/admin/get.all.sessions.request.dto';
 //...............................Alerts.............................
 export * from './request/alert/create.alert.request.dto';
 export * from './request/alert/get.all.alerts.request.dto';
@@ -87,6 +88,7 @@ export * from './request/news/create.news.request.dto';
 export * from './request/news/get.all.news.request.dto';
 export * from './request/news/search.news.request.dto';
 export * from './request/news/get.news.by.flags.request.dto';
+export * from './request/news/get.most.read.news.request.dto';
 //............................request dtos................................
 export * from './request/pagination.request.dto';
 //...........................Pages................................

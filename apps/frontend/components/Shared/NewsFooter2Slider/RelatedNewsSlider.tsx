@@ -98,7 +98,7 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
                                                     <div className="PlayTime">
                                                         <h5>05:21</h5>
                                                         <div className="btn-text">
-                                                            <Link href={`/newsDetails/`+news._id}>
+                                                            <Link href={`/videoNews/`+news._id}>
                                                                 <a>
                                                                     <button className="btn btn-warning VideoPlay">
                                                                         <i className="fa play_medium"></i>

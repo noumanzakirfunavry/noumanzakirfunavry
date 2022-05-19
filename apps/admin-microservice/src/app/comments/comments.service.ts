@@ -1,5 +1,5 @@
 import { AddCommentRequestDto, GenericResponseDto, GetAllCommentsRequestDto } from '@cnbc-monorepo/dtos';
-import { Comments } from '@cnbc-monorepo/entity';
+import { Comments, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -16,8 +16,11 @@ export class CommentsService {
 		const res = await this.commentsRepository.findAndCountAll({
 			where: {
 				// ...(entityType && entityId && { entityType, entityId })
-				entityType, 
+				entityType,
 				entityId
+			},
+			include: {
+				model: Users.scope('basicScope'),
 			},
 			limit: limit,
 			offset: this.helperService.offsetCalculator(pageNo, limit),
@@ -33,7 +36,12 @@ export class CommentsService {
 	}
 
 	async getCommentById(id: number) {
-		const comment = await this.commentsRepository.findOne({ where: { id } });
+		const comment = await this.commentsRepository.findOne({
+			where: { id },
+			include: {
+				model: Users.scope('basicScope'),
+			},
+		});
 		if (!comment) {
 			throw new CustomException(
 				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,

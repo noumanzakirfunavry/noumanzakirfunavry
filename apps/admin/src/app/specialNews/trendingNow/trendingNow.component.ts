@@ -114,6 +114,12 @@ export class TrendingNowComponent implements OnInit{
         }
         else if(this.tNews.some(x=>!x.newsId)){
             console.log('');
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.tNews[news] = tempNews;
+                this.tNews[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
         else {
             const tempNews = updatedNews;
@@ -128,6 +134,7 @@ export class TrendingNowComponent implements OnInit{
     findDuplicates() {
         const valueArr = this.tNews.map(function (item) { return item.newsId });
         const isDuplicate = valueArr.some(function (item, idx) {
+            console.log("VAL",valueArr.indexOf(item));
             return valueArr.indexOf(item) != idx
         });
         console.log("DUPLICATE-NEWS", isDuplicate);

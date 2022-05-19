@@ -62,16 +62,17 @@ export class MenusService {
 		return new GetMenusResponseDto(HttpStatus.OK, 'Request Successful', menus);
 	}
 
-	async getMenusForClient(paginationDto: PaginatedRequestDto): Promise<GetMenusResponseDto> {
-		const { limit, pageNo } = paginationDto;
+	async getMenusForClient(getMenuRequestDto: GetMenuRequestDto): Promise<GetMenusResponseDto> {
+		const { limit, pageNo, position } = getMenuRequestDto;
 
 
 		const menus = await this.menusRepo.findAll<Menus>({
-			limit: parseInt(limit.toString()),
+			limit: limit,
 			offset: this.helperService.offsetCalculator(pageNo, limit),
 			where: {
 				isActive: true,
 				parentMenuId: null,
+				...(position && { position })
 			},
 			include: [
 				{

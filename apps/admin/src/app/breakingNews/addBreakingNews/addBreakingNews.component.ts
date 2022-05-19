@@ -50,7 +50,9 @@ export class AddBreakingNewsComponent implements OnInit {
     inItForm() {
       this.breakingNewsForm = this.fb.group({
         title: [null, [Validators.required]],
-        newsLink: [null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
+        newsLink: [null, [Validators.required, 
+          // Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+        ]],
         isActive: [false],
         isPushNotificationActive: [false],
         IsTwitterActive: [false],
@@ -65,15 +67,15 @@ export class AddBreakingNewsComponent implements OnInit {
       }
       if(this.breakingNewsForm.valid) {
         this.isLoading= true;
+        setTimeout(() => {
+          this.isLoading= false;
+        }, 2000);
         const obj= this.breakingNewsForm.value;
         obj['newsId']= 1;
         this.apiService.sendRequest(this.breakingNewsId ? requests.updateBreakingNews + this.breakingNewsId : requests.addBreakingNews, this.breakingNewsId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("ADD-BREAKING-NEWS", res);
           this.inItForm();
           this.route.navigateByUrl('breakingNews/list');
-          setTimeout(() => {
-            this.isLoading= false;
-          }, 2000);
           if(this.breakingNewsId) {
             this.message.create('success', `Breaking News Updated Successfully`);
           }
@@ -90,7 +92,9 @@ export class AddBreakingNewsComponent implements OnInit {
         console.log("BREAKING-NEWS-BY-ID", res);
         this.breakingNewsForm = this.fb.group({
           title: [this.breakingNewsById?.title || null, [Validators.required]],
-          newsLink: [this.breakingNewsById?.newsLink || null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
+          newsLink: [this.breakingNewsById?.newsLink || null, [Validators.required, 
+            // Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+          ]],
           isActive: [this.breakingNewsById?.isActive || false],
           isPushNotificationActive: [this.breakingNewsById?.isPushNotificationActive || false],
           IsTwitterActive: [this.breakingNewsById?.IsTwitterActive || false],

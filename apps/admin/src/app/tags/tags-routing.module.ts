@@ -8,14 +8,14 @@ const routes: Routes = [
         component: TagsComponent,
         data: {
             title: 'Tags',
-            // headerDisplay: "none"
+            headerDisplay: "none"
         }
     },
     {
         path: 'list',
         component: TagsComponent,
         data: {
-            title: 'Tags',
+            title: 'All Tags',
             // headerDisplay: "none"
         }
     },

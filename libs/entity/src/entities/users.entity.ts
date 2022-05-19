@@ -34,6 +34,11 @@ import { UsersHasRights } from "./users.has.rights.entity";
     timestamps : true,
 		// exclude following fields in select statements by default
 		defaultScope: { attributes: { exclude: ['password'] } },
+		scopes: {
+			basicScope: {
+				attributes: ['id', 'name', 'userName', 'email', 'isVerified', 'isActive', 'deletedAt']
+			}
+		}
 })
 export class Users extends Model{
 
@@ -46,13 +51,17 @@ export class Users extends Model{
     @Column
     name : string
 
-    @Column
+    @Column({
+			unique: true
+		})
     userName : string
 
     @Column
     password : string
 
-    @Column
+    @Column({
+			unique: true
+		})
     email : string
 
     @Column

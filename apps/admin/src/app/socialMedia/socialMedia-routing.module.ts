@@ -19,7 +19,7 @@ const routes: Routes = [
         path: 'list',
         component: SocialMediaComponent,
         data: {
-            title: 'Social Media',
+            title: 'All Social Media',
             // headerDisplay: "none"
         },
 

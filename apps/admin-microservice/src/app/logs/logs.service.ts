@@ -1,5 +1,5 @@
 import { GenericResponseDto, GetAllLogsRequestDto } from '@cnbc-monorepo/dtos';
-import { ChangeLogs, Sessions } from '@cnbc-monorepo/entity';
+import { ChangeLogs, Sessions, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -17,6 +17,10 @@ export class LogsService {
 		const logs = await this.logsRepo.findAndCountAll({
 			where: {
 				sessionId: getAllLogsDto.sessionId
+			},
+			include: {
+				model: Users.scope('basicScope'),
+				paranoid: false
 			},
 			order: [['updatedAt', 'DESC']],
 			limit: getAllLogsDto.limit,

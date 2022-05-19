@@ -24,33 +24,21 @@
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
-                        <!-- <div class="col-md-12">
-                            <nz-form-item>
-                                <nz-form-label nzRequired>Author Name</nz-form-label>
-                                <nz-form-control nzErrorTip="Enter valid Author Name between 3 to 250 characters!">
-                                    <input type="text" formControlName="authorName" placeholder="Enter Author Name" dir="rtl"
-                                        nz-input>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div> -->
 
                         <div class="col-md-12">
-                            <nz-form-item>
-                                <nz-form-label nzRequired>Description</nz-form-label>
-                                <nz-form-control nzErrorTip="Enter Description maximum 1500 characters allowed!">
-                                    <!-- <ng-container *ngIf="tinyConfig">
-                                    <tiny-editor [formField]="newsForm"></tiny-editor>
-                                </ng-container> -->
-                                    <editor formControlName="content" [init]="tinyConfig"></editor>
-
-                                    <!-- <editor [config]="tinyConfig" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></editor> -->
-                                </nz-form-control>
-                            </nz-form-item>
+                            <tiny-editor [label]="'Content'" [error]="'Enter Content maximum 1500 characters allowed!'" [formField]="newsForm"></tiny-editor>
+                            <!-- <editor formControlName="content" [init]="tinyConfig"></editor>
+                            <editor [config]="tinyConfig" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></editor> -->
                         </div>
                         <div class="col-md-6">
-                            <dynamic-file-selector [title]="'Upload Media'" [field]="tempFile" [customDiv]="'mainFile'"
-                                [formField]="newsForm" (onFileRemove)="reset($event)"
-                                (onFileSelection)="mainFileSelection($event)" (onFileUpload)="mainFileUploaded($event)">
+                            <dynamic-file-selector 
+                            [title]="'Upload Media'" 
+                            [field]="tempFile" 
+                            [customDiv]="'mainFile'"
+                            [formField]="newsForm" 
+                            (onFileRemove)="reset($event)"
+                            (onFileSelection)="mainFileSelection($event)" 
+                            (onFileUpload)="mainFileUploaded($event)">
                                 <div mainFile class="mt-2">
                                     <img *ngIf="newsModel?.fileUrl" class="mt-2" width="50%" height="50%"
                                         [src]="newsModel?.fileUrl">
@@ -62,44 +50,31 @@
                                     <!-- <i style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i> -->
                                 </div>
                             </dynamic-file-selector>
-                            <!-- <nz-form-item>
-                           
-                            <nz-form-label>
-                                <h4>Upload Media</h4>
-                            </nz-form-label>
-                            <nz-form-control>
-                                <nz-form-label>Video Or Image Upload</nz-form-label>
-                                <input #myInput (change)="fileRead($event)" formControlName="file" type="file"
-                                    accept="jpg jpeg png gif mp4" />
-                            </nz-form-control>
-                            <span *ngIf="uploadProgress" class="ml-4 mt-1">File Uploading Progress
-                                :{{uploadProgress}}%</span>
-                            <img *ngIf="newsModel?.fileUrl" class="mt-2" width="40%" height="40%"
-                                [src]="newsModel?.fileUrl">                           
-                                <video *ngIf="newsModel?.videoUrl" id="video1" class="img" style="width:80%; height:370px;" controls>
-                                    <source [src]="newsModel?.videoUrl">
-                                  </video>
-                        </nz-form-item>
-                        <div *ngIf="file && !uploadProgress" style="color: Crimson;">Click upload button to upload Image!</div>
-                        <button class="mr-2" *ngIf="file && uploadProgress!==100" (click)="[getCaptcha($event),uploadFile()]">Upload</button>
-                        <button *ngIf="file" (click)="[getCaptcha($event),reset()]">Reset</button> -->
                         </div>
-                        <div class="col-md-6" *ngIf="newsModel?.contentType && newsModel?.contentType==='VIDEO'">
-                            <dynamic-file-selector [customDiv]="'thumbnail'" [title]="'Thumbnail Image'"
-                                [field]="tempThumbanilFile" [formField]="newsForm"
-                                (onFileSelection)="thumbnailFileSelection($event)"
-                                (onFileRemove)="resetThumbnail($event)" (onFileUpload)="thumbnailUploaded($event)">
-                                <div thumbnail class="mt-2">
+                        <div class="col-md-6" [ngClass]="newsModel?.contentType && newsModel?.contentType==='VIDEO' && newsModel?.videoId && newsModel?.videoUrl ? '' : 'disable-div'">
+                            <dynamic-file-selector 
+                            [customDiv]="'thumbnail'" 
+                            [title]="'Thumbnail Image'" 
+                            [field]="tempThumbanilFile"
+                            [fileTypes]="'image/png image/jpg image/jpeg image/gif'"
+                            [formField]="newsForm" 
+                            (onFileSelection)="thumbnailFileSelection($event)"
+                            (onFileRemove)="resetThumbnail($event)" 
+                            (onFileUpload)="thumbnailUploaded($event)">
+                                <div thumbnail class="mt-2" >
                                     <img *ngIf="newsModel?.thumbnailUrl" class="mt-2" width="40%" height="40%"
-                                        [src]="newsModel.thumbnailUrl">
+                                    [src]="newsModel.thumbnailUrl">                                                          
                                     <br>
-                                    <!-- <i style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i> -->
-                                </div>
+                                  </div>
                             </dynamic-file-selector>
                         </div>
                     </div>
-                    <news-comments></news-comments>
+                    <!-- [ngClass]="newsModel?.contentType && newsModel?.contentType==='VIDEO' ? '' : 'disable-div'" -->
+                    <ng-container *ngIf="newsModel.id">
+                        <news-comments [newsId]="newsModel.id"></news-comments>
+                    </ng-container>
                 </div>
+                
                 <div class="col-4 ">
                     <div>
                         <h4>General Settings</h4>
@@ -174,8 +149,8 @@
                     <div>
 
                         <nz-form-item>
-                            <nz-form-label nzRequired>Related Quotes</nz-form-label>
-                            <nz-form-control nzErrorTip="Select Quote!">
+                            <nz-form-label>Related Quotes</nz-form-label>
+                            <nz-form-control>
                                 <nz-select (keyup)="getAllQuotes($event.target.value)" formControlName="quotesIds"
                                     [nzSize]="size" nzMode="multiple" nzPlaceHolder="Select Quote">
                                     <nz-option *ngFor="let option of allQuotes" [nzLabel]="option.quoteSymbol"
@@ -244,10 +219,9 @@
         </form>
     </div>
 
-    <div *ngIf="isVisible">
-        <tiny-file-modal (onSelectFile)="fileFromModal($event)" [isVisible]="isVisible"
-            (closeModal)="closeModal($event)">
-        </tiny-file-modal>
-    </div>
-
+    <!-- <div *ngIf="isVisible"> -->
+        <!-- <tiny-file-modal (onSelectFile)="fileFromModal($event)" [isVisible]="isVisible" (closeModal)="closeModal($event)">
+        </tiny-file-modal> -->
+    <!-- </div> -->
+    
 </section>

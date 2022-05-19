@@ -63,7 +63,7 @@ export class AddPresentersComponent implements OnInit{
         gender: [null, [Validators.required]],
         dob: [null, [Validators.required]],
         joinedNetworkOn: [null, [Validators.required]],
-        description: [null],
+        description: [null, [Validators.required, Validators.maxLength(1500)]],
         attachmentsId: [null, [Validators.required]],
         twitterLink: [null, [Validators.required]],
         facebookLink: [null, [Validators.required]],
@@ -99,6 +99,9 @@ export class AddPresentersComponent implements OnInit{
       }   
       if(this.presenterForm.valid) {
         this.isLoading= true;
+        setTimeout(() => {
+          this.isLoading= false;
+        }, 2000);
       const obj= this.presenterForm.value;
       obj['age']= parseInt(this.presenterForm.value.age);
       obj['attachmentsId']= this.imageId;
@@ -106,9 +109,6 @@ export class AddPresentersComponent implements OnInit{
         console.log("ADD-PRESENTERS", res);
         this.presenterForm.reset();
         this.route.navigateByUrl('presenters/list');
-        setTimeout(() => {
-          this.isLoading= false;
-        }, 2000);
         if (this.presenterId) {
           this.message.create('success', `Presenter Updated Successfully`);
         }
@@ -130,7 +130,7 @@ export class AddPresentersComponent implements OnInit{
           gender: [this.presenterById?.gender || null, [Validators.required]],
           dob: [this.presenterById?.dob || null, [Validators.required]],
           joinedNetworkOn: [this.presenterById?.joinedNetworkOn || null, [Validators.required]],
-          description: [this.presenterById?.description || null],
+          description: [this.presenterById?.description || null, [Validators.required, Validators.maxLength(1500)]],
           attachmentsId: [this.presenterById?.attachmentsId || null, [Validators.required]],
           twitterLink: [this.presenterById?.twitterLink || null, [Validators.required]],
           facebookLink: [this.presenterById?.facebookLink || null, [Validators.required]],

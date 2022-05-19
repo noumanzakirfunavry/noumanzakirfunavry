@@ -23,10 +23,10 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let admin of allAdmins">
-                            <tr  >
+                            <tr>
                                 <td [nzChecked]="setOfCheckedId.has(admin?.id)" [nzDisabled]="admin.disabled"
                                     (nzCheckedChange)="onItemChecked(admin?.id, $event)"></td>
-                                <td>{{admin?.name}}</td>
+                                <td><a [routerLink]="['/admins/update/' + admin?.id]">{{admin?.name}}</a></td>
                                 <td>{{admin?.userName}}</td>
                                 <td>{{admin?.roles?.title}}</td>
                                 <td>{{admin?.email}}</td>

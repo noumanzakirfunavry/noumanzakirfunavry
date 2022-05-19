@@ -1,5 +1,5 @@
 import { Public } from '@cnbc-monorepo/auth-module';
-import { GenericResponseDto, GetNewsByFlagsRequestDto, PaginatedRequestDto, SearchNewsRequestDto } from '@cnbc-monorepo/dtos';
+import { GenericResponseDto, GetMostReadNewsDto, GetNewsByFlagsRequestDto, PaginatedRequestDto, SearchNewsRequestDto } from '@cnbc-monorepo/dtos';
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Req } from '@nestjs/common';
 import { NewsService } from './news.service';
 
@@ -29,8 +29,8 @@ export class NewsClientController {
 	}
 
 	@Get('/mostRead')
-	getMostReadNews(@Query() paginationDto: PaginatedRequestDto): Promise<GenericResponseDto> {
-		return this.newService.getMostReadNews(paginationDto)
+	getMostReadNews(@Query() getMostReadNewsDto: GetMostReadNewsDto): Promise<GenericResponseDto> {
+		return this.newService.getMostReadNews(getMostReadNewsDto)
 	}
 
 }

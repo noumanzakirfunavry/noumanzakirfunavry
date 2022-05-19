@@ -78,7 +78,7 @@ const Header = () =>{
     },[])
 
     const getAllMenus = () =>{
-        GetData(`${requests.moreMenus}getAll?limit=50&pageNo=1`, {}, 'get', false).then(res=>{
+        GetData(`${requests.moreMenus}getAll?position=HEADER&limit=50&pageNo=1`, {}, 'get', false).then(res=>{
 
             //console.log('Menus::::::::::', res?.data?.response);
             setMoreMenuItems(res?.data?.response);
@@ -279,6 +279,10 @@ const Header = () =>{
                                                 } */}
                                                 <li className="nav-item" key={'1'}>
                                                     <Link href="/"><a className="nav-link active" aria-current="page">الرئيسية</a></Link>
+                                                    <div className="nav-menu-navUnderline"></div>
+                                                </li>
+                                                <li className="nav-item" key={'654564ytf7653'}>
+                                                    <Link href="/latestVideos"><a className="nav-link active" aria-current="page">فيديو CNBC عربية</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
                                                 {/* <li className="nav-item" key={'2'}>

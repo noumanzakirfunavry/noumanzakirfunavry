@@ -64,12 +64,9 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <nz-form-item>
-                <nz-form-label>Description</nz-form-label>
-                <nz-form-control>
-                  <ckeditor formControlName="description" [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
-             </nz-form-control>
-            </nz-form-item>
+              <tiny-editor [label]="'Description'" [error]="'Enter Description maximum 1500 characters allowed!'" [formField]="presenterForm" [fieldName]="'description'"></tiny-editor>
+                <!-- <editor formControlName="content" [init]="tinyConfig"></editor>
+                <editor [config]="tinyConfig" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></editor> -->
             </div>
           </div>
           <div class="row">

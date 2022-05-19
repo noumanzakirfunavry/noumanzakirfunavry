@@ -79,7 +79,6 @@ export const ROUTES: SideNavInterface[] = [
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'link',
-        
         submenu: []
     },
     {
@@ -234,14 +233,14 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'play-square',
         submenu: []
     },
-    {
-        path: 'mediaUploader',
-        title: 'Media Uploader',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'file-add',
-        submenu: []
-    },
+    // {
+    //     path: 'mediaUploader',
+    //     title: 'Media Uploader',
+    //     iconType: 'nzIcon',
+    //     iconTheme: 'outline',
+    //     icon: 'file-add',
+    //     submenu: []
+    // },
     {
         path: 'settings',
         title: 'Settings',

@@ -1,5 +1,6 @@
 import {
 	GenericResponseDto,
+	GetMostReadNewsDto,
 	GetNewsByFlagsRequestDto,
 	GetNewsByIdResponseDto,
 	PaginatedRequestDto,
@@ -247,7 +248,8 @@ export class NewsService {
 		});
 	}
 
-	async getMostReadNews(paginationDto: PaginatedRequestDto): Promise<GenericResponseDto> {
+	async getMostReadNews(getMostReadNewsDto: GetMostReadNewsDto): Promise<GenericResponseDto> {
+		const { contentType } = getMostReadNewsDto
 		const mostReadNews = await this.newsVisitorsRepository.findAll({
 			where: {
 				visitDate: {
@@ -255,32 +257,46 @@ export class NewsService {
 					[Op.gt]: new Date(new Date().setDate(new Date().getDate() - 7)),
 				},
 			},
-			attributes:{
+			attributes: {
 				include: [
 
 					[sequelize.fn('sum', sequelize.col('count')), 'Visits'],
-	
+
 				],
-				exclude:['id']
+				exclude: ['id']
 			},
 
 			include: [{
 				model: News,
+				where: {
+					...(contentType && { contentType })
+				},
 				required: true,
 				duplicating: false,
-				include: [{
-					model: Categories,
-					required: true,
-					duplicating: false,
-					through: {
-						attributes: []
-					}
-				}]
+				include: [
+					'video',
+					'image',
+					'thumbnail',
+					{
+						model: Categories,
+						required: true,
+						duplicating: false,
+						through: {
+							attributes: []
+						}
+					}]
 			}],
-			group: [sequelize.col('news.id'),sequelize.col('NewsVisitors.id'),sequelize.col('news->categories.id')],
+			group: [
+				sequelize.col('news.id'), 
+				sequelize.col('NewsVisitors.id'), 
+				sequelize.col('news->categories.id'), 
+				sequelize.col('news->video.id'), 
+				sequelize.col('news->image.id'), 
+				sequelize.col('news->thumbnail.id')
+			],
 			order: [[sequelize.col('Visits'), 'DESC']],
-			limit: parseInt(paginationDto.limit.toString()),
-			offset: this.helperService.offsetCalculator(paginationDto.pageNo, paginationDto.limit),
+			limit: getMostReadNewsDto.limit,
+			offset: this.helperService.offsetCalculator(getMostReadNewsDto.pageNo, getMostReadNewsDto.limit),
 		});
 
 		return new GenericResponseDto(HttpStatus.OK, 'Request Successful', mostReadNews)
