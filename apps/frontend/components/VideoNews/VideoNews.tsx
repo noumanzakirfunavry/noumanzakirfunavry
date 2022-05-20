@@ -17,6 +17,7 @@ const VideoNews = ({videoNews}) => {
 
     return (
         <div className="single_video_main">
+                {videoNews?.isPro ? <span className="badge bg-success mb-2">PRO</span> : <span></span>}
                 <div className="VideoNews mb-4 ">
                     {
                     videoNews?.videoId &&
@@ -74,7 +75,8 @@ const VideoNews = ({videoNews}) => {
               <h1>{videoNews?.title}</h1>
           </div>
 
-          {videoNews && <HtmlData data={videoNews?.content} />}
+          {videoNews?.isPro ? <FadedNews news={videoNews}/> : <HtmlData data={videoNews?.content} />}
+          {/*videoNews && <HtmlData data={videoNews?.content} />*/}
           {/*<p><small><DateArabicFormat date={videoNews?.createdAt} /></small></p>*/}
           {/*<p><small>نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</small></p>*/}
           {/*<FadedNews news={videoNews}/>*/}

@@ -41,7 +41,7 @@ export class ElkService {
 			return result.hits.hits;
 		} catch (err) {
 			console.log(
-				'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ deleteByQuery ~ error',
+				'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ search ~ error',
 				err.meta.body.error.root_cause)
 
 			throw new InternalServerErrorException
