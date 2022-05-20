@@ -88,6 +88,7 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
             <Slider {...settings}>
                         {
                             relatedNewsList?.length && relatedNewsList?.map((news:any, index:number)=>{
+                                const newsPage = news?._source?.isPro ? 'proNews' : 'newsDetails';
                                   return(
                                     <div className="slider-item"  key={index}>
                                         <div className="NewsBox ">
@@ -117,7 +118,7 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
                                             </div>
                                             <div className="newscontent">
                                                 {/*<h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>*/}
-                                                <h5><Link href={`/newsDetails/`+news._id}><a>{news?._source?.title.substring(0, 35)}</a></Link></h5>
+                                                <h5><Link href={`/${newsPage}/`+news._id}><a>{news?._source?.title.substring(0, 35)}</a></Link></h5>
                                                 {<p><a href="#">الإمارات</a> منذ 5 دقائق</p> /* @TODO: will show sub categories here once it gets done from backend side. */}
                                             </div>
                                         </div>
