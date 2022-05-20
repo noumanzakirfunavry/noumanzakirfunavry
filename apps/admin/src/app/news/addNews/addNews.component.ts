@@ -10,6 +10,7 @@ import { CommentListData } from './mockComments';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { QuotesMockData } from './mock-quotes';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 // import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 // import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
@@ -168,7 +169,7 @@ export class AddNewsComponent implements OnInit {
     initNewsForm() {
         this.newsForm = this.fb.group({
             date: [new Date(), []],
-            title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+            title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
             content: [null, [Validators.required]],
             isPro: [false],
             visible: [true, [Validators.required]],
@@ -216,7 +217,7 @@ export class AddNewsComponent implements OnInit {
             obj['newsType'] = this.newsModel.videoId ? 'NEWS' : 'ARTICLE';
             obj['contentType'] = this.newsModel.imageId ? 'IMAGE' : this.newsModel.videoId ? 'VIDEO' : 'TEXT';
             obj['quotes'] = this.allQuotes.filter(x => {
-                if (this.newsForm.value.quotesIds.some(z => z == x.quoteTickerId)) {
+                if (this.newsForm.value.quotesIds?.some(z => z == x.quoteTickerId)) {
                     return x
                 }
             })

@@ -151,10 +151,13 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     findDuplicates() {
-        const valueArr = this.fNews.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            return valueArr.indexOf(item) != idx
-        });
+        let isDuplicate=false;
+        this.fNews.forEach(x=>{
+            const duplicate=this.fNews.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
         console.log("DUPLICATE-NEWS", isDuplicate);
         return isDuplicate
     }
@@ -177,11 +180,11 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
-        moveItemInArray(this.allFeaturedNews, event.previousIndex, event.currentIndex);
-        for(let i = 0; i < this.allFeaturedNews.length; i++) {
-            this.allFeaturedNews[i].position= i + 1;
+        moveItemInArray(this.fNews, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.fNews.length; i++) {
+            this.fNews[i].position= i + 1;
         }
-        console.log("POS", this.allFeaturedNews);
+        console.log("POS", this.fNews);
       }
 
     cancel() {
