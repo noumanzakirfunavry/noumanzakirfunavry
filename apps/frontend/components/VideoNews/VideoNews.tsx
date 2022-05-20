@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import DateArabicFormat from "../Shared/DateCustomFomat/DateArabicFormat"
 import HtmlData from "../Shared/HtmlData/HtmlData";
 import logoImage from "../../styles/images/CNBC-favicon.png";
+import Dailymotion from 'react-dailymotion';
 
 const VideoNews = ({videoNews}) => {
 
@@ -25,7 +26,14 @@ const VideoNews = ({videoNews}) => {
                         <video className="mb-3 newsDetailimg" controls autoPlay loop muted>
                             <source src={videoNews?.video?.path && baseUrlAdmin+videoNews?.video?.path}/>
                         </video>
-                        :
+                        : // else show thumbnail with play icon
+                        videoNews?.video?.dailyMotionURL ? 
+                              <Dailymotion
+                                className={"newsDetailimg mb-3"}
+                                video={videoNews?.video?.dailyMotionURL}   //news?.video?.dailyMotionURL
+                                uiTheme="light"
+                                autoplay= "false"
+                              /> :
                         <div><div className="NewsImage">
                             <img className="img-fluid" src={videoNews?.thumbnail?.path ? baseUrlAdmin+videoNews?.thumbnail?.path:logoImage.src} />
                         </div>

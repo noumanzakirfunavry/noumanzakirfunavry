@@ -5,6 +5,7 @@ import NewsRealtedStock from "./CategoryDetailsBoxes/CategoryDetailsBoxes";
 import { useEffect, useState } from "react";
 import logoImage from "../../styles/images/CNBC-favicon.png";
 import { baseUrlAdmin } from "../../services/Requests";
+import Dailymotion from 'react-dailymotion';
 
 const NewsDetails = ({news}) => {
 
@@ -29,6 +30,13 @@ const NewsDetails = ({news}) => {
                     // apply condition base player if daily motion video exist then show otherwise show local video 
                     // <iframe src="https://geo.dailymotion.com/player/x8lqy.html?video=x8adsti" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen frameBorder="0" width="100%" height="360"></iframe>
                 : // else show thumbnail with play icon
+                news?.video?.dailyMotionURL ? 
+                              <Dailymotion
+                                className={"newsDetailimg mb-3"}
+                                video={news?.video?.dailyMotionURL}   //news?.video?.dailyMotionURL
+                                uiTheme="light"
+                                autoplay= "false"
+                              /> :
                     <div className="VideoNews mb-4 ">
                         <div className="NewsImage">
                             <img className="img-fluid" src={news?.thumbnail?.path ? baseUrlAdmin+news?.thumbnail?.path:logoImage.src} />
