@@ -26,16 +26,19 @@ export class DailymotionUploadRequests extends Model {
 
 	@Column({
 		type: DataType.BOOLEAN,
+		defaultValue: true
 	})
 	toBePublished: boolean
 
 	@Column({
 		type: DataType.BOOLEAN,
+		defaultValue: false
 	})
 	toBePrivate: boolean
 
 	@Column({
 		type: DataType.BOOLEAN,
+		defaultValue: false
 	})
 	isCreatedForKids: boolean
 

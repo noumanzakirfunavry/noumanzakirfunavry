@@ -33,11 +33,11 @@ export class AttachmentsService {
 					this.dailymotionUploadRepo.create({
 						title: response.title,
 						description: response.description,
-						tags: body.tags,
-						channel: body.channel,
-						toBePublished: body.toBePublished,
-						toBePrivate: body.toBePrivate,
-						isCreatedForKids: body.isCreatedForKids,
+						tags: body.tags ?? 'news',
+						channel: body.channel ?? 'news',
+						toBePublished: body.toBePublished ?? true,
+						toBePrivate: body.toBePrivate ?? false,
+						isCreatedForKids: body.isCreatedForKids ?? false,
 						localPath: response.path,
 						attachmentId: response.id
 					}).then(res => {
