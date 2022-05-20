@@ -20,6 +20,11 @@ export class ClientCategoriesController {
     async getByTitleClient(@Query() getCategoryByTitleDto: GetCategoryByTitleRequestDto){
         return await this.categoryService.getByTitleClient(getCategoryByTitleDto)
     }
+		
+		@Get('searchByTitle')
+    async searchByTitleClient(@Query() getCategoryByTitleDto: GetCategoryByTitleRequestDto){
+        return await this.categoryService.searchByTitleClient(getCategoryByTitleDto)
+    }
 
     @Get('getAll')
     async getAllForClient(@Query() query:GetAllCategoriesForClientRequestDto){

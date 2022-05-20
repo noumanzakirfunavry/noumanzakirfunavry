@@ -44,6 +44,23 @@ export class CategoriesService {
 	async getByTitleClient(getCategoryByTitleDto: GetCategoryByTitleRequestDto) {
 		const result = await this.categoryRepo.findOne({
 			where: {
+				title: getCategoryByTitleDto.title,
+				isActive: true
+			},
+			include: [{ model: Categories, as: 'sub' }],
+		})
+		if (!result) {
+			throw new CustomException(
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+			)
+		}
+		return new GenericResponseDto(HttpStatus.OK, "FETCHED SUCCESSFULLY", result)
+	}
+	
+	async searchByTitleClient(getCategoryByTitleDto: GetCategoryByTitleRequestDto) {
+		const result = await this.categoryRepo.findOne({
+			where: {
 				title: {
 					[Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(getCategoryByTitleDto.title)}%`
 				},
