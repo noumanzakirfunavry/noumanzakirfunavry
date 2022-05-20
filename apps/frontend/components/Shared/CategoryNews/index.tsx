@@ -69,7 +69,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                         <div className="NewsInfo">
                         <Link href={`/newsDetails/`+news[i]._id}><a><h4>{news && news[i]?._source?.title}</h4> </a></Link>
                             {/* <p><a>الإمارات</a> منذ 5 دقائق</p> */}
-                            <p> {news[i]?._source?.tags.map(quote=>{return ( <a key={`${quote} ${i}`} className=" ms-3">{quote}</a>)} )}</p>
+                            <p> {news[i]?._source?.tags.map((quote, index) =>{return ( <a key={index} className=" ms-3">{quote}</a>)} )}</p>
 
                         </div>
                     </div>
@@ -125,7 +125,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                 <div className="NewsInfo">
                                    <Link href={`/newsDetails/`+news[0]._id}><a><h3>{news && news[0]?._source?.title}</h3> </a></Link>
                                    {/* <p><a className="ms-3">الإمارات</a> منذ 5 دقائق</p> */}
-                                <p> {news[0]?._source?.tags?.map(quote=>{return ( <a key={`${quote}`} className=" ms-3">{quote}</a>)} )}</p>
+                                <p> {news[0]?._source?.tags?.map((quote, index)=>{return ( <a key={index} className=" ms-3">{quote}</a>)} )}</p>
 
                                 </div>
                             </div>
@@ -175,7 +175,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                             </div> */}
                                 <div className="NewsInfo">
                                 <Link href={`/newsDetails/`+news[1]._id}><a><h4>{news && news[1]?._source?.title}</h4> </a></Link>
-                                    <p> {news[1]?._source?.tags?.map(quote=>{return ( <a key={`${quote}one`} className=" ms-3">{quote}</a>)} )}</p>
+                                    <p> {news[1]?._source?.tags?.map((quote, index) => {return ( <a key={index} className=" ms-3">{quote}</a>)} )}</p>
                                 </div>
                             </div>
                         </div>:<span></span>}
@@ -197,7 +197,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                 displayMoreButton && (
                     news?.length === limitX &&
                     <div className="text-center mt-3 mb-4 more_btn" onClick={() => setLimitX(limitX + loopIndex - 2)}>
-                        <button className="btn btn-outline-primary">المزيد {news?.length} length {limitX} limit</button>
+                        <button className="btn btn-outline-primary">المزيد</button>
                     </div>
                 )
             } 

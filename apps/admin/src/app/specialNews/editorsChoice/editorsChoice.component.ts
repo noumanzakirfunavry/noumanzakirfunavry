@@ -86,25 +86,49 @@ export class EditorsChoiceComponent implements OnInit{
     getAllEditorsChoiceNews() {
         this.apiService.sendRequest(requests.getAllEditorsChoiceNews, 'get').subscribe((res:any) => {
             this.allEditorsChoice= res.response.editorsChoiceNews;
-            this.editorsChoice = this.allEditorsChoice && this.allEditorsChoice.length > 0 ? this.allEditorsChoice : this.editorsChoice;
+            for(let i = 0; i < this.editorsChoice.length; i++) {
+                const edNews= this.allEditorsChoice.find(x => x.position == this.editorsChoice[i].position)
+                if(edNews) {
+                    this.editorsChoice[i] = edNews;
+                }
+            }
             console.log("ALL-EDITORS-CHOICE", this.allEditorsChoice);
-            this.loading= false;
+            this.loading = false;
         }, err => {
             this.loading = false;
         })
     }
 
-    changeCategory(data){
-        console.log(data);
+    changeCategory(data) {
+        console.log("CHANGE-CAT", data);
+    }
+
+    findDuplicates() {
+        let isDuplicate=false;
+        this.editorsChoice.forEach(x=>{
+            const duplicate=this.editorsChoice.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
+        console.log("DUPLICATE-NEWS", isDuplicate);
+        return isDuplicate
     }
 
     changedNews(updatedNews) {
         const news = this.editorsChoice.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.editorsChoice[news] = updatedNews;
+            console.log("UPDATED-NEWS", this.editorsChoice[news]);
         }
         else if(this.editorsChoice.some(x=>!x.newsId)){
-            console.log('');
+            console.log();
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.editorsChoice[news] = tempNews;
+                this.editorsChoice[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
         else {
             const tempNews = updatedNews;
@@ -116,15 +140,6 @@ export class EditorsChoiceComponent implements OnInit{
         }
     }
 
-    findDuplicates() {
-        const valueArr = this.editorsChoice.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            return valueArr.indexOf(item) != idx
-        });
-        console.log("DUPLICATE-NEWS", isDuplicate);
-        return isDuplicate
-    }
-
     updateEditorsChoiceNews() {
             this.editorsChoice.forEach(news=>{
                 news.newsId=parseInt(news.newsId);
@@ -133,7 +148,8 @@ export class EditorsChoiceComponent implements OnInit{
                 this.message.create('error', 'Add all Editors Choice News for Editors Choice Section')
             } 
             else {
-                this.apiService.sendRequest(requests.updateEditorsChoiceNews, 'put', { news: this.editorsChoice }).subscribe((res:any) => {
+                const body = this.editorsChoice.map(x=>{return {newsId:x.newsId,position: x.position}});
+                this.apiService.sendRequest(requests.updateEditorsChoiceNews, 'put', { news: body }).subscribe((res:any) => {
                     console.log("UPDATE-EDITORS-CHOICE", res);
                     this.getAllEditorsChoiceNews();
                     this.message.create('success', `Editor's Choice News Updated Successfully`);
@@ -142,11 +158,11 @@ export class EditorsChoiceComponent implements OnInit{
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
-        moveItemInArray(this.allEditorsChoice, event.previousIndex, event.currentIndex);
-        for(let i = 0; i < this.allEditorsChoice.length; i++) {
-            this.allEditorsChoice[i].position= i + 1;
+        moveItemInArray(this.editorsChoice, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.editorsChoice.length; i++) {
+            this.editorsChoice[i].position= i + 1;
         }
-        console.log("POS", this.allEditorsChoice);
+        console.log("POS", this.editorsChoice);
       }
 
     cancel() {

@@ -21,6 +21,8 @@ export class AddBreakingNewsComponent implements OnInit {
   breakingNewsForm: FormGroup;
   breakingNewsId: number;
   breakingNewsById: any;
+  loader= true;
+  isLoading= false;
   
     constructor(private fb: FormBuilder, 
       private apiService: ApiService, 
@@ -35,14 +37,20 @@ export class AddBreakingNewsComponent implements OnInit {
         if (this.breakingNewsId) {
           this.getBreakingNewsById();
         }
+        else {
+          this.inItForm();
+          setTimeout(() => {
+            this.loader=false
+          }, 200);
+        }
       });
-      this.inItForm();
+      
     }
 
     inItForm() {
       this.breakingNewsForm = this.fb.group({
         title: [null, [Validators.required]],
-        newsLink: [null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
+        newsLink: [null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w !@#$%^&*()+=;:<>?.-]*/?')]],
         isActive: [false],
         isPushNotificationActive: [false],
         IsTwitterActive: [false],
@@ -56,6 +64,10 @@ export class AddBreakingNewsComponent implements OnInit {
         this.breakingNewsForm.controls[i].updateValueAndValidity();
       }
       if(this.breakingNewsForm.valid) {
+        this.isLoading= true;
+        setTimeout(() => {
+          this.isLoading= false;
+        }, 2000);
         const obj= this.breakingNewsForm.value;
         obj['newsId']= 1;
         this.apiService.sendRequest(this.breakingNewsId ? requests.updateBreakingNews + this.breakingNewsId : requests.addBreakingNews, this.breakingNewsId ? 'put' : 'post', obj).subscribe((res:any) => {
@@ -78,12 +90,15 @@ export class AddBreakingNewsComponent implements OnInit {
         console.log("BREAKING-NEWS-BY-ID", res);
         this.breakingNewsForm = this.fb.group({
           title: [this.breakingNewsById?.title || null, [Validators.required]],
-          newsLink: [this.breakingNewsById?.newsLink || null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
+          newsLink: [this.breakingNewsById?.newsLink || null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w !@#$%^&*()+=;:<>?.-]*/?')]],
           isActive: [this.breakingNewsById?.isActive || false],
           isPushNotificationActive: [this.breakingNewsById?.isPushNotificationActive || false],
           IsTwitterActive: [this.breakingNewsById?.IsTwitterActive || false],
           isFacebookActive: [this.breakingNewsById?.isFacebookActive || false]
         });
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
       })
     }
 

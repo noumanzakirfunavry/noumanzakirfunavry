@@ -15,7 +15,7 @@ export class FileSelectorComponent implements OnInit {
   @Input() formField: FormGroup;
   @Input() validate: any;
   @Input() title = 'File Upload';
-  @Input() fileTypes = 'image/png image/jpg image/jpeg video/mp4 video/3gp video/avi video/mpeg video/mov mp4';
+  @Input() fileTypes = 'image/png image/jpg image/jpeg video/mp4 video/3gp video/avi video/mpeg video/mov video/webm mp4';
   @Output() onFileSelection: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFileUpload:  EventEmitter<any> = new EventEmitter<any>();
   @Output() onFileRemove:  EventEmitter<any> = new EventEmitter<any>();
@@ -26,7 +26,7 @@ export class FileSelectorComponent implements OnInit {
   uploadProgress: number;
 
 
-  constructor(private apiService:ApiService, public mediaAssetUtil: MediaUtilService ) {}
+  constructor(private apiService: ApiService, public mediaAssetUtil: MediaUtilService ) {}
 
   ngOnInit(): void {
     if (this.field) {
@@ -64,10 +64,7 @@ export class FileSelectorComponent implements OnInit {
             console.log("file progress", this.uploadProgress);
         }
         else if (res?.body) {
-            console.log("Data Uploaded");
-            console.log(res.body);
             setTimeout(() => {
-              
               this.mediaObj.src = res.body.response.url;
               console.log("url",this.mediaObj.src);
             }, 200);
@@ -113,6 +110,8 @@ export class FileSelectorComponent implements OnInit {
         this.onFileSelection.emit(this.field);
       }
     } else {
+      this.field.value = null;
+      this.onFileSelection.emit(this.field);
       this.error = 'Select one file with these extensions ' + this.fileTypes;
       this.field.value = null;
       setTimeout(() => {
@@ -123,11 +122,11 @@ export class FileSelectorComponent implements OnInit {
 
   removePicture() {
     this.field.value = null;
+    this.field.showDelBtn = false;
     this.uploadProgress= null;
     this.imageSelector.nativeElement.value = null;
     this.mediaObj = { name: '', src: null, type: null };
     this.onFileRemove.emit(this.field);
   }
-
 
 }

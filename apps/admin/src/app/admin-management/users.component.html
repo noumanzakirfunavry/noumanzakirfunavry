@@ -1,8 +1,8 @@
 <div class="row ">
-    <div class="col-md-2">
-        <button nz-button [nzType]="'primary'" [routerLink]="['/admins/add']">Add Admin</button>
+    <div class="col-md-4">
+        <button nz-button [nzType]="'primary'" [routerLink]="['/admins/add']">Add Admin</button><span class="ml-2" nz-typography><strong>(Total Admins : {{adminsCount}})</strong></span>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-8">
         <user-filter (statusEmitter)="receiveStatus($event)" (filterEmitter)="receiveFilter($event)"></user-filter>
     </div>
     <div class="col-lg-12 mt-2">
@@ -23,10 +23,10 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let admin of allAdmins">
-                            <tr  >
+                            <tr>
                                 <td [nzChecked]="setOfCheckedId.has(admin?.id)" [nzDisabled]="admin.disabled"
                                     (nzCheckedChange)="onItemChecked(admin?.id, $event)"></td>
-                                <td>{{admin?.name}}</td>
+                                <td><a [routerLink]="['/admins/update/' + admin?.id]">{{admin?.name}}</a></td>
                                 <td>{{admin?.userName}}</td>
                                 <td>{{admin?.roles?.title}}</td>
                                 <td>{{admin?.email}}</td>

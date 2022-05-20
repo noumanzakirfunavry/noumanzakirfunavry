@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AnalysisLanguage } from '@elastic/elasticsearch/lib/api/types';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -42,6 +43,9 @@ export class AddUserComponent implements OnInit{
   submitted= false;
   loader= true;
   user: any;
+  isLoading= false;
+  userRoleId: number;
+  adminRoleId: any;
 
   constructor(
     private fb: FormBuilder, 
@@ -52,12 +56,13 @@ export class AddUserComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
-    this.getAllRights();
+   
     this.user = JSON.parse(localStorage.getItem('admin') || '{}');
+    this.userRoleId= this.user.user.roleId;
     this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
       this.userId = + params.get('id');
+       this.getAllRights();
     });
-    
   }
 
   inItForm() {
@@ -86,12 +91,22 @@ export class AddUserComponent implements OnInit{
     }
     this.submitted=true;
     if(this.adminForm.valid) {
+      this.isLoading= true;
+      setTimeout(() => {
+        this.isLoading= false;
+      }, 2000);
       const obj= this.adminForm.value;
       obj['name'] = this.adminForm.value.name.trim();
       obj['userName']= this.adminForm.value.userName.toLowerCase();
+      if(this.adminRoleId==3) {
+        this.allRights.forEach(right=>{
+          right['checked']=true;
+          right['label']=right.title
+        })
+      }
       obj['rights']= this.adminForm.value.rights.filter(x=>x.checked);
       obj['rights']= obj['rights'].map(x=>x.id);
-      if(obj['password'] == '' || this.adminForm.value.password == '') {
+      if(obj['password'] == '' || obj['password'] == null || this.adminForm.value.password == '' || this.adminForm.value.password == null) {
         delete obj['password'];
       }
       delete obj['confirmPassword'];
@@ -114,7 +129,8 @@ export class AddUserComponent implements OnInit{
       this.allRights= res.response.rights;
       if(this.userId){
         this.getUserById();
-      }else{
+      }
+      else{
         this.inItForm();
         this.loader=false
       }
@@ -139,16 +155,15 @@ export class AddUserComponent implements OnInit{
     this.apiService.sendRequest(requests.getUserById + this.userId, 'get').subscribe((res:any) => {
       this.userById= res.response.admin;
       console.log("USER-BY-ID", this.userById);
+      this.adminRoleId=this.userById?.rolesId
       if(this.user.user.id===this.userId) {
         this.route.navigateByUrl('admins/list');
         this.message.create('error', `Access Denied`);
       }
-      // setTimeout(() => {
         this.allRights.forEach(right=>{
           right['checked']=this.userById.rights.some(x=>x.id==right.id);
           right['label']=right.title
         })
-        // }, 500);
         console.log("rights enabled",this.allRights);
         this.adminForm = this.fb.group({
           name: [this.userById?.name || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
@@ -163,7 +178,6 @@ export class AddUserComponent implements OnInit{
         setTimeout(() => {
           this.loader=false
         }, 200);
-   
     })
   }
 
@@ -175,7 +189,8 @@ export class AddUserComponent implements OnInit{
   requiredValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
-    } else if (control.value !== this.adminForm.controls.password.value) {
+    } 
+    else if (control.value !== this.adminForm.controls.password.value) {
       return { confirm: true, error: true };
     }
     return {};
@@ -184,7 +199,8 @@ export class AddUserComponent implements OnInit{
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return {};
-    } else if (control.value !== this.adminForm.controls.password.value) {
+    } 
+    else if (control.value !== this.adminForm.controls.password.value) {
       return { confirm: true, error: true };
     }
     return {};
@@ -193,6 +209,23 @@ export class AddUserComponent implements OnInit{
   log(value: string[]): void {
     this.rightsValue= value;
     console.log("RIGHTS-ID", this.rightsValue);
+  }
+
+  onRoleChange($event: string[]): void {
+    this.adminRoleId= $event;
+    if(this.adminRoleId==3) {
+      this.allRights.forEach(right=>{
+        right['checked']=true;
+        right['label']=right.title
+      })
+    }
+    else {
+      this.allRights.forEach(right=>{
+        right['checked']=false;
+        right['label']=right.title
+      })
+    }
+    console.log("ADMIN-ROLE", this.adminRoleId);
   }
 
   cancel() {

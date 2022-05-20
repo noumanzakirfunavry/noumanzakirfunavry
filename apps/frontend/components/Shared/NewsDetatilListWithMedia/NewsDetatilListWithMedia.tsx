@@ -15,7 +15,7 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                     {
                        newsList?.length && newsList?.map((news:any, index:number)=>{
                             return (
-                                <li key={news.item}>
+                                <li key={index}>
                                     <div className="newsText">
                                         <Link href={`/newsDetails/` + news?._id}><a style={{wordWrap:'break-word'}}>{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a></Link>
                                         <p>
@@ -30,15 +30,12 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                     </div>
                                     
                                     { // show thmbnail with play icon if video news
-                                    //.NewsTiles .newBox .PlayTime
-                                    //.VideoTextBox .VideoNews .PlayTime
-                                        news?._source?.videoId ?
+                                     news?._source?.videoId ?
                                             <div className="NewsTiles">
                                                 <div className="newBox">
-                                                    <div className="NewsImage">
+                                                    <div className="newsImage">
                                                         <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newsimg.src} />
-                                                    </div>
-                                                    <div className="PlayTime">
+                                                        <div className="PlayTime">
                                                         <h5>05:21</h5>
                                                         <div className="btn-text">
                                                             <span>شاهد الآن</span>
@@ -51,6 +48,8 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                                             </Link>
                                                         </div>
                                                     </div>
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                                     

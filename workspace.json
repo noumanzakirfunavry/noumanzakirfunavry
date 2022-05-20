@@ -13,6 +13,7 @@
     "file-server": "libs/file-server",
     "frontend": "apps/frontend",
     "frontend-e2e": "apps/frontend-e2e",
+    "interceptors": "libs/interceptors",
     "mail": "libs/mail",
     "middleware": "libs/middleware",
     "middlewares": "libs/middlewares",

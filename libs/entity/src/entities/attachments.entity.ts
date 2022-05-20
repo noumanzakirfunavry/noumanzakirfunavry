@@ -10,6 +10,7 @@ import { MessageHasAttachments } from "./message.has.attachments.entity";
 import { Presenters } from "./presenters.entity";
 import { Programs } from "./programs.entity";
 import { News } from "./news.entity";
+import { DailymotionUploadRequests } from "./dailyMotion.upload.requests.entity";
 @Table({
   paranoid : true,
   timestamps : true
@@ -47,6 +48,9 @@ export class Attachments extends Model{
 
   @Column
   dailyMotionURL : string
+
+	@HasMany(() => DailymotionUploadRequests)
+  dailymotionUploadRequest : DailymotionUploadRequests[]
 
   @HasOne(() => AlexaAudio,'attachmentId')
   alexaAudio : AlexaAudio

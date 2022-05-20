@@ -49,20 +49,20 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
 
             let tagsList = []
             tagsList = tags && tags?.length && tags.map((tag) => {
-                return tag.title;
+                return tag?.title;
             });
 
             let quotesList = []
-            quotesList = quotes && quotes.length && quotes.map((quote) => {
-                return quote.name;
+            quotesList = quotes && quotes?.length && quotes.map((quote) => {
+                return quote?.quoteTitle;
             });
 
             //console.log('tagsList::::::::', tagsList);
             //console.log('quotesList::::::', quotesList);
 
             let searchObj = {};
-            searchObj = tagsList.length > 0 && {...searchObj, tags: tagsList} 
-            searchObj = quotesList.length > 0 && {...searchObj, quotes: quotesList} 
+            searchObj = tagsList?.length > 0 && {...searchObj, tags: tagsList} 
+            searchObj = quotesList?.length > 0 && {...searchObj, quotes: quotesList} 
 
             const _data = {
                 tags: tagsList,
@@ -72,8 +72,9 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
             //console.log('searchObj:::::', searchObj)
 
             GetData(`${requests.search}`, searchObj, 'post', false).then(res => {
-                    console.log('related news:::::::', res.data);
                     setRelatedNewsList(res?.data)
+
+                    //console.log('Related News::::', res?.data);
                 
                 }).catch(err=>{
                     console.warn(err)
@@ -98,7 +99,7 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
                                                     <div className="PlayTime">
                                                         <h5>05:21</h5>
                                                         <div className="btn-text">
-                                                            <Link href={`/newsDetails/`+news._id}>
+                                                            <Link href={`/videoNews/`+news._id}>
                                                                 <a>
                                                                     <button className="btn btn-warning VideoPlay">
                                                                         <i className="fa play_medium"></i>

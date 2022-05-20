@@ -18,6 +18,8 @@ export class AddJobComponent implements OnInit {
     jobId: any;
     jobById: any;
     allBranches: any;
+    loader= true;
+    isLoading= false;
     public Editor = ClassicEditor;
 
     constructor(private fb: FormBuilder, 
@@ -29,17 +31,26 @@ export class AddJobComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllBranches();
-        this.jobForm = this.fb.group({
-            title: [null, [Validators.required]],
-            branchId: [null, [Validators.required]],
-            description: [null, [Validators.required, Validators.maxLength(1500)]],
-            isActive: [false]
-          });
           this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
             this.jobId = + params.get('id');
             if (this.jobId) {
               this.getJobById();
             }
+            else {
+                this.initForm();
+                setTimeout(() => {
+                    this.loader=false
+                  }, 200);
+            }
+          });
+    }
+
+    initForm() {
+        this.jobForm = this.fb.group({
+            title: [null, [Validators.required]],
+            branchId: [null, [Validators.required]],
+            description: [null, [Validators.required]],
+            isActive: [false]
           });
     }
 
@@ -49,6 +60,10 @@ export class AddJobComponent implements OnInit {
             this.jobForm.controls[i].updateValueAndValidity();
         }
         if(this.jobForm.valid) {
+            this.isLoading= true;
+            setTimeout(() => {
+                this.isLoading= false;
+            }, 2000);
             const obj= this.jobForm.value;
             obj['departments']= [1,2,3];
             obj['totalOpenings']= 1;
@@ -90,9 +105,12 @@ export class AddJobComponent implements OnInit {
             this.jobForm = this.fb.group({
                 title: [this.jobById?.title || null, [Validators.required]],
                 branchId: [this.jobById?.branchId || null, [Validators.required]],
-                description: [this.jobById?.description || null, [Validators.required, Validators.maxLength(1500)]],
+                description: [this.jobById?.description || null, [Validators.required]],
                 isActive: [this.jobById?.isActive || false]
               });
+              setTimeout(() => {
+                this.loader=false
+              }, 200);
         })
     }
 

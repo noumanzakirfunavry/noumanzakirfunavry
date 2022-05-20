@@ -90,7 +90,12 @@ export class TrendingNowComponent implements OnInit{
     getAllTrendingNews() {
         this.apiService.sendRequest(requests.getAllTrendingNews, 'get').subscribe((res:any) => {
             this.allTrendingNow= res.response.trendingNews;
-            this.tNews = this.allTrendingNow && this.allTrendingNow.length > 0 ? this.allTrendingNow : this.tNews;
+            for(let i = 0; i < this.tNews.length; i++) {
+                const trNews= this.allTrendingNow.find(x => x.position == this.tNews[i].position)
+                if(trNews) {
+                    this.tNews[i] = trNews;
+                }
+            }
             console.log("ALL-TRENDING-NEWS", this.allTrendingNow);
             this.loading = false;
         }, err => {
@@ -109,6 +114,12 @@ export class TrendingNowComponent implements OnInit{
         }
         else if(this.tNews.some(x=>!x.newsId)){
             console.log('');
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.tNews[news] = tempNews;
+                this.tNews[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
         else {
             const tempNews = updatedNews;
@@ -121,10 +132,13 @@ export class TrendingNowComponent implements OnInit{
     }
 
     findDuplicates() {
-        const valueArr = this.tNews.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            return valueArr.indexOf(item) != idx
-        });
+        let isDuplicate=false;
+        this.tNews.forEach(x=>{
+            const duplicate=this.tNews.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
         console.log("DUPLICATE-NEWS", isDuplicate);
         return isDuplicate
     }
@@ -137,7 +151,8 @@ export class TrendingNowComponent implements OnInit{
                 this.message.create('error', 'Add all Trending News for Trending Section')
             }
             else {
-                this.apiService.sendRequest(requests.updateTrendingNews, 'put', { news: this.tNews }).subscribe((res:any) => {
+                const body = this.tNews.map(x=>{return {newsId: x.newsId, position: x.position, externalURL: x.externalURL}});
+                this.apiService.sendRequest(requests.updateTrendingNews, 'put', { news: body }).subscribe((res:any) => {
                     console.log("UPDATE-TRENDING-NOW", res);
                     this.getAllTrendingNews();
                     this.message.create('success', `Trending Now News Updated Successfully`);
@@ -146,11 +161,11 @@ export class TrendingNowComponent implements OnInit{
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
-        moveItemInArray(this.allTrendingNow, event.previousIndex, event.currentIndex);
-        for(let i = 0; i < this.allTrendingNow.length; i++) {
-            this.allTrendingNow[i].position= i + 1;
+        moveItemInArray(this.tNews, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.tNews.length; i++) {
+            this.tNews[i].position= i + 1;
         }
-        console.log("POS", this.allTrendingNow);
+        console.log("POS", this.tNews);
       }
 
     cancel() {

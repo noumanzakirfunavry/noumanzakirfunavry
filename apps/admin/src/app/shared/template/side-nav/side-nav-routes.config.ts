@@ -13,7 +13,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'News',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'file-text',
         submenu: [
             {
                 path: 'news/list',
@@ -78,7 +78,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Quick Links',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'link',
         submenu: []
     },
     {
@@ -86,7 +86,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Tags',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'tags',
         submenu: []
     },
     {
@@ -94,7 +94,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Infographics',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'info-circle',
         submenu: []
     },
     {
@@ -102,7 +102,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Programs',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'code',
         submenu: []
     },
     {
@@ -110,7 +110,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Episodes',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'play-circle',
         submenu: []
     },
     {
@@ -118,7 +118,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Categories',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'appstore',
         submenu: []
     },
     {
@@ -126,7 +126,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Careers',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'check-circle',
         submenu: []
     },
     {
@@ -134,7 +134,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Breaking News',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'file-text',
         submenu: []
     },
     {
@@ -150,7 +150,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Addresses',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'aim',
         submenu: []
     },
     {
@@ -158,7 +158,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Subscribers',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'bell',
         submenu: []
     },
     {
@@ -166,7 +166,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Pages',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'file',
         submenu: []
     },
     {
@@ -174,7 +174,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Menus',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'menu',
         submenu: []
     },
     {
@@ -182,7 +182,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Social Media',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'cluster',
         submenu: []
     },
     {
@@ -190,7 +190,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Announcements',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'sound',
         submenu: []
     },
     {
@@ -198,7 +198,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Banners',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'hdd',
         submenu: []
     },
     {
@@ -206,7 +206,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Live Stream',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'wifi',
         submenu: []
     },
     {
@@ -214,7 +214,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Message Inbox',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'mail',
         submenu: []
     },
     {
@@ -222,7 +222,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Admin Log History',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'user',
         submenu: []
     },
     {
@@ -230,23 +230,23 @@ export const ROUTES: SideNavInterface[] = [
         title: 'TV Schedule',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'play-square',
         submenu: []
     },
-    {
-        path: 'mediaUploader',
-        title: 'Media Uploader',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'dashboard',
-        submenu: []
-    },
+    // {
+    //     path: 'mediaUploader',
+    //     title: 'Media Uploader',
+    //     iconType: 'nzIcon',
+    //     iconTheme: 'outline',
+    //     icon: 'file-add',
+    //     submenu: []
+    // },
     {
         path: 'settings',
         title: 'Settings',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'setting',
         submenu: [
             {
                 path: 'settings/googleAnalytics',
@@ -271,7 +271,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Amazon Alexa',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'build',
         submenu: []
     },
     {
@@ -279,7 +279,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Admins',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'user',
         submenu: []
     }
    

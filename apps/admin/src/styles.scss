@@ -24,11 +24,11 @@
     }
 }
 .cdk-drop-list{
-    background: #f9fbfd;
+   
     left: 0;
     z-index: 1;
     right: 0;
-    padding: 20px;
+    // padding: 20px;
     td{
         &.ant-table-cell{
             margin-right: 10px;
@@ -36,7 +36,18 @@
     }
 }
 .sub_cat_block {
-    position: absolute;
+    // position: absolute;
+    // display: contents;
+    padding: 16px 16px 70px;
+    display: block;
+    table{
+        position: absolute;
+        background: #f9fbfd;
+        padding: 10px;
+    }
+   td.ant-table-cell{
+       padding-right: 20px;
+   }
 }
 .featured_news{
     thead.ant-table-thead{
@@ -45,17 +56,31 @@
     .ant-table table{
         padding: 20px;
         .ant-table-row{
+            .col-4.ant-table-cell{
+                .ant-form-item{
+                    margin-bottom: 0;
+                    min-width: 230px;
+                    .ant-select-single{
+                        width: 100% !important;
+                    }
+                    
+                }
+            }
             .ant-table-cell{
                 .ant-form-item{
                     margin-bottom: 0;
-                    min-width: 300px;
+                    min-width: 800px;
+                    max-width: 800px;
+                    .ant-select-single{
+                        width: 100% !important;
+                    }
                     
                 }
             }
             news-table-row{
                 display: inline-block;
                 .co.ant-table-cell{
-                    width: 300px;
+                    width: 230px;
                 }
                
             }
@@ -73,7 +98,7 @@
     .cdk-drag {
         td{
             &.ant-table-cell {
-                padding-right: 20px;
+                // padding-right: 20px;
             }
         }
     }
@@ -95,7 +120,7 @@ table tr td.ant-table-selection-column, table tr th.ant-table-selection-column{
 //     min-width: 150px;
 // }
 .ant-table thead > tr > th.title_col {
-    width: 250px;
+    width: 248px;
 }
 .ant-table thead > tr > th.w_50 {
     width: 50px;
@@ -111,10 +136,85 @@ table tr td.ant-table-selection-column, table tr th.ant-table-selection-column{
 .min_w150{
     min-width: 150px;
 }
+.ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+    min-width: 102px;
+}
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title{
+    font-size: 16px;
+}
+.ant-table{
+    overflow: auto;
+}
+.disable-div {
+    pointer-events: none;
+}
+.filter_bar {
+    border: solid 1px #edf2f9;
+    padding: 10px;
+    .ant-form-item {
+        margin-bottom: 0;
+    }
+    i{
+        border: solid 1px #edf2f9;
+        padding: 7px;
+    border-radius: 3px;
+    font-size: 18px;
+    cursor: pointer;
+    &:hover{
+        background-color: #edf2f9;
+    }
+    }
+    .ant-form-item-control-input-content{
+        display: flex;
+        align-items: center;
+        input{
+            padding-right: 30px;
+        }
+       
+        i {
+            height: 39px;
+            line-height: 24px;
+            border-left: 0;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            font-size: 14px;
+            padding-right: 10px;
+            position: absolute;
+            right: 1px;
+        }
+    }
+   
+}
 
 // mediaqueries
+@media (min-width:1441px) {
+    .ant-table thead > tr > th.title_col {
+        width: 750px;
+        max-width: 750px;
+    }
+}
 @media (min-width:1600px) {
     .ant-table thead > tr > th.title_col {
         width: 520px;
+        max-width: 520px;
     }
 }
+@media (max-width:1367px) {
+    .featured_news .ant-table table .ant-table-row .ant-table-cell .ant-form-item {
+        min-width: 568px;
+        max-width: 568px;
+    }
+}
+@media (max-width:1024px) {
+    .featured_news .ant-table table .ant-table-row .ant-table-cell .ant-form-item {
+        min-width: 390px;
+        max-width: 390px;
+    }
+}
+@media (max-width:768px) {
+    .featured_news .ant-table table .ant-table-row .ant-table-cell .ant-form-item {
+        min-width: 365px;
+        max-width: 365px;
+    }
+}
+

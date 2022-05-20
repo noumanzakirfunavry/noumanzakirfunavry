@@ -39,6 +39,7 @@ import { TrendingNewsProvider } from '../providers/trending.news.provider';
 import { MenusProvider } from '../providers/menus.provider';
 import { MarketsProvider } from '../providers/markets.provider';
 import { PagesProvider } from '../providers/pages.provider';
+import { DailymotionUploadRequestsProvider } from '../providers/dailyMotion.upload.requests.provider';
 import { ProgramsProvider } from '../providers/programs.provider';
 import { CommentsProvider } from '../providers/comments.provider';
 
@@ -85,8 +86,10 @@ import { CommentsProvider } from '../providers/comments.provider';
 		...MenusProvider,
 		...MarketsProvider,
 		...PagesProvider,
+		...DailymotionUploadRequestsProvider,
 		...ProgramsProvider,
-    ...CommentsProvider
+    ...CommentsProvider,
+		...ChangeLogsProvider
   ],
   exports: [
     ...UsersProvider,
@@ -129,8 +132,10 @@ import { CommentsProvider } from '../providers/comments.provider';
 		...MenusProvider,
 		...MarketsProvider,
 		...PagesProvider,
+		...DailymotionUploadRequestsProvider,
 		...ProgramsProvider,
-    ...CommentsProvider
+    ...CommentsProvider,
+		...ChangeLogsProvider
   ],
 })
 export class ProvidersModule {}

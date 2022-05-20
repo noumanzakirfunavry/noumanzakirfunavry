@@ -4,7 +4,7 @@ import { requests } from '../../shared/config/config';
 
 
 @Component({
-       selector: 'tiny-editor',
+    selector: 'tiny-editor',
     templateUrl: './tiny-editor.component.html',
     styles: [
         `
@@ -12,41 +12,59 @@ import { requests } from '../../shared/config/config';
             margin-right: 8px;
           }
         `
-      ]
+    ]
 })
 
-export class TinyEditorComponent implements OnInit{
+export class TinyEditorComponent implements OnInit {
     @Input() formField: FormGroup;
+    @Input() label = 'Content';
+    @Input() error = 'Enter Content!';
+    @Input() fieldName = 'content';
     isVisible = false;
     tinyConfig: any;
 
-    constructor(private zone: NgZone) {}
+    constructor(private zone: NgZone) { }
 
     ngOnInit(): void {
+        const useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
         let selfp = this;
         this.tinyConfig = {
-            apiKey:"pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4",
+            apiKey: "pl277auj2y5uqk3nkk28sz4d32vimlj6ezd5b6t6vee325u4",
             base_url: '/tinymce',
             suffix: '.min',
-            'plugins': [
-                'code print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons'
-                // "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-                // "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
-                // "table contextmenu directionality emoticons paste textcolor responsivefilemanager code",
-                // "advlist autolink lists link image charmap print preview anchor",
-                // "searchreplace visualblocks code fullscreen",
-                // "insertdatetime media table contextmenu paste qrcode youtube twitter"
-            ],
-            directionality : 'rtl',
-            toolbar: 'undo redo | code bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
-            // toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
-            'toolbar1' : "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect | fontselect | fontsizeselect",
-            'toolbar2' : "youtube twitter | responsivefilemanager | link image qrcode | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+            plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker imagetools textpattern noneditable help formatpainter permanentpen code pageembed charmap tinycomments mentions quickbars linkchecker emoticons advtable export',
+            directionality: 'rtl',
+            menubar: 'file edit view insert format custom tools table tc help',
+            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
             'image_advtab': true,
-            menu: {
-                custom: { title: 'Custom File Manager', items: 'myCustomMenuItem' }
+            mobile: {
+                plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker textpattern noneditable help formatpainter pageembed charmap mentions quickbars linkchecker emoticons advtable'
             },
-            menubar: 'file edit view insert table custom format tools',
+            menu: {
+                custom: { title: 'Custom File Manager', items: 'myCustomMenuItem' },
+                tc: {
+                    title: 'Comments',
+                    items: 'addcomment showcomments deleteallconversations'
+                }
+            },
+            skin: useDarkMode ? 'oxide-dark' : 'oxide',
+            content_css: useDarkMode ? 'dark' : 'default',
+            importcss_append: true,
+            images_upload_url: requests.addNewAttachment,
+            automatic_uploads: true,
+            template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+            template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+            height: 600,
+            image_caption: true,
+            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+            noneditable_noneditable_class: 'mceNonEditable',
+            toolbar_mode: 'sliding',
+            spellchecker_ignore_list: ['Ephox', 'Moxiecode'],
+            tinycomments_mode: 'embedded',
+            content_style: '.mymention{ color: gray; }',
+            contextmenu: 'link image imagetools table configurepermanentpen',
+            a11y_advanced_options: true,
+            // menubar: 'file edit view insert table custom format tools',
             setup: function (editor) {
                 let self = selfp;
                 editor.ui.registry.addMenuItem('myCustomMenuItem', {
@@ -59,8 +77,7 @@ export class TinyEditorComponent implements OnInit{
                         }).bind(this)
                 })
             },
-            images_upload_url: requests.addNewAttachment,
-            automatic_uploads: true,
+
             file_picker_callback: function (callback, value, meta) {
                 // Provide file and text for the link dialog
                 if (meta.filetype == 'file') {
@@ -82,21 +99,49 @@ export class TinyEditorComponent implements OnInit{
 
     toggleModal() {
         // setTimeout(() => {
-            this.zone.run(e=>{
-                this.isVisible = true
-            })
+        this.zone.run(e => {
+            this.isVisible = true
+        })
         // }, 400);
     }
 
     closeModal(data) {
-        this.isVisible=false
+        this.isVisible = false
     }
 
+    // fileFromModal(file) {
+    //     this.isVisible=false;
+    //     this.formField.patchValue({
+    //         content: this.formField.value.content ? this.formField.value.content+`<img src="${file.url}" width='100%' height='auto'>`:`<img src="${file.url}" width='100%' height='auto'>`,
+    //       });
+    // }
+
     fileFromModal(file) {
-        this.isVisible=false;
-        this.formField.patchValue({
-            content: this.formField.value.content ? this.formField.value.content+`<img src="${file.url}" width='100%' height='auto'>`:`<img src="${file.url}" width='100%' height='auto'>`,
-          });
+        this.isVisible = false;
+        if (file.attachmentType != 'VIDEO' && this.fieldName == 'content') {
+            this.formField.patchValue({
+                content: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] + `<img src="${file.url}">` : `<img src="${file.url}">`,
+            });
+        }
+        else if (file.attachmentType != 'VIDEO' && this.fieldName != 'content') {
+            this.formField.patchValue({
+                description: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] + `<img src="${file.url}">` : `<img src="${file.url}">`,
+            });
+        }
+        else if (file.attachmentType == 'VIDEO' && this.fieldName == 'content') {
+            this.formField.patchValue({
+                content: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] +
+                    `<video controls><source src="${file.url}" ></video>` :
+                    `<video controls><source src="${file.url}" ></video>`,
+            });
+        }
+        else if (file.attachmentType == 'VIDEO' && this.fieldName != 'content') {
+            this.formField.patchValue({
+                description: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] +
+                    `<video controls><source src="${file.url}" ></video>` :
+                    `<video controls><source src="${file.url}" ></video>`,
+            });
+        }
     }
 
 }    

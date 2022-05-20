@@ -14,7 +14,7 @@ export class CreateEpisodeRequestDto{
 
     @IsNotEmpty()
     @IsString()
-    description : string
+    content : string
 
     @IsNotEmpty()
     @IsBoolean()

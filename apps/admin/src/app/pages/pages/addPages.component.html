@@ -17,12 +17,9 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <nz-form-item>
-            <nz-form-label nzRequired>Description</nz-form-label>
-            <nz-form-control nzErrorTip="Enter Description maximum 1500 characters allowed!">
-              <ckeditor  formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
-            </nz-form-control>
-        </nz-form-item>
+          <tiny-editor [label]="'Content'" [error]="'Enter Content!'" [formField]="pagesForm"></tiny-editor>
+          <!-- <editor formControlName="content" [init]="tinyConfig"></editor>
+          <editor [config]="tinyConfig" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></editor> -->
         </div>
       </div>
       <div class="row">
@@ -115,28 +112,28 @@
               <div class="mb-4">
                 <h4 class="mb-2">SEO Settings</h4>
                 <nz-form-item>
-                    <nz-form-label nzRequired>Slug Line</nz-form-label>
+                    <nz-form-label >Slug Line</nz-form-label>
                     <nz-form-control nzErrorTip="Enter Slug Line maximum 250 characters allowed!">
                         <input type="text" formControlName="slugLine" placeholder="Enter Slug Line" dir="rtl"
                             nz-input>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label nzRequired>Title</nz-form-label>
+                    <nz-form-label >Title</nz-form-label>
                     <nz-form-control nzErrorTip="Enter Title between 3 to 250 characters!">
                         <input type="text" formControlName="seoTitle" placeholder="Enter Title" dir="rtl"
                             nz-input>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label nzRequired>Description</nz-form-label>
+                    <nz-form-label >Description</nz-form-label>
                     <nz-form-control nzErrorTip="Enter Description maximum 250 characters allowed!">
                         <textarea rows="4" formControlName="description" type="text"
                             placeholder="Enter Description" dir="rtl" nz-input></textarea>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label nzRequired>Keywords</nz-form-label>
+                    <nz-form-label >Keywords</nz-form-label>
                     <nz-form-control nzErrorTip="Enter Keywords!" nzExtra="Enter keywords seperated by a comma (,) .">
                         <input formControlName="keywords" type="text" placeholder="Enter Keywords" dir="rtl"
                             nz-input>

@@ -18,7 +18,7 @@ export class ExclusiveVideosService {
 			if (create_exclusive) {
 				ElkService.update({
 					id: body.newsId.toString(),
-					index: 'news',
+					index: process.env.ELK_INDEX,
 					doc: { isExclusiveVideos: true }
 				})
 				return new GenericResponseDto(
@@ -104,7 +104,7 @@ export class ExclusiveVideosService {
 							itemsToFlag.forEach(item => {
 								elkUpdateArray.push({
 									update: {
-										_index: 'news',
+										_index: process.env.ELK_INDEX,
 										_id: item,
 									}
 								},
@@ -119,7 +119,7 @@ export class ExclusiveVideosService {
 							itemsToDeflag.forEach(item => {
 								elkUpdateArray.push({
 									update: {
-										_index: 'news',
+										_index: process.env.ELK_INDEX,
 										_id: item,
 									}
 								},
@@ -222,7 +222,7 @@ export class ExclusiveVideosService {
 					const newsId = itemsBeforeDelete.find(item=> item.id == id)?.newsId
 					bulkUpdateArray.push({
 						update: {
-							_index: 'news',
+							_index: process.env.ELK_INDEX,
 							_id: newsId,
 						}
 					},

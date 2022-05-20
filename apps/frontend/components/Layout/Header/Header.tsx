@@ -27,6 +27,7 @@ const Header = () =>{
     const router = useRouter()
     const [moreMenuItems, setMoreMenuItems] = useState<any>([])  //[{title:'مذيعو ومراسلو', url:'/presenters'}, {title:'أحدث مقاطع الفيديو', url:'/latestVideos'}, {title:'إنفوغرافيك', url:'/infographics'},{title:'جدول البرامج', url:'/schedules'}, {title:'آخر الأخبار', url:'/latestNews'},{title:'أخبار عاجلة', url:'/breakingNews'}]
     const [newsCategoriesList, setNewsCategoriesList] = useState<CategoryProps[]>([])
+    const [programsList, setProgramsList] = useState<any>([])
 
     // news search data
     const [newsSearchData, setNewsSearchData] = useState<any>([])
@@ -58,7 +59,7 @@ const Header = () =>{
         // get categories list to show in sub menu
         GetData(`${requests.categories}/getAll?limit=${params.limit}&pageNo=${params.pageNo}&displayInCategoryMenu=true`, {}, 'get', false).then(res=>{
 
-            const newsCategories = res.data?.response?.categories && res.data?.response?.categories.length ? res.data.response.categories : []
+            const newsCategories = res.data?.response?.categories && res.data?.response?.categories?.length ? res.data.response.categories : []
             setNewsCategoriesList(newsCategories);
 
         }).catch(err=>{
@@ -68,16 +69,29 @@ const Header = () =>{
         //get all menus
         getAllMenus()
 
+        //get all programs
+        getAllPrograms()
+
         //return () => {
         //    document.removeEventListener("mousedown", handleClickOutside);
        // }
     },[])
 
     const getAllMenus = () =>{
-        GetData(`${requests.moreMenus}getAll?limit=50&pageNo=1`, {}, 'get', false).then(res=>{
+        GetData(`${requests.moreMenus}getAll?position=HEADER&limit=50&pageNo=1`, {}, 'get', false).then(res=>{
 
             //console.log('Menus::::::::::', res?.data?.response);
             setMoreMenuItems(res?.data?.response);
+
+        }).catch(err=>{
+            console.warn(err)
+        })
+    }
+
+    const getAllPrograms = () =>{
+        GetData(`${requests.programs}`, {}, 'get', false).then(res=>{
+            //console.log('Programs:::::::::::::', res?.data?.response?.programs);
+            setProgramsList(res?.data?.response?.programs);
 
         }).catch(err=>{
             console.warn(err)
@@ -99,14 +113,13 @@ const Header = () =>{
 
         setdisplaySearchDropDown(true)
         setSearchVal(event.target.value)
-        getData(event.target.value).then((res)=>{
-            setData(res)
-        }).catch(err=>{
-            console.warn(err)
-        })
+
+        if(event.target.value){
+            setSearchData(event.target.value)
+        }
 
     }
-
+ 
     const clearSearchBox = () => {
         setdisplaySearchDropDown(false)
         setSearchVal('')
@@ -128,20 +141,18 @@ const Header = () =>{
        index === 4 && clearSearchBox()
     }
     
-    const getData = async (value:string): Promise<any> => {
+    const setSearchData = (value:string) => {
         //!value ? {}:
         //fetch data and return
           
-
-        GetData(`http://157.90.67.186/zagTrader/api/TickerSearchAPIFull.php?st=test`, {}, 'get', false).then(res=>{
-
-            console.log('zagtrader::::::::', res);
-        
-        }).catch(err=>{
-            console.warn(err)
-        })
-
         if(value){
+            GetData(`https://cnbc-config.cnbcarabia.com/zagTrader/api/TickerSearchAPIFull.php?st=${value}`, {}, 'get', false).then(res=>{
+                setData(res?.data);
+                console.log('zagtrader::::::::', res);
+            }).catch(err=>{
+                console.warn(err)
+            })
+
             GetData(`${requests.search}`, {
                     searchTerm: `${value}`
                 }, 'post', false).then(res=>{
@@ -154,7 +165,7 @@ const Header = () =>{
         }
   
 
-        const data = {
+        /*const data = {
             "16449": {
                 "MarketID": "105",
                 "PriceDecimal": 2,
@@ -232,7 +243,7 @@ const Header = () =>{
              },
 
         }
-        return data
+        return data*/
     }
 
 
@@ -270,11 +281,15 @@ const Header = () =>{
                                                     <Link href="/"><a className="nav-link active" aria-current="page">الرئيسية</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
+                                                <li className="nav-item" key={'654564ytf7653'}>
+                                                    <Link href="/latestVideos"><a className="nav-link active" aria-current="page">فيديو CNBC عربية</a></Link>
+                                                    <div className="nav-menu-navUnderline"></div>
+                                                </li>
                                                 {/* <li className="nav-item" key={'2'}>
                                                     <Link href="/videoNews"><a className="nav-link">الفيديو</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li> */}
-                                                <li className="nav-item dropdown" key={'98788'}>
+                                                {/*<li className="nav-item dropdown" key={'98788'}>
                                                     <a className="nav-link dropdown-toggle" href="#" id="morePrograms" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
@@ -366,7 +381,24 @@ const Header = () =>{
                                                         </li>
                                                         <li key={'31'}>
                                                             <a className="dropdown-item" href="/program/84/خبر خام">خبر خام</a>
-                                                        </li> */}
+                                                        </li> 
+                                                    </ul>
+                                                </li>*/}
+
+                                                <li className="nav-item dropdown" key={'654564ytf7654'}>
+                                                    <a className="nav-link dropdown-toggle" href="#" id="morePrograms" role="button" data-bs-toggle="dropdown" aria-expanded="false" >برامج CNBC عربية
+                                                    </a>
+                                                    <div className="nav-menu-navUnderline"></div>
+                                                    <ul className="dropdown-menu" aria-labelledby="morePrograms">
+                                                    { // show programs in sub menu
+                                                        programsList?.length && programsList.map((item: any, index: number)=>{
+                                                            return(
+                                                                <li className="nav-item" key={index}> 
+                                                                    <Link href={`/programs/${item.id}`}><a className="nav-link active" aria-current="page">{item.title}</a></Link>
+                                                                </li>
+                                                            )
+                                                        })
+                                                    }
                                                     </ul>
                                                 </li>
                                                 <li className="nav-item dropdown" key={'654564ytf7655'}>
@@ -375,9 +407,9 @@ const Header = () =>{
                                                     <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="moreCategories">
                                                     { // show categories in sub menu
-                                                        newsCategoriesList.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
+                                                        newsCategoriesList?.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
                                                             return(
-                                                                <li className="nav-item" key={item.id}> 
+                                                                <li className="nav-item" key={index}> 
                                                                     <Link href={`/categoryNewsTiles/${item.id}`}><a className="nav-link active" aria-current="page">{item.title}</a></Link>
                                                                 </li>
                                                             )
@@ -421,7 +453,7 @@ const Header = () =>{
                                                 }
                                                 
                                                 <li className="nav-item dropdown" key={'654564ytf7656'}>
-                                                    <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
+                                                    <a className="nav-link dropdown-toggle" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
                                                     {
@@ -434,13 +466,13 @@ const Header = () =>{
                                                                             <>
                                                                             {
                                                                                 menuItem?.childMenus?.length === 0 ?
-                                                                                <li className="nav-item" key={menuItem.title}>
+                                                                                <li className="nav-item" key={index}>
                                                                                     <Link href={menuItem.url}><a className="nav-link" >{menuItem.title}</a></Link>
                                                                                 </li>
 
                                                                                 : 
 
-                                                                                <li className='sb_hover' key={menuItem.title}>
+                                                                                <li className='sb_hover' key={index}>
                                                                                     <Link href={menuItem.url}><a className="dropdown-item"> {menuItem.title}<i className='fa fa-angle-left me-2'></i> </a></Link>
                                                                                     {menuItem.childMenus?.length > 0 && 
                                                                                         <ul className="dropdown-menu dropdown-submenu" aria-labelledby="morePrograms">

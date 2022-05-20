@@ -30,6 +30,8 @@ export class AddPresentersComponent implements OnInit{
     uploadProgress: number;
     imageId: any;
     imagePath: any;
+    loader= true;
+    isLoading= false;
 
   
     constructor(private fb: FormBuilder, 
@@ -39,6 +41,21 @@ export class AddPresentersComponent implements OnInit{
       private message: NzMessageService) {}
   
     ngOnInit(): void {
+      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+        this.presenterId = + params.get('id');
+        if (this.presenterId) {
+          this.getPresenterById();
+        }
+        else {
+          this.initForm();
+          setTimeout(() => {
+            this.loader=false
+          }, 200);
+        }
+      });
+    }
+
+    initForm() {
       this.presenterForm = this.fb.group({
         name: [null, [Validators.required]],
         jobPosition: [null, [Validators.required]],
@@ -46,19 +63,13 @@ export class AddPresentersComponent implements OnInit{
         gender: [null, [Validators.required]],
         dob: [null, [Validators.required]],
         joinedNetworkOn: [null, [Validators.required]],
-        description: [null],
+        description: [null, [Validators.required]],
         attachmentsId: [null, [Validators.required]],
         twitterLink: [null, [Validators.required]],
         facebookLink: [null, [Validators.required]],
         instagramLink: [null, [Validators.required]],
         linkedInLink: [null, [Validators.required]],
         isActive: [false]
-      });
-      this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
-        this.presenterId = + params.get('id');
-        if (this.presenterId) {
-          this.getPresenterById();
-        }
       });
     }
 
@@ -87,6 +98,10 @@ export class AddPresentersComponent implements OnInit{
         this.presenterForm.controls[i].updateValueAndValidity();
       }   
       if(this.presenterForm.valid) {
+        this.isLoading= true;
+        setTimeout(() => {
+          this.isLoading= false;
+        }, 2000);
       const obj= this.presenterForm.value;
       obj['age']= parseInt(this.presenterForm.value.age);
       obj['attachmentsId']= this.imageId;
@@ -115,7 +130,7 @@ export class AddPresentersComponent implements OnInit{
           gender: [this.presenterById?.gender || null, [Validators.required]],
           dob: [this.presenterById?.dob || null, [Validators.required]],
           joinedNetworkOn: [this.presenterById?.joinedNetworkOn || null, [Validators.required]],
-          description: [this.presenterById?.description || null],
+          description: [this.presenterById?.description || null, [Validators.required]],
           attachmentsId: [this.presenterById?.attachmentsId || null, [Validators.required]],
           twitterLink: [this.presenterById?.twitterLink || null, [Validators.required]],
           facebookLink: [this.presenterById?.facebookLink || null, [Validators.required]],
@@ -123,6 +138,9 @@ export class AddPresentersComponent implements OnInit{
           linkedInLink: [this.presenterById?.linkedInLink || null, [Validators.required]],
           isActive: [this.presenterById?.isActive || false]
         });
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
       })
     }
 

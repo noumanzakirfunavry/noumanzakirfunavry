@@ -3,23 +3,22 @@ import { SeoModal } from "./seo.modal";
 export class EpisodesModel {
     title: string;
     programId: number;
-    description: string;
+    content: string;
     isActive: boolean;
     seoDetails: SeoModal;
     seoDetailId: number;
 
     videoId : number
-    thumbnailFile:File;
     thumbnailId : number;
-    thumbanailUrl:string;
     mainFile: any;
+    thumbnailFile:File;
     videoUrl:string;
     thumbnailUrl:string;
 
     constructor() {
         this.title = ""
         this.programId= null
-        this.description = ""
+        this.content = ""
         this.isActive = false
         this.seoDetails = new SeoModal();
         this.seoDetailId = null
@@ -28,7 +27,7 @@ export class EpisodesModel {
     populateFromServerModal(serverEpisodes: any) {
         this.title=serverEpisodes.title
         this.programId=serverEpisodes.programId
-        this.description=serverEpisodes.description
+        this.content=serverEpisodes.content
         this.isActive=serverEpisodes.isActive
         this.seoDetails=serverEpisodes.seoDetail
         this.seoDetailId=serverEpisodes.seoDetailId;
@@ -46,7 +45,7 @@ export class EpisodesModel {
             airedOn: form.airedOn,
             title: form.title,
             programId: form.programId,
-            description: form.description,
+            content: form.content,
             isActive: form.isActive || false,
             videoId:this.videoId,
             ...(this.videoId ? {videoId:this.videoId}:null),

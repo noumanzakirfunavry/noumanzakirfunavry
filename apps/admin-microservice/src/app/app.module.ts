@@ -30,6 +30,7 @@ import {ElkModule} from '@cnbc-monorepo/elk'
 import { PagesModule } from './pages/pages.module';
 import { ProgramsModule } from './programs/programs.module';
 import { CommentsModule } from './comments/comments.module';
+import { LogsModule } from './logs/logs.module';
 @Module({
   imports: [
     EntityModule,
@@ -61,7 +62,8 @@ import { CommentsModule } from './comments/comments.module';
     ElkModule,
     PagesModule,
     ProgramsModule,
-    CommentsModule
+    CommentsModule,
+    LogsModule
   ]
 })
 export class AppModule { }

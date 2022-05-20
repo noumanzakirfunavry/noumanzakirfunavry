@@ -6,8 +6,8 @@
         <h4>{{title}}</h4>
     </nz-form-label>    
     <nz-form-control nzErrorTip="Choose File!">
-       <nz-form-label>{{field.label}}</nz-form-label>
-        <input #imageSelector (change)="fileRead($event)" [formControlName]="field.colName" type="file" accept="{{fileTypes}}"  />
+       <nz-form-label>{{field.label}}</nz-form-label><br>
+        <span nz-typography nzType="secondary">Step 1 :</span> <input [ngClass]="!(field && field.showDelBtn) && (!uploadProgress || uploadProgress===100) ? '' : 'disable-div'" #imageSelector (change)="fileRead($event)" [formControlName]="field.colName" type="file" accept="{{fileTypes}}"  />
         <span *ngIf="uploadProgress && uploadProgress<100" class="ml-4 mt-1">File Uploading Progress
           :{{uploadProgress}}%</span>
         <!-- <span>Maximum file size 2MB</span> -->
@@ -25,9 +25,9 @@
 </div> -->
 <br>
 
-<div class="mb-2" *ngIf="field.value && !uploadProgress" style="color: Crimson;">Click to Upload File!</div>
-  <i nz-tooltip nzTooltipTitle="Upload" class="mr-4 mb-2" *ngIf="field.value && uploadProgress!==100" style="cursor: pointer; font-size: 18px;" nz-icon nzType="upload" nzTheme="outline" (click)="[getCaptcha($event),uploadFile()]"></i>
-  <i nz-tooltip nzTooltipTitle="Delete" class="mb-2" *ngIf="(mediaObj && mediaObj.name)" style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i>
-<div *ngIf="error">
+<div class="mb-2" *ngIf="field.value && !uploadProgress"><span nz-typography nzType="secondary">Step 2 :</span><br>Click to Upload File!</div>
+  <i nz-tooltip nzTooltipTitle="Upload" class="mr-4 mb-2" *ngIf="field?.value && !uploadProgress" style="cursor: pointer; font-size: 18px;" nz-icon nzType="upload" nzTheme="outline" (click)="[getCaptcha($event),uploadFile()]"></i>
+  <i nz-tooltip nzTooltipTitle="Delete" class="mb-2" *ngIf="(field && field.showDelBtn) && (!uploadProgress || uploadProgress===100)" style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i>
+  <div *ngIf="error">
     <span class="text-danger">{{error}}</span>
 </div>

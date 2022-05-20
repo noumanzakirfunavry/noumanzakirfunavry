@@ -1,7 +1,7 @@
 <section>
   <br>
   <br>
-  <div class="col-12">
+  <div *ngIf="!loader" class="col-12">
     <form [formGroup]="menuForm" nz-form [nzLayout]="'vertical'" (ngSubmit)="menus()">
       <div class="row">
         <div class="col-6">
@@ -36,7 +36,8 @@
           <div class="col-md-12">
             <nz-form-item>
               <nz-form-label nzRequired>Link </nz-form-label>
-              <nz-form-control nzErrorTip="Enter valid URL!">
+              <nz-form-control nzErrorTip="Enter valid URL!"
+                  nzExtra="URL format: e.g. https://cnbcarabia.com">
                 <input formControlName="url" type="text" nz-input placeholder="Enter URL">
               </nz-form-control>
             </nz-form-item>
@@ -51,8 +52,8 @@
           <div class="col-md-12">
             <nz-form-item>
               <nz-form-control>
-                <button *ngIf="!menuId" class="mr-3" nz-button nzType="primary">Save</button>
-                <button *ngIf="menuId" class="mr-3" nz-button nzType="primary">Update</button>
+                <button *ngIf="!menuId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Save</button>
+                <button *ngIf="menuId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Update</button>
                 <button nz-button nzType="default" (click)="cancel()">Cancel</button>
               </nz-form-control>
             </nz-form-item>

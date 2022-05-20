@@ -1,15 +1,17 @@
-import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto } from '@cnbc-monorepo/dtos';
-import { Rights, Roles, Users } from '@cnbc-monorepo/entity';
+import { DeletePresentersRequestDto, GenericResponseDto, GetAdminByIdResponseDto, GetAllAdminsRequestDto, GetAllAdminsResponseDto, GetAllSessionsRequestDto } from '@cnbc-monorepo/dtos';
+import { Rights, Roles, Sessions, Users } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
-import { Helper } from '@cnbc-monorepo/utility';
+import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 
 @Injectable()
 export class AdminService {
 	constructor(
 		@Inject('USERS_REPOSITORY')
 		private usersRepository: typeof Users,
+		@Inject('SESSIONS_REPOSITORY')
+		private sessionRepository: typeof Sessions,
 		private helperService: Helper
 	) { }
 	async getUserById(id: number): Promise<GetAdminByIdResponseDto> {
@@ -129,4 +131,36 @@ export class AdminService {
 		});
 		return delete_user;
 	}
+
+	async getAllSessions(getAllSessionsRequestDto: GetAllSessionsRequestDto) {
+		const res = await this.sessionRepository.findAndCountAll({
+			where: {
+				...(getAllSessionsRequestDto.userId && {
+					usersId: getAllSessionsRequestDto.userId
+				}),
+				...(getAllSessionsRequestDto.date && {
+					createdAt: where(sequelize.fn('date', sequelize.col('Sessions.createdAt')), '=', getAllSessionsRequestDto.date)
+				}),
+			},
+			include: {
+				model: Users.scope('basicScope'),
+				paranoid: false
+			},
+			limit: getAllSessionsRequestDto.limit,
+			offset: this.helperService.offsetCalculator(getAllSessionsRequestDto.pageNo, getAllSessionsRequestDto.limit)
+		})
+
+		if (res.count === 0) {
+			throw new CustomException(
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+				Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+			)
+		}
+
+		return new GenericResponseDto(HttpStatus.OK, 'Request Successful', {
+			sessions: res.rows,
+			totalCount: res.count,
+		})
+	}
+
 }

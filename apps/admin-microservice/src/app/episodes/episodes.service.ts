@@ -3,7 +3,7 @@ import { Attachments, Episodes, EpisodesHasQuotes, EpisodesHasTags, SeoDetails }
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 
 @Injectable()
 export class EpisodesService {
@@ -179,9 +179,11 @@ export class EpisodesService {
 				where: {
 						id,
 						isActive: true
-				}
+				},
+				include: ['seoDetails', 'thumbnail', 'program', 'video']
 		});
 			if (response) {
+				this.episodeRepository.update({ views: response.views + 1 }, { where: { id } })
 				return new GenericResponseDto(
 					HttpStatus.OK,
 					"Fetched successfully",
@@ -215,11 +217,33 @@ export class EpisodesService {
         }
     }
 
-		async getAllEpisodesClient() {
+		async getAllEpisodesClient(getAllEpisodesDto: GetAllEpisodesRequestDto) {
 			const response = await this.episodeRepository.findAndCountAll({
 				where: {
+					...(getAllEpisodesDto.search && {
+						title: {
+							[Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(getAllEpisodesDto.search)}%`
+						}
+					}),
+					...(getAllEpisodesDto.isActive && {
+						isActive: JSON.parse(getAllEpisodesDto.isActive.toString())
+					}),
+					...(getAllEpisodesDto.date && {
+						airedOn: where(sequelize.fn('date', sequelize.col('Episodes.airedOn')), '=', getAllEpisodesDto.date)
+					}),
+					...(getAllEpisodesDto.programId && {
+						programId: getAllEpisodesDto.programId
+					}),
+					...(getAllEpisodesDto.publishedBy &&
+					{
+						publishedBy: getAllEpisodesDto.publishedBy
+					}),
+
 					isActive: true
-				}
+				},
+				include: ['seoDetails', 'thumbnail', 'program', 'video'],
+				limit: getAllEpisodesDto.limit,
+				offset: this.helperService.offsetCalculator(getAllEpisodesDto.pageNo, getAllEpisodesDto.limit)
 			});
 
 			if (response.count === 0) {
@@ -252,7 +276,7 @@ export class EpisodesService {
                         isActive: JSON.parse(query.isActive.toString())
                     }),
                     ...(query.date && {
-                        airedOn: query.date
+                        airedOn: where(sequelize.fn('date', sequelize.col('Episodes.airedOn')), '=', query.date)
                     }),
                     ...(query.programId && {
                         programId: query.programId
@@ -341,7 +365,7 @@ export class EpisodesService {
         return response === 0 ? true : response
     }
 
-    private async updateEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; description: string; isActive: boolean; }, id: number) {
+    private async updateEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; content: string; isActive: boolean; }, id: number) {
         return await this.episodeRepository.update(episode_object, {
             where: {
                 id: id
@@ -357,7 +381,7 @@ export class EpisodesService {
         });
     }
 
-    private async addEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; description: string; isActive: boolean; }, transactionHost) {
+    private async addEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; content: string; isActive: boolean; }, transactionHost) {
         return await this.episodeRepository.create(episode_object, { transaction: transactionHost.transaction });
     }
 

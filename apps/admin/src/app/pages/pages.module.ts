@@ -13,6 +13,7 @@ import { DemoComponentsShareModule } from '../demo-components-share/demo-compone
 import { AddPagesComponent } from './pages/addPages.component';
 import { PagesComponent } from './pages.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { TinyEditorModule } from '../modules/tiny-editor/tiny-editor.module';
 
 
 
@@ -28,7 +29,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
         CKEditorModule,
         QuillModule.forRoot(),
         NzUploadModule,
-        NzPaginationModule
+        NzPaginationModule,
+        TinyEditorModule
     ],
     exports: [],
     declarations: [

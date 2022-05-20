@@ -8,10 +8,9 @@ export class ProgramsModel {
     seoDetailId: number;
 
     promoId : number
-    thumbnailFile:File;
     thumbnailId : number;
-    thumbanailUrl:string;
     mainFile: any;
+    thumbnailFile:File;
     videoUrl:string;
     thumbnailUrl:string;
 

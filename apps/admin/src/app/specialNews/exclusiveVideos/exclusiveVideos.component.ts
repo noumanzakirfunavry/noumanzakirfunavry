@@ -94,7 +94,12 @@ export class ExclusiveVideosComponent implements OnInit{
     getAllExclusiveVideos() {
         this.apiService.sendRequest(requests.getAllExclusiveVideos, 'get').subscribe((res:any) => {
             this.allExclusiveVideos= res.response.exclusiveVideos;
-            this.exclusiveVideos = this.allExclusiveVideos && this.allExclusiveVideos.length > 0 ? this.allExclusiveVideos : this.exclusiveVideos;
+            for(let i = 0; i < this.exclusiveVideos.length; i++) {
+                const evNews= this.allExclusiveVideos.find(x => x.position == this.exclusiveVideos[i].position)
+                if(evNews) {
+                    this.exclusiveVideos[i] = evNews;
+                }
+            }
             console.log("ALL-EXCLUSIVE-VIDEOS", this.allExclusiveVideos);
             this.loading = false;
         }, err => {
@@ -113,6 +118,12 @@ export class ExclusiveVideosComponent implements OnInit{
         }
         else if(this.exclusiveVideos.some(x=>!x.newsId)){
             console.log('');
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.exclusiveVideos[news] = tempNews;
+                this.exclusiveVideos[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
         else {
             const tempNews = updatedNews;
@@ -125,10 +136,13 @@ export class ExclusiveVideosComponent implements OnInit{
     }
 
     findDuplicates() {
-        const valueArr = this.exclusiveVideos.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            return valueArr.indexOf(item) != idx
-        });
+        let isDuplicate=false;
+        this.exclusiveVideos.forEach(x=>{
+            const duplicate=this.exclusiveVideos.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
         console.log("DUPLICATE-NEWS", isDuplicate);
         return isDuplicate
     }
@@ -141,7 +155,8 @@ export class ExclusiveVideosComponent implements OnInit{
             this.message.create('error', 'Add all Exclusive Video News for Exclusive Video Section')
         }
         else {
-            this.apiService.sendRequest(requests.updateExclusiveVideos, 'put', { exclusiveVideos: this.exclusiveVideos }).subscribe((res:any) => {
+            const body = this.exclusiveVideos.map(x=>{return {newsId: x.newsId, position: x.position, title: x.title, description: x.description}});
+            this.apiService.sendRequest(requests.updateExclusiveVideos, 'put', { exclusiveVideos: body }).subscribe((res:any) => {
                 console.log("UPDATE-EXCLUSIVE-VIDEOS", res);
                 this.getAllExclusiveVideos();
                 this.message.create('success', `Exclusive Videos Updated Successfully`);
@@ -150,12 +165,12 @@ export class ExclusiveVideosComponent implements OnInit{
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
-        moveItemInArray(this.allExclusiveVideos, event.previousIndex, event.currentIndex);
-        for(let i = 0; i < this.allExclusiveVideos.length; i++) {
-            this.allExclusiveVideos[i].position= i + 1;
+        moveItemInArray(this.exclusiveVideos, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.exclusiveVideos.length; i++) {
+            this.exclusiveVideos[i].position= i + 1;
         }
-        console.log("POS", this.allExclusiveVideos);
-      }
+        console.log("POS", this.exclusiveVideos);
+    }
 
     cancel() {
         this.route.navigateByUrl('dashboard')

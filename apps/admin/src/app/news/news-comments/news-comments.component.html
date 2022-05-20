@@ -1,0 +1,33 @@
+<nz-card class="bg-white mt-2">
+    <!-- <div class="m-t-40"> -->
+    <h4>{{totalCount}} Comments</h4>
+    <!-- [nzPagination]="pagination" -->
+    <nz-list class="scroll" [nzDataSource]="commentListData" [nzRenderItem]="comment" [nzItemLayout]="'vertical'">
+        <ng-template #comment let-item>
+            <!-- [nzActions]="[action]" -->
+            <nz-list-item class="d-block " [nzContent]="item.comment">
+                <!-- [nzAvatar]="item.img" -->
+                <nz-list-item-meta [nzTitle]="commentTitle" [nzDescription]="item.createdAt | date:'medium'">
+                    <ng-template #commentTitle>
+                        <a class="font-size-15" href="">{{item.user.name}}</a>
+                    </ng-template>
+                </nz-list-item-meta>
+            </nz-list-item>
+        </ng-template>
+        <form  [formGroup]="commentForm" (ngSubmit)="addComment()">
+            <nz-form-item>
+                <!-- <nz-form-label>Comment</nz-form-label> -->
+                <nz-form-control nzErrorTip="Enter valid comment">
+                    <textarea  type="text" formControlName="comment" dir="rtl" style="min-height:150px;"  placeholder="Write a comment..."
+                        nz-input></textarea>
+                </nz-form-control>
+                </nz-form-item>
+                <button class="mr-3" style="position: absolute; right: 0px;bottom:10px" nz-button
+                    nzType="primary" (click)="[getCaptcha($event), addComment()]">Add Comment</button>
+        </form>
+        <!-- <ng-template #pagination>
+<nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+</ng-template> -->
+    </nz-list>
+    <!-- </div> -->
+</nz-card>

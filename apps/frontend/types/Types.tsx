@@ -121,7 +121,6 @@ export type CategoryProps = {
     user: any
 }
 
-
 export type subCategoryProps = {
     subCategoryId: number | null,
     title: string | null
@@ -131,5 +130,11 @@ export type CategoryMainProps = {
     id: number | string | string [],
     title: string,
     subCategory: subCategoryProps[]
+}
+
+export type MenuProps = {
+    id: number,
+    title: string,
+    url: string
 }
 
