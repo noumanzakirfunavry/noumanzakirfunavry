@@ -23,7 +23,9 @@ id : number
 @Column
 title : string
 
-@Column
+@Column({
+	type: DataType.TEXT
+})
 description : string
 
 @Column({

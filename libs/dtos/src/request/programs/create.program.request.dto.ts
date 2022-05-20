@@ -15,7 +15,7 @@ export class CreateProgramRequestDto {
 
 	@IsString()
 	@IsNotEmpty()
-	@MaxLength(1500)
+	// @MaxLength(1500)
 	content: string
 
 	@IsNumber()

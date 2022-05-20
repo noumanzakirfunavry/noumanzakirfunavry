@@ -121,6 +121,7 @@ export class CategoriesService {
 					//     ...where,
 					// }
 				}],
+				order: [['updatedAt', 'DESC']],
 				where: { ...where, parentCategoryId: null },
 				limit,
 				offset
