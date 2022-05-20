@@ -119,7 +119,7 @@ const HorizontalMediaScrollBar:FC = () =>{
             {  
                editorChoiceNewsList?.length && editorChoiceNewsList.map((item: any, index: number)=>{
                     const backgroundImagePath = item?._source?.videoId ?item?._source?.thumbnail?.path : item?._source?.image?.path
-                
+                    const newsPage = item?._source?.isPro ? 'proNews' : 'newsDetails';
                      return(
                         <div className="slider-item" key={index}>
                             <div className="NewsBox VideoNews" style={{background: `url(${baseUrlAdmin+encodeURIComponent(backgroundImagePath)}) no-repeat`}}>
@@ -128,7 +128,7 @@ const HorizontalMediaScrollBar:FC = () =>{
                                         <h5>05:21</h5>
                                             <div className="btn-text">
                                                 <span>شاهد الآن</span>
-                                                <Link href={`/newsDetails/` + item._id}>
+                                                <Link href={`/${newsPage}/` + item._id}>
                                                     <a>
                                                         <button className="btn btn-warning VideoPlay">
                                                             <i className="fa play_small"></i>
@@ -139,7 +139,7 @@ const HorizontalMediaScrollBar:FC = () =>{
                                     </div>
                                 }
                                 <div className="newscontent">
-                                    <h3><Link href={`/newsDetails/` + item._id}><a >{item?._source?.title}</a></Link></h3>
+                                    <h3><Link href={`/${newsPage}/` + item._id}><a >{item?._source?.title}</a></Link></h3>
                                 </div>
                             </div>
                         </div>                            
