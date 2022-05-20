@@ -72,6 +72,11 @@ export class ApiService {
     formData.append("title", file.name);
     formData.append("description", description || 'test description');
     formData.append("attachmentType", file.name.match(/\.(jpg|jpeg|png|gif)$/) ? 'IMAGE':'VIDEO');
+    formData.append("tags", 'news');
+    formData.append("channel", description || 'news');
+    formData.append("toBePublished", 'false');
+    formData.append("toBePrivate", 'false');
+    formData.append("isCreatedForKids", 'false');
     // if (recorded) {
     //   formData.append("recorded", recorded);
     // }
