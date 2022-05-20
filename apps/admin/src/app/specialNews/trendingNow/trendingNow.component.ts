@@ -132,11 +132,13 @@ export class TrendingNowComponent implements OnInit{
     }
 
     findDuplicates() {
-        const valueArr = this.tNews.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            console.log("VAL",valueArr.indexOf(item));
-            return valueArr.indexOf(item) != idx
-        });
+        let isDuplicate=false;
+        this.tNews.forEach(x=>{
+            const duplicate=this.tNews.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
         console.log("DUPLICATE-NEWS", isDuplicate);
         return isDuplicate
     }
@@ -159,11 +161,11 @@ export class TrendingNowComponent implements OnInit{
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
-        moveItemInArray(this.allTrendingNow, event.previousIndex, event.currentIndex);
-        for(let i = 0; i < this.allTrendingNow.length; i++) {
-            this.allTrendingNow[i].position= i + 1;
+        moveItemInArray(this.tNews, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.tNews.length; i++) {
+            this.tNews[i].position= i + 1;
         }
-        console.log("POS", this.allTrendingNow);
+        console.log("POS", this.tNews);
       }
 
     cancel() {
