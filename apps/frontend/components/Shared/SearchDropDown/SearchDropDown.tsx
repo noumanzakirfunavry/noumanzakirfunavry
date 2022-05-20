@@ -13,19 +13,35 @@ import { GetArabicFormattedDate } from '../../../services/Util';
 
 
 const SearchDropDown:FC<any> = ({data, newsSearchData, searchVal, handleNavigation, clearSearchBox}) => {
-
+    const router = useRouter();
     const keys = data ? Object.keys(data) : []
 
     const searchBox = useRef(null);
     useOutsideClickHandler(searchBox, clearSearchBox)
-    
 
-    console.log("Search Dropdown:::::", newsSearchData)
+    useEffect(() => {
+        document.addEventListener("keyup", searchOnEnterPress);
+
+        return () => {
+            document.removeEventListener("keyup", searchOnEnterPress);
+        }
+    }, [searchVal])
+
+
+    const searchOnEnterPress = (event) =>{
+        if (event.keyCode === 13) {
+            router.push(`/search/?query=${searchVal}&qsearchterm=${searchVal}`)
+            clearSearchBox();
+          }
+    }
+
+
+    //console.log("Search Dropdown:::::", newsSearchData)
     return (
 
         <div className='searchResulstBox' ref={searchBox}>
             <div className="dropsearch d-flex align-items-center">
-            <input type="text" className="form-control" placeholder={searchVal}/>
+            <input type="text" className="form-control" placeholder={searchVal} value={searchVal}/>
             <a className="search_icon">
                 <img src={search.src} alt="search" />
                 </a>

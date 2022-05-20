@@ -22,8 +22,7 @@ const SideBarWithEpisodes = ({title, episodes}) => {
                         return (
                                 <li key={index}>
                                     <div className="newsText">
-                                        <a href="#">{episode?.title}</a>
-                                        <Link href={`/episode/`+episode.id}><a>{episode && episode?.title} </a></Link>
+                                        <Link href={{ pathname: 'episode', query: { episodeId: episode.id, programId: episode.programId }}}><a>{episode && episode?.title} </a></Link>
                                         {/*<p>منذ 5 دقائق</p>*/}
                                         <p><TimeAgoArabicFormat date={episode?.createdAt} /></p>
                                     </div>
@@ -34,7 +33,7 @@ const SideBarWithEpisodes = ({title, episodes}) => {
                                             <h5>05:21</h5>
                                             <div className="btn-text">
                                                 <span>شاهد الآن</span>
-                                                <Link href={`/episode/` + episode.id}>
+                                                <Link href={{ pathname: 'episode', query: { episodeId: episode.id, programId: episode.programId }}}>
                                                             <a>
                                                                 <button className="btn btn-warning VideoPlay">
                                                                     <i className="fa play_small"></i>

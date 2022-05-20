@@ -36,7 +36,7 @@ import { UsersHasRights } from "./users.has.rights.entity";
 		defaultScope: { attributes: { exclude: ['password'] } },
 		scopes: {
 			basicScope: {
-				attributes: ['id', 'name', 'userName', 'email', 'isVerified', 'isActive']
+				attributes: ['id', 'name', 'userName', 'email', 'isVerified', 'isActive', 'deletedAt']
 			}
 		}
 })

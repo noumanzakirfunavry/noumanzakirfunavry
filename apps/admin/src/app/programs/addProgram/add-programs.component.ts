@@ -52,12 +52,20 @@ export class AddProgramsComponent implements OnInit{
       this.programForm = this.fb.group({
           firstAiredOn: [new Date(), []],
           title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-          content: [null, [Validators.required, Validators.maxLength(1500)]],
+          content: [null, [Validators.required]],
           isActive: [true],
-          seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-          slugLine: [null, [Validators.required, Validators.maxLength(250)]],
-          seoDescription: [null, [Validators.required, Validators.maxLength(250)]],
-          keywords: [null, [Validators.required]],
+          seoTitle: [null, 
+            // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
+          ],
+          slugLine: [null, 
+            // [Validators.required, Validators.maxLength(250)]
+          ],
+          seoDescription: [null, 
+            // [Validators.required, Validators.maxLength(250)]
+          ],
+          keywords: [null, 
+            // [Validators.required]
+          ],
           file: [null, [Validators.required]],
           thumbnail: [null, [Validators.required]],
           orders: [1, [Validators.required]],
@@ -114,12 +122,20 @@ export class AddProgramsComponent implements OnInit{
       this.programForm = this.fb.group({
         firstAiredOn: [new Date(program.updatedAt), []],
         title: [program?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-        content: [program?.content || null, [Validators.required, Validators.maxLength(1500)]],
+        content: [program?.content || null, [Validators.required]],
         isActive: [program?.isActive],
-        seoTitle: [program?.seoDetails?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-        slugLine: [program?.seoDetails?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
-        seoDescription: [program?.seoDetails?.description || null, [Validators.required, Validators.maxLength(250)]],
-        keywords: [program?.seoDetails?.keywords || null, [Validators.required]],
+        seoTitle: [program?.seoDetails?.title || null, 
+          // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
+        ],
+        slugLine: [program?.seoDetails?.slugLine || null, 
+          // [Validators.required, Validators.maxLength(250)]
+        ],
+        seoDescription: [program?.seoDetails?.description || null, 
+          // [Validators.required, Validators.maxLength(250)]
+        ],
+        keywords: [program?.seoDetails?.keywords || null, 
+          // [Validators.required]
+        ],
         file: [null],
         thumbnail: [null],
         orders: [program?.orders || 1, [Validators.required]],

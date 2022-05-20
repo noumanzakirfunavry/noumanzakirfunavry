@@ -18,9 +18,10 @@ export class LogsService {
 			where: {
 				sessionId: getAllLogsDto.sessionId
 			},
-			// include: {
-			// 	model: Users.scope('basicScope')
-			// },
+			include: {
+				model: Users.scope('basicScope'),
+				paranoid: false
+			},
 			order: [['updatedAt', 'DESC']],
 			limit: getAllLogsDto.limit,
 			offset: this.helperService.offsetCalculator(getAllLogsDto.pageNo, getAllLogsDto.limit)
