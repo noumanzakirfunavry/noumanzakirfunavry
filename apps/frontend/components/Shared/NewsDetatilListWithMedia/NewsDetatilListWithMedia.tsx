@@ -14,10 +14,11 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                 <ul>
                     {
                        newsList?.length && newsList?.map((news:any, index:number)=>{
+                            const newsPage = newsList[0]?._source?.isPro ? 'proNews' : 'newsDetails';
                             return (
                                 <li key={index}>
                                     <div className="newsText">
-                                        <Link href={`/newsDetails/` + news?._id}><a style={{wordWrap:'break-word'}}>{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a></Link>
+                                        <Link href={`/${newsPage}/` + news?._id}><a style={{wordWrap:'break-word'}}>{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a></Link>
                                         <p>
                                             { // to show tags
                                               news?._source?.tags?.map((tag: string, tagIndex: number) => {
@@ -39,7 +40,7 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                                         <h5>05:21</h5>
                                                         <div className="btn-text">
                                                             <span>شاهد الآن</span>
-                                                            <Link href={`/newsDetails/` + news._id}>
+                                                            <Link href={`/${newsPage}/` + news._id}>
                                                                 <a>
                                                                     <button className="btn btn-warning VideoPlay">
                                                                         <i className="fa play_small"></i>

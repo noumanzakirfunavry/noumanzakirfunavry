@@ -122,6 +122,7 @@ const MostReadSlider: FC = () => {
 
                         {
                             mostReadNewsList?.length && mostReadNewsList?.map((newsItem:any, index:number)=>{
+                                const newsPage = newsItem?.news?.isPro ? 'proNews' : 'newsDetails';
                                   return(
                                     <li key={index} >
 
@@ -135,7 +136,7 @@ const MostReadSlider: FC = () => {
                                                 <h5>05:21</h5>
                                                 <div className="btn-text">
                                                     <span>شاهد الآن</span>
-                                                    <Link href={`/newsDetails/` + newsItem?.news?.id}>
+                                                    <Link href={`/${newsPage}/` + newsItem?.news?.id}>
                                                         <a>
                                                             <button className="btn btn-warning VideoPlay">
                                                                 <i className="fa play_small"></i>
@@ -155,7 +156,7 @@ const MostReadSlider: FC = () => {
                             }
 
                                         
-                                        <Link href={`/newsDetails/` + newsItem?.news?.id}><a>{newsItem?.news?.title}</a></Link>
+                                        <Link href={`/${newsPage}/` + newsItem?.news?.id}><a>{newsItem?.news?.title}</a></Link>
                                         <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                                     </li>
 
