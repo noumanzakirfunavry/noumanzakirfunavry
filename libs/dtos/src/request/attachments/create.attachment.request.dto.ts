@@ -1,5 +1,5 @@
 import { AttachmentTypes, DailymotionUploadStatus } from "@cnbc-monorepo/enums";
-import { IsBooleanString, IsEnum, IsNotEmpty, IsOptional, IsString, ValidateIf } from "class-validator";
+import { IsBoolean, IsBooleanString, IsEnum, IsNotEmpty, IsOptional, IsString, ValidateIf } from "class-validator";
 
 export class CreateAttachmentRequestDto {
 	@IsNotEmpty()
@@ -15,26 +15,31 @@ export class CreateAttachmentRequestDto {
 	attachmentType: string
 
 	@ValidateIf(o => o.attachmentType === AttachmentTypes.VIDEO)
+	@IsOptional()
 	@IsString()
 	@IsNotEmpty()
 	tags: string
 
 	@ValidateIf(o => o.attachmentType === AttachmentTypes.VIDEO)
+	@IsOptional()
 	@IsString()
 	@IsNotEmpty()
 	channel: string
 
 	@ValidateIf(o => o.attachmentType === AttachmentTypes.VIDEO)
+	@IsOptional()
 	@IsBooleanString()
 	@IsNotEmpty()
 	toBePublished: boolean
 
 	@ValidateIf(o => o.attachmentType === AttachmentTypes.VIDEO)
+	@IsOptional()
 	@IsBooleanString()
 	@IsNotEmpty()
 	toBePrivate: boolean
 
 	@ValidateIf(o => o.attachmentType === AttachmentTypes.VIDEO)
+	@IsOptional()
 	@IsBooleanString()
 	@IsNotEmpty()
 	isCreatedForKids: boolean
