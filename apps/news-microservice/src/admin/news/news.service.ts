@@ -199,7 +199,7 @@ export class NewsService {
 								}
 
 
-								let { tags, quotes, deletedAt, ...news } = await (await this.newsRepository.findOne({ where: { id: news_added.id }, include: ['tags', 'quotes', { model: Attachments, as: 'image' }, { model: Attachments, as: 'video' }, { model: Attachments, as: 'thumbnail' }, { model: Categories, through: { attributes: [] }, attributes: ['id', 'title', 'isActive'] }], transaction: transactionHost.transaction })).toJSON()
+								let { tags, quotes, deletedAt, ...news } = await (await this.newsRepository.findOne({ where: { id: newsId }, include: ['tags', 'quotes', { model: Attachments, as: 'image' }, { model: Attachments, as: 'video' }, { model: Attachments, as: 'thumbnail' }, { model: Categories, through: { attributes: [] }, attributes: ['id', 'title', 'isActive'] }], transaction: transactionHost.transaction })).toJSON()
 
 								tags = tags.map(tag => tag.title);
 								quotes = quotes.map(quote => quote.quoteTitle);
