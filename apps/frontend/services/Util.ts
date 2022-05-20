@@ -98,3 +98,7 @@ export const GetArabicFormattedDate = (dateVal: string) =>
         return date.toLocaleString('ar-EG-u-nu-latn',{day: 'numeric', month: 'short', year: 'numeric'});
         
 }
+
+export const escapeSpecialCharacters = (stringVal: string) => {
+        return stringVal.replace(/[-[/\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}

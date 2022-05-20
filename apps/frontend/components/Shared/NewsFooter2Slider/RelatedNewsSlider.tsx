@@ -4,6 +4,7 @@ import sliderimg from "../../../styles/images/biden2.jpg";
 import GetData from "../../../services/GetData";
 import { requests, baseUrlAdmin } from '../../../services/Requests';
 import Link from 'next/link';
+import { escapeSpecialCharacters } from "../../..//services/Util";
 
 
 
@@ -49,12 +50,12 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
 
             let tagsList = []
             tagsList = tags && tags?.length && tags.map((tag) => {
-                return tag?.title;
+                return escapeSpecialCharacters(tag?.title);
             });
 
             let quotesList = []
             quotesList = quotes && quotes?.length && quotes.map((quote) => {
-                return quote?.quoteTitle;
+                return escapeSpecialCharacters(quote?.quoteTitle);
             });
 
             //console.log('tagsList::::::::', tagsList);
