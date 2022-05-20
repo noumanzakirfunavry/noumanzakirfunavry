@@ -136,10 +136,13 @@ export class ExclusiveVideosComponent implements OnInit{
     }
 
     findDuplicates() {
-        const valueArr = this.exclusiveVideos.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            return valueArr.indexOf(item) != idx
-        });
+        let isDuplicate=false;
+        this.exclusiveVideos.forEach(x=>{
+            const duplicate=this.exclusiveVideos.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
         console.log("DUPLICATE-NEWS", isDuplicate);
         return isDuplicate
     }
@@ -162,11 +165,11 @@ export class ExclusiveVideosComponent implements OnInit{
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
-        moveItemInArray(this.allExclusiveVideos, event.previousIndex, event.currentIndex);
-        for(let i = 0; i < this.allExclusiveVideos.length; i++) {
-            this.allExclusiveVideos[i].position= i + 1;
+        moveItemInArray(this.exclusiveVideos, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.exclusiveVideos.length; i++) {
+            this.exclusiveVideos[i].position= i + 1;
         }
-        console.log("POS", this.allExclusiveVideos);
+        console.log("POS", this.exclusiveVideos);
     }
 
     cancel() {

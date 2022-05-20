@@ -104,11 +104,13 @@ export class EditorsChoiceComponent implements OnInit{
     }
 
     findDuplicates() {
-        const valueArr = this.editorsChoice.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            console.log("VAL",valueArr.indexOf(item));
-            return valueArr.indexOf(item) != idx
-        });
+        let isDuplicate=false;
+        this.editorsChoice.forEach(x=>{
+            const duplicate=this.editorsChoice.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
         console.log("DUPLICATE-NEWS", isDuplicate);
         return isDuplicate
     }
@@ -156,11 +158,11 @@ export class EditorsChoiceComponent implements OnInit{
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
-        moveItemInArray(this.allEditorsChoice, event.previousIndex, event.currentIndex);
-        for(let i = 0; i < this.allEditorsChoice.length; i++) {
-            this.allEditorsChoice[i].position= i + 1;
+        moveItemInArray(this.editorsChoice, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.editorsChoice.length; i++) {
+            this.editorsChoice[i].position= i + 1;
         }
-        console.log("POS", this.allEditorsChoice);
+        console.log("POS", this.editorsChoice);
       }
 
     cancel() {
