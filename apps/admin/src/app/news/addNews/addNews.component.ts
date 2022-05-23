@@ -11,6 +11,7 @@ import { CommentListData } from './mockComments';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { QuotesMockData } from './mock-quotes';
 import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
+import { environment } from '../../../environments/environment';
 // import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 // import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
@@ -232,12 +233,14 @@ export class AddNewsComponent implements OnInit {
     mainFileUploaded(file) {
         if (file.attachmentType == 'IMAGE') {
             this.newsModel.imageId = file.id;
-            this.newsModel.fileUrl = file.url;
+            this.newsModel.fileUrl = environment.fileUrl + file.path;
+            // this.newsModel.fileUrl = file.url;
             this.tempFile.showDelBtn = true;
         } 
         else {
             this.newsModel.videoId = file.id;
-            this.newsModel.videoUrl = file.url;
+            // this.newsModel.videoUrl = file.url;
+            this.newsModel.videoUrl = environment.fileUrl + file.path;
             this.tempFile.showDelBtn = true;
         }
     }
@@ -247,7 +250,8 @@ export class AddNewsComponent implements OnInit {
         this.newsModel.thumbnailUrl = null;
         this.tempThumbanilFile.showDelBtn = false;
         setTimeout(() => {
-            this.newsModel.thumbnailUrl = file.url;
+            // this.newsModel.thumbnailUrl = file.url;
+            this.newsModel.thumbnailUrl = environment.fileUrl + file.path;
             this.tempThumbanilFile.showDelBtn = true;
         }, 400);
     }
