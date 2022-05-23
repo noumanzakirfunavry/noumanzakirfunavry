@@ -3,6 +3,9 @@ import { baseUrlAdmin } from "../../services/Requests"
 import HtmlData from "../../components/Shared/HtmlData/HtmlData";
 import TimeAgoArabicFormat from "../../components/Shared/TimeAgoCustom/TimeAgoArabicFormat"
 import { useState, useEffect} from "react";
+import Dailymotion from 'react-dailymotion';
+
+
 const ProgramDetails = ({programDetails}) => {
 
     const [playVideo, setPlayVideo] = useState<boolean>(false)
@@ -12,7 +15,7 @@ const ProgramDetails = ({programDetails}) => {
     }, [programDetails])
     
 
-    //console.log('programDetails:::', programDetails);
+    console.log('programDetails:::', programDetails);
 
     return (
         <>
@@ -28,6 +31,13 @@ const ProgramDetails = ({programDetails}) => {
                                     <source src={programDetails?.promo?.path && baseUrlAdmin+programDetails?.promo?.path}/>
                                 </video>
                             : // else show thumbnail with play icon
+                                programDetails?.promo?.dailyMotionURL ? 
+                                <Dailymotion
+                                    className={"newsDetailimg mb-3"}
+                                    video={programDetails?.promo?.dailyMotionURL}   //news?.video?.dailyMotionURL
+                                    uiTheme="light"
+                                    autoplay= "false"
+                                /> :
                                 <>
                                     <div className="NewsImage"><img className="img-fluid" src={programDetails?.thumbnail?.path ? baseUrlAdmin+programDetails?.thumbnail?.path:newsImage.src} /></div>
                                     <div className="PlayTime">

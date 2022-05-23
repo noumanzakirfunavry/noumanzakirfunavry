@@ -32,7 +32,7 @@ const ArticleDetails: FC<any> = ({ news }) => {
                     // apply condition base player if daily motion video exist then show otherwise show local video 
                     // <iframe src="https://geo.dailymotion.com/player/x8lqy.html?video=x8adsti" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen frameBorder="0" width="100%" height="360"></iframe>
                 : // else show thumbnail with play icon
-                   news?.video?.dailyMotionURL ? 
+                news?.video?.dailyMotionURL ? 
                       <Dailymotion
                         className={"newsDetailimg mb-3"}
                         video={news?.video?.dailyMotionURL}   //news?.video?.dailyMotionURL
