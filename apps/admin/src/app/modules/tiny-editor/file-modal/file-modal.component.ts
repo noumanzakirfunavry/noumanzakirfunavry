@@ -6,11 +6,10 @@ import { ApiService } from "../../../shared/services/api.service";
 
 export class Data extends Pagination {
     title?: string;
-    attachmentType?: 'VIDEO' | 'IMAGE'
+    attachmentType?: 'VIDEO' | 'IMAGE';
 
     constructor() {
         super();
-        this.title = "";
     }
 }
 
@@ -28,7 +27,7 @@ export class FileModalComponent implements OnInit {
     searchTitle: string;
 
     files: any = [];
-    selctedFile: any = {}
+    selctedFile: any = {};
     loading: boolean;
     totalCount: any;
 
@@ -41,11 +40,22 @@ export class FileModalComponent implements OnInit {
 
     private fetchAttachments() {
         this.apiService.sendRequest(requests.getAllAttachments, 'get', this.pagination).subscribe((res: any) => {
-            console.log("files", res);
             this.files = res.response.attachments;
             this.totalCount = res.response.totalCount;
             console.log("files", this.files);
         });
+    }
+
+    onSearch() {
+        this.pagination= {...this.pagination, title: this.pagination.title};
+        this.pagination.pageNo= 1;
+        this.fetchAttachments();
+    }
+
+    onClear() {
+        this.pagination= { limit: 25, pageNo: 1, attachmentType: this.pagination.attachmentType };
+        this.pagination.pageNo= 1;
+        this.fetchAttachments();
     }
 
     onSelect(file) {

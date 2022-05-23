@@ -33,8 +33,10 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
         NzPopconfirmModule
         
     ],
-    exports: [ TinyEditorComponent,
-        FileModalComponent],
+    exports: [ 
+        TinyEditorComponent,
+        FileModalComponent
+    ],
     declarations: [
         TinyEditorComponent,
         FileModalComponent

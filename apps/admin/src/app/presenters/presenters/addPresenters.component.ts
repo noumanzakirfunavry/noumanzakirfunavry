@@ -6,6 +6,7 @@ import { ApiService } from '../../shared/services/api.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { requests } from '../../shared/config/config';
 import { environment } from '../../../environments/environment';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'app-addPresenters',
@@ -57,7 +58,7 @@ export class AddPresentersComponent implements OnInit{
 
     initForm() {
       this.presenterForm = this.fb.group({
-        name: [null, [Validators.required]],
+        name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
         jobPosition: [null, [Validators.required]],
         age: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
         gender: [null, [Validators.required]],
@@ -103,6 +104,7 @@ export class AddPresentersComponent implements OnInit{
           this.isLoading= false;
         }, 2000);
       const obj= this.presenterForm.value;
+      obj['name']= this.presenterForm.value.name.trim();
       obj['age']= parseInt(this.presenterForm.value.age);
       obj['attachmentsId']= this.imageId;
       this.apiService.sendRequest(this.presenterId ? requests.updatePresenter + this.presenterId : requests.addPresenter, this.presenterId ? 'put' : 'post', obj).subscribe((res: any) => {
@@ -124,7 +126,7 @@ export class AddPresentersComponent implements OnInit{
         this.presenterById= res.response.presenter;
         console.log("GET-PRESENTER-BY-ID", this.presenterById);
         this.presenterForm = this.fb.group({
-          name: [this.presenterById?.name || null, [Validators.required]],
+          name: [this.presenterById?.name || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
           jobPosition: [this.presenterById?.jobPosition || null, [Validators.required]],
           age: [this.presenterById?.age || null, [Validators.required, Validators.pattern("^[0-9]*$")]],
           gender: [this.presenterById?.gender || null, [Validators.required]],

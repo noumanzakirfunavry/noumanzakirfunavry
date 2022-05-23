@@ -2,10 +2,12 @@ import { Component, NgZone, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { environment } from '../../../environments/environment';
 import { ProgramsModel } from '../../common/models/programsModel';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
 import { MediaUtilService } from '../../shared/services/mediaUtil';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'app-add-programs',
@@ -51,21 +53,13 @@ export class AddProgramsComponent implements OnInit{
     initForm() {
       this.programForm = this.fb.group({
           firstAiredOn: [new Date(), []],
-          title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+          title: [null, [Validators.required,  Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
           content: [null, [Validators.required]],
           isActive: [true],
-          seoTitle: [null, 
-            // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
-          ],
-          slugLine: [null, 
-            // [Validators.required, Validators.maxLength(250)]
-          ],
-          seoDescription: [null, 
-            // [Validators.required, Validators.maxLength(250)]
-          ],
-          keywords: [null, 
-            // [Validators.required]
-          ],
+          seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+          slugLine: [null, [Validators.required, Validators.maxLength(250)]],
+          seoDescription: [null, [Validators.required, Validators.maxLength(250)]],
+          keywords: [null, [Validators.required]],
           file: [null, [Validators.required]],
           thumbnail: [null, [Validators.required]],
           orders: [1, [Validators.required]],
@@ -84,6 +78,7 @@ export class AddProgramsComponent implements OnInit{
             this.isLoading = false;
           }, 2000);
           const obj= this.programForm.value;
+          obj['title'] = this.programForm.value.title.trim();
           this.apiService.sendRequest(this.programId ? requests.updateProgramDetails + this.programId : requests.addNewProgram, this.programId ? 'put' : 'post', { ...this.programsModel.toServerModal(obj, this.programsModel.seoDetailId), ...this.programId ? { id: this.programId } : null }).subscribe((res:any) => {
             console.log("PROGRAM", res);
             this.initForm();
@@ -121,21 +116,13 @@ export class AddProgramsComponent implements OnInit{
       // const file = await this.urlToFile(program.promo.url);
       this.programForm = this.fb.group({
         firstAiredOn: [new Date(program.updatedAt), []],
-        title: [program?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        title: [program?.title || null, [Validators.required,  Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
         content: [program?.content || null, [Validators.required]],
         isActive: [program?.isActive],
-        seoTitle: [program?.seoDetails?.title || null, 
-          // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
-        ],
-        slugLine: [program?.seoDetails?.slugLine || null, 
-          // [Validators.required, Validators.maxLength(250)]
-        ],
-        seoDescription: [program?.seoDetails?.description || null, 
-          // [Validators.required, Validators.maxLength(250)]
-        ],
-        keywords: [program?.seoDetails?.keywords || null, 
-          // [Validators.required]
-        ],
+        seoTitle: [program?.seoDetails?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        slugLine: [program?.seoDetails?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
+        seoDescription: [program?.seoDetails?.description || null, [Validators.required, Validators.maxLength(250)]],
+        keywords: [program?.seoDetails?.keywords || null, [Validators.required]],
         file: [null],
         thumbnail: [null],
         orders: [program?.orders || 1, [Validators.required]],
@@ -173,7 +160,8 @@ export class AddProgramsComponent implements OnInit{
           this.programsModel.videoUrl = null;
           this.tempFile.showDelBtn = false;
           setTimeout(() => {
-            this.programsModel.videoUrl = file.url;
+            this.programsModel.videoUrl = environment.fileUrl +  file.path;
+            // this.programsModel.videoUrl = file.url;
             this.tempFile.showDelBtn = true;
         }, 400);
   }
@@ -183,7 +171,8 @@ export class AddProgramsComponent implements OnInit{
       this.programsModel.thumbnailUrl=null;
       this.tempThumbanilFile.showDelBtn = false;
       setTimeout(() => {
-          this.programsModel.thumbnailUrl = file.url;
+          this.programsModel.thumbnailUrl = environment.fileUrl +  file.path;
+          // this.programsModel.thumbnailUrl = file.url;
           this.tempThumbanilFile.showDelBtn = true;
       }, 400);
   }
