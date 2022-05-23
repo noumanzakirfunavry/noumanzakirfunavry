@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'app-addquickLink',
@@ -49,7 +50,7 @@ export class AddQuickLinksComponent implements OnInit {
 
   initForm() {
     this.quickLinkForm = this.fb.group({
-      title: [ null, [ Validators.required ] ],
+      title: [ null, [ Validators.required,  Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator ] ],
       url: [ null, [ Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w !@#$%^&*()+=;:<>?.-]*/?') ] ],
       visible: [false]
   });
@@ -66,6 +67,7 @@ export class AddQuickLinksComponent implements OnInit {
         this.isLoading = false;
       }, 2000);
       const obj= this.quickLinkForm.value;
+      obj['title'] = this.quickLinkForm.value.title.trim();
       obj['position']= 1;
       this.apiService.sendRequest(this.quickLinkId ? requests.updateQuickLink + this.quickLinkId : requests.addNewQuickLink, this.quickLinkId ? 'put' : 'post', obj).subscribe((res:any) => {
         console.log("QUICK-LINK", res);
@@ -86,7 +88,7 @@ export class AddQuickLinksComponent implements OnInit {
       this.quickLinkById= res.quickLinks;
       console.log("QUICK-LINK-BY-ID", this.quickLinkById);
       this.quickLinkForm = this.fb.group({
-        title: [ this.quickLinkById?.title || null, [ Validators.required ] ],
+        title: [ this.quickLinkById?.title || null, [ Validators.required,  Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator ] ],
         url: [ this.quickLinkById?.url || null, [ Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w !@#$%^&*()+=;:<>?.-]*/?') ] ],
         visible: [this.quickLinkById?.visible || false]
     });

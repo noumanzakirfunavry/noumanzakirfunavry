@@ -61,7 +61,7 @@ const SplitScreenBarCharts = () =>{
 
     useEffect(()=>{
             // get data for menu items from zagrader Markets api
-            GetData(`https://cnbcarabia.zagtrader.com/External/cnbcarabiadynamic/api/ConfigMarkets.php?type=json`, {}, 'get', false).then(res=>{
+            GetData(`https://cnbc-config.cnbcarabia.com/zagTrader/api/EnabledMarkets.php`, {}, 'get', false).then(res=>{
     
                 console.log('Zagtrader ConfigMarkets:::', res);
                 setMarketIndices(res?.data);

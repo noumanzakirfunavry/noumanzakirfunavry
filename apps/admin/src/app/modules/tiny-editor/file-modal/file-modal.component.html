@@ -4,14 +4,13 @@
   nzTitle="File Manager"
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()"
+  [nzOkDisabled]="!selctedFile"
 >
   <ng-container *nzModalContent>
     <div class="row">
       <div class="col-md-12">
-        <div
-          class="d-flex align-items-center justify-content-between filter_bar"
-        >
-          <div calss="mr-4 ml-4">
+        <div class="d-flex align-items-center justify-content-between filter_bar">
+          <div>
             <i
               class="mr-2"
               (click)="filterFiles('IMAGE')"
@@ -26,26 +25,27 @@
               nzType="video-camera"
               nzTheme="outline"
             ></i>
-            <i
+            <!-- <i
               class="mr-2"
-              (click)="filterFiles('UPLOAD')"
               nz-icon
               nzType="upload"
               nzTheme="outline"
-            ></i>
+            ></i> -->
           </div>
           <nz-form-item nzSize="small">
             <!-- <nz-form-label nzRequired>Slug Line</nz-form-label> -->
             <nz-form-control>
               <input
                 type="text"
-                formControlName="slugLine"
+                [(ngModel)]="pagination.title"
                 placeholder="Search Tilte"
                 nz-input
               />
-              <i class="fas fa-search"></i>
+              <i class="fas fa-search ml-3" (click)="onSearch($event)"></i>
+              <i class="fas fa-times mr-3" (click)="onClear($event)"></i>
+              <!-- <button class="ml-2" nz-button (click)="onClear($event)" [nzType]="'default'">Clear</button> -->
             </nz-form-control>
-          </nz-form-item>
+        </nz-form-item>
           <!-- <nz-item>
                         <input class="float-right" placeholder="Search Title" type="text" [(ngModel)]="searchTitle">
                     </nz-item> -->

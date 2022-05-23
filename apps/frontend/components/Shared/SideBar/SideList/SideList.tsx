@@ -125,7 +125,16 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
                                           <img className="img-fluid" src={newsItem?.news?.image?.path ? baseUrlAdmin+newsItem?.news?.image?.path:newsImage.src} />
                                       </div>
                                       <Link href={`/${newsPage}/` + newsItem?.news?.id}><a>{newsItem?.news?.title}</a></Link>
-                                      <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                                      <p>
+                                        { // to show categories
+                                            newsItem?.news?.categories?.map((category: any, categoryIndex: number) => {
+                                                return(
+                                                    <a key={categoryIndex}>{category.title}</a>
+                                                )
+                                            })  
+                                        }
+                                      </p>
+                                      {/*<p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>*/}
                                   </li>
                                   )
                               })

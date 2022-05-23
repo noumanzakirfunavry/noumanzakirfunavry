@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'app-addBreakingNews',
@@ -49,7 +50,7 @@ export class AddBreakingNewsComponent implements OnInit {
 
     inItForm() {
       this.breakingNewsForm = this.fb.group({
-        title: [null, [Validators.required]],
+        title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
         newsLink: [null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w !@#$%^&*()+=;:<>?.-]*/?')]],
         isActive: [false],
         isPushNotificationActive: [false],
@@ -69,6 +70,7 @@ export class AddBreakingNewsComponent implements OnInit {
           this.isLoading= false;
         }, 2000);
         const obj= this.breakingNewsForm.value;
+        obj['title']= this.breakingNewsForm.value.title.trim();
         obj['newsId']= 1;
         this.apiService.sendRequest(this.breakingNewsId ? requests.updateBreakingNews + this.breakingNewsId : requests.addBreakingNews, this.breakingNewsId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("ADD-BREAKING-NEWS", res);
@@ -89,7 +91,7 @@ export class AddBreakingNewsComponent implements OnInit {
         this.breakingNewsById= res.breakingNews;
         console.log("BREAKING-NEWS-BY-ID", res);
         this.breakingNewsForm = this.fb.group({
-          title: [this.breakingNewsById?.title || null, [Validators.required]],
+          title: [this.breakingNewsById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
           newsLink: [this.breakingNewsById?.newsLink || null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w !@#$%^&*()+=;:<>?.-]*/?')]],
           isActive: [this.breakingNewsById?.isActive || false],
           isPushNotificationActive: [this.breakingNewsById?.isPushNotificationActive || false],

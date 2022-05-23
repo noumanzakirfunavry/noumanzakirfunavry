@@ -5,6 +5,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { PageModel } from '../../common/models/pageModel';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'app-addPages',
@@ -46,25 +47,17 @@ export class AddPagesComponent implements OnInit{
 
     initPagesForm() {
       this.pagesForm = this.fb.group({
-        title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
         content: [null, [Validators.required]],
         showOnHomepage: [true, [Validators.required]],
         isActive: [true],
         // categoryIds: [null, [Validators.required]],
         tagsIds: [null, [Validators.required]],
         quotesIds: [null, [Validators.required]],
-        seoTitle: [null, 
-          // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
-        ],
-        slugLine: [null, 
-          // [Validators.required, Validators.maxLength(250)]
-        ],
-        description: [null, 
-          // [Validators.required, Validators.maxLength(250)]
-        ],
-        keywords: [null, 
-          // [Validators.required]
-        ],
+        seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        slugLine: [null, [Validators.required, Validators.maxLength(250)]],
+        description: [null, [Validators.required, Validators.maxLength(250)]],
+        keywords: [null, [Validators.required]],
       });
     }
 
