@@ -27,18 +27,27 @@ const MainNews = () =>{
                     <img className="img-fluid" src={mainVideoNews?._source?.thumbnail?.path ? baseUrlAdmin+mainVideoNews?._source?.thumbnail?.path:newsImage.src} />
                 </div>
                 <div className="PlayTime"><h5>05:21</h5>
-                    <div className="btn-text"><span>شاهد الآن</span>
-                        <Link href={`/videoNews/` +mainVideoNews?._id}>
-                            <a>
+                    <Link href={`/videoNews/` +mainVideoNews?._id}>
+                        <a>
+                            <div className="btn-text"><span>شاهد الآن</span>
                                 <button className="btn btn-warning VideoPlay"><i className="fa play_big"></i></button>
-                            </a>
-                        </Link>
-                    </div>
+                            </div>
+                        </a>
+                    </Link>
                 </div>
                 <div className="NewsContent">
                     {/*<h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </h4>*/}
                     <h4>{mainVideoNews?._source?.title}</h4>
-                    <p className="text-white"><a className="text-warning ms-3">الإمارات</a> منذ 5 دقائق</p>
+                    {/*<p className="text-white"><a className="text-warning ms-3">الإمارات</a> منذ 5 دقائق</p>*/}
+                    <p className="text-white">
+                        { // to show categories
+                            mainVideoNews?._source?.categories?.map((category: any, categoryIndex: number) => {
+                                    return(
+                                            <a className="text-warning ms-3" key={categoryIndex}>{category.title}</a>
+                                        )
+                                    })  
+                        }
+                    </p>
                 </div>
             </div>
         </>

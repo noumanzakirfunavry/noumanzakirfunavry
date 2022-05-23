@@ -58,22 +58,31 @@ const HorizontalFooter2VideoNewsSlider =  ({videoNewsList}) => {
                                     <img className="img-fluid" src={video?._source?.thumbnail?.path ? baseUrlAdmin+video?._source?.thumbnail?.path:sliderimg.src} />
                                     <div className="PlayTime">
                                         <h5>05:21</h5>
-                                        <div className="btn-text">
-                                            <Link href={`/videoNews/` + video?._source?.id}>
-                                                    <a>
-                                                        <button className="btn btn-warning VideoPlay">
-                                                            <i className="fa play_medium"></i>
-                                                        </button>
-                                                    </a>
-                                                </Link>
-                                            <span>شاهد الآن</span>
-                                        </div>
+                                        <Link href={`/videoNews/` + video?._source?.id}>
+                                            <a>
+                                                <div className="btn-text">
+                                                    <button className="btn btn-warning VideoPlay">
+                                                        <i className="fa play_medium"></i>
+                                                    </button>
+                                                    <span>شاهد الآن</span>
+                                                </div>
+                                            </a>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="newscontent">
                                     <h5><Link href={`/videoNews/`+video.id}><a>{video && video?._source?.title} </a></Link></h5>
                                     {/*<h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>*/}
-                                    <p><TimeAgoArabicFormat date={video?._source?.createdAt} /></p>
+                                    {/*<p><TimeAgoArabicFormat date={video?._source?.createdAt} /></p>*/}
+                                    <p>
+                                        { // to show categories
+                                           video?._source?.categories?.map((category: any, categoryIndex: number) => {
+                                                return(
+                                                        <a key={categoryIndex}>{category.title}</a>
+                                                    )
+                                            })  
+                                        }
+                                    </p>
                                 </div>
                             </div>
                         </div>

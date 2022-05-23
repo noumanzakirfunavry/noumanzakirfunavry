@@ -88,7 +88,7 @@ const VideoNews = ({videoNews}) => {
           {/*<p><small><DateArabicFormat date={videoNews?.createdAt} /></small></p>*/}
           {/*<p><small>نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</small></p>*/}
           {/*<FadedNews news={videoNews}/>*/}
-          {/*<PageCatgories tags={[]}/>*/}
+          {videoNews?.tags && <PageCatgories tags={videoNews?.tags}/>}
           </div>
     )
 }

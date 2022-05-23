@@ -126,16 +126,16 @@ const HorizontalMediaScrollBar:FC = () =>{
                                 { item?._source?.videoId &&
                                     <div className="PlayTime">
                                         <h5>05:21</h5>
-                                            <div className="btn-text">
-                                                <span>شاهد الآن</span>
-                                                <Link href={`/${newsPage}/` + item._id}>
-                                                    <a>
-                                                        <button className="btn btn-warning VideoPlay">
-                                                            <i className="fa play_small"></i>
-                                                        </button>
-                                                    </a>
-                                                </Link>
-                                        </div>
+                                        <Link href={`/${newsPage}/` + item._id}>
+                                            <a>
+                                                <div className="btn-text">
+                                                    <button className="btn btn-warning VideoPlay">
+                                                        <i className="fa play_small"></i>
+                                                    </button>
+                                                    <span>شاهد الآن</span>
+                                                </div>
+                                            </a>
+                                        </Link>
                                     </div>
                                 }
                                 <div className="newscontent">

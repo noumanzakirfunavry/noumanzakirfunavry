@@ -29,16 +29,16 @@ const MainSection = ({ newsList }) => {
                         { newsList[0]?._source?.videoId &&
                                     <div className="PlayTime">
                                         <h5>05:21</h5>
-                                            <div className="btn-text">
-                                                <span>شاهد الآن</span>
-                                                <Link href={`/${mainNewsPage}/` + newsList[0]._id}>
-                                                    <a>
-                                                        <button className="btn btn-warning VideoPlay">
-                                                            <i className="fa play_small"></i>
-                                                        </button>
-                                                    </a>
-                                                </Link>
-                                        </div>
+                                        <Link href={`/${mainNewsPage}/` + newsList[0]._id}>
+                                            <a>
+                                                <div className="btn-text">
+                                                    <span>شاهد الآن</span>
+                                                    <button className="btn btn-warning VideoPlay">
+                                                        <i className="fa play_small"></i>
+                                                    </button>
+                                                </div>
+                                            </a>
+                                        </Link>
                                     </div>
                         }
                         <div className={styles.newscontent} >
@@ -84,16 +84,16 @@ const MainSection = ({ newsList }) => {
                                                             <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newsimage.src} />
                                                             <div className="PlayTime">
                                                             <h5>05:21</h5>
-                                                            <div className="btn-text">
-                                                                <span>شاهد الآن</span>
-                                                                <Link href={`/${newsPage}/` + news._id}>
-                                                                    <a>
+                                                            <Link href={`/${newsPage}/` + news._id}>
+                                                                <a>
+                                                                    <div className="btn-text">
+                                                                        <span>شاهد الآن</span>
                                                                         <button className="btn btn-warning VideoPlay">
                                                                             <i className="fa play_small"></i>
                                                                         </button>
-                                                                    </a>
-                                                                </Link>
-                                                            </div>
+                                                                    </div>
+                                                                </a>
+                                                            </Link>
                                                         </div>
                                                         </div>
                                                         
