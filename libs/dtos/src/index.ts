@@ -40,6 +40,7 @@ export * from './request/categories/get.all.categories.response.dto';
 export * from './request/categories/update.category.request.dto';
 export * from './request/categories/update.order.categories.request.dto';
 export * from './request/categories/get.all.categories.for.client.request.dto';
+export * from './request/categories/get.category.by.title.request.dto';
 //...............................comments..........................
 export * from './request/comments/add.comment.request.dto';
 export * from './request/comments/get.all.comments.request.dto';

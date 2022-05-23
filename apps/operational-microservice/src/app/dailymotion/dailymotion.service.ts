@@ -1,3 +1,4 @@
+import { ElkService } from '@cnbc-monorepo/elk';
 import { Attachments, DailymotionUploadRequests } from '@cnbc-monorepo/entity';
 import { DailymotionUploadStatus } from '@cnbc-monorepo/enums';
 import { sequelize } from '@cnbc-monorepo/utility';
@@ -120,7 +121,19 @@ export class DailymotionService {
 								transaction: t
 							})
 
-						await this.dailymotionUploadRepo.destroy({ where: { id: dailymotionRequestDto.id }, transaction: t })
+						await this.dailymotionUploadRepo.destroy({ where: { id: dailymotionRequestDto.id }, transaction: t, })
+
+						ElkService.updateByQuery({
+							index: process.env.ELK_INDEX,
+							query: {
+								match: {
+									"video.id": dailymotionRequestDto.attachmentId
+								}
+							},
+							script: {
+								source: `ctx._source.video.dailyMotionURL = ${response.data.id}`
+							}
+						})
 					})
 				});
 			});

@@ -30,6 +30,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
     // useEffect(()=>{
        
     for (let i = loopIndex; i < news?.length; i++) {
+        const newsPage = news[i]?._source?.isPro ? 'proNews' : 'newsDetails';
         fields.push(
                 <div key={i} className="col-md-4 col-sm-6">
                     <div className="newBox VideoNews">
@@ -44,7 +45,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                             <h5>05:21</h5>
                                             <div className="btn-text">
                                                 <span>شاهد الآن</span>
-                                                <Link href={`/newsDetails/` + news[i]._id}>
+                                                <Link href={`/${newsPage}/` + news[i]._id}>
                                                     <a>
                                                         <button className="btn btn-warning VideoPlay">
                                                             <i className="fa play_small"></i>
@@ -67,7 +68,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                             {news[i]?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news[i]?._source.image?.path} />:<img className="img-fluid" src={newsImage.src} />}
                                             </div>*/}
                         <div className="NewsInfo">
-                        <Link href={`/newsDetails/`+news[i]._id}><a><h4>{news && news[i]?._source?.title}</h4> </a></Link>
+                        <Link href={`/${newsPage}/`+news[i]._id}><a><h4>{news && news[i]?._source?.title}</h4> </a></Link>
                             {/* <p><a>الإمارات</a> منذ 5 دقائق</p> */}
                             <p> {news[i]?._source?.tags.map((quote, index) =>{return ( <a key={index} className=" ms-3">{quote}</a>)} )}</p>
 
@@ -79,6 +80,10 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
         )
     }
     //  }, [])
+
+    const firstNewsPage = news[0]?._source?.isPro ? 'proNews' : 'newsDetails';
+    const secondNewsPage = news[1]?._source?.isPro ? 'proNews' : 'newsDetails';
+
     return (
         <>
             {displayTitle && <Title styles={"yellowTitle mb-3"}><h3>{extended && 'المزيد من'} {cat?.title || 'أميركا في أزمة'} </h3></Title>}
@@ -99,7 +104,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                         <h5>05:21</h5>
                                         <div className="btn-text">
                                             <span>شاهد الآن</span>
-                                            <Link href={`/newsDetails/` + news[0]._id}>
+                                            <Link href={`/${firstNewsPage}/` + news[0]._id}>
                                                 <a>
                                                     <button className="btn btn-warning VideoPlay">
                                                         <i className="fa play_small"></i>
@@ -123,7 +128,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                 </div>*/}
                                
                                 <div className="NewsInfo">
-                                   <Link href={`/newsDetails/`+news[0]._id}><a><h3>{news && news[0]?._source?.title}</h3> </a></Link>
+                                   <Link href={`/${firstNewsPage}/`+news[0]._id}><a><h3>{news && news[0]?._source?.title}</h3> </a></Link>
                                    {/* <p><a className="ms-3">الإمارات</a> منذ 5 دقائق</p> */}
                                 <p> {news[0]?._source?.tags?.map((quote, index)=>{return ( <a key={index} className=" ms-3">{quote}</a>)} )}</p>
 
@@ -143,7 +148,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                         <h5>05:21</h5>
                                         <div className="btn-text">
                                             <span>شاهد الآن</span>
-                                            <Link href={`/newsDetails/` + news[1]._id}>
+                                            <Link href={`/${secondNewsPage}/` + news[1]._id}>
                                                 <a>
                                                     <button className="btn btn-warning VideoPlay">
                                                         <i className="fa play_small"></i>
@@ -174,7 +179,7 @@ const CategoryNewsSection: FC<CategoryNewsProps> = ({ cat, limit, displayTitle, 
                                 </div>
                             </div> */}
                                 <div className="NewsInfo">
-                                <Link href={`/newsDetails/`+news[1]._id}><a><h4>{news && news[1]?._source?.title}</h4> </a></Link>
+                                <Link href={`/${secondNewsPage}/`+news[1]._id}><a><h4>{news && news[1]?._source?.title}</h4> </a></Link>
                                     <p> {news[1]?._source?.tags?.map((quote, index) => {return ( <a key={index} className=" ms-3">{quote}</a>)} )}</p>
                                 </div>
                             </div>

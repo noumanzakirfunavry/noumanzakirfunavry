@@ -13,7 +13,7 @@ export class CreateNewsRequestDto {
 
     @IsNotEmpty()
     @IsString()
-    @MaxLength(1500)
+    // @MaxLength(1500)
     content: string
 
     @IsNotEmpty()

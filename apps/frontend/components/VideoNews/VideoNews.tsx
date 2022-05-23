@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import DateArabicFormat from "../Shared/DateCustomFomat/DateArabicFormat"
 import HtmlData from "../Shared/HtmlData/HtmlData";
 import logoImage from "../../styles/images/CNBC-favicon.png";
+import Dailymotion from 'react-dailymotion';
 
 const VideoNews = ({videoNews}) => {
 
@@ -17,6 +18,7 @@ const VideoNews = ({videoNews}) => {
 
     return (
         <div className="single_video_main">
+                {videoNews?.isPro ? <span className="badge bg-success mb-2">PRO</span> : <span></span>}
                 <div className="VideoNews mb-4 ">
                     {
                     videoNews?.videoId &&
@@ -24,7 +26,14 @@ const VideoNews = ({videoNews}) => {
                         <video className="mb-3 newsDetailimg" controls autoPlay loop muted>
                             <source src={videoNews?.video?.path && baseUrlAdmin+videoNews?.video?.path}/>
                         </video>
-                        :
+                        : // else show thumbnail with play icon
+                        videoNews?.video?.dailyMotionURL ? 
+                              <Dailymotion
+                                className={"newsDetailimg mb-3"}
+                                video={videoNews?.video?.dailyMotionURL}   //news?.video?.dailyMotionURL
+                                uiTheme="light"
+                                autoplay= "false"
+                              /> :
                         <div><div className="NewsImage">
                             <img className="img-fluid" src={videoNews?.thumbnail?.path ? baseUrlAdmin+videoNews?.thumbnail?.path:logoImage.src} />
                         </div>
@@ -74,7 +83,8 @@ const VideoNews = ({videoNews}) => {
               <h1>{videoNews?.title}</h1>
           </div>
 
-          {videoNews && <HtmlData data={videoNews?.content} />}
+          {videoNews?.isPro ? <FadedNews news={videoNews}/> : <HtmlData data={videoNews?.content} />}
+          {/*videoNews && <HtmlData data={videoNews?.content} />*/}
           {/*<p><small><DateArabicFormat date={videoNews?.createdAt} /></small></p>*/}
           {/*<p><small>نشر الجمعة 5 نوفمبر 2021 | 10:35 صباحًا</small></p>*/}
           {/*<FadedNews news={videoNews}/>*/}
