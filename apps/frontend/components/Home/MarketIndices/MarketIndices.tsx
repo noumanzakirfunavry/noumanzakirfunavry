@@ -11,7 +11,7 @@ const MarketIndices = () =>{
     const [marketIndicesTilesData, setMarketIndicesTilesData] = useState<any>([])
 
     useEffect(() => {
-        GetData(`https://cnbc-config.cnbcarabia.com/api/ConfigHome.php?type=json`, {}, 'get', false).then(res=>{
+        GetData(`https://cnbc-config.cnbcarabia.com/zagTrader/api/ConfigHome.php?type=json`, {}, 'get', false).then(res=>{
 
             console.log('Market Indices:::', res);
             setMarketIndices(res?.data);
