@@ -41,7 +41,9 @@ export class AttachmentsService {
 						localPath: response.path,
 						attachmentId: response.id
 					}).then(res => {
-						axios.post(process.env.DAILYMOTION_UPLOAD_API_PATH, res)
+						axios.post(process.env.DAILYMOTION_UPLOAD_API_PATH, res).catch(err=>{
+							console.log("🚀🚀🚀 Couldn't send request to operational microservice for dailymotion upload request");
+						})
 					}).catch(console.log)
 				}
 				return new GenericResponseDto(
