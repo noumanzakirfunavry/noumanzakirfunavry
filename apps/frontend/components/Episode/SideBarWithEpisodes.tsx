@@ -31,16 +31,16 @@ const SideBarWithEpisodes = ({title, episodes}) => {
                                         <img className="img-fluid" src={episode?.thumbnail?.path ? baseUrlAdmin+episode?.thumbnail?.path:newsImage.src} />
                                         <div className="PlayTime">
                                             <h5>05:21</h5>
-                                            <div className="btn-text">
-                                                <span>شاهد الآن</span>
-                                                <Link href={{ pathname: 'episode', query: { episodeId: episode.id, programId: episode.programId }}}>
-                                                            <a>
-                                                                <button className="btn btn-warning VideoPlay">
-                                                                    <i className="fa play_small"></i>
-                                                                </button>
-                                                            </a>
-                                                </Link>
-                                            </div>
+                                            <Link href={{ pathname: 'episode', query: { episodeId: episode.id, programId: episode.programId }}}>
+                                                <a>
+                                                    <div className="btn-text">
+                                                        <span>شاهد الآن</span>
+                                                        <button className="btn btn-warning VideoPlay">
+                                                            <i className="fa play_small"></i>
+                                                        </button>
+                                                    </div>
+                                                </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </li>

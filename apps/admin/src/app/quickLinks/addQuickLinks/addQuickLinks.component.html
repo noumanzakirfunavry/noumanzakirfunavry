@@ -5,7 +5,7 @@
       <form nz-form [formGroup]="quickLinkForm" [nzLayout]="'vertical'" class="quickLink-form" (ngSubmit)="quickLink()">
           <nz-form-item>
             <nz-form-label nzRequired [nzSpan]="6" nzFor="text">Title</nz-form-label>
-            <nz-form-control [nzSpan]="14" nzErrorTip="Enter Title!">
+            <nz-form-control [nzSpan]="14" nzErrorTip="Enter valid Title between 3 to 250 characters!">
               <input nz-input formControlName="title" placeholder="Enter Title" dir="rtl"/>
             </nz-form-control>
           </nz-form-item >

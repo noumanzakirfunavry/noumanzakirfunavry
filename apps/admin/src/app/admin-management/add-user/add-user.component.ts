@@ -6,6 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 
 export class Data extends Pagination {
@@ -72,7 +73,7 @@ export class AddUserComponent implements OnInit{
         })
     this.adminForm = this.fb.group({
       // name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('[A-Za-z ]*$')]],
-      name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
+      name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$'), WhiteSpaceValidator.noWhitespaceValidator]],
       rolesId: [null, [Validators.required]],
       // userName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^[A-Za-z][A-Za-z0-9_][A-Za-z0-9!@#$%^&*_]{0,250}$')]],
       userName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
@@ -166,7 +167,7 @@ export class AddUserComponent implements OnInit{
         })
         console.log("rights enabled",this.allRights);
         this.adminForm = this.fb.group({
-          name: [this.userById?.name || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
+          name: [this.userById?.name || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$'), WhiteSpaceValidator.noWhitespaceValidator]],
           rolesId: [this.userById?.rolesId || null, [Validators.required]],
           userName: [this.userById?.userName || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), Validators.pattern('^(?:[a-zA-Z0-9\s!@,=%$#&*_\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
           password: [null, [Validators.minLength(6), Validators.maxLength(30)]],
