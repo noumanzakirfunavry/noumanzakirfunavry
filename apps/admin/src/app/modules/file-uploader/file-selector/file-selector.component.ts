@@ -1,5 +1,6 @@
 import { Component, EventEmitter, ElementRef, OnInit, Output, ViewChild, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { requests } from '../../../shared/config/config';
 import { ApiService } from '../../../shared/services/api.service';
 import { MediaUtilService } from '../service/mediaUtil';
 
@@ -121,6 +122,9 @@ export class FileSelectorComponent implements OnInit {
   }
 
   removePicture() {
+    // this.apiService.sendRequest(requests.deleteAttachment, 'delete', {id:[]}).subscribe((res:any) => {
+    //   console.log("DEL-ATTACHMENT", res);
+    // })
     this.field.value = null;
     this.field.showDelBtn = false;
     this.uploadProgress= null;

@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EpisodesModel } from '../../common/models/episodesModel';
 import { ApiService } from '../../shared/services/api.service';
 import { Pagination } from '../../common/models/pagination';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'add-episode',
@@ -57,22 +58,14 @@ export class AddEpisodeComponent implements OnInit {
     initForm() {
       this.episodeForm = this.fb.group({
           airedOn: [new Date(), []],
-          title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+          title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
           programId: [null, [Validators.required]],
           content: [null, [Validators.required]],
           isActive: [true],
-          seoTitle: [null, 
-            // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
-          ],
-          slugLine: [null, 
-            // [Validators.required, Validators.maxLength(250)]
-          ],
-          seoDescription: [null, 
-            // [Validators.required, Validators.maxLength(250)]
-          ],
-          keywords: [null, 
-            // [Validators.required]
-          ],
+          seoTitle: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+          slugLine: [null, [Validators.required, Validators.maxLength(250)]],
+          seoDescription: [null, [Validators.required, Validators.maxLength(250)]],
+          keywords: [null, [Validators.required]],
           file: [null, [Validators.required]],
           thumbnail: [null, [Validators.required]]
       });
@@ -114,6 +107,7 @@ export class AddEpisodeComponent implements OnInit {
             this.isLoading= false
           }, 2000)
           const obj = this.episodeForm.value;
+          obj['title']= this.episodeForm.value.title.trim();
           this.apiService.sendRequest(this.episodeId ? requests.updateProgramEpisode + this.episodeId : requests.addProgramEpisode, this.episodeId ? 'put' : 'post', { ...this.episodesModel.toServerModal(obj, this.episodesModel.seoDetailId), ...this.episodeId ? { id: this.episodeId } : null }).subscribe((res:any) => {
             console.log("EPISODES", res);
             this.initForm();
@@ -150,22 +144,14 @@ export class AddEpisodeComponent implements OnInit {
       populateEpisodessForm(episode: any) {
         this.episodeForm = this.fb.group({
           airedOn: [new Date(episode.updatedAt), []],
-          title: [episode?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+          title: [episode?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
           programId: [episode?.programId || null, [Validators.required]],
           content: [episode?.content || null, [Validators.required]],
           isActive: [episode?.isActive],
-          seoTitle: [episode?.seoDetails?.title || null, 
-            // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
-          ],
-          slugLine: [episode?.seoDetails?.slugLine || null, 
-            // [Validators.required, Validators.maxLength(250)]
-          ],
-          seoDescription: [episode?.seoDetails?.description || null, 
-            // [Validators.required, Validators.maxLength(250)]
-          ],
-          keywords: [episode?.seoDetails?.keywords || null, 
-            // [Validators.required]
-          ],
+          seoTitle: [episode?.seoDetails?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+          slugLine: [episode?.seoDetails?.slugLine || null, [Validators.required, Validators.maxLength(250)]],
+          seoDescription: [episode?.seoDetails?.description || null, [Validators.required, Validators.maxLength(250)]],
+          keywords: [episode?.seoDetails?.keywords || null, [Validators.required]],
           file: [null],
           thumbnail: [null]
       });
