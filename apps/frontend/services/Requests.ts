@@ -2,8 +2,8 @@
 // export const baseUrl='http://157.90.67.186:3001/';
 // export const baseUrlAdmin='http://157.90.67.186:3002/';
 // QA
-// export const baseUrl='http://157.90.67.186:4001/';
-// export const baseUrlAdmin='http://157.90.67.186:4002/';
+ //export const baseUrl='http://157.90.67.186:4001/';
+ //export const baseUrlAdmin='http://157.90.67.186:4002/';
 // domains
 export const baseUrlAdmin= "https://backend.admin.staging.cnbcarabia.com/";
 export const baseUrl= "https://backend.news.staging.cnbcarabia.com/";
@@ -36,6 +36,8 @@ export const requests={
     episodes:adminAPIClient+'episodes/getAll',
     episodeById:adminAPIClient+'episodes/getById',
     videoNews:newsAPIClient+'news/get/flags?contentType=VIDEO',
+    latestMarketCategory:adminAPIClient+'categories/getByTitle?title=أخبار السوق/Market News',
+    latestStockCategory:adminAPIClient+'categories/getByTitle?title=أخبار الأسهم/Stock News'
 }
 
 export const limitOfList = '20' ;
