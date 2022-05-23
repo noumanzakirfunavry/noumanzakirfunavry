@@ -57,16 +57,16 @@ const HorizontalFooter2EpisodesSlider =  ({episodes})=>{
                                     <img className="img-fluid" src={episode?.thumbnail?.path ? baseUrlAdmin+episode?.thumbnail?.path:sliderimg.src} />
                                         <div className="PlayTime">
                                             <h5>05:21</h5>
-                                            <div className="btn-text">
                                             <Link href={{ pathname: 'episode', query: { episodeId: episode.id, programId: episode.programId }}}>
                                                 <a>
-                                                    <button className="btn btn-warning VideoPlay">
-                                                        <i className="fa play_medium"></i>
-                                                    </button>
+                                                    <div className="btn-text">
+                                                        <button className="btn btn-warning VideoPlay">
+                                                            <i className="fa play_medium"></i>
+                                                        </button>
+                                                        <span>شاهد الآن</span>
+                                                    </div>  
                                                 </a>
                                             </Link>
-                                            <span>شاهد الآن</span>
-                                            </div>
                                         </div>
                                     </div>
                                     <div className="newscontent">

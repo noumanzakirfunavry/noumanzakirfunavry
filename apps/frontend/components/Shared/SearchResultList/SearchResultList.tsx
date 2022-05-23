@@ -48,15 +48,13 @@ const SearchResultList = ({newsSearchData}) => {
                                         
                                         <div className="newsText">
                                             <p>
-                                                { // to show tags
-                                                    news?._source?.tags?.map((tag: string, tagIndex: number) => {
+                                                { // to show categories
+                                                    news?._source?.categories?.map((category: any, categoryIndex: number) => {
                                                         return(
-                                                            <a key={tagIndex} href="#">{tag}</a>
+                                                            <a key={categoryIndex}>{category.title}</a>
                                                         )
                                                     })  
 	                                             }
-                                                  {/*07 مارس 2022*/}
-                                                  {GetArabicFormattedDate(news?._source?.createdAt)}
                                             </p>
                                             <h6><Link href={`/newsDetails/`+news._id}><a>{news?._source?.title}</a></Link></h6>
                                             <HtmlData data={news?._source?.content} />
