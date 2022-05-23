@@ -134,16 +134,16 @@ const MostReadSlider: FC = () => {
                                         
                                             <div className="PlayTime">
                                                 <h5>05:21</h5>
-                                                <div className="btn-text">
-                                                    <span>شاهد الآن</span>
-                                                    <Link href={`/${newsPage}/` + newsItem?.news?.id}>
-                                                        <a>
+                                                <Link href={`/${newsPage}/` + newsItem?.news?.id}>
+                                                    <a>
+                                                        <div className="btn-text">
+                                                            <span>شاهد الآن</span>
                                                             <button className="btn btn-warning VideoPlay">
                                                                 <i className="fa play_small"></i>
                                                             </button>
-                                                        </a>
-                                                    </Link>
-                                                </div>
+                                                        </div>
+                                                    </a>
+                                                </Link>
                                             </div>
                                         </div>
                                     </>
@@ -157,7 +157,16 @@ const MostReadSlider: FC = () => {
 
                                         
                                         <Link href={`/${newsPage}/` + newsItem?.news?.id}><a>{newsItem?.news?.title}</a></Link>
-                                        <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                                        <p className="tag">
+                                            { // to show categories
+                                                newsItem?.news?.categories?.map((category: any, categoryIndex: number) => {
+                                                    return(
+                                                        <a key={categoryIndex}>{category.title}</a>
+                                                    )
+                                                })  
+                                            }
+                                        </p>
+                                        {/*<p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>*/}
                                     </li>
 
                                   

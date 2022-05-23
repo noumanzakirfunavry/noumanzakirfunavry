@@ -35,18 +35,29 @@ const VideoNewsTiles = () => {
                                   <img className="img-fluid" src={newsItem?._source?.thumbnail?.path ? baseUrlAdmin+newsItem?._source?.thumbnail?.path:newsImage.src} />
                                     <div className="PlayTime">
                                       <h5>05:21</h5>
-                                      <div className="btn-text">
-                                          <span>شاهد الآن</span>
-                                          <Link href={`/videoNews/` +newsItem?._id}>
-                                            <button className="btn btn-warning VideoPlay"><i className="fa play_small"></i></button>
-                                          </Link>
-                                      </div>
+                                      <Link href={`/videoNews/` +newsItem?._id}>
+                                        <a>
+                                          <div className="btn-text">
+                                                <span>شاهد الآن</span>
+                                                <button className="btn btn-warning VideoPlay"><i className="fa play_small"></i></button>
+                                          </div>
+                                        </a>
+                                      </Link>
                                     </div>
                                   </div>
                                 <div className="NewsInfo">
                                     {newsItem?._source?.title}
                                     {/*<h4>بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي</h4>*/}
-                                    <p><a>الإمارات</a> منذ 5 دقائق</p>
+                                    {/*<p><a>الإمارات</a> منذ 5 دقائق</p>*/}
+                                    <p>
+                                      { // to show categories
+                                        newsItem?._source?.categories?.map((category: any, categoryIndex: number) => {
+                                                            return(
+                                                                <a key={categoryIndex}>{category.title}</a>
+                                                            )
+                                                        })  
+                                      }
+                                    </p>
                                 </div>
                             </div>
                         </div>
