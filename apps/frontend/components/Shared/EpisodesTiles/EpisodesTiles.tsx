@@ -40,16 +40,16 @@ const EpisodesTiles = ({programDetails}) => {
                                             
                                                 <div className="PlayTime">
                                                     <h5>05:21</h5>
-                                                    <div className="btn-text">
-                                                        <span>شاهد الآن</span>
-                                                        <Link href={{ pathname: 'episode', query: { episodeId: episode.id, programId: programId }}}>
-                                                            <a>
+                                                    <Link href={{ pathname: 'episode', query: { episodeId: episode.id, programId: programId }}}>
+                                                        <a>
+                                                            <div className="btn-text">
+                                                                <span>شاهد الآن</span>
                                                                 <button className="btn btn-warning VideoPlay">
                                                                     <i className="fa play_small"></i>
                                                                 </button>
-                                                            </a>
-                                                        </Link>
-                                                    </div>
+                                                            </div>
+                                                        </a>
+                                                    </Link>
                                                 </div>
                                             </div>
                                          </>
