@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs
 import { GenericResponseDto, RegisterAdminRequestDto, RequestResetPasswordRequestDto, ResetPasswordRequestDto, UpdateAdminRequestDto, UpdatePasswordRequestDto, UserLoginDto } from '@cnbc-monorepo/dtos'
 import { AnthenticationService } from './anthentication.service';
 import { JwtAuthGuard, Public, Rights, Roles } from '@cnbc-monorepo/auth-module';
-import { RightsTypes, RoleTypes } from '@cnbc-monorepo/enums';
+import { RightsTypes, RoleTypes} from '@cnbc-monorepo/enums';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
 @Controller('admin/api/admin/authentication')
@@ -27,6 +27,7 @@ export class AnthenticationController {
 
     @UseGuards(JwtAuthGuard)
     @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
+		@Rights(RightsTypes.MODIFY_ADMIN)
     @Post("register")
     async registerAdmin(@Req() req, @Body() body: RegisterAdminRequestDto): Promise<GenericResponseDto> {
         return await this.authService.registerAdmin(req.user.roles[0], body)
