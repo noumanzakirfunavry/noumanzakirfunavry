@@ -25,22 +25,31 @@ const SideBarWithVideo = ({title, videoNewsList}) => {
                                     <div className="newsText">
                                         <a href="#">{video?._source?.title}</a>
                                         <Link href={`/videoNews/`+video.id}><a>{video && video?._source?.title} </a></Link>
-                                        <p><TimeAgoArabicFormat date={video?._source?.createdAt} /></p>
+                                        {/*<p><TimeAgoArabicFormat date={video?._source?.createdAt} /></p>*/}
+                                        <p>
+                                            { // to show categories
+                                            video?._source?.categories?.map((category: any, categoryIndex: number) => {
+                                                    return(
+                                                            <a key={categoryIndex}>{category.title}</a>
+                                                        )
+                                                })  
+                                            }
+                                        </p>
                                     </div>
                                     <div className="VideoNews">
                                         <img className="img-fluid" src={video?._source?.thumbnail?.path ? baseUrlAdmin+video?._source?.thumbnail?.path:newsImage.src} />
                                         <div className="PlayTime">
                                             <h5>05:21</h5>
-                                            <div className="btn-text">
-                                                <span>شاهد الآن</span>
-                                                <Link href={`/videoNews/` + video?._source?.id}>
-                                                    <a>
+                                            <Link href={`/videoNews/` + video?._source?.id}>
+                                                <a>
+                                                    <div className="btn-text">
+                                                        <span>شاهد الآن</span>
                                                         <button className="btn btn-warning VideoPlay">
                                                             <i className="fa play_small"></i>
                                                         </button>
-                                                    </a>
-                                                </Link>
-                                            </div>
+                                                    </div>
+                                                </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </li>

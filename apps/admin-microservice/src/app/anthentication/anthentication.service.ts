@@ -215,7 +215,7 @@ export class AnthenticationService {
         }
         catch (err) {
             console.log("🚀 ~ file: anthentication.service.ts ~ line 139 ~ AnthenticationService ~ registerAdmin ~ err", err)
-            return err
+            throw err
         }
     }
 
@@ -261,7 +261,7 @@ export class AnthenticationService {
         }
         catch (err) {
             console.log("🚀 ~ file: anthentication.service.ts ~ line 139 ~ AnthenticationService ~ registerAdmin ~ err", err)
-            return err
+            throw err
         }
     }
 

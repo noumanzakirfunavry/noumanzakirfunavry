@@ -48,17 +48,17 @@ const TilesWithColoredBackground: FC = () => {
                             </div>
                             <div className="PlayTime">
                                 <h5>05:21</h5>
-                                <div className="btn-text">
-                                    <span className='PlayButton-flyout'>شاهد الآن</span>
-                                    <Link href={`/videoNews/` +videoNewsList[0]?._id}>
-                                        <a>
+                                <Link href={`/videoNews/` +videoNewsList[0]?._id}>
+                                    <a>
+                                        <div className="btn-text">
+                                            <span className='PlayButton-flyout'>شاهد الآن</span>
                                             <button className="btn btn-warning VideoPlay">
                                                 <i className="fa play_big"></i>
-                                                {/* <img className="img-fluid" src={playicon.src} /> */}
+                                                        {/* <img className="img-fluid" src={playicon.src} /> */}
                                             </button>
-                                        </a>
-                                    </Link>
-                                </div>
+                                        </div>
+                                    </a>
+                                </Link>
                             </div>
                             <div className="NewsContent">
                                 <h4>
@@ -85,16 +85,16 @@ const TilesWithColoredBackground: FC = () => {
                                         </div>
                                         <div className="PlayTime">
                                             <h5>05:21</h5>
-                                            <div className="btn-text">
-                                                <span>شاهد الآن</span>
-                                                <Link href={`/videoNews/` + newsItem?._id}>
-                                                    <a>
+                                            <Link href={`/videoNews/` + newsItem?._id}>
+                                                <a>
+                                                    <div className="btn-text">
+                                                        <span>شاهد الآن</span>
                                                         <button className="btn btn-warning VideoPlay">
                                                             <i className="fa play_small"></i>
                                                         </button>
-                                                    </a>
-                                                </Link>
-                                            </div>
+                                                    </div>
+                                                </a>
+                                            </Link>
                                         </div>
                                     </div>
                                     <div className="NewsContent">
