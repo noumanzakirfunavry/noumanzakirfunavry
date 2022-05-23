@@ -15,7 +15,9 @@ export class Categories extends Model {
     @Column
     id: number
 
-    @Column
+    @Column({
+			unique: true
+		})
     title: string
 
     @Column
