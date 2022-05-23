@@ -11,7 +11,7 @@ const MarketIndices = () =>{
     const [tickerIds, setTickerIds] = useState<any>()
 
     useEffect(() => {
-        GetData(`https://cnbcarabia.zagtrader.com/External/cnbcarabiadynamic/api/ConfigHome.php?type=json`, {}, 'get', false).then(res=>{
+        GetData(`https://cnbc-config.cnbcarabia.com/zagtrader/api/ConfigHome.php?type=json`, {}, 'get', false).then(res=>{
 
             console.log('Market Graph Indices:::', res);
             setMarketIndices(res?.data);

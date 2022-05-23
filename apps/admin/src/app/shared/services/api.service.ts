@@ -70,7 +70,7 @@ export class ApiService {
     let fileType=file.type.toString();
     formData.append("file", file);
     formData.append("title", file.name);
-    formData.append("description", description || 'test description');
+    formData.append("description", description || 'CNBC Arabia');
     formData.append("attachmentType", file.name.match(/\.(jpg|jpeg|png|gif)$/) ? 'IMAGE':'VIDEO');
     formData.append("tags", 'news');
     formData.append("channel", description || 'news');

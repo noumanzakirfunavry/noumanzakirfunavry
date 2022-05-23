@@ -88,6 +88,14 @@ export class NewsComponent implements OnInit {
         this.getAllNews();
     }
 
+    getCategories(categories){
+        let titles=''
+        categories.forEach(x=>{
+            titles+=x.title +', '
+        })
+        return titles
+    }
+
     onPageSizeChange(limit: number) {
         this.loading= true;
         this.pagination = Object.assign({...this.pagination, limit: limit})
