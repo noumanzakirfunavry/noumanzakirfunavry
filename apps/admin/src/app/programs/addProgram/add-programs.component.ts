@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { environment } from '../../../environments/environment';
 import { ProgramsModel } from '../../common/models/programsModel';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
@@ -159,7 +160,8 @@ export class AddProgramsComponent implements OnInit{
           this.programsModel.videoUrl = null;
           this.tempFile.showDelBtn = false;
           setTimeout(() => {
-            this.programsModel.videoUrl = file.url;
+            this.programsModel.videoUrl = environment.fileUrl +  file.path;
+            // this.programsModel.videoUrl = file.url;
             this.tempFile.showDelBtn = true;
         }, 400);
   }
@@ -169,7 +171,8 @@ export class AddProgramsComponent implements OnInit{
       this.programsModel.thumbnailUrl=null;
       this.tempThumbanilFile.showDelBtn = false;
       setTimeout(() => {
-          this.programsModel.thumbnailUrl = file.url;
+          this.programsModel.thumbnailUrl = environment.fileUrl +  file.path;
+          // this.programsModel.thumbnailUrl = file.url;
           this.tempThumbanilFile.showDelBtn = true;
       }, 400);
   }

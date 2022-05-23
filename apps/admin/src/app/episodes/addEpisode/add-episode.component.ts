@@ -8,6 +8,7 @@ import { EpisodesModel } from '../../common/models/episodesModel';
 import { ApiService } from '../../shared/services/api.service';
 import { Pagination } from '../../common/models/pagination';
 import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'add-episode',
@@ -159,7 +160,8 @@ export class AddEpisodeComponent implements OnInit {
 
       mainFileUploaded(file) {
         this.episodesModel.videoId = file.id;
-        this.episodesModel.videoUrl = file.url;
+        this.episodesModel.videoUrl = environment.fileUrl + file.path;
+        // this.episodesModel.videoUrl = file.url;
         this.tempFile.showDelBtn = true;
       }
 
@@ -168,7 +170,8 @@ export class AddEpisodeComponent implements OnInit {
         this.episodesModel.thumbnailUrl=null;
         this.tempThumbanilFile.showDelBtn = false;
         setTimeout(() => {
-            this.episodesModel.thumbnailUrl = file.url;
+            this.episodesModel.thumbnailUrl = environment.fileUrl + file.path;
+            // this.episodesModel.thumbnailUrl = file.url;
             this.tempThumbanilFile.showDelBtn = true;
         }, 400);
     }
