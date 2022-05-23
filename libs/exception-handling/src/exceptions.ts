@@ -23,6 +23,7 @@ export enum ExceptionType {
   USER_CANT_DELETE_THEMSELF = 'USER_CANT_DELETE_THEMSELF',
   USER_IS_NOT_VERIFIED = 'USER_IS_NOT_VERIFIED',
   USER_IS_INACTIVE = 'USER_IS_INACTIVE',
+  USERNAME_OR_EMAIL_ALREADY_EXISTS = 'USERNAME_OR_EMAIL_ALREADY_EXISTS',
   EMPLOYEE_NOT_FOUND = 'EMPLOYEE_NOT_FOUND',
   MANAGER_AND_EMPLOYEE_IS_SAME = 'MANAGER_AND_EMPLOYEE_IS_SAME',
   APPRAISAL_NOT_FOUND = 'APPRAISAL_NOT_FOUND',
@@ -40,6 +41,9 @@ export enum ExceptionType {
   ORDER_NUMBER_NOT_AVAILABLE = 'ORDER_NUMBER_NOT_AVAILABLE',
   ORDER_NUMBER_IS_SAME_AS_BEFORE = 'ORDER_NUMBER_IS_SAME_AS_BEFORE',
   ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL = 'ORDER_NUMBER_OR_PARENT_ID_SAME_AS_ORIGINAL',
+  ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED = 'ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED',
+  CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT = 'CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT',
+  CATEGORY_TITLE_DUPLICATE = 'CATEGORY_TITLE_DUPLICATE',
 }
 
 interface ExceptionOptions {
@@ -152,6 +156,10 @@ export const Exceptions: Record<ExceptionType, ExceptionOptions> = {
     status: HttpStatus.UNAUTHORIZED,
     message: 'User is inactive',
   },
+	[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS]: {
+    status: HttpStatus.BAD_REQUEST,
+    message: 'A user already exists having your username/email',
+  },
   [ExceptionType.EMAIL_NOT_FOUND]: {
     status: HttpStatus.BAD_REQUEST,
     message: 'Email not found.',
@@ -206,5 +214,17 @@ export const Exceptions: Record<ExceptionType, ExceptionOptions> = {
     status: HttpStatus.BAD_REQUEST,
     message: `Provided orderNumber and/or parentMenuId is same as original. 
 		Kindly provide other values or leave empty if dont want to update`,
+  },
+	[ExceptionType.ORDER_NUMBER_AND_PARENT_ID_NOT_PROVIDED]: {
+    status: HttpStatus.BAD_REQUEST,
+    message: 'Please provide at least 1 of the following parameters to update: OrderNo or ParentId',
+  },
+	[ExceptionType.CHILD_MENU_CANNOT_BE_ITS_OWN_PARENT]: {
+    status: HttpStatus.BAD_REQUEST,
+    message: 'Provided id and parentMenuId are same. A child menu cannot be its own parent',
+  },
+	[ExceptionType.CATEGORY_TITLE_DUPLICATE]: {
+    status: HttpStatus.BAD_REQUEST,
+    message: 'A category with the provided title already exists',
   },
 };

@@ -1,5 +1,6 @@
+import { ContentTypes } from "@cnbc-monorepo/enums";
 import { Type } from "class-transformer";
-import { IsBooleanString, IsNumber, IsOptional, Min } from "class-validator";
+import { IsBooleanString, IsEnum, IsNumber, IsOptional, Min } from "class-validator";
 
 export class GetNewsByFlagsRequestDto {
 	@IsOptional()
@@ -17,6 +18,14 @@ export class GetNewsByFlagsRequestDto {
 	@IsOptional()
 	@IsBooleanString()
 	isBreaking: boolean;
+
+	@IsOptional()
+	@IsBooleanString()
+	isExclusiveVideos: boolean;
+
+	@IsOptional()
+	@IsEnum(ContentTypes)
+	contentType: ContentTypes;
 
 	@IsNumber()
 	@Min(1)

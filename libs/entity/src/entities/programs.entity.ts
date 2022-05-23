@@ -22,8 +22,10 @@ export class Programs extends Model{
     @Column
     title : string
 
-    @Column
-    description : string
+    @Column({
+			type: DataType.TEXT
+		})
+    content : string
 
     @Column
     orders : number

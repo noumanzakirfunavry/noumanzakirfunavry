@@ -2,6 +2,7 @@ import { ContentTypes, NewsTypes } from "@cnbc-monorepo/enums";
 import { Type } from "class-transformer";
 import { ArrayNotEmpty, IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl, MaxLength, ValidateNested } from "class-validator";
 import { CreateSeoRequestDto } from "../seo/create.seo.request.dto";
+import { NewsHasQuotesRequestDto } from "./news.has.quotes.request.dto";
 
 export class CreateNewsRequestDto {
 
@@ -12,7 +13,7 @@ export class CreateNewsRequestDto {
 
     @IsNotEmpty()
     @IsString()
-    @MaxLength(1500)
+    // @MaxLength(1500)
     content: string
 
     @IsNotEmpty()
@@ -70,8 +71,10 @@ export class CreateNewsRequestDto {
 
     @IsArray()
     @ArrayNotEmpty()
+    @ValidateNested({ each: true })
+    @Type(() => NewsHasQuotesRequestDto)
     @IsOptional()
-    quotesIds: []
+    quotes: NewsHasQuotesRequestDto[]
 
     @IsArray()
     @ArrayNotEmpty()

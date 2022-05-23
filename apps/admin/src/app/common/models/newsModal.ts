@@ -1,7 +1,6 @@
-import { environment } from "../../../environments/environment";
 import { SeoModal } from "../../common/models/seo.modal";
 
-export class NewsModal {
+export class NewsModel {
     title: string;
     content: string;
     isPro: boolean;
@@ -18,11 +17,14 @@ export class NewsModal {
     seoDetailId: number;
 
     videoId : number
-    thumbnailId : number
+    thumbnailId : number;
+    thumbnailFile: File;
     imageId : number
     mainFile: any;
-    fileUrl:string;
-    thumbnailUrl:string;
+    fileUrl: string;
+    videoUrl: string;
+    thumbnailUrl: string;
+    id?:number | string;
 
     constructor() {
         this.title = ""
@@ -51,12 +53,20 @@ export class NewsModal {
         this.newsType=serverNews.newsType
         this.showOnHomepage=serverNews.showOnHomepage
         this.isActive=serverNews.isActive
-        this.categoryIds=serverNews.categories.map(x=>x.id);
-        this.tagsIds=serverNews.tags.map(x=>x.id);
-        this.quotesIds=serverNews.quotes.map(x=>x.id);
-        this.seoDetails=serverNews.seoDetail
-        this.seoDetailId=serverNews.seoDetailId;
-        this.fileUrl=environment.fileUrl+serverNews.image?.path;
+        this.categoryIds=serverNews?.categories.map(x=>x.id);
+        this.tagsIds=serverNews?.tags.map(x=>x.id);
+        this.quotesIds=serverNews?.quotes ? serverNews?.quotes.map(x=>x.quoteTickerId):[];
+        this.seoDetails=serverNews?.seoDetail
+        this.seoDetailId=serverNews?.seoDetailId;
+
+        this.videoId=serverNews.videoId || null;
+        this.imageId=serverNews.imageId || null;
+        this.thumbnailId=serverNews.thumbnailId || null;
+
+        this.fileUrl=serverNews.image  ? serverNews.image?.url:null;
+        this.videoUrl=serverNews.video ? serverNews.video?.url:null;
+        this.thumbnailUrl=serverNews.thumbnail ? serverNews.thumbnail?.url:null;
+        this.id=serverNews.id || null;
     }
 
     toServerModal(form: any, seoId?) {
@@ -76,8 +86,10 @@ export class NewsModal {
             tagsIds:form.tagsIds,
             // tagsIds: [1],
             quotesIds: form.quotesIds,
+            quotes:form.quotes,
             imageId:this.imageId,
-
+            ...(this.videoId ? {videoId:this.videoId}:null),
+            ...(this.thumbnailId ? {thumbnailId:this.thumbnailId}:null),
             seoDetails: {
                 title: form.seoTitle,
                 description: form.description,

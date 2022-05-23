@@ -1,48 +1,47 @@
 
       <div class="float-right">
         <div class="d-flex">
-            <nz-form-item class="mr-2">
-                    <nz-form-control>
-                        <nz-date-picker [nzDateRender]="tplRender"></nz-date-picker>
-                    </nz-form-control>
+          <nz-form-item class="mr-2">
+            <nz-form-control>
+              <nz-date-picker [(ngModel)]="filterModel.date" [nzDateRender]="tplRender"></nz-date-picker>
+            </nz-form-control>
+      </nz-form-item>
+              <nz-form-item class="mr-2">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Program" nzSpan="8" [(ngModel)]="filterModel.programId">
+                  <nz-option *ngFor="let prog of allPrograms" [nzValue]="prog?.id" [nzLabel]="prog?.title"></nz-option>
+                </nz-select>
               </nz-form-item>
               <nz-form-item class="mr-2">
-                <!-- <nz-form-label>Admin Role</nz-form-label> -->
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Program" >
-    
-                  <nz-option nzValue="Sample Program 1" [nzLabel]="'Sample Program 1'"></nz-option>
-                  <nz-option nzValue="Sample Program 2" [nzLabel]="'Sample Program 2'"></nz-option>
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="User" nzSpan="8" [(ngModel)]="filterModel.publishedBy">
+                  <nz-option *ngFor="let admin of allAdmins" [nzValue]="admin?.id" [nzLabel]="admin?.name"></nz-option>
                 </nz-select>
               </nz-form-item>
             <nz-form-item class="mr-2">
-                <!-- <nz-form-label>Admin Role</nz-form-label> -->
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Publisher" >
-    
-                  <nz-option nzValue="Sample User 1" [nzLabel]="'Sample User 1'"></nz-option>
-                  <nz-option nzValue="Sample User 2" [nzLabel]="'Sample User 2'"></nz-option>
-                </nz-select>
-              </nz-form-item>
-            <nz-form-item class="mr-2">
-              <!-- <nz-form-label>Admin Role</nz-form-label> -->
-              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Status" >
-                <nz-option nzValue="Active" [nzLabel]="'Active'"></nz-option>
-                <nz-option nzValue="InActive" [nzLabel]="'InActive'"></nz-option>
+              <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Status" nzSpan="8" [(ngModel)]="filterModel.isActive">
+                <nz-option [nzValue]="true" [nzLabel]="'Active'"></nz-option>
+                <nz-option [nzValue]="false" [nzLabel]="'InActive'"></nz-option>
               </nz-select>
             </nz-form-item>
+            <nz-form-item class="mr-2">
+                    <input [(ngModel)]="filterModel.search" nz-input placeholder="Search Title">
+            </nz-form-item>
+            <nz-form-item class="mr-2">
+              <nz-form-control>
+                <button nz-button (click)="search()" [nzType]="'primary'">Search</button>
+              </nz-form-control>
+            </nz-form-item>
             <nz-form-item>
-                <nz-input-group [nzPrefix]="prefiXTemplate">
-                    <input nz-input placeholder="Search Title, Program" nzSize="small">
-                </nz-input-group>
-                <ng-template #prefiXTemplate>
-                    <i nz-icon nzType="search" theme="outline"></i>
-                </ng-template>
+              <nz-form-control>
+                <button nz-button (click)="clear()" [nzType]="'default'">Clear</button>
+              </nz-form-control>
             </nz-form-item>
           </div>
         </div>
+
         <ng-template #tplRender let-current>
-            <div class="ant-picker-cell-inner" [class.border]="current.getDate() === 1">
-              {{ current.getDate() }}
-            </div>
-          </ng-template>
+          <div class="ant-picker-cell-inner" [class.border]="current.getDate() === 1">
+            {{ current.getDate() }}
+          </div>
+        </ng-template>
           
   

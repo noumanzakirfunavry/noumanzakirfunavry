@@ -1,9 +1,9 @@
 import { CreateEpisodeRequestDto, DeleteAlexaAudioRequestDto, GenericResponseDto, GetAllEpisodesRequestDto } from '@cnbc-monorepo/dtos';
-import { Episodes, EpisodesHasQuotes, EpisodesHasTags, SeoDetails } from '@cnbc-monorepo/entity';
+import { Attachments, Episodes, EpisodesHasQuotes, EpisodesHasTags, SeoDetails } from '@cnbc-monorepo/entity';
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { Helper, sequelize } from '@cnbc-monorepo/utility';
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 
 @Injectable()
 export class EpisodesService {
@@ -173,6 +173,32 @@ export class EpisodesService {
             throw err
         }
     }
+
+		async getEpisodeByIdClient(id: number): Promise<GenericResponseDto> {
+			const response = await this.episodeRepository.findOne({
+				where: {
+						id,
+						isActive: true
+				},
+				include: ['seoDetails', 'thumbnail', 'program', 'video']
+		});
+			if (response) {
+				this.episodeRepository.update({ views: response.views + 1 }, { where: { id } })
+				return new GenericResponseDto(
+					HttpStatus.OK,
+					"Fetched successfully",
+					{ episode: response }
+				)
+			}
+			else {
+				throw new CustomException(
+					Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+					Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+				)
+			}
+
+		}
+
     async getAllEpisodes(query: GetAllEpisodesRequestDto): Promise<GenericResponseDto> {
         try {
             const search_episodes = await this.searchEpisodesQuery(query)
@@ -191,6 +217,52 @@ export class EpisodesService {
         }
     }
 
+		async getAllEpisodesClient(getAllEpisodesDto: GetAllEpisodesRequestDto) {
+			const response = await this.episodeRepository.findAndCountAll({
+				where: {
+					...(getAllEpisodesDto.search && {
+						title: {
+							[Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(getAllEpisodesDto.search)}%`
+						}
+					}),
+					...(getAllEpisodesDto.isActive && {
+						isActive: JSON.parse(getAllEpisodesDto.isActive.toString())
+					}),
+					...(getAllEpisodesDto.date && {
+						airedOn: where(sequelize.fn('date', sequelize.col('Episodes.airedOn')), '=', getAllEpisodesDto.date)
+					}),
+					...(getAllEpisodesDto.programId && {
+						programId: getAllEpisodesDto.programId
+					}),
+					...(getAllEpisodesDto.publishedBy &&
+					{
+						publishedBy: getAllEpisodesDto.publishedBy
+					}),
+
+					isActive: true
+				},
+				include: ['seoDetails', 'thumbnail', 'program', 'video'],
+				limit: getAllEpisodesDto.limit,
+				offset: this.helperService.offsetCalculator(getAllEpisodesDto.pageNo, getAllEpisodesDto.limit)
+			});
+
+			if (response.count === 0) {
+				throw new CustomException(
+					Exceptions[ExceptionType.RECORD_NOT_FOUND].message,
+					Exceptions[ExceptionType.RECORD_NOT_FOUND].status
+				)
+			}
+
+			return new GenericResponseDto(
+				HttpStatus.OK,
+				"Fetched successfully",
+				{
+					episodes: response.rows,
+					totalCount: response.count
+				}
+			)
+		}
+
     private async searchEpisodesQuery(query: GetAllEpisodesRequestDto) {
         return await this.episodeRepository.findAndCountAll(
             {
@@ -204,7 +276,7 @@ export class EpisodesService {
                         isActive: JSON.parse(query.isActive.toString())
                     }),
                     ...(query.date && {
-                        airedOn: query.date
+                        airedOn: where(sequelize.fn('date', sequelize.col('Episodes.airedOn')), '=', query.date)
                     }),
                     ...(query.programId && {
                         programId: query.programId
@@ -214,6 +286,7 @@ export class EpisodesService {
                         publishedBy: query.publishedBy
                     })
                 },
+								include: ['program', 'user'],
                 limit: parseInt(query.limit.toString()),
                 offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
             }
@@ -269,7 +342,8 @@ export class EpisodesService {
         return await this.episodeRepository.findOne({
             where: {
                 id: id
-            }
+            },
+						include: [{model: Attachments, as: 'thumbnail'}, {model: Attachments, as: 'video'}, 'seoDetails']
         });
     }
 
@@ -291,7 +365,7 @@ export class EpisodesService {
         return response === 0 ? true : response
     }
 
-    private async updateEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; description: string; isActive: boolean; }, id: number) {
+    private async updateEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; content: string; isActive: boolean; }, id: number) {
         return await this.episodeRepository.update(episode_object, {
             where: {
                 id: id
@@ -307,7 +381,7 @@ export class EpisodesService {
         });
     }
 
-    private async addEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; description: string; isActive: boolean; }, transactionHost) {
+    private async addEpisodeQuery(episode_object: { seoDetailId: number; publishedBy: number; programId: number; thumbnailId: number; videoId: number; airedOn: Date; title: string; content: string; isActive: boolean; }, transactionHost) {
         return await this.episodeRepository.create(episode_object, { transaction: transactionHost.transaction });
     }
 

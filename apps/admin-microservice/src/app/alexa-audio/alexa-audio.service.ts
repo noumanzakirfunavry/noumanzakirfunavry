@@ -31,20 +31,10 @@ export class AlexaAudioService {
                         }
                     })
                 if (update_record) {
-                    const log_obj = this.helperService.logObjectCreator("MODIFIED", "PAGE", id, new Date(), "something has changed", req)
-                    const log = await this.helperService.addLog(log_obj)
-                    if (log) {
-                        return new GenericResponseDto(
-                            HttpStatus.OK,
-                            "Updated successfully"
-                        )
-                    }
-                    else {
-                        throw new CustomException(
-                            Exceptions[ExceptionType.UNABLE_TO_ADD_LOG].message,
-                            Exceptions[ExceptionType.UNABLE_TO_ADD_LOG].status
-                        )
-                    }
+										return new GenericResponseDto(
+												HttpStatus.OK,
+												"Updated successfully"
+										)
                 }
                 else {
                     throw new CustomException(

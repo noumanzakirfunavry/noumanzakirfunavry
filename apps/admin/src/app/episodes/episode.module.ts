@@ -11,7 +11,14 @@ import { antdModule } from '../AndModules/andModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
+import { TinyEditorModule } from '../modules/tiny-editor/tiny-editor.module';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 
 
@@ -26,7 +33,14 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
         FormsModule,
         NzUploadModule,
         QuillModule.forRoot(),
-        CKEditorModule
+        CKEditorModule,
+        NzPaginationModule,
+        NzModalModule,
+        NzDatePickerModule,
+        NzMessageModule,
+        FileUploaderModule,
+        EditorModule,
+        TinyEditorModule
 
     ],
     exports: [],
@@ -36,7 +50,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
         EpisodeFilterComponent
     ],
     providers: [
-        ThemeConstantService
+        ThemeConstantService,
+        { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
     ],
 })
 export class EpisodeModule { }

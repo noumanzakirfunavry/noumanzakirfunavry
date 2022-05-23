@@ -1,46 +1,44 @@
 <section>
     <br>
     <br>
-    <div class="col-12">
-      <form nz-form [nzLayout]="'vertical'">
+    <div *ngIf="!loader" class="col-12">
+      <form nz-form [formGroup]="episodeForm" [nzLayout]="'vertical'" (ngSubmit)="episodes()">
         <div class="row">
           <div class="col-8">
             <div class="row">
               <div class="col-md-5">
                 <nz-form-item>
-                    <nz-form-label>Date</nz-form-label>
-                    <nz-form-control>
-                        <nz-date-picker class="w-100" nzShowTime></nz-date-picker>
-                    </nz-form-control>
-                </nz-form-item>
+                  <nz-form-label>Date</nz-form-label>
+                  <nz-form-control>
+                      <nz-date-picker formControlName="airedOn" class="w-100" nzShowTime nzDisabled="true"></nz-date-picker>
+                  </nz-form-control>
+              </nz-form-item>
               </div>
               <div class="col-md-5">
                     <nz-form-item>
-                      <nz-form-label>Program</nz-form-label>
-                      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Choose Program">
-        
-                        <nz-option nzValue="Program 1" [nzLabel]="'Program 1'"></nz-option>
-                        <nz-option nzValue="MeProgramnu 2" [nzLabel]="'Program 2'"></nz-option>
+                      <nz-form-label nzRequired>Program</nz-form-label>
+                      <nz-form-control nzErrorTip="Select Program!">
+                      <nz-select nzShowSearch nzAllowClear formControlName="programId" nzPlaceHolder="Choose Program">
+                        <nz-option *ngFor="let prog of allPrograms" [nzValue]="prog?.id" [nzLabel]="prog?.title"></nz-option>
                       </nz-select>
+                    </nz-form-control>
                     </nz-form-item>
               </div>
               <div class="col-md-10">
                 <nz-form-item>
-                  <nz-form-label>Title</nz-form-label>
-                  <nz-form-control>
-                    <input type="text" nz-input placeholder="Enter Title">
+                  <nz-form-label nzRequired>Title</nz-form-label>
+                  <nz-form-control nzErrorTip="Enter valid Title between 3 to 250 characters!">
+                      <input type="text" formControlName="title" placeholder="Enter Title" dir="rtl"
+                          nz-input>
                   </nz-form-control>
-                </nz-form-item>
+              </nz-form-item>
               </div>
             </div>
             <div class="row">
               <div class="col-md-10">
-                <nz-form-item>
-                    <nz-form-label>Description</nz-form-label>
-                    <nz-form-control>
-                        <ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
-                    </nz-form-control>
-                </nz-form-item>
+                <tiny-editor [label]="'Content'" [error]="'Enter Content!'" [formField]="episodeForm"></tiny-editor>
+                <!-- <editor formControlName="content" [init]="tinyConfig"></editor>
+                <editor [config]="tinyConfig" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></editor> -->
               </div>
               <!-- <div class="col-md-6">
   
@@ -48,52 +46,45 @@
             </div>
             <div class="row">
               <div class="col-md-5">
-                <nz-form-item>
-                  <h4>Thumbnail Image</h4>
-                  <nz-form-label>Image Upload</nz-form-label>
-                  <!-- <nz-form-control>
-                    <input type="file" nz-input placeholder="Enter Password">
-                  </nz-form-control> -->
-                  <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
-                    <button nz-button>
-                      <i nz-icon nzType="upload"></i>
-                      Select File
-                    </button>
-                  </nz-upload>
-                  <!-- <button
-                    nz-button
-                    [nzType]="'primary'"
-                    [nzLoading]="uploading"
-                    (click)="handleUpload()"
-                    [disabled]="fileList.length === 0"
-                    style="margin-top: 16px">
-                    {{ uploading ? 'Uploading' : 'Start Upload' }}
-                  </button> -->
-                </nz-form-item>
+                <dynamic-file-selector 
+                        [title]="'Episode Video'" 
+                        [fileTypes]="'video/mp4 video/3gp video/avi video/mpeg video/mov video/webm'" 
+                        [field]="tempFile"
+                        [customDiv]="'mainFile'"
+                        [formField]="episodeForm" 
+                        (onFileRemove)="reset($event)" 
+                        (onFileSelection)="mainFileSelection($event)" 
+                        (onFileUpload)="mainFileUploaded($event)" 
+                        >
+                            <div mainFile class="mt-2" >
+                                <!-- <img *ngIf="episodesModel?.fileUrl" class="mt-2" width="50%" height="50%"
+                                [src]="episodesModel?.fileUrl">                            -->
+                                <video *ngIf="episodesModel?.videoUrl" id="video1" class="img" style="width:50%; height:50%;" controls>
+                                    <source [src]="episodesModel?.videoUrl">
+                                  </video>
+                                <br>
+                                <!-- <i style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i> -->
+                              </div>
+                        </dynamic-file-selector> 
               </div>
-              <div class="col-md-5">
-                <nz-form-item>
-                  <h4>Episode Video</h4>
-                  <nz-form-label>Video Upload</nz-form-label>
-                  <!-- <nz-form-control>
-                    <input type="file" nz-input placeholder="Enter Password">
-                  </nz-form-control> -->
-                  <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
-                    <button nz-button>
-                      <i nz-icon nzType="upload"></i>
-                      Select File
-                    </button>
-                  </nz-upload>
-                  <!-- <button
-                    nz-button
-                    [nzType]="'primary'"
-                    [nzLoading]="uploading"
-                    (click)="handleUpload()"
-                    [disabled]="fileList.length === 0"
-                    style="margin-top: 16px">
-                    {{ uploading ? 'Uploading' : 'Start Upload' }}
-                  </button> -->
-                </nz-form-item>
+              <div class="col-md-5" [ngClass]="episodesModel?.videoId && episodesModel?.videoUrl ? '' : 'disable-div'">
+                <dynamic-file-selector 
+                        [customDiv]="'thumbnail'" 
+                        [title]="'Thumbnail Image'" 
+                        [fileTypes]="'image/png image/jpg image/jpeg image/gif'" 
+                        [field]="tempThumbanilFile"
+                        [formField]="episodeForm" 
+                        (onFileSelection)="thumbnailFileSelection($event)"
+                        (onFileRemove)="resetThumbnail($event)" 
+                        (onFileUpload)="thumbnailUploaded($event)" 
+                        >
+                            <div thumbnail class="mt-2" >
+                                <img *ngIf="episodesModel?.thumbnailUrl" class="mt-2" width="40%" height="40%"
+                                [src]="episodesModel.thumbnailUrl">                                                          
+                                <br>
+                                <!-- <i style="cursor: pointer; font-size: 18px;" nz-icon nzType="delete" nzTheme="outline" (click)="removePicture()"></i> -->
+                              </div>
+                        </dynamic-file-selector>
               </div>
             </div>
           </div>
@@ -101,47 +92,57 @@
             <h4>General Settings</h4>
             <nz-form-item>
               <nz-form-control>
-                <nz-switch class="mr-3"> </nz-switch> Active
+                <nz-switch formControlName="isActive" class="mr-3"> </nz-switch> Active
               </nz-form-control>
             </nz-form-item>
                 <div class="mb-4">
                     <h4 class="mb-2">SEO Settings</h4>
                     <nz-form-item>
-                        <nz-form-label>Slug Line</nz-form-label>
-                        <nz-form-control>
-                            <input type="text" placeholder="Enter Slug Line" dir="rtl" nz-input>
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label>Title</nz-form-label>
-                        <nz-form-control>
-                            <input type="text" placeholder="Enter Title" dir="rtl" nz-input>
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label>Description</nz-form-label>
-                        <nz-form-control>
-                            <textarea rows="4" type="text" placeholder="Enter Description" dir="rtl" nz-input></textarea>
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label>Keyords</nz-form-label>
-                        <nz-form-control nzExtra="Enter keywords seperated by a comma (,) .">
-                            <input type="text" placeholder="Enter Keywords" dir="rtl" nz-input>
-                        </nz-form-control>
-                    </nz-form-item>
+                      <nz-form-label >Slug Line</nz-form-label>
+                      <nz-form-control nzErrorTip="Enter Slug Line maximum 250 characters allowed!">
+                          <input type="text" formControlName="slugLine" placeholder="Enter Slug Line" dir="rtl"
+                              nz-input>
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label >Title</nz-form-label>
+                      <nz-form-control nzErrorTip="Enter Title between 3 to 250 characters!">
+                          <input type="text" formControlName="seoTitle" placeholder="Enter Title" dir="rtl"
+                              nz-input>
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label >Description</nz-form-label>
+                      <nz-form-control nzErrorTip="Enter Description maximum 250 characters allowed!">
+                          <textarea rows="4" formControlName="seoDescription" type="text"
+                              placeholder="Enter Description" dir="rtl" nz-input></textarea>
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label >Keywords</nz-form-label>
+                      <nz-form-control nzErrorTip="Enter Keywords!"
+                          nzExtra="Enter keywords seperated by a comma (,) .">
+                          <input formControlName="keywords" type="text" placeholder="Enter Keywords" dir="rtl"
+                              nz-input>
+                      </nz-form-control>
+                  </nz-form-item>
                 </div>
           </div>
         </div>
         <nz-form-item>
           <nz-form-control [nzSpan]="14">
-            <button class="mr-3" nz-button nzType="primary">Save</button>
-            <button nz-button nzType="default">Cancel</button>
+            <button *ngIf="!episodeId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Save</button>
+            <button *ngIf="episodeId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Update</button>
+            <button (click)="[getCaptcha($event),cancel()]" nz-button nzType="default">Cancel</button>
           </nz-form-control>
         </nz-form-item>
       </form>
-  
     </div>
   
+    <div *ngIf="isVisible">
+      <tiny-file-modal (onSelectFile)="fileFromModal($event)" [isVisible]="isVisible" (closeModal)="closeModal($event)">
+      </tiny-file-modal>
+  </div>
+
   </section>
   

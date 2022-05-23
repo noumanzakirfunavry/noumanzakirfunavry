@@ -1,4 +1,6 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -23,7 +25,8 @@ export class Data extends Pagination {
 
 
 @Component({
-    templateUrl: './trendingNow.component.html'
+    templateUrl: './trendingNow.component.html',
+    styleUrls: ['./trendingNow.component.scss']
 })
 
 export class TrendingNowComponent implements OnInit{
@@ -61,7 +64,7 @@ export class TrendingNowComponent implements OnInit{
     ];
 
 
-    constructor (private apiService: ApiService, private message: NzMessageService) {}
+    constructor (private apiService: ApiService, private message: NzMessageService, private route: Router) {}
 
     ngOnInit(): void {
         this.getAllCategories();
@@ -87,7 +90,12 @@ export class TrendingNowComponent implements OnInit{
     getAllTrendingNews() {
         this.apiService.sendRequest(requests.getAllTrendingNews, 'get').subscribe((res:any) => {
             this.allTrendingNow= res.response.trendingNews;
-            this.tNews= [...this.allTrendingNow]
+            for(let i = 0; i < this.tNews.length; i++) {
+                const trNews= this.allTrendingNow.find(x => x.position == this.tNews[i].position)
+                if(trNews) {
+                    this.tNews[i] = trNews;
+                }
+            }
             console.log("ALL-TRENDING-NEWS", this.allTrendingNow);
             this.loading = false;
         }, err => {
@@ -95,22 +103,73 @@ export class TrendingNowComponent implements OnInit{
         })
     }
 
+    changeCategory(data){
+        console.log(data);
+    }
+
     changedNews(updatedNews) {
         const news = this.tNews.findIndex(x => x.position == updatedNews.position);
-        if (news > -1) {
+        if (news > -1 && !this.findDuplicates()) {
             this.tNews[news] = updatedNews;
         }
+        else if(this.tNews.some(x=>!x.newsId)){
+            console.log('');
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.tNews[news] = tempNews;
+                this.tNews[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
+        }
+        else {
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.tNews[news] = tempNews;
+                this.tNews[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
+        }
+    }
+
+    findDuplicates() {
+        let isDuplicate=false;
+        this.tNews.forEach(x=>{
+            const duplicate=this.tNews.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
+        console.log("DUPLICATE-NEWS", isDuplicate);
+        return isDuplicate
     }
 
     updateTrendingNow() {
             this.tNews.forEach(news=>{
                 news.newsId=parseInt(news.newsId);
             })
-            this.apiService.sendRequest(requests.updateTrendingNews, 'put', { news: this.tNews }).subscribe((res:any) => {
-                console.log("UPDATE-TRENDING-NOW", res);
-                this.getAllTrendingNews();
-                this.message.create('success', `Trending Now News Updated Successfully`);
-            })
+            if (this.tNews.some(x => !x.newsId)) {
+                this.message.create('error', 'Add all Trending News for Trending Section')
+            }
+            else {
+                const body = this.tNews.map(x=>{return {newsId: x.newsId, position: x.position, externalURL: x.externalURL}});
+                this.apiService.sendRequest(requests.updateTrendingNews, 'put', { news: body }).subscribe((res:any) => {
+                    console.log("UPDATE-TRENDING-NOW", res);
+                    this.getAllTrendingNews();
+                    this.message.create('success', `Trending Now News Updated Successfully`);
+                })
+            }
+    }
+
+    drop(event: CdkDragDrop<string[] | any>) {
+        moveItemInArray(this.tNews, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.tNews.length; i++) {
+            this.tNews[i].position= i + 1;
+        }
+        console.log("POS", this.tNews);
+      }
+
+    cancel() {
+        this.route.navigateByUrl('dashboard')
     }
 
 }    

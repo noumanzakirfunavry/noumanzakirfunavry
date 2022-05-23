@@ -12,13 +12,13 @@
                 <nz-option [nzValue]="'ARTICLE'" [nzLabel]="'Article'"></nz-option>
                 </nz-select>
               </nz-form-item>
-              <nz-form-item class="mr-2">
+              <nz-form-item class="mr-2 min_w150">
                 <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Category" [(ngModel)]="filterModel.categoryId">
                   <nz-option *ngFor="let cat of allCategories" [nzValue]="cat?.id" [nzLabel]="cat?.title"></nz-option>
                 </nz-select>
               </nz-form-item>
             <nz-form-item class="mr-2">
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Publisher" [(ngModel)]="filterModel.publishedBy">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="User" [(ngModel)]="filterModel.publishedBy">
                   <nz-option *ngFor="let admin of allAdmins" [nzValue]="admin?.id" [nzLabel]="admin?.name"></nz-option>
                 </nz-select>
               </nz-form-item>
@@ -29,7 +29,7 @@
               </nz-select>
             </nz-form-item>
             <nz-form-item class="mr-2">
-                    <input [(ngModel)]="filterModel.search" nz-input placeholder="Search Title">
+                    <input [(ngModel)]="filterModel.search" nz-input placeholder="Search Title" dir="rtl">
             </nz-form-item>
             <nz-form-item class="mr-2">
               <nz-form-control>

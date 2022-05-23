@@ -12,6 +12,7 @@ import { CategoryMainProps } from "apps/frontend/types/Types";
 import GetData from '../../services/GetData';
 import { requests } from '../../services/Requests';
 import SkeletonLoader from 'apps/frontend/components/Shared/SkeletonLoader/SkeletoLoader';
+import Link from 'next/link';
 
 const NewsCategoryPage = () => {
   const router = useRouter();
@@ -33,7 +34,7 @@ const NewsCategoryPage = () => {
   useEffect(() => {
     GetData(`${requests.categories}/getById/${router.query.categoryId}`, {}, 'get', false).then(res => {
       //console.log(res);
-      setCategory(res.data.response.category);
+      setCategory(res?.data?.response?.category);
 
     }).catch(err => {
       console.warn(err)
@@ -55,7 +56,9 @@ const NewsCategoryPage = () => {
           {category && category?.sub?.map((cat: any) => {
             return (
               <li key={cat.id}>
-                <a href="javascript:void(0)">{cat.title}</a>
+                <Link href={`/subCategoryNews/` + cat.id}>    
+                  <a>{cat.title}</a>
+                </Link>
               </li>
             )
           })}
@@ -71,7 +74,7 @@ const NewsCategoryPage = () => {
           !category && <SkeletonLoader />
         }
         {
-          category &&
+          category && category.id &&
 
           <div className="PageBuilder-pageRow">
             <div className="PageBuilder-col-9">
@@ -82,6 +85,8 @@ const NewsCategoryPage = () => {
                 displayTitle={false}
                 displayTopTwoNews={true}
                 displayMoreButton={false}
+                loopIndex={2}
+                extended={false}
               />
               {category && category?.sub?.map((cat: any) => {
                 return ( <CategoryNewsSection
@@ -91,6 +96,8 @@ const NewsCategoryPage = () => {
                   displayTitle={true}
                   displayTopTwoNews={true}
                   displayMoreButton={false}
+                  loopIndex={2}
+                  extended={false}
                 />)
               })}
              
@@ -108,6 +115,16 @@ const NewsCategoryPage = () => {
                 displayTopTwoNews={false}
                 displayMoreButton={true}
               /> */}
+
+              <CategoryNewsSection
+                cat={category}
+                limit={20}
+                displayTitle={true}
+                displayTopTwoNews={false}
+                displayMoreButton={true}
+                loopIndex={11}
+                extended={true}
+              />    
             </div>
 
             <div className="PageBuilder-sidebar">

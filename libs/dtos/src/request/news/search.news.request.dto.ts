@@ -20,4 +20,10 @@ export class SearchNewsRequestDto {
   @IsArray()
   @ArrayMinSize(1)
   quotes: string[];
+
+	@IsOptional()
+  @IsString()
+  @IsNotEmpty()
+	//  if provided, default term will be used to search entire news entity
+  searchTerm: string;
 }

@@ -1,7 +1,7 @@
 <section>
     <br>
     <br>
-    <div class="col-12">
+    <div *ngIf="!loader" class="col-12">
       <form nz-form [formGroup]="quickLinkForm" [nzLayout]="'vertical'" class="quickLink-form" (ngSubmit)="quickLink()">
           <nz-form-item>
             <nz-form-label nzRequired [nzSpan]="6" nzFor="text">Title</nz-form-label>
@@ -11,7 +11,8 @@
           </nz-form-item >
           <nz-form-item>
             <nz-form-label nzRequired [nzSpan]="6" nzFor="text">Link</nz-form-label>
-            <nz-form-control [nzSpan]="14" nzErrorTip="Enter valid Link!">
+            <nz-form-control [nzSpan]="14" nzErrorTip="Enter valid Link!"
+                nzExtra="URL format: e.g. https://cnbcarabia.com">
               <input nz-input formControlName="url" placeholder="Enter Link"/>
             </nz-form-control>
           </nz-form-item >
@@ -22,8 +23,8 @@
           </nz-form-item >
           <nz-form-item>
             <nz-form-control [nzSpan]="14" >
-              <button *ngIf="!quickLinkId" class="quickLink-form-button mr-3" nz-button [nzType]="'primary'">Save</button>
-              <button *ngIf="quickLinkId" class="quickLink-form-button mr-3" nz-button [nzType]="'primary'">Update</button>
+              <button *ngIf="!quickLinkId" class="quickLink-form-button mr-3" nz-button [nzType]="'primary'" [nzLoading]="isLoading">Save</button>
+              <button *ngIf="quickLinkId" class="quickLink-form-button mr-3" nz-button [nzType]="'primary'" [nzLoading]="isLoading">Update</button>
               <button nz-button nzType="default" (click)="cancel()">Cancel</button>
             </nz-form-control>
           </nz-form-item>

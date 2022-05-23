@@ -23,11 +23,14 @@ export class AddCategoryComponent implements OnInit {
     } = {limit: 1000, pageNo: 1}
     allCategories: any;
     categoryForm: FormGroup;
-    categoryId: number
+    categoryId: number;
     categoryById: any;
+    loader= true;
+    isLoading= false;
     
 
-    constructor(private fb: FormBuilder, 
+    constructor(
+        private fb: FormBuilder, 
         private apiService: ApiService, 
         private message: NzMessageService, 
         private activatedRoute: ActivatedRoute, 
@@ -35,18 +38,27 @@ export class AddCategoryComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllCategories();
+          this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
+            this.categoryId = + params.get('id');
+            if (this.categoryId) {
+              this.getCategoryById();
+            }
+            else {
+                this.initForm();
+                setTimeout(() => {
+                    this.loader=false
+                  }, 200);
+            }
+          });
+    }
+
+    initForm() {
         this.categoryForm = this.fb.group({
             title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
             parentCategoryId: [null],
             isActive: [false],
             displayInCategoryMenu: [false],
             displayInHomePage: [false]
-          });
-          this.activatedRoute.paramMap.subscribe((params: ParamMap | any) => {
-            this.categoryId = + params.get('id');
-            if (this.categoryId) {
-              this.getCategoryById();
-            }
           });
     }
 
@@ -56,6 +68,10 @@ export class AddCategoryComponent implements OnInit {
             this.categoryForm.controls[i].updateValueAndValidity();
         }
         if(this.categoryForm.valid) {
+            this.isLoading= true;
+            setTimeout(() => {
+                this.isLoading= false;
+            }, 2000);
             const obj= this.categoryForm.value;
             obj['parentCategoryId'] = parseInt(this.categoryForm.value.parentCategoryId);
             this.apiService.sendRequest(this.categoryId ? requests.updateCategory + this.categoryId : requests.addCategory, this.categoryId ? 'put' : 'post', obj).subscribe((res:any) => {
@@ -83,6 +99,9 @@ export class AddCategoryComponent implements OnInit {
                 displayInCategoryMenu: [this.categoryById?.displayInCategoryMenu || false],
                 displayInHomePage: [this.categoryById?.displayInHomePage || false]
               });
+              setTimeout(() => {
+                this.loader=false
+              }, 200);
         })
     }
 

@@ -1,75 +1,228 @@
-import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { filter } from 'rxjs';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ProgramsModel } from '../../common/models/programsModel';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
+import { MediaUtilService } from '../../shared/services/mediaUtil';
 
 @Component({
     selector: 'app-add-programs',
     templateUrl: './add-programs.component.html'
 })
 
-export class AddProgramsComponent {
-    
-    public Editor = ClassicEditor;
-    validateForm: FormGroup;
-    uploading = false;
-    fileList: NzUploadFile[] = [];
+export class AddProgramsComponent implements OnInit{
+  currentDate = new Date()
+  programsModel: ProgramsModel;
+  programForm: FormGroup;
+  isVisible: boolean;
+  file: any;
+  programId: number;
+  loader= true;
+  isLoading= false;
+  tempFile: { colName: string, value: any, label: string, showDelBtn: boolean } = { 'colName': 'file', value: null, label: 'Video Upload', showDelBtn: false }
+  tempThumbanilFile: { colName: string, value: any, label: string, showDelBtn: boolean } = { 'colName': 'thumbnail', value: null, label: 'Image Upload', showDelBtn: false }
   
-    constructor(private fb: FormBuilder, private http: HttpClient, private msg: NzMessageService) {}
+    constructor(
+      private fb: FormBuilder, 
+      private zone: NgZone, 
+      private route: Router, 
+      private apiService: ApiService, 
+      private activatedRoute: ActivatedRoute, 
+      private message: NzMessageService, 
+      private mediaUtil: MediaUtilService) {}
   
     ngOnInit(): void {
-      this.validateForm = this.fb.group({
-        formLayout: ['horizontal'],
-        fieldA: [null, [Validators.required]],
-        filedB: [null, [Validators.required]]
-      });
-    }
-
-    submitForm(): void {
-        for (const i in this.validateForm.controls) {
-          this.validateForm.controls[i].markAsDirty();
-          this.validateForm.controls[i].updateValueAndValidity();
+      this.programsModel = new ProgramsModel();
+      this.activatedRoute.params.subscribe(params => {
+        this.programId = parseInt(params.id);
+        if (this.programId) {
+            this.getProgramById()
+        } else {
+            this.initForm();
+            setTimeout(() => {
+              this.loader=false
+            }, 200);
         }
-      }
-    
-      get isHorizontal(): boolean {
-        return this.validateForm.controls.formLayout?.value === 'horizontal';
-      }
+    })
+  }
 
-    beforeUpload = (file: NzUploadFile): boolean => {
-      this.fileList = this.fileList.concat(file);
-      return false;
-    };
-  
-    handleUpload(): void {
-      const formData = new FormData();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      this.fileList.forEach((file: any) => {
-        formData.append('files[]', file);
+    initForm() {
+      this.programForm = this.fb.group({
+          firstAiredOn: [new Date(), []],
+          title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+          content: [null, [Validators.required]],
+          isActive: [true],
+          seoTitle: [null, 
+            // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
+          ],
+          slugLine: [null, 
+            // [Validators.required, Validators.maxLength(250)]
+          ],
+          seoDescription: [null, 
+            // [Validators.required, Validators.maxLength(250)]
+          ],
+          keywords: [null, 
+            // [Validators.required]
+          ],
+          file: [null, [Validators.required]],
+          thumbnail: [null, [Validators.required]],
+          orders: [1, [Validators.required]],
+          producedBy: ['CNBC NEWS', [Validators.required]]
       });
-      this.uploading = true;
-      // You can use any AJAX library you like
-      const req = new HttpRequest('POST', 'https://www.mocky.io/v2/5cc8019d300000980a055e76', formData, {
-        // reportProgress: true
-      });
-      this.http
-        .request(req)
-        .pipe(filter(e => e instanceof HttpResponse))
-        .subscribe(
-          () => {
-            this.uploading = false;
-            this.fileList = [];
-            this.msg.success('upload successfully.');
-          },
-          () => {
-            this.uploading = false;
-            this.msg.error('upload failed.');
-          }
-        );
+  }
+
+    programs(): void {
+        for (const i in this.programForm.controls) {
+          this.programForm.controls[i].markAsDirty();
+          this.programForm.controls[i].updateValueAndValidity();
+        }
+        if(this.programForm.valid) {
+          this.isLoading= true;
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 2000);
+          const obj= this.programForm.value;
+          this.apiService.sendRequest(this.programId ? requests.updateProgramDetails + this.programId : requests.addNewProgram, this.programId ? 'put' : 'post', { ...this.programsModel.toServerModal(obj, this.programsModel.seoDetailId), ...this.programId ? { id: this.programId } : null }).subscribe((res:any) => {
+            console.log("PROGRAM", res);
+            this.initForm();
+            this.route.navigateByUrl('programs/list')
+            if (this.programId) {
+                this.message.create('success', `Program Updated Successfully`)
+            }
+            else {
+                this.message.create('success', `Program Added Successfully`)
+            }
+      })
+    }
+  }
+
+  getProgramById() {
+    this.apiService.sendRequest(requests.getProgramById + this.programId, 'get').subscribe((res: any) => {
+        console.log("program data", res.response.program);
+        this.programsModel.populateFromServerModal(res.response.program);
+        if(this.programsModel.videoUrl) {
+          this.tempFile.showDelBtn = true;
+        }
+        if(this.programsModel.thumbnailUrl) {
+          this.tempThumbanilFile.showDelBtn = true;
+        }
+        this.programsModel.seoDetailId = res.response.program.seoDetailId;
+        console.log("view modal", this.programsModel);
+        this.populateProgramsForm(res.response.program);
+        setTimeout(() => {
+          this.loader=false
+        }, 200);
+    })
+}
+
+    async populateProgramsForm(program: any) {
+      // const file = await this.urlToFile(program.promo.url);
+      this.programForm = this.fb.group({
+        firstAiredOn: [new Date(program.updatedAt), []],
+        title: [program?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+        content: [program?.content || null, [Validators.required]],
+        isActive: [program?.isActive],
+        seoTitle: [program?.seoDetails?.title || null, 
+          // [Validators.required, Validators.minLength(3), Validators.maxLength(250)]
+        ],
+        slugLine: [program?.seoDetails?.slugLine || null, 
+          // [Validators.required, Validators.maxLength(250)]
+        ],
+        seoDescription: [program?.seoDetails?.description || null, 
+          // [Validators.required, Validators.maxLength(250)]
+        ],
+        keywords: [program?.seoDetails?.keywords || null, 
+          // [Validators.required]
+        ],
+        file: [null],
+        thumbnail: [null],
+        orders: [program?.orders || 1, [Validators.required]],
+        producedBy: [program?.producedBy || 'CNBC NEWS', [Validators.required]]
+    });
     }
 
+    // urlToFile(url) {
+    //   return new Promise((resolve, reject) => {
+    //     this.mediaUtil.urlToFile(url).then(res => {
+    //       return resolve(res);
+    //     })
+    //   })
+    // }
+
+    toggleModal() {
+        this.zone.run(e => {
+          this.isVisible = true
+      })
+  }
+
+    closeModal(data) {
+        this.isVisible = false
+  }
+
+    fileFromModal(file) {
+        this.isVisible = false;
+        this.programForm.patchValue({
+        content: this.programForm.value.content ? this.programForm.value.content + `<img src="${file.url}">` : `<img src="${file.url}">`,
+    });
+  }
+
+    mainFileUploaded(file) {
+          this.programsModel.promoId = file.id;
+          this.programsModel.videoUrl = null;
+          this.tempFile.showDelBtn = false;
+          setTimeout(() => {
+            this.programsModel.videoUrl = file.url;
+            this.tempFile.showDelBtn = true;
+        }, 400);
+  }
+
+    thumbnailUploaded(file) {
+      this.programsModel.thumbnailId = file.id;
+      this.programsModel.thumbnailUrl=null;
+      this.tempThumbanilFile.showDelBtn = false;
+      setTimeout(() => {
+          this.programsModel.thumbnailUrl = file.url;
+          this.tempThumbanilFile.showDelBtn = true;
+      }, 400);
+  }
+
+    reset(data) {
+    this.file = null;
+    this.programsModel.promoId = null;
+    this.programsModel.videoUrl = null;
+    this.programsModel.thumbnailId = null;
+    this.programsModel.thumbnailUrl = null;
+    this.tempFile.showDelBtn = false;
+    this.tempThumbanilFile.value = null;
+    this.tempThumbanilFile.showDelBtn = false;
+  }
+
+    resetThumbnail(data) {
+    this.programsModel.thumbnailId = null;
+    this.programsModel.thumbnailUrl = null;
+    this.tempThumbanilFile.showDelBtn = false;
+  }
+
+    mainFileSelection(event) {
+    console.log("file selected", event);
+    this.programsModel.videoUrl = null;
+    this.tempFile.showDelBtn = event?.value ? true : false;
+  }
+
+    thumbnailFileSelection(event) {
+    console.log("thubnail file selected", event);
+    this.programsModel.thumbnailUrl = null;
+    this.tempThumbanilFile.showDelBtn = event?.value ? true : false;
+  }
+
+    getCaptcha(e: MouseEvent): void {
+      e.preventDefault();
+  }
+
+    cancel(): void {
+      this.route.navigateByUrl('programs/list');
+  }
    
 }    

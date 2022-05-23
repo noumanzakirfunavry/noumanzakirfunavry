@@ -12,6 +12,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { QuillModule } from 'ngx-quill';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { TinyEditorModule } from '../modules/tiny-editor/tiny-editor.module';
+// import { FileModalComponent } from '../modules/tiny-editor/file-modal/file-modal.component';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 
 @NgModule({
@@ -25,16 +31,23 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
         ...antdModule,
         NzUploadModule,
         CKEditorModule,
-        QuillModule.forRoot()
+        QuillModule.forRoot(),
+        NzPaginationModule,
+        EditorModule,
+        FileUploaderModule,
+        NzModalModule,
+        TinyEditorModule
     ],
     exports: [],
     declarations: [
        ProgramsComponent,
        AddProgramsComponent,
-       ProgramsFilterComponent
+       ProgramsFilterComponent,
+    //    FileModalComponent
     ],
     providers: [
-        ThemeConstantService
+        ThemeConstantService,
+        { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
     ],
 })
 export class ProgramsModule { }

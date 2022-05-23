@@ -1,12 +1,72 @@
 import newslistimg from "../../../styles/images/biden2.jpg";
-const SearchResultList = () => {
+import Link from 'next/link';
+import { baseUrlAdmin } from "../../../services/Requests";
+import { GetArabicFormattedDate } from '../../../services/Util';
+
+import HtmlData from '../../../components/Shared/HtmlData/HtmlData';
+
+const SearchResultList = ({newsSearchData}) => {
 
     return (
         <>
             <div className="searchResultList">
                 <div className="NewsList mb-4">
                     <ul>
-                        <li>
+                    {
+                            newsSearchData?.length && newsSearchData?.map((news:any, index:number)=>{
+
+                                  return(
+
+                                    <li key={index}>
+
+                                    { // show thmbnail with play icon if video news
+                                        news?._source?.videoId ?
+                                        <div className="VideoTextBox VideoNews">
+                                            <div className="newsImage">
+                                                <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newslistimg.src} />
+                                            
+                                                <div className="PlayTime">
+                                                    <h5>05:21</h5>
+                                                    <div className="btn-text">
+                                                        <span>شاهد الآن</span>
+                                                        <Link href={`/newsDetails/` + news._id}>
+                                                            <a>
+                                                                <button className="btn btn-warning VideoPlay">
+                                                                    <i className="fa play_small"></i>
+                                                                </button>
+                                                            </a>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        : // else show image
+                                            <div className="newsImage">
+                                                {news?._source?.image ? <img className="img-fluid" src={baseUrlAdmin+news?._source.image?.path} />:<img className="img-fluid" src={newslistimg.src} />}
+                                            </div>
+                                        }
+                                        
+                                        <div className="newsText">
+                                            <p>
+                                                { // to show tags
+                                                    news?._source?.tags?.map((tag: string, tagIndex: number) => {
+                                                        return(
+                                                            <a key={tagIndex} href="#">{tag}</a>
+                                                        )
+                                                    })  
+	                                             }
+                                                  {/*07 مارس 2022*/}
+                                                  {GetArabicFormattedDate(news?._source?.createdAt)}
+                                            </p>
+                                            <h6><Link href={`/newsDetails/`+news._id}><a>{news?._source?.title}</a></Link></h6>
+                                            <HtmlData data={news?._source?.content} />
+                                            {/*<p>إنتعشت <mark>Amazon</mark> أسعار النفط في الجلسة الأميركية وفاقت مكاسب خام نايمكس الأميركي 2.5% وذلك إثر إنخفاض حاد في مخزونات الخام الأميركي. فقد أظهرت بيانات إدارة معلومات الطاقة الأميركية أن مخزونات النفط الخام في الولايات المتحدة هبطت بشكل حاد الأسبوع الماضي مع انخفاض إنتاج المصافي فيما تراجعت مخزونات البنزين وارتفعت مخزونات</p>*/}
+                                        </div>
+                                    </li>     
+                                  )
+                              })
+                        }
+                        {/*<li>
                         <div className="newsImage">
                                 <img className="img-fluid" src={newslistimg.src} />
                             </div>
@@ -186,7 +246,7 @@ const SearchResultList = () => {
                                 <h6><a> بايدن: سيفقد حوالى 10 ملايين أميركي إعانات البطالة في حال عدم توقيع ترامب خطة التحفيز الاقتصادي </a></h6>
                                 <p>إنتعشت <mark>Amazon</mark> أسعار النفط في الجلسة الأميركية وفاقت مكاسب خام نايمكس الأميركي 2.5% وذلك إثر إنخفاض حاد في مخزونات الخام الأميركي. فقد أظهرت بيانات إدارة معلومات الطاقة الأميركية أن مخزونات النفط الخام في الولايات المتحدة هبطت بشكل حاد الأسبوع الماضي مع انخفاض إنتاج المصافي فيما تراجعت مخزونات البنزين وارتفعت مخزونات</p>
                             </div>
-                        </li>
+                        </li>*/}
                     </ul>
                 </div>
 

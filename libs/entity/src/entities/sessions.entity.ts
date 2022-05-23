@@ -1,6 +1,7 @@
 import { DeviceTypes } from "@cnbc-monorepo/enums";
 import { Table,Model, PrimaryKey, AutoIncrement, Unique, Column, HasMany, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
 import { ChangeLogs } from "./change.logs.entity";
+import { Comments } from "./comments.entity";
 import { Users } from "./users.entity";
 
 @Table({
@@ -38,4 +39,7 @@ export class Sessions extends Model{
 
     @HasMany(() => ChangeLogs)
     changeLogs : ChangeLogs[]
+
+    @HasMany(() => Comments)
+    comments : Comments[]
 }

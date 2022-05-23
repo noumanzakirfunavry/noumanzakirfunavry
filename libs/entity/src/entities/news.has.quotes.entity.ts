@@ -1,4 +1,4 @@
-import { Table,Model, ForeignKey, Column } from "sequelize-typescript";
+import { Table,Model, ForeignKey, Column, BelongsTo, PrimaryKey, AutoIncrement, Unique } from "sequelize-typescript";
 import { News } from "./news.entity";
 import { Quotes } from "./quotes.entity";
 
@@ -7,15 +7,25 @@ import { Quotes } from "./quotes.entity";
 })
 export class NewsHasQuotes extends Model{
 
+    @PrimaryKey
+    @AutoIncrement
+    @Unique
     @Column
-    position : number
+    id: number;
 
-    @ForeignKey(() => News)
-    @Column
-    newsId : number
+   @Column
+   quoteSymbol : string
 
-    @ForeignKey(() => Quotes)
-    @Column
-    quotesId : number
+   @Column
+   quoteTitle : string
+
+   @Column
+   quoteTickerId : number
+
+   @ForeignKey(() => News)
+   @Column
+   newsId : number
+   @BelongsTo(() => News)
+   news : News
 
 }

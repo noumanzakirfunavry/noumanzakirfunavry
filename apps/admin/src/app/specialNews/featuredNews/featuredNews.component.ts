@@ -1,4 +1,6 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
@@ -25,7 +27,8 @@ export class Data extends Pagination {
 }
 
 @Component({
-    templateUrl: './featuredNews.component.html'
+    templateUrl: './featuredNews.component.html',
+    styleUrls: ['./featuredNews.component.scss']
 })
 
 export class FeaturedNewsComponent implements OnInit {
@@ -79,7 +82,7 @@ export class FeaturedNewsComponent implements OnInit {
     ];
 
 
-    constructor(private apiService: ApiService, private message: NzMessageService) { }
+    constructor(private apiService: ApiService, private message: NzMessageService, private route: Router) { }
 
 
     ngOnInit(): void {
@@ -106,11 +109,13 @@ export class FeaturedNewsComponent implements OnInit {
     getAllFeaturedNews() {
         this.apiService.sendRequest(requests.getAllFeaturedNews, 'get').subscribe((res: any) => {
             this.allFeaturedNews = res.response.featuredNews;
-
-            this.fNews = this.allFeaturedNews && this.allFeaturedNews.length > 0 ? this.allFeaturedNews : this.fNews;
-            // this.fNews.forEach(news => {
-            //     news.newsId = this.allFeaturedNews.find(x=>x.position==news.position)?.newsId
-            // })
+            for(let i = 0; i < this.fNews.length; i++) {
+                const feaNews= this.allFeaturedNews.find(x => x.position == this.fNews[i].position)
+                if(feaNews) {
+                    feaNews['section']=feaNews.position > 5 ? 'SECONDARY':'MAIN';
+                    this.fNews[i] = feaNews;
+                }
+            }
             console.log("ALL-FEATURED-NEWS", this.allFeaturedNews);
             this.loading = false;
         }, err => {
@@ -119,18 +124,23 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     changeCategory(data){
-        
+        console.log(data);
     }
 
     changedNews(updatedNews) {
         const news = this.fNews.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.fNews[news] = updatedNews;
-        } else if(this.fNews.some(x=>!x.newsId)){
-            
+        } 
+        else if(this.fNews.some(x=>!x.newsId)){
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.fNews[news] = tempNews;
+                this.fNews[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
           else {
-            // this.fNews[news] = null;
             const tempNews = updatedNews;
             setTimeout(() => {
                 this.fNews[news] = tempNews;
@@ -139,12 +149,16 @@ export class FeaturedNewsComponent implements OnInit {
             this.message.create('error', 'Please select unique news for each position')
         }
     }
+
     findDuplicates() {
-        const valueArr = this.fNews.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            return valueArr.indexOf(item) != idx
-        });
-        console.log("Duplicate",isDuplicate);
+        let isDuplicate=false;
+        this.fNews.forEach(x=>{
+            const duplicate=this.fNews.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
+        console.log("DUPLICATE-NEWS", isDuplicate);
         return isDuplicate
     }
 
@@ -153,15 +167,28 @@ export class FeaturedNewsComponent implements OnInit {
             news.newsId = parseInt(news.newsId);
         })
         if (this.fNews.some(x => !x.newsId)) {
-            this.message.create('error', 'Please add all featured news for Featured section')
-        } else {
-            this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: this.fNews }).subscribe((res: any) => {
+            this.message.create('error', 'Add all Featured News for Featured Section')
+        } 
+        else {
+            const body = this.fNews.map(x=>{return {newsId: x.newsId, position: x.position, section: x.section}});
+            this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: body }).subscribe((res: any) => {
                 console.log("UPDATE-FEATURED-NEWS", res);
                 this.getAllFeaturedNews();
                 this.message.create('success', `Featured News Updated Successfully`);
             })
         }
+    }
 
+    drop(event: CdkDragDrop<string[] | any>) {
+        moveItemInArray(this.fNews, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.fNews.length; i++) {
+            this.fNews[i].position= i + 1;
+        }
+        console.log("POS", this.fNews);
+      }
+
+    cancel() {
+        this.route.navigateByUrl('dashboard')
     }
 
 }    

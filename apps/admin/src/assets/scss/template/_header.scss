@@ -13,7 +13,7 @@
         border-right: 1px solid $border-color;
         @include transition(all 0.2s ease); 
 
-        padding: 20px 0 0 0;
+        padding: 12px 0 0 0;
 
         @include screen-laptop-only {
             width: $side-nav-width-laptop;
@@ -212,4 +212,14 @@
             font-size: 16px;
         }
     }
+}
+.ant-menu.ant-menu-sub {
+   
+    .ant-menu-item {
+        border-bottom: solid 1px #dae0e4;
+        a {
+            font-size: 13px;
+        }
+    }
+   
 }

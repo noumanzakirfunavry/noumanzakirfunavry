@@ -3,6 +3,7 @@
 export * from './dtos.module';
 //...............................Users.............................
 export * from './request/admin/get.all.admins.request.dto';
+export * from './request/admin/get.all.sessions.request.dto';
 //...............................Alerts.............................
 export * from './request/alert/create.alert.request.dto';
 export * from './request/alert/get.all.alerts.request.dto';
@@ -11,9 +12,13 @@ export * from './request/alexa-audio/create.alexa.audio.request.dto';
 export * from './request/alexa-audio/delete.alexa.audio.request.dto';
 export * from './request/alexa-audio/get.all.alexa.audio.request.dto';
 //...............................Attachments.............................
+export * from './request/attachments/get.all.attachments.request.dto';
 export * from './request/attachments/create.attachment.request.dto';
 export * from './request/attachments/update.attachment.request.dto';
+export * from './request/attachments/delete.attachment.request.dto';
+//...............................Authentication.............................
 export * from './request/authentication/register.admin.request.dto';
+export * from './request/authentication/update.admin.request.dto';
 export * from './request/authentication/request.reset.password.request.dto';
 export * from './request/authentication/reset.password.request.dto';
 export * from './request/authentication/update.password.request.dto';
@@ -35,6 +40,10 @@ export * from './request/categories/get.all.categories.response.dto';
 export * from './request/categories/update.category.request.dto';
 export * from './request/categories/update.order.categories.request.dto';
 export * from './request/categories/get.all.categories.for.client.request.dto';
+export * from './request/categories/get.category.by.title.request.dto';
+//...............................comments..........................
+export * from './request/comments/add.comment.request.dto';
+export * from './request/comments/get.all.comments.request.dto';
 //...............................departments..........................
 export * from './request/departments/get.all.departments.request.dto';
 //...............................Editor choice news.............................
@@ -44,7 +53,6 @@ export * from './request/episodes/create.episode.request.dto';
 export * from './request/episodes/get.all.episodes.request.dto';
 //...............................Exclusive videos.............................
 export * from './request/exclusive-videos/create.exclusive.videos.request.dto';
-export * from './request/exclusive-videos/get.all.exclusive.videos.request.dto';
 export * from './request/exclusive-videos/update.exclusive.videos.request.dto';
 //...............................Featured news.............................
 export * from './request/featured-news/update.featured.news.request.dto';
@@ -60,7 +68,7 @@ export * from './request/jobs/update.job.request.dto';
 export * from './request/live-stream-links/create.live.stream.links.request.dto';
 export * from './request/live-stream-links/get.all.live.stream.links.request.dto';
 //...............................Change log.............................
-export * from './request/logger/add.log.request.dto';
+export * from './request/logs/get.all.logs.request.dto';
 //...............................Job applicants.............................
 export * from './request/job-applicants/get.all.job.applicants.request.dto';
 export * from './request/job-applicants/create.job.applicant.request.dto';
@@ -72,6 +80,7 @@ export * from './request/menus/create.menu.request.dto';
 export * from './request/menus/delete.menu.request.dto';
 export * from './request/menus/update.menu.request.dto';
 export * from './request/menus/get.menu.request.dto';
+export * from './request/menus/update.order.menus.request.dto';
 //...............................Messages.............................
 export * from './request/message/create.message.request.dto';
 export * from './request/message/get.all.message.request.dto';
@@ -80,8 +89,12 @@ export * from './request/news/create.news.request.dto';
 export * from './request/news/get.all.news.request.dto';
 export * from './request/news/search.news.request.dto';
 export * from './request/news/get.news.by.flags.request.dto';
+export * from './request/news/get.most.read.news.request.dto';
 //............................request dtos................................
 export * from './request/pagination.request.dto';
+//...........................Pages................................
+export * from './request/pages/create.page.request.dto';
+export * from './request/pages/update.page.request.dto';
 //...............................Presenters.............................
 export * from './request/presenters/create.presenters.request.dto';
 export * from './request/presenters/delete.presenters.request.dto';
@@ -152,6 +165,9 @@ export * from './response/exclusive-videos/get.all.exclusive.videos.response.dto
 export * from './response/exclusive-videos/get.exclusive.video.by.id.response.dto';
 //...............................Featured news.............................
 export * from './response/featured-news/get.all.featured.news.response.dto';
+//...............................Programs.............................
+export * from './request/programs/create.program.request.dto'
+export * from './request/programs/get.all.programs.request.dto'
 
 //.............................response dtos.......................................
 export * from './response/generic.response.dto';
@@ -183,6 +199,12 @@ export * from './response/message/get.message.by.id.response.dto';
 //...............................News.............................
 export * from './response/news/get.news.by.id.response.dto';
 export * from './response/presenters/get.all.presenters.response.dto';
+//...............................Pages.............................
+export * from './response/pages/create.page.response.dto';
+export * from './response/pages/get.page.response.dto';
+export * from './response/pages/get.all.pages.response.dto';
+export * from './response/pages/delete.page.response.dto';
+export * from './response/pages/update.page.response.dto';
 //...............................Presenters.............................
 export * from './response/presenters/get.presenters.by.id.response.dto';
 //...............................quickLinks.............................

@@ -11,7 +11,7 @@ export class JobApplicantController {
     ){}
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get("getAll")
     async getAllJobApplicants(@Query() query : GetAllJobApplicantsRequestDto) : Promise<GenericResponseDto>{
         return await this.jobService.getAllJobApplicants(query)
@@ -19,7 +19,7 @@ export class JobApplicantController {
 
 
     @UseGuards(JwtAuthGuard)
-    @Roles(RoleTypes.Admin)
+    @Roles(RoleTypes.Admin, RoleTypes.Super_Admin)
     @Get(":id")
     async getJobApplicantById(@Param("id") id : number) : Promise<GenericResponseDto>{
         return await this.jobService.getJobApplicantById(id)

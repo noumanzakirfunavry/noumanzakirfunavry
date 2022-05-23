@@ -4,9 +4,34 @@
 import { useRouter } from 'next/router';
 import logo from '../../../styles/images/cnbc-arabia-logo.svg';
 import styles from './footer.module.css';
+import { requests } from '../../../services/Requests';
+import GetData from '../../../services/GetData';
+import { useEffect, useState } from 'react';
+import FooterMenu from './Menu/FooterMenu';
 
 const Footer = () =>{
     const router = useRouter()
+
+    const [menuSectionList, setMenuSectionList] = useState<any>([]);
+
+    useEffect(() => {
+        GetData(`${requests.moreMenus}getAll?position=FOOTER&limit=12&pageNo=1`, {}, 'get', false).then(res=>{
+            setMenuChunks(res?.data?.response)
+            
+        }).catch(err=>{
+            console.warn(err)
+        })
+    }, [])
+
+    const setMenuChunks = (menuItems) => {
+        const chunkSize = 4;
+        const sections = menuItems.map((e, i) => { 
+            return i % chunkSize === 0 ? menuItems.slice(i, i + chunkSize) : null; 
+        }).filter(e => { return e; });
+        
+        setMenuSectionList(sections);
+    }
+
 
     return (
         <>
@@ -28,10 +53,21 @@ const Footer = () =>{
                     <div className={styles.clearfix}></div>
                 </div>
                 <div className='row w_90'>
+                    { // menu sections
+                        menuSectionList?.length > 0 && menuSectionList.map((item: any, index: number)=>{
+                            return(
+                                    <div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0' key={index}>
+                                        <ul className={styles.footerLink}>
+                                            <FooterMenu pageNo={(index + 1)}/>
+                                        </ul>
+                                    </div>
+                            )
+                        })
+                    }
 
-                    <div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0'>
+                    {/*<div className='col-xl-2 col-md-4 col-6 pb-5 pb-lg-0'>
                         <ul className={styles.footerLink}>
-                        <li><a href="#">الرئيسية</a></li>
+                            <li><a href="#">الرئيسية</a></li>
                             <li key={'zxc'}><a href="#">إشترك في نشرتنا البريدية</a></li>
                             <li key={'xvvcb'}><a href="#">الرئيسية</a></li>
                             <li key={'aswerddlhsa'}><a href="#">إشترك في نشرتنا البريدية</a></li>
@@ -55,7 +91,8 @@ const Footer = () =>{
                             <li key={'54765'}><a href="#">إشترك في نشرتنا البريدية</a></li>
                             <li key={'hgf'}><a href="/careers">الرئيسية</a></li>
                         </ul>
-                    </div>
+    </div>*/}
+
                     <div className="col-12 text-center d-sm-none">
                     <div className={styles.footerSocial}>
                         <ul>

@@ -13,7 +13,6 @@ const routes: Routes = [
             title: 'Menus',
             headerDisplay: "none"
         },
-
     },
     {
         path: 'list',
@@ -22,7 +21,6 @@ const routes: Routes = [
             title: 'All Menus',
             // headerDisplay: "none"
         },
-
     },
     {
         path: 'add',
@@ -31,7 +29,14 @@ const routes: Routes = [
             title: 'Add Menu Item',
             // headerDisplay: "none"
         },
-
+    },
+    {
+        path: 'update/:id',
+        component: AddMenusComponent,
+        data: {
+            title: 'Update Menu Item',
+            // headerDisplay: "none"
+        },
     },
     // {
     //     path: 'edit',

@@ -4,6 +4,7 @@ import { Branches } from "./branches.entity";
 import { BreakingNews } from "./breaking.news.entity";
 import { Categories } from "./categories.entity";
 import { ChangeLogs } from "./change.logs.entity";
+import { Comments } from "./comments.entity";
 import { EditorsChoiceNews } from "./editors.choice.news.entity";
 import { Episodes } from "./episodes.entity";
 import { FeaturedNews } from "./featured.news.entity";
@@ -30,7 +31,14 @@ import { UsersHasRights } from "./users.has.rights.entity";
 
 @Table({
     paranoid : true,
-    timestamps : true
+    timestamps : true,
+		// exclude following fields in select statements by default
+		defaultScope: { attributes: { exclude: ['password'] } },
+		scopes: {
+			basicScope: {
+				attributes: ['id', 'name', 'userName', 'email', 'isVerified', 'isActive', 'deletedAt']
+			}
+		}
 })
 export class Users extends Model{
 
@@ -43,13 +51,17 @@ export class Users extends Model{
     @Column
     name : string
 
-    @Column
+    @Column({
+			unique: true
+		})
     userName : string
 
     @Column
     password : string
 
-    @Column
+    @Column({
+			unique: true
+		})
     email : string
 
     @Column
@@ -150,4 +162,7 @@ export class Users extends Model{
 
     @HasMany(() => TrendingNowNews)
     trendingNowNews : TrendingNowNews[]
+
+    @HasMany(() => Comments)
+    comments : Comments[]
 }

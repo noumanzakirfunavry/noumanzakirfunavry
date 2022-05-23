@@ -1,21 +1,29 @@
-<section>
+<section class="featured_news">
   <br>
   <br>
   <div class="col-12">
       <div class="row">
-        <div class="col-12">
-        <nz-table [nzData]="allTrendingNow" [nzShowPagination]="false" class="no-border-last">
+        <div class="col-12" cdkDropList (cdkDropListDropped)="drop($event)">
+        <nz-table [nzData]="allTrendingNow" [nzLoading]="loading" [nzShowPagination]="false" class="no-border-last">
           <thead>
               <tr>
                   <th class="text-left" colspan="4"></th>
               </tr>
           </thead>
-          <tbody *ngIf="allCategories && allCategories.length > 0">
-              <tr *ngFor="let news of tNews">
-                  <td>#</td>
-                  <td>{{news?.position}}</td>
+          <tbody>
+              <tr class="news-block" *ngFor="let news of tNews" cdkDrag>
+                  <!-- <td>#</td> -->
+                  <!-- <td>{{news?.position}}</td> -->
+                  <td>
+                    <i nz-icon nzType="drag" nzTheme="outline"></i>
+                </td>
                   <ng-container>
-                    <news-table-row [allCategories]="allCategories" [news]="news"></news-table-row>
+                    <news-table-row 
+                    [allCategories]="allCategories" 
+                    [news]="news"
+                    (onNewsSelection)="changedNews($event)" 
+                    (onCatSelection)="changeCategory($event)"
+                    ></news-table-row>
                   </ng-container>
               </tr>
           </tbody>
@@ -25,7 +33,7 @@
           <nz-form-item>
             <nz-form-control>
               <button class="mr-3" nz-button nzType="primary" (click)="updateTrendingNow()">Save</button>
-              <!-- <button nz-button nzType="default">Cancel</button> -->
+              <button nz-button nzType="default" (click)="cancel()">Cancel</button>
             </nz-form-control>
           </nz-form-item>
         </div>

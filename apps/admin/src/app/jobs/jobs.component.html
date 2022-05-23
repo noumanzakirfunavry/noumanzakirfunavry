@@ -13,12 +13,12 @@
                         <tr>
                             <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
                             (nzCheckedChange)="onAllChecked($event)"></th>
-                            <th>ID</th>
+                            <!-- <th>ID</th> -->
                             <th>Title</th>
                             <th>Branch</th>
                             <th>Created</th>
                             <th>Modified</th>
-                            <th>Publisher</th>
+                            <th>User</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -27,7 +27,7 @@
                         <tr *ngFor="let job of allJobs">
                             <td [nzChecked]="setOfCheckedId.has(job?.id)" [nzDisabled]="job.disabled"
                             (nzCheckedChange)="onItemChecked(job?.id, $event)"></td>
-                            <td>{{job?.id}}</td>
+                            <!-- <td>{{job?.id}}</td> -->
                             <td>{{job?.title}}</td>
                             <td>{{job?.branch?.title}}</td>
                             <td>{{job?.createdAt | date: 'dd-MM-YYYY'}}</td>

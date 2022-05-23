@@ -27,14 +27,20 @@ export class Episodes extends Model{
     @Column
     title : string
 
-    @Column
-    description : string
+    @Column({
+			type: DataType.TEXT
+		})
+    content : string
 
     @Column({
         type : DataType.BOOLEAN
     })
     isActive : boolean
 
+		@Column({
+			defaultValue: 0
+		})
+		views : number
 
     @ForeignKey(() => Programs)
     @Column

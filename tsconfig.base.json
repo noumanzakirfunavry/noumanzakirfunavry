@@ -28,6 +28,7 @@
         "libs/exception-handling/src/index.ts"
       ],
       "@cnbc-monorepo/file-server": ["libs/file-server/src/index.ts"],
+      "@cnbc-monorepo/interceptors": ["libs/interceptors/src/index.ts"],
       "@cnbc-monorepo/mail": ["libs/mail/src/index.ts"],
       "@cnbc-monorepo/middleware": ["libs/middleware/src/index.ts"],
       "@cnbc-monorepo/middlewares": ["libs/middlewares/src/index.ts"],
@@ -35,8 +36,7 @@
       "@cnbc-monorepo/providers": ["libs/providers/src/index.ts"],
       "@cnbc-monorepo/repositories": ["libs/repositories/src/index.ts"],
       "@cnbc-monorepo/socket": ["libs/socket/src/index.ts"],
-      "@cnbc-monorepo/utility": ["libs/utility/src/index.ts"],
-      "@cnbc-monorepo/elk": ["libs/elk/src/index.ts"]
+      "@cnbc-monorepo/utility": ["libs/utility/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

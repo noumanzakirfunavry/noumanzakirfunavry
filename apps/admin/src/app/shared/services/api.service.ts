@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import { environment } from 'src/environments/environment';
 import { requests } from '../config/config';
 
 @Injectable({
@@ -68,10 +67,16 @@ export class ApiService {
 
   uploadFileProgress(file, description?,) {
     let formData: FormData = Object.assign(new FormData());
+    let fileType=file.type.toString();
     formData.append("file", file);
     formData.append("title", file.name);
     formData.append("description", description || 'test description');
-    formData.append("attachmentType", 'IMAGE');
+    formData.append("attachmentType", file.name.match(/\.(jpg|jpeg|png|gif)$/) ? 'IMAGE':'VIDEO');
+    formData.append("tags", 'news');
+    formData.append("channel", description || 'news');
+    formData.append("toBePublished", 'false');
+    formData.append("toBePrivate", 'false');
+    formData.append("isCreatedForKids", 'false');
     // if (recorded) {
     //   formData.append("recorded", recorded);
     // }

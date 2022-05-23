@@ -12,6 +12,7 @@ import { AlexaProvider } from '../providers/alexa.audio.provider';
 import { ChangeLogsProvider } from '../providers/change.logs.provider';
 import { PresentersProvider } from '../providers/presenters.provider';
 import { NewsProvider } from '../providers/news.provider';
+import { NewsVisitorsProvider } from '../providers/news.visitors.provider';
 import { NewsHasQuotesProvider } from '../providers/news.has.quotes.provider';
 import { NewsHasTagsProvider } from '../providers/news.has.tags.provider';
 import { SeoDetailsProvider } from '../providers/seo.details.provider';
@@ -37,6 +38,10 @@ import { EditorsChoiceNewsProvider } from '../providers/editors.choice.news.prov
 import { TrendingNewsProvider } from '../providers/trending.news.provider';
 import { MenusProvider } from '../providers/menus.provider';
 import { MarketsProvider } from '../providers/markets.provider';
+import { PagesProvider } from '../providers/pages.provider';
+import { DailymotionUploadRequestsProvider } from '../providers/dailyMotion.upload.requests.provider';
+import { ProgramsProvider } from '../providers/programs.provider';
+import { CommentsProvider } from '../providers/comments.provider';
 
 @Module({
   providers: [
@@ -60,6 +65,7 @@ import { MarketsProvider } from '../providers/markets.provider';
     ...JobsProvider,
     ...BranchesProvider,
     ...DepartmentsProvider,
+		...NewsVisitorsProvider,
     ...CategoriesProvider,
     ...SiteConfigurationProvider,
     ...BreakingNewsProvider,
@@ -78,8 +84,12 @@ import { MarketsProvider } from '../providers/markets.provider';
     ...TrendingNewsProvider,
     ...ExclusiveVideosProvider,
 		...MenusProvider,
-		...MarketsProvider
-
+		...MarketsProvider,
+		...PagesProvider,
+		...DailymotionUploadRequestsProvider,
+		...ProgramsProvider,
+    ...CommentsProvider,
+		...ChangeLogsProvider
   ],
   exports: [
     ...UsersProvider,
@@ -89,6 +99,7 @@ import { MarketsProvider } from '../providers/markets.provider';
     ...QuotesProvider,
     ...QuickLinksProvider,
     ...RightsProvider,
+		...NewsVisitorsProvider,
     ...SocialMediaLinkProvider,
     ...AlexaProvider,
     ...ChangeLogsProvider,
@@ -119,7 +130,12 @@ import { MarketsProvider } from '../providers/markets.provider';
     ...TrendingNewsProvider,
     ...ExclusiveVideosProvider,
 		...MenusProvider,
-		...MarketsProvider
+		...MarketsProvider,
+		...PagesProvider,
+		...DailymotionUploadRequestsProvider,
+		...ProgramsProvider,
+    ...CommentsProvider,
+		...ChangeLogsProvider
   ],
 })
 export class ProvidersModule {}
