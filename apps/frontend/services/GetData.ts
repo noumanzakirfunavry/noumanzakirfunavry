@@ -22,7 +22,7 @@ const GetData = async (url: string, params: any, method: string, displayMessage:
             "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "en-US,en;q=0.5",
             "Connection": "keep-alive",
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "https://site-staging.cnbcarabia.com",
             // "Accept":"*",
             // crossDomain: false,
             "HTTP_ORIGIN": "https://site-staging.cnbcarabia.com"
