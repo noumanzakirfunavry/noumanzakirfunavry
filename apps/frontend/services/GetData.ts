@@ -24,6 +24,7 @@ const GetData = async (url: string, params: any, method: string, displayMessage:
             "Connection": "keep-alive",
             "Access-Control-Allow-Origin": "https://site-staging.cnbcarabia.com",
             // "Accept":"*",
+            Origin:"https://site-staging.cnbcarabia.com",
             // crossDomain: false,
             "HTTP_ORIGIN": "https://site-staging.cnbcarabia.com"
             //Authorization : `Bearer ${token}`
