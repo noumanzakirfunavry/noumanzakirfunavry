@@ -1,4 +1,5 @@
 import { EventEmitter, Component, Input, OnInit, Output } from "@angular/core";
+import { environment } from "../../../../environments/environment";
 import { Pagination } from "../../../common/models/pagination";
 import { requests } from "../../../shared/config/config";
 import { ApiService } from "../../../shared/services/api.service";
@@ -30,6 +31,8 @@ export class FileModalComponent implements OnInit {
     selctedFile: any = {};
     loading: boolean;
     totalCount: any;
+    filePath: any;
+    disabled= true;
 
 
     constructor(private apiService: ApiService) { }
@@ -42,6 +45,7 @@ export class FileModalComponent implements OnInit {
         this.apiService.sendRequest(requests.getAllAttachments, 'get', this.pagination).subscribe((res: any) => {
             this.files = res.response.attachments;
             this.totalCount = res.response.totalCount;
+            this.filePath= environment.fileUrl;
             console.log("files", this.files);
         });
     }
@@ -61,6 +65,7 @@ export class FileModalComponent implements OnInit {
     onSelect(file) {
         console.log("SELECTED FILE:", file);
         this.selctedFile = Object.assign({}, file);
+        this.disabled= false;
     }
 
     showModal(): void {
