@@ -8,7 +8,7 @@ import { escapeSpecialCharacters } from "../../..//services/Util";
 
 
 
-const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quotes})=>{
+const RelatedNewsSlider:FC<{newsID:number, tags:Array<any>, quotes:Array<any>}> =  ({newsID, tags, quotes})=>{
     const [relatedNewsList, setRelatedNewsList] = useState<any>([]);
     const [settings, setSettings] = useState({
             dots: false,
@@ -75,7 +75,7 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
             GetData(`${requests.search}`, searchObj, 'post', false).then(res => {
                     setRelatedNewsList(res?.data)
 
-                    console.log('Related News::::', res?.data);
+                    //console.log('Related News::::', res?.data);
                 
                 }).catch(err=>{
                     console.warn(err)
@@ -91,6 +91,7 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
                             relatedNewsList?.length && relatedNewsList?.map((news:any, index:number)=>{
                                 const newsPage = news?._source?.isPro ? 'proNews' : 'newsDetails';
                                   return(
+                                    news?._source?.id != newsID &&
                                     <div className="slider-item"  key={index}>
                                         <div className="NewsBox ">
                                             <div className="newsImage">
