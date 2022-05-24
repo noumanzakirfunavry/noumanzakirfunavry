@@ -69,19 +69,19 @@
           <img
             *ngIf="file && file.attachmentType !== 'VIDEO'"
             src="{{ filePath + file.path }}"
-            width="80" style="cursor: pointer;"
+            width="80" class="cursor"
           />
           <video
             *ngIf="file && file.attachmentType === 'VIDEO'"
-            width="100" style="cursor: pointer;"
+            width="100" class="cursor"
             controls
           >
             <source src="{{ filePath + file.path }}" />
           </video>
           <br />
-          <span [title]="file.title" style="cursor: pointer">{{ file.title | slice: 0:10 }}...</span>
+          <span [title]="file.title" class="cursor">{{ file.title | slice: 0:10 }}...</span>
           <br />
-          <span [title]="file.description" style="cursor: pointer"
+          <span [title]="file.description" class="cursor"
             >{{ file.description | slice: 0:10 }}...</span
           >
           <!-- <br> -->
@@ -96,8 +96,7 @@
           <i
             nz-tooltip
             nzTooltipTitle="Delete"
-            class="text-danger"
-            style="cursor: pointer"
+            class="cursor text-danger"
             nz-icon
             nzType="delete"
             nzTheme="outline"
@@ -112,22 +111,20 @@
         <div class="float-right">
           <i
             nz-icon
-            class="mr-2"
+            class="cursor mr-2"
             role="button"
             [disabled]="this.pagination.pageNo === 1"
             nzType="left-circle"
             (click)="prev()"
             nzTheme="outline"
-            style="cursor: pointer;"
           ></i>
           <i
             nz-icon
-            class="mr-2"
+            class="cursor mr-2"
             role="button"
             nzType="right-circle"
             (click)="next()"
             nzTheme="outline"
-            style="cursor: pointer;"
           ></i>
         </div>
       </div>

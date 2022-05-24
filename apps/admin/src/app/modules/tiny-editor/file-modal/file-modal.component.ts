@@ -18,6 +18,7 @@ export class Data extends Pagination {
 @Component({
     selector: 'tiny-file-modal',
     templateUrl: './file-modal.component.html',
+    styleUrls: ['./file-modal.component.css']
 })
 
 export class FileModalComponent implements OnInit {
