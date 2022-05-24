@@ -14,6 +14,7 @@ import TimeAgoArabicFormat from "../../TimeAgoCustom/TimeAgoArabicFormat";
 const SideList:FC<SideListProps> = ({type, title}) =>{
     const [latestNewsList, setLatestNewsList] = useState<any>([]);
     const [mostReadNewsList, setMostReadNewsList] = useState<any>([]);
+    const [trendingNewsList, setTrendingNewsList] = useState<any>([]);
 
       useEffect(() => {
         // get data for latest news in side bar
@@ -32,6 +33,15 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
 
         }).catch(err=>{
             console.warn(err)
+        })
+
+        GetData(`${requests.trendingNews}&limit=5&pageNo=1`, {}, 'get', false).then(res=>{
+          //console.log('Trending News:::', res);
+          const newsRes = res.data && res.data.length ? res.data : []
+          setTrendingNewsList(newsRes);
+          
+        }).catch(err=>{
+          console.warn(err)
         })
 
       }, [])
@@ -58,6 +68,27 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
                                   return(
                                     <li key={index} >
                                         <Link href={`/${newsPage}/` + newsItem?.news?.id}><a>{newsItem?.news?.title}</a></Link>
+                                    </li>
+                                  )
+                            })
+                          }
+                    </ul>
+                    </div>
+                  </>
+                  :
+                  title === "الأكثر تداولا" ? // show trending now news :: api data
+                  <>
+                    <div className="sideSimpleListWrap">
+                     <Title styles={styles.themeTitle}>
+                        <h4> {title} </h4>
+                     </Title>
+                    <ul className={styles.sidenumberList}>
+                         {
+                            trendingNewsList?.length && trendingNewsList?.map((newsItem:any, index:number)=>{
+                                  const newsPage = newsItem?._source?.isPro ? 'proNews' : 'newsDetails';
+                                  return(
+                                    <li key={index} >
+                                        <Link href={`/${newsPage}/` + newsItem?._source?.id}><a>{newsItem?._source?.title}</a></Link>
                                     </li>
                                   )
                             })

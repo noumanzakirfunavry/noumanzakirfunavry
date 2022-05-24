@@ -104,7 +104,7 @@ export class TrendingNowComponent implements OnInit{
     }
 
     changeCategory(data){
-        console.log(data);
+        console.log("CHANGE-CAT", data);
     }
 
     changedNews(updatedNews) {
@@ -113,7 +113,6 @@ export class TrendingNowComponent implements OnInit{
             this.tNews[news] = updatedNews;
         }
         else if(this.tNews.some(x=>!x.newsId)){
-            console.log('');
             const tempNews = updatedNews;
             setTimeout(() => {
                 this.tNews[news] = tempNews;
@@ -145,7 +144,7 @@ export class TrendingNowComponent implements OnInit{
 
     updateTrendingNow() {
             this.tNews.forEach(news=>{
-                news.newsId=parseInt(news.newsId);
+                news.newsId = parseInt(news.newsId);
             })
             if (this.tNews.some(x => !x.newsId)) {
                 this.message.create('error', 'Add all Trending News for Trending Section')

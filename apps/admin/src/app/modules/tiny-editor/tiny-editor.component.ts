@@ -1,5 +1,6 @@
 import { Component, Input, NgZone, OnInit } from '@angular/core'
 import { FormGroup } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 import { requests } from '../../shared/config/config';
 
 
@@ -120,26 +121,26 @@ export class TinyEditorComponent implements OnInit {
         this.isVisible = false;
         if (file.attachmentType != 'VIDEO' && this.fieldName == 'content') {
             this.formField.patchValue({
-                content: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] + `<img src="${file.url}">` : `<img src="${file.url}">`,
+                content: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] + `<img src="${environment.fileUrl + file.path}">` : `<img src="${environment.fileUrl + file.path}">`,
             });
         }
         else if (file.attachmentType != 'VIDEO' && this.fieldName != 'content') {
             this.formField.patchValue({
-                description: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] + `<img src="${file.url}">` : `<img src="${file.url}">`,
+                description: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] + `<img src="${environment.fileUrl + file.path}">` : `<img src="${environment.fileUrl + file.path}">`,
             });
         }
         else if (file.attachmentType == 'VIDEO' && this.fieldName == 'content') {
             this.formField.patchValue({
                 content: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] +
-                    `<video controls><source src="${file.url}" ></video>` :
-                    `<video controls><source src="${file.url}" ></video>`,
+                    `<video controls><source src="${environment.fileUrl + file.path}" ></video>` :
+                    `<video controls><source src="${environment.fileUrl + file.path}" ></video>`,
             });
         }
         else if (file.attachmentType == 'VIDEO' && this.fieldName != 'content') {
             this.formField.patchValue({
                 description: this.formField.value[this.fieldName] ? this.formField.value[this.fieldName] +
-                    `<video controls><source src="${file.url}" ></video>` :
-                    `<video controls><source src="${file.url}" ></video>`,
+                    `<video controls><source src="${environment.fileUrl + file.path}" ></video>` :
+                    `<video controls><source src="${environment.fileUrl + file.path}" ></video>`,
             });
         }
     }

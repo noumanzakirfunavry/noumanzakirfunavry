@@ -37,7 +37,8 @@ export class AddEpisodeComponent implements OnInit {
       private zone: NgZone, 
       private route: Router, 
       private apiService: ApiService, 
-      private activatedRoute: ActivatedRoute) {}
+      private activatedRoute: ActivatedRoute
+      ) {}
   
     ngOnInit(): void {
       this.getAllPrograms();

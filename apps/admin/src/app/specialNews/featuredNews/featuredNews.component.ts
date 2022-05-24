@@ -36,7 +36,6 @@ export class FeaturedNewsComponent implements OnInit {
     allFeaturedNews: any;
     allCategories: any;
     loading = true;
-    fNewsId: any;
 
     fNews: any[] = [
         {
@@ -124,7 +123,7 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     changeCategory(data){
-        console.log(data);
+        console.log("CHANGE-CAT", data);
     }
 
     changedNews(updatedNews) {
