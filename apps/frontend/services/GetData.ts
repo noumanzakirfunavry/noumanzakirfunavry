@@ -19,6 +19,7 @@ const GetData = async (url:string,params:any, method:string, displayMessage:bool
     const client = axios.create({
         baseURL: "",
         headers: {
+            "Access-Control-Allow-Origin":"*"
             //Authorization : `Bearer ${token}`
         },
         data:params
