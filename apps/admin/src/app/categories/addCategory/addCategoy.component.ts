@@ -97,9 +97,9 @@ export class AddCategoryComponent implements OnInit {
             this.categoryForm = this.fb.group({
                 title: [this.categoryById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
                 parentCategoryId: [this.categoryById?.parentCategoryId || null],
-                isActive: [this.categoryById?.isActive || false],
-                displayInCategoryMenu: [this.categoryById?.displayInCategoryMenu || false],
-                displayInHomePage: [this.categoryById?.displayInHomePage || false]
+                isActive: [this.categoryById?.isActive],
+                displayInCategoryMenu: [this.categoryById?.displayInCategoryMenu],
+                displayInHomePage: [this.categoryById?.displayInHomePage]
               });
               setTimeout(() => {
                 this.loader=false

@@ -92,6 +92,13 @@ export class NewsTypeService {
 							docToUpload['trendingNews'] = { position: newsDetail[0].position }
 						}
 					}
+					if (flag === 'isEditorsChoice') {
+						const newsDetail = body.news.filter(news => news.newsId == item);
+
+						if (newsDetail.length !== 0) {
+							docToUpload['editorChoiceNews'] = { position: newsDetail[0].position }
+						}
+					}
 
 					elkUpdateArray.push({
 						update: {

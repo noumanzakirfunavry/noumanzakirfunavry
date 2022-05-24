@@ -178,20 +178,29 @@ export class AddProgramsComponent implements OnInit{
   }
 
     reset(data) {
-    this.file = null;
-    this.programsModel.promoId = null;
-    this.programsModel.videoUrl = null;
-    this.programsModel.thumbnailId = null;
-    this.programsModel.thumbnailUrl = null;
-    this.tempFile.showDelBtn = false;
-    this.tempThumbanilFile.value = null;
-    this.tempThumbanilFile.showDelBtn = false;
+      if(this.programsModel.thumbnailId && this.programsModel.thumbnailUrl) {
+        this.resetThumbnail()
+    }
+    this.apiService.sendRequest(requests.deleteAttachment, 'delete', {id:[this.programsModel.promoId]}).subscribe((res:any) => {
+      console.log("DEL-THUMBNAIL", res);
+      this.file = null;
+      this.programsModel.promoId = null;
+      this.programsModel.videoUrl = null;
+      this.programsModel.thumbnailId = null;
+      this.programsModel.thumbnailUrl = null;
+      this.tempFile.showDelBtn = false;
+      this.tempThumbanilFile.value = null;
+      this.tempThumbanilFile.showDelBtn = false;
+  })
   }
 
-    resetThumbnail(data) {
-    this.programsModel.thumbnailId = null;
-    this.programsModel.thumbnailUrl = null;
-    this.tempThumbanilFile.showDelBtn = false;
+    resetThumbnail(data?) {
+      this.apiService.sendRequest(requests.deleteAttachment, 'delete', {id:[this.programsModel.thumbnailId]}).subscribe((res:any) => {
+        console.log("DEL-THUMBNAIL", res);
+        this.programsModel.thumbnailId = null;
+        this.programsModel.thumbnailUrl = null;
+        this.tempThumbanilFile.showDelBtn = false;
+    })
   }
 
     mainFileSelection(event) {

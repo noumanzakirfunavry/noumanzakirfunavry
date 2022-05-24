@@ -98,7 +98,7 @@ export class AddAddressesComponent implements OnInit {
           addressLine1: [this.branchById?.addressLine1 || null, [Validators.required]],
           addressLine2: [this.branchById?.addressLine2 || null, [Validators.required]],
           email: [this.branchById?.email || null, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$')]],
-          isActive: [this.branchById?.isActive || false]
+          isActive: [this.branchById?.isActive]
         });
         setTimeout(() => {
           this.loader=false

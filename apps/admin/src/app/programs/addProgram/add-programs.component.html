@@ -54,7 +54,7 @@
                               </div>
                         </dynamic-file-selector> 
               </div>
-              <div class="col-md-6" [ngClass]="programsModel?.promoId && programsModel?.videoUrl ? '' : 'disable-div'">
+              <div class="col-md-6" *ngIf="programsModel?.promoId && programsModel?.videoUrl">
                 <dynamic-file-selector 
                         [customDiv]="'thumbnail'" 
                         [title]="'Thumbnail Image'" 
