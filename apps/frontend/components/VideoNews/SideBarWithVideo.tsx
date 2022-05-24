@@ -23,8 +23,7 @@ const SideBarWithVideo = ({title, videoNewsList}) => {
                         return (
                                 <li key={index}>
                                     <div className="newsText">
-                                        <a href="#">{video?._source?.title}</a>
-                                        <Link href={`/videoNews/`+video.id}><a>{video && video?._source?.title} </a></Link>
+                                        <Link href={`/videoNews/`+video.id}><a>{video?._source?.title.length > 50 ? video?._source?.title.substring(0, 50) + ' ...' : video?._source?.title} </a></Link>
                                         {/*<p><TimeAgoArabicFormat date={video?._source?.createdAt} /></p>*/}
                                         <p>
                                             { // to show categories

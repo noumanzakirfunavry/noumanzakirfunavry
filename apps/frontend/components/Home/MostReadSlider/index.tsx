@@ -68,10 +68,19 @@ const MostReadSlider: FC = () => {
             {
                 breakpoint: 575,
                 settings: {
-                    slidesToShow: 1.5,
-                    slidesToScroll: 1
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                  initialSlide: 2
                 }
-            }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 1.5,
+                  slidesToScroll: 1
+                }
+              }
+
         ]
     });
 
@@ -118,13 +127,14 @@ const MostReadSlider: FC = () => {
 
 
                     <Slider ref={ref} {...settings}>
-                        <div className="slider-item">
+                        
 
                         {
                             mostReadNewsList?.length && mostReadNewsList?.map((newsItem:any, index:number)=>{
                                 const newsPage = newsItem?.news?.isPro ? 'proNews' : 'newsDetails';
                                   return(
-                                    <li key={index} >
+                                    <div className="slider-item" key={index}>
+                                    <li>
 
                         { // show thmbnail with play icon if video news
                             newsItem?.news?.videoId ?
@@ -168,8 +178,7 @@ const MostReadSlider: FC = () => {
                                         </p>
                                         {/*<p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>*/}
                                     </li>
-
-                                  
+                                    </div>
                                   )
                               })
                           }
@@ -260,7 +269,6 @@ const MostReadSlider: FC = () => {
                           </a>
                           <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>*/}
-                        </div>
                     </Slider>
 
                 </div>
