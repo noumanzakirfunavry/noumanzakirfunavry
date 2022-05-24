@@ -33,5 +33,5 @@ COPY frontend.nginx.conf /etc/nginx/conf.d/
 RUN cd /etc/nginx/conf.d/ && mv frontend.nginx.conf default.conf
 
 
-# Expose port 4400 for CLIENT
-EXPOSE 4400
+# Expose port 4200 for CLIENT
+EXPOSE 4200

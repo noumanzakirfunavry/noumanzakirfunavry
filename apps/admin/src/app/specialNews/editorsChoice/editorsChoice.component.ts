@@ -76,7 +76,7 @@ export class EditorsChoiceComponent implements OnInit{
 
     clean(obj: any) {
         for (const propName in obj) {
-            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || (obj[propName] && obj[propName].length==0)) {
                 delete obj[propName];
             }
         }
@@ -119,10 +119,8 @@ export class EditorsChoiceComponent implements OnInit{
         const news = this.editorsChoice.findIndex(x => x.position == updatedNews.position);
         if (news > -1 && !this.findDuplicates()) {
             this.editorsChoice[news] = updatedNews;
-            console.log("UPDATED-NEWS", this.editorsChoice[news]);
         }
         else if(this.editorsChoice.some(x=>!x.newsId)){
-            console.log();
             const tempNews = updatedNews;
             setTimeout(() => {
                 this.editorsChoice[news] = tempNews;
@@ -142,7 +140,7 @@ export class EditorsChoiceComponent implements OnInit{
 
     updateEditorsChoiceNews() {
             this.editorsChoice.forEach(news=>{
-                news.newsId=parseInt(news.newsId);
+                news.newsId = parseInt(news.newsId);
             })
             if (this.editorsChoice.some(x => !x.newsId)) {
                 this.message.create('error', 'Add all Editors Choice News for Editors Choice Section')

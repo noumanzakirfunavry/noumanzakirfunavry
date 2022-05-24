@@ -1,4 +1,5 @@
 import { EventEmitter, Component, Input, OnInit, Output } from "@angular/core";
+import { environment } from "../../../../environments/environment";
 import { Pagination } from "../../../common/models/pagination";
 import { requests } from "../../../shared/config/config";
 import { ApiService } from "../../../shared/services/api.service";
@@ -6,11 +7,10 @@ import { ApiService } from "../../../shared/services/api.service";
 
 export class Data extends Pagination {
     title?: string;
-    attachmentType?: 'VIDEO' | 'IMAGE'
+    attachmentType?: 'VIDEO' | 'IMAGE';
 
     constructor() {
         super();
-        this.title = "";
     }
 }
 
@@ -18,6 +18,7 @@ export class Data extends Pagination {
 @Component({
     selector: 'tiny-file-modal',
     templateUrl: './file-modal.component.html',
+    styleUrls: ['./file-modal.component.css']
 })
 
 export class FileModalComponent implements OnInit {
@@ -28,9 +29,11 @@ export class FileModalComponent implements OnInit {
     searchTitle: string;
 
     files: any = [];
-    selctedFile: any = {}
+    selctedFile: any = {};
     loading: boolean;
     totalCount: any;
+    filePath: any;
+    disabled= true;
 
 
     constructor(private apiService: ApiService) { }
@@ -41,16 +44,29 @@ export class FileModalComponent implements OnInit {
 
     private fetchAttachments() {
         this.apiService.sendRequest(requests.getAllAttachments, 'get', this.pagination).subscribe((res: any) => {
-            console.log("files", res);
             this.files = res.response.attachments;
             this.totalCount = res.response.totalCount;
+            this.filePath= environment.fileUrl;
             console.log("files", this.files);
         });
+    }
+
+    onSearch() {
+        this.pagination= {...this.pagination, title: this.pagination.title};
+        this.pagination.pageNo= 1;
+        this.fetchAttachments();
+    }
+
+    onClear() {
+        this.pagination= { limit: 25, pageNo: 1, attachmentType: this.pagination.attachmentType };
+        this.pagination.pageNo= 1;
+        this.fetchAttachments();
     }
 
     onSelect(file) {
         console.log("SELECTED FILE:", file);
         this.selctedFile = Object.assign({}, file);
+        this.disabled= false;
     }
 
     showModal(): void {

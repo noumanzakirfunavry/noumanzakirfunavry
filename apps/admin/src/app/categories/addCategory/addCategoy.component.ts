@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'app-addCategory',
@@ -54,7 +55,7 @@ export class AddCategoryComponent implements OnInit {
 
     initForm() {
         this.categoryForm = this.fb.group({
-            title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+            title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
             parentCategoryId: [null],
             isActive: [false],
             displayInCategoryMenu: [false],
@@ -73,6 +74,7 @@ export class AddCategoryComponent implements OnInit {
                 this.isLoading= false;
             }, 2000);
             const obj= this.categoryForm.value;
+            obj['title']= this.categoryForm.value.title.trim();
             obj['parentCategoryId'] = parseInt(this.categoryForm.value.parentCategoryId);
             this.apiService.sendRequest(this.categoryId ? requests.updateCategory + this.categoryId : requests.addCategory, this.categoryId ? 'put' : 'post', obj).subscribe((res:any) => {
                 console.log("CATEGORIES", res);
@@ -93,7 +95,7 @@ export class AddCategoryComponent implements OnInit {
             this.categoryById= res.response.category;
             console.log("CATEGORY-BY-ID", this.categoryById);
             this.categoryForm = this.fb.group({
-                title: [this.categoryById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+                title: [this.categoryById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
                 parentCategoryId: [this.categoryById?.parentCategoryId || null],
                 isActive: [this.categoryById?.isActive || false],
                 displayInCategoryMenu: [this.categoryById?.displayInCategoryMenu || false],

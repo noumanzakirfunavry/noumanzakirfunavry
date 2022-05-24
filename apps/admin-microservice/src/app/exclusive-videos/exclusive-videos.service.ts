@@ -19,7 +19,7 @@ export class ExclusiveVideosService {
 				ElkService.update({
 					id: body.newsId.toString(),
 					index: process.env.ELK_INDEX,
-					doc: { isExclusiveVideos: true }
+					doc: { isExclusiveVideos: true, exclusiveVideoPosition: body.position }
 				})
 				return new GenericResponseDto(
 					HttpStatus.OK,
@@ -190,12 +190,13 @@ export class ExclusiveVideosService {
 				const transactionHost = { transaction: t };
 				let video_exists;
 				let delete_video;
-				const itemsBeforeDelete = await this.exclusiveVideoRepository.findAll({ 
-					attributes: ['id', 'newsId'], 
-					raw: true, 
-					nest: true, 
-					transaction: transactionHost.transaction })
-					
+				const itemsBeforeDelete = await this.exclusiveVideoRepository.findAll({
+					attributes: ['id', 'newsId'],
+					raw: true,
+					nest: true,
+					transaction: transactionHost.transaction
+				})
+
 				for (let i = 0; i < query.id.length; i++) {
 					video_exists = await this.videoExists(query.id[i])
 					if (video_exists) {
@@ -219,7 +220,7 @@ export class ExclusiveVideosService {
 
 				// construct bulk update array
 				query.id.forEach(id => {
-					const newsId = itemsBeforeDelete.find(item=> item.id == id)?.newsId
+					const newsId = itemsBeforeDelete.find(item => item.id == id)?.newsId
 					bulkUpdateArray.push({
 						update: {
 							_index: process.env.ELK_INDEX,

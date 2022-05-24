@@ -84,7 +84,7 @@ export class ExclusiveVideosComponent implements OnInit{
 
     clean(obj: any) {
         for (const propName in obj) {
-            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || (obj[propName] && obj[propName].length==0)) {
                 delete obj[propName];
             }
         }
@@ -108,7 +108,7 @@ export class ExclusiveVideosComponent implements OnInit{
     }
 
     changeCategory(data){
-        console.log(data);
+        console.log("CHANGE-CAT", data);
     }
 
     changedNews(updatedNews) {
@@ -117,7 +117,6 @@ export class ExclusiveVideosComponent implements OnInit{
             this.exclusiveVideos[news] = updatedNews;
         }
         else if(this.exclusiveVideos.some(x=>!x.newsId)){
-            console.log('');
             const tempNews = updatedNews;
             setTimeout(() => {
                 this.exclusiveVideos[news] = tempNews;
@@ -149,7 +148,7 @@ export class ExclusiveVideosComponent implements OnInit{
 
     updateExclusiveVideos() {
         this.exclusiveVideos.forEach(news=>{
-            news.newsId=parseInt(news.newsId);
+            news.newsId = parseInt(news.newsId);
         })
         if (this.exclusiveVideos.some(x => !x.newsId)) {
             this.message.create('error', 'Add all Exclusive Video News for Exclusive Video Section')

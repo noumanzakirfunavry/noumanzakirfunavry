@@ -36,7 +36,6 @@ export class FeaturedNewsComponent implements OnInit {
     allFeaturedNews: any;
     allCategories: any;
     loading = true;
-    fNewsId: any;
 
     fNews: any[] = [
         {
@@ -99,7 +98,7 @@ export class FeaturedNewsComponent implements OnInit {
 
     clean(obj: any) {
         for (const propName in obj) {
-            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || (obj[propName] && obj[propName].length==0)) {
                 delete obj[propName];
             }
         }
@@ -124,7 +123,7 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     changeCategory(data){
-        console.log(data);
+        console.log("CHANGE-CAT", data);
     }
 
     changedNews(updatedNews) {
@@ -163,26 +162,27 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     updateFeaturedNews() {
-        this.fNews.forEach(news => {
-            news.newsId = parseInt(news.newsId);
-        })
-        if (this.fNews.some(x => !x.newsId)) {
-            this.message.create('error', 'Add all Featured News for Featured Section')
-        } 
-        else {
-            const body = this.fNews.map(x=>{return {newsId: x.newsId, position: x.position, section: x.section}});
-            this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: body }).subscribe((res: any) => {
-                console.log("UPDATE-FEATURED-NEWS", res);
-                this.getAllFeaturedNews();
-                this.message.create('success', `Featured News Updated Successfully`);
+            this.fNews.forEach(news => {
+                news.newsId = parseInt(news.newsId);
             })
-        }
+            if (this.fNews.some(x => !x.newsId)) {
+                this.message.create('error', 'Add all Featured News for Featured Section')
+            } 
+            else {
+                const body = this.fNews.map(x=>{return {newsId: x.newsId, position: x.position, section: x.section}});
+                this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: body }).subscribe((res: any) => {
+                    console.log("UPDATE-FEATURED-NEWS", res);
+                    this.getAllFeaturedNews();
+                    this.message.create('success', `Featured News Updated Successfully`);
+                })
+            }
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
         moveItemInArray(this.fNews, event.previousIndex, event.currentIndex);
         for(let i = 0; i < this.fNews.length; i++) {
             this.fNews[i].position= i + 1;
+            this.fNews[i].section = this.fNews[i].position > 5 ? 'SECONDARY':'MAIN'; 
         }
         console.log("POS", this.fNews);
       }

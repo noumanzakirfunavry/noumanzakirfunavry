@@ -32,10 +32,10 @@
                                     <nz-badge *ngIf="news?.isActive === true" nzStatus="success"></nz-badge>
                                     <nz-badge *ngIf="news?.isActive === false"  nzStatus="error"></nz-badge> 
                                 </td>
-                            <td dir="rtl" nzEllipsis nz-tooltip [nzTooltipTitle]="news?.title">
-                                <a [routerLink]="['/news/update/' + news?.id]">{{news?.title}}</a></td>
+                            <td dir="rtl" nzEllipsis>
+                                <a nz-tooltip [nzTooltipTitle]="news?.title" [routerLink]="['/news/update/' + news?.id]">{{news?.title}}</a></td>
                             <td>{{news?.newsType}}</td>
-                            <td nzEllipsis><span *ngFor="let catNews of news?.categories" nz-tooltip [nzTooltipTitle]="catNews?.title">{{catNews?.title}}, </span></td>
+                            <td dir="rtl" nzEllipsis><span *ngFor="let catNews of news?.categories" nz-tooltip [nzTooltipTitle]="getCategories(news?.categories)">{{catNews?.title}}, </span></td>
                             <td>{{news?.user?.name}}</td>
                             <td>{{news?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{news?.updatedAt | date:'dd-MM-YYYY'}}</td>

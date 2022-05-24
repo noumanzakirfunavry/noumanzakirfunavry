@@ -20,10 +20,10 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                     <div className="newsText">
                                         <Link href={`/${newsPage}/` + news?._id}><a style={{wordWrap:'break-word'}}>{news?._source?.isPro && (<span className="badge bg-success ms-3">PRO</span>)}{news?._source?.title}</a></Link>
                                         <p>
-                                            { // to show tags
-                                              news?._source?.tags?.map((tag: string, tagIndex: number) => {
+                                            { // to show categories
+                                              news?._source?.categories?.map((category: any, categoryIndex: number) => {
                                                   return(
-                                                    <a key={tagIndex} href="#">{tag}</a>
+                                                    <a key={categoryIndex}>{category.title}</a>
                                                   )
                                               })  
                                             }
@@ -38,16 +38,16 @@ const NewsDetatilListWithMedia = ({dispalyMoreButton, newsList}) =>{
                                                         <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newsimg.src} />
                                                         <div className="PlayTime">
                                                         <h5>05:21</h5>
-                                                        <div className="btn-text">
-                                                            <span>شاهد الآن</span>
-                                                            <Link href={`/${newsPage}/` + news._id}>
-                                                                <a>
-                                                                    <button className="btn btn-warning VideoPlay">
-                                                                        <i className="fa play_small"></i>
-                                                                    </button>
-                                                                </a>
-                                                            </Link>
-                                                        </div>
+                                                        <Link href={`/${newsPage}/` + news._id}>
+                                                        <a>
+                                                            <div className="btn-text">
+                                                                <span>شاهد الآن</span>
+                                                                <button className="btn btn-warning VideoPlay">
+                                                                    <i className="fa play_small"></i>
+                                                                </button>
+                                                            </div>
+                                                        </a>
+                                                        </Link>
                                                     </div>
                                                     </div>
                                                     

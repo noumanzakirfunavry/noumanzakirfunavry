@@ -456,9 +456,9 @@ const Header = () =>{
                                                     <a className="nav-link dropdown-toggle" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
+                                                    <ul className="dropdown-menu" aria-labelledby="moreOtions">
                                                     {
-                                                         moreMenuItems?.length > 1 && <ul className="dropdown-menu" aria-labelledby="moreOtions">
-                                                            {
+                                                         moreMenuItems?.length > 1 && 
                                                                 moreMenuItems?.map((menuItem:any, index:number)=>{
                                                                     if(index > 0)
                                                                     {
@@ -495,8 +495,7 @@ const Header = () =>{
                                                                     
                                                                 })
                                                             }
-                                                        </ul>
-                                                    }
+                                                    </ul>
                                                     
                                                 </li>
 

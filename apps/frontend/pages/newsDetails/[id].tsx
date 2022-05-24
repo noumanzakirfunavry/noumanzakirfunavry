@@ -144,7 +144,7 @@ const Index = (props: any) => {
             <Title styles={'yellowTitle'}>
               <h3>أخبار ذات صلة</h3>
             </Title>
-            <RelatedNewsSlider tags={news && news.tags} quotes={news && news.quotes} />
+            <RelatedNewsSlider newsID={news?.id} tags={news && news.tags} quotes={news && news.quotes} />
           </div>
 
           <div className="mb-5 hide_div_web">

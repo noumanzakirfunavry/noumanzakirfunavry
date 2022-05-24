@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'app-addTag',
@@ -51,7 +52,7 @@ export class AddTagComponent implements OnInit {
       this.tagsForm = this.fb.group({
         // title: [null, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*$')]],
         // title: [null, [Validators.required, Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
-        title: [null, [Validators.required]],
+        title: [null, [Validators.required,  Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
         isActive: [false]
       });
     }
@@ -89,7 +90,7 @@ export class AddTagComponent implements OnInit {
         this.tagsForm = this.fb.group({
           // title: [this.tagById?.title || null, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*$')]],
           // title: [this.tagById?.title || null, [Validators.required, Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
-          title: [this.tagById?.title || null, [Validators.required]],
+          title: [this.tagById?.title || null, [Validators.required,  Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
           isActive: [this.tagById?.isActive || false]
         });
         setTimeout(() => {
