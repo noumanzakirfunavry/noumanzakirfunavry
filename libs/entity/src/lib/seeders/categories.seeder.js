@@ -3,18 +3,22 @@ async function addCategories(queryInterface) {
     'Categories',
     [
       {
-        title: 'أحدث أخبار الأسواق',
+        title: 'أخبار الأسهم/Stock News',
         displayInHomePage: true,
         displayInCategoryMenu: true,
         isActive: true,
         publishedBy: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
-			{
-        title: 'أحدث أخبار الأسهم',
+      {
+        title: 'أخبار السوق/Market News',
         displayInHomePage: true,
         displayInCategoryMenu: true,
         isActive: true,
         publishedBy: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ],
     {}
