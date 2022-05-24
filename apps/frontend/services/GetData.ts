@@ -21,7 +21,7 @@ const GetData = async (url:string,params:any, method:string, displayMessage:bool
         headers: {
             "Access-Control-Allow-Origin":"*",
             "Accept":"*",
-            // "HTTP_ORIGIN":"https://site-staging.eduopenings.com"
+            "HTTP_ORIGIN":"https://site-staging.eduopenings.com"
             //Authorization : `Bearer ${token}`
         },
         data:params
