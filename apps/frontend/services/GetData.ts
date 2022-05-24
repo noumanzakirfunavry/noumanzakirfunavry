@@ -22,7 +22,7 @@ const GetData = async (url:string,params:any, method:string, displayMessage:bool
             "Access-Control-Allow-Origin":"*",
             // "Accept":"*",
             crossDomain: false,
-            "HTTP_ORIGIN":"https://site-staging.eduopenings.com"
+            "HTTP_ORIGIN":"https://site-staging.cnbcarabia.com"
             //Authorization : `Bearer ${token}`
         },
         data:params
