@@ -37,7 +37,9 @@ const ProgramDetails = ({programDetails}) => {
                                     video={programDetails?.promo?.dailyMotionURL}   //news?.video?.dailyMotionURL
                                     uiTheme="light"
                                     autoplay= "false"
-                                /> :
+                                    width="100%"
+                                />    
+                                 :
                                 <>
                                     <div className="NewsImage"><img className="img-fluid" src={programDetails?.thumbnail?.path ? baseUrlAdmin+programDetails?.thumbnail?.path:newsImage.src} /></div>
                                     <div className="PlayTime">
