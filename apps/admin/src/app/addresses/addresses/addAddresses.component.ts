@@ -55,7 +55,7 @@ export class AddAddressesComponent implements OnInit {
         fax: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
         addressLine1: [null, [Validators.required]],
         addressLine2: [null, [Validators.required]],
-        email: [null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$')]],
+        email: [null, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$')]],
         isActive: [false]
       });
     }
@@ -97,7 +97,7 @@ export class AddAddressesComponent implements OnInit {
           fax: [this.branchById?.fax || null, [Validators.required, Validators.pattern("^[0-9]*$")]],
           addressLine1: [this.branchById?.addressLine1 || null, [Validators.required]],
           addressLine2: [this.branchById?.addressLine2 || null, [Validators.required]],
-          email: [this.branchById?.email || null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$')]],
+          email: [this.branchById?.email || null, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$')]],
           isActive: [this.branchById?.isActive || false]
         });
         setTimeout(() => {
