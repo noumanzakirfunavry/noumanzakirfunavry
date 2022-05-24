@@ -173,7 +173,7 @@ export class AddUserComponent implements OnInit{
           password: [null, [Validators.minLength(6), Validators.maxLength(30)]],
           confirmPassword: [null, [this.confirmationValidator]],
           email: [this.userById?.email || null, [Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$'), Validators.required]],
-          isActive: [this.userById?.isActive || false],
+          isActive: [this.userById?.isActive],
           rights: [this.allRights, [Validators.required]]
         });
         setTimeout(() => {

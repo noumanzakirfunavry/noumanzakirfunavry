@@ -90,7 +90,7 @@ export class AddQuickLinksComponent implements OnInit {
       this.quickLinkForm = this.fb.group({
         title: [ this.quickLinkById?.title || null, [ Validators.required,  Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator ] ],
         url: [ this.quickLinkById?.url || null, [ Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w !@#$%^&*()+=;:<>?.-]*/?') ] ],
-        visible: [this.quickLinkById?.visible || false]
+        visible: [this.quickLinkById?.visible]
     });
     setTimeout(() => {
       this.loader=false

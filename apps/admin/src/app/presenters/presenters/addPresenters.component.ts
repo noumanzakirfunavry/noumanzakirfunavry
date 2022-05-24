@@ -138,7 +138,7 @@ export class AddPresentersComponent implements OnInit{
           facebookLink: [this.presenterById?.facebookLink || null, [Validators.required]],
           instagramLink: [this.presenterById?.instagramLink || null, [Validators.required]],
           linkedInLink: [this.presenterById?.linkedInLink || null, [Validators.required]],
-          isActive: [this.presenterById?.isActive || false]
+          isActive: [this.presenterById?.isActive]
         });
         setTimeout(() => {
           this.loader=false

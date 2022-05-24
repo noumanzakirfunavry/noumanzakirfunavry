@@ -178,6 +178,11 @@ export class AddEpisodeComponent implements OnInit {
     }
 
       reset(data) {
+        if(this.episodesModel.thumbnailId && this.episodesModel.thumbnailUrl) {
+          this.resetThumbnail()
+      }
+      this.apiService.sendRequest(requests.deleteAttachment, 'delete', {id:[this.episodesModel.videoId]}).subscribe((res:any) => {
+        console.log("DEL-THUMBNAIL", res);
         this.file = null;
         this.episodesModel.videoId = null;
         this.episodesModel.videoUrl = null;
@@ -186,24 +191,28 @@ export class AddEpisodeComponent implements OnInit {
         this.tempFile.showDelBtn = false;
         this.tempThumbanilFile.value = null;
         this.tempThumbanilFile.showDelBtn = false;
-      }
+      })
+    }
     
-      resetThumbnail(data) {
-        this.episodesModel.thumbnailId = null;
-        this.episodesModel.thumbnailUrl = null;
-        this.tempThumbanilFile.showDelBtn = false;
-      }
+      resetThumbnail(data?) {
+        this.apiService.sendRequest(requests.deleteAttachment, 'delete', {id:[this.episodesModel.thumbnailId]}).subscribe((res:any) => {
+          console.log("DEL-THUMBNAIL", res);
+          this.episodesModel.thumbnailId = null;
+          this.episodesModel.thumbnailUrl = null;
+          this.tempThumbanilFile.showDelBtn = false;
+      })
+    }
     
       mainFileSelection(event) {
         console.log("file selected", event);
         this.episodesModel.videoUrl = null;
-        this.tempFile.showDelBtn = true;
+        this.tempFile.showDelBtn = event?.value ? true : false;
       }
     
       thumbnailFileSelection(event) {
-        console.log("thubnail file selected", event);
+        console.log("thumbnail file selected", event);
         this.episodesModel.thumbnailUrl = null;
-        this.tempThumbanilFile.showDelBtn = true;
+        this.tempThumbanilFile.showDelBtn = event?.value ? true : false;
       }
     
       getCaptcha(e: MouseEvent): void {

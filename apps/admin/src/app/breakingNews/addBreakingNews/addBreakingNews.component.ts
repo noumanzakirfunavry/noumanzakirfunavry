@@ -93,10 +93,10 @@ export class AddBreakingNewsComponent implements OnInit {
         this.breakingNewsForm = this.fb.group({
           title: [this.breakingNewsById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
           newsLink: [this.breakingNewsById?.newsLink || null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w !@#$%^&*()+=;:<>?.-]*/?')]],
-          isActive: [this.breakingNewsById?.isActive || false],
-          isPushNotificationActive: [this.breakingNewsById?.isPushNotificationActive || false],
-          IsTwitterActive: [this.breakingNewsById?.IsTwitterActive || false],
-          isFacebookActive: [this.breakingNewsById?.isFacebookActive || false]
+          isActive: [this.breakingNewsById?.isActive],
+          isPushNotificationActive: [this.breakingNewsById?.isPushNotificationActive],
+          IsTwitterActive: [this.breakingNewsById?.IsTwitterActive],
+          isFacebookActive: [this.breakingNewsById?.isFacebookActive]
         });
         setTimeout(() => {
           this.loader=false

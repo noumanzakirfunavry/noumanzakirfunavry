@@ -108,7 +108,7 @@ export class AddJobComponent implements OnInit {
                 title: [this.jobById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
                 branchId: [this.jobById?.branchId || null, [Validators.required]],
                 description: [this.jobById?.description || null, [Validators.required]],
-                isActive: [this.jobById?.isActive || false]
+                isActive: [this.jobById?.isActive]
               });
               setTimeout(() => {
                 this.loader=false
