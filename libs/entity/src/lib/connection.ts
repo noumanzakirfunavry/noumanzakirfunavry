@@ -23,10 +23,10 @@ export const Connection = [
       });
 
 
-      await sequelize.sync({
+      // await sequelize.sync({
         // alter :  true,
         // force : true
-      });
+      // });
       return sequelize;
     },
   },

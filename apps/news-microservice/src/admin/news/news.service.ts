@@ -301,7 +301,7 @@ export class NewsService {
 			where: {
 				...(query.search && {
 					title: {
-						[Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.search)}%`
+						[Op.iLike]: `%${this.helperService.stringTrimmerAndCaseLower(query.search)}%`
 					}
 				}),
 				...(query.isActive && {
