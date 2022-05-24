@@ -280,7 +280,8 @@ export class NewsService {
 
 			},
 			{
-				model: Users
+				model: Users,
+				paranoid: false
 			},
 			{
 				model: NewsHasQuotes

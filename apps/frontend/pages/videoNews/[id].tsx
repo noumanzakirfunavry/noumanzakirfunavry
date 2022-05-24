@@ -75,7 +75,7 @@ const Index = () =>{
                     <h3>فيديوهات ذات صلة</h3>
                 </Title>
                 {/*<HorizontalFooter2NewsSlider />*/}
-                <RelatedNewsSlider tags={videoNews && videoNews?.tags} quotes={videoNews && videoNews?.quotes} />
+                <RelatedNewsSlider newsID={videoNews?.id} tags={videoNews && videoNews?.tags} quotes={videoNews && videoNews?.quotes} />
             </div>
             <div className="mb-3">
                 <Title styles={"yellowTitle"}>

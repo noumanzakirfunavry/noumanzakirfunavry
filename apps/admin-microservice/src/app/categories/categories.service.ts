@@ -1,6 +1,6 @@
 import { AddCategoriesResponseDto, GenericResponseDto, GetAllCategoriesForClientRequestDto, GetAllCategoriesRequestDto, GetAllCategoriesResponseDto, GetByIdCategoryResponseDto, GetCategoryByTitleRequestDto, UpdateCategoriesRequestDto, UpdateCategoriesResponseDto, UpdateOrderCategoriesRequestDto } from "@cnbc-monorepo/dtos";
 import { ElkService } from "@cnbc-monorepo/elk";
-import { Categories, News } from "@cnbc-monorepo/entity";
+import { Categories, News, Users } from "@cnbc-monorepo/entity";
 import { CustomException, Exceptions, ExceptionType } from "@cnbc-monorepo/exception-handling";
 import { Helper, sequelize } from "@cnbc-monorepo/utility";
 import { HttpStatus, Inject, Injectable } from "@nestjs/common";
@@ -137,6 +137,7 @@ export class CategoriesService {
 					displayInCategoryMenu: JSON.parse(query.displayInCategoryMenu.toString())
 				})
 			},
+			order: [['updatedAt', 'DESC']],
 			limit: parseInt(query.limit.toString()),
 			offset: this.helperService.offsetCalculator(query.pageNo, query.limit)
 		});
@@ -152,7 +153,12 @@ export class CategoriesService {
 		let result = await this.categoryRepo.findAndCountAll(
 
 			{
-				include: ['user', {
+				include: [
+					{
+						model: Users,
+						paranoid: false
+					}, 
+					{
 					model: Categories, as: 'sub', required: false,
 					// where: {
 					//     ...where,

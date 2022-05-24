@@ -84,6 +84,21 @@ export class NewsTypeService {
 							docToUpload['featuredNews'] = { position: newsDetail[0].position, section: newsDetail[0].section }
 						}
 					}
+					// ADding POsition Values for trending news on front end
+					if (flag === 'isTrending') {
+						const newsDetail = body.news.filter(news => news.newsId == item);
+
+						if (newsDetail.length !== 0) {
+							docToUpload['trendingNews'] = { position: newsDetail[0].position }
+						}
+					}
+					if (flag === 'isEditorsChoice') {
+						const newsDetail = body.news.filter(news => news.newsId == item);
+
+						if (newsDetail.length !== 0) {
+							docToUpload['editorChoiceNews'] = { position: newsDetail[0].position }
+						}
+					}
 
 					elkUpdateArray.push({
 						update: {
