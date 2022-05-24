@@ -72,7 +72,7 @@ export class AdminService {
 				where: {
 					...(query.search && {
 						name: {
-							[Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(query.search)}%`
+							[Op.iLike]: `%${this.helperService.stringTrimmerAndCaseLower(query.search)}%`
 						}
 					}),
 					...(query.isActive && {
