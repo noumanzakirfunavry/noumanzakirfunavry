@@ -91,7 +91,8 @@ export class NewsModel {
             // tagsIds: [1],
             quotesIds: form.quotesIds,
             quotes:form.quotes,
-            imageId:this.imageId,
+            // imageId:this.imageId,
+            ...(this.imageId ? {imageId:this.imageId}:null),
             ...(this.videoId ? {videoId:this.videoId}:null),
             ...(this.thumbnailId ? {thumbnailId:this.thumbnailId}:null),
             seoDetails: {

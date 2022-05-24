@@ -114,7 +114,7 @@ export class AddMenusComponent implements OnInit{
           parentMenuId: [this.menuById?.parentMenuId || null],
           url: [this.menuById?.url || null, [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w !@#$%^&*()+=;:<>?.-]*/?')]],
           isActive: [this.menuById?.isActive || false],
-          visible: [this.menuById?.visible || true, [Validators.required]],
+          visible: [this.menuById?.visible, [Validators.required]],
           // orderNo: [1, [Validators.required]]
         });
         setTimeout(() => {
