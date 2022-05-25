@@ -11,6 +11,7 @@ import { antdModule } from '../AndModules/andModule';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         FormsModule,
         ...antdModule,
         DragDropModule,
-        NzModalModule
+        NzModalModule,
+        NzToolTipModule
     ],
     exports: [],
     declarations: [

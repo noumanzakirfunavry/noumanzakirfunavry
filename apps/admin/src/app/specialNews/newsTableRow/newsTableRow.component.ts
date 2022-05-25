@@ -76,8 +76,7 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit {
 
     getNews(news){
         console.log("gettting call");
-        
-     this.apiService.sendRequest(requests.getAllNews,'get', {pageNo:1,limit:10,...(this.pagination.categoryId ? {categoryId: this.pagination.categoryId}:null),search:news}).subscribe((res:any)=>{
+     this.apiService.sendRequest(requests.getAllNews,'get', { pageNo: 1, limit: 30, isActive: true,...(this.pagination.categoryId ? {categoryId: this.pagination.categoryId}:null),search:news}).subscribe((res:any)=>{
          this.allCategoryNews=res.response.news;
      })
     }
@@ -85,7 +84,7 @@ export class NewsTableRowComponent implements OnInit, AfterContentInit {
     getCategoryNews(catId?: any) {
         // console.log("SEL-CAT", this.selectedCat)
         this.pagination.categoryId = catId ? catId : null;
-        this.apiService.sendRequest(requests.getAllNews, 'get', { pageNo: 1, limit: 30, ...(catId ? {categoryId: parseInt(catId)}:null) }).subscribe((res: any) => {
+        this.apiService.sendRequest(requests.getAllNews, 'get', { pageNo: 1, limit: 30, isActive: true, ...(catId ? {categoryId: parseInt(catId)}:null) }).subscribe((res: any) => {
             this.allCategoryNews = res.response.news;
             // this.allCategoryNews=this.allCategoryNews && this.allCategoryNews.length>0 ? this.allCategoryNews.filter(x => this.allNews.some(y => y.newsId!= x.id) ):[];
             // const uniqueIds = this.allCategoryNews.map(x => x.id).filter((v, i, s) => s.indexOf(v) === i)

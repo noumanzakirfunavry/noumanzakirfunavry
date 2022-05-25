@@ -14,6 +14,7 @@ import { AddPagesComponent } from './pages/addPages.component';
 import { PagesComponent } from './pages.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { TinyEditorModule } from '../modules/tiny-editor/tiny-editor.module';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 
 
@@ -30,7 +31,8 @@ import { TinyEditorModule } from '../modules/tiny-editor/tiny-editor.module';
         QuillModule.forRoot(),
         NzUploadModule,
         NzPaginationModule,
-        TinyEditorModule
+        TinyEditorModule,
+        NzToolTipModule
     ],
     exports: [],
     declarations: [
