@@ -79,7 +79,7 @@ export const requests = {
     deleteTags: environment.baseUrlNews + 'tags/delete/',
     addNewQuote: environment.baseUrlNews + 'quotes/add',
     updateQuote: environment.baseUrlNews + 'quotes/update/',
-    getAllQuotes: environment.baseUrlNews + 'quotes/getAll',
+    getAllQuotes: 'https://cnbc-config.cnbcarabia.com/zagTrader/api/TickerSearchAPIFull.php',
     updateSystemConfiguration: 'http://localhost:3333/api/configuration',
     updateGoogleSettings: 'http://localhost:3333/api/configuration/google',
     updateLiveTVLink: 'http://localhost:3333/api/configuration/liveTV',

@@ -312,10 +312,12 @@ export class AddNewsComponent implements OnInit {
     getAllQuotes(value?) {
         this.pagination.name = value ? value : '';
         // zag trader api 
-        // this.apiService.sendRequest(requests.getAllQuotes, 'get', this.clean(Object.assign({ ...this.pagination }))).subscribe((res: any) => {
-        //     console.log("ALL-QUOTES", res.quotes);
         this.allQuotes = QuotesMockData;
-        // })
+        // this.clean(Object.assign({ ...this.pagination }))
+        this.apiService.sendRequest(requests.getAllQuotes, 'get',{st:value} ).subscribe((res: any) => {
+            console.log("ALL-QUOTES", res);
+        this.allQuotes = QuotesMockData;
+        })
     }
 
     clean(obj: any) {
