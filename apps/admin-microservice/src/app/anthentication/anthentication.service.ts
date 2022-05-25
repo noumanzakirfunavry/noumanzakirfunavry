@@ -282,17 +282,27 @@ export class AnthenticationService {
         return response === 0 ? true : response
     }
 
-    private async updateAdminQuery(body: UpdateAdminRequestDto, id: number, transactionHost) {
-				if(body.password){
-					body.password = await this.helperService.encryptPassword(body.password)
-				}  
-        return await this.usersRepository.update(body, {
-            where: {
-                id: id
-            },
-            transaction: transactionHost.transaction
-        });
-    }
+		private async updateAdminQuery(body: UpdateAdminRequestDto, id: number, transactionHost) {
+			if (body.password) {
+				body.password = await this.helperService.encryptPassword(body.password)
+			}
+			try {
+				return await this.usersRepository.update(body, {
+					where: {
+						id: id
+					},
+					transaction: transactionHost.transaction
+				});
+			} catch (error) {
+				if (error instanceof UniqueConstraintError) {
+					throw new CustomException(
+						Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].message,
+						Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].status
+					)
+				}
+				throw error
+			}
+		}
 
     async addUserRights(rights, user, transactionHost) {
         for (let i = 0; i < rights.length; i++) {
@@ -315,9 +325,8 @@ export class AnthenticationService {
 							Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].message,
 							Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].status
 						)
-					} else {
-						console.log("🚀 ~ file: anthentication.service.ts ~ line 318 ~ AnthenticationService ~ addUser ~ error", error)
 					}
+					throw error;
 				}
     }
     async requestResetPassword(body: RequestResetPasswordRequestDto): Promise<GenericResponseDto> {
