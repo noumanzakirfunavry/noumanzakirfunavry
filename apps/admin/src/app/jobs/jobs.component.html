@@ -8,7 +8,7 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
-                <nz-table [nzShowPagination]="false" [nzLoading]="loading" [nzData]="allJobs" class="no-border-last">
+                <nz-table [nzShowPagination]="false" [nzLoading]="loading" [nzData]="allJobs" nzTableLayout="fixed">
                     <thead>
                         <tr>
                             <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
@@ -28,8 +28,8 @@
                             <td [nzChecked]="setOfCheckedId.has(job?.id)" [nzDisabled]="job.disabled"
                             (nzCheckedChange)="onItemChecked(job?.id, $event)"></td>
                             <!-- <td>{{job?.id}}</td> -->
-                            <td>{{job?.title}}</td>
-                            <td>{{job?.branch?.title}}</td>
+                            <td dir="rtl" style="text-align: right;" nzEllipsis><span nz-tooltip nzTooltipPlacement="topRight" [nzTooltipTitle]="job?.title">{{job?.title}}</span></td>
+                            <td dir="rtl" style="text-align: right;" nzEllipsis><span nz-tooltip nzTooltipPlacement="topRight" [nzTooltipTitle]="job?.branch?.title">{{job?.branch?.title}}</span></td>
                             <td>{{job?.createdAt | date: 'dd-MM-YYYY'}}</td>
                             <td>{{job?.updatedAt | date: 'dd-MM-YYYY'}}</td>
                             <td>{{job?.user?.name}}</td>

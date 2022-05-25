@@ -19,8 +19,8 @@
                       <td class="col-4">
                         <nz-form-item>
                           <!-- <nz-form-control > -->
-                          <nz-select   nzAllowClear nzShowSearch  (ngModelChange)="getCategoryNews($event)" [(ngModel)]="selectedCat" nzPlaceHolder="Select Category">
-                            <nz-option  *ngFor="let cat of allCategories" [nzValue]="cat?.id" [nzLabel]="cat?.title" class='red-bg'></nz-option>
+                          <nz-select nzAllowClear nzShowSearch (ngModelChange)="getCategoryNews($event)" [(ngModel)]="selectedCat" nzPlaceHolder="Select Category">
+                            <nz-option *ngFor="let cat of allCategories" [nzValue]="cat?.id" [nzLabel]="cat?.title" class='red-bg'></nz-option>
                           </nz-select>
                         <!-- </nz-form-control> -->
                           <!-- <nz-form-control >

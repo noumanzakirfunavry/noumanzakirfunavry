@@ -18,6 +18,7 @@ import { TinyEditorModule } from '../modules/tiny-editor/tiny-editor.module';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
         EditorModule,
         FileUploaderModule,
         NzModalModule,
-        TinyEditorModule
+        TinyEditorModule,
+        NzToolTipModule
     ],
     exports: [],
     declarations: [

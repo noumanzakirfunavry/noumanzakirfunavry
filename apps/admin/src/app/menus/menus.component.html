@@ -8,7 +8,7 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div cdkDropList (cdkDropListDropped)="drop($event)">
-                <nz-table [nzLoading]="loading" [nzData]="allMenus" [nzShowPagination]="false" class="no-border-last">
+                <nz-table [nzLoading]="loading" [nzData]="allMenus" [nzShowPagination]="false" nzTableLayout="fixed">
                     <thead>
                         <tr>
                             <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
@@ -25,10 +25,12 @@
                         <ng-container *ngFor="let menu of allMenus">
                         <tr class="menu-block" cdkDrag>
                             <td [nzChecked]="setOfCheckedId.has(menu?.id)" (nzCheckedChange)="onItemChecked(menu?.id, $event)"></td>
-                            <td>
+                            <td nzEllipsis>
                                 <i *ngIf="expandedId!==menu?.id" nz-icon nzType="caret-right" class="cursor-pointer" nzTheme="outline" (click)="toggle(menu?.id)"></i>
                                 <i *ngIf="expandedId===menu?.id" nz-icon nzType="caret-down" class="cursor-pointer" nzTheme="outline" (click)="toggle(menu?.id)"></i>
-                                {{menu?.title}}
+                                <span nz-tooltip nzTooltipPlacement="topLeft" [nzTooltipTitle]="menu?.title">
+                                    {{menu?.title}}
+                                </span>
                             </td>
                             <td>{{menu?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{menu?.updatedAt | date:'dd-MM-YYYY'}}</td>
@@ -50,7 +52,7 @@
                                 <td 
                                     [nzChecked]="setOfCheckedId.has(subMenu?.id)" (nzCheckedChange)="onItemChecked(subMenu?.id, $event)">
                                 </td>
-                                <td>{{subMenu?.title}}</td>
+                                <td nzEllipsis><span nz-tooltip nzTooltipPlacement="topLeft" [nzTooltipTitle]="subMenu?.title">{{subMenu?.title}}</span></td>
                                 <td>{{subMenu?.createdAt | date:'dd-MM-YYYY'}}</td>
                                 <td>{{subMenu?.updatedAt | date:'dd-MM-YYYY'}}</td>
                                 <td>{{subMenu?.user?.name}}</td>
