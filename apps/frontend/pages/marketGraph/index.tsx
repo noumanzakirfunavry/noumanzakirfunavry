@@ -59,9 +59,9 @@ const Index = () =>{
                     </div>
                 </div> */}
                 <div className="PageBuilder-pageRow page-nav">
-                    {/*<div className='PageBuilder-col-9'>
+                    <div className='PageBuilder-col-9'>
                         <iframe height={'100%'} width="100%" src={"https://cnbc-config.cnbcarabia.com/zagTrader/widgets/watchlist/index.php?ticker_id=10696,1128,1130,10905,11489,105847"}></iframe>
-            </div>*/}
+            </div>
                     <div className='PageBuilder-col-9'>
                         <MarketIndices />
                     </div>

@@ -91,7 +91,7 @@ export class AddTagComponent implements OnInit {
           // title: [this.tagById?.title || null, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*$')]],
           // title: [this.tagById?.title || null, [Validators.required, Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
           title: [this.tagById?.title || null, [Validators.required,  Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
-          isActive: [this.tagById?.isActive || false]
+          isActive: [this.tagById?.isActive]
         });
         setTimeout(() => {
           this.loader=false

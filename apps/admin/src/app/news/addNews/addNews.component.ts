@@ -140,13 +140,13 @@ export class AddNewsComponent implements OnInit {
             date: [new Date(news.updatedAt), []],
             title: [news.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
             content: [news?.content || null, [Validators.required]],
-            isPro: [news.isPro || false],
+            isPro: [news.isPro],
             visible: [news.visible || true, [Validators.required]],
-            contentType: [news.contentType || 'TEXT', [Validators.required]],
+            contentType: [news.contentType, [Validators.required]],
             // authorName: [news?.authorName || 'CNBC News', [Validators.required, Validators.maxLength(250)]],
-            newsType: [news?.newsType || 'NEWS'],
+            newsType: [news?.newsType],
             showOnHomepage: [news.showOnHomepage || true, [Validators.required]],
-            isActive: [news.isActive || true,],
+            isActive: [news.isActive],
             categoryIds: [news?.categories.map(x => x.id) || null, [Validators.required]],
             tagsIds: [news?.tags.map(x => x.id) || null, [Validators.required]],
             quotesIds: [news?.quotes && news?.quotes.map(x => x.quoteTickerId) || []],
@@ -200,8 +200,8 @@ export class AddNewsComponent implements OnInit {
               }, 2000);
             const obj = this.newsForm.value;
             obj['title'] = this.newsForm.value.title.trim();
-            obj['newsType'] = this.newsModel.videoId ? 'NEWS' : 'ARTICLE';
-            obj['contentType'] = this.newsModel.imageId ? 'IMAGE' : this.newsModel.videoId ? 'VIDEO' : 'TEXT';
+            obj['newsType'] = this.newsModel.videoId && this.newsModel.videoUrl ? 'NEWS' : 'ARTICLE';
+            obj['contentType'] = this.newsModel.imageId && this.newsModel.fileUrl ? 'IMAGE' : this.newsModel.videoId && this.newsModel.videoUrl ? 'VIDEO' : 'TEXT';
             obj['quotes'] = this.allQuotes.filter(x => {
                 if (this.newsForm.value.quotesIds?.some(z => z == x.quoteTickerId)) {
                     return x
@@ -258,23 +258,32 @@ export class AddNewsComponent implements OnInit {
 
 
     reset(data) {
-        this.file = null;
-        this.newsModel.imageId = null;
-        this.newsModel.fileUrl = null;
-        this.newsModel.videoId = null;
-        this.newsModel.videoUrl = null;
-        this.newsModel.thumbnailId = null;
-        this.newsModel.thumbnailUrl = null;
-        this.newsModel.contentType = null;
-        this.tempFile.showDelBtn = false;
-        this.tempThumbanilFile.value = null;
-        this.tempThumbanilFile.showDelBtn = false;
+        if(this.newsModel.thumbnailId && this.newsModel.thumbnailUrl) {
+            this.resetThumbnail()
+        }
+        this.apiService.sendRequest(requests.deleteAttachment, 'delete', {id:[this.newsModel.contentType == 'IMAGE' ? this.newsModel.imageId : this.newsModel.videoId]}).subscribe((res:any) => {
+            console.log("DEL-ATTACHMENT", res);
+            this.file = null;
+            this.newsModel.imageId = null;
+            this.newsModel.fileUrl = null;
+            this.newsModel.videoId = null;
+            this.newsModel.videoUrl = null;
+            this.newsModel.thumbnailId = null;
+            this.newsModel.thumbnailUrl = null;
+            this.newsModel.contentType = null;
+            this.tempFile.showDelBtn = false;
+            this.tempThumbanilFile.value = null;
+            this.tempThumbanilFile.showDelBtn = false;
+        })
     }
 
-    resetThumbnail(data) {
-        this.newsModel.thumbnailId = null;
-        this.newsModel.thumbnailUrl = null;
-        this.tempThumbanilFile.showDelBtn = false;
+    resetThumbnail(data?) {
+        this.apiService.sendRequest(requests.deleteAttachment, 'delete', {id:[this.newsModel.thumbnailId]}).subscribe((res:any) => {
+            console.log("DEL-THUMBNAIL", res);
+            this.newsModel.thumbnailId = null;
+            this.newsModel.thumbnailUrl = null;
+            this.tempThumbanilFile.showDelBtn = false;
+        })
     }
 
     mainFileSelection(event) {
