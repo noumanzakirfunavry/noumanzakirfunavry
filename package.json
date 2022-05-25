@@ -16,7 +16,6 @@
     "build:operational-microservice": "nx build operational-microservice",
     "test": "nx test",
     "postinstall": "ngcc --properties es2015 browser module main",
-    "frontend:postbuild": "next-sitemap --config apps/frontend/next-sitemap.js"
   },
   "private": true,
   "dependencies": {
