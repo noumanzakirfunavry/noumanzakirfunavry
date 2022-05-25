@@ -299,9 +299,8 @@ export class AnthenticationService {
 						Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].message,
 						Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].status
 					)
-				} else {
-          console.log("🚀 ~ file: anthentication.service.ts ~ line 303 ~ AnthenticationService ~ updateAdminQuery ~ error", error)
 				}
+				throw error
 			}
 		}
 
@@ -326,9 +325,8 @@ export class AnthenticationService {
 							Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].message,
 							Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].status
 						)
-					} else {
-						console.log("🚀 ~ file: anthentication.service.ts ~ line 318 ~ AnthenticationService ~ addUser ~ error", error)
 					}
+					throw error;
 				}
     }
     async requestResetPassword(body: RequestResetPasswordRequestDto): Promise<GenericResponseDto> {
