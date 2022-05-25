@@ -17,6 +17,7 @@ import { antdModule } from './AndModules/andModule';
 import { ChangePasswordComponent } from './changePassword/changePassword.component';
 import { AuthInterceptor } from './shared/interceptor/authInterceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ServerDownComponent } from './layouts/server-down/server-down.component';
 // import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
@@ -27,7 +28,8 @@ registerLocaleData(en);
         AppComponent,
         CommonLayoutComponent,
         FullLayoutComponent,
-        ChangePasswordComponent
+        ChangePasswordComponent,
+        ServerDownComponent
     ],
     imports: [
         BrowserModule,
