@@ -1,3 +1,4 @@
+
 import { baseUrlAdmin } from "apps/frontend/services/Requests";
 import { FC, useEffect, useState } from "react";
 import newsImage from "../../../styles/images/biden.jpg";
@@ -7,14 +8,14 @@ import HtmlData from "../../Shared/HtmlData/HtmlData";
 import NewsRealtedStock from "../CategoryDetailsBoxes/CategoryDetailsBoxes";
 import Dailymotion from 'react-dailymotion';
 
-
 const ArticleDetails: FC<any> = ({ news }) => {
 
     const [playVideo, setPlayVideo] = useState<boolean>(false)
 
     useEffect(() => {
-        setPlayVideo(false);
+        //setPlayVideo(false);
     }, [news])
+
     
     console.log("news id====>",news);
     

@@ -24,5 +24,15 @@
     "providers": "libs/providers",
     "socket": "libs/socket",
     "utility": "libs/utility"
+  },
+  "postbuild": {
+    "executor": "@nrwl/workspace:run-commands",
+    "options": {
+      "commands": [
+        {
+          "command": "next-sitemap --config apps/frontend/next-sitemap.js"
+        }
+      ]
+    }
   }
 }
