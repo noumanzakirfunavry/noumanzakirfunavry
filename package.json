@@ -15,7 +15,7 @@
     "build:notification-microservice": "nx build notification-microservice",
     "build:operational-microservice": "nx build operational-microservice",
     "test": "nx test",
-    "postinstall": "ngcc --properties es2015 browser module main",
+    "postinstall": "ngcc --properties es2015 browser module main"
   },
   "private": true,
   "dependencies": {
