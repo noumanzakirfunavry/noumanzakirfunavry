@@ -2,11 +2,11 @@
 // export const baseUrl='http://157.90.67.186:3001/';
 // export const baseUrlAdmin='http://157.90.67.186:3002/';
 // QA
- //export const baseUrl='http://157.90.67.186:4001/';
- //export const baseUrlAdmin='http://157.90.67.186:4002/';
+ export const baseUrl='http://157.90.67.186:4001/';
+ export const baseUrlAdmin='http://157.90.67.186:4002/';
 // domains
-export const baseUrlAdmin= "https://backend.admin.staging.cnbcarabia.com/";
-export const baseUrl= "https://backend.news.staging.cnbcarabia.com/";
+// export const baseUrlAdmin= "https://backend.admin.staging.cnbcarabia.com/";
+// export const baseUrl= "https://backend.news.staging.cnbcarabia.com/";
 
 export const newsAPI=baseUrl+'news/api/admin/';
 export const adminApi = baseUrlAdmin + 'admin/api/admin/'
