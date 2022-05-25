@@ -25,8 +25,8 @@ export class AuthInterceptor implements HttpInterceptor {
     if (
       (request.urlWithParams.match(/login$/) ||
         request.urlWithParams.match(/requestResetPassword$/) ||
-        request.urlWithParams.match(/resetPassword$/)) &&
-        request.method == ("POST" || "PUT" || "GET")
+        request.urlWithParams.match(/resetPassword$/) ||
+        request.urlWithParams.match('zagTrader'))
     ) {
       return next.handle(request).pipe(tap((evt: any) => {
         if (evt.body && evt.body.message) {
