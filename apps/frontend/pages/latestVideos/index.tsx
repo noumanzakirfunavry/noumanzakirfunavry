@@ -6,7 +6,7 @@ import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import Title from "apps/frontend/components/Title"
 
 const Index = () =>{
-
+    
     return (
         <>
             <div className="container">
@@ -18,10 +18,10 @@ const Index = () =>{
             <div className="container">
             <div className='PageBuilder-pageRow'>
                 <div className='PageBuilder-col-9'>
-                    <MainNews/>
+                    <MainNews />
                     {/* <CategoryNewsSection limit={8} displayTitle={false}  displayTopTwoNews={false} displayMoreButton={true}/> */}
                     <div className="latestVideoTileswrap">
-                    <VideoNewsTiles/>
+                    <VideoNewsTiles />
                     </div>
                 </div>
                 <div className='PageBuilder-sidebar'>

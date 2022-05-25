@@ -3,6 +3,9 @@ import { baseUrlAdmin } from "../../services/Requests"
 import HtmlData from "../../components/Shared/HtmlData/HtmlData";
 import TimeAgoArabicFormat from "../../components/Shared/TimeAgoCustom/TimeAgoArabicFormat"
 import { useState, useEffect} from "react";
+import Dailymotion from 'react-dailymotion';
+
+
 const ProgramDetails = ({programDetails}) => {
 
     const [playVideo, setPlayVideo] = useState<boolean>(false)
@@ -28,6 +31,15 @@ const ProgramDetails = ({programDetails}) => {
                                     <source src={programDetails?.promo?.path && baseUrlAdmin+programDetails?.promo?.path}/>
                                 </video>
                             : // else show thumbnail with play icon
+                                programDetails?.promo?.dailyMotionURL ? 
+                                <Dailymotion
+                                    className={"newsDetailimg mb-3"}
+                                    video={programDetails?.promo?.dailyMotionURL}   //news?.video?.dailyMotionURL
+                                    uiTheme="light"
+                                    autoplay= "false"
+                                    width="100%"
+                                />    
+                                 :
                                 <>
                                     <div className="NewsImage"><img className="img-fluid" src={programDetails?.thumbnail?.path ? baseUrlAdmin+programDetails?.thumbnail?.path:newsImage.src} /></div>
                                     <div className="PlayTime">
@@ -52,8 +64,8 @@ const ProgramDetails = ({programDetails}) => {
                             <h5 className="mb-4">عن البرنامج</h5>
                             {/*<p className="mb-5">أبرزالأحداث والفعاليات التي قامت CNBC عربية بتغطيتها على مدار الأسبوع تأتيكم في برنامج “اكسبو في أسبوع” مع لين خضير </p>*/}
                             <HtmlData data={programDetails?.content} />
-                            <button className="btn btn-outline-light ms-3">تحميل المزيد</button>
-                            <button className="btn btn-outline-light">تحميل المزيد</button>
+                            {/*<button className="btn btn-outline-light ms-3">تحميل المزيد</button>
+                            <button className="btn btn-outline-light">تحميل المزيد</button>*/}
                         </div>
 
                         <div className="text-center d-block d-md-none px-3">

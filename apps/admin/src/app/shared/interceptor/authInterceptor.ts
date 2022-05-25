@@ -58,7 +58,7 @@ export class AuthInterceptor implements HttpInterceptor {
         catchError(error => {
           this.commonStore.loaderEnd();
           const ifDisableLoader = DisableNotification.some(x => request.urlWithParams.match(x));
-          if ((!ifDisableLoader && error.status != 404 && error.status != 201) || (!ifDisableLoader && error.status == 403 && error.statusText == 'Forbidden')) {
+          if ((!ifDisableLoader && error.status != 404 && error.status != 201) || (error.status == 403 && error.statusText == 'Forbidden')) {
             // this.commonStore.notifier({ message: error.statusText == 'Forbidden' ? 'Your session is expired. Please login again' : error.error?.message || error.message || 'Error Occured', action: 'error' })
             this.message.create( 'error', error.statusText == 'Forbidden' ? 'Access Denied' :  error.error?.message || error.message || 'Error Occured' )
           }

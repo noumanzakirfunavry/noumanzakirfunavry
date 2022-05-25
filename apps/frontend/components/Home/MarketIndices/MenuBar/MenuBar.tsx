@@ -1,8 +1,13 @@
-
+import { useState } from "react"
 
 const MenuBar = ({marketIndices, setMarketTiles}) =>{
-
+    const [activeIndex, setActiveIndex] = useState(null);
     const menuKeys = marketIndices ? Object.keys(marketIndices) : []
+
+    const handleClickMenuItem = (index, item) => {
+        setActiveIndex(index)
+        setMarketTiles(item);
+    };
    
     return (
         <>
@@ -19,7 +24,7 @@ const MenuBar = ({marketIndices, setMarketTiles}) =>{
                                     menuKeys?.length && menuKeys.map((item: string, index: number)=>{
                                         return(
                                             <li key={index} className="nav-item">
-                                                <a onClick={() => setMarketTiles(item)} className="nav-link" aria-current="page" >{item}</a>
+                                                <a onClick={() => handleClickMenuItem(index, item)} className={`nav-link ${index === activeIndex ? 'active' : ''}`} aria-current="page" >{item}</a>
                                             </li>
                                         )
                                     })

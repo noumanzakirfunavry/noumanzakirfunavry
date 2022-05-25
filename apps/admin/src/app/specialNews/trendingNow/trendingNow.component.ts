@@ -80,7 +80,7 @@ export class TrendingNowComponent implements OnInit{
 
     clean(obj: any) {
         for (const propName in obj) {
-            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || (obj[propName] && obj[propName].length==0)) {
                 delete obj[propName];
             }
         }
@@ -104,7 +104,7 @@ export class TrendingNowComponent implements OnInit{
     }
 
     changeCategory(data){
-        console.log(data);
+        console.log("CHANGE-CAT", data);
     }
 
     changedNews(updatedNews) {
@@ -113,7 +113,12 @@ export class TrendingNowComponent implements OnInit{
             this.tNews[news] = updatedNews;
         }
         else if(this.tNews.some(x=>!x.newsId)){
-            console.log('');
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.tNews[news] = tempNews;
+                this.tNews[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
         else {
             const tempNews = updatedNews;
@@ -126,17 +131,20 @@ export class TrendingNowComponent implements OnInit{
     }
 
     findDuplicates() {
-        const valueArr = this.tNews.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            return valueArr.indexOf(item) != idx
-        });
+        let isDuplicate=false;
+        this.tNews.forEach(x=>{
+            const duplicate=this.tNews.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
         console.log("DUPLICATE-NEWS", isDuplicate);
         return isDuplicate
     }
 
     updateTrendingNow() {
             this.tNews.forEach(news=>{
-                news.newsId=parseInt(news.newsId);
+                news.newsId = parseInt(news.newsId);
             })
             if (this.tNews.some(x => !x.newsId)) {
                 this.message.create('error', 'Add all Trending News for Trending Section')
@@ -152,11 +160,11 @@ export class TrendingNowComponent implements OnInit{
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
-        moveItemInArray(this.allTrendingNow, event.previousIndex, event.currentIndex);
-        for(let i = 0; i < this.allTrendingNow.length; i++) {
-            this.allTrendingNow[i].position= i + 1;
+        moveItemInArray(this.tNews, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.tNews.length; i++) {
+            this.tNews[i].position= i + 1;
         }
-        console.log("POS", this.allTrendingNow);
+        console.log("POS", this.tNews);
       }
 
     cancel() {

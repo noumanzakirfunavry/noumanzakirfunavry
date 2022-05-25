@@ -10,7 +10,7 @@
               <nz-form-item>
                 <nz-form-label nzRequired>Admin Name </nz-form-label>
                 <nz-form-control nzErrorTip="Enter valid Name between 3 to 250 characters!">
-                  <input type="text" nz-input formControlName="name" placeholder="Admin Name">
+                  <input dir="rtl" type="text" nz-input formControlName="name" placeholder="Admin Name">
                 </nz-form-control>
               </nz-form-item>
             </div>
@@ -18,8 +18,8 @@
               <nz-form-item>
                 <nz-form-label nzRequired>Admin Role</nz-form-label>
                 <nz-form-control nzErrorTip="Select Admin Role!">
-                <nz-select nzShowSearch nzAllowClear formControlName="rolesId" nzPlaceHolder="Select Role">
-                  <nz-option [nzValue]="3" [nzLabel]="'Super Admin'"></nz-option>
+                <nz-select (ngModelChange)="onRoleChange($event)" nzShowSearch nzAllowClear formControlName="rolesId" nzPlaceHolder="Select Role">
+                  <nz-option [nzDisabled]="userRoleId!==3" [nzValue]="3" [nzLabel]="'Super Admin'"></nz-option>
                   <nz-option [nzValue]="1" [nzLabel]="'Admin'"></nz-option>
                 </nz-select>
               </nz-form-control>
@@ -32,7 +32,7 @@
                 <nz-form-label nzRequired>Username</nz-form-label>
                 <nz-form-control nzErrorTip="Enter valid Username without spaces between 3 to 250 characters!">
                   <nz-form-control>
-                    <input type="text" formControlName="userName" nz-input placeholder="Enter Username"/>
+                    <input dir="rtl" type="text" formControlName="userName" nz-input placeholder="Enter Username"/>
                   </nz-form-control>
                 </nz-form-control>
               </nz-form-item>
@@ -84,11 +84,12 @@
           </nz-form-item>
         </div>
 
-        <div class="col-6" *ngIf="!loader">
+        <div class="col-6">
           <nz-form-item class="admin_rights_wrap">
             <nz-form-label nzRequired><h5>Admin Rights</h5></nz-form-label>
             <nz-form-control>
           <nz-checkbox-group
+          [nzDisabled]="adminRoleId===3"
           style="display:grid"
           formControlName="rights"
           (ngModelChange)="log(checkOptionsThree)"

@@ -19,6 +19,7 @@ const MainSection = ({ newsList }) => {
     
     // background image path
     const backgroundImagePath = newsList[0]?._source?.videoId ? newsList[0]?._source?.thumbnail?.path : newsList[0]?._source?.image?.path
+    const mainNewsPage = newsList[0]?._source?.isPro ? 'proNews' : 'newsDetails';
     return (
         <>
             <div className="row">
@@ -28,16 +29,16 @@ const MainSection = ({ newsList }) => {
                         { newsList[0]?._source?.videoId &&
                                     <div className="PlayTime">
                                         <h5>05:21</h5>
-                                            <div className="btn-text">
-                                                <span>شاهد الآن</span>
-                                                <Link href={`/newsDetails/` + newsList[0]._id}>
-                                                    <a>
-                                                        <button className="btn btn-warning VideoPlay">
-                                                            <i className="fa play_small"></i>
-                                                        </button>
-                                                    </a>
-                                                </Link>
-                                        </div>
+                                        <Link href={`/${mainNewsPage}/` + newsList[0]._id}>
+                                            <a>
+                                                <div className="btn-text">
+                                                    <span>شاهد الآن</span>
+                                                    <button className="btn btn-warning VideoPlay">
+                                                        <i className="fa play_small"></i>
+                                                    </button>
+                                                </div>
+                                            </a>
+                                        </Link>
                                     </div>
                         }
                         <div className={styles.newscontent} >
@@ -48,14 +49,15 @@ const MainSection = ({ newsList }) => {
                                 <h3><a >مدير منظمة الصحة يحث الدول على اتخاذ إجراءات “متعقلة” في مواجهة أوميكرون</a></h3> */}
                             {
                                 newsList?.length && newsList?.map((news: any, index: number) => {
+                                    const newsPage = news?._source?.isPro ? 'proNews' : 'newsDetails';
                                     if (index < 3)
                                         return (
                                             <React.Fragment key={news._id}>
                                                { index==0 ? <h1>
-                                                    <Link href={`/newsDetails/` + news._id}><a >{news?._source?.title}</a></Link>
+                                                    <Link href={`/${newsPage}/` + news._id}><a >{news?._source?.title}</a></Link>
                                                 </h1>:
                                                 <h3>
-                                                    <Link href={`/newsDetails/` + news._id}><a >{news?._source?.title}</a></Link>
+                                                    <Link href={`/${newsPage}/` + news._id}><a >{news?._source?.title}</a></Link>
                                                 </h3>}
 
                                                 <hr></hr>
@@ -70,31 +72,31 @@ const MainSection = ({ newsList }) => {
                     <div className="row">
                         {
                             newsList?.length && newsList?.map((news: any, index: number) => {
+                                const newsPage = news?._source?.isPro ? 'proNews' : 'newsDetails';
                                 if (index >= 3) {
                                     return (
                                         <div className="col-sm-6 col-lg-12 list_w" key={news._id}>
                                             <div className={styles.newsbox} >
                                                 { // show thmbnail with play icon if video news
-                                                //.NewsTiles .newBox .PlayTime
-                                                //.VideoTextBox .VideoNews .PlayTime
                                                 news?._source?.videoId ?
                                                     <div className="VideoNews">
-                                                        <div>
+                                                        <div className="mainsection_newsimage__zRzlt">
                                                             <img className="img-fluid" src={news?._source?.thumbnail?.path ? baseUrlAdmin+news?._source?.thumbnail?.path:newsimage.src} />
-                                                        </div>
-                                                        <div className="PlayTime">
+                                                            <div className="PlayTime">
                                                             <h5>05:21</h5>
-                                                            <div className="btn-text">
-                                                                <span>شاهد الآن</span>
-                                                                <Link href={`/newsDetails/` + news._id}>
-                                                                    <a>
+                                                            <Link href={`/${newsPage}/` + news._id}>
+                                                                <a>
+                                                                    <div className="btn-text">
+                                                                        <span>شاهد الآن</span>
                                                                         <button className="btn btn-warning VideoPlay">
                                                                             <i className="fa play_small"></i>
                                                                         </button>
-                                                                    </a>
-                                                                </Link>
-                                                            </div>
+                                                                    </div>
+                                                                </a>
+                                                            </Link>
                                                         </div>
+                                                        </div>
+                                                        
                                                     </div>
 
                                                 : // else show image
@@ -104,7 +106,7 @@ const MainSection = ({ newsList }) => {
                                                 </div>
                                                 }
                                                 <div className={styles.newsdetails}>
-                                                    <Link href={`/newsDetails/` + news._id}><a >{news?._source?.title}</a></Link>
+                                                    <Link href={`/${newsPage}/` + news._id}><a >{news?._source?.title}</a></Link>
                                                 </div>
                                             </div>
                                         </div>

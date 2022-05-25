@@ -4,10 +4,11 @@ import sliderimg from "../../../styles/images/biden2.jpg";
 import GetData from "../../../services/GetData";
 import { requests, baseUrlAdmin } from '../../../services/Requests';
 import Link from 'next/link';
+import { escapeSpecialCharacters } from "../../..//services/Util";
 
 
 
-const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quotes})=>{
+const RelatedNewsSlider:FC<{newsID:number, tags:Array<any>, quotes:Array<any>}> =  ({newsID, tags, quotes})=>{
     const [relatedNewsList, setRelatedNewsList] = useState<any>([]);
     const [settings, setSettings] = useState({
             dots: false,
@@ -49,20 +50,20 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
 
             let tagsList = []
             tagsList = tags && tags?.length && tags.map((tag) => {
-                return tag.title;
+                return escapeSpecialCharacters(tag?.title);
             });
 
             let quotesList = []
-            quotesList = quotes && quotes.length && quotes.map((quote) => {
-                return quote.name;
+            quotesList = quotes && quotes?.length && quotes.map((quote) => {
+                return escapeSpecialCharacters(quote?.quoteTitle);
             });
 
             //console.log('tagsList::::::::', tagsList);
             //console.log('quotesList::::::', quotesList);
 
             let searchObj = {};
-            searchObj = tagsList.length > 0 && {...searchObj, tags: tagsList} 
-            searchObj = quotesList.length > 0 && {...searchObj, quotes: quotesList} 
+            searchObj = tagsList?.length > 0 && {...searchObj, tags: tagsList} 
+            searchObj = quotesList?.length > 0 && {...searchObj, quotes: quotesList} 
 
             const _data = {
                 tags: tagsList,
@@ -72,8 +73,9 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
             //console.log('searchObj:::::', searchObj)
 
             GetData(`${requests.search}`, searchObj, 'post', false).then(res => {
-                    console.log('related news:::::::', res.data);
                     setRelatedNewsList(res?.data)
+
+                    //console.log('Related News::::', res?.data);
                 
                 }).catch(err=>{
                     console.warn(err)
@@ -87,7 +89,9 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
             <Slider {...settings}>
                         {
                             relatedNewsList?.length && relatedNewsList?.map((news:any, index:number)=>{
+                                const newsPage = news?._source?.isPro ? 'proNews' : 'newsDetails';
                                   return(
+                                    news?._source?.id != newsID &&
                                     <div className="slider-item"  key={index}>
                                         <div className="NewsBox ">
                                             <div className="newsImage">
@@ -97,16 +101,16 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
                                                     {news?._source?.thumbnail ? <img className="img-fluid" src={baseUrlAdmin+news?._source.thumbnail?.path} />:<img className="img-fluid" src={sliderimg.src} />}
                                                     <div className="PlayTime">
                                                         <h5>05:21</h5>
-                                                        <div className="btn-text">
-                                                            <Link href={`/newsDetails/`+news._id}>
-                                                                <a>
+                                                        <Link href={`/videoNews/`+news._id}>
+                                                            <a>
+                                                                <div className="btn-text">
                                                                     <button className="btn btn-warning VideoPlay">
                                                                         <i className="fa play_medium"></i>
                                                                     </button>
-                                                                </a>
-                                                            </Link>
-                                                            <span>شاهد الآن</span>
-                                                        </div>
+                                                                    <span>شاهد الآن</span>
+                                                                </div>
+                                                            </a>
+                                                        </Link>
                                                     </div>
                                                     </>
                                                 : // else show image
@@ -116,8 +120,17 @@ const RelatedNewsSlider:FC<{tags:Array<any>, quotes:Array<any>}> =  ({tags, quot
                                             </div>
                                             <div className="newscontent">
                                                 {/*<h5><a>بايدن: سيفقد حوالى 10 ملايي</a></h5>*/}
-                                                <h5><Link href={`/newsDetails/`+news._id}><a>{news?._source?.title.substring(0, 35)}</a></Link></h5>
-                                                {<p><a href="#">الإمارات</a> منذ 5 دقائق</p> /* @TODO: will show sub categories here once it gets done from backend side. */}
+                                                <h5><Link href={`/${newsPage}/`+news._id}><a>{news?._source?.title.substring(0, 35)}</a></Link></h5>
+                                                <p>
+                                                    { // to show categories
+                                                        news?._source?.categories?.map((category: any, categoryIndex: number) => {
+                                                            return(
+                                                                <a key={categoryIndex}>{category.title}</a>
+                                                            )
+                                                        })  
+                                                    }
+                                                </p>
+                                                {/*<p><a href="#">الإمارات</a> منذ 5 دقائق</p>  @TODO: will show sub categories here once it gets done from backend side. */}
                                             </div>
                                         </div>
                                     </div>

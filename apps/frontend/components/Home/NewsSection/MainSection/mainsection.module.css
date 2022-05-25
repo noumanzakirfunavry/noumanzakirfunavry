@@ -1,4 +1,4 @@
-.mainNews{
+.mainNews {
   /* background: url(../../../../styles/images/biden.jpg) no-repeat; */
   color: #fff;
   width: 630px;
@@ -9,58 +9,61 @@
   background-size: cover;
   cursor: pointer;
 }
-.newscontent{
-  background-image: linear-gradient(to top, #071D39 60%, #071d3900);
+.newscontent {
+  background-image: linear-gradient(to top, #071d39 60%, #071d3900);
   padding: 30px;
 }
-.mainNews h1{
+.mainNews h1 {
   line-height: 20px;
   font-weight: bold;
 }
-.mainNews h1 a{
+.mainNews h1 a {
   font-size: 24px;
   color: white !important;
   line-height: normal;
 }
-.mainNews h1 a:hover,.mainNews h3 a:hover, .newsdetails a:hover{
- /* text-decoration: underline !important */
- color: #777777 !important;
+.mainNews h1 a:hover,
+.mainNews h3 a:hover,
+.newsdetails a:hover {
+  /* text-decoration: underline !important */
+  color: #777777 !important;
 }
-.mainNews:hover h1 a{
+.mainNews:hover h1 a {
   /* text-decoration: underline !important */
   color: #fcb700 !important;
- }
-.mainNews h3{
+}
+.mainNews h3 {
   margin: 0;
   line-height: 20px;
 }
-.mainNews h3 a{
+.mainNews h3 a {
   font-size: 15px;
   color: #fff !important;
 }
-.mainNews hr{
+.mainNews hr {
   color: #777777;
   height: 2px;
   margin: 10px 0 5px;
 }
-.newsbox{
+.newsbox {
   margin-bottom: 15px;
 }
 
-.newsimage{
+.newsimage {
   margin-bottom: 10px;
-  width: 300px;
+  /* width: 300px; */
+  width: 100%;
   height: 170px;
   overflow: hidden;
 }
-.newsimage img{
+.newsimage img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.newsdetails a{
+.newsdetails a {
   font-size: 15px;
   font-weight: bold;
-  color: #1C1C1C !important;
+  color: #1c1c1c !important;
   text-decoration: none;
 }

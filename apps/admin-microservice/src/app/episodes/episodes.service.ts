@@ -183,6 +183,7 @@ export class EpisodesService {
 				include: ['seoDetails', 'thumbnail', 'program', 'video']
 		});
 			if (response) {
+				this.episodeRepository.update({ views: response.views + 1 }, { where: { id } })
 				return new GenericResponseDto(
 					HttpStatus.OK,
 					"Fetched successfully",
@@ -216,12 +217,33 @@ export class EpisodesService {
         }
     }
 
-		async getAllEpisodesClient() {
+		async getAllEpisodesClient(getAllEpisodesDto: GetAllEpisodesRequestDto) {
 			const response = await this.episodeRepository.findAndCountAll({
 				where: {
+					...(getAllEpisodesDto.search && {
+						title: {
+							[Op.like]: `%${this.helperService.stringTrimmerAndCaseLower(getAllEpisodesDto.search)}%`
+						}
+					}),
+					...(getAllEpisodesDto.isActive && {
+						isActive: JSON.parse(getAllEpisodesDto.isActive.toString())
+					}),
+					...(getAllEpisodesDto.date && {
+						airedOn: where(sequelize.fn('date', sequelize.col('Episodes.airedOn')), '=', getAllEpisodesDto.date)
+					}),
+					...(getAllEpisodesDto.programId && {
+						programId: getAllEpisodesDto.programId
+					}),
+					...(getAllEpisodesDto.publishedBy &&
+					{
+						publishedBy: getAllEpisodesDto.publishedBy
+					}),
+
 					isActive: true
 				},
-				include: ['seoDetails', 'thumbnail', 'program', 'video']
+				include: ['seoDetails', 'thumbnail', 'program', 'video'],
+				limit: getAllEpisodesDto.limit,
+				offset: this.helperService.offsetCalculator(getAllEpisodesDto.pageNo, getAllEpisodesDto.limit)
 			});
 
 			if (response.count === 0) {

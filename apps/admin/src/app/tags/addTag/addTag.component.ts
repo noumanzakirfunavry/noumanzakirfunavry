@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'app-addTag',
@@ -51,7 +52,7 @@ export class AddTagComponent implements OnInit {
       this.tagsForm = this.fb.group({
         // title: [null, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*$')]],
         // title: [null, [Validators.required, Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
-        title: [null, [Validators.required]],
+        title: [null, [Validators.required,  Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
         isActive: [false]
       });
     }
@@ -63,15 +64,15 @@ export class AddTagComponent implements OnInit {
       }
       if(this.tagsForm.valid) {
         this.isLoading= true;
+        setTimeout(() => {
+          this.isLoading= false;
+        }, 2000)
         const obj= this.tagsForm.value;
         obj['title']= this.tagsForm.value.title.trim();
         this.apiService.sendRequest(this.tagId ? requests.updateTag + this.tagId : requests.addNewTag, this.tagId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("TAGS", res);
           this.tagsForm.reset();
           this.route.navigateByUrl('tags/list');
-          setTimeout(() => {
-            this.isLoading= false;
-          }, 2000)
           if(this.tagId) {
             this.message.create('success', `Tag Updated Successfully`)
           }
@@ -89,8 +90,8 @@ export class AddTagComponent implements OnInit {
         this.tagsForm = this.fb.group({
           // title: [this.tagById?.title || null, [Validators.required, Validators.pattern('[a-zA-Z0-9_-]*$')]],
           // title: [this.tagById?.title || null, [Validators.required, Validators.pattern('^(?:[\u0009-\u000D\u001C-\u007E\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDCF\uFDF0-\uFDFF\uFE70-\uFEFF]|(?:\uD802[\uDE60-\uDE9F]|\uD83B[\uDE00-\uDEFF])){0,250}$')]],
-          title: [this.tagById?.title || null, [Validators.required]],
-          isActive: [this.tagById?.isActive || false]
+          title: [this.tagById?.title || null, [Validators.required,  Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
+          isActive: [this.tagById?.isActive]
         });
         setTimeout(() => {
           this.loader=false

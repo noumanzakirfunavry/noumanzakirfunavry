@@ -14,6 +14,7 @@ import TimeAgoArabicFormat from "../../TimeAgoCustom/TimeAgoArabicFormat";
 const SideList:FC<SideListProps> = ({type, title}) =>{
     const [latestNewsList, setLatestNewsList] = useState<any>([]);
     const [mostReadNewsList, setMostReadNewsList] = useState<any>([]);
+    const [trendingNewsList, setTrendingNewsList] = useState<any>([]);
 
       useEffect(() => {
         // get data for latest news in side bar
@@ -34,6 +35,15 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
             console.warn(err)
         })
 
+        GetData(`${requests.trendingNews}&limit=5&pageNo=1`, {}, 'get', false).then(res=>{
+          //console.log('Trending News:::', res);
+          const newsRes = res.data && res.data.length ? res.data : []
+          setTrendingNewsList(newsRes);
+          
+        }).catch(err=>{
+          console.warn(err)
+        })
+
       }, [])
 
       
@@ -45,6 +55,48 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
 
               {
                 type === "numbered" && (
+                  title === "الأكثر قراءة" ? // show most read news :: api data
+                  <>
+                    <div className="sideSimpleListWrap">
+                     <Title styles={styles.themeTitle}>
+                        <h4> {title} </h4>
+                     </Title>
+                    <ul className={styles.sidenumberList}>
+                         {
+                            mostReadNewsList?.length && mostReadNewsList?.map((newsItem:any, index:number)=>{
+                                  const newsPage = newsItem?.news?.isPro ? 'proNews' : 'newsDetails';
+                                  return(
+                                    <li key={index} >
+                                        <Link href={`/${newsPage}/` + newsItem?.news?.id}><a>{newsItem?.news?.title}</a></Link>
+                                    </li>
+                                  )
+                            })
+                          }
+                    </ul>
+                    </div>
+                  </>
+                  :
+                  title === "الأكثر تداولا" ? // show trending now news :: api data
+                  <>
+                    <div className="sideSimpleListWrap">
+                     <Title styles={styles.themeTitle}>
+                        <h4> {title} </h4>
+                     </Title>
+                    <ul className={styles.sidenumberList}>
+                         {
+                            trendingNewsList?.length && trendingNewsList?.map((newsItem:any, index:number)=>{
+                                  const newsPage = newsItem?._source?.isPro ? 'proNews' : 'newsDetails';
+                                  return(
+                                    <li key={index} >
+                                        <Link href={`/${newsPage}/` + newsItem?._source?.id}><a>{newsItem?._source?.title}</a></Link>
+                                    </li>
+                                  )
+                            })
+                          }
+                    </ul>
+                    </div>
+                  </>
+                  :
                   <>
                     <div className="sideSimpleListWrap">
                      <Title styles={styles.themeTitle}>
@@ -87,7 +139,7 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
               }
               {
                 type === "simple" && (
-                  title === "الأكثر قراءة" ? // show lates news :: api data
+                  title === "الأكثر قراءة" ? // show most read news :: api data
                     <>
                     <div className="sideSimpleListWrap">
                       <Title styles={styles.themeTitle}>
@@ -97,13 +149,23 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
                     <ul className={styles.sidesimpleList}>
                           {
                             mostReadNewsList?.length && mostReadNewsList?.map((newsItem:any, index:number)=>{
+                                  const newsPage = newsItem?.news?.isPro ? 'proNews' : 'newsDetails';
                                   return(
                                   <li key={index} >
                                       <div className="NewsImage show_mobile">
                                           <img className="img-fluid" src={newsItem?.news?.image?.path ? baseUrlAdmin+newsItem?.news?.image?.path:newsImage.src} />
                                       </div>
-                                      <Link href={`/newsDetails/` + newsItem?.news?._id}><a>{newsItem?.news?.title}</a></Link>
-                                      <p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                                      <Link href={`/${newsPage}/` + newsItem?.news?.id}><a>{newsItem?.news?.title}</a></Link>
+                                      <p>
+                                        { // to show categories
+                                            newsItem?.news?.categories?.map((category: any, categoryIndex: number) => {
+                                                return(
+                                                    <a key={categoryIndex}>{category.title}</a>
+                                                )
+                                            })  
+                                        }
+                                      </p>
+                                      {/*<p><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>*/}
                                   </li>
                                   )
                               })
@@ -212,13 +274,14 @@ const SideList:FC<SideListProps> = ({type, title}) =>{
                     <div className="dotListwrap">
                         <ul className={styles.sideDotList}>
                           {
-                            latestNewsList?.length && latestNewsList?.map((news:any, index:number)=>{
+                              latestNewsList?.length && latestNewsList?.map((news:any, index:number)=>{
+                              const newsPage = news?._source?.isPro ? 'proNews' : 'newsDetails';
                                   return(
                                       <li key={index} >
                                           <div>
                                             {/*<span>منذ 5 دقائق</span>*/}
                                             <span><TimeAgoArabicFormat date={news?._source?.createdAt} /></span>
-                                            <Link href={`/newsDetails/` + news?._id}><a>{news?._source?.title}</a></Link>
+                                            <Link href={`/${newsPage}/` + news?._id}><a>{news?._source?.title}</a></Link>
                                           </div>
                                       </li>
                                   )

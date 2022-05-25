@@ -32,7 +32,9 @@ export class Jobs extends Model{
     @Column
     closingDate : Date
 
-    @Column
+    @Column({
+			type: DataType.TEXT
+		})
     description : string
 
     @ForeignKey(() => Branches)

@@ -68,10 +68,19 @@ const MostReadSlider: FC = () => {
             {
                 breakpoint: 575,
                 settings: {
-                    slidesToShow: 1.5,
-                    slidesToScroll: 1
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                  initialSlide: 2
                 }
-            }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 1.5,
+                  slidesToScroll: 1
+                }
+              }
+
         ]
     });
 
@@ -118,12 +127,14 @@ const MostReadSlider: FC = () => {
 
 
                     <Slider ref={ref} {...settings}>
-                        <div className="slider-item">
+                        
 
                         {
                             mostReadNewsList?.length && mostReadNewsList?.map((newsItem:any, index:number)=>{
+                                const newsPage = newsItem?.news?.isPro ? 'proNews' : 'newsDetails';
                                   return(
-                                    <li key={index} >
+                                    <div className="slider-item" key={index}>
+                                    <li>
 
                         { // show thmbnail with play icon if video news
                             newsItem?.news?.videoId ?
@@ -133,16 +144,16 @@ const MostReadSlider: FC = () => {
                                         
                                             <div className="PlayTime">
                                                 <h5>05:21</h5>
-                                                <div className="btn-text">
-                                                    <span>شاهد الآن</span>
-                                                    <Link href={`/newsDetails/` + newsItem?.news?.id}>
-                                                        <a>
+                                                <Link href={`/${newsPage}/` + newsItem?.news?.id}>
+                                                    <a>
+                                                        <div className="btn-text">
+                                                            <span>شاهد الآن</span>
                                                             <button className="btn btn-warning VideoPlay">
                                                                 <i className="fa play_small"></i>
                                                             </button>
-                                                        </a>
-                                                    </Link>
-                                                </div>
+                                                        </div>
+                                                    </a>
+                                                </Link>
                                             </div>
                                         </div>
                                     </>
@@ -155,11 +166,19 @@ const MostReadSlider: FC = () => {
                             }
 
                                         
-                                        <Link href={`/newsDetails/` + newsItem?.news?.id}><a>{newsItem?.news?.title}</a></Link>
-                                        <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
+                                        <Link href={`/${newsPage}/` + newsItem?.news?.id}><a>{newsItem?.news?.title}</a></Link>
+                                        <p className="tag">
+                                            { // to show categories
+                                                newsItem?.news?.categories?.map((category: any, categoryIndex: number) => {
+                                                    return(
+                                                        <a key={categoryIndex}>{category.title}</a>
+                                                    )
+                                                })  
+                                            }
+                                        </p>
+                                        {/*<p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>*/}
                                     </li>
-
-                                  
+                                    </div>
                                   )
                               })
                           }
@@ -250,7 +269,6 @@ const MostReadSlider: FC = () => {
                           </a>
                           <p className="tag"><a href="#">أمريكا</a> <b>منذ 5 دقائق</b></p>
                           </li>*/}
-                        </div>
                     </Slider>
 
                 </div>

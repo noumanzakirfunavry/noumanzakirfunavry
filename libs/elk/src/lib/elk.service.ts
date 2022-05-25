@@ -4,18 +4,19 @@ import {
 	DeleteByQueryRequest,
 	IndexRequest,
 	SearchRequest,
+	UpdateByQueryRequest,
 	UpdateRequest
 } from '@elastic/elasticsearch/lib/api/types';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class ElkService {
-	
 
 	private static client: Client = new Client({
-		node: "http://157.90.67.186:9217",
-		auth: { username: "developer", password: "Dev@321" },
+		node: process.env.ELK_NODE,
+		auth: { username: process.env.ELK_USERNAME, password: process.env.ELK_PASSWORD },
 	});
+
 	static get elkInstance() {
 		return this.client;
 	}
@@ -29,7 +30,7 @@ export class ElkService {
 			.catch((err) => {
 				console.log(
 					'🚀 ~ file: elk.service.ts ~ line 24 ~ ElkService ~ index ~ err',
-					err.meta.body
+					err.meta.body.error.root_cause
 				);
 			});
 	}
@@ -40,8 +41,8 @@ export class ElkService {
 			return result.hits.hits;
 		} catch (err) {
 			console.log(
-				'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ deleteByQuery ~ error',
-				err.meta.body)
+				'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ search ~ error',
+				err.meta.body.error.root_cause)
 
 			throw new InternalServerErrorException
 		}
@@ -56,7 +57,7 @@ export class ElkService {
 			.catch((err) => {
 				console.log(
 					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ deleteByQuery ~ error',
-					err.meta.body
+					err.meta.body.error.root_cause
 				);
 			});
 	}
@@ -70,7 +71,21 @@ export class ElkService {
 			.catch((err) => {
 				console.log(
 					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ update ~ error',
-					err.meta.body
+					err.meta.body.error.root_cause
+				);
+			});
+	}
+
+	static async updateByQuery(params: UpdateByQueryRequest) {
+		this.client
+			.updateByQuery(params)
+			.then(() => {
+				this.client.indices.refresh({ index: params.index });
+			})
+			.catch((err) => {
+				console.log(
+					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ update ~ error',
+					err.meta.body.error.root_cause
 				);
 			});
 	}
@@ -83,7 +98,7 @@ export class ElkService {
 			.catch((err) => {
 				console.log(
 					'🚀 ~ file: elk.service.ts ~ line 40 ~ ElkService ~ bulk ~ error',
-					err.meta.body
+					err.meta.body.error.root_cause
 				);
 			});
 	}

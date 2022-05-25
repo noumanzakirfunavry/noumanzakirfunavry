@@ -36,7 +36,6 @@ export class FeaturedNewsComponent implements OnInit {
     allFeaturedNews: any;
     allCategories: any;
     loading = true;
-    fNewsId: any;
 
     fNews: any[] = [
         {
@@ -99,7 +98,7 @@ export class FeaturedNewsComponent implements OnInit {
 
     clean(obj: any) {
         for (const propName in obj) {
-            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || (obj[propName] && obj[propName].length==0)) {
                 delete obj[propName];
             }
         }
@@ -124,7 +123,7 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     changeCategory(data){
-        console.log(data);
+        console.log("CHANGE-CAT", data);
     }
 
     changedNews(updatedNews) {
@@ -133,7 +132,12 @@ export class FeaturedNewsComponent implements OnInit {
             this.fNews[news] = updatedNews;
         } 
         else if(this.fNews.some(x=>!x.newsId)){
-            console.log('');
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.fNews[news] = tempNews;
+                this.fNews[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
           else {
             const tempNews = updatedNews;
@@ -146,37 +150,41 @@ export class FeaturedNewsComponent implements OnInit {
     }
 
     findDuplicates() {
-        const valueArr = this.fNews.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            return valueArr.indexOf(item) != idx
-        });
+        let isDuplicate=false;
+        this.fNews.forEach(x=>{
+            const duplicate=this.fNews.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
         console.log("DUPLICATE-NEWS", isDuplicate);
         return isDuplicate
     }
 
     updateFeaturedNews() {
-        this.fNews.forEach(news => {
-            news.newsId = parseInt(news.newsId);
-        })
-        if (this.fNews.some(x => !x.newsId)) {
-            this.message.create('error', 'Add all Featured News for Featured Section')
-        } 
-        else {
-            const body = this.fNews.map(x=>{return {newsId: x.newsId, position: x.position, section: x.section}});
-            this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: body }).subscribe((res: any) => {
-                console.log("UPDATE-FEATURED-NEWS", res);
-                this.getAllFeaturedNews();
-                this.message.create('success', `Featured News Updated Successfully`);
+            this.fNews.forEach(news => {
+                news.newsId = parseInt(news.newsId);
             })
-        }
+            if (this.fNews.some(x => !x.newsId)) {
+                this.message.create('error', 'Add all Featured News for Featured Section')
+            } 
+            else {
+                const body = this.fNews.map(x=>{return {newsId: x.newsId, position: x.position, section: x.section}});
+                this.apiService.sendRequest(requests.updateFeaturedNews, 'put', { news: body }).subscribe((res: any) => {
+                    console.log("UPDATE-FEATURED-NEWS", res);
+                    this.getAllFeaturedNews();
+                    this.message.create('success', `Featured News Updated Successfully`);
+                })
+            }
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
-        moveItemInArray(this.allFeaturedNews, event.previousIndex, event.currentIndex);
-        for(let i = 0; i < this.allFeaturedNews.length; i++) {
-            this.allFeaturedNews[i].position= i + 1;
+        moveItemInArray(this.fNews, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.fNews.length; i++) {
+            this.fNews[i].position= i + 1;
+            this.fNews[i].section = this.fNews[i].position > 5 ? 'SECONDARY':'MAIN'; 
         }
-        console.log("POS", this.allFeaturedNews);
+        console.log("POS", this.fNews);
       }
 
     cancel() {

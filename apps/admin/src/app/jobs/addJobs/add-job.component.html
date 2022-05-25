@@ -4,38 +4,38 @@
     <div *ngIf="!loader" class="col-12">
       <form [formGroup]="jobForm" nz-form [nzLayout]="'vertical'" (ngSubmit)="jobs()">
         <div class="row">
+          <div class="col-8">
+          <div class="row">
           <div class="col-md-6">
             <nz-form-item>
-              <nz-form-label nzRequired [nzSpan]="6" nzFor="text">Title</nz-form-label>
-              <nz-form-control [nzSpan]="14" nzErrorTip="Enter Title!">
+              <nz-form-label nzRequired nzFor="text">Title</nz-form-label>
+              <nz-form-control nzErrorTip="Enter Title between 3 to 250 characters!">
                 <input nz-input formControlName="title" placeholder="Enter Title" dir="rtl" />
               </nz-form-control>
             </nz-form-item>
           </div>
           <div class="col-md-6">
             <nz-form-item>
-              <nz-form-label nzRequired [nzSpan]="6">Branch</nz-form-label>
-              <nz-form-control [nzSpan]="14" nzErrorTip="Select Branch!">
+              <nz-form-label nzRequired>Branch</nz-form-label>
+              <nz-form-control nzErrorTip="Select Branch!">
               <nz-select nzShowSearch nzAllowClear formControlName="branchId" nzPlaceHolder="Choose Branch">
                 <nz-option *ngFor="let branch of allBranches" [nzValue]="branch?.id" [nzLabel]="branch?.title"></nz-option>
               </nz-select>
             </nz-form-control>
             </nz-form-item>
           </div>
+          </div>
           <div class="col-md-12">
-            <nz-form-item>
-                <nz-form-label nzRequired [nzSpan]="6">Description</nz-form-label>
-                <nz-form-control [nzSpan]="14" nzErrorTip="Enter Description maximum 1500 characters allowed!">
-                    <ckeditor [editor]="Editor" formControlName="description"></ckeditor>
-                </nz-form-control>
-            </nz-form-item>
+            <tiny-editor [label]="'Description'" [error]="'Enter Description!'" [formField]="jobForm" [fieldName]="'description'"></tiny-editor>
+                <!-- <editor formControlName="content" [init]="tinyConfig"></editor>
+                <editor [config]="tinyConfig" formControlName="content" [editor]="Editor" data="<p>Hello, world!</p>"></editor> -->
         </div>
             <div class="col-md-12">
               <nz-form-item>
                 <!-- <input nz-input placeholder="Active"   /> -->
                 <!-- <nz-form-label [nzSpan]="6" nzFor="active">Active</nz-form-label> -->
     
-                <nz-form-control [nzSpan]="14">
+                <nz-form-control>
                   <nz-switch class="mr-3" formControlName="isActive"> </nz-switch> Active 
                 </nz-form-control>
               </nz-form-item>
@@ -43,12 +43,13 @@
   
             <div class="col-md-12">
               <nz-form-item>
-                <nz-form-control [nzSpan]="14">
+                <nz-form-control>
                   <button *ngIf="!jobId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Save</button>
                   <button *ngIf="jobId" class="mr-3" nz-button nzType="primary" [nzLoading]="isLoading">Update</button>
                   <button nz-button nzType="default" (click)="cancel()">Cancel</button>
                 </nz-form-control>
               </nz-form-item>
+            </div>
             </div>
         </div>
       </form>

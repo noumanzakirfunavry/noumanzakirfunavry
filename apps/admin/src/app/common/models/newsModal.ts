@@ -1,3 +1,4 @@
+import { environment } from "../../../environments/environment";
 import { SeoModal } from "../../common/models/seo.modal";
 
 export class NewsModel {
@@ -17,14 +18,14 @@ export class NewsModel {
     seoDetailId: number;
 
     videoId : number
-    thumbnailFile:File;
     thumbnailId : number;
-    thumbanailUrl:string;
+    thumbnailFile: File;
     imageId : number
     mainFile: any;
-    fileUrl:string;
-    videoUrl:string;
-    thumbnailUrl:string;
+    fileUrl: string;
+    videoUrl: string;
+    thumbnailUrl: string;
+    id?:number | string;
 
     constructor() {
         this.title = ""
@@ -63,9 +64,13 @@ export class NewsModel {
         this.imageId=serverNews.imageId || null;
         this.thumbnailId=serverNews.thumbnailId || null;
 
-        this.fileUrl=serverNews.image  ? serverNews.image?.url:null;
-        this.videoUrl=serverNews.video ? serverNews.video?.url:null;
-        this.thumbnailUrl=serverNews.thumbnail ? serverNews.thumbnail?.url:null;
+        this.fileUrl=serverNews.image  ? environment.fileUrl + serverNews.image?.path:null;
+        this.videoUrl=serverNews.video ? environment.fileUrl +  serverNews.video?.path:null;
+        this.thumbnailUrl=serverNews.thumbnail ? environment.fileUrl +  serverNews.thumbnail?.path:null;
+        // this.fileUrl=serverNews.image  ? serverNews.image?.url:null;
+        // this.videoUrl=serverNews.video ? serverNews.video?.url:null;
+        // this.thumbnailUrl=serverNews.thumbnail ? serverNews.thumbnail?.url:null;
+        this.id=serverNews.id || null;
     }
 
     toServerModal(form: any, seoId?) {
@@ -86,7 +91,8 @@ export class NewsModel {
             // tagsIds: [1],
             quotesIds: form.quotesIds,
             quotes:form.quotes,
-            imageId:this.imageId,
+            // imageId:this.imageId,
+            ...(this.imageId ? {imageId:this.imageId}:null),
             ...(this.videoId ? {videoId:this.videoId}:null),
             ...(this.thumbnailId ? {thumbnailId:this.thumbnailId}:null),
             seoDetails: {

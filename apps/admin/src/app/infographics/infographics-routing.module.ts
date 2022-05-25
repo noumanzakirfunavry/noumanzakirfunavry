@@ -10,18 +10,16 @@ const routes: Routes = [
         component: InfographicsComponent,
         data: {
             title: 'Infographics',
-            // headerDisplay: "none"
+            headerDisplay: "none"
         },
-
     },
     {
         path: 'list',
         component: InfographicsComponent,
         data: {
-            title: 'Infographics',
+            title: 'All Infographics',
             // headerDisplay: "none"
         },
-
     },
     {
         path: 'add',

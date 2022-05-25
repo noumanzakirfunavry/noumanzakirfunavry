@@ -31,6 +31,7 @@ const SplitScreenBarCharts = () =>{
     //     .then(json => console.log(json))
     // },[])
 
+    const [activeIndex, setActiveIndex] = useState(null);
     const [marketIndices, setMarketIndices] = useState<any>({})
     const [barChartMenu, setBarChartMenu] = useState<any>([])
     
@@ -60,7 +61,7 @@ const SplitScreenBarCharts = () =>{
 
     useEffect(()=>{
             // get data for menu items from zagrader Markets api
-            GetData(`https://cnbcarabia.zagtrader.com/External/cnbcarabiadynamic/api/ConfigMarkets.php?type=json`, {}, 'get', false).then(res=>{
+            GetData(`https://cnbc-config.cnbcarabia.com/zagTrader/api/EnabledMarkets.php?debug=1`, {}, 'get', false).then(res=>{
     
                 console.log('Zagtrader ConfigMarkets:::', res);
                 setMarketIndices(res?.data);
@@ -118,7 +119,10 @@ const SplitScreenBarCharts = () =>{
 
     }
 
-    
+    const handleClickMenuItem = (index) => {
+        console.log('clicked')
+        setActiveIndex(index)
+    }
 
     const setMarketBarChart = (marketSymbol: string) => {
         console.log('menuKey::', marketSymbol);
@@ -139,7 +143,7 @@ const SplitScreenBarCharts = () =>{
                             barChartMenu?.length && barChartMenu.map((item: string, index: number)=>{
                                 return(
                                     <li key={index} className="nav-item">
-                                        <a>{item}</a>
+                                        <a onClick={() => handleClickMenuItem(index)} className={`nav-link ${index === activeIndex ? 'active' : ''}`}>{item}</a>
                                     </li>
                                 )
                             })

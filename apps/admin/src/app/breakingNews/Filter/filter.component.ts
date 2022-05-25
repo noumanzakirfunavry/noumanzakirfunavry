@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core'
-import { Pagination } from 'src/app/common/models/pagination';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { Pagination } from '../../common/models/pagination';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
+
 
 @Component({
     selector: 'breakingNews-filter',
@@ -34,7 +35,7 @@ export class FilterComponent {
 
     clean(obj:any) {
         for (const propName in obj) {
-          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || (obj[propName] && obj[propName].length==0)) {
             delete obj[propName];
           }
         }

@@ -12,6 +12,7 @@ import { CategoryMainProps } from "apps/frontend/types/Types";
 import GetData from '../../services/GetData';
 import { requests } from '../../services/Requests';
 import SkeletonLoader from 'apps/frontend/components/Shared/SkeletonLoader/SkeletoLoader';
+import Link from 'next/link';
 
 const NewsCategoryPage = () => {
   const router = useRouter();
@@ -55,7 +56,9 @@ const NewsCategoryPage = () => {
           {category && category?.sub?.map((cat: any) => {
             return (
               <li key={cat.id}>
-                <a>{cat.title}</a>
+                <Link href={`/subCategoryNews/` + cat.id}>    
+                  <a>{cat.title}</a>
+                </Link>
               </li>
             )
           })}

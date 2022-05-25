@@ -11,7 +11,7 @@ const Index = () => {
                 <div className="primaryTitle mt-5">
                     <h3>معذرةً ، الصفحة التي تبحث عنها لا يمكن العثور عليها.</h3>
                 </div>
-                <iframe id="highstockChart" scrolling="no" src="https://cnbcarabia.zagtrader.com/External/cnbcarabiadynamic/api/SimpleChart.php?token=tickerId=13205token=28551e7239fb7388e775b1c3a2a47dc8"></iframe>
+                <iframe id="highstockChart" scrolling="no" src="https://cnbc-config.cnbcarabia.com/zagTrader/api/SimpleChart.php?token=tickerId=13205token=28551e7239fb7388e775b1c3a2a47dc8"></iframe>
             </div>
 
         </>

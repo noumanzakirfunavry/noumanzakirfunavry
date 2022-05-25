@@ -1,5 +1,6 @@
 import { Public } from '@cnbc-monorepo/auth-module';
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { GetAllEpisodesRequestDto } from '@cnbc-monorepo/dtos';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { EpisodesService } from './episodes.service';
 
 @Controller('admin/api/client/episodes')
@@ -10,8 +11,8 @@ export class EpisodesClientController {
 	) { }
 
 	@Get('/getAll')
-	getAllEpisodesClient() {
-		return this.episodesService.getAllEpisodesClient();
+	getAllEpisodesClient(@Query() getAllEpisodesDto: GetAllEpisodesRequestDto) {
+		return this.episodesService.getAllEpisodesClient(getAllEpisodesDto);
 	}
 
 	@Get('/getById/:id')

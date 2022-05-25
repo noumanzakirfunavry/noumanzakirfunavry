@@ -1,3 +1,4 @@
+import { environment } from "../../../environments/environment";
 import { SeoModal } from "./seo.modal";
 
 export class EpisodesModel {
@@ -9,10 +10,9 @@ export class EpisodesModel {
     seoDetailId: number;
 
     videoId : number
-    thumbnailFile:File;
     thumbnailId : number;
-    thumbanailUrl:string;
     mainFile: any;
+    thumbnailFile:File;
     videoUrl:string;
     thumbnailUrl:string;
 
@@ -36,8 +36,10 @@ export class EpisodesModel {
         this.videoId=serverEpisodes.videoId || null;
         this.thumbnailId=serverEpisodes.thumbnailId || null;
 
-        this.videoUrl=serverEpisodes.video ? serverEpisodes.video?.url:null;
-        this.thumbnailUrl=serverEpisodes.thumbnail ? serverEpisodes.thumbnail?.url:null;
+        this.videoUrl=serverEpisodes.video ? environment.fileUrl +  serverEpisodes.video?.path:null;
+        this.thumbnailUrl=serverEpisodes.thumbnail ? environment.fileUrl +  serverEpisodes.thumbnail?.path:null;
+        // this.videoUrl=serverEpisodes.video ? serverEpisodes.video?.url:null;
+        // this.thumbnailUrl=serverEpisodes.thumbnail ? serverEpisodes.thumbnail?.url:null;
     }
 
     toServerModal(form: any, seoId?) {

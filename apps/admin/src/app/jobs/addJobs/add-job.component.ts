@@ -6,6 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pagination } from '../../common/models/pagination';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'add-job',
@@ -47,9 +48,9 @@ export class AddJobComponent implements OnInit {
 
     initForm() {
         this.jobForm = this.fb.group({
-            title: [null, [Validators.required]],
+            title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
             branchId: [null, [Validators.required]],
-            description: [null, [Validators.required, Validators.maxLength(1500)]],
+            description: [null, [Validators.required]],
             isActive: [false]
           });
     }
@@ -61,7 +62,11 @@ export class AddJobComponent implements OnInit {
         }
         if(this.jobForm.valid) {
             this.isLoading= true;
+            setTimeout(() => {
+                this.isLoading= false;
+            }, 2000);
             const obj= this.jobForm.value;
+            obj['title']= this.jobForm.value.title.trim();
             obj['departments']= [1,2,3];
             obj['totalOpenings']= 1;
             obj['closingDate']= "2022-03-11T12:24:03.207Z";
@@ -69,9 +74,6 @@ export class AddJobComponent implements OnInit {
                 console.log("JOBS", res);
                 this.jobForm.reset();
                 this.route.navigateByUrl('jobs/list');
-                setTimeout(() => {
-                    this.isLoading= false;
-                }, 2000);
                 if(this.jobId) {
                     this.message.create('success', `Job Updated Successfully`)
                 }
@@ -91,7 +93,7 @@ export class AddJobComponent implements OnInit {
 
     clean(obj:any) {
         for (const propName in obj) {
-          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || (obj[propName] && obj[propName].length==0)) {
             delete obj[propName];
           }
         }
@@ -103,10 +105,10 @@ export class AddJobComponent implements OnInit {
             this.jobById= res.response.job;
             console.log("JOB-BY-ID", this.jobById)
             this.jobForm = this.fb.group({
-                title: [this.jobById?.title || null, [Validators.required]],
+                title: [this.jobById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
                 branchId: [this.jobById?.branchId || null, [Validators.required]],
-                description: [this.jobById?.description || null, [Validators.required, Validators.maxLength(1500)]],
-                isActive: [this.jobById?.isActive || false]
+                description: [this.jobById?.description || null, [Validators.required]],
+                isActive: [this.jobById?.isActive]
               });
               setTimeout(() => {
                 this.loader=false

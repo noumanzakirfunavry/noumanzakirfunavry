@@ -6,6 +6,7 @@ import { ApiService } from '../../shared/services/api.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { requests } from '../../shared/config/config';
 import { environment } from '../../../environments/environment';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'app-addPresenters',
@@ -57,13 +58,13 @@ export class AddPresentersComponent implements OnInit{
 
     initForm() {
       this.presenterForm = this.fb.group({
-        name: [null, [Validators.required]],
+        name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
         jobPosition: [null, [Validators.required]],
         age: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
         gender: [null, [Validators.required]],
         dob: [null, [Validators.required]],
         joinedNetworkOn: [null, [Validators.required]],
-        description: [null],
+        description: [null, [Validators.required]],
         attachmentsId: [null, [Validators.required]],
         twitterLink: [null, [Validators.required]],
         facebookLink: [null, [Validators.required]],
@@ -99,16 +100,17 @@ export class AddPresentersComponent implements OnInit{
       }   
       if(this.presenterForm.valid) {
         this.isLoading= true;
+        setTimeout(() => {
+          this.isLoading= false;
+        }, 2000);
       const obj= this.presenterForm.value;
+      obj['name']= this.presenterForm.value.name.trim();
       obj['age']= parseInt(this.presenterForm.value.age);
       obj['attachmentsId']= this.imageId;
       this.apiService.sendRequest(this.presenterId ? requests.updatePresenter + this.presenterId : requests.addPresenter, this.presenterId ? 'put' : 'post', obj).subscribe((res: any) => {
         console.log("ADD-PRESENTERS", res);
         this.presenterForm.reset();
         this.route.navigateByUrl('presenters/list');
-        setTimeout(() => {
-          this.isLoading= false;
-        }, 2000);
         if (this.presenterId) {
           this.message.create('success', `Presenter Updated Successfully`);
         }
@@ -124,19 +126,19 @@ export class AddPresentersComponent implements OnInit{
         this.presenterById= res.response.presenter;
         console.log("GET-PRESENTER-BY-ID", this.presenterById);
         this.presenterForm = this.fb.group({
-          name: [this.presenterById?.name || null, [Validators.required]],
+          name: [this.presenterById?.name || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
           jobPosition: [this.presenterById?.jobPosition || null, [Validators.required]],
           age: [this.presenterById?.age || null, [Validators.required, Validators.pattern("^[0-9]*$")]],
           gender: [this.presenterById?.gender || null, [Validators.required]],
           dob: [this.presenterById?.dob || null, [Validators.required]],
           joinedNetworkOn: [this.presenterById?.joinedNetworkOn || null, [Validators.required]],
-          description: [this.presenterById?.description || null],
+          description: [this.presenterById?.description || null, [Validators.required]],
           attachmentsId: [this.presenterById?.attachmentsId || null, [Validators.required]],
           twitterLink: [this.presenterById?.twitterLink || null, [Validators.required]],
           facebookLink: [this.presenterById?.facebookLink || null, [Validators.required]],
           instagramLink: [this.presenterById?.instagramLink || null, [Validators.required]],
           linkedInLink: [this.presenterById?.linkedInLink || null, [Validators.required]],
-          isActive: [this.presenterById?.isActive || false]
+          isActive: [this.presenterById?.isActive]
         });
         setTimeout(() => {
           this.loader=false

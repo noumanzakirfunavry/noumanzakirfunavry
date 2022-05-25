@@ -31,13 +31,14 @@ export class NewsComponent implements OnInit {
     indeterminate = false;
     checked = false;
     loading = true;
+    newsStatus: any;
     setOfCheckedId = new Set<number>();
 
 
     constructor(private apiService: ApiService, private message: NzMessageService, private modal: NzModalService ) {}
 
     ngOnInit(): void {
-        this.getAllNews()
+        this.getAllNews();
     }
 
     getAllNews() {
@@ -62,7 +63,7 @@ export class NewsComponent implements OnInit {
 
     clean(obj:any) {
         for (const propName in obj) {
-          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+          if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || (obj[propName] && obj[propName].length==0)) {
             delete obj[propName];
           }
         }
@@ -85,6 +86,14 @@ export class NewsComponent implements OnInit {
         this.loading= true;
         this.pagination = Object.assign({...this.pagination, pageNo: pageNo})
         this.getAllNews();
+    }
+
+    getCategories(categories){
+        let titles=''
+        categories.forEach(x=>{
+            titles+=x.title +', '
+        })
+        return titles
     }
 
     onPageSizeChange(limit: number) {
@@ -139,12 +148,47 @@ export class NewsComponent implements OnInit {
         })
     }
 
+    getNewsStatus(newsId?: number): void {
+        this.apiService.sendRequest(requests.getNewsStatus + newsId, 'get').subscribe((res:any) => {
+            this.newsStatus= res.response;
+            this.showNewsStatusConfirm(newsId);
+            console.log("NEWS-STATUS", this.newsStatus);
+        })
+    }
+
+    showNewsStatusConfirm(id?: number): void {
+            if(id && (this.newsStatus?.isBreakingNews || this.newsStatus?.isEditorChoice || this.newsStatus?.isExclusive || this.newsStatus?.isFeaturedNews || this.newsStatus?.isTrending)) {
+                this.modal.confirm({
+                    nzTitle: 'Confirm',
+                    nzContent: '<b style="color: red;">This news is used in Special News. You still want to delete this News?</b>',
+                    nzOkText: 'Yes',
+                    nzOnOk: () => {
+                        if(id) {
+                          this.deleteNews(id);
+                        }
+                        else {
+                            this.deleteSelected();
+                        }
+                      },
+                    nzCancelText: 'No',
+                    nzOnCancel: () => {
+                      this.setOfCheckedId.clear();
+                      this.checked= false;
+                      this.indeterminate= false;
+                      this.getAllNews();
+                      }
+                  });
+              }
+              else {
+                  this.showDeleteConfirm(id);
+              }        
+      }
+
     showDeleteConfirm(id?: number): void {
         this.modal.confirm({
           nzTitle: 'Delete',
           nzContent: '<b style="color: red;">Are you sure to delete this news?</b>',
           nzOkText: 'Yes',
-        //   nzOkType: 'danger',
           nzOnOk: () => {
               if(id) {
                   this.deleteNews(id);
@@ -162,5 +206,4 @@ export class NewsComponent implements OnInit {
             }
         });
       }
-
 }    

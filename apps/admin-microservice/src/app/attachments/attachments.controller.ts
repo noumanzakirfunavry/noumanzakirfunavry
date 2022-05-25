@@ -1,7 +1,6 @@
 import { Roles } from '@cnbc-monorepo/auth-module';
 import {
-	CreateAttachmentRequestDto,
-	DeleteAlexaAudioRequestDto,
+	CreateAttachmentRequestDto, DeleteAttachmentRequestDto,
 	GenericResponseDto,
 	GetAllAttachmentsRequestDto, UpdateAttachmentRequestDto
 } from '@cnbc-monorepo/dtos';
@@ -60,7 +59,7 @@ export class AttachmentsController {
 
   @Delete()
   async deleteAttachments(
-    @Query() query: DeleteAlexaAudioRequestDto
+    @Query() query: DeleteAttachmentRequestDto
   ): Promise<GenericResponseDto> {
     return await this.attachmentsService.deleteAttachments(query);
   }

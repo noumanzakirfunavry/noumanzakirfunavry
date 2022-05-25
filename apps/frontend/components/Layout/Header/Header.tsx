@@ -78,7 +78,7 @@ const Header = () =>{
     },[])
 
     const getAllMenus = () =>{
-        GetData(`${requests.moreMenus}getAll?limit=50&pageNo=1`, {}, 'get', false).then(res=>{
+        GetData(`${requests.moreMenus}getAll?position=HEADER&limit=50&pageNo=1`, {}, 'get', false).then(res=>{
 
             //console.log('Menus::::::::::', res?.data?.response);
             setMoreMenuItems(res?.data?.response);
@@ -146,6 +146,7 @@ const Header = () =>{
         //fetch data and return
           
         if(value){
+            // fetch(`https://cnbc-config.cnbcarabia.com/zagTrader/api/TickerSearchAPIFull.php?st=${value}`, { method: "GET", mode: 'cors', headers: { 'Content-Type': 'application/json',}}).then(response => {console.log('data for header',response.json())})
             GetData(`https://cnbc-config.cnbcarabia.com/zagTrader/api/TickerSearchAPIFull.php?st=${value}`, {}, 'get', false).then(res=>{
                 setData(res?.data);
                 console.log('zagtrader::::::::', res);
@@ -281,6 +282,10 @@ const Header = () =>{
                                                     <Link href="/"><a className="nav-link active" aria-current="page">الرئيسية</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
                                                 </li>
+                                                <li className="nav-item" key={'654564ytf7653'}>
+                                                    <Link href="/latestVideos"><a className="nav-link active" aria-current="page">فيديو CNBC عربية</a></Link>
+                                                    <div className="nav-menu-navUnderline"></div>
+                                                </li>
                                                 {/* <li className="nav-item" key={'2'}>
                                                     <Link href="/videoNews"><a className="nav-link">الفيديو</a></Link>
                                                     <div className="nav-menu-navUnderline"></div>
@@ -403,7 +408,7 @@ const Header = () =>{
                                                     <div className="nav-menu-navUnderline"></div>
                                                     <ul className="dropdown-menu" aria-labelledby="moreCategories">
                                                     { // show categories in sub menu
-                                                        newsCategoriesList.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
+                                                        newsCategoriesList?.length && newsCategoriesList.map((item: CategoryProps, index: number)=>{
                                                             return(
                                                                 <li className="nav-item" key={index}> 
                                                                     <Link href={`/categoryNewsTiles/${item.id}`}><a className="nav-link active" aria-current="page">{item.title}</a></Link>
@@ -452,9 +457,9 @@ const Header = () =>{
                                                     <a className="nav-link dropdown-toggle" id="moreOtions" role="button" data-bs-toggle="dropdown" aria-expanded="false" >المزيد
                                                     </a>
                                                     <div className="nav-menu-navUnderline"></div>
+                                                    <ul className="dropdown-menu" aria-labelledby="moreOtions">
                                                     {
-                                                         moreMenuItems?.length > 1 && <ul className="dropdown-menu" aria-labelledby="moreOtions">
-                                                            {
+                                                         moreMenuItems?.length > 1 && 
                                                                 moreMenuItems?.map((menuItem:any, index:number)=>{
                                                                     if(index > 0)
                                                                     {
@@ -491,8 +496,7 @@ const Header = () =>{
                                                                     
                                                                 })
                                                             }
-                                                        </ul>
-                                                    }
+                                                    </ul>
                                                     
                                                 </li>
 

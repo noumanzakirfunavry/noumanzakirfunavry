@@ -8,7 +8,7 @@ const HorizontalNumberedList:FC = () =>{
     const [trendingNewsList, setTrendingNewsList] = useState<any>([])
     
         useEffect(()=>{
-            GetData(`${requests.trendingNews}&limit=4&pageNo=1`, {}, 'get', false).then(res=>{
+            GetData(`${requests.trendingNews}&limit=5&pageNo=1`, {}, 'get', false).then(res=>{
                 const newsRes = res.data && res.data.length ? res.data : []
                 setTrendingNewsList(newsRes);
                 
@@ -26,9 +26,10 @@ const HorizontalNumberedList:FC = () =>{
                     <ol>
                     {  
                     trendingNewsList.length && trendingNewsList.map((item: any, index: number)=>{
+                            const newsPage = item?._source?.isPro ? 'proNews' : 'newsDetails';
                             return(
                                 <li key={index}>
-                                    <Link href={`/newsDetails/` + item._id}><a >{item?._source?.title}</a></Link>
+                                    <Link href={`/${newsPage}/` + item._id}><a >{item?._source?.title}</a></Link>
                                 </li>                           
                             )
                         })

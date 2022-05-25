@@ -76,7 +76,7 @@ export class EditorsChoiceComponent implements OnInit{
 
     clean(obj: any) {
         for (const propName in obj) {
-            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || obj[propName] === []) {
+            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "" || (obj[propName] && obj[propName].length==0)) {
                 delete obj[propName];
             }
         }
@@ -99,8 +99,20 @@ export class EditorsChoiceComponent implements OnInit{
         })
     }
 
-    changeCategory(data){
-        console.log(data);
+    changeCategory(data) {
+        console.log("CHANGE-CAT", data);
+    }
+
+    findDuplicates() {
+        let isDuplicate=false;
+        this.editorsChoice.forEach(x=>{
+            const duplicate=this.editorsChoice.filter(y=>y.newsId==x.newsId && x.newsId && y.newsId);
+            if(duplicate && duplicate.length > 1){
+                isDuplicate= true
+            }
+        })
+        console.log("DUPLICATE-NEWS", isDuplicate);
+        return isDuplicate
     }
 
     changedNews(updatedNews) {
@@ -109,7 +121,12 @@ export class EditorsChoiceComponent implements OnInit{
             this.editorsChoice[news] = updatedNews;
         }
         else if(this.editorsChoice.some(x=>!x.newsId)){
-            console.log('');
+            const tempNews = updatedNews;
+            setTimeout(() => {
+                this.editorsChoice[news] = tempNews;
+                this.editorsChoice[news]['newsId'] = null;
+            }, 500);
+            this.message.create('error', 'Please select unique news for each position')
         }
         else {
             const tempNews = updatedNews;
@@ -121,20 +138,9 @@ export class EditorsChoiceComponent implements OnInit{
         }
     }
 
-    findDuplicates() {
-        const valueArr = this.editorsChoice.map(function (item) { return item.newsId });
-        const isDuplicate = valueArr.some(function (item, idx) {
-            console.log("VAL",valueArr.indexOf(item));
-            
-            return valueArr.indexOf(item) != idx
-        });
-        console.log("DUPLICATE-NEWS", isDuplicate);
-        return isDuplicate
-    }
-
     updateEditorsChoiceNews() {
             this.editorsChoice.forEach(news=>{
-                news.newsId=parseInt(news.newsId);
+                news.newsId = parseInt(news.newsId);
             })
             if (this.editorsChoice.some(x => !x.newsId)) {
                 this.message.create('error', 'Add all Editors Choice News for Editors Choice Section')
@@ -150,11 +156,11 @@ export class EditorsChoiceComponent implements OnInit{
     }
 
     drop(event: CdkDragDrop<string[] | any>) {
-        moveItemInArray(this.allEditorsChoice, event.previousIndex, event.currentIndex);
-        for(let i = 0; i < this.allEditorsChoice.length; i++) {
-            this.allEditorsChoice[i].position= i + 1;
+        moveItemInArray(this.editorsChoice, event.previousIndex, event.currentIndex);
+        for(let i = 0; i < this.editorsChoice.length; i++) {
+            this.editorsChoice[i].position= i + 1;
         }
-        console.log("POS", this.allEditorsChoice);
+        console.log("POS", this.editorsChoice);
       }
 
     cancel() {

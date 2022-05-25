@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { requests } from '../../shared/config/config';
 import { ApiService } from '../../shared/services/api.service';
+import { WhiteSpaceValidator } from '../../shared/services/whiteSpaceValidator';
 
 @Component({
     selector: 'app-addAddresses',
@@ -49,12 +50,12 @@ export class AddAddressesComponent implements OnInit {
 
     initForm() {
       this.addressForm = this.fb.group({
-        title: [null, [Validators.required]],
+        title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
         phone: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
         fax: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
         addressLine1: [null, [Validators.required]],
         addressLine2: [null, [Validators.required]],
-        email: [null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$')]],
+        email: [null, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$')]],
         isActive: [false]
       });
     }
@@ -66,15 +67,16 @@ export class AddAddressesComponent implements OnInit {
       }
       if(this.addressForm.valid) {
         this.isLoading= true;
+        setTimeout(() => {
+          this.isLoading= false;
+        }, 2000);
         const obj= this.addressForm.value;
+        obj['title']= this.addressForm.value.title.trim();
         obj['zipCode']= "12345"
         this.apiService.sendRequest(this.branchId ? requests.updateBranch + this.branchId: requests.addNewBranch, this.branchId ? 'put' : 'post', obj).subscribe((res:any) => {
           console.log("BRANCHES", res);
           this.addressForm.reset();
           this.route.navigateByUrl('addresses/list');
-          setTimeout(() => {
-            this.isLoading= false;
-          }, 2000);
           if(this.branchId) {
             this.message.create('success', `Address Updated Successfully`);
           }
@@ -90,13 +92,13 @@ export class AddAddressesComponent implements OnInit {
         this.branchById= res.response.branch;
         console.log("BRANCH-BY-ID", this.branchById);
         this.addressForm = this.fb.group({
-          title: [this.branchById?.title || null, [Validators.required]],
+          title: [this.branchById?.title || null, [Validators.required, Validators.minLength(3), Validators.maxLength(250), WhiteSpaceValidator.noWhitespaceValidator]],
           phone: [this.branchById?.phone || null, [Validators.required, Validators.pattern("^[0-9]*$")]],
           fax: [this.branchById?.fax || null, [Validators.required, Validators.pattern("^[0-9]*$")]],
           addressLine1: [this.branchById?.addressLine1 || null, [Validators.required]],
           addressLine2: [this.branchById?.addressLine2 || null, [Validators.required]],
-          email: [this.branchById?.email || null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,5}$')]],
-          isActive: [this.branchById?.isActive || false]
+          email: [this.branchById?.email || null, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}$')]],
+          isActive: [this.branchById?.isActive]
         });
         setTimeout(() => {
           this.loader=false

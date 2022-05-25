@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Helper, sequelize } from '@cnbc-monorepo/utility'
 import { CustomException, Exceptions, ExceptionType } from '@cnbc-monorepo/exception-handling';
 import { MailService } from '@cnbc-monorepo/mail';
+import { UniqueConstraintError } from 'sequelize';
 @Injectable()
 export class AnthenticationService {
     constructor
@@ -59,6 +60,7 @@ export class AnthenticationService {
 																id: response.id,
 																name: response.name,
 																email: response.email,
+																roleId: response.rolesId
 															},
 															token
 														}
@@ -213,7 +215,7 @@ export class AnthenticationService {
         }
         catch (err) {
             console.log("🚀 ~ file: anthentication.service.ts ~ line 139 ~ AnthenticationService ~ registerAdmin ~ err", err)
-            return err
+            throw err
         }
     }
 
@@ -259,7 +261,7 @@ export class AnthenticationService {
         }
         catch (err) {
             console.log("🚀 ~ file: anthentication.service.ts ~ line 139 ~ AnthenticationService ~ registerAdmin ~ err", err)
-            return err
+            throw err
         }
     }
 
@@ -280,17 +282,27 @@ export class AnthenticationService {
         return response === 0 ? true : response
     }
 
-    private async updateAdminQuery(body: UpdateAdminRequestDto, id: number, transactionHost) {
-				if(body.password){
-					body.password = await this.helperService.encryptPassword(body.password)
-				}  
-        return await this.usersRepository.update(body, {
-            where: {
-                id: id
-            },
-            transaction: transactionHost.transaction
-        });
-    }
+		private async updateAdminQuery(body: UpdateAdminRequestDto, id: number, transactionHost) {
+			if (body.password) {
+				body.password = await this.helperService.encryptPassword(body.password)
+			}
+			try {
+				return await this.usersRepository.update(body, {
+					where: {
+						id: id
+					},
+					transaction: transactionHost.transaction
+				});
+			} catch (error) {
+				if (error instanceof UniqueConstraintError) {
+					throw new CustomException(
+						Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].message,
+						Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].status
+					)
+				}
+				throw error
+			}
+		}
 
     async addUserRights(rights, user, transactionHost) {
         for (let i = 0; i < rights.length; i++) {
@@ -303,9 +315,19 @@ export class AnthenticationService {
     }
 		// remove isVerified:true
     async addUser(body, transactionHost) {
-        const userObj = body
-        userObj.password = await this.helperService.encryptPassword(userObj.password)
-        return await this.usersRepository.create({...userObj, isVerified: true}, transactionHost)
+				const userObj = body
+				try {
+					userObj.password = await this.helperService.encryptPassword(userObj.password)
+					return await this.usersRepository.create({ ...userObj, isVerified: true }, transactionHost)
+				} catch (error) {
+					if (error instanceof UniqueConstraintError) {
+						throw new CustomException(
+							Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].message,
+							Exceptions[ExceptionType.USERNAME_OR_EMAIL_ALREADY_EXISTS].status
+						)
+					}
+					throw error;
+				}
     }
     async requestResetPassword(body: RequestResetPasswordRequestDto): Promise<GenericResponseDto> {
         try {
