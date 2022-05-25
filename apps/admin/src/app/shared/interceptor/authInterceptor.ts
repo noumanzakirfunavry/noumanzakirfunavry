@@ -63,7 +63,8 @@ export class AuthInterceptor implements HttpInterceptor {
             this.message.create( 'error', error.statusText == 'Forbidden' ? 'Access Denied' :  error.error?.message || error.message || 'Error Occured' )
           }
           if (error.statusText == 'Unknown Error') {
-            this.router.navigateByUrl('full/server-down');
+            // this.router.navigateByUrl('full/server-down');
+            this.message.create('error', 'Hmm there is something wrong with server ...')
           }
           else if ((error.status == 401 && (error.error?.message == 'Unauthorized' || error.message == 'Unauthorized')) || error.error?.message == 'Invalid Token' || error.message == 'Invalid Token') {
             // this.profileStore.reset();
