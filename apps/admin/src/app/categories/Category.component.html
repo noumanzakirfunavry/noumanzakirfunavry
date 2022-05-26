@@ -17,7 +17,7 @@
           [nzLoading]="loading"
           [nzData]="allCategories"
           [nzShowPagination]="false"
-          class="no-border-last"
+          nzTableLayout="fixed"
         >
           <thead>
             <tr>
@@ -41,7 +41,7 @@
                   [nzChecked]="setOfCheckedId.has(cat?.id)"
                   (nzCheckedChange)="onItemChecked(cat?.id, $event)"
                 ></td>
-                <td>
+                <td nzEllipsis>
                   <i
                     *ngIf="expandedId !== cat?.id"
                     nz-icon
@@ -58,7 +58,9 @@
                     nzTheme="outline"
                     (click)="toggle(cat?.id)"
                   ></i>
-                  {{ cat?.title }}
+                  <span nz-tooltip nzTooltipPlacement="topLeft" [nzTooltipTitle]="cat?.title">
+                    {{ cat?.title }}
+                  </span>
                 </td>
                 <td>{{ cat?.createdAt | date: 'dd-MM-YYYY' }}</td>
                 <td>{{ cat?.updatedAt | date: 'dd-MM-YYYY' }}</td>
@@ -113,7 +115,7 @@
                       [nzChecked]="setOfCheckedId.has(subCat?.id)"
                       (nzCheckedChange)="onItemChecked(subCat?.id, $event)"
                     ></td>
-                    <td>{{ subCat?.title }}</td>
+                    <td nzEllipsis><span nz-tooltip nzTooltipPlacement="topLeft" [nzTooltipTitle]="subCat?.title">{{ subCat?.title }}</span></td>
                     <td>{{ subCat?.createdAt | date: 'dd-MM-YYYY' }}</td>
                     <td>{{ subCat?.updatedAt | date: 'dd-MM-YYYY' }}</td>
                     <td>{{ subCat?.user?.name }}</td>

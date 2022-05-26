@@ -16,6 +16,7 @@ import { DemoComponentsShareModule } from '../demo-components-share/demo-compone
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FileUploaderModule } from '../modules/file-uploader/file-uploader.module';
 import { TinyEditorModule } from '../modules/tiny-editor/tiny-editor.module';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { TinyEditorModule } from '../modules/tiny-editor/tiny-editor.module';
         NzPaginationModule,
         NzModalModule,
         FileUploaderModule,
-        TinyEditorModule
+        TinyEditorModule,
+        NzToolTipModule
     ],
     exports: [],
     declarations: [

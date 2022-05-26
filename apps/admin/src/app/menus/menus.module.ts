@@ -13,6 +13,7 @@ import { DemoComponentsShareModule } from '../demo-components-share/demo-compone
 import { AddMenusComponent } from './menus/addMenus.component';
 import { MenusComponent } from './menus.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 
 
@@ -28,7 +29,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         QuillModule.forRoot(),
         NzUploadModule,
         NzModalModule,
-        DragDropModule
+        DragDropModule,
+        NzToolTipModule
     ],
     exports: [],
     declarations: [

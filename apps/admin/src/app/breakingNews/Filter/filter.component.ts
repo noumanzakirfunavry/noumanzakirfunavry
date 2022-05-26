@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core'
-import { Pagination } from 'src/app/common/models/pagination';
-import { requests } from 'src/app/shared/config/config';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { Pagination } from '../../common/models/pagination';
+import { requests } from '../../shared/config/config';
+import { ApiService } from '../../shared/services/api.service';
+
 
 @Component({
     selector: 'breakingNews-filter',

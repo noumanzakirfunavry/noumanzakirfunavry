@@ -8,10 +8,10 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
-                <nz-table [nzShowPagination]="false" [nzLoading]="loading" [nzData]="allBranches" class="no-border-last">
+                <nz-table [nzShowPagination]="false" [nzLoading]="loading" [nzData]="allBranches" nzTableLayout="fixed">
                     <thead>
                         <tr>
-                            <th>Reorder </th>
+                            <th></th>
                             <th>Title </th>
                             <th>Phone</th>
                             <th>Fax</th>
@@ -26,11 +26,11 @@
                         <tr *ngFor="let branch of allBranches">
                             <td [nzChecked]="setOfCheckedId.has(branch?.id)" [nzDisabled]="branch.disabled"
                                 (nzCheckedChange)="onItemChecked(branch?.id, $event)"></td>
-                            <td>{{branch?.title}}</td>
-                            <td>{{branch?.phone}}</td>
-                            <td>{{branch?.fax}}</td>
-                            <td>{{branch?.addressLine1}}</td>
-                            <td>{{branch?.addressLine2}}</td>
+                            <td dir="rtl" style="text-align: right;" nzEllipsis><span nz-tooltip nzTooltipPlacement="topRight" [nzTooltipTitle]="branch?.title">{{branch?.title}}</span></td>
+                            <td nzEllipsis><span nz-tooltip nzTooltipPlacement="topLeft" [nzTooltipTitle]="branch?.phone">{{branch?.phone}}</span></td>
+                            <td nzEllipsis><span nz-tooltip nzTooltipPlacement="topLeft" [nzTooltipTitle]="branch?.fax">{{branch?.fax}}</span></td>
+                            <td dir="rtl" style="text-align: right;" nzEllipsis><span nz-tooltip nzTooltipPlacement="topRight" [nzTooltipTitle]="branch?.addressLine1">{{branch?.addressLine1}}</span></td>
+                            <td dir="rtl" style="text-align: right;" nzEllipsis><span nz-tooltip nzTooltipPlacement="topRight" [nzTooltipTitle]="branch?.addressLine2">{{branch?.addressLine2}}</span></td>
                             <td>{{branch?.user?.name}}</td>
                             <td>
                                 <nz-badge *ngIf="branch?.isActive === true" nzStatus="success"></nz-badge>

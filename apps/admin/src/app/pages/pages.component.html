@@ -8,7 +8,7 @@
     <div class="col-lg-12 mt-3">
         <nz-card>
             <div>
-                <nz-table [nzData]="allPages" [nzLoading]="loading" [nzShowPagination]="true" class="no-border-last">
+                <nz-table [nzData]="allPages" [nzLoading]="loading" [nzShowPagination]="false" nzTableLayout="fixed">
                     <thead>
                         <tr>
                             <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
@@ -25,8 +25,8 @@
                         <tr *ngFor="let page of allPages">
                             <td [nzChecked]="setOfCheckedId.has(page?.id)" [nzDisabled]="page?.disabled"
                                 (nzCheckedChange)="onItemChecked(page?.id, $event)"></td>
-                            <td>{{page?.title}}</td>
-                            <td>http://localhost:4200/pages/list</td>
+                            <td dir="rtl" style="text-align: right;" nzEllipsis><span nz-tooltip nzTooltipPlacement="topRight" [nzTooltipTitle]="page?.title">{{page?.title}}</span></td>
+                            <td nzEllipsis><span nz-tooltip nzTooltipPlacement="topLeft" [nzTooltipTitle]="">http://localhost:4200/pages/list</span></td>
                             <td>{{page?.createdAt | date:'dd-MM-YYYY'}}</td>
                             <td>{{page?.updatedAt | date:'dd-MM-YYYY'}}</td>
                             <td>

@@ -9,16 +9,12 @@ import { AddTagComponent } from './addTag/addTag.component';
 import { TagFilterComponent } from './tagFilter/tag-filter.component';
 import { TagsComponent } from './tags.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
-// import { DefaultDashboardComponent } from './default/default-dashboard.component';
-// import { EcommerceDashboardComponent } from './e-commerce/e-commerce-dashboard.component';
-// import { ProjectsDashboardComponent } from './projects/projects-dashboard.component';
-// import { CrmDashboardComponent } from './crm/crm-dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { NzDemoFormDynamicRuleComponent } from './addTag/dynamic-rule';
 import { DemoComponentsShareModule } from '../demo-components-share/demo-components-share.module';
 import { antdModule } from '../AndModules/andModule';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 
 
@@ -33,7 +29,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
         ...antdModule,
         DemoComponentsShareModule,
         NzPaginationModule,
-        NzModalModule
+        NzModalModule,
+        NzToolTipModule
     ],
     exports: [],
     declarations: [

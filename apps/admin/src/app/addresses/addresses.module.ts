@@ -14,6 +14,7 @@ import { AddAddressesComponent } from './addresses/addAddresses.component';
 import { AddressesComponent } from './addresses.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../shared/interceptor/authInterceptor';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { AuthInterceptor } from '../shared/interceptor/authInterceptor';
         DemoComponentsShareModule,
         QuillModule.forRoot(),
         NzUploadModule,
-        NzPaginationModule
+        NzPaginationModule,
+        NzToolTipModule
     ],
     exports: [],
     declarations: [
