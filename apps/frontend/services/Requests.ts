@@ -7,6 +7,7 @@
 // domains
 export const baseUrlAdmin= "https://backend.admin.staging.cnbcarabia.com/";
 export const baseUrl= "https://backend.news.staging.cnbcarabia.com/";
+export const siteUrl = 'https://cnbc-social.vercel.app'
 
 export const newsAPI=baseUrl+'news/api/admin/';
 export const adminApi = baseUrlAdmin + 'admin/api/admin/'
