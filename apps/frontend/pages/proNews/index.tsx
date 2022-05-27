@@ -65,7 +65,7 @@ const Index = () =>{
                 </div>
                 <div className="row justify-content-center">
                     <div className='col-xl-7 col-lg-9'>
-                        <NewsDetails/>
+                        <NewsDetails news={{}}/>
                     </div>
                     <div className='col-xl-3 col-lg-3'>
                         <SideBar sideBarSequence={[{componentType:'Latest', position:1},  {componentType:'numbered', position:1, title:'الأكثر قراءة'}, {componentType:'SmallBanner', position:2}]}/>
