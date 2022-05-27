@@ -47,9 +47,9 @@ const Index = (props: any) => {
     //console.log('newsDetails:::', news)
 
   return (
-    Object.keys(news).length > 0 ?
     <>
       <SEO metaData={metaData} />
+      { Object.keys(news).length > 0 ?
       <div className="newsAarticaldetailwrap">
         <div className="container">
           <AdBanner />
@@ -157,9 +157,10 @@ const Index = (props: any) => {
           </div>
         </div>
       </div>
+      :
+      <RecordNotFound />}
     </>
-    :
-    <RecordNotFound />
+    
   );
 };
 
