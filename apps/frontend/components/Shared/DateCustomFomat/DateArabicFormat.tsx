@@ -6,7 +6,7 @@ const DateArabicFormat:FC<any> = ({date}) =>{
 
     useEffect(() => {
         // set Time Ago in Arabic format
-        setArabicDateFormat(GetArabicFormattedDateAndTime(new Date(date)))
+        setArabicDateFormat(GetArabicFormattedDateAndTime(date))
 
     }, [date])
 
