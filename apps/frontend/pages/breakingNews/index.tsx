@@ -16,6 +16,8 @@ const Index = ({data}) =>{
 
     console.log(user)
 
+    const url = window? window.location.href : '';
+
     return (
         <>
             <Head>
@@ -24,11 +26,22 @@ const Index = ({data}) =>{
 
                 <meta name="theme-color" content="#000000" />
 
-                <meta name="og:description" content={data?.og?.description} />
-                <meta name="og:title" content={data.og?.title} />
+                <meta property="og:url" content={url} key="ogurl" />
+                <meta property="og:image" content={data?.og?.image} key="ogimage" />
+                <meta property="og:image:secure" content={data.og?.image} key="ogimage" />
+                <meta property="og:site_name" content={data?.siteName} key="ogsitename" />
+                <meta property="og:title" content={data?.og?.title} key="ogtitle"/>
+                <meta property="og:description" content={data?.og?.description} key="ogdesc"/>
+                <meta property="og:content" content={"website"} key="ogwebsite"/>
+                <meta property="og:image:width"  content="975" key="ogimgwidth"/>
+                <meta property="og:image:height"  content="557" key="ogimgheight"/>
 
-                <meta name="twitter:description" content={data?.twitter?.description} />
-                <meta name="twitter:title" content={data.twitter?.title} />
+                <meta name="twitter:card" content={"summary_large_image"} key="twittercard"/>
+                <meta name="twitter:site" content={data.twitter?.site} key="twittersite"/>
+                <meta name="twitter:title" content={data.twitter?.title} key="twittertitle"/>
+                <meta name="twitter:description"  content={data?.twitter?.description} key="twitterdesc"/>
+                <meta name="twitter:image" content={data.twitter?.image} key="twitterimage"/>
+                <meta name="twitter:image:src" content={data.twitter?.image} key="twitterimagesrc"/>
 
             </Head>
 
