@@ -91,15 +91,15 @@ const Index = (props: any) => {
 }
 
 
-export async function getStaticPaths() {
-    return {
-      paths: [
-        //{params: {id: '3'}},
-        //{params: {id: '2'}}
-      ],
-      fallback: 'blocking',
-    };
-  }
+// export async function getStaticPaths() {
+//     return {
+//       paths: [
+//         //{params: {id: '3'}},
+//         //{params: {id: '2'}}
+//       ],
+//       fallback: 'blocking',
+//     };
+//   }
   
 //   export async function getStaticProps(context) {
 //     const resPost = await GetData(
