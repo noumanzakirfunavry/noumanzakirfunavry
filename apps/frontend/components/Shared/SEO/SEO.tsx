@@ -21,6 +21,7 @@ const SEO = (props: any) => {
 
                 <meta property="og:url" content={url} key="ogurl" />
                 <meta property="og:image" content={props.metaData.twitter?.image} key="ogimage" />
+                <meta property="og:image:secure" content={props.metaData.twitter?.image} key="ogimage" />
                 <meta property="og:site_name" content={props.metaData?.siteName} key="ogsitename" />
                 <meta property="og:title" content={props.metaData.og?.title} key="ogtitle"/>
                 <meta property="og:description" content={props.metaData?.og?.description} key="ogdesc"/>

@@ -174,7 +174,32 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context) {
+// export async function getStaticProps(context) {
+//   const resPost = await GetData(
+//     `${requests.NewsById + context.params.id}`,
+//     {},
+//     'get',
+//     false
+//   );
+//   const newsRes = resPost?.data?.response?.news ? resPost?.data?.response?.news : {}
+
+//   const seoData = {
+//     ...newsRes?.seoDetail,
+//     image: newsRes?.image,
+//   };
+
+//   const metaData = GetMetaData(seoData);
+
+//   return {
+//     props: {
+//       metaData: metaData,
+//       news: newsRes,
+//     },
+//     revalidate: 50,
+//   };
+// }
+
+export async function getServerSideProps(context){
   const resPost = await GetData(
     `${requests.NewsById + context.params.id}`,
     {},
