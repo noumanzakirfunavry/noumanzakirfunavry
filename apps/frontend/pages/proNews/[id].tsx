@@ -147,7 +147,7 @@ const Index = (props: any) => {
           metaData: metaData,
           news: newsRes,
         },
-        revalidate: 50,
+        //revalidate: 50,
       };
   }
 

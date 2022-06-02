@@ -220,7 +220,7 @@ export async function getServerSideProps(context){
       metaData: metaData,
       news: newsRes,
     },
-    revalidate: 50,
+    //revalidate: 50,
   };
 }
 
