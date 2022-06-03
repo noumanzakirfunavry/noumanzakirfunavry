@@ -519,7 +519,7 @@ const Header = () =>{
                                 <div className="header-search-nav">
                                     <ul>
                                         <li key={'wser'}><Link href="/liveTv"><a >المباشر <span className="youtube-icon"><i className="fa fa-play"></i></span></a></Link></li>
-                                        <li key={'dsad'}><Link href="/breakingNews"><a>عاجل</a></Link></li>
+                                        <li key={'dsad'}><a href="/breakingNews">عاجل</a></li>
                                         <li key={'adss'} className='sticky_none'><a data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a></li>
                                     </ul>
                                 </div>
