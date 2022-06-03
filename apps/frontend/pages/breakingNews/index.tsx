@@ -5,6 +5,7 @@ import SideBar from "apps/frontend/components/Shared/SideBar/SideBar"
 import Title from "apps/frontend/components/Title"
 import { RootState } from "apps/frontend/reducers/Reducer"
 import { GetMetaData } from "apps/frontend/services/StaticData"
+import { FacebookShareButton, TwitterShareButton } from "next-share"
 import Head from "next/head"
 import { useSelector } from "react-redux"
 
@@ -47,6 +48,23 @@ const Index = ({data}) =>{
 
             <div className="container">
                 <AdBanner/>
+                <TwitterShareButton
+                    url={url}
+                    title={"Test Tilte"}
+                >
+                    <a>
+                    <i className="fab fa-twitter"></i>
+                    </a>
+                </TwitterShareButton>
+                <FacebookShareButton
+                    url={url}
+                    quote={"Test Title"}
+                    hashtag={'#cnbc'}
+                >
+                    <a>
+                    <i className="fab fa-facebook"></i>
+                    </a>
+                </FacebookShareButton>
                 </div>
                 <Title styles={"pageTitle"} >
                     <h2>أخبار عاجلة</h2>
